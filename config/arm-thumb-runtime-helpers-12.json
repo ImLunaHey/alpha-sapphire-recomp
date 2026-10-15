@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_thumb_runtime_helpers_12.S",
+  "functions": [
+    { "name": "func_001235B4", "mode": "arm", "size": 348 },
+    { "name": "func_00123C78", "mode": "arm", "size": 208 },
+    { "name": "func_001277B4", "mode": "arm", "size": 12 },
+    { "name": "func_0012C174", "mode": "arm", "size": 28 },
+    { "name": "func_0012C7EC", "mode": "arm", "size": 20 },
+    { "name": "func_0012FAF4", "mode": "arm", "size": 20 },
+    { "name": "func_0012FB40", "mode": "arm", "size": 44 },
+    { "name": "func_0012FE10", "mode": "arm", "size": 16 },
+    { "name": "func_0012FE20", "mode": "arm", "size": 16 },
+    { "name": "func_0012FE3C", "mode": "arm", "size": 20 },
+    { "name": "func_00132230", "mode": "arm", "size": 48 },
+    { "name": "func_00105DCC", "mode": "thumb", "size": 22 },
+    { "name": "func_00105DE2", "mode": "thumb", "size": 18 },
+    { "name": "func_00105ED8", "mode": "thumb", "size": 22 },
+    { "name": "func_00105EEE", "mode": "thumb", "size": 18 },
+    { "name": "func_00105FEA", "mode": "thumb", "size": 8 }
+  ]
+}

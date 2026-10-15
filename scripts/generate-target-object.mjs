@@ -12,6 +12,8 @@ const [
   branchThunksPath,
   adjacentGlobalLoadsPath,
   globalStatePath,
+  duplicateIpcAndTablesPath,
+  multiIdentityGlobalsPath,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -23,11 +25,13 @@ if (
   !branchThunksPath ||
   !adjacentGlobalLoadsPath ||
   !globalStatePath ||
+  !duplicateIpcAndTablesPath ||
+  !multiIdentityGlobalsPath ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, target literal identities, and target config paths"
   );
 }
 
@@ -116,6 +120,89 @@ for (const entry of globalStateConfig.functions) {
   globalStates.set(entry.name, entry);
 }
 
+const duplicateIpcAndTablesConfig = JSON.parse(readFileSync(duplicateIpcAndTablesPath, "utf8"));
+if (
+  duplicateIpcAndTablesConfig.schemaVersion !== 1 ||
+  !Array.isArray(duplicateIpcAndTablesConfig.functions) ||
+  duplicateIpcAndTablesConfig.functions.length !== 28
+) {
+  throw new Error("Unexpected duplicate IPC/table mapping format");
+}
+const duplicateIpcAndTables = new Map();
+for (const entry of duplicateIpcAndTablesConfig.functions) {
+  if (
+    typeof entry?.name !== "string" ||
+    !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+    !["ipc_one", "ipc_two", "table_state"].includes(entry.template) ||
+    duplicateIpcAndTables.has(entry.name)
+  ) {
+    throw new Error("Invalid or duplicate IPC/table mapping entry");
+  }
+  if (entry.template === "table_state") {
+    if (!Array.isArray(entry.tables) || entry.tables.length !== 6 ||
+        entry.tables.some((identity) => typeof identity !== "string")) {
+      throw new Error(`Invalid table identities for ${entry.name}`);
+    }
+  } else if (typeof entry.command !== "string" || typeof entry.handle !== "string") {
+    throw new Error(`Invalid IPC identities for ${entry.name}`);
+  }
+  duplicateIpcAndTables.set(entry.name, entry);
+}
+
+const multiIdentityGlobalsConfig = JSON.parse(readFileSync(multiIdentityGlobalsPath, "utf8"));
+if (multiIdentityGlobalsConfig.schemaVersion !== 1 ||
+    !Array.isArray(multiIdentityGlobalsConfig.functions) ||
+    multiIdentityGlobalsConfig.functions.length !== 9) {
+  throw new Error("Unexpected multi-identity mapping format");
+}
+const multiIdentityGlobals = new Map();
+const multiIdentityNames = new Map();
+const multiIdentityTemplateNames = new Set([
+  "construct_five_words", "store_pair_stmia", "store_pair_offsets_4_8",
+  "store_pair_offsets_0_8", "byte_indexed_word", "store_three_offsets_140_0_64",
+  "clear_and_store_text_pair", "sentinel_indexed_word", "initialize_sparse_fields",
+]);
+let configuredMultiIdentityBytes = 0;
+let configuredMultiIdentitySlots = 0;
+for (const entry of multiIdentityGlobalsConfig.functions) {
+  if (entry === null || typeof entry !== "object" ||
+      Object.keys(entry).sort().join(",") !== "name,size,slots,template" ||
+      typeof entry.name !== "string" || !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      !Number.isInteger(entry.size) || entry.size < 16 || entry.size > 32 || entry.size % 4 !== 0 ||
+      !multiIdentityTemplateNames.has(entry.template) || !Array.isArray(entry.slots) ||
+      entry.slots.length < 2 || entry.slots.length > 3 ||
+      entry.slots.some((slot) => slot === null || typeof slot !== "object" ||
+        Object.keys(slot).sort().join(",") !== "identity,segment" ||
+        !/^(?:multi_identity_(?:0[1-9]|1[0-5])|global_state_19|global_load_46)$/.test(slot.identity) ||
+        !["text", "rodata", "data", "bss"].includes(slot.segment)) ||
+      multiIdentityGlobals.has(entry.name)) {
+    throw new Error("Invalid or duplicate multi-identity mapping entry");
+  }
+  for (const slot of entry.slots) {
+    const priorSegment = multiIdentityNames.get(slot.identity)?.segment;
+    if (priorSegment !== undefined && priorSegment !== slot.segment) {
+      throw new Error(`Conflicting segment classes for ${slot.identity}`);
+    }
+    const priorCount = multiIdentityNames.get(slot.identity)?.count ?? 0;
+    multiIdentityNames.set(slot.identity, { segment: slot.segment, count: priorCount + 1 });
+  }
+  multiIdentityGlobals.set(entry.name, entry);
+  configuredMultiIdentityBytes += entry.size;
+  configuredMultiIdentitySlots += entry.slots.length;
+}
+if (configuredMultiIdentityBytes !== 220 || configuredMultiIdentitySlots !== 19 ||
+    multiIdentityNames.size !== 17 || multiIdentityNames.get("global_state_19")?.count !== 1 ||
+    multiIdentityNames.get("global_load_46")?.count !== 1) {
+  throw new Error("Unexpected multi-identity manifest totals or reused identities");
+}
+for (let number = 1; number <= 15; number++) {
+  const identity = `multi_identity_${String(number).padStart(2, "0")}`;
+  const expectedCount = [3, 4].includes(number) ? 2 : 1;
+  if (multiIdentityNames.get(identity)?.count !== expectedCount) {
+    throw new Error(`Unexpected occurrence count for ${identity}`);
+  }
+}
+
 const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
 if (literalIdentityConfig.version !== 1 ||
     Object.keys(literalIdentityConfig).sort().join(",") !== "armAdjacentAbsoluteLiterals,version" ||
@@ -127,7 +214,7 @@ if (literalIdentityConfig.version !== 1 ||
 
 const targetConfig = JSON.parse(readFileSync(targetConfigPath, "utf8"));
 const targetSegments = new Map();
-for (const name of ["data", "bss"]) {
+for (const name of ["text", "rodata", "data", "bss"]) {
   const segment = targetConfig?.code?.segments?.[name];
   const address = Number.parseInt(segment?.address, 16);
   const size = Number.parseInt(segment?.size, 16);
@@ -368,6 +455,78 @@ for (const [name, mapping] of globalStates) {
   wordIdentities.set(privateWord, mapping.identity);
 }
 
+const multiIdentityTemplates = new Map([
+  ["construct_five_words", [0xe59f3018, 0xe59fc018, 0xe5803000, 0xe89c1008, 0xe580100c, 0xe5802010, 0xe9801008, 0xe12fff1e]],
+  ["store_pair_stmia", [0xe59f1008, 0xe59f2008, 0xe8800006, 0xe12fff1e]],
+  ["store_pair_offsets_4_8", [0xe59f200c, 0xe5802004, 0xe59f2008, 0xe5802008, 0xe12fff1e]],
+  ["store_pair_offsets_0_8", [0xe59f100c, 0xe59f200c, 0xe5801000, 0xe5802008, 0xe12fff1e]],
+  ["byte_indexed_word", [0xe59f000c, 0xe5d01001, 0xe59f0008, 0xe7900101, 0xe12fff1e]],
+  ["store_three_offsets_140_0_64", [0xe59f2018, 0xe59f1010, 0xe580208c, 0xe59f2010, 0xe5801000, 0xe5802040, 0xe12fff1e]],
+  ["clear_and_store_text_pair", [0xe59f2014, 0xe3a01000, 0xe5801024, 0xe59f100c, 0xe5a0201c, 0xe5801004, 0xe12fff1e]],
+  ["sentinel_indexed_word", [0xe3500008, 0x059f000c, 0xe59f100c, 0x05d00001, 0xe7910100, 0xe12fff1e]],
+  ["initialize_sparse_fields", [0xe59f1018, 0xe59f2018, 0xe5801000, 0xe3a01000, 0xe580211c, 0xe5c01118, 0xe58010e4, 0xe12fff1e]],
+]);
+const batchIdentityWords = new Map();
+const batchWordIdentities = new Map();
+let multiIdentityBytes = 0;
+let multiIdentitySlots = 0;
+for (const [name, mapping] of multiIdentityGlobals) {
+  const entry = functionsByName.get(name);
+  const expectedInstructions = multiIdentityTemplates.get(mapping.template);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== mapping.size ||
+      expectedInstructions === undefined || expectedInstructions.length * 4 !== entry.size) {
+    throw new Error(`${name} is not the configured inventoried ARM function`);
+  }
+  const offset = entry.address - textStart;
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + mapping.slots.length * 4;
+  if (slotStart % 4 !== 0 || offset < 0 ||
+      offset + entry.size + mapping.slots.length * 4 > code.length) {
+    throw new Error(`${name} has invalid or out-of-bounds adjacent identity slots`);
+  }
+  const overlap = functions.find((candidate) =>
+    candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) {
+    throw new Error(`${name} identity slots overlap inventoried function ${overlap.name}`);
+  }
+  for (let index = 0; index < expectedInstructions.length; index++) {
+    if (code.readUInt32LE(offset + index * 4) !== expectedInstructions[index]) {
+      throw new Error(`${name} does not match deterministic template ${mapping.template}`);
+    }
+  }
+  for (let index = 0; index < mapping.slots.length; index++) {
+    const slot = mapping.slots[index];
+    const privateWord = code.readUInt32LE(offset + entry.size + index * 4);
+    const segment = targetSegments.get(slot.segment);
+    if (privateWord < segment.address || privateWord >= segment.address + segment.size) {
+      throw new Error(`${name} slot ${index} is outside its declared segment class`);
+    }
+    const priorWord = identityWords.get(slot.identity);
+    const priorIdentity = wordIdentities.get(privateWord);
+    if ((priorWord !== undefined && priorWord !== privateWord) ||
+        (priorIdentity !== undefined && priorIdentity !== slot.identity)) {
+      throw new Error(`Cross-batch neutral identity equality is inconsistent for ${name} slot ${index}`);
+    }
+    const priorBatchWord = batchIdentityWords.get(slot.identity);
+    const priorBatchIdentity = batchWordIdentities.get(privateWord);
+    if ((priorBatchWord !== undefined && priorBatchWord !== privateWord) ||
+        (priorBatchIdentity !== undefined && priorBatchIdentity !== slot.identity)) {
+      throw new Error(`Batch neutral identity equality is inconsistent for ${name} slot ${index}`);
+    }
+    identityWords.set(slot.identity, privateWord);
+    wordIdentities.set(privateWord, slot.identity);
+    batchIdentityWords.set(slot.identity, privateWord);
+    batchWordIdentities.set(privateWord, slot.identity);
+  }
+  multiIdentityBytes += entry.size;
+  multiIdentitySlots += mapping.slots.length;
+}
+if (multiIdentityBytes !== 220 || multiIdentitySlots !== 19 || batchIdentityWords.size !== 17 ||
+    batchWordIdentities.size !== 17 ||
+    !batchIdentityWords.has("global_state_19") || !batchIdentityWords.has("global_load_46")) {
+  throw new Error("Multi-identity batch totals or cross-batch identity reuses are invalid");
+}
+
 const assembly = [
   ".syntax unified",
   ".arch armv6k",
@@ -382,8 +541,11 @@ for (const entry of functions) {
   const destination = branchThunks.get(entry.name);
   const adjacentGlobalLoad = adjacentGlobalLoads.get(entry.name);
   const globalState = globalStates.get(entry.name);
+  const duplicateIpcAndTable = duplicateIpcAndTables.get(entry.name);
+  const multiIdentityGlobal = multiIdentityGlobals.get(entry.name);
   const instructions = [];
-  if ((destination && (adjacentGlobalLoad || globalState)) || (adjacentGlobalLoad && globalState)) {
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal].filter(Boolean);
+  if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
     if (entry.mode !== "$a" || entry.size !== 4) {
@@ -416,12 +578,37 @@ for (const entry of functions) {
     ...(adjacentGlobalLoad || globalState
       ? [`.word ${(adjacentGlobalLoad ?? globalState).identity}`, `.global ${(adjacentGlobalLoad ?? globalState).identity}`]
       : []),
+    ...(duplicateIpcAndTable?.template === "table_state"
+      ? duplicateIpcAndTable.tables.map((identity) => `.global ${identity}`)
+      : duplicateIpcAndTable
+        ? [
+            `.word ${duplicateIpcAndTable.command}`,
+            `.word ${duplicateIpcAndTable.handle}`,
+            `.global ${duplicateIpcAndTable.command}`,
+            `.global ${duplicateIpcAndTable.handle}`,
+          ]
+        : []),
+    ...(multiIdentityGlobal
+      ? multiIdentityGlobal.slots.flatMap((slot) => [`.word ${slot.identity}`, `.global ${slot.identity}`])
+      : []),
     ""
   );
+  duplicateIpcAndTables.delete(entry.name);
+  multiIdentityGlobals.delete(entry.name);
 }
 if (branchThunks.size !== 0) {
   throw new Error(
     `ARM direct-branch thunks missing from the function inventory: ${[...branchThunks.keys()].join(", ")}`
+  );
+}
+if (duplicateIpcAndTables.size !== 0) {
+  throw new Error(
+    `Duplicate IPC/table mappings missing from the function inventory: ${[...duplicateIpcAndTables.keys()].join(", ")}`
+  );
+}
+if (multiIdentityGlobals.size !== 0) {
+  throw new Error(
+    `Multi-identity mappings missing from the function inventory: ${[...multiIdentityGlobals.keys()].join(", ")}`
   );
 }
 writeFileSync(assemblyPath, `${assembly.join("\n")}\n`);

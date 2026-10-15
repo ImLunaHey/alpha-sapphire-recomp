@@ -84,6 +84,18 @@
     {
       "path": "src/main/arm_global_state_and_pointer_chases_11.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_thumb_runtime_helpers_12.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_duplicate_ipc_and_table_templates_12.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_multi_identity_globals_12.S",
+      "mode": "arm"
     }
   ]
 }

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "functions": [
+    { "name": "func_0021712C", "size": 32, "template": "construct_five_words", "slots": [{ "identity": "multi_identity_01", "segment": "rodata" }, { "identity": "multi_identity_02", "segment": "rodata" }] },
+    { "name": "func_00237758", "size": 16, "template": "store_pair_stmia", "slots": [{ "identity": "multi_identity_03", "segment": "rodata" }, { "identity": "multi_identity_04", "segment": "rodata" }] },
+    { "name": "func_0026E970", "size": 20, "template": "store_pair_offsets_4_8", "slots": [{ "identity": "multi_identity_03", "segment": "rodata" }, { "identity": "multi_identity_04", "segment": "rodata" }] },
+    { "name": "func_002A2490", "size": 20, "template": "store_pair_offsets_0_8", "slots": [{ "identity": "multi_identity_05", "segment": "rodata" }, { "identity": "multi_identity_06", "segment": "rodata" }] },
+    { "name": "func_002C2244", "size": 20, "template": "byte_indexed_word", "slots": [{ "identity": "global_state_19", "segment": "data" }, { "identity": "multi_identity_12", "segment": "bss" }] },
+    { "name": "func_0032DCD0", "size": 28, "template": "store_three_offsets_140_0_64", "slots": [{ "identity": "multi_identity_07", "segment": "rodata" }, { "identity": "multi_identity_08", "segment": "rodata" }, { "identity": "multi_identity_09", "segment": "rodata" }] },
+    { "name": "func_003D4668", "size": 28, "template": "clear_and_store_text_pair", "slots": [{ "identity": "multi_identity_10", "segment": "text" }, { "identity": "multi_identity_11", "segment": "text" }] },
+    { "name": "func_004191B0", "size": 24, "template": "sentinel_indexed_word", "slots": [{ "identity": "global_load_46", "segment": "data" }, { "identity": "multi_identity_13", "segment": "rodata" }] },
+    { "name": "func_0041CE10", "size": 32, "template": "initialize_sparse_fields", "slots": [{ "identity": "multi_identity_14", "segment": "rodata" }, { "identity": "multi_identity_15", "segment": "rodata" }] }
+  ]
+}
