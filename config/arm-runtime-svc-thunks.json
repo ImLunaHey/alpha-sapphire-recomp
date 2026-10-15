@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "functions": [
+    { "name": "func_001000E4", "kind": "thumbThunk", "size": 8, "destination": "func_001000EC", "pcDelta": 1 },
+    { "name": "func_001003E0", "kind": "thumbThunk", "size": 8, "destination": "func_001003E8", "pcDelta": 1 },
+    { "name": "func_00100B6C", "kind": "thumbThunk", "size": 8, "destination": "func_00100B7E", "pcDelta": 11 },
+    { "name": "func_00108808", "kind": "svc", "size": 24, "service": "SVC_GET_RESOURCE_LIMIT" },
+    { "name": "func_0010E24C", "kind": "svc", "size": 24, "service": "SVC_CREATE_ADDRESS_ARBITER" },
+    { "name": "func_00117830", "kind": "svc", "size": 24, "service": "SVC_CONNECT_TO_PORT" },
+    { "name": "func_00117848", "kind": "svc", "size": 36, "service": "SVC_CONTROL_MEMORY" },
+    { "name": "func_0011786C", "kind": "svc", "size": 24, "service": "SVC_CREATE_MUTEX" },
+    { "name": "func_00117884", "kind": "svc", "size": 36, "service": "SVC_CREATE_THREAD" },
+    { "name": "func_00123D48", "kind": "svc", "size": 24, "service": "SVC_GET_PROCESS_ID" },
+    { "name": "func_00123D60", "kind": "svc", "size": 20, "service": "SVC_SLEEP_THREAD" },
+    { "name": "func_00123D74", "kind": "svc", "size": 36, "service": "SVC_WAIT_SYNCHRONIZATION_N" },
+    { "name": "func_00144D04", "kind": "svc", "size": 24, "service": "SVC_CREATE_EVENT" },
+    { "name": "func_0015EB4C", "kind": "svc", "size": 24, "service": "SVC_ARBITRATE_ADDRESS" },
+    { "name": "func_0015EB64", "kind": "svc", "size": 24, "service": "SVC_BREAK" },
+    { "name": "func_00177EE4", "kind": "svc", "size": 28, "service": "SVC_CREATE_MEMORY_BLOCK" },
+    { "name": "func_0017E30C", "kind": "svc", "size": 24, "service": "SVC_GET_THREAD_ID" },
+    { "name": "func_0019BEB0", "kind": "svc", "size": 28, "service": "SVC_GET_HANDLE_INFO" },
+    { "name": "func_0019BE80", "kind": "svc", "size": 24, "service": "SVC_CREATE_TIMER" },
+    { "name": "func_0019BECC", "kind": "svc", "size": 24, "service": "SVC_GET_THREAD_PRIORITY" },
+    { "name": "func_0019BEE4", "kind": "svc", "size": 24, "service": "SVC_SET_TIMER" },
+    { "name": "func_001B04B8", "kind": "returnStub", "size": 4 },
+    { "name": "func_001B6AB8", "kind": "returnStub", "size": 4 },
+    { "name": "func_001BD0B8", "kind": "returnStub", "size": 4 },
+    { "name": "func_003009EC", "kind": "thumbThunk", "size": 8, "destination": "func_003009F4", "pcDelta": 1 }
+  ]
+}
