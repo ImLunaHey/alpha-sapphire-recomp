@@ -5,8 +5,9 @@ import { fileURLToPath } from "node:url";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const config = JSON.parse(readFileSync(join(root, "progress", "project.json"), "utf8"));
+const local = process.argv.includes("--local");
 
-if (!config.decompilationEnabled) {
+if (!config.decompilationEnabled && !local) {
   console.log("Progress reporting is intentionally disabled until decompilation is authorized.");
   process.exit(0);
 }

@@ -4,12 +4,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "npm run check:clean && node --check scripts/generate-report.mjs && node --check scripts/extract-container.mjs && node --check scripts/verify-target.mjs",
+    "base:build": "bash scripts/build-base.sh",
+    "check": "npm run check:clean && node --check scripts/generate-report.mjs && node --check scripts/generate-target-object.mjs && node --check scripts/extract-container.mjs && node --check scripts/validate-symbols.mjs && node --check scripts/verify-target.mjs",
     "check:clean": "bash scripts/check-no-rom.sh",
     "check:environment": "bash scripts/check-environment.sh",
     "target:extract": "bash scripts/extract-target.sh",
+    "target:analyze": "bash scripts/analyze-target.sh",
+    "target:build": "bash scripts/build-target-object.sh",
+    "target:validate": "node scripts/validate-symbols.mjs",
     "target:verify": "node scripts/verify-target.mjs",
     "report": "node scripts/generate-report.mjs",
+    "report:local": "npm run base:build && npm run target:build && node scripts/generate-report.mjs --local",
     "tools:install": "bash scripts/install-tools.sh",
     "tools:install-3ds": "bash scripts/install-3ds-tools.sh"
   },

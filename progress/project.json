@@ -3,15 +3,15 @@
   "project": "Pokémon Alpha Sapphire",
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
-  "phase": "Target inventory",
-  "summary": "The owned target is verified and its executable is isolated outside the repository. Function-boundary inventory is in progress.",
+  "phase": "Function mapping",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and the first clean-room function is byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": null,
-    "matchedFunctions": 0,
-    "totalFunctions": null,
+    "matchedCodePercent": 0.00009103207,
+    "matchedFunctions": 1,
+    "totalFunctions": 10440,
     "completeUnits": 0,
-    "totalUnits": null
+    "totalUnits": 1
   },
   "milestones": [
     {
@@ -21,13 +21,13 @@
     },
     {
       "label": "Target inventory",
-      "detail": "Container and executable metadata verified",
-      "state": "active"
+      "detail": "10,440 evidence-gated function bodies validated",
+      "state": "complete"
     },
     {
       "label": "First matching unit",
-      "detail": "Not started",
-      "state": "waiting"
+      "detail": "func_00100074 matches byte-for-byte from portable C",
+      "state": "complete"
     },
     {
       "label": "ByteMatch registration",
@@ -36,6 +36,16 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "First clean-room match",
+      "detail": "A role-separated portable C implementation of func_00100074 matches all 2 target bytes under objdiff."
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Function inventory established",
+      "detail": "Validated 10,440 evidence-gated ARM/Thumb bodies and generated a genuine objdiff baseline without committing target bytes."
+    },
     {
       "date": "2026-10-15",
       "title": "Target verified",

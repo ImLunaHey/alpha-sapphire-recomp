@@ -1,13 +1,13 @@
 # Pokémon Alpha Sapphire matching decompilation
 
-Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (European revision 2). Target inventory is underway; the repository contains no game data.
+Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (European revision 2). A conservative executable function inventory is available; the repository contains no game data.
 
 ## Current status
 
 - Default branch: `main`
 - Target: Europe, revision 2
-- Decompilation: target extraction and inventory
-- ByteMatch: reporting scaffolded, registration deferred until reports exist
+- Decompilation: 10,440 evidence-gated function bodies inventoried; first clean-room function matched
+- ByteMatch: genuine local report available; registration deferred until reproducible CI reporting exists
 - Proprietary input: configured locally and excluded from Git
 
 ## Before any reverse engineering
@@ -27,7 +27,12 @@ Extraction writes only to `DECOMP_PRIVATE`, which must be outside the checkout. 
 npm run tools:install-3ds
 npm run target:verify
 npm run target:extract
+npm run target:analyze
+npm run target:build
+npm run report:local
 ```
+
+The analysis database, generated assembly, target ELF, `objdiff.json`, and report remain ignored local outputs. The committed CSV contains only conservative address, size, and instruction-mode metadata; every boundary remains provisional until confirmed during matching.
 
 ## Repository layout
 
@@ -35,6 +40,8 @@ npm run target:extract
 docs/           Policy, provenance, and integration notes
 progress/       Public reporting metadata
 scripts/        Safety and project automation
+symbols/        Neutral, provisional function-boundary metadata
+tools/          Original analysis scripts (no game data)
 ```
 
 ## Progress reporting
