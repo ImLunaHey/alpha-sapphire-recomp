@@ -28,6 +28,10 @@
     {
       "path": "src/main/probe_verified_arm_call_wrappers.c",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_indexed_return_stores.c",
+      "mode": "arm"
     }
   ]
 }
