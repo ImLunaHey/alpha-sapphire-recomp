@@ -1,0 +1,16 @@
+{
+  "name": "pokemon-alpha-sapphire-decomp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "npm run check:clean && node --check scripts/generate-report.mjs",
+    "check:clean": "bash scripts/check-no-rom.sh",
+    "check:environment": "bash scripts/check-environment.sh",
+    "report": "node scripts/generate-report.mjs",
+    "tools:install": "bash scripts/install-tools.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "project": "Pokémon Alpha Sapphire",
+  "target": "Europe · Revision 2",
+  "version": "AS_EUR_REV2",
+  "phase": "Infrastructure ready",
+  "summary": "Clean-room boundaries, local input isolation, and progress reporting are ready. Binary analysis has not started.",
+  "decompilationEnabled": false,
+  "progress": {
+    "matchedCodePercent": null,
+    "matchedFunctions": 0,
+    "totalFunctions": null,
+    "completeUnits": 0,
+    "totalUnits": null
+  },
+  "milestones": [
+    {
+      "label": "Repository boundary",
+      "detail": "ROM exclusions and commit guard installed",
+      "state": "complete"
+    },
+    {
+      "label": "Target inventory",
+      "detail": "Waiting for owner authorization",
+      "state": "waiting"
+    },
+    {
+      "label": "First matching unit",
+      "detail": "Not started",
+      "state": "waiting"
+    },
+    {
+      "label": "ByteMatch registration",
+      "detail": "After first genuine objdiff report",
+      "state": "waiting"
+    }
+  ],
+  "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "ByteMatch pipeline staged",
+      "detail": "Pinned objdiff-cli and added a main-branch artifact workflow that refuses to publish synthetic progress."
+    },
+    {
+      "date": "2026-10-15",
+      "title": "Infrastructure checkpoint",
+      "detail": "Created the clean-room policy, repository safety gate, and ByteMatch integration plan."
+    }
+  ]
+}
