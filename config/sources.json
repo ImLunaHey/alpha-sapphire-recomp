@@ -44,6 +44,10 @@
     {
       "path": "src/main/probe_verified_arm_wrappers_06.c",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_linker_veneers.S",
+      "mode": "arm"
     }
   ]
 }

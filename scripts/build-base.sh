@@ -10,9 +10,11 @@ linker="$(find "$toolchain" -type f -name arm-none-eabi-ld -print -quit)"
   exit 1
 }
 
-mapfile -d '' sources < <(find "$root/src" -type f -name '*.c' -print0 | sort -z)
+mapfile -d '' sources < <(
+  find "$root/src" -type f \( -name '*.c' -o -name '*.S' \) -print0 | sort -z
+)
 if [[ ${#sources[@]} -eq 0 ]]; then
-  printf '%s\n' 'No clean-room C sources were found.' >&2
+  printf '%s\n' 'No clean-room C or assembly sources were found.' >&2
   exit 1
 fi
 
@@ -30,7 +32,7 @@ objects=()
 for source in "${sources[@]}"; do
   repository_path="${source#"$root/"}"
   relative="${source#"$root/src/"}"
-  object="$object_root/${relative%.c}.o"
+  object="$object_root/${relative%.*}.o"
   mode="${source_modes[$repository_path]:-}"
   case "$mode" in
     arm) mode_flag="-marm" ;;
@@ -41,12 +43,24 @@ for source in "${sources[@]}"; do
       ;;
   esac
   mkdir -p "$(dirname "$object")"
-  "$compiler" \
-    -std=c11 -Os -march=armv6k -mcpu=mpcore "$mode_flag" -mfloat-abi=soft \
-    -ffreestanding -fno-builtin -fno-common -fomit-frame-pointer \
-    -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-stack-protector \
-    -fno-pic -fno-pie -fno-ident -ffunction-sections -fdata-sections \
-    -Wall -Wextra -Werror -c "$source" -o "$object"
+  case "$source" in
+    *.c)
+      "$compiler" \
+        -std=c11 -Os -march=armv6k -mcpu=mpcore "$mode_flag" -mfloat-abi=soft \
+        -ffreestanding -fno-builtin -fno-common -fomit-frame-pointer \
+        -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-stack-protector \
+        -fno-pic -fno-pie -fno-ident -ffunction-sections -fdata-sections \
+        -Wa,--noexecstack \
+        -Wall -Wextra -Werror -c "$source" -o "$object"
+      ;;
+    *.S)
+      "$compiler" \
+        -march=armv6k -mcpu=mpcore "$mode_flag" -mfloat-abi=soft \
+        -ffreestanding -fno-pic -fno-pie \
+        -Wa,--noexecstack \
+        -x assembler-with-cpp -c "$source" -o "$object"
+      ;;
+  esac
   objects+=("$object")
 done
 
