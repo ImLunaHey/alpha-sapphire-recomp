@@ -20,6 +20,14 @@
     {
       "path": "src/main/probe_verified_thumb_leaves.c",
       "mode": "thumb"
+    },
+    {
+      "path": "src/main/probe_verified_arm_accessors_02.c",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_arm_call_wrappers.c",
+      "mode": "arm"
     }
   ]
 }
