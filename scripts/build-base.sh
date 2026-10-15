@@ -73,4 +73,7 @@ node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" "$output" "$reade
 node "$root/scripts/validate-arm-runtime-svc-thunks.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-scalar-literal-returns.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-abi-glue-10.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-duplicate-recycle-subtrees-11.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-11.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-global-state-and-pointer-chases-11.mjs" "$output" "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_11.S",
+  "functions": [
+    { "name": "func_0012339C", "size": 24 },
+    { "name": "func_00123F14", "size": 24 },
+    { "name": "func_00125DEC", "size": 60 },
+    { "name": "func_00126A64", "size": 96 },
+    { "name": "func_00126AC4", "size": 68 },
+    { "name": "func_00131940", "size": 64 }
+  ]
+}

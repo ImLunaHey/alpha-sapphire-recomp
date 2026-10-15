@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 598 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 738 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 0.2302201,
-    "matchedFunctions": 598,
+    "matchedCodePercent": 0.4168358,
+    "matchedFunctions": 738,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "598 routines, accessors, and runtime/linker helpers match byte-for-byte",
+      "detail": "738 routines, global-state helpers, and runtime/linker helpers match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "Duplicate and global-state batches matched",
+      "detail": "Thirty-seven recursive recyclers, ninety-seven global-state/pointer routines, and six runtime helpers raised the genuine report to 738 functions and 9,158 bytes."
+    },
     {
       "date": "2026-10-15",
       "title": "Global loads and ABI helpers matched",

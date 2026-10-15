@@ -11,6 +11,8 @@ const [
   readelf,
   branchThunksPath,
   adjacentGlobalLoadsPath,
+  globalStatePath,
+  literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
 if (
@@ -20,10 +22,12 @@ if (
   !readelf ||
   !branchThunksPath ||
   !adjacentGlobalLoadsPath ||
+  !globalStatePath ||
+  !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, target literal identities, and target config paths"
   );
 }
 
@@ -98,6 +102,29 @@ for (const name of ["func_0010702C", "func_002BA6CC"]) {
   }
 }
 
+const globalStateConfig = JSON.parse(readFileSync(globalStatePath, "utf8"));
+if (globalStateConfig.schemaVersion !== 1 || !Array.isArray(globalStateConfig.functions) || globalStateConfig.functions.length !== 97) {
+  throw new Error("Unexpected ARM global-state mapping format");
+}
+const globalStates = new Map();
+for (const entry of globalStateConfig.functions) {
+  if (typeof entry?.name !== "string" || typeof entry.identity !== "string" ||
+      !["data", "bss"].includes(entry.segment) || !Number.isInteger(entry.size) ||
+      typeof entry.behavior !== "string" || globalStates.has(entry.name)) {
+    throw new Error("Invalid or duplicate ARM global-state mapping entry");
+  }
+  globalStates.set(entry.name, entry);
+}
+
+const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
+if (literalIdentityConfig.version !== 1 ||
+    Object.keys(literalIdentityConfig).sort().join(",") !== "armAdjacentAbsoluteLiterals,version" ||
+    literalIdentityConfig.armAdjacentAbsoluteLiterals === null ||
+    typeof literalIdentityConfig.armAdjacentAbsoluteLiterals !== "object" ||
+    Array.isArray(literalIdentityConfig.armAdjacentAbsoluteLiterals)) {
+  throw new Error("Unexpected target literal identity mapping format");
+}
+
 const targetConfig = JSON.parse(readFileSync(targetConfigPath, "utf8"));
 const targetSegments = new Map();
 for (const name of ["data", "bss"]) {
@@ -155,6 +182,30 @@ function expectedReadInstruction(read, displacement) {
   throw new Error(`Displacement is not encodable for ${read}`);
 }
 
+function isAl(instruction) {
+  return instruction >>> 28 === 0xe;
+}
+
+function isLiteralLoad(instruction, destination, displacement) {
+  return isAl(instruction) &&
+    ((instruction >>> 26) & 0x3) === 0x1 &&
+    ((instruction >>> 25) & 0x1) === 0 &&
+    ((instruction >>> 24) & 0x1) === 1 &&
+    ((instruction >>> 23) & 0x1) === 1 &&
+    ((instruction >>> 22) & 0x1) === 0 &&
+    ((instruction >>> 21) & 0x1) === 0 &&
+    ((instruction >>> 20) & 0x1) === 1 &&
+    ((instruction >>> 16) & 0xf) === 15 &&
+    ((instruction >>> 12) & 0xf) === destination &&
+    (instruction & 0xfff) === displacement;
+}
+
+function isBxLr(instruction) {
+  return isAl(instruction) &&
+    (instruction & 0x0ffffff0) === 0x012fff10 &&
+    (instruction & 0xf) === 14;
+}
+
 for (const [name, mapping] of adjacentGlobalLoads) {
   const entry = functionsByName.get(name);
   if (entry === undefined || entry.mode !== "$a" || entry.size !== 12) {
@@ -206,6 +257,117 @@ if (identityWords.size !== 47 || wordIdentities.size !== 47) {
   throw new Error("Expected a biconditional mapping of 47 private words to 47 identities");
 }
 
+const globalStateIdentities = new Map();
+for (const mapping of globalStates.values()) globalStateIdentities.set(mapping.identity, mapping.segment);
+for (const [name, identity] of Object.entries(literalIdentityConfig.armAdjacentAbsoluteLiterals)) {
+  const segmentName = globalStateIdentities.get(identity);
+  if (segmentName === undefined) continue;
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a") {
+    throw new Error(`${name} cannot seed reused identity ${identity}`);
+  }
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + 4;
+  const offset = entry.address - textStart;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + entry.size + 4 > code.length) {
+    throw new Error(`${name} has an invalid reused-identity slot`);
+  }
+  const overlap = functions.find((candidate) => candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) throw new Error(`${name} reused-identity slot overlaps ${overlap.name}`);
+  const privateWord = code.readUInt32LE(offset + entry.size);
+  const segment = targetSegments.get(segmentName);
+  if (privateWord < segment.address || privateWord >= segment.address + segment.size) {
+    throw new Error(`${name} reused identity is outside its declared segment class`);
+  }
+  const priorWord = identityWords.get(identity);
+  const priorIdentity = wordIdentities.get(privateWord);
+  if ((priorWord !== undefined && priorWord !== privateWord) ||
+      (priorIdentity !== undefined && priorIdentity !== identity)) {
+    throw new Error(`Target literal identity equality is inconsistent for ${name}`);
+  }
+  identityWords.set(identity, privateWord);
+  wordIdentities.set(privateWord, identity);
+}
+for (const identity of globalStateIdentities.keys()) {
+  if (identity.startsWith("opaque_") && !identityWords.has(identity)) {
+    throw new Error(`Missing independent target literal seed for ${identity}`);
+  }
+}
+
+for (const [name, mapping] of globalStates) {
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== mapping.size) {
+    throw new Error(`${name} is not an inventoried ${mapping.size}-byte ARM function`);
+  }
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + 4;
+  const offset = entry.address - textStart;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + entry.size + 4 > code.length) {
+    throw new Error(`${name} has an invalid or out-of-bounds adjacent identity slot`);
+  }
+  if (mapping.behavior === "paired_store64:base_r2:a0_low:a1_high:4") {
+    const obtainIdentity = code.readUInt32LE(offset);
+    const pairedStore = code.readUInt32LE(offset + 4);
+    const returnInstruction = code.readUInt32LE(offset + 8);
+    const splitImmediate = ((pairedStore >>> 4) & 0xf0) | (pairedStore & 0x0f);
+    if (entry.size !== 12 ||
+        !isLiteralLoad(obtainIdentity, 2, 4) ||
+        !isAl(pairedStore) ||
+        (pairedStore & 0x0ff000f0) !== 0x01c000f0 ||
+        ((pairedStore >>> 16) & 0xf) !== 2 ||
+        ((pairedStore >>> 12) & 0xf) !== 0 ||
+        splitImmediate !== 4 ||
+        !isBxLr(returnInstruction)) {
+      throw new Error(`${name} does not have the audited paired 64-bit store form`);
+    }
+  } else if (mapping.behavior === "clear_advance_clear:base_r1:zero_r0:offsets_0_4") {
+    const obtainIdentity = code.readUInt32LE(offset);
+    const makeZero = code.readUInt32LE(offset + 4);
+    const firstClear = code.readUInt32LE(offset + 8);
+    const advancePointer = code.readUInt32LE(offset + 12);
+    const secondClear = code.readUInt32LE(offset + 16);
+    const returnInstruction = code.readUInt32LE(offset + 20);
+    if (entry.size !== 24 ||
+        ![obtainIdentity, makeZero, firstClear, advancePointer, secondClear, returnInstruction].every(isAl) ||
+        (obtainIdentity & 0x0fff0000) !== 0x059f0000 ||
+        ((obtainIdentity >>> 12) & 0xf) !== 1 ||
+        (obtainIdentity & 0xfff) !== 16 ||
+        (makeZero & 0x0fff0000) !== 0x03a00000 ||
+        ((makeZero >>> 12) & 0xf) !== 0 ||
+        (makeZero & 0xfff) !== 0 ||
+        (firstClear & 0x0ff00000) !== 0x05800000 ||
+        ((firstClear >>> 16) & 0xf) !== 1 ||
+        ((firstClear >>> 12) & 0xf) !== 0 ||
+        (firstClear & 0xfff) !== 0 ||
+        (advancePointer & 0x0ff00000) !== 0x02800000 ||
+        ((advancePointer >>> 16) & 0xf) !== 1 ||
+        ((advancePointer >>> 12) & 0xf) !== 1 ||
+        (advancePointer & 0xfff) !== 4 ||
+        (secondClear & 0x0ff00000) !== 0x05800000 ||
+        ((secondClear >>> 16) & 0xf) !== 1 ||
+        ((secondClear >>> 12) & 0xf) !== 0 ||
+        (secondClear & 0xfff) !== 0 ||
+        (returnInstruction & 0x0fffffff) !== 0x012fff1e) {
+      throw new Error(`${name} does not have the audited ordered pointer-advance clear form`);
+    }
+  }
+  const overlap = functions.find((candidate) => candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) throw new Error(`${name} identity slot overlaps inventoried function ${overlap.name}`);
+  const privateWord = code.readUInt32LE(offset + entry.size);
+  const segment = targetSegments.get(mapping.segment);
+  if (privateWord < segment.address || privateWord >= segment.address + segment.size) {
+    throw new Error(`${name} identity word is outside its declared segment class`);
+  }
+  const priorWord = identityWords.get(mapping.identity);
+  const priorIdentity = wordIdentities.get(privateWord);
+  if ((priorWord !== undefined && priorWord !== privateWord) ||
+      (priorIdentity !== undefined && priorIdentity !== mapping.identity)) {
+    throw new Error(`Neutral identity equality is inconsistent for ${name}`);
+  }
+  identityWords.set(mapping.identity, privateWord);
+  wordIdentities.set(privateWord, mapping.identity);
+}
+
 const assembly = [
   ".syntax unified",
   ".arch armv6k",
@@ -219,8 +381,9 @@ for (const entry of functions) {
   }
   const destination = branchThunks.get(entry.name);
   const adjacentGlobalLoad = adjacentGlobalLoads.get(entry.name);
+  const globalState = globalStates.get(entry.name);
   const instructions = [];
-  if (destination && adjacentGlobalLoad) {
+  if ((destination && (adjacentGlobalLoad || globalState)) || (adjacentGlobalLoad && globalState)) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
     if (entry.mode !== "$a" || entry.size !== 4) {
@@ -250,8 +413,8 @@ for (const entry of functions) {
     `${entry.name}:`,
     ...instructions,
     `.size ${entry.name}, .-${entry.name}`,
-    ...(adjacentGlobalLoad
-      ? [`.word ${adjacentGlobalLoad.identity}`, `.global ${adjacentGlobalLoad.identity}`]
+    ...(adjacentGlobalLoad || globalState
+      ? [`.word ${(adjacentGlobalLoad ?? globalState).identity}`, `.global ${(adjacentGlobalLoad ?? globalState).identity}`]
       : []),
     ""
   );
