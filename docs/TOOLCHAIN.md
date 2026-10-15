@@ -19,6 +19,17 @@ Probe licensed, user-supplied compiler installations outside Git in this order:
 
 Verify every candidate with `armcc --vsn`; directory names are not evidence of compiler identity.
 
+Arm's public legacy index identifies 4.1 build 894 as the final public 4.1 release and 5.04 update 2 build 82 as a public 5.04 release. The other candidate builds are CTR-era fingerprints seen in community research, but no authoritative public Arm package has been identified for them; treat them as vendor-private/unverified rather than downloading unofficial copies.
+
+Official references:
+
+- [Arm Compiler downloads index](https://support.arm.com/documentation/ka005198/1-0/?lang=en)
+- [Arm Compiler 4.1 patch 6, build 894](https://support.arm.com/downloads/view/ACOMP5?revision=r4p1-06rel0)
+- [Arm Compiler 5.04 update 2, build 82](https://support.arm.com/downloads/view/ACOMP5?revision=r5p4-02rel1)
+- [Arm legacy-tool availability policy](https://support.arm.com/documentation/ka005184/latest)
+
+Legacy `armcc` predates Arm's current user-based licensing. A lawful reproducible setup therefore requires an existing valid legacy entitlement or an Arm-issued archival FlexNet license. Keep the compiler and license outside Git. If the required release is unavailable in Product Download Hub, Arm's policy directs licensees to open a support case with the exact release, target, migration assessment, and product serial.
+
 ## Initial main-code preset
 
 The first main-code probe should use the equivalent of:
