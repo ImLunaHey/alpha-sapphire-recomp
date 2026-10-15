@@ -44,6 +44,8 @@ symbols/        Neutral, provisional function-boundary metadata
 tools/          Original analysis scripts (no game data)
 ```
 
+The target identifies CTR SDK 7.1.1.200 and strongly indicates an ARMCC 4.1-family compiler. See [the toolchain fingerprint](docs/TOOLCHAIN.md) for the provisional compiler matrix and acceptance rule.
+
 ## Progress reporting
 
 The eventual build will generate `build/AS_EUR_REV2/report.json` with `objdiff-cli`. CI will upload it as the `AS_EUR_REV2_report` artifact expected by ByteMatch. See [the ByteMatch integration notes](docs/BYTEMATCH.md).

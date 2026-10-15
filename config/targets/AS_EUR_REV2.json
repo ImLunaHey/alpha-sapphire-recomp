@@ -21,7 +21,12 @@
     "name": "sango-2",
     "remasterVersion": 3,
     "encrypted": false,
-    "compressedCode": true
+    "compressedCode": true,
+    "sdk": {
+      "name": "Nintendo CTR SDK",
+      "version": "7.1.1.200",
+      "firmwareBuild": "02.39.00"
+    }
   },
   "exheader": {
     "size": 2048,
