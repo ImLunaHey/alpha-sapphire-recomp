@@ -22,4 +22,5 @@ readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
 }
 
 node "$root/scripts/generate-target-object.mjs" \
-  "$code" "$symbols" "$assembler" "$readelf"
+  "$code" "$symbols" "$assembler" "$readelf" \
+  "$root/config/arm-direct-branch-thunks.json"

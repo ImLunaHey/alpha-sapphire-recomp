@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 411 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 438 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 0.122802265,
-    "matchedFunctions": 411,
+    "matchedCodePercent": 0.12771799,
+    "matchedFunctions": 438,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "411 routines and linker veneers match byte-for-byte",
+      "detail": "438 routines and linker thunks match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "ARM tail thunks matched",
+      "detail": "Symbolic branch relocations matched all 27 direct-branch thunks, raising the genuine report to 438 functions and 2,806 bytes without embedding resolved instructions."
+    },
     {
       "date": "2026-10-15",
       "title": "ARM linker veneers matched",

@@ -48,6 +48,10 @@
     {
       "path": "src/main/arm_linker_veneers.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_direct_branch_thunks.S",
+      "mode": "arm"
     }
   ]
 }

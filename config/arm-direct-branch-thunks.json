@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "thunks": [
+    { "name": "func_00102384", "destination": "observed_thumb_bridge_for_func_00102384" },
+    { "name": "func_00142620", "destination": "observed_arm_entry_for_func_00142620" },
+    { "name": "func_001584F0", "destination": "observed_arm_svc_entry_for_func_001584F0" },
+    { "name": "func_0015EC0C", "destination": "observed_arm_return_entry_for_func_0015EC0C" },
+    { "name": "func_00177750", "destination": "observed_arm_entry_for_func_00177750" },
+    { "name": "func_001AE400", "destination": "observed_arm_entry_for_func_001AE400" },
+    { "name": "func_001B4A00", "destination": "observed_arm_entry_for_func_001B4A00" },
+    { "name": "func_001BB000", "destination": "observed_arm_entry_for_func_001BB000" },
+    { "name": "func_002046B0", "destination": "func_00184990" },
+    { "name": "func_00214984", "destination": "func_00160A64" },
+    { "name": "func_00233D10", "destination": "func_002412A4" },
+    { "name": "func_002580AC", "destination": "func_00184990" },
+    { "name": "func_002782AC", "destination": "func_00160A64" },
+    { "name": "func_002AD63C", "destination": "func_0024F928" },
+    { "name": "func_002C23C8", "destination": "func_001602B8" },
+    { "name": "func_002C2454", "destination": "func_00160380" },
+    { "name": "func_002C7B58", "destination": "observed_arm_return_entry_for_func_002C7B58" },
+    { "name": "func_002E012C", "destination": "func_0017454C" },
+    { "name": "func_002FED34", "destination": "func_00146000" },
+    { "name": "func_002FF10C", "destination": "func_002FF8C0" },
+    { "name": "func_00300750", "destination": "observed_thumb_import_bridge_for_func_00300750" },
+    { "name": "func_00390D9C", "destination": "func_00391820" },
+    { "name": "func_00391A5C", "destination": "func_00391C28" },
+    { "name": "func_00391B10", "destination": "func_00391C28" },
+    { "name": "func_003B7E98", "destination": "func_003BBAE4" },
+    { "name": "func_004F2BD8", "destination": "func_002FECF8" },
+    { "name": "func_0050DDA0", "destination": "func_00146000" }
+  ]
+}

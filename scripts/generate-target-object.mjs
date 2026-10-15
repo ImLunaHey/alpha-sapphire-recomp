@@ -4,9 +4,11 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
-const [codePath, symbolsPath, assembler, readelf] = process.argv.slice(2);
-if (!codePath || !symbolsPath || !assembler || !readelf) {
-  throw new Error("Expected code, symbol inventory, assembler, and readelf paths");
+const [codePath, symbolsPath, assembler, readelf, branchThunksPath] = process.argv.slice(2);
+if (!codePath || !symbolsPath || !assembler || !readelf || !branchThunksPath) {
+  throw new Error(
+    "Expected code, symbol inventory, assembler, readelf, and branch thunk mapping paths"
+  );
 }
 
 function parseCsv(line) {
@@ -47,6 +49,26 @@ const functions = lines.filter(Boolean).map((line) => {
   };
 });
 
+const branchThunkConfig = JSON.parse(readFileSync(branchThunksPath, "utf8"));
+if (branchThunkConfig.schemaVersion !== 1 || !Array.isArray(branchThunkConfig.thunks)) {
+  throw new Error("Unexpected ARM direct-branch thunk mapping format");
+}
+const branchThunks = new Map();
+for (const thunk of branchThunkConfig.thunks) {
+  if (
+    typeof thunk?.name !== "string" ||
+    !/^func_[0-9A-F]{8}$/.test(thunk.name) ||
+    typeof thunk.destination !== "string" ||
+    !/^(?:func_[0-9A-F]{8}|observed_[A-Za-z0-9_]+)$/.test(thunk.destination)
+  ) {
+    throw new Error("Invalid ARM direct-branch thunk mapping entry");
+  }
+  if (branchThunks.has(thunk.name)) {
+    throw new Error(`Duplicate ARM direct-branch thunk mapping for ${thunk.name}`);
+  }
+  branchThunks.set(thunk.name, thunk.destination);
+}
+
 const buildDirectory = join(root, "build", "AS_EUR_REV2");
 const targetDirectory = join(buildDirectory, "target");
 mkdirSync(targetDirectory, { recursive: true });
@@ -66,16 +88,25 @@ for (const entry of functions) {
   if (entry.size % alignment !== 0) {
     throw new Error(`${entry.name} has a size incompatible with ${entry.mode} mode`);
   }
+  const destination = branchThunks.get(entry.name);
   const instructions = [];
-  for (let cursor = 0; cursor < entry.size; cursor += alignment) {
-    const value = alignment === 4
-      ? code.readUInt32LE(offset + cursor)
-      : code.readUInt16LE(offset + cursor);
-    instructions.push(
-      alignment === 4
-        ? `.inst 0x${value.toString(16).padStart(8, "0")}`
-        : `.inst.n 0x${value.toString(16).padStart(4, "0")}`
-    );
+  if (destination) {
+    if (entry.mode !== "$a" || entry.size !== 4) {
+      throw new Error(`${entry.name} is not a four-byte ARM function`);
+    }
+    instructions.push(`b ${destination}`);
+    branchThunks.delete(entry.name);
+  } else {
+    for (let cursor = 0; cursor < entry.size; cursor += alignment) {
+      const value = alignment === 4
+        ? code.readUInt32LE(offset + cursor)
+        : code.readUInt16LE(offset + cursor);
+      instructions.push(
+        alignment === 4
+          ? `.inst 0x${value.toString(16).padStart(8, "0")}`
+          : `.inst.n 0x${value.toString(16).padStart(4, "0")}`
+      );
+    }
   }
   assembly.push(
     `.section .text.${entry.name},"ax",%progbits`,
@@ -88,6 +119,11 @@ for (const entry of functions) {
     ...instructions,
     `.size ${entry.name}, .-${entry.name}`,
     ""
+  );
+}
+if (branchThunks.size !== 0) {
+  throw new Error(
+    `ARM direct-branch thunks missing from the function inventory: ${[...branchThunks.keys()].join(", ")}`
   );
 }
 writeFileSync(assemblyPath, `${assembly.join("\n")}\n`);
