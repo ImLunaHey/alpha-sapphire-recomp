@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_18.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1328,
+  "templates": {
+    "vtableChainClear": { "bodySize": 116, "count": 2 },
+    "backwardClearRecycle": { "bodySize": 116, "count": 2 },
+    "fourBitFloat": { "bodySize": 112, "count": 2 },
+    "allocatedObject16": { "bodySize": 72, "count": 3 },
+    "rangeMembership": { "bodySize": 108, "count": 2 },
+    "allocatedOwnerPair": { "bodySize": 52, "count": 4 }
+  },
+  "functions": [
+    { "name": "func_0053F3CC", "template": "vtableChainClear", "literal": { "offset": 116, "loadOffset": 0, "identity": "container0053F3CC" } },
+    { "name": "func_0053F474", "template": "vtableChainClear", "literal": { "offset": 116, "loadOffset": 0, "identity": "container0053F474" } },
+    { "name": "func_0056E634", "template": "backwardClearRecycle" },
+    { "name": "func_0056EAA0", "template": "backwardClearRecycle" },
+    { "name": "func_0016B184", "template": "fourBitFloat", "literal": { "offset": 112, "loadOffset": 104, "identity": "fallbackFloat" } },
+    { "name": "func_004C2084", "template": "fourBitFloat", "literal": { "offset": 112, "loadOffset": 104, "identity": "fallbackFloat" } },
+    { "name": "func_002FFE58", "template": "allocatedObject16", "literal": { "offset": 72, "loadOffset": 56, "identity": "type002FFE58" } },
+    { "name": "func_00304914", "template": "allocatedObject16", "literal": { "offset": 72, "loadOffset": 56, "identity": "type00304914" } },
+    { "name": "func_00306ECC", "template": "allocatedObject16", "literal": { "offset": 72, "loadOffset": 56, "identity": "type00306ECC" } },
+    { "name": "func_0056D118", "template": "rangeMembership" },
+    { "name": "func_0056D184", "template": "rangeMembership" },
+    { "name": "func_002FC7E0", "template": "allocatedOwnerPair", "literal": { "offset": 52, "loadOffset": 40, "identity": "owner002FC7E0" } },
+    { "name": "func_002FDEC4", "template": "allocatedOwnerPair", "literal": { "offset": 52, "loadOffset": 40, "identity": "owner002FDEC4" } },
+    { "name": "func_003085A0", "template": "allocatedOwnerPair", "literal": { "offset": 52, "loadOffset": 40, "identity": "owner003085A0" } },
+    { "name": "func_00309AE0", "template": "allocatedOwnerPair", "literal": { "offset": 52, "loadOffset": 40, "identity": "owner00309AE0" } }
+  ],
+  "literalIdentities": {
+    "container0053F3CC": "arm_duplicate_templates_18_container_vtable_0053F3CC",
+    "container0053F474": "arm_duplicate_templates_18_container_vtable_0053F474",
+    "fallbackFloat": "arm_duplicate_templates_18_fallback_float",
+    "type002FFE58": "arm_duplicate_templates_18_type_002FFE58",
+    "type00304914": "arm_duplicate_templates_18_type_00304914",
+    "type00306ECC": "arm_duplicate_templates_18_type_00306ECC",
+    "owner002FC7E0": "arm_duplicate_templates_18_owner_type_002FC7E0",
+    "owner002FDEC4": "arm_duplicate_templates_18_owner_type_002FDEC4",
+    "owner003085A0": "arm_duplicate_templates_18_owner_type_003085A0",
+    "owner00309AE0": "arm_duplicate_templates_18_owner_type_00309AE0"
+  }
+}

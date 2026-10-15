@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_18.S",
+  "functions": [
+    { "name": "func_002C8E54", "mode": "arm", "size": 80, "template": "handle_mapped_byte_io", "command": "ipc_command_func_002C8E54" },
+    { "name": "func_002CA6C0", "mode": "arm", "size": 80, "template": "handle_mapped_byte_io", "command": "ipc_command_func_002C8E54" },
+    { "name": "func_002C8FB0", "mode": "arm", "size": 80, "template": "handle_two_mapped", "command": "ipc_command_func_002C8FB0" },
+    { "name": "func_002CA81C", "mode": "arm", "size": 80, "template": "handle_two_mapped", "command": "ipc_command_func_002C8FB0" },
+    { "name": "func_002C9260", "mode": "arm", "size": 80, "template": "handle_byte_descriptor", "command": "ipc_command_func_002C9260" },
+    { "name": "func_002CAACC", "mode": "arm", "size": 80, "template": "handle_byte_descriptor", "command": "ipc_command_func_002C9260" },
+    { "name": "func_0010986C", "mode": "arm", "size": 52, "template": "global_constant_32", "command": "ipc_command_func_0010986C", "handle": "ipc_handle_slot_delta" },
+    { "name": "func_0015F350", "mode": "arm", "size": 52, "template": "global_constant_32", "command": "ipc_command_func_0015F350", "handle": "ipc_handle_slot_iota" },
+    { "name": "func_001F15A0", "mode": "arm", "size": 52, "template": "global_constant_32", "command": "ipc_command_func_001F15A0", "handle": "ipc_handle_slot_iota" },
+    { "name": "func_00160078", "mode": "arm", "size": 52, "template": "handle_no_input_output", "command": "ipc_command_func_00160078" },
+    { "name": "func_001F757C", "mode": "arm", "size": 52, "template": "handle_no_input_output", "command": "ipc_command_func_001F757C" },
+    { "name": "func_001F7800", "mode": "arm", "size": 52, "template": "handle_no_input_output", "command": "ipc_command_func_001F7800" },
+    { "name": "func_002C62B0", "mode": "arm", "size": 52, "template": "global_halfword", "command": "ipc_command_func_002C62B0", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C64F8", "mode": "arm", "size": 52, "template": "global_halfword", "command": "ipc_command_func_002C64F8", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C6660", "mode": "arm", "size": 52, "template": "global_halfword", "command": "ipc_command_func_00109CB8", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_00109C64", "mode": "arm", "size": 76, "template": "global_static_descriptor_word", "command": "ipc_command_func_00109C64", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_00133C68", "mode": "arm", "size": 76, "template": "global_static_descriptor_word", "command": "ipc_command_func_00133C68", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_00133E14", "mode": "arm", "size": 72, "template": "global_six_static_descriptor", "command": "ipc_command_func_00133E14", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_0016511C", "mode": "arm", "size": 72, "template": "global_six_static_descriptor", "command": "ipc_command_func_0016511C", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_001FF984", "mode": "arm", "size": 72, "template": "global_mapped_output", "command": "ipc_command_func_001FF984", "handle": "ipc_handle_slot_eta" },
+    { "name": "func_0020004C", "mode": "arm", "size": 72, "template": "global_mapped_output", "command": "ipc_command_func_001FF984", "handle": "ipc_handle_slot_theta" },
+    { "name": "func_002C8F64", "mode": "arm", "size": 72, "template": "handle_halfword_mapped", "command": "ipc_command_func_002C8F64" },
+    { "name": "func_002CA7D0", "mode": "arm", "size": 72, "template": "handle_halfword_mapped", "command": "ipc_command_func_002C8F64" },
+    { "name": "func_002C92E8", "mode": "arm", "size": 72, "template": "handle_mapped_byte_output", "command": "ipc_command_func_002C92E8" },
+    { "name": "func_002CAB54", "mode": "arm", "size": 72, "template": "handle_mapped_byte_output", "command": "ipc_command_func_002C92E8" }
+  ]
+}

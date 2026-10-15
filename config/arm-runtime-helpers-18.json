@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_18.S",
+  "mode": "arm",
+  "functions": [
+    { "name": "func_002DB148", "size": 96 },
+    { "name": "func_002DB244", "size": 64 },
+    { "name": "func_002DB290", "size": 408 },
+    { "name": "func_002DBE24", "size": 52 },
+    { "name": "func_0030FDF8", "size": 72 },
+    { "name": "func_0030FE40", "size": 72 },
+    { "name": "func_00324BE0", "size": 64 },
+    { "name": "func_003979D4", "size": 72 },
+    { "name": "func_0039B308", "size": 48 }
+  ]
+}
