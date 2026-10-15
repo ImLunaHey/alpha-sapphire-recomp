@@ -82,4 +82,5 @@ node "$root/scripts/validate-arm-multi-identity-globals-12.mjs" "$output" "$read
 node "$root/scripts/validate-arm-ipc-unique-templates-13.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-duplicate-container-templates-13.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-vfp-memory-helpers-13.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-14.mjs" "$output" "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

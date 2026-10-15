@@ -108,6 +108,10 @@
     {
       "path": "src/main/arm_runtime_vfp_memory_helpers_13.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_14.S",
+      "mode": "arm"
     }
   ]
 }

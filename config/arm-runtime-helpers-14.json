@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_14.S",
+  "mode": "arm",
+  "functions": [
+    { "name": "func_00144BCC", "size": 60 },
+    { "name": "func_00144CA8", "size": 32 },
+    { "name": "func_00144CC8", "size": 60 },
+    { "name": "func_0014CD7C", "size": 52 },
+    { "name": "func_001646A0", "size": 188 },
+    { "name": "func_00174884", "size": 80 },
+    { "name": "func_00176C88", "size": 116 },
+    { "name": "func_00181DD0", "size": 68 },
+    { "name": "func_00182370", "size": 60 },
+    { "name": "func_00182C60", "size": 80 },
+    { "name": "func_00195C40", "size": 52 },
+    { "name": "func_00195D5C", "size": 52 },
+    { "name": "func_00195D90", "size": 64 },
+    { "name": "func_00196004", "size": 52 },
+    { "name": "func_00196074", "size": 84 }
+  ]
+}
