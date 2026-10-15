@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "functions": [
+    {
+      "name": "func_0020B92C",
+      "functionSize": 8,
+      "sectionSize": 12,
+      "sectionAlignment": 4,
+      "literalOffset": 8,
+      "literalWords": [196611]
+    },
+    {
+      "name": "func_0020B938",
+      "functionSize": 8,
+      "sectionSize": 12,
+      "sectionAlignment": 4,
+      "literalOffset": 8,
+      "literalWords": [524292]
+    },
+    {
+      "name": "func_002CD4CC",
+      "functionSize": 8,
+      "sectionSize": 12,
+      "sectionAlignment": 4,
+      "literalOffset": 8,
+      "literalWords": [9072]
+    },
+    {
+      "name": "func_0045CECC",
+      "functionSize": 8,
+      "sectionSize": 12,
+      "sectionAlignment": 4,
+      "literalOffset": 8,
+      "literalWords": [9999]
+    },
+    {
+      "name": "func_0010945C",
+      "functionSize": 12,
+      "sectionSize": 16,
+      "sectionAlignment": 4,
+      "literalOffset": 12,
+      "literalWords": [4549]
+    },
+    {
+      "name": "func_00188538",
+      "functionSize": 12,
+      "sectionSize": 16,
+      "sectionAlignment": 4,
+      "literalOffset": 12,
+      "literalWords": [268435456]
+    },
+    {
+      "name": "func_00195AE0",
+      "functionSize": 12,
+      "sectionSize": 24,
+      "sectionAlignment": 8,
+      "literalOffset": 16,
+      "literalWords": [0, 268435456]
+    }
+  ]
+}

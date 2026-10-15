@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_abi_glue_10.S",
+  "functions": [
+    { "name": "func_001235A8", "size": 12 },
+    { "name": "func_00123768", "size": 28 },
+    { "name": "func_001237BC", "size": 28 },
+    { "name": "func_001237D8", "size": 32 },
+    { "name": "func_00123858", "size": 48 },
+    { "name": "func_00123888", "size": 52 },
+    { "name": "func_00123D98", "size": 40 },
+    { "name": "func_00123E68", "size": 24 },
+    { "name": "func_00124150", "size": 80 },
+    { "name": "func_001241A0", "size": 24 },
+    { "name": "func_001241B8", "size": 48 }
+  ]
+}

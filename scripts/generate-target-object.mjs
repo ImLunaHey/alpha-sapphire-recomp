@@ -4,10 +4,26 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
-const [codePath, symbolsPath, assembler, readelf, branchThunksPath] = process.argv.slice(2);
-if (!codePath || !symbolsPath || !assembler || !readelf || !branchThunksPath) {
+const [
+  codePath,
+  symbolsPath,
+  assembler,
+  readelf,
+  branchThunksPath,
+  adjacentGlobalLoadsPath,
+  targetConfigPath,
+] = process.argv.slice(2);
+if (
+  !codePath ||
+  !symbolsPath ||
+  !assembler ||
+  !readelf ||
+  !branchThunksPath ||
+  !adjacentGlobalLoadsPath ||
+  !targetConfigPath
+) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, and branch thunk mapping paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, and target config paths"
   );
 }
 
@@ -49,6 +65,51 @@ const functions = lines.filter(Boolean).map((line) => {
   };
 });
 
+const adjacentGlobalLoadsConfig = JSON.parse(
+  readFileSync(adjacentGlobalLoadsPath, "utf8")
+);
+if (
+  adjacentGlobalLoadsConfig.schemaVersion !== 1 ||
+  !Array.isArray(adjacentGlobalLoadsConfig.functions) ||
+  adjacentGlobalLoadsConfig.functions.length !== 79
+) {
+  throw new Error("Unexpected ARM adjacent-global-load mapping format");
+}
+const adjacentGlobalLoads = new Map();
+for (const entry of adjacentGlobalLoadsConfig.functions) {
+  if (
+    entry === null ||
+    typeof entry !== "object" ||
+    !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+    !/^global_load_(?:0[1-9]|[1-3][0-9]|4[0-7])$/.test(entry.identity) ||
+    !["data", "bss"].includes(entry.segment) ||
+    !["u32", "u8", "s8"].includes(entry.read) ||
+    !Number.isInteger(entry.displacement) ||
+    entry.displacement < 0 ||
+    adjacentGlobalLoads.has(entry.name)
+  ) {
+    throw new Error("Invalid or duplicate ARM adjacent-global-load mapping entry");
+  }
+  adjacentGlobalLoads.set(entry.name, entry);
+}
+for (const name of ["func_0010702C", "func_002BA6CC"]) {
+  if (adjacentGlobalLoads.has(name)) {
+    throw new Error(`Excluded scalar function must not be configured: ${name}`);
+  }
+}
+
+const targetConfig = JSON.parse(readFileSync(targetConfigPath, "utf8"));
+const targetSegments = new Map();
+for (const name of ["data", "bss"]) {
+  const segment = targetConfig?.code?.segments?.[name];
+  const address = Number.parseInt(segment?.address, 16);
+  const size = Number.parseInt(segment?.size, 16);
+  if (!Number.isInteger(address) || !Number.isInteger(size) || size <= 0) {
+    throw new Error(`Invalid target ${name} segment`);
+  }
+  targetSegments.set(name, { address, size });
+}
+
 const branchThunkConfig = JSON.parse(readFileSync(branchThunksPath, "utf8"));
 if (branchThunkConfig.schemaVersion !== 1 || !Array.isArray(branchThunkConfig.thunks)) {
   throw new Error("Unexpected ARM direct-branch thunk mapping format");
@@ -77,6 +138,74 @@ const objectPath = join(targetDirectory, "code.o");
 const baseObjectPath = join(buildDirectory, "base", "code.o");
 const code = readFileSync(codePath);
 const textStart = 0x00100000;
+const functionsByName = new Map(functions.map((entry) => [entry.name, entry]));
+const identityWords = new Map();
+const wordIdentities = new Map();
+
+function expectedReadInstruction(read, displacement) {
+  if (read === "u32" && displacement <= 4095) {
+    return (0xe5900000 | displacement) >>> 0;
+  }
+  if (read === "u8" && displacement <= 4095) {
+    return (0xe5d00000 | displacement) >>> 0;
+  }
+  if (read === "s8" && displacement <= 255) {
+    return (0xe1d000d0 | ((displacement & 0xf0) << 4) | (displacement & 0x0f)) >>> 0;
+  }
+  throw new Error(`Displacement is not encodable for ${read}`);
+}
+
+for (const [name, mapping] of adjacentGlobalLoads) {
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== 12) {
+    throw new Error(`${name} is not an inventoried 12-byte ARM function`);
+  }
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + 4;
+  const offset = entry.address - textStart;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + 16 > code.length) {
+    throw new Error(`${name} has an invalid or out-of-bounds adjacent identity slot`);
+  }
+  const overlap = functions.find(
+    (candidate) =>
+      candidate.address < slotEnd && candidate.address + candidate.size > slotStart
+  );
+  if (overlap !== undefined) {
+    throw new Error(`${name} identity slot overlaps inventoried function ${overlap.name}`);
+  }
+  const first = code.readUInt32LE(offset);
+  const second = code.readUInt32LE(offset + 4);
+  const third = code.readUInt32LE(offset + 8);
+  if (
+    first !== 0xe59f0004 ||
+    second !== expectedReadInstruction(mapping.read, mapping.displacement) ||
+    third !== 0xe12fff1e
+  ) {
+    throw new Error(`${name} does not have the configured obtain-base, read, return shape`);
+  }
+  const privateWord = code.readUInt32LE(offset + 12);
+  const segment = targetSegments.get(mapping.segment);
+  if (
+    privateWord < segment.address ||
+    privateWord >= segment.address + segment.size
+  ) {
+    throw new Error(`${name} identity word is outside its declared segment class`);
+  }
+  const priorWord = identityWords.get(mapping.identity);
+  const priorIdentity = wordIdentities.get(privateWord);
+  if (
+    (priorWord !== undefined && priorWord !== privateWord) ||
+    (priorIdentity !== undefined && priorIdentity !== mapping.identity)
+  ) {
+    throw new Error(`Neutral identity equality is inconsistent for ${name}`);
+  }
+  identityWords.set(mapping.identity, privateWord);
+  wordIdentities.set(privateWord, mapping.identity);
+}
+if (identityWords.size !== 47 || wordIdentities.size !== 47) {
+  throw new Error("Expected a biconditional mapping of 47 private words to 47 identities");
+}
+
 const assembly = [
   ".syntax unified",
   ".arch armv6k",
@@ -89,8 +218,11 @@ for (const entry of functions) {
     throw new Error(`${entry.name} has a size incompatible with ${entry.mode} mode`);
   }
   const destination = branchThunks.get(entry.name);
+  const adjacentGlobalLoad = adjacentGlobalLoads.get(entry.name);
   const instructions = [];
-  if (destination) {
+  if (destination && adjacentGlobalLoad) {
+    throw new Error(`${entry.name} has conflicting target-generation mappings`);
+  } else if (destination) {
     if (entry.mode !== "$a" || entry.size !== 4) {
       throw new Error(`${entry.name} is not a four-byte ARM function`);
     }
@@ -118,6 +250,9 @@ for (const entry of functions) {
     `${entry.name}:`,
     ...instructions,
     `.size ${entry.name}, .-${entry.name}`,
+    ...(adjacentGlobalLoad
+      ? [`.word ${adjacentGlobalLoad.identity}`, `.global ${adjacentGlobalLoad.identity}`]
+      : []),
     ""
   );
 }

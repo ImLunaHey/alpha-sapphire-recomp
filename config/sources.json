@@ -58,7 +58,19 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_adjacent_global_loads_09.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_svc_thunks.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_scalar_literal_returns.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_abi_glue_10.S",
       "mode": "arm"
     }
   ]
