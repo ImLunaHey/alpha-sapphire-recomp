@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_17.S",
+  "mode": "arm",
+  "functions": [
+    { "name": "func_002F54D0", "size": 124 },
+    { "name": "func_002FC820", "size": 348 },
+    { "name": "func_00329750", "size": 160 },
+    { "name": "func_003299E8", "size": 120 },
+    { "name": "func_003354FC", "size": 44 },
+    { "name": "func_003A7910", "size": 172 }
+  ]
+}

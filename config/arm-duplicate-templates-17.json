@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_17.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1520,
+  "functions": [
+    { "name": "func_00348540", "template": "yDirectionScaler", "bodySize": 132, "literals": [{ "offset": 132, "loadOffset": 20, "identity": "nudge" }, { "offset": 136, "loadOffset": 60, "identity": "normalizer" }, { "offset": 140, "loadOffset": 92, "identity": "scaleA" }] },
+    { "name": "func_003485D0", "template": "xDirectionScaler", "bodySize": 136, "literals": [{ "offset": 136, "loadOffset": 20, "identity": "nudge" }, { "offset": 140, "loadOffset": 64, "identity": "normalizer" }, { "offset": 144, "loadOffset": 100, "identity": "scaleA" }] },
+    { "name": "func_00348664", "template": "xDirectionScaler", "bodySize": 136, "literals": [{ "offset": 136, "loadOffset": 20, "identity": "nudge" }, { "offset": 140, "loadOffset": 64, "identity": "normalizer" }, { "offset": 144, "loadOffset": 100, "identity": "scaleB" }] },
+    { "name": "func_003486F8", "template": "yDirectionScaler", "bodySize": 132, "literals": [{ "offset": 132, "loadOffset": 20, "identity": "nudge" }, { "offset": 136, "loadOffset": 60, "identity": "normalizer" }, { "offset": 140, "loadOffset": 92, "identity": "scaleB" }] },
+    { "name": "func_001A3AA4", "template": "saturatingSampleScaler", "bodySize": 128, "calls": [{ "offset": 48, "target": "func_001A3964" }] },
+    { "name": "func_001A4250", "template": "saturatingSampleScaler", "bodySize": 128, "calls": [{ "offset": 48, "target": "func_001A4110" }] },
+    { "name": "func_0056E15C", "template": "intrusiveEraseRecycle", "bodySize": 124 },
+    { "name": "func_0056EB14", "template": "intrusiveEraseRecycle", "bodySize": 124 },
+    { "name": "func_0013E908", "template": "taggedPointerLookup", "bodySize": 60, "literals": [{ "offset": 60, "loadOffset": 0, "identity": "tag0013E908" }] },
+    { "name": "func_00152C18", "template": "taggedPointerLookup", "bodySize": 60, "literals": [{ "offset": 60, "loadOffset": 0, "identity": "tag00152C18" }] },
+    { "name": "func_004BF440", "template": "taggedPointerLookup", "bodySize": 60, "literals": [{ "offset": 60, "loadOffset": 0, "identity": "tag004BF440" }] },
+    { "name": "func_004BF4B8", "template": "taggedPointerLookup", "bodySize": 60, "literals": [{ "offset": 60, "loadOffset": 0, "identity": "tag004BF4B8" }] },
+    { "name": "func_00409614", "template": "vtableResetRelease", "bodySize": 80, "literals": [{ "offset": 80, "loadOffset": 8, "identity": "vtableIdentity" }] },
+    { "name": "func_0040F458", "template": "vtableResetRelease", "bodySize": 80, "literals": [{ "offset": 80, "loadOffset": 8, "identity": "vtableIdentity" }] },
+    { "name": "func_00411198", "template": "vtableResetRelease", "bodySize": 80, "literals": [{ "offset": 80, "loadOffset": 8, "identity": "vtableIdentity" }] }
+  ],
+  "literalIdentities": {
+    "nudge": "arm_duplicate_templates_17_nudge",
+    "normalizer": "arm_duplicate_templates_17_normalizer",
+    "scaleA": "arm_duplicate_templates_17_scale_a",
+    "scaleB": "arm_duplicate_templates_17_scale_b",
+    "tag0013E908": "arm_duplicate_templates_17_tag_0013E908",
+    "tag00152C18": "arm_duplicate_templates_17_tag_00152C18",
+    "tag004BF440": "arm_duplicate_templates_17_tag_004BF440",
+    "tag004BF4B8": "arm_duplicate_templates_17_tag_004BF4B8",
+    "vtableIdentity": "arm_duplicate_templates_17_vtable_identity"
+  }
+}

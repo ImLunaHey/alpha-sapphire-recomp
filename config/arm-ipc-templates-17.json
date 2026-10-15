@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_17.S",
+  "functions": [
+    { "name": "func_002C8EA8", "mode": "arm", "size": 100, "template": "handle_mapped_three_outputs", "command": "ipc_command_func_002C8EA8" },
+    { "name": "func_002CA714", "mode": "arm", "size": 100, "template": "handle_mapped_three_outputs", "command": "ipc_command_func_002C8EA8" },
+    { "name": "func_002C8D60", "mode": "arm", "size": 96, "template": "handle_descriptor_two_outputs", "command": "ipc_command_func_002C8D60" },
+    { "name": "func_002CA5CC", "mode": "arm", "size": 96, "template": "handle_descriptor_two_outputs", "command": "ipc_command_func_002C8D60" },
+    { "name": "func_002C902C", "mode": "arm", "size": 92, "template": "handle_mapped_mixed_outputs", "command": "ipc_command_func_002C902C" },
+    { "name": "func_002CA898", "mode": "arm", "size": 92, "template": "handle_mapped_mixed_outputs", "command": "ipc_command_func_002C902C" },
+    { "name": "func_002C908C", "mode": "arm", "size": 92, "template": "handle_two_bytes_one_output", "command": "ipc_command_func_002C908C" },
+    { "name": "func_002CA8F8", "mode": "arm", "size": 92, "template": "handle_two_bytes_one_output", "command": "ipc_command_func_002C908C" },
+    { "name": "func_002E40B0", "mode": "arm", "size": 92, "template": "handle_static_one_output", "command": "ipc_command_func_002E40B0" },
+    { "name": "func_002E42FC", "mode": "arm", "size": 92, "template": "handle_static_one_output", "command": "ipc_command_func_002E42FC" },
+    { "name": "func_001FFA8C", "mode": "arm", "size": 84, "template": "global_words_byte_mapped", "command": "ipc_command_func_001FFA8C", "handle": "ipc_handle_slot_eta" },
+    { "name": "func_00200154", "mode": "arm", "size": 84, "template": "global_words_byte_mapped", "command": "ipc_command_func_001FFA8C", "handle": "ipc_handle_slot_theta" },
+    { "name": "func_001FFB30", "mode": "arm", "size": 84, "template": "global_two_descriptors", "command": "ipc_command_func_001FFB30", "handle": "ipc_handle_slot_eta" },
+    { "name": "func_002001F8", "mode": "arm", "size": 84, "template": "global_two_descriptors", "command": "ipc_command_func_001FFB30", "handle": "ipc_handle_slot_theta" },
+    { "name": "func_002C9138", "mode": "arm", "size": 84, "template": "handle_halfword_one_output", "command": "ipc_command_func_002C9138" },
+    { "name": "func_002CA9A4", "mode": "arm", "size": 84, "template": "handle_halfword_one_output", "command": "ipc_command_func_002C9138" },
+    { "name": "func_001FF78C", "mode": "arm", "size": 80, "template": "global_fixed_mapped", "command": "ipc_command_func_001FF78C", "handle": "ipc_handle_slot_eta" },
+    { "name": "func_001FFE54", "mode": "arm", "size": 80, "template": "global_fixed_mapped", "command": "ipc_command_func_001FF78C", "handle": "ipc_handle_slot_theta" }
+  ]
+}
