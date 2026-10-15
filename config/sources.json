@@ -8,6 +8,10 @@
     {
       "path": "src/main/immediate_return_stubs.c",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/simple_value_stubs.c",
+      "mode": "arm"
     }
   ]
 }

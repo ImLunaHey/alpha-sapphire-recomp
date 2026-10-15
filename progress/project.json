@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 18 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 32 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 0.0031861223,
-    "matchedFunctions": 18,
+    "matchedCodePercent": 0.008283918,
+    "matchedFunctions": 32,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "18 immediate-return routines match byte-for-byte from portable C",
+      "detail": "32 small routines match byte-for-byte from portable C",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "Simple value stubs matched",
+      "detail": "Fourteen role-separated constant and argument-transform routines raised the genuine report to 32 matched functions and 182 matched bytes."
+    },
     {
       "date": "2026-10-15",
       "title": "Immediate-return batch matched",
