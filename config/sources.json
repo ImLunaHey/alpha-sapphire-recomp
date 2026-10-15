@@ -32,6 +32,14 @@
     {
       "path": "src/main/probe_verified_indexed_return_stores.c",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_arm_conditionals_04.c",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_thumb_batch03.c",
+      "mode": "thumb"
     }
   ]
 }
