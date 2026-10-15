@@ -12,6 +12,14 @@
     {
       "path": "src/main/simple_value_stubs.c",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_arm_leaves.c",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/probe_verified_thumb_leaves.c",
+      "mode": "thumb"
     }
   ]
 }
