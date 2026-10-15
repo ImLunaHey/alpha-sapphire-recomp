@@ -29,6 +29,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-duplicate-ipc-and-table-templates-12.json" \
   "$root/config/arm-multi-identity-globals-12.json" \
   "$root/config/arm-ipc-unique-templates-13.json" \
+  "$root/config/arm-ipc-templates-15.json" \
   "$root/config/arm-duplicate-container-templates-13.json" \
   "$root/config/target-literal-identities/AS_EUR_REV2.json" \
   "$root/config/targets/AS_EUR_REV2.json"
@@ -41,6 +42,8 @@ node "$root/scripts/validate-arm-duplicate-ipc-and-table-templates-12.mjs" \
 node "$root/scripts/validate-arm-multi-identity-globals-12.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-ipc-unique-templates-13.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-ipc-templates-15.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-duplicate-container-templates-13.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

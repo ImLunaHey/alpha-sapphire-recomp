@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_duplicate_templates_14.S",
+  "mode": "arm",
+  "functionCount": 14,
+  "bodyBytes": 2640,
+  "groups": [
+    {
+      "template": "PACKET_ENCODER",
+      "size": 316,
+      "functions": ["func_004BBFD4", "func_004BC130"],
+      "literalIdentities": ["packet_header_a", "packet_header_b", "float_zero", "float_bias", "float_scale", "integer_boundary", "round_adjust", "large_replacement"]
+    },
+    {
+      "template": "VECTOR_RESERVE",
+      "size": 224,
+      "functions": ["func_00540D64", "func_0054108C"],
+      "literalIdentities": []
+    },
+    {
+      "template": "RECORD_DECODER",
+      "size": 220,
+      "functions": ["func_00497E48", "func_00498DA0"],
+      "literalIdentities": []
+    },
+    {
+      "template": "TAGGED_LOOKUP",
+      "size": 100,
+      "functions": ["func_0016B518", "func_0016B5EC", "func_0018CDFC", "func_004C2204"],
+      "literalIdentities": ["record_tag"]
+    },
+    {
+      "template": "RECORD_INITIALIZER",
+      "size": 180,
+      "functions": ["func_0049D0B8", "func_004A416C"],
+      "literalIdentities": []
+    },
+    {
+      "template": "SELECTOR_LOOKUP",
+      "size": 180,
+      "functions": ["func_004C1E58", "func_004C2120"],
+      "literalIdentities": []
+    }
+  ]
+}
