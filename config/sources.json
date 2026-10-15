@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "sources": [
+    {
+      "path": "src/main/func_00100074.c",
+      "mode": "thumb"
+    },
+    {
+      "path": "src/main/immediate_return_stubs.c",
+      "mode": "arm"
+    }
+  ]
+}

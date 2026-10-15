@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and the first clean-room function is byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 18 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 0.00009103207,
-    "matchedFunctions": 1,
+    "matchedCodePercent": 0.0031861223,
+    "matchedFunctions": 18,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "func_00100074 matches byte-for-byte from portable C",
+      "detail": "18 immediate-return routines match byte-for-byte from portable C",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "Immediate-return batch matched",
+      "detail": "Seventeen additional role-separated ARM implementations raised the genuine report to 18 matched functions and 70 matched bytes."
+    },
     {
       "date": "2026-10-15",
       "title": "First clean-room match",

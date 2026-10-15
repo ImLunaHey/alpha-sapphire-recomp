@@ -16,15 +16,33 @@ if [[ ${#sources[@]} -eq 0 ]]; then
   exit 1
 fi
 
+declare -A source_modes=()
+while IFS=$'\t' read -r path mode; do
+  source_modes["$path"]="$mode"
+done < <(node -e '
+  const config = require(process.argv[1]);
+  for (const source of config.sources) console.log(`${source.path}\t${source.mode}`);
+' "$root/config/sources.json")
+
 object_root="$root/build/AS_EUR_REV2/base/objects"
 mkdir -p "$object_root"
 objects=()
 for source in "${sources[@]}"; do
+  repository_path="${source#"$root/"}"
   relative="${source#"$root/src/"}"
   object="$object_root/${relative%.c}.o"
+  mode="${source_modes[$repository_path]:-}"
+  case "$mode" in
+    arm) mode_flag="-marm" ;;
+    thumb) mode_flag="-mthumb" ;;
+    *)
+      printf 'Missing or invalid instruction mode for %s in config/sources.json\n' "$repository_path" >&2
+      exit 1
+      ;;
+  esac
   mkdir -p "$(dirname "$object")"
   "$compiler" \
-    -std=c11 -Os -march=armv6k -mcpu=mpcore -mthumb -mfloat-abi=soft \
+    -std=c11 -Os -march=armv6k -mcpu=mpcore "$mode_flag" -mfloat-abi=soft \
     -ffreestanding -fno-builtin -fno-common -fomit-frame-pointer \
     -fno-unwind-tables -fno-asynchronous-unwind-tables -fno-stack-protector \
     -fno-pic -fno-pie -fno-ident -ffunction-sections -fdata-sections \
