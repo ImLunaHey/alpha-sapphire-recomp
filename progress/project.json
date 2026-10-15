@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 124 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 126 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 0.06836508,
-    "matchedFunctions": 124,
+    "matchedCodePercent": 0.07091398,
+    "matchedFunctions": 126,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "124 routines match byte-for-byte from portable C",
+      "detail": "126 routines match byte-for-byte from portable C",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "Bitfield wrappers matched",
+      "detail": "Two additional ARM direct-call wrappers raised the genuine report to 126 matched functions and 1,558 matched bytes."
+    },
     {
       "date": "2026-10-15",
       "title": "Conditional routines matched",

@@ -40,6 +40,10 @@
     {
       "path": "src/main/probe_verified_thumb_batch03.c",
       "mode": "thumb"
+    },
+    {
+      "path": "src/main/probe_verified_arm_wrappers_06.c",
+      "mode": "arm"
     }
   ]
 }
