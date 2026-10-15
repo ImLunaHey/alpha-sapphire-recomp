@@ -1,0 +1,38 @@
+# Local configuration and secrets
+.env
+.env.*
+!.env.example
+
+# Proprietary game inputs and extracted content (never commit)
+*.3ds
+*.3dsx
+*.cia
+*.cci
+*.cxi
+*.ncch
+*.rom
+*.romfs
+*.exefs
+*.code
+baserom*
+original/
+private/
+extracted/
+
+# Generated build and comparison outputs
+build/
+out/
+reports/
+objdiff.json
+.cache/
+
+# Local observer UI (personal tooling, never part of the decomp repository)
+web/
+
+# Package-manager and editor state
+node_modules/
+*.log
+.DS_Store
+.idea/
+.vscode/
+
