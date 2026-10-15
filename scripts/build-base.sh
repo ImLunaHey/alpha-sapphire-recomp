@@ -5,7 +5,8 @@ root="$(git rev-parse --show-toplevel)"
 toolchain="$(nix build --no-link --print-out-paths nixpkgs#gcc-arm-embedded)"
 compiler="$(find "$toolchain" -type f -name arm-none-eabi-gcc -print -quit)"
 linker="$(find "$toolchain" -type f -name arm-none-eabi-ld -print -quit)"
-[[ -x "$compiler" && -x "$linker" ]] || {
+readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
+[[ -x "$compiler" && -x "$linker" && -x "$readelf" ]] || {
   printf '%s\n' 'GNU Arm compiler tools were not found.' >&2
   exit 1
 }
@@ -67,4 +68,5 @@ done
 output="$root/build/AS_EUR_REV2/base/code.o"
 mkdir -p "$(dirname "$output")"
 "$linker" -r -o "$output" "${objects[@]}"
+node "$root/scripts/validate-arm-opaque-address-returns.mjs" "$output" "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

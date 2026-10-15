@@ -52,6 +52,10 @@
     {
       "path": "src/main/arm_direct_branch_thunks.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_opaque_address_returns.S",
+      "mode": "arm"
     }
   ]
 }

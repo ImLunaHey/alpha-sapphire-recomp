@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "base:build": "bash scripts/build-base.sh",
-    "check": "npm run check:clean && node --check scripts/generate-report.mjs && node --check scripts/generate-target-object.mjs && node --check scripts/extract-container.mjs && node --check scripts/validate-symbols.mjs && node --check scripts/verify-target.mjs && node scripts/validate-arm-direct-branch-thunks.mjs",
+    "check": "npm run check:clean && node --check scripts/generate-report.mjs && node --check scripts/generate-target-object.mjs && node --check scripts/extract-container.mjs && node --check scripts/validate-symbols.mjs && node --check scripts/verify-target.mjs && node --check scripts/validate-arm-opaque-address-returns.mjs && node scripts/validate-arm-direct-branch-thunks.mjs && node scripts/validate-arm-opaque-address-returns.mjs",
     "check:clean": "bash scripts/check-no-rom.sh",
     "check:environment": "bash scripts/check-environment.sh",
     "target:extract": "bash scripts/extract-target.sh",
