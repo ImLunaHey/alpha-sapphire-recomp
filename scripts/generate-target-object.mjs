@@ -16,6 +16,7 @@ const [
   multiIdentityGlobalsPath,
   ipcUniqueTemplatesPath,
   ipcTemplates15Path,
+  ipcTemplates16Path,
   duplicateContainerTemplatesPath,
   literalIdentitiesPath,
   targetConfigPath,
@@ -32,12 +33,13 @@ if (
   !multiIdentityGlobalsPath ||
   !ipcUniqueTemplatesPath ||
   !ipcTemplates15Path ||
+  !ipcTemplates16Path ||
   !duplicateContainerTemplatesPath ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, duplicate container mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, duplicate container mapping, target literal identities, and target config paths"
   );
 }
 
@@ -291,6 +293,47 @@ if (ipcTemplate15Counts.size !== 7 || configuredIpcTemplate15Bytes !== 1920 ||
   throw new Error("Unexpected IPC template 15 totals");
 }
 
+const ipcTemplates16Config = JSON.parse(readFileSync(ipcTemplates16Path, "utf8"));
+if (ipcTemplates16Config.schemaVersion !== 1 ||
+    !Array.isArray(ipcTemplates16Config.functions) || ipcTemplates16Config.functions.length !== 16) {
+  throw new Error("Unexpected IPC template 16 mapping format");
+}
+const ipcTemplates16 = new Map();
+const ipcTemplate16Definitions = new Map([
+  ["global_two_descriptors_output", { size: 120, count: 2, literals: ["command", "handle"] }],
+  ["global_aux_three_descriptors", { size: 116, count: 2, literals: ["command", "auxiliary", "handle"] }],
+  ["handle_static_descriptor", { size: 76, count: 3, literals: ["command"] }],
+  ["global_three_bytes", { size: 72, count: 3, literals: ["command", "handle"] }],
+  ["global_two_mapped", { size: 104, count: 2, literals: ["command", "handle"] }],
+  ["global_fixed_output", { size: 104, count: 2, literals: ["command", "handle"] }],
+  ["handle_two_halfword_outputs", { size: 104, count: 2, literals: ["command"] }],
+]);
+const ipcTemplate16Counts = new Map();
+let configuredIpcTemplate16Bytes = 0;
+let configuredIpcTemplate16Slots = 0;
+for (const entry of ipcTemplates16Config.functions) {
+  const definition = ipcTemplate16Definitions.get(entry?.template);
+  if (entry === null || typeof entry !== "object" || !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      entry.mode !== "arm" || definition === undefined || entry.size !== definition.size ||
+      definition.literals.some((key) => typeof entry[key] !== "string") ||
+      ipcTemplates16.has(entry.name)) {
+    throw new Error("Invalid or duplicate IPC template 16 mapping entry");
+  }
+  ipcTemplates16.set(entry.name, entry);
+  ipcTemplate16Counts.set(entry.template, (ipcTemplate16Counts.get(entry.template) ?? 0) + 1);
+  configuredIpcTemplate16Bytes += entry.size;
+  configuredIpcTemplate16Slots += definition.literals.length;
+}
+for (const [name, definition] of ipcTemplate16Definitions) {
+  if (ipcTemplate16Counts.get(name) !== definition.count) {
+    throw new Error(`Unexpected ${name} IPC template 16 cardinality`);
+  }
+}
+if (ipcTemplate16Counts.size !== 7 || configuredIpcTemplate16Bytes !== 1540 ||
+    configuredIpcTemplate16Slots !== 29) {
+  throw new Error("Unexpected IPC template 16 totals");
+}
+
 const duplicateContainerTemplatesConfig = JSON.parse(
   readFileSync(duplicateContainerTemplatesPath, "utf8")
 );
@@ -435,6 +478,7 @@ const ipcMappings = [
   ...[...duplicateIpcAndTables].filter(([, mapping]) => mapping.template !== "table_state"),
   ...ipcUniqueTemplates,
   ...ipcTemplates15,
+  ...ipcTemplates16,
 ];
 for (const [name, mapping] of ipcMappings) {
   const entry = functionsByName.get(name);
@@ -470,14 +514,14 @@ for (const [name, mapping] of ipcMappings) {
   ipcMappedBytes += entry.size;
   ipcMappedSlots += identities.length;
 }
-if (ipcMappings.length !== 77 || ipcMappedBytes !== 5268 || ipcMappedSlots !== 128 ||
-    ipcIdentityWords.size !== 70 || ipcWordIdentities.size !== 70 ||
+if (ipcMappings.length !== 93 || ipcMappedBytes !== 6808 || ipcMappedSlots !== 157 ||
+    ipcIdentityWords.size !== 80 || ipcWordIdentities.size !== 80 ||
     !ipcIdentityWords.has("ipc_handle_slot_alpha") ||
     !ipcIdentityWords.has("ipc_handle_slot_gamma") ||
     !ipcIdentityWords.has("ipc_handle_slot_eta") ||
     !ipcIdentityWords.has("ipc_handle_slot_theta") ||
     !ipcIdentityWords.has("ipc_aux_literal_class_15")) {
-  throw new Error("The 128 IPC slots must form a 70-to-70 identity/word bijection");
+  throw new Error("The 157 IPC slots must form an 80-to-80 identity/word bijection");
 }
 
 for (const [name, mapping] of adjacentGlobalLoads) {
@@ -732,9 +776,10 @@ for (const entry of functions) {
   const multiIdentityGlobal = multiIdentityGlobals.get(entry.name);
   const ipcUniqueTemplate = ipcUniqueTemplates.get(entry.name);
   const ipcTemplate15 = ipcTemplates15.get(entry.name);
+  const ipcTemplate16 = ipcTemplates16.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, duplicateContainerTemplate].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, duplicateContainerTemplate].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -810,12 +855,19 @@ for (const entry of functions) {
           `.global ${ipcTemplate15[key]}`,
         ])
       : []),
+    ...(ipcTemplate16
+      ? ipcTemplate16Definitions.get(ipcTemplate16.template).literals.flatMap((key) => [
+          `.word ${ipcTemplate16[key]}`,
+          `.global ${ipcTemplate16[key]}`,
+        ])
+      : []),
     ""
   );
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
   ipcUniqueTemplates.delete(entry.name);
   ipcTemplates15.delete(entry.name);
+  ipcTemplates16.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (branchThunks.size !== 0) {
@@ -841,6 +893,11 @@ if (ipcUniqueTemplates.size !== 0) {
 if (ipcTemplates15.size !== 0) {
   throw new Error(
     `IPC template 15 mappings missing from the function inventory: ${[...ipcTemplates15.keys()].join(", ")}`
+  );
+}
+if (ipcTemplates16.size !== 0) {
+  throw new Error(
+    `IPC template 16 mappings missing from the function inventory: ${[...ipcTemplates16.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {

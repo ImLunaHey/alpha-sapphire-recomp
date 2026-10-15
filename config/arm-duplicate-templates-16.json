@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_duplicate_templates_16.S",
+  "mode": "arm",
+  "functionCount": 11,
+  "bodyBytes": 2488,
+  "groups": [
+    {
+      "template": "PACKED_DUAL_TRANSFORM",
+      "size": 680,
+      "functions": ["func_001A3B28", "func_001A42D4"],
+      "literalSymbols": ["$function_coefficient_table"]
+    },
+    {
+      "template": "ALLOCATED_OBJECT_INITIALIZER",
+      "size": 96,
+      "functions": ["func_00305DFC", "func_003094A4", "func_0030A698"],
+      "literalSymbols": ["arm_duplicate_templates_16_initial_float", "$function_type_identity"]
+    },
+    {
+      "template": "TYPE_CHAIN_ATTACHMENT",
+      "size": 140,
+      "functions": ["func_0032B348", "func_0032DD34"],
+      "literalSymbols": ["$function_type_identity"]
+    },
+    {
+      "template": "PRIMARY_SECONDARY_LOOKUP",
+      "size": 140,
+      "functions": ["func_0045A71C", "func_004E7FF4"],
+      "literalSymbols": ["arm_duplicate_templates_16_empty_identity", "arm_duplicate_templates_16_primary_table"]
+    },
+    {
+      "template": "REPEATED_RECORD_INITIALIZER",
+      "size": 140,
+      "functions": ["func_004934B8", "func_00496F40"],
+      "literalSymbols": []
+    }
+  ]
+}
