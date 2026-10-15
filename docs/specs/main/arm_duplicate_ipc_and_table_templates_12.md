@@ -38,12 +38,15 @@ Every function below is 52 bytes and has the same complete code body:
 - `func_002DE884`
 - `func_002DEA44`
 
-Treat each function as having its own named `ipc_command_<function>` identity.
+Treat each function as having its own named `ipc_command_<function>` identity,
+except that `func_002DE884` uses `ipc_command_func_002C6378`: those two literal
+slots are the same neutral command-header identity.
 The service-handle-slot identities are shared as follows:
 
-- `ipc_handle_slot_alpha`: `func_00109CB8`, `func_001103C0`
-- `ipc_handle_slot_beta`: `func_001267CC`, `func_001269A8`,
-  `func_00126A20`, `func_002DE708`, `func_002DE884`, `func_002DEA44`
+- `ipc_handle_slot_alpha`: `func_00109CB8`, `func_001103C0`,
+  `func_001267CC`
+- `ipc_handle_slot_beta`: `func_001269A8`, `func_00126A20`,
+  `func_002DE708`, `func_002DE884`, `func_002DEA44`
 - `ipc_handle_slot_gamma`: all six listed `func_002C...` functions
 
 The routine accepts one machine word in `r0`, but only its low byte is

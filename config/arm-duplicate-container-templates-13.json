@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_duplicate_container_templates_13.S",
+  "functions": [
+    { "name": "func_00550394", "size": 320, "template": "range_erase_a", "recycler": "func_005504D4", "erase": "func_0054FD38" },
+    { "name": "func_00550B6C", "size": 320, "template": "range_erase_a", "recycler": "func_00550CAC", "erase": "func_00550510" },
+    { "name": "func_0055C7F8", "size": 320, "template": "range_erase_a", "recycler": "func_0055C938", "erase": "func_0055C19C" },
+    { "name": "func_00567560", "size": 320, "template": "range_erase_a", "recycler": "func_005676A0", "erase": "func_00566F04" },
+    { "name": "func_00569818", "size": 320, "template": "range_erase_a", "recycler": "func_00569958", "erase": "func_005691BC" },
+    { "name": "func_00552144", "size": 312, "template": "range_erase_b", "recycler": "func_0055227C", "erase": "func_00551AE4" },
+    { "name": "func_00559304", "size": 312, "template": "range_erase_b", "recycler": "func_0055943C", "erase": "func_00558CA4" },
+    { "name": "func_0055D3B0", "size": 312, "template": "range_erase_b", "recycler": "func_0055D4E8", "erase": "func_0055CD50" },
+    { "name": "func_00540E44", "size": 292, "template": "vector_append_4" },
+    { "name": "func_00540F68", "size": 292, "template": "vector_append_4" },
+    { "name": "func_0054116C", "size": 292, "template": "vector_append_4" }
+  ]
+}

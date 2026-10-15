@@ -14,6 +14,8 @@ const [
   globalStatePath,
   duplicateIpcAndTablesPath,
   multiIdentityGlobalsPath,
+  ipcUniqueTemplatesPath,
+  duplicateContainerTemplatesPath,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -27,11 +29,13 @@ if (
   !globalStatePath ||
   !duplicateIpcAndTablesPath ||
   !multiIdentityGlobalsPath ||
+  !ipcUniqueTemplatesPath ||
+  !duplicateContainerTemplatesPath ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, duplicate container mapping, target literal identities, and target config paths"
   );
 }
 
@@ -203,6 +207,86 @@ for (let number = 1; number <= 15; number++) {
   }
 }
 
+const ipcUniqueTemplatesConfig = JSON.parse(readFileSync(ipcUniqueTemplatesPath, "utf8"));
+if (ipcUniqueTemplatesConfig.schemaVersion !== 1 ||
+    !Array.isArray(ipcUniqueTemplatesConfig.functions) ||
+    ipcUniqueTemplatesConfig.functions.length !== 29) {
+  throw new Error("Unexpected unique IPC mapping format");
+}
+const ipcUniqueTemplates = new Map();
+const ipcUniqueTemplateSizes = new Map([
+  ["global_one_word", 48],
+  ["global_six_mixed", 84],
+  ["handle_word_byte", 72],
+  ["handle_word", 60],
+  ["handle_word_two_bytes", 80],
+]);
+const ipcUniqueTemplateCounts = new Map();
+let configuredIpcUniqueBytes = 0;
+for (const entry of ipcUniqueTemplatesConfig.functions) {
+  const expectedSize = ipcUniqueTemplateSizes.get(entry?.template);
+  const hasHandle = entry?.template === "global_one_word" || entry?.template === "global_six_mixed";
+  if (entry === null || typeof entry !== "object" ||
+      !/^func_[0-9A-F]{8}$/.test(entry.name) || entry.mode !== "arm" ||
+      expectedSize === undefined || entry.size !== expectedSize ||
+      !/^ipc_command_func_[0-9A-F]{8}$/.test(entry.command) ||
+      (hasHandle && !/^ipc_handle_slot_(?:alpha|delta|epsilon|gamma|zeta)$/.test(entry.handle)) ||
+      (!hasHandle && entry.handle !== undefined) || ipcUniqueTemplates.has(entry.name)) {
+    throw new Error("Invalid or duplicate unique IPC mapping entry");
+  }
+  ipcUniqueTemplates.set(entry.name, entry);
+  ipcUniqueTemplateCounts.set(entry.template, (ipcUniqueTemplateCounts.get(entry.template) ?? 0) + 1);
+  configuredIpcUniqueBytes += entry.size;
+}
+if (configuredIpcUniqueBytes !== 1916 ||
+    ipcUniqueTemplateCounts.get("global_one_word") !== 8 ||
+    ipcUniqueTemplateCounts.get("global_six_mixed") !== 5 ||
+    ipcUniqueTemplateCounts.get("handle_word_byte") !== 6 ||
+    ipcUniqueTemplateCounts.get("handle_word") !== 6 ||
+    ipcUniqueTemplateCounts.get("handle_word_two_bytes") !== 4 ||
+    ipcUniqueTemplateCounts.size !== 5) {
+  throw new Error("Unexpected unique IPC template totals");
+}
+
+const duplicateContainerTemplatesConfig = JSON.parse(
+  readFileSync(duplicateContainerTemplatesPath, "utf8")
+);
+if (duplicateContainerTemplatesConfig.schemaVersion !== 1 ||
+    !Array.isArray(duplicateContainerTemplatesConfig.functions) ||
+    duplicateContainerTemplatesConfig.functions.length !== 11) {
+  throw new Error("Unexpected duplicate container mapping format");
+}
+const duplicateContainerTemplates = new Map();
+const duplicateContainerTemplateCounts = new Map();
+let configuredDuplicateContainerBytes = 0;
+for (const entry of duplicateContainerTemplatesConfig.functions) {
+  const expectedSize = entry?.template === "range_erase_a" ? 320 :
+    entry?.template === "range_erase_b" ? 312 :
+    entry?.template === "vector_append_4" ? 292 : undefined;
+  const isRangeErase = entry?.template === "range_erase_a" || entry?.template === "range_erase_b";
+  if (entry === null || typeof entry !== "object" ||
+      !/^func_[0-9A-F]{8}$/.test(entry.name) || entry.size !== expectedSize ||
+      (isRangeErase && (!/^func_[0-9A-F]{8}$/.test(entry.recycler) ||
+        !/^func_[0-9A-F]{8}$/.test(entry.erase))) ||
+      (!isRangeErase && (entry.recycler !== undefined || entry.erase !== undefined)) ||
+      duplicateContainerTemplates.has(entry.name)) {
+    throw new Error("Invalid or duplicate container template mapping entry");
+  }
+  duplicateContainerTemplates.set(entry.name, entry);
+  duplicateContainerTemplateCounts.set(
+    entry.template,
+    (duplicateContainerTemplateCounts.get(entry.template) ?? 0) + 1
+  );
+  configuredDuplicateContainerBytes += entry.size;
+}
+if (configuredDuplicateContainerBytes !== 3412 ||
+    duplicateContainerTemplateCounts.get("range_erase_a") !== 5 ||
+    duplicateContainerTemplateCounts.get("range_erase_b") !== 3 ||
+    duplicateContainerTemplateCounts.get("vector_append_4") !== 3 ||
+    duplicateContainerTemplateCounts.size !== 3) {
+  throw new Error("Unexpected duplicate container template totals");
+}
+
 const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
 if (literalIdentityConfig.version !== 1 ||
     Object.keys(literalIdentityConfig).sort().join(",") !== "armAdjacentAbsoluteLiterals,version" ||
@@ -273,6 +357,13 @@ function isAl(instruction) {
   return instruction >>> 28 === 0xe;
 }
 
+function isArmCallTo(instruction, instructionAddress, destinationAddress) {
+  if ((instruction >>> 24) !== 0xeb) return false;
+  let displacement = instruction & 0x00ffffff;
+  if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+  return instructionAddress + 8 + displacement * 4 === destinationAddress;
+}
+
 function isLiteralLoad(instruction, destination, displacement) {
   return isAl(instruction) &&
     ((instruction >>> 26) & 0x3) === 0x1 &&
@@ -291,6 +382,53 @@ function isBxLr(instruction) {
   return isAl(instruction) &&
     (instruction & 0x0ffffff0) === 0x012fff10 &&
     (instruction & 0xf) === 14;
+}
+
+const ipcIdentityWords = new Map();
+const ipcWordIdentities = new Map();
+let ipcMappedBytes = 0;
+let ipcMappedSlots = 0;
+const ipcMappings = [
+  ...[...duplicateIpcAndTables].filter(([, mapping]) => mapping.template !== "table_state"),
+  ...ipcUniqueTemplates,
+];
+for (const [name, mapping] of ipcMappings) {
+  const entry = functionsByName.get(name);
+  const identities = [mapping.command, ...(mapping.handle === undefined ? [] : [mapping.handle])];
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== mapping.size) {
+    throw new Error(`${name} is not the configured inventoried ARM IPC function`);
+  }
+  const offset = entry.address - textStart;
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + identities.length * 4;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + entry.size + identities.length * 4 > code.length) {
+    throw new Error(`${name} has invalid or out-of-bounds IPC identity slots`);
+  }
+  const overlap = functions.find((candidate) =>
+    candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) {
+    throw new Error(`${name} IPC identity slots overlap inventoried function ${overlap.name}`);
+  }
+  for (let index = 0; index < identities.length; index++) {
+    const identity = identities[index];
+    const privateWord = code.readUInt32LE(offset + entry.size + index * 4);
+    const priorWord = ipcIdentityWords.get(identity);
+    const priorIdentity = ipcWordIdentities.get(privateWord);
+    if ((priorWord !== undefined && priorWord !== privateWord) ||
+        (priorIdentity !== undefined && priorIdentity !== identity)) {
+      throw new Error(`Cross-batch IPC identity equality is inconsistent for ${name} slot ${index}`);
+    }
+    ipcIdentityWords.set(identity, privateWord);
+    ipcWordIdentities.set(privateWord, identity);
+  }
+  ipcMappedBytes += entry.size;
+  ipcMappedSlots += identities.length;
+}
+if (ipcMappings.length !== 54 || ipcMappedBytes !== 3348 || ipcMappedSlots !== 92 ||
+    ipcIdentityWords.size !== 49 || ipcWordIdentities.size !== 49 ||
+    !ipcIdentityWords.has("ipc_handle_slot_alpha") ||
+    !ipcIdentityWords.has("ipc_handle_slot_gamma")) {
+  throw new Error("The 92 IPC slots must form a 49-to-49 identity/word bijection");
 }
 
 for (const [name, mapping] of adjacentGlobalLoads) {
@@ -543,8 +681,10 @@ for (const entry of functions) {
   const globalState = globalStates.get(entry.name);
   const duplicateIpcAndTable = duplicateIpcAndTables.get(entry.name);
   const multiIdentityGlobal = multiIdentityGlobals.get(entry.name);
+  const ipcUniqueTemplate = ipcUniqueTemplates.get(entry.name);
+  const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, duplicateContainerTemplate].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -558,6 +698,20 @@ for (const entry of functions) {
       const value = alignment === 4
         ? code.readUInt32LE(offset + cursor)
         : code.readUInt16LE(offset + cursor);
+      const recyclerOffset = duplicateContainerTemplate?.template.startsWith("range_erase_") ? 92 : -1;
+      const eraseOffset = duplicateContainerTemplate?.template === "range_erase_a" ? 304 :
+        duplicateContainerTemplate?.template === "range_erase_b" ? 296 : -1;
+      const callee = cursor === recyclerOffset ? duplicateContainerTemplate.recycler :
+        cursor === eraseOffset ? duplicateContainerTemplate.erase : undefined;
+      if (callee !== undefined) {
+        const calleeEntry = functionsByName.get(callee);
+        if (entry.mode !== "$a" || calleeEntry?.mode !== "$a" ||
+            !isArmCallTo(value, entry.address + cursor, calleeEntry.address)) {
+          throw new Error(`${entry.name} does not call ${callee} at audited offset ${cursor}`);
+        }
+        instructions.push(`bl ${callee}`);
+        continue;
+      }
       instructions.push(
         alignment === 4
           ? `.inst 0x${value.toString(16).padStart(8, "0")}`
@@ -591,10 +745,21 @@ for (const entry of functions) {
     ...(multiIdentityGlobal
       ? multiIdentityGlobal.slots.flatMap((slot) => [`.word ${slot.identity}`, `.global ${slot.identity}`])
       : []),
+    ...(ipcUniqueTemplate
+      ? [
+          `.word ${ipcUniqueTemplate.command}`,
+          `.global ${ipcUniqueTemplate.command}`,
+          ...(ipcUniqueTemplate.handle === undefined
+            ? []
+            : [`.word ${ipcUniqueTemplate.handle}`, `.global ${ipcUniqueTemplate.handle}`]),
+        ]
+      : []),
     ""
   );
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
+  ipcUniqueTemplates.delete(entry.name);
+  duplicateContainerTemplates.delete(entry.name);
 }
 if (branchThunks.size !== 0) {
   throw new Error(
@@ -609,6 +774,16 @@ if (duplicateIpcAndTables.size !== 0) {
 if (multiIdentityGlobals.size !== 0) {
   throw new Error(
     `Multi-identity mappings missing from the function inventory: ${[...multiIdentityGlobals.keys()].join(", ")}`
+  );
+}
+if (ipcUniqueTemplates.size !== 0) {
+  throw new Error(
+    `Unique IPC mappings missing from the function inventory: ${[...ipcUniqueTemplates.keys()].join(", ")}`
+  );
+}
+if (duplicateContainerTemplates.size !== 0) {
+  throw new Error(
+    `Duplicate container mappings missing from the function inventory: ${[...duplicateContainerTemplates.keys()].join(", ")}`
   );
 }
 writeFileSync(assemblyPath, `${assembly.join("\n")}\n`);

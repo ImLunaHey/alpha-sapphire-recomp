@@ -27,6 +27,8 @@ if (
 
 const functions = new Map();
 const identities = new Set();
+const ipcCommands = new Map();
+const ipcHandles = new Map();
 let functionBytes = 0;
 const templateCounts = new Map();
 for (const entry of manifest.functions) {
@@ -56,15 +58,20 @@ for (const entry of manifest.functions) {
     }
     for (const identity of entry.tables) identities.add(identity);
   } else {
+    const expectedCommand = entry.name === "func_002DE884"
+      ? "ipc_command_func_002C6378"
+      : `ipc_command_${entry.name}`;
     if (
       Object.keys(entry).sort().join(",") !== "command,handle,name,size,template" ||
-      entry.command !== `ipc_command_${entry.name}` ||
+      entry.command !== expectedCommand ||
       !/^ipc_handle_slot_(?:alpha|beta|gamma)$/.test(entry.handle)
     ) {
       fail(`invalid IPC identities for ${entry.name}`);
     }
     identities.add(entry.command);
     identities.add(entry.handle);
+    ipcCommands.set(entry.command, (ipcCommands.get(entry.command) ?? 0) + 1);
+    ipcHandles.set(entry.handle, (ipcHandles.get(entry.handle) ?? 0) + 1);
   }
   functions.set(entry.name, entry);
   functionBytes += entry.size;
@@ -78,6 +85,11 @@ if (
   templateCounts.size !== 3
 ) {
   fail("the manifest must describe 14 one-byte IPC, 11 two-byte IPC, and 3 table functions totaling 1,960 bytes");
+}
+if (ipcCommands.size !== 24 || ipcCommands.get("ipc_command_func_002C6378") !== 2 ||
+    ipcHandles.size !== 3 || ipcHandles.get("ipc_handle_slot_alpha") !== 3 ||
+    ipcHandles.get("ipc_handle_slot_beta") !== 16 || ipcHandles.get("ipc_handle_slot_gamma") !== 6) {
+  fail("unexpected IPC command or handle identity cardinalities");
 }
 
 const invocations = new Map();
@@ -111,11 +123,11 @@ for (const line of source.match(/^\s*\.word\s+.+$/gm) ?? []) {
 
 // These hashes make the authorized textual templates and neutral manifest deterministic.
 if (createHash("sha256").update(source).digest("hex") !==
-    "53844f9e8d1172da2dd6c18e0e41e3223e890362744f5080d4c3654dbff81dcc") {
+    "41dd6eec44a5d46e7f7de2f0394103e5aa580411f7d461616f502807604b87de") {
   fail("deterministic assembly templates changed without validator review");
 }
 if (createHash("sha256").update(manifestText).digest("hex") !==
-    "6ea80b502e4f942ab116d8c070e30c07839abb0bf3e6fced05d4f91cd39f5428") {
+    "62bd7e3c7e767ec5d7c0c60090a1b1b32c02b2356948802b40373f6f5e29b7bb") {
   fail("deterministic neutral manifest changed without validator review");
 }
 

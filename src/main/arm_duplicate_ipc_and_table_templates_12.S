@@ -123,7 +123,7 @@
 
 IPC_ONE func_00109CB8, ipc_command_func_00109CB8, ipc_handle_slot_alpha
 IPC_ONE func_001103C0, ipc_command_func_001103C0, ipc_handle_slot_alpha
-IPC_ONE func_001267CC, ipc_command_func_001267CC, ipc_handle_slot_beta
+IPC_ONE func_001267CC, ipc_command_func_001267CC, ipc_handle_slot_alpha
 IPC_ONE func_001269A8, ipc_command_func_001269A8, ipc_handle_slot_beta
 IPC_ONE func_00126A20, ipc_command_func_00126A20, ipc_handle_slot_beta
 IPC_ONE func_002C6104, ipc_command_func_002C6104, ipc_handle_slot_gamma
@@ -133,7 +133,7 @@ IPC_ONE func_002C64BC, ipc_command_func_002C64BC, ipc_handle_slot_gamma
 IPC_ONE func_002C65E8, ipc_command_func_002C65E8, ipc_handle_slot_gamma
 IPC_ONE func_002C6624, ipc_command_func_002C6624, ipc_handle_slot_gamma
 IPC_ONE func_002DE708, ipc_command_func_002DE708, ipc_handle_slot_beta
-IPC_ONE func_002DE884, ipc_command_func_002DE884, ipc_handle_slot_beta
+IPC_ONE func_002DE884, ipc_command_func_002C6378, ipc_handle_slot_beta
 IPC_ONE func_002DEA44, ipc_command_func_002DEA44, ipc_handle_slot_beta
 IPC_TWO func_002DE630, ipc_command_func_002DE630, ipc_handle_slot_beta
 IPC_TWO func_002DE678, ipc_command_func_002DE678, ipc_handle_slot_beta

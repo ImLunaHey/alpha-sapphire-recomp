@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_vfp_memory_helpers_13.S",
+  "mode": "arm",
+  "functions": [
+    { "name": "func_00124A2C", "size": 40 },
+    { "name": "func_001330E8", "size": 48 },
+    { "name": "func_0011CB70", "size": 124 },
+    { "name": "func_00127528", "size": 240 },
+    { "name": "func_00180658", "size": 36 },
+    { "name": "func_001806C0", "size": 36 },
+    { "name": "func_0018074C", "size": 36 },
+    { "name": "func_00180838", "size": 36 },
+    { "name": "func_00181484", "size": 64 },
+    { "name": "func_00181630", "size": 64 },
+    { "name": "func_00181670", "size": 64 }
+  ]
+}

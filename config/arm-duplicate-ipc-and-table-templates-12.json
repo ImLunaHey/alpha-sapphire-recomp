@@ -4,7 +4,7 @@
   "functions": [
     { "name": "func_00109CB8", "size": 52, "template": "ipc_one", "command": "ipc_command_func_00109CB8", "handle": "ipc_handle_slot_alpha" },
     { "name": "func_001103C0", "size": 52, "template": "ipc_one", "command": "ipc_command_func_001103C0", "handle": "ipc_handle_slot_alpha" },
-    { "name": "func_001267CC", "size": 52, "template": "ipc_one", "command": "ipc_command_func_001267CC", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_001267CC", "size": 52, "template": "ipc_one", "command": "ipc_command_func_001267CC", "handle": "ipc_handle_slot_alpha" },
     { "name": "func_001269A8", "size": 52, "template": "ipc_one", "command": "ipc_command_func_001269A8", "handle": "ipc_handle_slot_beta" },
     { "name": "func_00126A20", "size": 52, "template": "ipc_one", "command": "ipc_command_func_00126A20", "handle": "ipc_handle_slot_beta" },
     { "name": "func_002C6104", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002C6104", "handle": "ipc_handle_slot_gamma" },
@@ -14,7 +14,7 @@
     { "name": "func_002C65E8", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002C65E8", "handle": "ipc_handle_slot_gamma" },
     { "name": "func_002C6624", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002C6624", "handle": "ipc_handle_slot_gamma" },
     { "name": "func_002DE708", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002DE708", "handle": "ipc_handle_slot_beta" },
-    { "name": "func_002DE884", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002DE884", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_002DE884", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002C6378", "handle": "ipc_handle_slot_beta" },
     { "name": "func_002DEA44", "size": 52, "template": "ipc_one", "command": "ipc_command_func_002DEA44", "handle": "ipc_handle_slot_beta" },
     { "name": "func_002DE630", "size": 64, "template": "ipc_two", "command": "ipc_command_func_002DE630", "handle": "ipc_handle_slot_beta" },
     { "name": "func_002DE678", "size": 64, "template": "ipc_two", "command": "ipc_command_func_002DE678", "handle": "ipc_handle_slot_beta" },

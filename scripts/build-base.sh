@@ -79,4 +79,7 @@ node "$root/scripts/validate-arm-global-state-and-pointer-chases-11.mjs" "$outpu
 node "$root/scripts/validate-arm-thumb-runtime-helpers-12.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-duplicate-ipc-and-table-templates-12.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-multi-identity-globals-12.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-ipc-unique-templates-13.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-duplicate-container-templates-13.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-runtime-vfp-memory-helpers-13.mjs" "$output" "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
