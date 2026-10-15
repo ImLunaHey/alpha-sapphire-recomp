@@ -4,11 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "npm run check:clean && node --check scripts/generate-report.mjs",
+    "check": "npm run check:clean && node --check scripts/generate-report.mjs && node --check scripts/extract-container.mjs && node --check scripts/verify-target.mjs",
     "check:clean": "bash scripts/check-no-rom.sh",
     "check:environment": "bash scripts/check-environment.sh",
+    "target:extract": "bash scripts/extract-target.sh",
+    "target:verify": "node scripts/verify-target.mjs",
     "report": "node scripts/generate-report.mjs",
-    "tools:install": "bash scripts/install-tools.sh"
+    "tools:install": "bash scripts/install-tools.sh",
+    "tools:install-3ds": "bash scripts/install-3ds-tools.sh"
   },
   "engines": {
     "node": ">=20"

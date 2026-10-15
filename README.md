@@ -1,12 +1,12 @@
 # Pokémon Alpha Sapphire matching decompilation
 
-Clean-room, infrastructure-first matching decompilation project for Pokémon Alpha Sapphire (European revision 2). The repository is currently in the **setup** phase: it contains no game data and no reverse-engineered implementation.
+Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (European revision 2). Target inventory is underway; the repository contains no game data.
 
 ## Current status
 
 - Default branch: `main`
 - Target: Europe, revision 2
-- Decompilation: not started
+- Decompilation: target extraction and inventory
 - ByteMatch: reporting scaffolded, registration deferred until reports exist
 - Proprietary input: configured locally and excluded from Git
 
@@ -21,7 +21,13 @@ npm run check:environment
 npm run check:clean
 ```
 
-No setup command copies, extracts, hashes, or analyzes the game image. Those steps remain deliberately disabled until the project owner authorizes the decompilation phase.
+Extraction writes only to `DECOMP_PRIVATE`, which must be outside the checkout. Install the local extraction tool, verify the owned target, and extract its executable data with:
+
+```sh
+npm run tools:install-3ds
+npm run target:verify
+npm run target:extract
+```
 
 ## Repository layout
 

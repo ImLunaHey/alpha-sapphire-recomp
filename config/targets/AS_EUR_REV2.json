@@ -1,0 +1,41 @@
+{
+  "$schema": "./target.schema.json",
+  "id": "AS_EUR_REV2",
+  "game": "Pokémon Alpha Sapphire",
+  "platform": "Nintendo 3DS",
+  "region": "Europe",
+  "productCode": "CTR-P-ECLA",
+  "titleId": "000400000011C500",
+  "cardRevision": 2,
+  "titleVersion": {
+    "display": "3.3.0",
+    "raw": 3120
+  },
+  "container": {
+    "format": "NCSD",
+    "size": 2147483648,
+    "usedSize": 1930887168,
+    "sha256": "537adb6291e8af6c9acd339c4983101072df56c4d510f72b5fc6014389ccf45b"
+  },
+  "application": {
+    "name": "sango-2",
+    "remasterVersion": 3,
+    "encrypted": false,
+    "compressedCode": true
+  },
+  "exheader": {
+    "size": 2048,
+    "sha256": "3e61217b6b7b1ea59edca89e726d876632e64d157b07aa71b7f0b4ebdc708f3a"
+  },
+  "code": {
+    "size": 5439488,
+    "crc32": "72B62B7F",
+    "sha256": "b7f9ce60361f3709ed0ce879658afe10a712f7db060640fa72bba826301b7c16",
+    "segments": {
+      "text": { "address": "0x00100000", "size": "0x004795FC" },
+      "rodata": { "address": "0x0057A000", "size": "0x00071A14" },
+      "data": { "address": "0x005EC000", "size": "0x000439F4" },
+      "bss": { "address": "0x0062F9F4", "size": "0x0007EC2C" }
+    }
+  }
+}

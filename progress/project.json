@@ -3,8 +3,8 @@
   "project": "Pokémon Alpha Sapphire",
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
-  "phase": "Infrastructure ready",
-  "summary": "Clean-room boundaries, local input isolation, and progress reporting are ready. Binary analysis has not started.",
+  "phase": "Target inventory",
+  "summary": "The owned target is verified and its executable is isolated outside the repository. Function-boundary inventory is in progress.",
   "decompilationEnabled": false,
   "progress": {
     "matchedCodePercent": null,
@@ -21,8 +21,8 @@
     },
     {
       "label": "Target inventory",
-      "detail": "Waiting for owner authorization",
-      "state": "waiting"
+      "detail": "Container and executable metadata verified",
+      "state": "active"
     },
     {
       "label": "First matching unit",
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-15",
+      "title": "Target verified",
+      "detail": "Identified the Rev 2 CARD2 image, extracted the decompressed executable privately, and began the function inventory."
+    },
     {
       "date": "2026-10-15",
       "title": "ByteMatch pipeline staged",

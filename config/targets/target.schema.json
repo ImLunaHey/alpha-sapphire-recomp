@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "game", "platform", "productCode", "titleId", "container", "code"],
+  "properties": {
+    "id": { "type": "string" },
+    "game": { "type": "string" },
+    "platform": { "type": "string" },
+    "productCode": { "type": "string" },
+    "titleId": { "type": "string", "pattern": "^[0-9A-F]{16}$" },
+    "container": {
+      "type": "object",
+      "required": ["size", "sha256"],
+      "properties": {
+        "size": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "code": {
+      "type": "object",
+      "required": ["size", "sha256", "segments"],
+      "properties": {
+        "size": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    }
+  }
+}

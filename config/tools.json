@@ -1,0 +1,14 @@
+{
+  "3dstool": {
+    "repository": "https://github.com/dnasdw/3dstool.git",
+    "commit": "3771ae967d64092370b646db86aa626401c279e8",
+    "license": "MIT",
+    "redistributed": false,
+    "note": "Built in the ignored local cache and used only to unpack the compressed ExeFS code entry."
+  },
+  "objdiff": {
+    "repository": "https://github.com/encounter/objdiff.git",
+    "version": "3.8.2",
+    "license": "MIT OR Apache-2.0"
+  }
+}
