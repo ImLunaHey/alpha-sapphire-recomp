@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_54.S",
+  "mode": "arm",
+  "totalBodySize": 1740,
+  "functions": [
+    {
+      "name": "func_0019D070",
+      "size": 972,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019D43C",
+      "size": 768,
+      "calls": [],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "six_limb_arithmetic_helpers_54": {
+      "members": [
+        "func_0019D070",
+        "func_0019D43C"
+      ],
+      "parameters": [
+        "operandArity",
+        "productSchedule",
+        "carrySchedule",
+        "resultLayout"
+      ]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

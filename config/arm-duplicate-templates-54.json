@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_54.S",
+  "mode": "arm",
+  "expectedBodyBytes": 704,
+  "templates": {
+    "guarded_worker_start": {
+      "bodySize": 352,
+      "instructionCount": 88,
+      "count": 2,
+      "internalLabels": 6,
+      "directCalls": 8,
+      "indirectCalls": 2,
+      "literalCount": 4
+    }
+  },
+  "internalLabelOffsets": [88, 156, 276, 280, 284, 308],
+  "callContract": [
+    { "offset": 48, "kind": "R_ARM_CALL", "symbol": "func_00150110", "role": "worker_create" },
+    { "offset": 168, "kind": "R_ARM_CALL", "symbol": "$operation", "role": "operation" },
+    { "offset": 192, "kind": "R_ARM_CALL", "symbol": "func_00184990", "addend": -4, "role": "record_allocate" },
+    { "offset": 252, "kind": "R_ARM_CALL", "symbol": "func_0014648C", "role": "worker_prepare" },
+    { "offset": 272, "kind": "R_ARM_CALL", "symbol": "func_00146464", "role": "worker_submit" },
+    { "offset": 316, "kind": "R_ARM_CALL", "symbol": "func_001505A4", "role": "cleanup_acquire" },
+    { "offset": 328, "kind": "R_ARM_CALL", "symbol": "func_00139650", "role": "cleanup_stage" },
+    { "offset": 340, "kind": "R_ARM_CALL", "symbol": "func_00169564", "role": "cleanup_finish" }
+  ],
+  "slotContract": [
+    { "offset": 352, "loadOffset": 40, "identity": "worker_interval", "role": "worker_interval_scalar" },
+    { "offset": 356, "loadOffset": 116, "identity": "divide_by_40", "role": "element_count_reciprocal" },
+    { "offset": 360, "loadOffset": 212, "identity": "record_seed", "role": "record_seed_address" },
+    { "offset": 364, "loadOffset": 236, "identity": "record_dispatch", "role": "record_dispatch_address" }
+  ],
+  "literalIdentities": {
+    "worker_interval": { "symbol": "arm_duplicate_templates_54_worker_interval_identity", "class": "opaque-scalar" },
+    "divide_by_40": { "symbol": "arm_duplicate_templates_54_divide_by_40_identity", "class": "arithmetic-scalar" },
+    "record_seed": { "symbol": "arm_duplicate_templates_54_record_seed_identity", "class": "read-only-address" },
+    "record_dispatch": { "symbol": "arm_duplicate_templates_54_record_dispatch_identity", "class": "dispatch-identity" }
+  },
+  "functions": [
+    {
+      "name": "func_0013BE38",
+      "template": "guarded_worker_start",
+      "operation": "func_00146BD0"
+    },
+    {
+      "name": "func_0013C138",
+      "template": "guarded_worker_start",
+      "operation": "func_00146CD8"
+    }
+  ]
+}

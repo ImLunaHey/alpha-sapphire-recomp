@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_50.S",
+  "sourceSha256": "b3ab71740aaef8dcb5b3f631f1dca40ab7b5f84b2796e9e855a355b965db979d",
+  "mode": "arm",
+  "totalBodySize": 680,
+  "cumulativePoolSlots": 629,
+  "cumulativePoolClasses": 322,
+  "functions": [
+    {
+      "name": "func_001664C4", "size": 156,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014983C" }
+      ],
+      "literals": [
+        { "offset": 156, "symbol": "ipc_record_tag_50" },
+        { "offset": 160, "symbol": "ipc_record_kind_a_50" },
+        { "offset": 164, "symbol": "ipc_record_kind_b_50" }
+      ]
+    },
+    { "name": "func_0016656C", "size": 72, "branches": [], "literals": [] },
+    { "name": "func_001665B4", "size": 80, "branches": [], "literals": [] },
+    {
+      "name": "func_00166604", "size": 136,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017A8A8" },
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014B890" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001668E8" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001668E8" },
+        { "offset": 128, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001668E8" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0016668C", "size": 80,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174B00" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001666EC", "size": 52,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017A8A8" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174A8C" },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001668E8" }
+      ],
+      "literals": []
+    },
+    { "name": "func_00166720", "size": 104, "branches": [], "literals": [] }
+  ],
+  "literalIdentities": [
+    "ipc_record_tag_50",
+    "ipc_record_kind_a_50",
+    "ipc_record_kind_b_50"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "ipc_record_tag_50",
+    "ipc_record_kind_a_50",
+    "ipc_record_kind_b_50"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0014983C",
+      "func_0017A8A8",
+      "func_0014B890",
+      "func_001668E8",
+      "func_00174B00",
+      "func_00174A8C"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_0017A8A8", "siteCount": 2 },
+      { "symbol": "func_001668E8", "siteCount": 4 }
+    ],
+    "singletonClasses": [
+      "func_0014983C",
+      "func_0014B890",
+      "func_00174B00",
+      "func_00174A8C"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
