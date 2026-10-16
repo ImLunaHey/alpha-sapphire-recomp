@@ -1,0 +1,1737 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_04.S",
+  "sourceSha256": "2fa4033bbeaa70ae5e57c1c44acd73617159bb4a0bf02d5ed0e8c0cdca5c1d96",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 1340,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 631,
+  "wideInstructionCount": 39,
+  "localBranchCount": 69,
+  "memoryOperationCount": 201,
+  "returnCount": 33,
+  "indirectCallCount": 1,
+  "indirectTailCount": 0,
+  "directCallCount": 39,
+  "directCalls": [
+    {
+      "function": "func_001004B8",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_002FED9A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001004B8",
+      "offset": 50,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDC0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100A5C",
+      "offset": 62,
+      "mnemonic": "bl",
+      "symbol": "func_002FF988",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100BE4",
+      "offset": 28,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBAE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100BE4",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBD4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010130A",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_002FFE4A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010130A",
+      "offset": 40,
+      "mnemonic": "bl",
+      "symbol": "func_002FFB14",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010277C",
+      "offset": 26,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBAE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010277C",
+      "offset": 40,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBD4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001027B8",
+      "offset": 28,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBAE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001027B8",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBD4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001027F0",
+      "offset": 16,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBAE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001027F0",
+      "offset": 26,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBD4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102824",
+      "offset": 26,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBAE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102824",
+      "offset": 40,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBD4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102868",
+      "offset": 28,
+      "mnemonic": "bl",
+      "symbol": "func_002FED9A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102868",
+      "offset": 48,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDC0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001028B4",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_002FFA44",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102DB2",
+      "offset": 14,
+      "mnemonic": "bl",
+      "symbol": "func_003021A4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102DB2",
+      "offset": 22,
+      "mnemonic": "bl",
+      "symbol": "func_003021A4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102EC8",
+      "offset": 16,
+      "mnemonic": "bl",
+      "symbol": "func_003021BE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102EC8",
+      "offset": 26,
+      "mnemonic": "bl",
+      "symbol": "func_003021BE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010338E",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF7EC",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010338E",
+      "offset": 48,
+      "mnemonic": "blx",
+      "symbol": "func_00302334",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103568",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_00301F00",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103D1C",
+      "offset": 28,
+      "mnemonic": "bl",
+      "symbol": "func_002FF7F8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFBF8",
+      "offset": 8,
+      "mnemonic": "blx",
+      "symbol": "func_002FEDF0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00300A00",
+      "offset": 60,
+      "mnemonic": "bl",
+      "symbol": "func_00101CC8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301D7C",
+      "offset": 40,
+      "mnemonic": "bl",
+      "symbol": "func_00301D30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301F00",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_00301D7C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301F00",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_00301E0C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030227C",
+      "offset": 18,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003023F0",
+      "offset": 16,
+      "mnemonic": "blx",
+      "symbol": "func_00503264",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003023F0",
+      "offset": 48,
+      "mnemonic": "bl",
+      "symbol": "func_00301D1C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303188",
+      "offset": 36,
+      "mnemonic": "bl",
+      "symbol": "func_002FFE30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303188",
+      "offset": 40,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003035D4",
+      "offset": 8,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003035D4",
+      "offset": 60,
+      "mnemonic": "blx",
+      "symbol": "func_002FF10C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00305A40",
+      "offset": 36,
+      "mnemonic": "bl",
+      "symbol": "func_003034CC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_001004B8",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED9A"
+    },
+    {
+      "function": "func_001004B8",
+      "offset": 50,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDC0"
+    },
+    {
+      "function": "func_00100A5C",
+      "offset": 62,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF988"
+    },
+    {
+      "function": "func_00100BE4",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBAE"
+    },
+    {
+      "function": "func_00100BE4",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBD4"
+    },
+    {
+      "function": "func_0010130A",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFE4A"
+    },
+    {
+      "function": "func_0010130A",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFB14"
+    },
+    {
+      "function": "func_0010277C",
+      "offset": 26,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBAE"
+    },
+    {
+      "function": "func_0010277C",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBD4"
+    },
+    {
+      "function": "func_001027B8",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBAE"
+    },
+    {
+      "function": "func_001027B8",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBD4"
+    },
+    {
+      "function": "func_001027F0",
+      "offset": 16,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBAE"
+    },
+    {
+      "function": "func_001027F0",
+      "offset": 26,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBD4"
+    },
+    {
+      "function": "func_00102824",
+      "offset": 26,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBAE"
+    },
+    {
+      "function": "func_00102824",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBD4"
+    },
+    {
+      "function": "func_00102868",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED9A"
+    },
+    {
+      "function": "func_00102868",
+      "offset": 48,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDC0"
+    },
+    {
+      "function": "func_001028B4",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFA44"
+    },
+    {
+      "function": "func_00102DB2",
+      "offset": 14,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003021A4"
+    },
+    {
+      "function": "func_00102DB2",
+      "offset": 22,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003021A4"
+    },
+    {
+      "function": "func_00102EC8",
+      "offset": 16,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003021BE"
+    },
+    {
+      "function": "func_00102EC8",
+      "offset": 26,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003021BE"
+    },
+    {
+      "function": "func_0010338E",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF7EC"
+    },
+    {
+      "function": "func_0010338E",
+      "offset": 48,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302334"
+    },
+    {
+      "function": "func_00103568",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301F00"
+    },
+    {
+      "function": "func_00103D1C",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF7F8"
+    },
+    {
+      "function": "func_002FFBF8",
+      "offset": 8,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDF0"
+    },
+    {
+      "function": "func_00300A00",
+      "offset": 60,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00101CC8"
+    },
+    {
+      "function": "func_00301D7C",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D30"
+    },
+    {
+      "function": "func_00301F00",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D7C"
+    },
+    {
+      "function": "func_00301F00",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301E0C"
+    },
+    {
+      "function": "func_0030227C",
+      "offset": 18,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_003023F0",
+      "offset": 16,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00503264"
+    },
+    {
+      "function": "func_003023F0",
+      "offset": 48,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D1C"
+    },
+    {
+      "function": "func_00303188",
+      "offset": 36,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFE30"
+    },
+    {
+      "function": "func_00303188",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_003035D4",
+      "offset": 8,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_003035D4",
+      "offset": 60,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF10C"
+    },
+    {
+      "function": "func_00305A40",
+      "offset": 36,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003034CC"
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_001004B8",
+      "offset": 20,
+      "mnemonic": "ldr",
+      "targetOffset": 68,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00100A5C",
+      "offset": 38,
+      "mnemonic": "add",
+      "targetOffset": 104,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00100AA0"
+      ]
+    },
+    {
+      "function": "func_00100A5C",
+      "offset": 56,
+      "mnemonic": "add",
+      "targetOffset": 108,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00100AA0"
+      ]
+    },
+    {
+      "function": "func_00100BE4",
+      "offset": 18,
+      "mnemonic": "ldr",
+      "targetOffset": 52,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010277C",
+      "offset": 16,
+      "mnemonic": "ldr",
+      "targetOffset": 56,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001027B8",
+      "offset": 18,
+      "mnemonic": "ldr",
+      "targetOffset": 52,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001027F0",
+      "offset": 4,
+      "mnemonic": "ldr",
+      "targetOffset": 40,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102824",
+      "offset": 16,
+      "mnemonic": "ldr",
+      "targetOffset": 56,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102868",
+      "offset": 18,
+      "mnemonic": "ldr",
+      "targetOffset": 72,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001028B4",
+      "offset": 24,
+      "mnemonic": "ldr",
+      "targetOffset": 56,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001028B4",
+      "offset": 30,
+      "mnemonic": "ldr",
+      "targetOffset": 60,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103568",
+      "offset": 2,
+      "mnemonic": "ldr",
+      "targetOffset": 48,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103568",
+      "offset": 4,
+      "mnemonic": "ldr",
+      "targetOffset": 52,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103D1C",
+      "offset": 42,
+      "mnemonic": "add",
+      "targetOffset": 48,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00300A00",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 68,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00300A00",
+      "offset": 20,
+      "mnemonic": "ldr",
+      "targetOffset": 68,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "indirectTail": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rd, #imm schedule entry uses the 16-bit three-operand immediate form; it must not be canonicalized to the distinct two-operand immediate form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "indirectTail": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "d0d77e01e7d994fc3afe11842ba4af59216383d7141c3584dc3bd9fac1c42cc9",
+    "localTransferSchedule": "fb828806647019ecddb16a6111f08e2bc0986bbf0f6582d5709560f5543b0578",
+    "returnTransferSchedule": "dba950a23f70c736eccfabfdd34cf8a2459802e9ceb2ab00aaa97c24303f4418",
+    "indirectCallSchedule": "434fde4c9142388799f3351db4f4bf2d7404f7565b4b5b7ffbc1fd0cd2093557",
+    "indirectTailSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "directCallSchedule": "28de823330298eb5809edcc6fab90a8d0cf721956efeb1250146cdb3096a90ac"
+  },
+  "functions": [
+    {
+      "name": "func_001004B8",
+      "size": 68,
+      "instructionCount": 32,
+      "wideInstructionOffsets": [
+        30,
+        50
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 8,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00100500",
+      "nextGlobalOffset": 72,
+      "localTransfers": [
+        "c:beq.n:+14",
+        "26:beq.n:+36",
+        "38:bcc.n:+40"
+      ],
+      "returns": [
+        "3e:pop:{r2, r3, r4, r5, r6, pc}",
+        "42:pop:{r2, r3, r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_002FED9A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 50,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDC0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r2, r3, r4, r5, r6, lr}|movs r5, r2|movs r4, r1|movs r2, r3|cmp r1, #0|str r0, [sp, #0]|beq.n local:+14|lsls r1, r4, #1|adds r0, r1, r0|subs r0, r0, #2|ldr r3, [pc, #44]|add r3, pc|mov r1, sp|str r0, [sp, #4]|movs r0, r5|bl func_002FED9A|movs r5, r0|cmp r4, #0|beq.n local:+36|mov r1, sp|ldr r0, [sp, #4]|adds r0, r0, #2|str r0, [sp, #4]|movs r0, #0|bl func_002FEDC0|cmp r5, r4|bcc.n local:+40|movs r0, #0|mvns r0, r0|pop {r2, r3, r4, r5, r6, pc}|movs r0, r5|pop {r2, r3, r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00100A5C",
+      "size": 68,
+      "instructionCount": 33,
+      "wideInstructionOffsets": [
+        62
+      ],
+      "localBranchCount": 4,
+      "memoryOperationCount": 6,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00100AA0",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "8:b.n:+1c",
+        "20:bne.n:+a",
+        "2a:bpl.n:+3e",
+        "32:beq.n:+3e"
+      ],
+      "returns": [
+        "42:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 62,
+          "mnemonic": "bl",
+          "symbol": "func_002FF988",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r1, #0|movs r4, r0|adds r4, #36|b.n local:+1c|lsls r5, r2, #29|lsrs r2, r2, #3|lsrs r5, r5, #29|adds r5, #48|strb r5, [r4, r1]|lsls r5, r3, #29|adds r1, r1, #1|orrs r2, r5|lsrs r3, r3, #3|movs r5, r2|orrs r5, r3|bne.n local:+a|ldr r4, [r0, #0]|movs r3, #0|add r2, pc, #64|lsls r5, r4, #28|bpl.n local:+3e|movs r5, #32|ands r4, r5|orrs r4, r1|beq.n local:+3e|ldr r4, [r0, #28]|movs r3, #1|add r2, pc, #48|subs r4, r4, #1|str r4, [r0, #28]|bl func_002FF988|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00100BE4",
+      "size": 50,
+      "instructionCount": 23,
+      "wideInstructionOffsets": [
+        28,
+        42
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 5,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00100C24",
+      "nextGlobalOffset": 64,
+      "localTransfers": [
+        "c:beq.n:+12",
+        "24:beq.n:+2e"
+      ],
+      "returns": [
+        "30:pop:{r2, r3, r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 28,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBAE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBD4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r2, r3, r4, r5, r6, lr}|movs r5, r2|movs r4, r1|movs r2, r3|cmp r1, #0|str r0, [sp, #0]|beq.n local:+12|adds r0, r0, r4|subs r0, r0, #1|ldr r3, [pc, #32]|add r3, pc|mov r1, sp|str r0, [sp, #4]|movs r0, r5|bl func_002FFBAE|movs r5, r0|cmp r4, #0|beq.n local:+2e|mov r1, sp|movs r0, #0|bl func_002FFBD4|movs r0, r5|pop {r2, r3, r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_0010130A",
+      "size": 50,
+      "instructionCount": 23,
+      "wideInstructionOffsets": [
+        30,
+        40
+      ],
+      "localBranchCount": 1,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_0010133C",
+      "nextGlobalOffset": 50,
+      "localTransfers": [
+        "14:bls.n:+18"
+      ],
+      "returns": [
+        "30:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_002FFE4A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 40,
+          "mnemonic": "bl",
+          "symbol": "func_002FFB14",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, lr}|lsrs r2, r1, #3|sub sp, #8|movs r6, r0|lsrs r0, r1, #1|adds r0, r0, r1|movs r5, r3|adds r4, r0, r2|adds r1, #32|cmp r1, r4|bls.n local:+18|movs r4, r1|add r1, sp, #16|mov r0, sp|str r4, [sp, #0]|bl func_002FFE4A|ldr r1, [r0, #0]|movs r2, r5|movs r0, r6|bl func_002FFB14|adds r0, #12|add sp, #24|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_0010277C",
+      "size": 54,
+      "instructionCount": 25,
+      "wideInstructionOffsets": [
+        26,
+        40
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 8,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_001027B8",
+      "nextGlobalOffset": 60,
+      "localTransfers": [
+        "a:beq.n:+10",
+        "22:beq.n:+2c"
+      ],
+      "returns": [
+        "34:bx:r3"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 26,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBAE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 40,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBD4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {r2, r3, r4, r5, r6, lr}|movs r4, r1|add r2, sp, #36|str r0, [sp, #0]|beq.n local:+10|adds r0, r0, r4|subs r0, r0, #1|ldr r3, [pc, #36]|add r3, pc|mov r1, sp|str r0, [sp, #4]|ldr r0, [sp, #32]|bl func_002FFBAE|movs r5, r0|cmp r4, #0|beq.n local:+2c|mov r1, sp|movs r0, #0|bl func_002FFBD4|movs r0, r5|pop {r2, r3, r4, r5, r6}|pop {r3}|add sp, #16|bx r3"
+    },
+    {
+      "name": "func_001027B8",
+      "size": 50,
+      "instructionCount": 23,
+      "wideInstructionOffsets": [
+        28,
+        42
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 5,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_001027F0",
+      "nextGlobalOffset": 56,
+      "localTransfers": [
+        "c:beq.n:+12",
+        "24:beq.n:+2e"
+      ],
+      "returns": [
+        "30:pop:{r2, r3, r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 28,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBAE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBD4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r2, r3, r4, r5, r6, lr}|movs r5, r2|movs r4, r1|movs r2, r3|cmp r1, #0|str r0, [sp, #0]|beq.n local:+12|adds r0, r0, r4|subs r0, r0, #1|ldr r3, [pc, #32]|add r3, pc|mov r1, sp|str r0, [sp, #4]|movs r0, r5|bl func_002FFBAE|movs r5, r0|cmp r4, #0|beq.n local:+2e|mov r1, sp|movs r0, #0|bl func_002FFBD4|movs r0, r5|pop {r2, r3, r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_001027F0",
+      "size": 40,
+      "instructionCount": 18,
+      "wideInstructionOffsets": [
+        16,
+        26
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 7,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00102824",
+      "nextGlobalOffset": 52,
+      "localTransfers": [],
+      "returns": [
+        "26:bx:r3"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 16,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBAE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 26,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBD4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {r2, r3, r4, lr}|ldr r3, [pc, #32]|add r2, sp, #24|add r3, pc|mov r1, sp|str r0, [sp, #0]|ldr r0, [sp, #20]|bl func_002FFBAE|movs r4, r0|mov r1, sp|movs r0, #0|bl func_002FFBD4|movs r0, r4|pop {r2, r3, r4}|pop {r3}|add sp, #16|bx r3"
+    },
+    {
+      "name": "func_00102824",
+      "size": 54,
+      "instructionCount": 25,
+      "wideInstructionOffsets": [
+        26,
+        40
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 8,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00102868",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "a:beq.n:+10",
+        "22:beq.n:+2c"
+      ],
+      "returns": [
+        "34:bx:r3"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 26,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBAE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 40,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBD4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {r2, r3, r4, r5, r6, lr}|movs r4, r1|add r2, sp, #36|str r0, [sp, #0]|beq.n local:+10|adds r0, r0, r4|subs r0, r0, #1|ldr r3, [pc, #36]|add r3, pc|mov r1, sp|str r0, [sp, #4]|ldr r0, [sp, #32]|bl func_002FFBAE|movs r5, r0|cmp r4, #0|beq.n local:+2c|mov r1, sp|movs r0, #0|bl func_002FFBD4|movs r0, r5|pop {r2, r3, r4, r5, r6}|pop {r3}|add sp, #16|bx r3"
+    },
+    {
+      "name": "func_00102868",
+      "size": 72,
+      "instructionCount": 34,
+      "wideInstructionOffsets": [
+        28,
+        48
+      ],
+      "localBranchCount": 4,
+      "memoryOperationCount": 10,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_001028B4",
+      "nextGlobalOffset": 76,
+      "localTransfers": [
+        "a:beq.n:+12",
+        "24:beq.n:+34",
+        "36:bcc.n:+44",
+        "46:b.n:+3c"
+      ],
+      "returns": [
+        "42:bx:r3"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 28,
+          "mnemonic": "bl",
+          "symbol": "func_002FED9A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 48,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDC0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {r2, r3, r4, r5, r6, lr}|movs r4, r1|add r2, sp, #36|str r0, [sp, #0]|beq.n local:+12|lsls r1, r4, #1|adds r0, r1, r0|subs r0, r0, #2|ldr r3, [pc, #52]|add r3, pc|mov r1, sp|str r0, [sp, #4]|ldr r0, [sp, #32]|bl func_002FED9A|movs r5, r0|cmp r4, #0|beq.n local:+34|mov r1, sp|ldr r0, [sp, #4]|adds r0, r0, #2|str r0, [sp, #4]|movs r0, #0|bl func_002FEDC0|cmp r5, r4|bcc.n local:+44|movs r0, #0|mvns r0, r0|pop {r2, r3, r4, r5, r6}|pop {r3}|add sp, #16|bx r3|movs r0, r5|b.n local:+3c"
+    },
+    {
+      "name": "func_001028B4",
+      "size": 54,
+      "instructionCount": 26,
+      "wideInstructionOffsets": [
+        42
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 13,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_001028F4",
+      "nextGlobalOffset": 64,
+      "localTransfers": [],
+      "returns": [
+        "34:bx:r3"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_002FFA44",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {lr}|sub sp, #52|add r1, sp, #64|str r0, [sp, #36]|str r0, [sp, #44]|movs r0, #0|mvns r0, r0|str r1, [sp, #0]|str r0, [sp, #40]|movs r0, #0|str r0, [sp, #48]|ldr r0, [pc, #28]|add r0, pc|str r0, [sp, #24]|ldr r0, [pc, #28]|add r0, pc|mov r2, sp|str r0, [sp, #28]|ldr r1, [sp, #60]|add r0, sp, #36|bl func_002FFA44|add sp, #52|pop {r3}|add sp, #16|bx r3"
+    },
+    {
+      "name": "func_00102DB2",
+      "size": 38,
+      "instructionCount": 17,
+      "wideInstructionOffsets": [
+        14,
+        22
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 5,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00102DD8",
+      "nextGlobalOffset": 38,
+      "localTransfers": [
+        "8:b.n:+c",
+        "1c:bne.n:+24",
+        "22:bne.n:+a"
+      ],
+      "returns": [
+        "24:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 14,
+          "mnemonic": "bl",
+          "symbol": "func_003021A4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 22,
+          "mnemonic": "bl",
+          "symbol": "func_003021A4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r5, r0|movs r6, r1|movs r4, #0|b.n local:+c|adds r4, r4, #1|ldrb r0, [r5, r4]|bl func_003021A4|movs r7, r0|ldrb r0, [r6, r4]|bl func_003021A4|subs r0, r7, r0|bne.n local:+24|ldrb r1, [r5, r4]|cmp r1, #0|bne.n local:+a|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00102EC8",
+      "size": 42,
+      "instructionCount": 19,
+      "wideInstructionOffsets": [
+        16,
+        26
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 7,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00102EF2",
+      "nextGlobalOffset": 42,
+      "localTransfers": [
+        "8:b.n:+c",
+        "20:bne.n:+28",
+        "26:bne.n:+a"
+      ],
+      "returns": [
+        "28:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 16,
+          "mnemonic": "bl",
+          "symbol": "func_003021BE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 26,
+          "mnemonic": "bl",
+          "symbol": "func_003021BE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r6, r0|movs r5, #0|str r1, [sp, #0]|b.n local:+c|adds r5, r5, #1|lsls r4, r5, #1|ldrh r0, [r6, r4]|bl func_003021BE|movs r7, r0|ldr r0, [sp, #0]|ldrh r0, [r0, r4]|bl func_003021BE|subs r0, r7, r0|bne.n local:+28|ldrh r1, [r6, r4]|cmp r1, #0|bne.n local:+a|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_0010338E",
+      "size": 54,
+      "instructionCount": 25,
+      "wideInstructionOffsets": [
+        6,
+        48
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 9,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_001033C4",
+      "nextGlobalOffset": 54,
+      "localTransfers": [
+        "10:beq.n:+2c",
+        "22:beq.n:+28",
+        "26:beq.n:+14"
+      ],
+      "returns": [
+        "2a:pop:{r4, r5, r6, pc}",
+        "34:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF7EC",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 48,
+          "mnemonic": "blx",
+          "symbol": "func_00302334",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r4, r0|movs r5, r1|blx func_002FF7EC|ldr r1, [r0, #0]|ldr r0, [r1, #0]|cmp r0, #0|beq.n local:+2c|adds r1, r1, r0|ldrb r0, [r4, #0]|ldrb r3, [r5, #0]|adds r4, r4, #1|adds r5, r5, #1|ldrb r2, [r1, r0]|ldrb r3, [r1, r3]|cmp r0, #0|beq.n local:+28|cmp r2, r3|beq.n local:+14|subs r0, r2, r3|pop {r4, r5, r6, pc}|movs r1, r5|movs r0, r4|blx func_00302334|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00103568",
+      "size": 46,
+      "instructionCount": 22,
+      "wideInstructionOffsets": [
+        30
+      ],
+      "localBranchCount": 5,
+      "memoryOperationCount": 7,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_001035E4",
+      "nextGlobalOffset": 124,
+      "localTransfers": [
+        "8:b.n:+28",
+        "e:beq.n:+22",
+        "12:beq.n:+22",
+        "1a:bne.n:+22",
+        "2a:bne.n:+a"
+      ],
+      "returns": [
+        "2c:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_00301F00",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|ldr r4, [pc, #44]|ldr r6, [pc, #44]|movs r5, r0|b.n local:+28|ldr r0, [r4, #76]|lsls r0, r0, #31|beq.n local:+22|cmp r4, r5|beq.n local:+22|ldr r0, [r4, #12]|movs r1, r6|bics r1, r0|bne.n local:+22|movs r0, r4|bl func_00301F00|ldr r0, [r4, #76]|lsrs r4, r0, #1|lsls r4, r4, #1|cmp r4, #0|bne.n local:+a|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00103D1C",
+      "size": 46,
+      "instructionCount": 22,
+      "wideInstructionOffsets": [
+        28
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 6,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00103D58",
+      "nextGlobalOffset": 60,
+      "localTransfers": [
+        "c:beq.n:+22",
+        "2c:b.n:+1a"
+      ],
+      "returns": [
+        "20:pop:{r2, r3, r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 28,
+          "mnemonic": "bl",
+          "symbol": "func_002FF7F8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r2, r3, r4, r5, r6, lr}|movs r4, r1|movs r5, r0|ldr r0, [r1, #0]|ldr r0, [r0, #24]|cmp r0, #0|beq.n local:+22|mov r0, sp|nop|nop|movs r2, r0|ldr r0, [r4, #0]|ldr r1, [r0, #24]|movs r0, r5|bl func_002FF7F8|pop {r2, r3, r4, r5, r6, pc}|add r0, sp, #4|nop|nop|movs r2, r0|add r1, pc, #4|b.n local:+1a"
+    },
+    {
+      "name": "func_002FFBF8",
+      "size": 68,
+      "instructionCount": 33,
+      "wideInstructionOffsets": [
+        8
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 9,
+      "returnCount": 3,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FFC3C",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "16:beq.n:+28",
+        "1a:bhi.n:+3e",
+        "20:beq.n:+3e"
+      ],
+      "returns": [
+        "26:pop:{r4, r5, r6, pc}",
+        "3c:pop:{r4, r5, r6, pc}",
+        "42:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "3a:blx:r3"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 8,
+          "mnemonic": "blx",
+          "symbol": "func_002FEDF0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r5, r0|movs r4, r1|movs r6, r2|blx func_002FEDF0|ldr r3, [r0, #0]|movs r0, #255|adds r0, #2|ldrb r0, [r0, r3]|cmp r0, #1|beq.n local:+28|cmp r4, #255|bhi.n local:+3e|ldrb r0, [r3, r4]|cmp r0, #0|beq.n local:+3e|movs r0, #1|strb r4, [r5, #0]|pop {r4, r5, r6, pc}|movs r0, #255|adds r0, #8|movs r2, r6|ldr r0, [r0, r3]|movs r1, r4|adds r3, r3, r0|adds r3, #255|adds r3, #8|movs r0, r5|blx r3|pop {r4, r5, r6, pc}|movs r0, #0|mvns r0, r0|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00300A00",
+      "size": 66,
+      "instructionCount": 32,
+      "wideInstructionOffsets": [
+        60
+      ],
+      "localBranchCount": 4,
+      "memoryOperationCount": 10,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00300A48",
+      "nextGlobalOffset": 72,
+      "localTransfers": [
+        "a:beq.n:+40",
+        "12:beq.n:+24",
+        "1a:beq.n:+40",
+        "22:bne.n:+40"
+      ],
+      "returns": [
+        "40:pop:{r3, r4, r5, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 60,
+          "mnemonic": "bl",
+          "symbol": "func_00101CC8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, lr}|movs r4, r0|ldr r2, [r0, #0]|ldr r0, [pc, #60]|cmp r2, r0|beq.n local:+40|subs r2, #12|ldr r0, [r2, #0]|adds r1, r0, #1|beq.n local:+24|ldr r1, [pc, #44]|subs r1, #12|cmp r2, r1|beq.n local:+40|subs r0, r0, #1|str r0, [r2, #0]|adds r0, r0, #1|bne.n local:+40|ldr r0, [r4, #0]|movs r1, r4|subs r0, #12|ldr r5, [r0, #4]|mov r0, sp|adds r5, #14|nop|nop|ldr r0, [r4, #0]|movs r1, r5|subs r0, #12|movs r2, #0|bl func_00101CC8|pop {r3, r4, r5, pc}"
+    },
+    {
+      "name": "func_00301D7C",
+      "size": 76,
+      "instructionCount": 37,
+      "wideInstructionOffsets": [
+        40
+      ],
+      "localBranchCount": 4,
+      "memoryOperationCount": 13,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00301DC8",
+      "nextGlobalOffset": 76,
+      "localTransfers": [
+        "c:bhi.n:+10",
+        "1c:bpl.n:+48",
+        "20:beq.n:+36",
+        "2e:beq.n:+36"
+      ],
+      "returns": [
+        "34:pop:{r4, r5, r6, pc}",
+        "4a:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 40,
+          "mnemonic": "bl",
+          "symbol": "func_00301D30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r4, r0|ldr r5, [r0, #16]|ldr r0, [r0, #44]|ldr r1, [r4, #4]|cmp r0, r1|bhi.n local:+10|movs r0, r1|ldr r1, [r4, #12]|movs r2, #5|lsls r2, r2, #19|bics r1, r2|str r1, [r4, #12]|lsls r1, r1, #15|bpl.n local:+48|cmp r0, r5|beq.n local:+36|subs r1, r0, r5|movs r2, r4|movs r0, r5|bl func_00301D30|cmp r0, #0|beq.n local:+36|movs r0, #0|mvns r0, r0|pop {r4, r5, r6, pc}|str r5, [r4, #44]|movs r0, #0|str r5, [r4, #4]|str r0, [r4, #8]|ldr r0, [r4, #12]|movs r1, #1|lsls r1, r1, #16|bics r0, r1|str r0, [r4, #12]|movs r0, #0|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00301F00",
+      "size": 54,
+      "instructionCount": 25,
+      "wideInstructionOffsets": [
+        30,
+        42
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 8,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00301F68",
+      "nextGlobalOffset": 104,
+      "localTransfers": [
+        "8:beq.n:+32",
+        "c:bpl.n:+12",
+        "10:b.n:+1c"
+      ],
+      "returns": [
+        "30:pop:{r4, r5, r6, pc}",
+        "34:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_00301D7C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_00301E0C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r4, r0|ldr r0, [r0, #12]|lsls r1, r0, #30|beq.n local:+32|lsls r0, r0, #26|bpl.n local:+12|ldr r5, [r4, #40]|b.n local:+1c|ldr r1, [r4, #24]|ldr r0, [r4, #4]|adds r0, r0, r1|ldr r1, [r4, #16]|subs r5, r0, r1|movs r0, r4|bl func_00301D7C|movs r6, r0|movs r2, #0|movs r1, r5|movs r0, r4|bl func_00301E0C|movs r0, r6|pop {r4, r5, r6, pc}|movs r0, #0|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_0030227C",
+      "size": 66,
+      "instructionCount": 32,
+      "wideInstructionOffsets": [
+        18
+      ],
+      "localBranchCount": 6,
+      "memoryOperationCount": 12,
+      "returnCount": 3,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_003022C0",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "8:beq.n:+12",
+        "c:bpl.n:+1e",
+        "10:b.n:+28",
+        "2e:beq.n:+36",
+        "38:bpl.n:+34",
+        "3c:ble.n:+34"
+      ],
+      "returns": [
+        "1c:pop:{r4, pc}",
+        "34:pop:{r4, pc}",
+        "40:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 18,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|ldr r2, [r0, #12]|movs r1, r0|lsls r0, r2, #30|beq.n local:+12|lsls r0, r2, #26|bpl.n local:+1e|ldr r0, [r1, #40]|b.n local:+28|blx func_002FED78|movs r1, #1|str r1, [r0, #0]|subs r0, r1, #2|pop {r4, pc}|ldr r3, [r1, #24]|ldr r0, [r1, #4]|adds r0, r0, r3|ldr r3, [r1, #16]|subs r0, r0, r3|adds r1, #64|ldrb r3, [r1, #4]|cmp r3, #0|beq.n local:+36|ldrb r1, [r1, #5]|subs r0, r0, r1|pop {r4, pc}|lsls r1, r2, #12|bpl.n local:+34|cmp r0, #0|ble.n local:+34|subs r0, r0, #1|pop {r4, pc}"
+    },
+    {
+      "name": "func_003023F0",
+      "size": 58,
+      "instructionCount": 27,
+      "wideInstructionOffsets": [
+        16,
+        48
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 7,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_0030242A",
+      "nextGlobalOffset": 58,
+      "localTransfers": [
+        "16:bge.n:+2a",
+        "1a:beq.n:+2e"
+      ],
+      "returns": [
+        "2c:pop:{r4, r5, r6, pc}",
+        "38:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 16,
+          "mnemonic": "blx",
+          "symbol": "func_00503264",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 48,
+          "mnemonic": "bl",
+          "symbol": "func_00301D1C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r6, r0|ldr r3, [r2, #12]|ldr r0, [r2, #20]|movs r4, r2|movs r5, r1|movs r2, r1|movs r1, r6|blx func_00503264|cmp r0, #0|bge.n local:+2a|adds r1, r0, #1|beq.n local:+2e|ldr r1, [r4, #12]|movs r2, #1|lsls r0, r0, #1|lsls r2, r2, #14|orrs r1, r2|lsrs r0, r0, #1|str r1, [r4, #12]|subs r0, r5, r0|pop {r4, r5, r6, pc}|movs r0, r4|bl func_00301D1C|movs r0, #0|mvns r0, r0|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00303188",
+      "size": 52,
+      "instructionCount": 24,
+      "wideInstructionOffsets": [
+        36,
+        40
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 12,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_003031BC",
+      "nextGlobalOffset": 52,
+      "localTransfers": [
+        "c:beq.n:+30",
+        "1c:bne.n:+2c",
+        "22:beq.n:+2c"
+      ],
+      "returns": [
+        "32:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 36,
+          "mnemonic": "bl",
+          "symbol": "func_002FFE30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 40,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r5, r1|ldr r1, [r0, #0]|movs r4, r0|ldr r0, [r5, #0]|cmp r1, r0|beq.n local:+30|ldr r1, [r0, #28]|adds r1, r1, #1|str r1, [r0, #28]|ldr r0, [r4, #0]|ldr r1, [r0, #28]|subs r1, r1, #1|str r1, [r0, #28]|bne.n local:+2c|ldr r0, [r4, #0]|cmp r0, #0|beq.n local:+2c|bl func_002FFE30|blx func_002FF8C0|ldr r0, [r5, #0]|str r0, [r4, #0]|movs r0, r4|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_003035D4",
+      "size": 72,
+      "instructionCount": 34,
+      "wideInstructionOffsets": [
+        8,
+        60
+      ],
+      "localBranchCount": 5,
+      "memoryOperationCount": 13,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_0030361C",
+      "nextGlobalOffset": 72,
+      "localTransfers": [
+        "12:bcc.n:+16",
+        "1c:b.n:+22",
+        "28:bne.n:+1e",
+        "2a:b.n:+36",
+        "38:bcc.n:+2c"
+      ],
+      "returns": [
+        "46:pop:{r1, r2, r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 8,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 60,
+          "mnemonic": "blx",
+          "symbol": "func_002FF10C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|movs r4, r0|movs r5, r1|lsls r0, r1, #2|bl func_002FF094|ldr r2, [r4, #4]|movs r6, r0|cmp r2, r5|bcc.n local:+16|movs r2, r5|movs r1, r6|ldr r0, [r4, #0]|lsls r3, r2, #2|b.n local:+22|ldmia r0!, {r7}|stmia r1!, {r7}|ldr r7, [r4, #0]|adds r7, r7, r3|cmp r7, r0|bne.n local:+1e|b.n local:+36|ldr r0, [sp, #8]|lsls r1, r2, #2|ldr r0, [r0, #0]|adds r2, r2, #1|str r0, [r6, r1]|cmp r2, r5|bcc.n local:+2c|ldr r0, [r4, #0]|blx func_002FF10C|str r6, [r4, #0]|movs r0, r6|str r5, [r4, #4]|pop {r1, r2, r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00305A40",
+      "size": 42,
+      "instructionCount": 20,
+      "wideInstructionOffsets": [
+        36
+      ],
+      "localBranchCount": 3,
+      "memoryOperationCount": 9,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00305A90",
+      "nextGlobalOffset": 80,
+      "localTransfers": [
+        "e:bls.n:+1a",
+        "18:b.n:+1c",
+        "1e:bne.n:+28"
+      ],
+      "returns": [
+        "28:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 36,
+          "mnemonic": "bl",
+          "symbol": "func_003034CC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r5, r0|ldr r4, [r0, #0]|ldr r0, [r1, #0]|ldr r7, [r4, #12]|ldr r6, [sp, #24]|cmp r7, r0|bls.n local:+1a|ldr r4, [r4, #8]|lsls r0, r0, #2|adds r0, r4, r0|ldr r0, [r0, #0]|b.n local:+1c|movs r0, #0|cmp r0, #0|bne.n local:+28|movs r0, r5|str r6, [sp, #0]|bl func_003034CC|pop {r3, r4, r5, r6, r7, pc}"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_83.S",
+  "sourceSha256": "2984e4b8a6e0c08867792f222ea99cd3107ebea5f23df78e958e6c2639c54e4f",
+  "normalizedScheduleSha256": "2984e4b8a6e0c08867792f222ea99cd3107ebea5f23df78e958e6c2639c54e4f",
+  "mode": "arm",
+  "totalBodySize": 584,
+  "totalAdjacentSize": 32,
+  "cumulativePoolSlots": 820,
+  "cumulativePoolClasses": 428,
+  "functions": [
+    {
+      "name": "func_0017A8A8", "section": ".text.func_0017A8A8", "size": 44,
+      "nextGlobal": "func_0017A8E8", "nextGlobalOffset": 64,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_0017A8E8", "section": ".text.func_0017A8E8", "size": 36,
+      "nextGlobal": "func_0017AA68", "nextGlobalOffset": 384,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_0017AA68", "section": ".text.func_0017AA68", "size": 316,
+      "nextGlobal": "func_0017ABB8", "nextGlobalOffset": 336,
+      "branches": [],
+      "literals": [
+        { "offset": 316, "loadOffsets": [8], "symbol": "ipc_controller_record_vtable_83" },
+        { "offset": 320, "loadOffsets": [80], "symbol": "ipc_default_flags_54" },
+        { "offset": 324, "loadOffsets": [92], "symbol": "ipc_layout_record_tag_55" },
+        { "offset": 328, "loadOffsets": [104], "symbol": "ipc_controller_variant_tag_83" },
+        { "offset": 332, "loadOffsets": [116], "symbol": "ipc_controller_fallback_tag_83" }
+      ]
+    },
+    {
+      "name": "func_0017ABB8", "section": ".text.func_0017ABB8", "size": 188,
+      "nextGlobal": "func_0017B42C", "nextGlobalOffset": 2164,
+      "branches": [],
+      "literals": [
+        { "offset": 188, "loadOffsets": [0], "symbol": "ipc_controller_state_vtable_83" },
+        { "offset": 192, "loadOffsets": [4], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 196, "loadOffsets": [8], "symbol": "service_zero_scalar_51" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_controller_record_vtable_83",
+    "ipc_default_flags_54",
+    "ipc_layout_record_tag_55",
+    "ipc_controller_variant_tag_83",
+    "ipc_controller_fallback_tag_83",
+    "ipc_controller_state_vtable_83",
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_default_flags_54",
+    "ipc_layout_record_tag_55",
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "newLiteralIdentities": [
+    "ipc_controller_record_vtable_83",
+    "ipc_controller_variant_tag_83",
+    "ipc_controller_fallback_tag_83",
+    "ipc_controller_state_vtable_83"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [],
+    "classesPairwiseDistinct": true
+  }
+}
