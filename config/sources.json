@@ -190,6 +190,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_runtime_helpers_24.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_duplicate_templates_14.S",
       "mode": "arm"
     },

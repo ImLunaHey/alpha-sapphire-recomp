@@ -32,6 +32,7 @@ const [
   duplicateTemplates24Path,
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
+  runtimeHelpers24Path,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -63,11 +64,12 @@ if (
   !duplicateTemplates24Path ||
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
+  !runtimeHelpers24Path ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate container mapping, runtime helper 23 mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, target literal identities, and target config paths"
   );
 }
 
@@ -860,6 +862,20 @@ if (runtimeHelpers23Config.schemaVersion !== 1 || runtimeHelpers23Config.mode !=
 }
 let runtimeHelper23Pending = true;
 
+const runtimeHelpers24Config = JSON.parse(readFileSync(runtimeHelpers24Path, "utf8"));
+const runtimeHelpers24Entry = runtimeHelpers24Config.functions?.[0];
+const runtimeHelpers24Constant = runtimeHelpers24Config.adjacentConstant;
+if (runtimeHelpers24Config.schemaVersion !== 1 || runtimeHelpers24Config.mode !== "arm" ||
+    runtimeHelpers24Config.totalSize !== 204 || runtimeHelpers24Config.bodyEndOffset !== 204 ||
+    runtimeHelpers24Config.functions?.length !== 1 || runtimeHelpers24Entry?.name !== "func_002DC7A0" ||
+    runtimeHelpers24Entry.size !== 204 || runtimeHelpers24Constant?.offset !== 204 ||
+    runtimeHelpers24Constant.label !== ".Lcrc32_polynomial_24" || runtimeHelpers24Constant.size !== 4 ||
+    runtimeHelpers24Constant.minimumAlignment !== 4 || runtimeHelpers24Constant.value !== "0xEDB88320" ||
+    runtimeHelpers24Constant.contract !== "standard-reflected-crc32-polynomial") {
+  throw new Error("Unexpected ARM runtime helper 24 mapping format");
+}
+let runtimeHelper24Pending = true;
+
 const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
 if (literalIdentityConfig.version !== 1 ||
     Object.keys(literalIdentityConfig).sort().join(",") !== "armAdjacentAbsoluteLiterals,version" ||
@@ -927,6 +943,22 @@ const runtimeHelper23TableWord = code.readUInt32LE(runtimeHelper23Offset + runti
 if (![...targetSegments.values()].some((segment) =>
   runtimeHelper23TableWord >= segment.address && runtimeHelper23TableWord + 11 <= segment.address + segment.size)) {
   throw new Error("ARM runtime helper 23 table does not cover audited indices 0 through 10");
+}
+const runtimeHelper24Inventory = functionsByName.get(runtimeHelpers24Entry.name);
+if (runtimeHelper24Inventory?.mode !== "$a" || runtimeHelper24Inventory.size !== runtimeHelpers24Entry.size) {
+  throw new Error("ARM runtime helper 24 is missing from the function inventory");
+}
+const runtimeHelper24Offset = runtimeHelper24Inventory.address - textStart;
+const runtimeHelper24SlotStart = runtimeHelper24Inventory.address + runtimeHelper24Inventory.size;
+const runtimeHelper24SlotEnd = runtimeHelper24SlotStart + runtimeHelpers24Constant.size;
+if (runtimeHelper24SlotStart % runtimeHelpers24Constant.minimumAlignment !== 0 || runtimeHelper24Offset < 0 ||
+    runtimeHelper24Offset + runtimeHelper24Inventory.size + runtimeHelpers24Constant.size > code.length ||
+    functions.some((candidate) => candidate.address < runtimeHelper24SlotEnd &&
+      candidate.address + candidate.size > runtimeHelper24SlotStart)) {
+  throw new Error("ARM runtime helper 24 has an invalid adjacent polynomial slot");
+}
+if (code.readUInt32LE(runtimeHelper24Offset + runtimeHelper24Inventory.size) !== 0xEDB88320) {
+  throw new Error("ARM runtime helper 24 has an unexpected adjacent polynomial value");
 }
 const identityWords = new Map();
 const wordIdentities = new Map();
@@ -1482,8 +1514,9 @@ for (const entry of functions) {
   const duplicateTemplate24 = duplicateTemplates24.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
+  const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateContainerTemplate, runtimeHelper23].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -1644,9 +1677,17 @@ for (const entry of functions) {
     ...(runtimeHelper23
       ? [`.word ${runtimeHelpers23Config.adjacentRelocation.symbol}`, `.global ${runtimeHelpers23Config.adjacentRelocation.symbol}`]
       : []),
+    ...(runtimeHelper24
+      ? [
+          `.balign ${runtimeHelpers24Constant.minimumAlignment}`,
+          `${runtimeHelpers24Constant.label}:`,
+          `.word ${runtimeHelpers24Constant.value}`,
+        ]
+      : []),
     ""
   );
   if (runtimeHelper23) runtimeHelper23Pending = false;
+  if (runtimeHelper24) runtimeHelper24Pending = false;
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
   ipcUniqueTemplates.delete(entry.name);
@@ -1669,6 +1710,9 @@ for (const entry of functions) {
 }
 if (runtimeHelper23Pending) {
   throw new Error("ARM runtime helper 23 mapping is missing from the function inventory");
+}
+if (runtimeHelper24Pending) {
+  throw new Error("ARM runtime helper 24 mapping is missing from the function inventory");
 }
 if (branchThunks.size !== 0) {
   throw new Error(

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_24.S",
+  "mode": "arm",
+  "sourceSha256": "f2028f831ec9224566c15453678b6efc5d3e35ecb490efa53d84c580d98db846",
+  "totalSize": 204,
+  "functions": [{ "name": "func_002DC7A0", "size": 204 }],
+  "bodyEndOffset": 204,
+  "adjacentConstant": {
+    "offset": 204,
+    "label": ".Lcrc32_polynomial_24",
+    "size": 4,
+    "minimumAlignment": 4,
+    "value": "0xEDB88320",
+    "contract": "standard-reflected-crc32-polynomial"
+  }
+}
