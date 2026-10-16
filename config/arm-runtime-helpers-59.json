@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_59.S",
+  "mode": "arm",
+  "totalBodySize": 3716,
+  "totalAdjacentSize": 48,
+  "functions": [
+    {
+      "name": "func_002DB7A0",
+      "size": 860,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 860, "kind": "f32", "semantic": "positive-zero", "value": 0 },
+        { "offset": 864, "kind": "f32", "semantic": "positive-one", "value": 1 }
+      ]
+    },
+    {
+      "name": "func_00486734",
+      "size": 984,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 984, "kind": "f32", "semantic": "positive-zero", "value": 0 },
+        { "offset": 988, "kind": "f32", "semantic": "positive-one", "value": 1 }
+      ]
+    },
+    {
+      "name": "func_0054EA0C",
+      "size": 936,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 936, "kind": "f32", "semantic": "one-divided-by-thirty", "value": 0.03333333333333333 },
+        { "offset": 940, "kind": "f32", "semantic": "positive-three", "value": 3 },
+        { "offset": 944, "kind": "f32", "semantic": "positive-zero", "value": 0 },
+        { "offset": 948, "kind": "f32", "semantic": "positive-one", "value": 1 }
+      ]
+    },
+    {
+      "name": "func_0054EDC4",
+      "size": 936,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 936, "kind": "f32", "semantic": "one-divided-by-thirty", "value": 0.03333333333333333 },
+        { "offset": 940, "kind": "f32", "semantic": "positive-three", "value": 3 },
+        { "offset": 944, "kind": "f32", "semantic": "positive-zero", "value": 0 },
+        { "offset": 948, "kind": "f32", "semantic": "positive-one", "value": 1 }
+      ]
+    }
+  ],
+  "identityClasses": {
+    "call_free_vfp_runtime_helpers_59": {
+      "members": [
+        "func_002DB7A0",
+        "func_00486734",
+        "func_0054EA0C",
+        "func_0054EDC4"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "vfpOperationSchedule",
+        "publicLiteralSchedule"
+      ]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

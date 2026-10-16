@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_55.S",
+  "sourceSha256": "8c1dec3a5db2c65896795627a05c58247cdf92a5b6a9a7d954badafca2ba4b51",
+  "mode": "arm",
+  "totalBodySize": 1308,
+  "cumulativePoolSlots": 665,
+  "cumulativePoolClasses": 349,
+  "functions": [
+    {
+      "name": "func_00167B90", "size": 424,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00167B00" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00144D28" },
+        { "offset": 152, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175D58" },
+        { "offset": 224, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175870" },
+        { "offset": 272, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175D58" },
+        { "offset": 408, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_layout_fallback_secondary_55" }
+      ],
+      "literals": [
+        { "offset": 424, "symbol": "service_zero_scalar_51" },
+        { "offset": 428, "symbol": "ipc_unit_scalar_54" },
+        { "offset": 432, "symbol": "ipc_default_flags_54" }
+      ]
+    },
+    {
+      "name": "func_00167D44", "size": 396,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00167B00" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00144D28" },
+        { "offset": 176, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175D58" },
+        { "offset": 228, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175978" },
+        { "offset": 276, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012B9A0" },
+        { "offset": 348, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175D58" },
+        { "offset": 372, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017492C" }
+      ],
+      "literals": [
+        { "offset": 396, "symbol": "service_zero_scalar_51" },
+        { "offset": 400, "symbol": "ipc_unit_scalar_54" },
+        { "offset": 404, "symbol": "ipc_render_context_54" },
+        { "offset": 408, "symbol": "ipc_layout_callback_context_55" }
+      ]
+    },
+    {
+      "name": "func_00167EE0", "size": 220,
+      "branches": [
+        { "offset": 96, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B654" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B6A4" },
+        { "offset": 124, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0013E9CC" },
+        { "offset": 136, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00157FBC" },
+        { "offset": 208, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00157C04" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00167FF8", "size": 268,
+      "branches": [
+        { "offset": 196, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0013E9CC" },
+        { "offset": 216, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B654" },
+        { "offset": 228, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B6A4" },
+        { "offset": 240, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00157FBC" },
+        { "offset": 260, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0016E0C8" }
+      ],
+      "literals": [
+        { "offset": 268, "symbol": "ipc_layout_record_tag_55" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54",
+    "ipc_default_flags_54",
+    "ipc_render_context_54",
+    "ipc_layout_callback_context_55",
+    "ipc_layout_record_tag_55"
+  ],
+  "reusedLiteralIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54",
+    "ipc_default_flags_54",
+    "ipc_render_context_54"
+  ],
+  "newLiteralIdentities": [
+    "ipc_layout_callback_context_55",
+    "ipc_layout_record_tag_55"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00167B00",
+      "func_00144D28",
+      "func_00175D58",
+      "func_00175870",
+      "func_00175978",
+      "func_0012B9A0",
+      "func_0017492C",
+      "func_0016B654",
+      "func_0016B6A4",
+      "func_0013E9CC",
+      "func_00157FBC",
+      "func_00157C04",
+      "func_0016E0C8"
+    ],
+    "secondaryEntries": ["service_layout_fallback_secondary_55"],
+    "sharedClasses": [
+      { "symbol": "func_00175D58", "siteCount": 4 },
+      { "symbol": "func_00167B00", "siteCount": 2 },
+      { "symbol": "func_00144D28", "siteCount": 2 },
+      { "symbol": "func_0016B654", "siteCount": 2 },
+      { "symbol": "func_0016B6A4", "siteCount": 2 },
+      { "symbol": "func_0013E9CC", "siteCount": 2 },
+      { "symbol": "func_00157FBC", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_00175870",
+      "service_layout_fallback_secondary_55",
+      "func_00175978",
+      "func_0012B9A0",
+      "func_0017492C",
+      "func_00157C04",
+      "func_0016E0C8"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

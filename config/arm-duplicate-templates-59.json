@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_59.S",
+  "mode": "arm",
+  "expectedBodyBytes": 640,
+  "templates": {
+    "opaque_stack_operation": {
+      "bodySize": 320,
+      "instructionCount": 80,
+      "count": 2,
+      "internalLabels": 2,
+      "directCalls": 15,
+      "indirectCalls": 1,
+      "literalCount": 0
+    }
+  },
+  "internalLabelOffsets": [268, 304],
+  "callContract": [
+    { "offset": 20, "kind": "R_ARM_CALL", "symbol": "func_004E5E08", "role": "derive_first_handle" },
+    { "offset": 32, "kind": "R_ARM_CALL", "symbol": "func_004E5DDC", "role": "derive_second_handle" },
+    { "offset": 40, "kind": "R_ARM_CALL", "symbol": "func_00410B30", "role": "pre_operation_notification" },
+    { "offset": 60, "kind": "R_ARM_CALL", "symbol": "func_004E688C", "role": "derive_submitted_value" },
+    { "offset": 76, "kind": "R_ARM_CALL", "symbol": "func_00410B4C", "role": "submit_value_by_address" },
+    { "offset": 88, "kind": "R_ARM_CALL", "symbol": "func_00410484", "role": "acquire_shared_value_first" },
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00410EAC", "role": "construct_outer_stack_object" },
+    { "offset": 124, "kind": "R_ARM_CALL", "symbol": "func_00410E50", "role": "query_outer_stack_object" },
+    { "offset": 180, "kind": "R_ARM_CALL", "symbol": "func_00413574", "role": "prepare_optional_operation" },
+    { "offset": 208, "kind": "R_ARM_CALL", "symbol": "func_00417514", "addend": 28, "role": "construct_inner_stack_object" },
+    { "offset": 212, "kind": "R_ARM_CALL", "symbol": "func_00410484", "role": "acquire_shared_value_second" },
+    { "offset": 248, "kind": "R_ARM_CALL", "symbol": "func_0040F228", "role": "construct_output_stack_object" },
+    { "offset": 256, "kind": "R_ARM_CALL", "symbol": "func_0040F1A4", "role": "submit_output_stack_object" },
+    { "offset": 280, "kind": "R_ARM_CALL", "symbol": "func_0040AC94", "role": "acquire_indirect_dispatcher" },
+    { "offset": 308, "kind": "R_ARM_CALL", "symbol": "func_0040F458", "role": "destroy_outer_stack_object" }
+  ],
+  "indirectCallContract": [
+    { "offset": 300, "register": "r2", "role": "release_optional_pointer" }
+  ],
+  "functions": [
+    { "name": "func_0040EA28", "template": "opaque_stack_operation", "nextGlobalOffset": 320 },
+    { "name": "func_0040EB68", "template": "opaque_stack_operation", "nextGlobalOffset": 320 }
+  ]
+}
