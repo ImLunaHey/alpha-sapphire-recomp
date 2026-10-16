@@ -816,6 +816,10 @@
     {
       "path": "src/main/arm_runtime_helpers_75.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_76.S",
+      "mode": "arm"
     }
   ]
 }

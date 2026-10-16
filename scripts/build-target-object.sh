@@ -490,5 +490,7 @@ node "$root/scripts/validate-arm-runtime-helpers-74.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-75.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
+node "$root/scripts/validate-arm-runtime-helpers-76.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-42.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
