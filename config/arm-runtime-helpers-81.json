@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_81.S",
+  "sourceSha256": "11c6e6e1a3bcb1c9d60892ff54e22c37a2e9c391d092f989d1dc69e325e707da",
+  "mode": "arm",
+  "totalBodySize": 820,
+  "totalAdjacentSize": 0,
+  "branchScheduleSha256": "172dbb4273c55ac3b13d05b1176703eae08e3bb26f331d228070b0e5e4ab8860",
+  "returnScheduleSha256": "d8005464a744f8dab787f10a214a0062a8bb33b92d1e0006be3298ea64d68b53",
+  "functions": [
+    {
+      "name": "func_003997E4",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00399920",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_003C15C4",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0040B068",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00410A48",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00410C24",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004176B0",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0042566C",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00425690",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00430238",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0043D440",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00464770",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00464C14",
+      "size": 36,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0010BD24",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00112B0C",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00113D20",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00115A20",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00139414",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001783B8",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0018749C",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001C4934",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001FA404",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002537A8",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002B7F84",
+      "size": 32,
+      "calls": [],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_81": {
+      "members": [
+        "func_003997E4",
+        "func_00399920",
+        "func_003C15C4",
+        "func_0040B068",
+        "func_00410A48",
+        "func_00410C24",
+        "func_004176B0",
+        "func_0042566C",
+        "func_00425690",
+        "func_00430238",
+        "func_0043D440",
+        "func_00464770",
+        "func_00464C14",
+        "func_0010BD24",
+        "func_00112B0C",
+        "func_00113D20",
+        "func_00115A20",
+        "func_00139414",
+        "func_001783B8",
+        "func_0018749C",
+        "func_001C4934",
+        "func_001FA404",
+        "func_002537A8",
+        "func_002B7F84"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
