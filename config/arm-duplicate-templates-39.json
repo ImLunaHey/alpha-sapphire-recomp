@@ -1,0 +1,91 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_39.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2304,
+  "templates": {
+    "typed_record_create_and_register": {
+      "bodySize": 192,
+      "instructionCount": 48,
+      "count": 12,
+      "internalLabels": 5,
+      "calls": 6,
+      "literalCount": 3
+    }
+  },
+  "callContract": [
+    { "offset": 12, "kind": "R_ARM_CALL", "symbol": "func_00178DFC" },
+    { "offset": 48, "kind": "R_ARM_CALL", "symbol": "func_00184990", "addend": -4 },
+    { "offset": 68, "kind": "R_ARM_CALL", "symbol": "$self" },
+    { "offset": 80, "kind": "R_ARM_CALL", "symbol": "func_00171FC0" },
+    { "offset": 140, "kind": "R_ARM_CALL", "symbol": "func_00178974" },
+    { "offset": 164, "kind": "R_ARM_CALL", "symbol": "func_0017933C" }
+  ],
+  "slotContract": [
+    { "offset": 192, "loadOffset": 16, "role": "derived_dispatch_identity" },
+    { "offset": 196, "loadOffset": 84, "role": "shared_registry_identity" },
+    { "offset": 200, "loadOffset": 124, "role": "diagnostic_descriptor_identity" }
+  ],
+  "literalIdentities": {
+    "dispatch_001628A0": { "symbol": "func_001628A0_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00163AA4": { "symbol": "func_00163AA4_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00172534": { "symbol": "func_00172534_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00173064": { "symbol": "func_00173064_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00270F44": { "symbol": "func_00270F44_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00278924": { "symbol": "func_00278924_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_00287E00": { "symbol": "func_00287E00_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_0028F9E0": { "symbol": "func_0028F9E0_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_002914EC": { "symbol": "func_002914EC_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_002948AC": { "symbol": "func_002948AC_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_0029DB3C": { "symbol": "func_0029DB3C_dispatch_identity", "class": "dispatch-identity" },
+    "dispatch_0029FAC4": { "symbol": "func_0029FAC4_dispatch_identity", "class": "dispatch-identity" },
+    "registry": { "symbol": "arm_duplicate_templates_39_shared_registry_identity", "class": "mutable-global-address" },
+    "descriptor_001628A0": { "symbol": "func_001628A0_diagnostic_descriptor_identity", "class": "read-only-address" },
+    "descriptor_00163AA4": { "symbol": "func_00163AA4_diagnostic_descriptor_identity", "class": "read-only-address" },
+    "descriptor_pair_00172534": { "symbol": "arm_duplicate_templates_39_diagnostic_descriptor_pair_00172534", "class": "read-only-address" },
+    "descriptor_00270F44": { "symbol": "func_00270F44_diagnostic_descriptor_identity", "class": "read-only-address" },
+    "descriptor_00278924": { "symbol": "func_00278924_diagnostic_descriptor_identity", "class": "read-only-address" },
+    "descriptor_00287E00": { "symbol": "func_00287E00_diagnostic_descriptor_identity", "class": "read-only-address" },
+    "descriptor_pair_0028F9E0": { "symbol": "arm_duplicate_templates_39_diagnostic_descriptor_pair_0028F9E0", "class": "read-only-address" },
+    "descriptor_pair_002914EC": { "symbol": "arm_duplicate_templates_39_diagnostic_descriptor_pair_002914EC", "class": "read-only-address" },
+    "descriptor_0029DB3C": { "symbol": "func_0029DB3C_diagnostic_descriptor_identity", "class": "read-only-address" }
+  },
+  "functions": [
+    { "name": "func_001628A0", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_001628A0" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_001628A0" }
+    ] },
+    { "name": "func_00163AA4", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00163AA4" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_00163AA4" }
+    ] },
+    { "name": "func_00172534", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00172534" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_00172534" }
+    ] },
+    { "name": "func_00173064", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00173064" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_00172534" }
+    ] },
+    { "name": "func_00270F44", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00270F44" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_00270F44" }
+    ] },
+    { "name": "func_00278924", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00278924" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_00278924" }
+    ] },
+    { "name": "func_00287E00", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_00287E00" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_00287E00" }
+    ] },
+    { "name": "func_0028F9E0", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_0028F9E0" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_0028F9E0" }
+    ] },
+    { "name": "func_002914EC", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_002914EC" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_002914EC" }
+    ] },
+    { "name": "func_002948AC", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_002948AC" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_0028F9E0" }
+    ] },
+    { "name": "func_0029DB3C", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_0029DB3C" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_0029DB3C" }
+    ] },
+    { "name": "func_0029FAC4", "template": "typed_record_create_and_register", "literals": [
+      { "offset": 192, "loadOffset": 16, "identity": "dispatch_0029FAC4" }, { "offset": 196, "loadOffset": 84, "identity": "registry" }, { "offset": 200, "loadOffset": 124, "identity": "descriptor_pair_002914EC" }
+    ] }
+  ]
+}
