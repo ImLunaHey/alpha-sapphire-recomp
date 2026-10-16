@@ -85,6 +85,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-wrappers-68.json" \
   "$root/config/arm-ipc-wrappers-69.json" \
   "$root/config/arm-ipc-wrappers-70.json" \
+  "$root/config/arm-ipc-wrappers-71.json" \
   "$root/config/arm-duplicate-templates-19.json" \
   "$root/config/arm-duplicate-templates-21.json" \
   "$root/config/arm-duplicate-templates-22.json" \
@@ -136,6 +137,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-duplicate-templates-71.json" \
   "$root/config/arm-duplicate-templates-72.json" \
   "$root/config/arm-duplicate-templates-73.json" \
+  "$root/config/arm-duplicate-templates-74.json" \
   "$root/config/arm-duplicate-container-templates-13.json" \
   "$root/config/arm-runtime-helpers-23.json" \
   "$root/config/arm-runtime-helpers-24.json" \
@@ -455,6 +457,8 @@ node "$root/scripts/validate-arm-duplicate-templates-72.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-duplicate-templates-73.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-duplicate-templates-74.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" \
@@ -474,6 +478,9 @@ ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
 ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-wrappers-70.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
+ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-ipc-wrappers-71.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" \
@@ -491,6 +498,8 @@ node "$root/scripts/validate-arm-runtime-helpers-74.mjs" \
 node "$root/scripts/validate-arm-runtime-helpers-75.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-76.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
+node "$root/scripts/validate-arm-runtime-helpers-77.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-42.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_71.S",
+  "sourceSha256": "99caf0aefb769a3c02d06a16c2bfc99c6b38c055302fff9b559d8d7a3911d101",
+  "mode": "arm",
+  "totalBodySize": 632,
+  "cumulativePoolSlots": 742,
+  "cumulativePoolClasses": 390,
+  "functions": [
+    {
+      "name": "func_0018BD3C", "section": ".text.func_0018BD3C", "size": 84,
+      "nextGlobal": "func_0018BD90", "nextGlobalOffset": 84,
+      "branches": [
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018D65C" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018BD90", "section": ".text.func_0018BD90", "size": 396,
+      "nextGlobal": "func_0018BF20", "nextGlobalOffset": 400,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 144, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 156, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 272, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 284, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 368, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 380, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0018DB10" }
+      ],
+      "literals": [
+        { "offset": 396, "loadOffsets": [12], "symbol": "ipc_dispatch_owner_vtable_71" }
+      ]
+    },
+    {
+      "name": "func_0018BF64", "section": ".text.func_0018BF64", "size": 92,
+      "nextGlobal": "func_0018BFC4", "nextGlobalOffset": 96,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_001003E8" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_001003CC" }
+      ],
+      "literals": [
+        { "offset": 92, "loadOffsets": [8], "symbol": "ipc_text_owner_vtable_71" }
+      ]
+    },
+    {
+      "name": "func_0018BFC4", "section": ".text.func_0018BFC4", "size": 60,
+      "nextGlobal": "func_0018C008", "nextGlobalOffset": 68,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001888A8" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00171324" }
+      ],
+      "literals": [
+        { "offset": 60, "loadOffsets": [0], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 64, "loadOffsets": [36], "symbol": "ipc_service_registry_owner_71" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_dispatch_owner_vtable_71",
+    "ipc_text_owner_vtable_71",
+    "ipc_allocator_dispatch_owner_68",
+    "ipc_service_registry_owner_71"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_dispatch_owner_68"
+  ],
+  "newLiteralIdentities": [
+    "ipc_dispatch_owner_vtable_71",
+    "ipc_text_owner_vtable_71",
+    "ipc_service_registry_owner_71"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_0018D65C",
+      "func_00184990",
+      "func_0018DB10",
+      "func_001003E8",
+      "func_001003CC",
+      "func_001888A8",
+      "func_00171324"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_00184990",
+        "sites": [
+          { "function": "func_0018BD90", "offset": 32 },
+          { "function": "func_0018BD90", "offset": 144 },
+          { "function": "func_0018BD90", "offset": 156 },
+          { "function": "func_0018BD90", "offset": 272 },
+          { "function": "func_0018BD90", "offset": 284 },
+          { "function": "func_0018BD90", "offset": 368 },
+          { "function": "func_0018BF64", "offset": 56 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_0018D65C",
+      "func_0018DB10",
+      "func_001003E8",
+      "func_001003CC",
+      "func_001888A8",
+      "func_00171324"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0018D65C",
+      "func_00184990",
+      "func_0018DB10",
+      "func_001888A8",
+      "func_00171324"
+    ],
+    "thumbPrimaryEntries": [
+      "func_001003E8",
+      "func_001003CC"
+    ]
+  }
+}

@@ -598,6 +598,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_duplicate_templates_74.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_46.S",
       "mode": "arm"
     },
@@ -786,6 +790,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_ipc_wrappers_71.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_68.S",
       "mode": "arm"
     },
@@ -819,6 +827,10 @@
     },
     {
       "path": "src/main/arm_runtime_helpers_76.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_77.S",
       "mode": "arm"
     }
   ]
