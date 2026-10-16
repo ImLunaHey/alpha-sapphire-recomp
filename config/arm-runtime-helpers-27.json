@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_27.S",
+  "mode": "arm",
+  "sourceSha256": "e5a469ba9b9484d2d5362b180acb4738579b5c8e46a7d74b0577dba88afe34f9",
+  "totalBodySize": 88,
+  "functions": [
+    {
+      "name": "func_002DF13C",
+      "size": 24,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 24, "kind": "R_ARM_ABS32", "symbol": "runtime_once_flag_27" }
+      ]
+    },
+    {
+      "name": "func_002DFB0C",
+      "size": 64,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 64, "kind": "R_ARM_ABS32", "symbol": "runtime_initializer_value_a_27" },
+        { "offset": 68, "kind": "R_ARM_ABS32", "symbol": "runtime_initializer_value_b_27" },
+        { "offset": 72, "kind": "R_ARM_ABS32", "symbol": "runtime_initializer_value_c_27" }
+      ]
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_once_flag_27": {
+      "minimumSlotAlignment": 4,
+      "minimumPointeeAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "writable-byte-offset-zero"
+    },
+    "runtime_initializer_value_a_27": {
+      "minimumSlotAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "integer-copied-once-complemented-once"
+    },
+    "runtime_initializer_value_b_27": {
+      "minimumSlotAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "integer-copied-once-complemented-once"
+    },
+    "runtime_initializer_value_c_27": {
+      "minimumSlotAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "integer-copied-once"
+    }
+  }
+}

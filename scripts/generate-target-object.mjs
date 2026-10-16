@@ -34,11 +34,13 @@ const [
   duplicateTemplates24Path,
   duplicateTemplates25Path,
   duplicateTemplates26Path,
+  duplicateTemplates27Path,
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
   runtimeHelpers24Path,
   runtimeHelpers25Path,
   runtimeHelpers26Path,
+  runtimeHelpers27Path,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -72,16 +74,18 @@ if (
   !duplicateTemplates24Path ||
   !duplicateTemplates25Path ||
   !duplicateTemplates26Path ||
+  !duplicateTemplates27Path ||
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
   !runtimeHelpers24Path ||
   !runtimeHelpers25Path ||
   !runtimeHelpers26Path ||
+  !runtimeHelpers27Path ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, IPC template 25 mapping, IPC template 26 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate template 25 mapping, duplicate template 26 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, runtime helper 25 mapping, runtime helper 26 mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, IPC template 25 mapping, IPC template 26 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate template 25 mapping, duplicate template 26 mapping, duplicate template 27 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, runtime helper 25 mapping, runtime helper 26 mapping, runtime helper 27 mapping, target literal identities, and target config paths"
   );
 }
 
@@ -965,6 +969,29 @@ if (configuredDuplicateTemplate26Bytes !== 336 || duplicateTemplate26BlockEntrie
   throw new Error("Unexpected duplicate template 26 totals or table-view identities");
 }
 
+const duplicateTemplates27Config = JSON.parse(readFileSync(duplicateTemplates27Path, "utf8"));
+const duplicateTemplate27Definition = {
+  bodySize: 1628, instructionCount: 407, count: 10, internalLabels: 49,
+};
+if (duplicateTemplates27Config.version !== 1 || duplicateTemplates27Config.mode !== "arm" ||
+    duplicateTemplates27Config.expectedBodyBytes !== 16280 ||
+    JSON.stringify(duplicateTemplates27Config.templates) !== JSON.stringify({
+      intrusive_colored_tree_erase: duplicateTemplate27Definition,
+    }) || !Array.isArray(duplicateTemplates27Config.functions) ||
+    duplicateTemplates27Config.functions.length !== 10) {
+  throw new Error("Unexpected duplicate template 27 mapping format");
+}
+const duplicateTemplates27 = new Map();
+for (const entry of duplicateTemplates27Config.functions) {
+  if (entry === null || typeof entry !== "object" ||
+      Object.keys(entry).sort().join(",") !== "name,template" ||
+      !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      entry.template !== "intrusive_colored_tree_erase" || duplicateTemplates27.has(entry.name)) {
+    throw new Error("Invalid or duplicate duplicate-template 27 mapping entry");
+  }
+  duplicateTemplates27.set(entry.name, entry);
+}
+
 const duplicateContainerTemplatesConfig = JSON.parse(
   readFileSync(duplicateContainerTemplatesPath, "utf8")
 );
@@ -1095,6 +1122,55 @@ if (runtimeHelpers26Config.schemaVersion !== 1 || runtimeHelpers26Config.mode !=
 }
 const runtimeHelpers26ByName = new Map(runtimeHelpers26Config.functions.map((entry) => [entry.name, entry]));
 const runtimeHelpers26Pending = new Set(runtimeHelpers26ByName.keys());
+
+const runtimeHelpers27Config = JSON.parse(readFileSync(runtimeHelpers27Path, "utf8"));
+const runtimeHelpers27Expected = [
+  ["func_002DF13C", 24, [[24, "runtime_once_flag_27"]]],
+  ["func_002DFB0C", 64, [
+    [64, "runtime_initializer_value_a_27"],
+    [68, "runtime_initializer_value_b_27"],
+    [72, "runtime_initializer_value_c_27"],
+  ]],
+];
+const runtimeHelpers27ExpectedIdentities = {
+  runtime_once_flag_27: {
+    minimumSlotAlignment: 4,
+    minimumPointeeAlignment: 4,
+    equality: "batch-local-distinct",
+    usage: "writable-byte-offset-zero",
+  },
+  runtime_initializer_value_a_27: {
+    minimumSlotAlignment: 4,
+    equality: "batch-local-distinct",
+    usage: "integer-copied-once-complemented-once",
+  },
+  runtime_initializer_value_b_27: {
+    minimumSlotAlignment: 4,
+    equality: "batch-local-distinct",
+    usage: "integer-copied-once-complemented-once",
+  },
+  runtime_initializer_value_c_27: {
+    minimumSlotAlignment: 4,
+    equality: "batch-local-distinct",
+    usage: "integer-copied-once",
+  },
+};
+const runtimeHelpers27Identities = runtimeHelpers27Config.symbolicIdentities;
+if (runtimeHelpers27Config.schemaVersion !== 1 || runtimeHelpers27Config.mode !== "arm" ||
+    runtimeHelpers27Config.totalBodySize !== 88 || runtimeHelpers27Config.functions?.length !== 2 ||
+    JSON.stringify(runtimeHelpers27Identities) !== JSON.stringify(runtimeHelpers27ExpectedIdentities) ||
+    runtimeHelpers27Config.functions.some((entry, index) => {
+      const [name, size, words] = runtimeHelpers27Expected[index];
+      return entry?.name !== name || entry.size !== size ||
+        !Array.isArray(entry.calls) || entry.calls.length !== 0 ||
+        JSON.stringify(entry.adjacentWords) !== JSON.stringify(
+          words.map(([offset, symbol]) => ({ offset, kind: "R_ARM_ABS32", symbol }))
+        );
+    })) {
+  throw new Error("Unexpected ARM runtime helper 27 mapping format");
+}
+const runtimeHelpers27ByName = new Map(runtimeHelpers27Config.functions.map((entry) => [entry.name, entry]));
+const runtimeHelpers27Pending = new Set(runtimeHelpers27ByName.keys());
 
 const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
 if (literalIdentityConfig.version !== 1 ||
@@ -1268,6 +1344,38 @@ for (const mapping of runtimeHelpers26Config.functions) {
 if (runtimeHelper26Destinations.size !== 2 ||
     new Set(runtimeHelper26Destinations.values()).size !== 2) {
   throw new Error("ARM runtime helper 26 call identities do not have distinct ARM destinations");
+}
+
+const runtimeHelper27PrivateWords = new Map();
+for (const mapping of runtimeHelpers27Config.functions) {
+  const inventory = functionsByName.get(mapping.name);
+  if (inventory?.mode !== "$a" || inventory.size !== mapping.size) {
+    throw new Error(`ARM runtime helper 27 function ${mapping.name} is missing from the function inventory`);
+  }
+  const offset = inventory.address - textStart;
+  const slotStart = inventory.address + mapping.size;
+  const slotEnd = inventory.address + mapping.adjacentWords.at(-1).offset + 4;
+  if (offset < 0 || slotEnd - textStart > code.length ||
+      functions.some((candidate) => candidate.address < slotEnd &&
+        candidate.address + candidate.size > slotStart)) {
+    throw new Error(`ARM runtime helper 27 function ${mapping.name} has invalid adjacent words`);
+  }
+  for (const word of mapping.adjacentWords) {
+    const contract = runtimeHelpers27Identities[word.symbol];
+    const slotAddress = inventory.address + word.offset;
+    if (word.kind !== "R_ARM_ABS32" || slotAddress % contract.minimumSlotAlignment !== 0) {
+      throw new Error(`ARM runtime helper 27 identity ${word.symbol} has an invalid or misaligned slot`);
+    }
+    runtimeHelper27PrivateWords.set(word.symbol, code.readUInt32LE(offset + word.offset));
+  }
+}
+if (runtimeHelper27PrivateWords.size !== 4 ||
+    new Set(runtimeHelper27PrivateWords.values()).size !== 4) {
+  throw new Error("ARM runtime helper 27 opaque identities do not have the documented distinct equality classes");
+}
+if (runtimeHelper27PrivateWords.get("runtime_once_flag_27") %
+    runtimeHelpers27Identities.runtime_once_flag_27.minimumPointeeAlignment !== 0) {
+  throw new Error("ARM runtime helper 27 writable byte identity does not meet its documented alignment");
 }
 
 function isArmBranchTo(instruction, instructionAddress, destinationAddress, condition, link) {
@@ -1638,6 +1746,23 @@ if (duplicateTemplate26BlockAddresses.size !== 3 || duplicateTemplate26ViewConte
   throw new Error("Duplicate-template 26 table block/view identity totals are invalid");
 }
 
+let duplicateTemplate27Reference;
+for (const name of duplicateTemplates27.keys()) {
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== duplicateTemplate27Definition.bodySize) {
+    throw new Error(`${name} is not the configured inventoried ARM duplicate-template 27 function`);
+  }
+  const offset = entry.address - textStart;
+  if (offset < 0 || offset + entry.size > code.length) {
+    throw new Error(`${name} has an out-of-bounds duplicate-template 27 body`);
+  }
+  const body = code.subarray(offset, offset + entry.size);
+  if (duplicateTemplate27Reference !== undefined && !body.equals(duplicateTemplate27Reference)) {
+    throw new Error(`${name} violates duplicate-template 27 complete-body equality`);
+  }
+  duplicateTemplate27Reference = body;
+}
+
 for (const [name, mapping] of adjacentGlobalLoads) {
   const entry = functionsByName.get(name);
   if (entry === undefined || entry.mode !== "$a" || entry.size !== 12) {
@@ -1908,13 +2033,15 @@ for (const entry of functions) {
   const duplicateTemplate24 = duplicateTemplates24.get(entry.name);
   const duplicateTemplate25 = duplicateTemplates25.get(entry.name);
   const duplicateTemplate26 = duplicateTemplates26.get(entry.name);
+  const duplicateTemplate27 = duplicateTemplates27.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
   const runtimeHelper25 = runtimeHelpers25ByName.get(entry.name);
   const runtimeHelper26 = runtimeHelpers26ByName.get(entry.name);
+  const runtimeHelper27 = runtimeHelpers27ByName.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -2126,12 +2253,16 @@ for (const entry of functions) {
     ...(runtimeHelper26
       ? runtimeHelper26.calls.map((call) => `.global ${call.symbol}`)
       : []),
+    ...(runtimeHelper27
+      ? runtimeHelper27.adjacentWords.flatMap((word) => [`.word ${word.symbol}`, `.global ${word.symbol}`])
+      : []),
     ""
   );
   if (runtimeHelper23) runtimeHelper23Pending = false;
   if (runtimeHelper24) runtimeHelper24Pending = false;
   if (runtimeHelper25) runtimeHelpers25Pending.delete(entry.name);
   if (runtimeHelper26) runtimeHelpers26Pending.delete(entry.name);
+  if (runtimeHelper27) runtimeHelpers27Pending.delete(entry.name);
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
   ipcUniqueTemplates.delete(entry.name);
@@ -2154,6 +2285,7 @@ for (const entry of functions) {
   duplicateTemplates24.delete(entry.name);
   duplicateTemplates25.delete(entry.name);
   duplicateTemplates26.delete(entry.name);
+  duplicateTemplates27.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (runtimeHelper23Pending) {
@@ -2167,6 +2299,9 @@ if (runtimeHelpers25Pending.size !== 0) {
 }
 if (runtimeHelpers26Pending.size !== 0) {
   throw new Error(`ARM runtime helper 26 mappings missing from the function inventory: ${[...runtimeHelpers26Pending].join(", ")}`);
+}
+if (runtimeHelpers27Pending.size !== 0) {
+  throw new Error(`ARM runtime helper 27 mappings missing from the function inventory: ${[...runtimeHelpers27Pending].join(", ")}`);
 }
 if (branchThunks.size !== 0) {
   throw new Error(
@@ -2269,6 +2404,11 @@ if (duplicateTemplates25.size !== 0) {
 if (duplicateTemplates26.size !== 0) {
   throw new Error(
     `Duplicate template 26 mappings missing from the function inventory: ${[...duplicateTemplates26.keys()].join(", ")}`
+  );
+}
+if (duplicateTemplates27.size !== 0) {
+  throw new Error(
+    `Duplicate template 27 mappings missing from the function inventory: ${[...duplicateTemplates27.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {

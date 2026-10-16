@@ -254,7 +254,15 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_duplicate_templates_27.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_26.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_27.S",
       "mode": "arm"
     }
   ]
