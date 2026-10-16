@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_44.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1272,
+  "templates": {
+    "adaptive_arithmetic_decoder_symbol": {
+      "bodySize": 636,
+      "instructionCount": 159,
+      "count": 2,
+      "internalLabels": 11,
+      "calls": 2,
+      "poolSlots": 0
+    }
+  },
+  "callContract": [
+    { "offset": 56, "kind": "R_ARM_CALL", "symbol": "func_0015EC10" },
+    { "offset": 72, "kind": "R_ARM_CALL", "symbol": "func_0015EC10" }
+  ],
+  "poolContract": [],
+  "functions": [
+    { "name": "func_0016FF88", "template": "adaptive_arithmetic_decoder_symbol" },
+    { "name": "func_001F3884", "template": "adaptive_arithmetic_decoder_symbol" }
+  ]
+}

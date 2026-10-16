@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_40.S",
+  "sourceSha256": "e2da4ae24303918873ed547f72d998b4881ef04547d6492f92c7aa47c4acca9e",
+  "mode": "arm",
+  "totalBodySize": 380,
+  "cumulativePoolSlots": 536,
+  "cumulativePoolClasses": 263,
+  "functions": [
+    {
+      "name": "func_0010EE40", "size": 44,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": [
+        { "offset": 44, "symbol": "service_completion_code_40" }
+      ]
+    },
+    {
+      "name": "func_0010EEEC", "size": 72,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0011B11C" }
+      ],
+      "literals": [
+        { "offset": 72, "symbol": "service_name_token_40" },
+        { "offset": 76, "symbol": "service_event_state_40" }
+      ]
+    },
+    {
+      "name": "func_0013F2F0", "size": 72,
+      "branches": [
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": [
+        { "offset": 72, "symbol": "service_completion_code_40" }
+      ]
+    },
+    {
+      "name": "func_001781F0", "size": 56,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_002BEAAC", "size": 60,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": [
+        { "offset": 60, "symbol": "service_wait_pair_40" },
+        { "offset": 64, "symbol": "service_completion_code_40" }
+      ]
+    },
+    {
+      "name": "func_003BB84C", "size": 76,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "service_completion_code_40",
+    "service_name_token_40",
+    "service_event_state_40",
+    "service_wait_pair_40"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_completion_code_40",
+    "service_name_token_40",
+    "service_event_state_40",
+    "service_wait_pair_40"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_001603A0",
+      "func_0011B11C"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_001603A0", "siteCount": 5 }
+    ],
+    "singletonClasses": [
+      "func_0011B11C"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
