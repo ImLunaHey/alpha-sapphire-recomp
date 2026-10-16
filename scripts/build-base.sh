@@ -228,4 +228,7 @@ node "$root/scripts/validate-arm-duplicate-templates-63.mjs" "$output" "$readelf
 node "$root/scripts/validate-arm-duplicate-templates-64.mjs" "$output" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-60.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-64.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-duplicate-templates-65.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-ipc-templates-61.mjs" "$output" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-65.mjs" "$output" "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

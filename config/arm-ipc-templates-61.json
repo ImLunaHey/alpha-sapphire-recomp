@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_61.S",
+  "sourceSha256": "baa3b47804131fc590099bca90c2c1a68997c9d6e0fc7c906afc0aa79dfd6acc",
+  "mode": "arm",
+  "totalBodySize": 960,
+  "cumulativePoolSlots": 684,
+  "cumulativePoolClasses": 363,
+  "functions": [
+    { "name": "func_00176684", "size": 32, "branches": [], "literals": [] },
+    {
+      "name": "func_001766A4", "size": 32,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    { "name": "func_001766C4", "size": 60, "branches": [], "literals": [] },
+    { "name": "func_00176700", "size": 60, "branches": [], "literals": [] },
+    { "name": "func_0017673C", "size": 60, "branches": [], "literals": [] },
+    { "name": "func_00176778", "size": 60, "branches": [], "literals": [] },
+    {
+      "name": "func_001767CC", "size": 40,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001767F4", "size": 44,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    { "name": "func_00176820", "size": 96, "branches": [], "literals": [] },
+    {
+      "name": "func_00176880", "size": 32,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001768A0", "size": 40,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001768C8", "size": 52,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001768FC", "size": 36,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00176920", "size": 44,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    { "name": "func_0017694C", "size": 48, "branches": [], "literals": [] },
+    {
+      "name": "func_0017697C", "size": 36,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001769A0", "size": 44,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001769D8", "size": 40,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    { "name": "func_00176A0C", "size": 40, "branches": [], "literals": [] },
+    {
+      "name": "func_00176A34", "size": 64,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017CEF4" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017D058",
+      "func_0017CEF4"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_0017D058", "siteCount": 11 }
+    ],
+    "singletonClasses": [
+      "func_0017CEF4"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

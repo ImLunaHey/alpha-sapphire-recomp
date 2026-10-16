@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_65.S",
+  "sourceSha256": "f49550eb8c52f26a62af8007a6c1394842a9e9b566b0c99a4431fbf6806fefe3",
+  "mode": "arm",
+  "expectedBodyBytes": 512,
+  "templates": {
+    "intrusive_chain_reset_and_destroy": {
+      "bodySize": 256,
+      "instructionCount": 64,
+      "count": 2,
+      "internalLabels": 9,
+      "directCalls": 2,
+      "indirectCalls": 2,
+      "ownedLiteralCount": 0
+    }
+  },
+  "internalLabelOffsets": [24, 100, 128, 172, 180, 212, 220, 232, 248],
+  "directTransferOffsets": [176, 216],
+  "functions": [
+    {
+      "name": "func_0056EF44",
+      "template": "intrusive_chain_reset_and_destroy",
+      "nextGlobalOffset": 256,
+      "directTransfers": [
+        {
+          "offset": 176,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00302108",
+          "role": "destroy_primary_storage_fallback"
+        },
+        {
+          "offset": 216,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00302108",
+          "role": "destroy_node_storage_fallback"
+        }
+      ]
+    },
+    {
+      "name": "func_0056F044",
+      "template": "intrusive_chain_reset_and_destroy",
+      "anonymousMaterialOffset": 256,
+      "nextGlobalOffset": 272,
+      "directTransfers": [
+        {
+          "offset": 176,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00302108",
+          "role": "destroy_primary_storage_fallback"
+        },
+        {
+          "offset": 216,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00302108",
+          "role": "destroy_node_storage_fallback"
+        }
+      ]
+    }
+  ]
+}
