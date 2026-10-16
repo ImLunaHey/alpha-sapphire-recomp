@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_78.S",
+  "sourceSha256": "64114244f870a317545d7afad8372d6e77f280c195684df0a6ef647b974f6882",
+  "mode": "arm",
+  "expectedBodyBytes": 648,
+  "expectedInstructionCount": 162,
+  "templates": {
+    "query_then_notify": { "bodySize": 36, "instructionCount": 9, "count": 2, "internalLabels": 0, "directTransfers": 2, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "any_service_ready": { "bodySize": 36, "instructionCount": 9, "count": 2, "internalLabels": 2, "directTransfers": 2, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "forward_vfp4": { "bodySize": 32, "instructionCount": 8, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "forward_words3": { "bodySize": 32, "instructionCount": 8, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "forward_words4": { "bodySize": 32, "instructionCount": 8, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "call_preserve_argument": { "bodySize": 20, "instructionCount": 5, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "query_member_byte": { "bodySize": 20, "instructionCount": 5, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "read_nested_word": { "bodySize": 28, "instructionCount": 7, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "invert_embedded_test": { "bodySize": 28, "instructionCount": 7, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "optional_member_tail": { "bodySize": 20, "instructionCount": 5, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "optional_word_tail": { "bodySize": 20, "instructionCount": 5, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "call_stack_result": { "bodySize": 20, "instructionCount": 5, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 }
+  },
+  "literalIdentities": {},
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0011EC38", "func_00125D3C", "func_0011A6B4", "func_00125F70", "func_00200ABC", "func_00200BA0",
+      "func_0012FFC8", "func_0016092C", "func_00148720", "func_00164D2C", "func_00164914", "func_00164A54",
+      "func_00165F58", "func_00204B04", "func_00152F08", "func_004D22DC", "func_0016B220", "func_004BF8D0",
+      "func_00124150", "func_001003E0", "func_00371CF4", "func_0052B610"
+    ],
+    "secondaryEntries": [
+      "arm_duplicate_templates_78_secondary_0010FC60",
+      "arm_duplicate_templates_78_secondary_00161478",
+      "arm_duplicate_templates_78_secondary_00171C4C"
+    ],
+    "secondaryEntryRelations": [
+      { "symbol": "arm_duplicate_templates_78_secondary_0010FC60", "owner": "func_0010FBCC", "ownerOffset": 148, "nextGlobal": "func_0010FCE0", "bytesBeforeNextGlobal": 128 },
+      { "symbol": "arm_duplicate_templates_78_secondary_00161478", "owner": "func_00161460", "ownerOffset": 24, "nextGlobal": "func_0016148C", "bytesBeforeNextGlobal": 20 },
+      { "symbol": "arm_duplicate_templates_78_secondary_00171C4C", "owner": "func_00171ABC", "ownerOffset": 400, "nextGlobal": "func_00171C88", "bytesBeforeNextGlobal": 60 }
+    ],
+    "sharedClasses": [
+      { "symbol": "func_0011EC38", "siteCount": 2 },
+      { "symbol": "func_00124150", "siteCount": 2 },
+      { "symbol": "func_0052B610", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "arm_duplicate_templates_78_secondary_0010FC60", "func_00125D3C", "func_0011A6B4", "func_00125F70",
+      "func_00200ABC", "func_00200BA0", "func_0012FFC8", "func_0016092C", "func_00148720", "func_00164D2C",
+      "func_00164914", "func_00164A54", "func_00165F58", "func_00204B04", "func_00152F08", "func_004D22DC",
+      "func_0016B220", "func_004BF8D0", "arm_duplicate_templates_78_secondary_00161478",
+      "arm_duplicate_templates_78_secondary_00171C4C", "func_001003E0", "func_00371CF4"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "literalIdentityContract": { "siteCount": 0, "classCount": 0, "newClassCount": 0, "reusedClassCount": 0, "reusedClassesPhysicallyVerified": true },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "66d7c330dcdd11ec27012822ba03f61bfde073978d020bcc3b59306e0c53ccde",
+    "localTransferSchedule": "db3e7034c226f5288958a9570c19c56c5f5d68c168db3d94957df68221290ce2",
+    "relocationSchedule": "916322f1d5212fdd63ecf3d98056629caf946cd07404dfb28740c9ec5f25a3b7",
+    "literalIdentitySchedule": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+  },
+  "functions": [
+    { "name": "func_001122EC", "template": "query_then_notify", "internalLabelOffsets": [], "nextGlobal": "func_00112310", "nextGlobalOffset": 36, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0011EC38", "role": "query" }, { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "arm_duplicate_templates_78_secondary_0010FC60", "role": "notify" }], "literals": [] },
+    { "name": "func_0011ECB0", "template": "query_then_notify", "internalLabelOffsets": [], "nextGlobal": "func_0011ECD4", "nextGlobalOffset": 36, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0011EC38", "role": "query" }, { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00125D3C", "role": "notify" }], "literals": [] },
+    { "name": "func_0011ABA0", "template": "any_service_ready", "internalLabelOffsets": [28, 32], "nextGlobal": "func_0011AF1C", "nextGlobalOffset": 892, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0011A6B4", "role": "test_primary" }, { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00125F70", "role": "test_secondary" }], "literals": [] },
+    { "name": "func_0043B6C4", "template": "any_service_ready", "internalLabelOffsets": [28, 32], "nextGlobal": "func_0043B7E0", "nextGlobalOffset": 284, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00200ABC", "role": "test_primary" }, { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00200BA0", "role": "test_secondary" }], "literals": [] },
+    { "name": "func_001344CC", "template": "forward_vfp4", "internalLabelOffsets": [], "nextGlobal": "func_001344EC", "nextGlobalOffset": 32, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012FFC8", "role": "forward" }], "literals": [] },
+    { "name": "func_0017CAC4", "template": "forward_vfp4", "internalLabelOffsets": [], "nextGlobal": "func_0017CB20", "nextGlobalOffset": 92, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016092C", "role": "forward" }], "literals": [] },
+    { "name": "func_001426C0", "template": "forward_words3", "internalLabelOffsets": [], "nextGlobal": "func_001427B8", "nextGlobalOffset": 248, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00148720", "role": "forward" }], "literals": [] },
+    { "name": "func_00158424", "template": "forward_words3", "internalLabelOffsets": [], "nextGlobal": "func_00158444", "nextGlobalOffset": 32, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00164D2C", "role": "forward" }], "literals": [] },
+    { "name": "func_00158444", "template": "forward_words4", "internalLabelOffsets": [], "nextGlobal": "func_00158464", "nextGlobalOffset": 32, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00164914", "role": "forward" }], "literals": [] },
+    { "name": "func_00158464", "template": "forward_words4", "internalLabelOffsets": [], "nextGlobal": "func_00158484", "nextGlobalOffset": 32, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00164A54", "role": "forward" }], "literals": [] },
+    { "name": "func_00149B94", "template": "call_preserve_argument", "internalLabelOffsets": [], "nextGlobal": "func_00149BA8", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00165F58", "role": "invoke" }], "literals": [] },
+    { "name": "func_002056A8", "template": "call_preserve_argument", "internalLabelOffsets": [], "nextGlobal": "func_00205870", "nextGlobalOffset": 456, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00204B04", "role": "invoke" }], "literals": [] },
+    { "name": "func_004D2508", "template": "query_member_byte", "internalLabelOffsets": [], "nextGlobal": "func_004D26FC", "nextGlobalOffset": 500, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00152F08", "role": "query" }], "literals": [] },
+    { "name": "func_004D2EA4", "template": "query_member_byte", "internalLabelOffsets": [], "nextGlobal": "func_004D31FC", "nextGlobalOffset": 856, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D22DC", "role": "query" }], "literals": [] },
+    { "name": "func_00152EA8", "template": "read_nested_word", "internalLabelOffsets": [], "nextGlobal": "func_00152EC4", "nextGlobalOffset": 28, "directTransfers": [{ "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B220", "role": "resolve" }], "literals": [] },
+    { "name": "func_004C0294", "template": "read_nested_word", "internalLabelOffsets": [], "nextGlobal": "func_004C02B0", "nextGlobalOffset": 28, "directTransfers": [{ "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004BF8D0", "role": "resolve" }], "literals": [] },
+    { "name": "func_00333BDC", "template": "invert_embedded_test", "internalLabelOffsets": [], "nextGlobal": "func_00333BF8", "nextGlobalOffset": 28, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124150", "role": "test" }], "literals": [] },
+    { "name": "func_003354C8", "template": "invert_embedded_test", "internalLabelOffsets": [], "nextGlobal": "func_003354E4", "nextGlobalOffset": 28, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124150", "role": "test" }], "literals": [] },
+    { "name": "func_00150168", "template": "optional_member_tail", "internalLabelOffsets": [16], "nextGlobal": "func_0015017C", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_78_secondary_00161478", "role": "present_tail" }], "literals": [] },
+    { "name": "func_00169770", "template": "optional_member_tail", "internalLabelOffsets": [16], "nextGlobal": "func_00169784", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_78_secondary_00171C4C", "role": "present_tail" }], "literals": [] },
+    { "name": "func_00176670", "template": "optional_word_tail", "internalLabelOffsets": [16], "nextGlobal": "func_00176684", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001003E0", "role": "present_tail" }], "literals": [] },
+    { "name": "func_0035629C", "template": "optional_word_tail", "internalLabelOffsets": [16], "nextGlobal": "func_003562DC", "nextGlobalOffset": 64, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00371CF4", "role": "present_tail" }], "literals": [] },
+    { "name": "func_002AEC04", "template": "call_stack_result", "internalLabelOffsets": [], "nextGlobal": "func_002AEC48", "nextGlobalOffset": 68, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0052B610", "role": "fill_result" }], "literals": [] },
+    { "name": "func_002AEE08", "template": "call_stack_result", "internalLabelOffsets": [], "nextGlobal": "func_002AEE64", "nextGlobalOffset": 92, "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0052B610", "role": "fill_result" }], "literals": [] }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_75.S",
+  "sourceSha256": "3dc6df1e646475226164c631b1b346cd823532640bdab0b341644bede9bcfec9",
+  "normalizedScheduleSha256": "4cc927a474cbc01cfe2a3abc27aeee62478ca6205e5fda873f96cd5d69717627",
+  "mode": "arm",
+  "totalBodySize": 484,
+  "totalAdjacentSize": 4,
+  "cumulativePoolSlots": 771,
+  "cumulativePoolClasses": 406,
+  "functions": [
+    {
+      "name": "func_0018D0F0", "section": ".text.func_0018D0F0", "size": 88,
+      "nextGlobal": "func_0018D148", "nextGlobalOffset": 88,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018D0F0" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018D148", "section": ".text.func_0018D148", "size": 72,
+      "nextGlobal": "func_0018D190", "nextGlobalOffset": 72,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018D148" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018E8C0", "section": ".text.func_0018E8C0", "size": 64,
+      "nextGlobal": "func_0018E980", "nextGlobalOffset": 192,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018E980", "section": ".text.func_0018E980", "size": 96,
+      "nextGlobal": "func_0018E9E4", "nextGlobalOffset": 100,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00179E88" },
+        { "offset": 68, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 96, "loadOffsets": [48], "symbol": "ipc_shared_control_owner_72" }
+      ]
+    },
+    {
+      "name": "func_0018EC4C", "section": ".text.func_0018EC4C", "size": 108,
+      "nextGlobal": "func_0018ECB8", "nextGlobalOffset": 108,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018ECB8", "section": ".text.func_0018ECB8", "size": 28,
+      "nextGlobal": "func_0018ECD4", "nextGlobalOffset": 28,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_0018ECD4", "section": ".text.func_0018ECD4", "size": 28,
+      "nextGlobal": "func_0018EDA8", "nextGlobalOffset": 212,
+      "branches": [],
+      "literals": []
+    }
+  ],
+  "literalIdentities": ["ipc_shared_control_owner_72"],
+  "reusedLiteralIdentities": ["ipc_shared_control_owner_72"],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_001862FC",
+      "func_00300B28",
+      "func_001602B8",
+      "func_00179E88",
+      "func_00160380",
+      "func_0018D0F0",
+      "func_0018D148"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_001862FC",
+        "sites": [
+          { "function": "func_0018D0F0", "offset": 56 },
+          { "function": "func_0018D0F0", "offset": 68 },
+          { "function": "func_0018D148", "offset": 52 }
+        ]
+      },
+      {
+        "symbol": "func_001602B8",
+        "sites": [
+          { "function": "func_0018E980", "offset": 24 },
+          { "function": "func_0018EC4C", "offset": 16 }
+        ]
+      },
+      {
+        "symbol": "func_00160380",
+        "sites": [
+          { "function": "func_0018E980", "offset": 68 },
+          { "function": "func_0018EC4C", "offset": 76 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_00300B28", "func_00179E88", "func_0018D0F0", "func_0018D148"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
