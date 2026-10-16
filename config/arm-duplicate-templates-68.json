@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_68.S",
+  "sourceSha256": "3173f2dd77d2cb894bfad8956ce476650dc5b0f762e42c95a793aae3e724bcdb",
+  "mode": "arm",
+  "expectedBodyBytes": 764,
+  "templates": {
+    "reset_ten_slot_owner": {
+      "bodySize": 144,
+      "instructionCount": 36,
+      "count": 2,
+      "internalLabels": 3,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "poolSlots": 2
+    },
+    "find_linked_object_by_identity": {
+      "bodySize": 84,
+      "instructionCount": 21,
+      "count": 3,
+      "internalLabels": 3,
+      "directTransfers": 1,
+      "indirectCalls": 1,
+      "poolSlots": 1
+    },
+    "route_or_initialize_owner": {
+      "bodySize": 112,
+      "instructionCount": 28,
+      "count": 2,
+      "internalLabels": 3,
+      "directTransfers": 7,
+      "indirectCalls": 0,
+      "poolSlots": 0
+    }
+  },
+  "literalIdentities": {
+    "reset_derived_00498858": {
+      "symbol": "arm_duplicate_templates_68_reset_derived_00498858_identity",
+      "class": "dispatch-identity"
+    },
+    "reset_derived_004997B8": {
+      "symbol": "arm_duplicate_templates_68_reset_derived_004997B8_identity",
+      "class": "dispatch-identity"
+    },
+    "reset_shared_base": {
+      "symbol": "arm_duplicate_templates_68_reset_shared_base_identity",
+      "class": "dispatch-identity"
+    },
+    "find_004C8A2C": {
+      "symbol": "arm_duplicate_templates_68_find_004C8A2C_identity",
+      "class": "type-identity"
+    },
+    "find_004C8A84": {
+      "symbol": "arm_duplicate_templates_68_find_004C8A84_identity",
+      "class": "type-identity"
+    },
+    "find_004C8ADC": {
+      "symbol": "arm_duplicate_templates_68_find_004C8ADC_identity",
+      "class": "type-identity"
+    }
+  },
+  "functions": [
+    {
+      "name": "func_00498858",
+      "template": "reset_ten_slot_owner",
+      "internalLabelOffsets": [44, 68, 88],
+      "templateMaterialEndOffset": 151,
+      "nextGlobalOffset": 152,
+      "directTransfers": [
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_001397B8",
+          "role": "release_slot"
+        }
+      ],
+      "literals": [
+        { "offset": 144, "loadOffset": 8, "identity": "reset_derived_00498858" },
+        { "offset": 148, "loadOffset": 124, "identity": "reset_shared_base" }
+      ]
+    },
+    {
+      "name": "func_004997B8",
+      "template": "reset_ten_slot_owner",
+      "internalLabelOffsets": [44, 68, 88],
+      "templateMaterialEndOffset": 151,
+      "nextGlobalOffset": 152,
+      "directTransfers": [
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_001397B8",
+          "role": "release_slot"
+        }
+      ],
+      "literals": [
+        { "offset": 144, "loadOffset": 8, "identity": "reset_derived_004997B8" },
+        { "offset": 148, "loadOffset": 124, "identity": "reset_shared_base" }
+      ]
+    },
+    {
+      "name": "func_004C8A2C",
+      "template": "find_linked_object_by_identity",
+      "internalLabelOffsets": [52, 76, 80],
+      "templateMaterialEndOffset": 87,
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 8,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_004C8F3C",
+          "role": "acquire_chain_head"
+        }
+      ],
+      "literals": [
+        { "offset": 84, "loadOffset": 16, "identity": "find_004C8A2C" }
+      ]
+    },
+    {
+      "name": "func_004C8A84",
+      "template": "find_linked_object_by_identity",
+      "internalLabelOffsets": [52, 76, 80],
+      "templateMaterialEndOffset": 87,
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 8,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_004C8F3C",
+          "role": "acquire_chain_head"
+        }
+      ],
+      "literals": [
+        { "offset": 84, "loadOffset": 16, "identity": "find_004C8A84" }
+      ]
+    },
+    {
+      "name": "func_004C8ADC",
+      "template": "find_linked_object_by_identity",
+      "internalLabelOffsets": [52, 76, 80],
+      "templateMaterialEndOffset": 87,
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 8,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_004C8F3C",
+          "role": "acquire_chain_head"
+        }
+      ],
+      "literals": [
+        { "offset": 84, "loadOffset": 16, "identity": "find_004C8ADC" }
+      ]
+    },
+    {
+      "name": "func_0053BDE0",
+      "template": "route_or_initialize_owner",
+      "internalLabelOffsets": [68, 88, 100],
+      "anonymousMaterialOffset": 112,
+      "nextGlobalOffset": 5296,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "func_0017F0D8", "role": "acquire_context" },
+        { "offset": 24, "kind": "R_ARM_CALL", "symbol": "func_00172044", "role": "lookup_route" },
+        { "offset": 40, "kind": "R_ARM_CALL", "symbol": "func_001524C8", "role": "select_route_kind" },
+        { "offset": 60, "kind": "R_ARM_CALL", "symbol": "func_00205A98", "role": "dispatch_primary" },
+        { "offset": 72, "kind": "R_ARM_CALL", "symbol": "func_00170E24", "role": "dispatch_secondary" },
+        { "offset": 96, "kind": "R_ARM_CALL", "symbol": "func_00160BA8", "role": "initialize_fallback" },
+        { "offset": 108, "kind": "R_ARM_JUMP24", "symbol": "func_0029F40C", "role": "finalize_owner" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0053D934",
+      "template": "route_or_initialize_owner",
+      "internalLabelOffsets": [68, 88, 100],
+      "anonymousMaterialOffset": 112,
+      "nextGlobalOffset": 5064,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "func_0017F0D8", "role": "acquire_context" },
+        { "offset": 24, "kind": "R_ARM_CALL", "symbol": "func_00172044", "role": "lookup_route" },
+        { "offset": 40, "kind": "R_ARM_CALL", "symbol": "func_001524C8", "role": "select_route_kind" },
+        { "offset": 60, "kind": "R_ARM_CALL", "symbol": "func_00205A98", "role": "dispatch_primary" },
+        { "offset": 72, "kind": "R_ARM_CALL", "symbol": "func_00170E24", "role": "dispatch_secondary" },
+        { "offset": 96, "kind": "R_ARM_CALL", "symbol": "func_00160BA8", "role": "initialize_fallback" },
+        { "offset": 108, "kind": "R_ARM_JUMP24", "symbol": "func_0029F40C", "role": "finalize_owner" }
+      ],
+      "literals": []
+    }
+  ]
+}
