@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_45.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1160,
+  "templates": {
+    "polymorphic_record_vector_insert": {
+      "bodySize": 580,
+      "instructionCount": 145,
+      "count": 2,
+      "internalLabels": 13,
+      "calls": 2,
+      "poolSlots": 3
+    }
+  },
+  "callContract": [
+    { "offset": 224, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 544, "kind": "R_ARM_CALL", "symbol": "func_00160F9C" }
+  ],
+  "slotContract": [
+    { "offset": 580, "loadOffset": 24, "role": "signed_divide_by_24_identity" },
+    { "offset": 584, "loadOffset": 28, "role": "primary_dispatch_identity" },
+    { "offset": 588, "loadOffset": 36, "role": "secondary_dispatch_identity" }
+  ],
+  "literalIdentities": {
+    "divide_by_24": { "symbol": "arm_duplicate_templates_45_divide_by_24_identity", "class": "arithmetic-scalar" },
+    "primary_0056FDB0": { "symbol": "func_0056FDB0_primary_dispatch_identity", "class": "dispatch-identity" },
+    "secondary_0056FDB0": { "symbol": "func_0056FDB0_secondary_dispatch_identity", "class": "dispatch-identity" },
+    "primary_00570000": { "symbol": "func_00570000_primary_dispatch_identity", "class": "dispatch-identity" },
+    "secondary_00570000": { "symbol": "func_00570000_secondary_dispatch_identity", "class": "dispatch-identity" }
+  },
+  "functions": [
+    {
+      "name": "func_0056FDB0",
+      "template": "polymorphic_record_vector_insert",
+      "literals": [
+        { "offset": 580, "loadOffset": 24, "identity": "divide_by_24" },
+        { "offset": 584, "loadOffset": 28, "identity": "primary_0056FDB0" },
+        { "offset": 588, "loadOffset": 36, "identity": "secondary_0056FDB0" }
+      ]
+    },
+    {
+      "name": "func_00570000",
+      "template": "polymorphic_record_vector_insert",
+      "literals": [
+        { "offset": 580, "loadOffset": 24, "identity": "divide_by_24" },
+        { "offset": 584, "loadOffset": 28, "identity": "primary_00570000" },
+        { "offset": 588, "loadOffset": 36, "identity": "secondary_00570000" }
+      ]
+    }
+  ]
+}
