@@ -24,6 +24,7 @@ const [
   ipcTemplates21Path,
   ipcTemplates22Path,
   ipcTemplates23Path,
+  ipcTemplates24Path,
   duplicateTemplates19Path,
   duplicateTemplates21Path,
   duplicateTemplates22Path,
@@ -54,6 +55,7 @@ if (
   !ipcTemplates21Path ||
   !ipcTemplates22Path ||
   !ipcTemplates23Path ||
+  !ipcTemplates24Path ||
   !duplicateTemplates19Path ||
   !duplicateTemplates21Path ||
   !duplicateTemplates22Path ||
@@ -65,7 +67,7 @@ if (
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate container mapping, runtime helper 23 mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate container mapping, runtime helper 23 mapping, target literal identities, and target config paths"
   );
 }
 
@@ -614,6 +616,32 @@ for (const entry of ipcTemplates23Config.functions ?? []) {
 }
 if (ipcTemplates23.size !== 8 || configuredIpcTemplate23Bytes !== 844 || configuredIpcTemplate23Slots !== 12) throw new Error("Unexpected IPC template 23 totals");
 
+const ipcTemplates24Config = JSON.parse(readFileSync(ipcTemplates24Path, "utf8"));
+const ipcTemplate24Definitions = new Map([
+  ["temporary_static_output", { size: 104, literals: ["command"] }],
+  ["temporary_static_halfword_output", { size: 100, literals: ["command"] }],
+  ["global_named_static_descriptor", { size: 100, literals: ["command", "staticDescriptor", "handle"] }],
+  ["entry_static_output", { size: 100, literals: ["command"] }],
+  ["entry_three_word_static_output", { size: 96, literals: ["command"] }],
+  ["global_mixed_zero_pair", { size: 96, literals: ["command", "handle"] }],
+  ["global_two_descriptor_pairs", { size: 92, literals: ["command", "handle"] }],
+  ["entry_counted_pointer", { size: 92, literals: ["command"] }],
+]);
+const ipcTemplates24 = new Map();
+let configuredIpcTemplate24Bytes = 0;
+let configuredIpcTemplate24Slots = 0;
+for (const entry of ipcTemplates24Config.functions ?? []) {
+  const definition = ipcTemplate24Definitions.get(entry?.template);
+  if (!definition || entry.mode !== "arm" || entry.size !== definition.size ||
+      definition.literals.some((key) => typeof entry[key] !== "string") || ipcTemplates24.has(entry.name)) {
+    throw new Error("Invalid IPC template 24 mapping entry");
+  }
+  ipcTemplates24.set(entry.name, entry);
+  configuredIpcTemplate24Bytes += entry.size;
+  configuredIpcTemplate24Slots += definition.literals.length;
+}
+if (ipcTemplates24.size !== 8 || configuredIpcTemplate24Bytes !== 780 || configuredIpcTemplate24Slots !== 12) throw new Error("Unexpected IPC template 24 totals");
+
 const duplicateTemplates19Config = JSON.parse(readFileSync(duplicateTemplates19Path, "utf8"));
 if (duplicateTemplates19Config.version !== 1 || duplicateTemplates19Config.mode !== "arm" ||
     duplicateTemplates19Config.expectedBodyBytes !== 904 ||
@@ -964,9 +992,11 @@ const ipcMappings = [
   ...ipcTemplates22,
   ...ipcTemplates23,
 ];
-for (const [name, mapping] of ipcMappings) {
+function registerIpcMapping(name, mapping) {
   const entry = functionsByName.get(name);
-  const identities = ipcTemplates23.has(name)
+  const identities = ipcTemplates24.has(name)
+    ? ipcTemplate24Definitions.get(mapping.template).literals.map((key) => mapping[key])
+    : ipcTemplates23.has(name)
     ? ipcTemplate23Definitions.get(mapping.template).literals.map((key) => mapping[key])
     : ipcTemplates22.has(name)
     ? ipcTemplate22Definitions.get(mapping.template).literals.map((key) => mapping[key])
@@ -1006,6 +1036,7 @@ for (const [name, mapping] of ipcMappings) {
   ipcMappedBytes += entry.size;
   ipcMappedSlots += identities.length;
 }
+for (const [name, mapping] of ipcMappings) registerIpcMapping(name, mapping);
 if (ipcMappings.length !== 202 || ipcMappedBytes !== 15656 || ipcMappedSlots !== 306 ||
     ipcIdentityWords.size !== 163 || ipcWordIdentities.size !== 163 ||
     !ipcIdentityWords.has("ipc_handle_slot_alpha") ||
@@ -1017,6 +1048,11 @@ if (ipcMappings.length !== 202 || ipcMappedBytes !== 15656 || ipcMappedSlots !==
     !ipcIdentityWords.has("ipc_handle_slot_mu") ||
     !ipcIdentityWords.has("ipc_aux_literal_class_15")) {
   throw new Error("The 306 IPC slots must form a 163-to-163 identity/word bijection");
+}
+for (const [name, mapping] of ipcTemplates24) registerIpcMapping(name, mapping);
+if (ipcMappedBytes !== 16436 || ipcMappedSlots !== 318 ||
+    ipcIdentityWords.size !== 171 || ipcWordIdentities.size !== 171) {
+  throw new Error("The 318 IPC slots must form a 171-to-171 identity/word bijection");
 }
 
 const duplicateTemplate19IdentityWords = new Map();
@@ -1438,6 +1474,7 @@ for (const entry of functions) {
   const ipcTemplate21 = ipcTemplates21.get(entry.name);
   const ipcTemplate22 = ipcTemplates22.get(entry.name);
   const ipcTemplate23 = ipcTemplates23.get(entry.name);
+  const ipcTemplate24 = ipcTemplates24.get(entry.name);
   const duplicateTemplate19 = duplicateTemplates19.get(entry.name);
   const duplicateTemplate21 = duplicateTemplates21.get(entry.name);
   const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
@@ -1446,7 +1483,7 @@ for (const entry of functions) {
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateContainerTemplate, runtimeHelper23].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateContainerTemplate, runtimeHelper23].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -1574,6 +1611,12 @@ for (const entry of functions) {
           `.global ${ipcTemplate23[key]}`,
         ])
       : []),
+    ...(ipcTemplate24
+      ? ipcTemplate24Definitions.get(ipcTemplate24.template).literals.flatMap((key) => [
+          `.word ${ipcTemplate24[key]}`,
+          `.global ${ipcTemplate24[key]}`,
+        ])
+      : []),
     ...(duplicateTemplate19
       ? duplicateTemplate19.literals.flatMap(({ identity }) => {
           const symbol = duplicateTemplates19Config.literalIdentities[identity];
@@ -1616,6 +1659,7 @@ for (const entry of functions) {
   ipcTemplates21.delete(entry.name);
   ipcTemplates22.delete(entry.name);
   ipcTemplates23.delete(entry.name);
+  ipcTemplates24.delete(entry.name);
   duplicateTemplates19.delete(entry.name);
   duplicateTemplates21.delete(entry.name);
   duplicateTemplates22.delete(entry.name);
@@ -1684,6 +1728,9 @@ if (ipcTemplates22.size !== 0) {
 }
 if (ipcTemplates23.size !== 0) {
   throw new Error(`IPC template 23 mappings missing from the function inventory: ${[...ipcTemplates23.keys()].join(", ")}`);
+}
+if (ipcTemplates24.size !== 0) {
+  throw new Error(`IPC template 24 mappings missing from the function inventory: ${[...ipcTemplates24.keys()].join(", ")}`);
 }
 if (duplicateTemplates19.size !== 0) {
   throw new Error(

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_24.S",
+  "functions": [
+    { "name": "func_002E3EA4", "mode": "arm", "size": 104, "template": "temporary_static_output", "command": "ipc_command_func_002E3EA4" },
+    { "name": "func_00170954", "mode": "arm", "size": 100, "template": "temporary_static_halfword_output", "command": "ipc_command_func_00170954" },
+    { "name": "func_001F16F8", "mode": "arm", "size": 100, "template": "global_named_static_descriptor", "command": "ipc_command_func_001F16F8", "staticDescriptor": "ipc_aux_func_001F16F8_static_descriptor", "handle": "ipc_handle_slot_iota" },
+    { "name": "func_002E3E3C", "mode": "arm", "size": 100, "template": "entry_static_output", "command": "ipc_command_func_001FF71C" },
+    { "name": "func_001F6FCC", "mode": "arm", "size": 96, "template": "entry_three_word_static_output", "command": "ipc_command_func_001F6FCC" },
+    { "name": "func_002DE7D4", "mode": "arm", "size": 96, "template": "global_mixed_zero_pair", "command": "ipc_command_func_002DE7D4", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_00110310", "mode": "arm", "size": 92, "template": "global_two_descriptor_pairs", "command": "ipc_command_func_00110310", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_00132FE0", "mode": "arm", "size": 92, "template": "entry_counted_pointer", "command": "ipc_command_func_00132FE0" }
+  ]
+}

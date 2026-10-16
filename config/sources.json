@@ -138,6 +138,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_ipc_templates_24.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_duplicate_container_templates_13.S",
       "mode": "arm"
     },
