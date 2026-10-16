@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_51.S",
+  "mode": "arm",
+  "expectedBodyBytes": 4896,
+  "templates": {
+    "intrusive_red_black_tree_erase_variant": {
+      "bodySize": 1632,
+      "instructionCount": 408,
+      "count": 3,
+      "internalLabels": 48,
+      "directCalls": 0,
+      "indirectCalls": 0,
+      "tailBranches": 0,
+      "poolSlots": 0
+    }
+  },
+  "internalLabelOffsets": [
+    36, 56, 72, 92, 104, 160, 176, 180, 252, 300, 336, 360,
+    368, 408, 448, 496, 548, 564, 568, 620, 636, 640, 668, 708,
+    728, 748, 856, 868, 956, 980, 992, 1012, 1020, 1048, 1052,
+    1080, 1088, 1172, 1200, 1220, 1240, 1260, 1368, 1380, 1468,
+    1496, 1520, 1604
+  ],
+  "relocations": [],
+  "functions": [
+    {
+      "name": "func_00551AE4",
+      "template": "intrusive_red_black_tree_erase_variant",
+      "nextGlobal": "func_00552144"
+    },
+    {
+      "name": "func_00558CA4",
+      "template": "intrusive_red_black_tree_erase_variant",
+      "nextGlobal": "func_00559304"
+    },
+    {
+      "name": "func_0055CD50",
+      "template": "intrusive_red_black_tree_erase_variant",
+      "nextGlobal": "func_0055D3B0"
+    }
+  ]
+}

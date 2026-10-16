@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_51.S",
+  "mode": "arm",
+  "totalBodySize": 1168,
+  "functions": [
+    { "name": "func_004D17E8", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D373C", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D4364", "size": 204, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D84E0", "size": 60, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D8D18", "size": 64, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D9360", "size": 92, "calls": [], "adjacentWords": [] },
+    { "name": "func_004DC490", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E87F8", "size": 64, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E89F0", "size": 80, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EC2D0", "size": 200, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EC398", "size": 68, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EDA64", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_00505AB4", "size": 92, "calls": [], "adjacentWords": [] },
+    { "name": "func_0053FF04", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_0054E91C", "size": 76, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "bounded_halfword_sequence_helpers_51": {
+      "members": ["func_004EC2D0", "func_004EC398", "func_004EDA64"],
+      "parameters": ["lengthOffset", "dataOffset", "operation"]
+    },
+    "compact_predicates_51": {
+      "members": [
+        "func_004D17E8", "func_004D373C", "func_004D84E0",
+        "func_004DC490", "func_004E87F8", "func_0053FF04"
+      ],
+      "parameters": ["fieldOffsets", "comparison", "resultConvention"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
