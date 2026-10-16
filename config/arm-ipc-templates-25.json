@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_25.S",
+  "functions": [
+    { "name": "func_00164EE4", "mode": "arm", "size": 92, "template": "entry_two_descriptor_pairs", "command": "ipc_command_func_00164EE4" },
+    { "name": "func_001F6E74", "mode": "arm", "size": 92, "template": "entry_pair_output_descriptor", "command": "ipc_command_func_001F6E74" },
+    { "name": "func_001F76EC", "mode": "arm", "size": 92, "template": "entry_counted_pair_output", "command": "ipc_command_func_001F76EC" },
+    { "name": "func_001FB610", "mode": "arm", "size": 92, "template": "inline_global_four_outputs", "inlineCommand": "ipc_inline_command_id_22_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_002C5668", "mode": "arm", "size": 92, "template": "entry_byte_aux_descriptor", "command": "ipc_command_func_0016511C", "auxiliary": "ipc_aux_func_002C59AC_word1" },
+    { "name": "func_002C576C", "mode": "arm", "size": 92, "template": "temporary_static_output", "command": "ipc_command_func_002C576C" },
+    { "name": "func_001747EC", "mode": "arm", "size": 88, "template": "temporary_static_output_compact", "command": "ipc_command_func_001747EC" },
+    { "name": "func_001F6D38", "mode": "arm", "size": 88, "template": "entry_nine_words_descriptor", "command": "ipc_command_func_001F6D38" }
+  ]
+}

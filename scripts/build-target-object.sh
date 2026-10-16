@@ -39,6 +39,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-templates-22.json" \
   "$root/config/arm-ipc-templates-23.json" \
   "$root/config/arm-ipc-templates-24.json" \
+  "$root/config/arm-ipc-templates-25.json" \
   "$root/config/arm-duplicate-templates-19.json" \
   "$root/config/arm-duplicate-templates-21.json" \
   "$root/config/arm-duplicate-templates-22.json" \
@@ -79,6 +80,8 @@ node "$root/scripts/validate-arm-ipc-templates-22.mjs" \
 node "$root/scripts/validate-arm-ipc-templates-23.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-ipc-templates-24.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-ipc-templates-25.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-duplicate-templates-19.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
