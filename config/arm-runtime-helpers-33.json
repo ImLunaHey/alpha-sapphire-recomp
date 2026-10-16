@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_33.S",
+  "mode": "arm",
+  "sourceSha256": "5c3f318d439b0e9b3c2401642dbdf5a4475e9d63b6433270282bf70f8abb9643",
+  "totalBodySize": 1240,
+  "functions": [
+    { "name": "func_002DDAA4", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE630" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DDB28", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE678" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DDC20", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE744" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DDCA4", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE78C" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DDD94", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE83C" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DDFA8", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE8F0" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DE02C", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE938" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DE0B0", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DE980" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DE1E4", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DEB2C" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] },
+    { "name": "func_002DE268", "size": 124, "calls": [
+      { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_002DEB74" },
+      { "offset": 84, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+    ], "adjacentWords": [
+      { "offset": 124, "kind": "R_ARM_ABS32", "symbol": "runtime_retry_exhausted_status_33" },
+      { "offset": 128, "kind": "R_ARM_ABS32", "symbol": "service_query_accepted_status_31" }
+    ] }
+  ],
+  "symbolicIdentities": {
+    "operations": {
+      "func_002DE630": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE678": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE744": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE78C": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE83C": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE8F0": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE938": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DE980": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DEB2C": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" },
+      "func_002DEB74": { "mode": "arm", "minimumAlignment": 4, "equality": "pairwise-distinct" }
+    },
+    "runtime_failure_raise_entry_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "shared-runtime-31-failure-identity"
+    },
+    "runtime_retry_exhausted_status_33": {
+      "minimumSlotAlignment": 4, "equality": "shared-ten-site-distinct-status"
+    },
+    "service_query_accepted_status_31": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-ten-site-and-ipc31-query-status",
+      "distinctFrom": "service_open_accepted_status_31"
+    }
+  }
+}

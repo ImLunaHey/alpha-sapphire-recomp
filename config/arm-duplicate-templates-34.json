@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_34.S",
+  "mode": "arm",
+  "expectedBodyBytes": 3528,
+  "templates": {
+    "serialized_resource_operation_wrapper": {
+      "bodySize": 1176,
+      "instructionCount": 294,
+      "count": 3,
+      "internalLabels": 32,
+      "calls": 15,
+      "poolSlots": 2
+    }
+  },
+  "callContract": [
+    { "offset": 44, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 80, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 112, "kind": "R_ARM_CALL", "symbol": "func_0018C780" },
+    { "offset": 136, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 292, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 328, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 468, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 612, "kind": "R_ARM_CALL", "symbol": "func_0017048C" },
+    { "offset": 624, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 680, "kind": "R_ARM_CALL", "symbol": "operation" },
+    { "offset": 716, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 884, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 1044, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 1132, "kind": "R_ARM_CALL", "symbol": "func_0017048C" },
+    { "offset": 1144, "kind": "R_ARM_CALL", "symbol": "func_00160380" }
+  ],
+  "poolContract": [
+    { "offset": 1176, "kind": "R_ARM_ABS32", "symbol": "resource_operation_state_34", "loadOffset": 20 },
+    { "offset": 1180, "kind": "R_ARM_ABS32", "symbol": "resource_unavailable_status_34", "loadOffset": 72 }
+  ],
+  "functions": [
+    { "name": "func_002E25B0", "template": "serialized_resource_operation_wrapper", "operation": "func_002E3F10" },
+    { "name": "func_002E4960", "template": "serialized_resource_operation_wrapper", "operation": "func_002E422C" },
+    { "name": "func_002E52EC", "template": "serialized_resource_operation_wrapper", "operation": "func_002E435C" }
+  ]
+}

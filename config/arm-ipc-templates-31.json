@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_31.S",
+  "mode": "arm",
+  "sourceSha256": "b50982d34f8a140487651085d107def2df5890d05302b77fcf00f658d655ff84",
+  "totalBodySize": 688,
+  "cumulativePoolSlots": 474,
+  "cumulativePoolClasses": 237,
+  "functions": [
+    {
+      "name": "func_002C5C4C", "size": 36,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_shutdown_prepare_31" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_shutdown_secondary_31" },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "service_shutdown_finish_31" }
+      ],
+      "literals": [{ "offset": 36, "symbol": "service_state_block_31" }]
+    },
+    {
+      "name": "func_002C5C74", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6104" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5D80", "size": 56,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6254" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "literals": [{ "offset": 56, "symbol": "service_session_handle_31" }]
+    },
+    {
+      "name": "func_002C5DBC", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C62B0" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5DD8", "size": 56,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C62EC" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "literals": [{ "offset": 56, "symbol": "service_session_handle_31" }]
+    },
+    {
+      "name": "func_002C5E14", "size": 160,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_startup_31" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_request_size_31" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_open_31" },
+        { "offset": 96, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" },
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6450" },
+        { "offset": 136, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "literals": [
+        { "offset": 160, "symbol": "service_initialized_byte_31" },
+        { "offset": 164, "symbol": "service_open_accepted_status_31" }
+      ]
+    },
+    {
+      "name": "func_002C5EBC", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6378" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5ED8", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C63B4" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5EF4", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C63E4" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5F10", "size": 36,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6420" },
+        { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "literals": [{ "offset": 36, "symbol": "service_query_accepted_status_31" }]
+    },
+    {
+      "name": "func_002C5F38", "size": 28,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6480" },
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5F54", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C64BC" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C5F70", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C64F8" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C601C", "size": 64,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6534" },
+        { "offset": 28, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C60CC", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C65E8" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    },
+    {
+      "name": "func_002C60E8", "size": 28,
+      "branches": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C6624" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_failure_raise_entry_31" }
+      ], "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "service_state_block_31",
+    "service_session_handle_31",
+    "service_initialized_byte_31",
+    "service_open_accepted_status_31",
+    "service_query_accepted_status_31"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "service_shutdown_prepare_31",
+      "service_shutdown_secondary_31",
+      "service_shutdown_finish_31",
+      "func_002C6104",
+      "func_002C6254",
+      "func_002C62B0",
+      "func_002C62EC",
+      "service_startup_31",
+      "runtime_failure_raise_entry_31",
+      "service_request_size_31",
+      "func_002C6450",
+      "func_002C6378",
+      "func_002C63B4",
+      "func_002C63E4",
+      "func_002C6420",
+      "func_002C6480",
+      "func_002C64BC",
+      "func_002C64F8",
+      "func_002C6534",
+      "func_002C65E8",
+      "func_002C6624"
+    ],
+    "secondaryEntries": ["service_open_31"],
+    "sharedClasses": [
+      { "symbol": "runtime_failure_raise_entry_31", "siteCount": 17 }
+    ],
+    "singletonClasses": [
+      "service_shutdown_prepare_31",
+      "service_shutdown_secondary_31",
+      "service_shutdown_finish_31",
+      "func_002C6104",
+      "func_002C6254",
+      "func_002C62B0",
+      "func_002C62EC",
+      "service_startup_31",
+      "service_request_size_31",
+      "service_open_31",
+      "func_002C6450",
+      "func_002C6378",
+      "func_002C63B4",
+      "func_002C63E4",
+      "func_002C6420",
+      "func_002C6480",
+      "func_002C64BC",
+      "func_002C64F8",
+      "func_002C6534",
+      "func_002C65E8",
+      "func_002C6624"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "sharedBranchIdentity": "runtime_failure_raise_entry_31"
+}
