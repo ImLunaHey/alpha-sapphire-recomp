@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_69.S",
+  "sourceSha256": "6a4d43c1c37bb92552d1c0fed866da82610c42be5e62dc6a12d60d108a51926f",
+  "mode": "arm",
+  "totalBodySize": 520,
+  "cumulativePoolSlots": 729,
+  "cumulativePoolClasses": 381,
+  "functions": [
+    {
+      "name": "func_00188644", "section": ".text.func_00188644", "size": 216,
+      "nextGlobal": "func_00188728", "nextGlobalOffset": 228,
+      "branches": [],
+      "literals": [
+        { "offset": 216, "loadOffsets": [0], "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 220, "loadOffsets": [156], "symbol": "ipc_classification_value_a_69" },
+        { "offset": 224, "loadOffsets": [168], "symbol": "ipc_classification_value_b_69" }
+      ]
+    },
+    {
+      "name": "func_00188878", "section": ".text.func_00188878", "size": 40,
+      "nextGlobal": "func_001888A8", "nextGlobalOffset": 48,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "runtime_zero_pair_tail_44" },
+        { "offset": 36, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "countdown_loop_secondary_69" }
+      ],
+      "literals": [
+        { "offset": 40, "loadOffsets": [0], "symbol": "ipc_time_threshold_high_69" },
+        { "offset": 44, "loadOffsets": [20], "symbol": "ipc_time_scale_factor_69" }
+      ]
+    },
+    {
+      "name": "func_00188A00", "section": ".text.func_00188A00", "size": 140,
+      "nextGlobal": "func_00188A8C", "nextGlobalOffset": 140,
+      "branches": [
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00188A8C", "section": ".text.func_00188A8C", "size": 124,
+      "nextGlobal": "func_00188B08", "nextGlobalOffset": 124,
+      "branches": [],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_record_tree_owner_66",
+    "ipc_classification_value_a_69",
+    "ipc_classification_value_b_69",
+    "ipc_time_threshold_high_69",
+    "ipc_time_scale_factor_69"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_record_tree_owner_66"
+  ],
+  "newLiteralIdentities": [
+    "ipc_classification_value_a_69",
+    "ipc_classification_value_b_69",
+    "ipc_time_threshold_high_69",
+    "ipc_time_scale_factor_69"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00184990"
+    ],
+    "secondaryEntries": [
+      "runtime_zero_pair_tail_44",
+      "countdown_loop_secondary_69"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "runtime_zero_pair_tail_44",
+        "owner": "func_00123D60",
+        "ownerOffset": 12,
+        "nextGlobal": "func_00123D74",
+        "bytesBeforeNextGlobal": 8
+      },
+      {
+        "symbol": "countdown_loop_secondary_69",
+        "owner": "func_00123710",
+        "ownerOffset": 40,
+        "nextGlobal": "func_00123768",
+        "bytesBeforeNextGlobal": 48
+      }
+    ],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_00184990",
+      "runtime_zero_pair_tail_44",
+      "countdown_loop_secondary_69"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
