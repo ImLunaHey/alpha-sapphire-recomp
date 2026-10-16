@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_30.S",
+  "mode": "arm",
+  "sourceSha256": "72d2f99ea92568e3c37c47ba25db448e22ae33d693d67f5e76e07011ef4d09d8",
+  "totalBodySize": 180,
+  "functions": [
+    {
+      "name": "func_002E6E14",
+      "size": 12,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002E6E40",
+      "size": 44,
+      "calls": [
+        { "offset": 32, "kind": "R_ARM_CALL", "symbol": "runtime_variadic_forward_alpha_30" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002E6E8C",
+      "size": 44,
+      "calls": [
+        { "offset": 32, "kind": "R_ARM_CALL", "symbol": "runtime_variadic_forward_beta_30" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002E9A1C",
+      "size": 28,
+      "calls": [
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_nonzero_dispatch_30" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002EDAEC",
+      "size": 52,
+      "calls": [
+        { "offset": 40, "kind": "R_ARM_CALL", "symbol": "runtime_stack_record_forward_30" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_variadic_forward_alpha_30": {
+      "mode": "thumb",
+      "minimumAlignment": 2,
+      "equality": "batch-local-unique",
+      "usage": "bounded-variadic-forward-alpha-call"
+    },
+    "runtime_variadic_forward_beta_30": {
+      "mode": "thumb",
+      "minimumAlignment": 2,
+      "equality": "batch-local-unique",
+      "usage": "bounded-variadic-forward-beta-call"
+    },
+    "runtime_nonzero_dispatch_30": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-unique",
+      "usage": "nonzero-loaded-value-tail-dispatch"
+    },
+    "runtime_stack_record_forward_30": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-unique",
+      "usage": "zero-filled-stack-record-call"
+    }
+  }
+}

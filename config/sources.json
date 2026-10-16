@@ -292,6 +292,10 @@
     {
       "path": "src/main/arm_runtime_helpers_29.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_30.S",
+      "mode": "arm"
     }
   ]
 }
