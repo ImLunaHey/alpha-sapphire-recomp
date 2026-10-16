@@ -1,0 +1,94 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_79.S",
+  "sourceSha256": "bdb443def8fb845132c4301a89fafc6b50a05ce3af09bd667279efe263a259b3",
+  "normalizedScheduleSha256": "bdb443def8fb845132c4301a89fafc6b50a05ce3af09bd667279efe263a259b3",
+  "mode": "arm",
+  "totalBodySize": 260,
+  "totalAdjacentSize": 20,
+  "cumulativePoolSlots": 788,
+  "cumulativePoolClasses": 417,
+  "functions": [
+    {
+      "name": "func_0019125C", "section": ".text.func_0019125C", "size": 12,
+      "nextGlobal": "func_001919DC", "nextGlobalOffset": 1920,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_001919DC", "section": ".text.func_001919DC", "size": 28,
+      "nextGlobal": "func_001919F8", "nextGlobalOffset": 28,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00193C68" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00192BF8", "section": ".text.func_00192BF8", "size": 80,
+      "nextGlobal": "func_00192C4C", "nextGlobalOffset": 84,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E4D8" }
+      ],
+      "literals": [
+        { "offset": 80, "loadOffsets": [24], "symbol": "ipc_controller_selector_offset_77" }
+      ]
+    },
+    {
+      "name": "func_00192C4C", "section": ".text.func_00192C4C", "size": 84,
+      "nextGlobal": "func_00192EA4", "nextGlobalOffset": 600,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E4D8" }
+      ],
+      "literals": [
+        { "offset": 84, "loadOffsets": [28], "symbol": "ipc_controller_selector_offset_77" }
+      ]
+    },
+    {
+      "name": "func_00192EA4", "section": ".text.func_00192EA4", "size": 56,
+      "nextGlobal": "func_00192EE8", "nextGlobalOffset": 68,
+      "branches": [],
+      "literals": [
+        { "offset": 56, "loadOffsets": [0], "symbol": "ipc_popcount_pair_mask_79" },
+        { "offset": 60, "loadOffsets": [4], "symbol": "ipc_popcount_lane_mask_79" },
+        { "offset": 64, "loadOffsets": [24], "symbol": "ipc_popcount_nibble_mask_79" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_controller_selector_offset_77",
+    "ipc_popcount_pair_mask_79",
+    "ipc_popcount_lane_mask_79",
+    "ipc_popcount_nibble_mask_79"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_controller_selector_offset_77"
+  ],
+  "newLiteralIdentities": [
+    "ipc_popcount_pair_mask_79",
+    "ipc_popcount_lane_mask_79",
+    "ipc_popcount_nibble_mask_79"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00193C68",
+      "func_0017E4D8"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_0017E4D8",
+        "sites": [
+          { "function": "func_00192BF8", "offset": 12 },
+          { "function": "func_00192C4C", "offset": 16 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_00193C68"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
