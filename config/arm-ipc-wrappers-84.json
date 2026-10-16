@@ -1,0 +1,123 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_84.S",
+  "sourceSha256": "c69ca2b241fb5a5df2c6d73a4dd62ceab4439880b4535cfac840809c3ad68475",
+  "normalizedScheduleSha256": "c69ca2b241fb5a5df2c6d73a4dd62ceab4439880b4535cfac840809c3ad68475",
+  "mode": "arm",
+  "totalBodySize": 736,
+  "totalAdjacentSize": 20,
+  "cumulativePoolSlots": 825,
+  "cumulativePoolClasses": 430,
+  "functions": [
+    {
+      "name": "func_0017E1E4", "section": ".text.func_0017E1E4", "size": 292,
+      "nextGlobal": "func_0017E30C", "nextGlobalOffset": 296,
+      "branches": [
+        { "offset": 256, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "fp_exception_secondary_84" }
+      ],
+      "literals": [
+        { "offset": 292, "loadOffsets": [284], "symbol": "ipc_nan_result_84" }
+      ]
+    },
+    {
+      "name": "func_0017E324", "section": ".text.func_0017E324", "size": 104,
+      "nextGlobal": "func_0017E38C", "nextGlobalOffset": 104,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 100, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0017E38C", "section": ".text.func_0017E38C", "size": 228,
+      "nextGlobal": "func_0017E47C", "nextGlobalOffset": 240,
+      "branches": [
+        { "offset": 184, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00117884" }
+      ],
+      "literals": [
+        { "offset": 228, "loadOffsets": [132], "symbol": "ipc_character_range_bias_a_77" },
+        { "offset": 232, "loadOffsets": [152], "symbol": "ipc_character_range_bias_b_77" },
+        { "offset": 236, "loadOffsets": [172], "symbol": "service_allocator_context_84" }
+      ]
+    },
+    {
+      "name": "func_0017E47C", "section": ".text.func_0017E47C", "size": 24,
+      "nextGlobal": "func_0017E4D8", "nextGlobalOffset": 92,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00170548" }
+      ],
+      "literals": [
+        { "offset": 24, "loadOffsets": [8], "symbol": "service_unlink_context_44" }
+      ]
+    },
+    {
+      "name": "func_0017E524", "section": ".text.func_0017E524", "size": 88,
+      "nextGlobal": "func_0017E644", "nextGlobalOffset": 288,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E644" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E524" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_nan_result_84",
+    "ipc_character_range_bias_a_77",
+    "ipc_character_range_bias_b_77",
+    "service_allocator_context_84",
+    "service_unlink_context_44"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_character_range_bias_a_77",
+    "ipc_character_range_bias_b_77",
+    "service_unlink_context_44"
+  ],
+  "newLiteralIdentities": [
+    "ipc_nan_result_84",
+    "service_allocator_context_84"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_001602B8",
+      "func_00160380",
+      "func_00117884",
+      "func_00170548",
+      "func_0017E644",
+      "func_0017E524"
+    ],
+    "secondaryEntries": [
+      "fp_exception_secondary_84"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "fp_exception_secondary_84",
+        "owner": "func_00183E28",
+        "ownerOffset": 328,
+        "nextGlobal": "func_00184020",
+        "bytesBeforeNextGlobal": 176
+      }
+    ],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "fp_exception_secondary_84",
+      "func_001602B8",
+      "func_00160380",
+      "func_00117884",
+      "func_00170548",
+      "func_0017E644",
+      "func_0017E524"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_001602B8",
+      "func_00160380",
+      "func_00117884",
+      "func_00170548",
+      "func_0017E644",
+      "func_0017E524"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}
