@@ -37,10 +37,14 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-templates-20.json" \
   "$root/config/arm-ipc-templates-21.json" \
   "$root/config/arm-ipc-templates-22.json" \
+  "$root/config/arm-ipc-templates-23.json" \
   "$root/config/arm-duplicate-templates-19.json" \
   "$root/config/arm-duplicate-templates-21.json" \
   "$root/config/arm-duplicate-templates-22.json" \
+  "$root/config/arm-duplicate-templates-23.json" \
+  "$root/config/arm-duplicate-templates-24.json" \
   "$root/config/arm-duplicate-container-templates-13.json" \
+  "$root/config/arm-runtime-helpers-23.json" \
   "$root/config/target-literal-identities/AS_EUR_REV2.json" \
   "$root/config/targets/AS_EUR_REV2.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
@@ -69,11 +73,19 @@ node "$root/scripts/validate-arm-ipc-templates-21.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-ipc-templates-22.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-ipc-templates-23.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-duplicate-templates-19.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-duplicate-templates-21.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-duplicate-templates-22.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
+node "$root/scripts/validate-arm-duplicate-templates-23.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
+node "$root/scripts/validate-arm-duplicate-templates-24.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-duplicate-container-templates-13.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-23.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

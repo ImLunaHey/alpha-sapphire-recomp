@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_23.S",
+  "functions": [
+    { "name": "func_002C9334", "mode": "arm", "size": 112, "template": "multi_output_descriptors", "command": "ipc_command_func_002C9334" },
+    { "name": "func_001F152C", "mode": "arm", "size": 108, "template": "global_static_byte", "command": "ipc_command_func_002C9220", "handle": "ipc_handle_slot_iota" },
+    { "name": "func_00133DA4", "mode": "arm", "size": 104, "template": "global_four_outputs", "command": "ipc_command_func_002C6104", "handle": "ipc_handle_slot_alpha" },
+    { "name": "func_001F7030", "mode": "arm", "size": 104, "template": "three_descriptor_pairs", "command": "ipc_command_func_001F7030" },
+    { "name": "func_001F73F4", "mode": "arm", "size": 104, "template": "structure_three_outputs", "command": "ipc_command_func_001F73F4" },
+    { "name": "func_002C5548", "mode": "arm", "size": 104, "template": "mapped_halfword_output", "command": "ipc_command_func_002C5548" },
+    { "name": "func_002C59AC", "mode": "arm", "size": 104, "template": "auxiliary_static", "command": "ipc_command_func_002C59AC", "auxiliary": "ipc_aux_func_002C59AC_word1", "staticDescriptor": "ipc_aux_func_002C59AC_static_descriptor" },
+    { "name": "func_002CCB34", "mode": "arm", "size": 104, "template": "mapped_descriptor_output", "command": "ipc_command_func_002CCB34" }
+  ]
+}

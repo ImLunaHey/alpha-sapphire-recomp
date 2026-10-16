@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_23.S",
+  "mode": "arm",
+  "sourceSha256": "9d59df489da2e77379a7644c83b832a51988fdc264a775474d3e8527cc2aa8f5",
+  "totalSize": 252,
+  "functions": [{ "name": "func_002DACF0", "size": 252 }],
+  "bodyEndOffset": 252,
+  "adjacentRelocation": {
+    "offset": 252,
+    "type": "R_ARM_ABS32",
+    "symbol": "runtime_shift_width_table_23"
+  },
+  "tableContract": {
+    "identity": "runtime_shift_width_table_23",
+    "minimumAlignment": 1,
+    "readableIndexRange": [0, 10],
+    "contentsSpecified": false,
+    "equality": "audited-runtime-table"
+  }
+}
