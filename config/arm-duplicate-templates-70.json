@@ -1,0 +1,279 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_70.S",
+  "sourceSha256": "7ab2a0899c01f015dfa9aefbf1088b3d1538cace4cbd1a9b2f7d6566ea754d57",
+  "mode": "arm",
+  "expectedBodyBytes": 1584,
+  "templates": {
+    "initialize_composite_state": { "bodySize": 132, "instructionCount": 33, "count": 2, "internalLabels": 0, "directTransfers": 4, "indirectCalls": 0, "poolSlots": 2 },
+    "preserve_halfword_around_queries": { "bodySize": 80, "instructionCount": 20, "count": 2, "internalLabels": 0, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 0 },
+    "relink_list_with_advanced_payload": { "bodySize": 76, "instructionCount": 19, "count": 2, "internalLabels": 1, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 0 },
+    "relink_list_payload": { "bodySize": 72, "instructionCount": 18, "count": 2, "internalLabels": 1, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 0 },
+    "drive_shared_owner": { "bodySize": 64, "instructionCount": 16, "count": 2, "internalLabels": 0, "directTransfers": 4, "indirectCalls": 0, "poolSlots": 1 },
+    "rounded_capacity_offset_100": { "bodySize": 64, "instructionCount": 16, "count": 2, "internalLabels": 1, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 0 },
+    "rounded_capacity_offset_104": { "bodySize": 64, "instructionCount": 16, "count": 2, "internalLabels": 1, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 0 },
+    "map_and_forward": { "bodySize": 60, "instructionCount": 15, "count": 2, "internalLabels": 0, "directTransfers": 4, "indirectCalls": 0, "poolSlots": 0 },
+    "initialize_registered_record": { "bodySize": 60, "instructionCount": 15, "count": 2, "internalLabels": 0, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 1 },
+    "copy_stack_record": { "bodySize": 48, "instructionCount": 12, "count": 2, "internalLabels": 0, "directTransfers": 2, "indirectCalls": 0, "poolSlots": 1 },
+    "report_zero_payload": { "bodySize": 48, "instructionCount": 12, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "poolSlots": 2 },
+    "normalize_byte_predicate": { "bodySize": 24, "instructionCount": 6, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "poolSlots": 0 }
+  },
+  "literalIdentities": {
+    "composite_dispatch_a": { "symbol": "arm_duplicate_templates_70_composite_dispatch_a_identity", "class": "dispatch-identity" },
+    "composite_dispatch_b": { "symbol": "arm_duplicate_templates_70_composite_dispatch_b_identity", "class": "dispatch-identity" },
+    "component_config": { "symbol": "arm_duplicate_templates_70_component_config_identity", "class": "component-config-identity" },
+    "shared_owner": { "symbol": "global_load_11", "class": "reused-global-identity" },
+    "registered_record_a": { "symbol": "arm_duplicate_templates_70_registered_record_a_identity", "class": "record-type-identity" },
+    "registered_record_b": { "symbol": "arm_duplicate_templates_70_registered_record_b_identity", "class": "record-type-identity" },
+    "stack_descriptor_a": { "symbol": "arm_duplicate_templates_70_stack_descriptor_a_identity", "class": "descriptor-identity" },
+    "stack_descriptor_b": { "symbol": "arm_duplicate_templates_70_stack_descriptor_b_identity", "class": "descriptor-identity" },
+    "diagnostic_context": { "symbol": "arm_duplicate_templates_70_diagnostic_context_identity", "class": "diagnostic-context-identity" },
+    "diagnostic_message": { "symbol": "arm_duplicate_templates_70_diagnostic_message_identity", "class": "diagnostic-message-identity" }
+  },
+  "reusedLiteralIdentities": ["global_load_11"],
+  "newLiteralIdentities": [
+    "arm_duplicate_templates_70_composite_dispatch_a_identity",
+    "arm_duplicate_templates_70_composite_dispatch_b_identity",
+    "arm_duplicate_templates_70_component_config_identity",
+    "arm_duplicate_templates_70_registered_record_a_identity",
+    "arm_duplicate_templates_70_registered_record_b_identity",
+    "arm_duplicate_templates_70_stack_descriptor_a_identity",
+    "arm_duplicate_templates_70_stack_descriptor_b_identity",
+    "arm_duplicate_templates_70_diagnostic_context_identity",
+    "arm_duplicate_templates_70_diagnostic_message_identity"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0012EC80", "func_0012EF50", "func_00146464", "func_0014648C",
+      "func_001625B4", "func_00168E50", "func_00168EC0", "func_0016BD80",
+      "func_00176EFC", "func_00178974", "func_00179080", "func_001862A0",
+      "func_001862FC", "func_0018E370", "func_00300B28", "func_00301FBC",
+      "func_003A5C74", "func_004160B0", "func_004161AC", "func_0044BD78",
+      "func_0044BF10", "func_0044C12C", "func_004B2644", "func_004B2674",
+      "func_004D1330", "func_004D22DC", "func_00554E4C", "func_00555BE0",
+      "func_00557248", "func_00561840", "func_0056E254"
+    ],
+    "secondaryEntries": ["shared_owner_tail_secondary_70"],
+    "secondaryEntryRelations": [
+      { "symbol": "shared_owner_tail_secondary_70", "owner": "func_0044BD78", "ownerOffset": 340, "nextGlobal": "func_0044BF10", "bytesBeforeNextGlobal": 68 }
+    ],
+    "sharedClasses": [
+      { "symbol": "func_00179080", "siteCount": 2 },
+      { "symbol": "func_001625B4", "siteCount": 2 },
+      { "symbol": "func_001862A0", "siteCount": 2 },
+      { "symbol": "func_00301FBC", "siteCount": 2 },
+      { "symbol": "func_004160B0", "siteCount": 2 },
+      { "symbol": "func_004161AC", "siteCount": 2 },
+      { "symbol": "func_001862FC", "siteCount": 2 },
+      { "symbol": "func_0044C12C", "siteCount": 2 },
+      { "symbol": "func_0044BD78", "siteCount": 2 },
+      { "symbol": "func_0044BF10", "siteCount": 2 },
+      { "symbol": "shared_owner_tail_secondary_70", "siteCount": 2 },
+      { "symbol": "func_004B2644", "siteCount": 4 },
+      { "symbol": "func_004B2674", "siteCount": 4 },
+      { "symbol": "func_00168EC0", "siteCount": 2 },
+      { "symbol": "func_003A5C74", "siteCount": 2 },
+      { "symbol": "func_00168E50", "siteCount": 2 },
+      { "symbol": "func_0014648C", "siteCount": 2 },
+      { "symbol": "func_00146464", "siteCount": 2 },
+      { "symbol": "func_00300B28", "siteCount": 2 },
+      { "symbol": "func_00178974", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_00557248", "func_0056E254", "func_00561840", "func_0018E370",
+      "func_00554E4C", "func_00555BE0", "func_0016BD80", "func_00176EFC",
+      "func_0012EC80", "func_0012EF50", "func_004D1330", "func_004D22DC"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "functions": [
+    {
+      "name": "func_0053D290", "template": "initialize_composite_state", "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 207, "anonymousMaterialOffset": 208, "nextGlobalOffset": 224,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00179080", "role": "acquire_storage" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001625B4", "role": "initialize_subobject" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862A0", "role": "initialize_registry" },
+        { "offset": 128, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC", "role": "initialize_tail_region" }
+      ],
+      "literals": [
+        { "offset": 200, "loadOffset": 16, "identity": "composite_dispatch_a" },
+        { "offset": 204, "loadOffset": 88, "identity": "component_config" }
+      ]
+    },
+    {
+      "name": "func_0053ECFC", "template": "initialize_composite_state", "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 207, "anonymousMaterialOffset": 208, "nextGlobalOffset": 1744,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00179080", "role": "acquire_storage" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001625B4", "role": "initialize_subobject" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862A0", "role": "initialize_registry" },
+        { "offset": 128, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC", "role": "initialize_tail_region" }
+      ],
+      "literals": [
+        { "offset": 200, "loadOffset": 16, "identity": "composite_dispatch_b" },
+        { "offset": 204, "loadOffset": 88, "identity": "component_config" }
+      ]
+    },
+    {
+      "name": "func_0040AB70", "template": "preserve_halfword_around_queries", "internalLabelOffsets": [], "nextGlobalOffset": 80,
+      "directTransfers": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004160B0", "role": "populate_local_result" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004161AC", "role": "finalize_local_result" }
+      ], "literals": []
+    },
+    {
+      "name": "func_0040AF1C", "template": "preserve_halfword_around_queries", "internalLabelOffsets": [], "nextGlobalOffset": 80,
+      "directTransfers": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004160B0", "role": "populate_local_result" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004161AC", "role": "finalize_local_result" }
+      ], "literals": []
+    },
+    {
+      "name": "func_00557248", "template": "relink_list_with_advanced_payload", "internalLabelOffsets": [20], "nextGlobalOffset": 76,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00557248", "role": "process_current_node" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0056E254", "role": "advance_embedded_payload" }
+      ], "literals": []
+    },
+    {
+      "name": "func_00561840", "template": "relink_list_with_advanced_payload", "internalLabelOffsets": [20], "nextGlobalOffset": 76,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00561840", "role": "process_current_node" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E370", "role": "advance_embedded_payload" }
+      ], "literals": []
+    },
+    {
+      "name": "func_00554E4C", "template": "relink_list_payload", "internalLabelOffsets": [20], "nextGlobalOffset": 72,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00554E4C", "role": "process_current_node" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC", "role": "advance_embedded_payload" }
+      ], "literals": []
+    },
+    {
+      "name": "func_00555BE0", "template": "relink_list_payload", "internalLabelOffsets": [20], "nextGlobalOffset": 72,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00555BE0", "role": "process_current_node" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC", "role": "advance_embedded_payload" }
+      ], "literals": []
+    },
+    {
+      "name": "func_0044D518", "template": "drive_shared_owner", "internalLabelOffsets": [], "templateMaterialEndOffset": 67, "anonymousMaterialOffset": 68, "nextGlobalOffset": 96,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044C12C", "role": "begin_operation" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044BD78", "role": "apply_payload" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044BF10", "role": "finalize_operation" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "shared_owner_tail_secondary_70", "role": "commit_operation" }
+      ], "literals": [{ "offset": 64, "loadOffset": 8, "identity": "shared_owner" }]
+    },
+    {
+      "name": "func_0044FD00", "template": "drive_shared_owner", "internalLabelOffsets": [], "templateMaterialEndOffset": 67, "anonymousMaterialOffset": 68, "nextGlobalOffset": 68,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044C12C", "role": "begin_operation" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044BD78", "role": "apply_payload" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0044BF10", "role": "finalize_operation" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "shared_owner_tail_secondary_70", "role": "commit_operation" }
+      ], "literals": [{ "offset": 64, "loadOffset": 8, "identity": "shared_owner" }]
+    },
+    {
+      "name": "func_004E504C", "template": "rounded_capacity_offset_100", "internalLabelOffsets": [56], "nextGlobalOffset": 64,
+      "directTransfers": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004B2644", "role": "read_capacity" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2644", "role": "read_capacity_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_004E508C", "template": "rounded_capacity_offset_100", "internalLabelOffsets": [56], "anonymousMaterialOffset": 64, "nextGlobalOffset": 884,
+      "directTransfers": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004B2674", "role": "read_capacity" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2674", "role": "read_capacity_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_004E6C7C", "template": "rounded_capacity_offset_104", "internalLabelOffsets": [56], "nextGlobalOffset": 64,
+      "directTransfers": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004B2644", "role": "read_capacity" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2644", "role": "read_capacity_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_004E6CBC", "template": "rounded_capacity_offset_104", "internalLabelOffsets": [56], "anonymousMaterialOffset": 64, "nextGlobalOffset": 112,
+      "directTransfers": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004B2674", "role": "read_capacity" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2674", "role": "read_capacity_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_004D12A8", "template": "map_and_forward", "internalLabelOffsets": [], "nextGlobalOffset": 60,
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0", "role": "begin_mapping" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD80", "role": "map_value" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_003A5C74", "role": "forward_mapping" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50", "role": "finish_mapping" }
+      ], "literals": []
+    },
+    {
+      "name": "func_004D1E10", "template": "map_and_forward", "internalLabelOffsets": [], "anonymousMaterialOffset": 60, "nextGlobalOffset": 116,
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0", "role": "begin_mapping" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176EFC", "role": "map_value" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_003A5C74", "role": "forward_mapping" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50", "role": "finish_mapping" }
+      ], "literals": []
+    },
+    {
+      "name": "func_0056BC60", "template": "initialize_registered_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 63, "nextGlobalOffset": 64,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014648C", "role": "reserve_registration" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00146464", "role": "publish_registration" }
+      ], "literals": [{ "offset": 60, "loadOffset": 8, "identity": "registered_record_a" }]
+    },
+    {
+      "name": "func_0056BCA0", "template": "initialize_registered_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 63, "nextGlobalOffset": 64,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014648C", "role": "reserve_registration" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00146464", "role": "publish_registration" }
+      ], "literals": [{ "offset": 60, "loadOffset": 8, "identity": "registered_record_b" }]
+    },
+    {
+      "name": "func_0049E758", "template": "copy_stack_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 51, "nextGlobalOffset": 52,
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012EC80", "role": "initialize_stack_record" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28", "role": "copy_stack_record" }
+      ], "literals": [{ "offset": 48, "loadOffset": 12, "identity": "stack_descriptor_a" }]
+    },
+    {
+      "name": "func_004A57D0", "template": "copy_stack_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 51, "anonymousMaterialOffset": 52, "nextGlobalOffset": 156,
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012EF50", "role": "initialize_stack_record" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28", "role": "copy_stack_record" }
+      ], "literals": [{ "offset": 48, "loadOffset": 12, "identity": "stack_descriptor_b" }]
+    },
+    {
+      "name": "func_004B1108", "template": "report_zero_payload", "internalLabelOffsets": [44], "templateMaterialEndOffset": 55, "anonymousMaterialOffset": 56, "nextGlobalOffset": 284,
+      "directTransfers": [{ "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178974", "role": "report_invalid_payload" }],
+      "literals": [
+        { "offset": 48, "loadOffset": 20, "identity": "diagnostic_context" },
+        { "offset": 52, "loadOffset": 24, "identity": "diagnostic_message" }
+      ]
+    },
+    {
+      "name": "func_004B1224", "template": "report_zero_payload", "internalLabelOffsets": [44], "templateMaterialEndOffset": 55, "nextGlobalOffset": 56,
+      "directTransfers": [{ "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178974", "role": "report_invalid_payload" }],
+      "literals": [
+        { "offset": 48, "loadOffset": 20, "identity": "diagnostic_context" },
+        { "offset": 52, "loadOffset": 24, "identity": "diagnostic_message" }
+      ]
+    },
+    {
+      "name": "func_004D2C18", "template": "normalize_byte_predicate", "internalLabelOffsets": [], "anonymousMaterialOffset": 24, "nextGlobalOffset": 92,
+      "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D1330", "role": "read_predicate" }], "literals": []
+    },
+    {
+      "name": "func_004D3260", "template": "normalize_byte_predicate", "internalLabelOffsets": [], "nextGlobalOffset": 24,
+      "directTransfers": [{ "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D22DC", "role": "read_predicate" }], "literals": []
+    }
+  ]
+}

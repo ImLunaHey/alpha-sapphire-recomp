@@ -582,6 +582,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_duplicate_templates_70.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_46.S",
       "mode": "arm"
     },
@@ -751,6 +755,10 @@
     },
     {
       "path": "src/main/arm_ipc_templates_66.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_67.S",
       "mode": "arm"
     },
     {

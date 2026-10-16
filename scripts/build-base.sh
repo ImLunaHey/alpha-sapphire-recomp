@@ -239,10 +239,13 @@ node "$root/scripts/validate-arm-ipc-templates-63.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-67.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-duplicate-templates-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-duplicate-templates-69.mjs" "$output"
+node "$root/scripts/validate-arm-duplicate-templates-70.mjs" "$output"
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" "$output" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" "$output"
 ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-templates-66.mjs" "$output"
+ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-ipc-wrappers-67.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-70.mjs" "$output"

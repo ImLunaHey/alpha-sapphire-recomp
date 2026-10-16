@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_67.S",
+  "sourceSha256": "b2365ca6075733886325a4d2fd89550848954c5a1b3f66e0d990792a078ad630",
+  "mode": "arm",
+  "totalBodySize": 812,
+  "cumulativePoolSlots": 723,
+  "cumulativePoolClasses": 376,
+  "functions": [
+    {
+      "name": "func_00182918", "size": 560,
+      "branches": [
+        { "offset": 108, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00301FBC" },
+        { "offset": 220, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00301FBC" },
+        { "offset": 344, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00301FBC" },
+        { "offset": 508, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00301FBC" }
+      ],
+      "literals": [
+        { "offset": 560, "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 564, "symbol": "ipc_allocator_owner_65" }
+      ]
+    },
+    {
+      "name": "func_00182B50", "size": 252,
+      "branches": [
+        { "offset": 180, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D1D4" }
+      ],
+      "literals": [
+        { "offset": 252, "symbol": "ipc_dirty_flag_owner_66" },
+        { "offset": 256, "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 260, "symbol": "ipc_record_tag_67" },
+        { "offset": 264, "symbol": "ipc_release_callback_owner_67" },
+        { "offset": 268, "symbol": "ipc_allocator_owner_65" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_allocator_owner_65",
+    "ipc_record_tree_owner_66",
+    "ipc_dirty_flag_owner_66",
+    "ipc_record_tag_67",
+    "ipc_release_callback_owner_67"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_owner_65",
+    "ipc_record_tree_owner_66",
+    "ipc_dirty_flag_owner_66"
+  ],
+  "newLiteralIdentities": [
+    "ipc_record_tag_67",
+    "ipc_release_callback_owner_67"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00301FBC",
+      "func_0017D1D4"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_00301FBC", "siteCount": 4 }
+    ],
+    "singletonClasses": [
+      "func_0017D1D4"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
