@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_49.S",
+  "sourceSha256": "0c6341dc8e4571369655ea2542412f948a0135b067ed6fbfd25801cfe2154637",
+  "mode": "arm",
+  "totalBodySize": 620,
+  "cumulativePoolSlots": 626,
+  "cumulativePoolClasses": 319,
+  "functions": [
+    {
+      "name": "func_00165E0C", "size": 224,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_00165EEC", "size": 100,
+      "branches": [
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0015EB9C" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001748D4" },
+        { "offset": 96, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0017A8E8" }
+      ],
+      "literals": [
+        { "offset": 100, "symbol": "service_descriptor_state_49" },
+        { "offset": 104, "symbol": "service_message_chain_49" }
+      ]
+    },
+    {
+      "name": "func_00165F58", "size": 56,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001748D4" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017A8A8" }
+      ],
+      "literals": [
+        { "offset": 56, "symbol": "service_message_chain_49" }
+      ]
+    },
+    {
+      "name": "func_00165F94", "size": 76,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_00165FE0", "size": 164,
+      "branches": [],
+      "literals": [
+        { "offset": 164, "symbol": "service_dispatch_table_49" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_descriptor_state_49",
+    "service_message_chain_49",
+    "service_dispatch_table_49"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_descriptor_state_49",
+    "service_message_chain_49",
+    "service_dispatch_table_49"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0015EB9C",
+      "func_001748D4",
+      "func_0017A8E8",
+      "func_0017A8A8"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_001748D4", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_0015EB9C",
+      "func_0017A8E8",
+      "func_0017A8A8"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

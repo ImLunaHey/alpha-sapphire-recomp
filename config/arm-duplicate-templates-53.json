@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_53.S",
+  "mode": "arm",
+  "expectedBodyBytes": 3060,
+  "templates": {
+    "sixteen_lane_bilinear_block": {
+      "bodySize": 1020,
+      "instructionCount": 255,
+      "count": 3,
+      "internalLabels": 1,
+      "directCalls": 1,
+      "indirectCalls": 0,
+      "tailBranches": 0,
+      "poolSlots": 0
+    }
+  },
+  "internalLabelOffsets": [500],
+  "functions": [
+    {
+      "name": "func_001B04BC",
+      "template": "sixteen_lane_bilinear_block",
+      "setupHelper": "func_001B047C",
+      "setupCallOffset": 4,
+      "directCalls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "func_001B047C", "role": "setup" }
+      ],
+      "unitStride": 1024,
+      "farInputOffset": 15360,
+      "finalStoreStep": 1012,
+      "frameRewind": 16384,
+      "anonymousMaterialOffset": 1020,
+      "nextGlobalOffset": 1296
+    },
+    {
+      "name": "func_001B6ABC",
+      "template": "sixteen_lane_bilinear_block",
+      "setupHelper": "func_001B6A7C",
+      "setupCallOffset": 4,
+      "directCalls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "func_001B6A7C", "role": "setup" }
+      ],
+      "unitStride": 256,
+      "farInputOffset": 3840,
+      "finalStoreStep": 244,
+      "frameRewind": 4096,
+      "anonymousMaterialOffset": 1020,
+      "nextGlobalOffset": 1296
+    },
+    {
+      "name": "func_001BD0BC",
+      "template": "sixteen_lane_bilinear_block",
+      "setupHelper": "func_001BD07C",
+      "setupCallOffset": 4,
+      "directCalls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "func_001BD07C", "role": "setup" }
+      ],
+      "unitStride": 512,
+      "farInputOffset": 7680,
+      "finalStoreStep": 500,
+      "frameRewind": 8192,
+      "anonymousMaterialOffset": 1020,
+      "nextGlobalOffset": 1296
+    }
+  ]
+}

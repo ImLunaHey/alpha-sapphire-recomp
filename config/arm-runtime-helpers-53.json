@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_53.S",
+  "mode": "arm",
+  "totalBodySize": 1612,
+  "functions": [
+    {
+      "name": "func_0013D540",
+      "size": 408,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019CD30",
+      "size": 460,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019CEFC",
+      "size": 372,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001FC800",
+      "size": 372,
+      "calls": [],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "arithmetic_and_interpolation_helpers_53": {
+      "members": [
+        "func_0013D540",
+        "func_0019CD30",
+        "func_0019CEFC"
+      ],
+      "parameters": [
+        "inputLayout",
+        "carryOrInterpolationSchedule",
+        "resultLayout"
+      ]
+    },
+    "descriptor_extent_helpers_53": {
+      "members": [
+        "func_001FC800"
+      ],
+      "parameters": [
+        "fieldOffsets",
+        "recordStrides",
+        "resultConvention"
+      ]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

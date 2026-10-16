@@ -49,6 +49,7 @@ const [
   ipcTemplates46Path,
   ipcTemplates47Path,
   ipcTemplates48Path,
+  ipcTemplates49Path,
   duplicateTemplates19Path,
   duplicateTemplates21Path,
   duplicateTemplates22Path,
@@ -79,6 +80,7 @@ const [
   duplicateTemplates48Path,
   duplicateTemplates49Path,
   duplicateTemplates52Path,
+  duplicateTemplates53Path,
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
   runtimeHelpers24Path,
@@ -146,6 +148,7 @@ if (
   !ipcTemplates46Path ||
   !ipcTemplates47Path ||
   !ipcTemplates48Path ||
+  !ipcTemplates49Path ||
   !duplicateTemplates19Path ||
   !duplicateTemplates21Path ||
   !duplicateTemplates22Path ||
@@ -176,6 +179,7 @@ if (
   !duplicateTemplates48Path ||
   !duplicateTemplates49Path ||
   !duplicateTemplates52Path ||
+  !duplicateTemplates53Path ||
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
   !runtimeHelpers24Path ||
@@ -199,7 +203,7 @@ if (
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected all configured source-normalization mappings, target literal identities, and target config paths, including duplicate template batch 52"
+    "Expected all configured source-normalization mappings, target literal identities, and target config paths, including duplicate template batch 53"
   );
 }
 
@@ -2138,6 +2142,60 @@ if (ipcTemplates48Config.schemaVersion !== 1 ||
   throw new Error("Unexpected IPC template 48 positional relocation manifest format");
 }
 
+// Batch 49 is a positional relocation manifest: parse and validate it before
+// any target bytes are examined or target assembly is generated.
+const ipcTemplates49Config = JSON.parse(readFileSync(ipcTemplates49Path, "utf8"));
+const ipcTemplate49PrimaryEntries = [
+  "func_0015EB9C", "func_001748D4", "func_0017A8E8", "func_0017A8A8",
+];
+const ipcTemplate49LiteralIdentities = [
+  "service_descriptor_state_49", "service_message_chain_49", "service_dispatch_table_49",
+];
+const ipcTemplates49 = new Map();
+let configuredIpcTemplate49Bytes = 0;
+let configuredIpcTemplate49Branches = 0;
+let configuredIpcTemplate49Slots = 0;
+for (const entry of ipcTemplates49Config.functions ?? []) {
+  if (entry === null || typeof entry !== "object" || !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      !Number.isInteger(entry.size) || !Array.isArray(entry.branches) ||
+      !Array.isArray(entry.literals) || ipcTemplates49.has(entry.name) ||
+      entry.branches.some((branch) => !Number.isInteger(branch.offset) || branch.offset < 0 ||
+        branch.offset >= entry.size || branch.offset % 4 !== 0 ||
+        !["bl", "b"].includes(branch.mnemonic) ||
+        branch.kind !== (branch.mnemonic === "bl" ? "R_ARM_CALL" : "R_ARM_JUMP24") ||
+        !ipcTemplate49PrimaryEntries.includes(branch.symbol)) ||
+      entry.literals.some((literal, index) => literal.offset !== entry.size + index * 4 ||
+        !ipcTemplate49LiteralIdentities.includes(literal.symbol))) {
+    throw new Error("Invalid IPC template 49 positional relocation mapping entry");
+  }
+  ipcTemplates49.set(entry.name, entry);
+  configuredIpcTemplate49Bytes += entry.size;
+  configuredIpcTemplate49Branches += entry.branches.length;
+  configuredIpcTemplate49Slots += entry.literals.length;
+}
+const ipcTemplate49LiteralSequence = ipcTemplates49Config.functions
+  .flatMap((entry) => entry.literals.map((literal) => literal.symbol));
+if (ipcTemplates49Config.schemaVersion !== 1 ||
+    ipcTemplates49Config.source !== "src/main/arm_ipc_templates_49.S" ||
+    ipcTemplates49Config.sourceSha256 !== "0c6341dc8e4571369655ea2542412f948a0135b067ed6fbfd25801cfe2154637" ||
+    ipcTemplates49Config.mode !== "arm" || ipcTemplates49Config.totalBodySize !== 620 ||
+    ipcTemplates49Config.cumulativePoolSlots !== 626 ||
+    ipcTemplates49Config.cumulativePoolClasses !== 319 || ipcTemplates49.size !== 5 ||
+    configuredIpcTemplate49Bytes !== 620 || configuredIpcTemplate49Branches !== 5 ||
+    configuredIpcTemplate49Slots !== 4 || new Set(ipcTemplate49LiteralSequence).size !== 3 ||
+    JSON.stringify(ipcTemplates49Config.literalIdentities) !== JSON.stringify(ipcTemplate49LiteralIdentities) ||
+    JSON.stringify(ipcTemplates49Config.reusedLiteralIdentities) !== "[]" ||
+    JSON.stringify(ipcTemplates49Config.newLiteralIdentities) !== JSON.stringify(ipcTemplate49LiteralIdentities) ||
+    JSON.stringify(ipcTemplates49Config.branchIdentityContract) !== JSON.stringify({
+      mode: "arm", minimumAlignment: 4, primaryEntries: ipcTemplate49PrimaryEntries,
+      secondaryEntries: [],
+      sharedClasses: [{ symbol: "func_001748D4", siteCount: 2 }],
+      singletonClasses: ["func_0015EB9C", "func_0017A8E8", "func_0017A8A8"],
+      classesPairwiseDistinct: true,
+    })) {
+  throw new Error("Unexpected IPC template 49 positional relocation manifest format");
+}
+
 const duplicateTemplates19Config = JSON.parse(readFileSync(duplicateTemplates19Path, "utf8"));
 if (duplicateTemplates19Config.version !== 1 || duplicateTemplates19Config.mode !== "arm" ||
     duplicateTemplates19Config.expectedBodyBytes !== 904 ||
@@ -3453,6 +3511,45 @@ for (const entry of duplicateTemplates52Config.functions) {
     throw new Error("Invalid or duplicate duplicate-template 52 mapping entry");
   }
   duplicateTemplates52.set(entry.name, entry);
+}
+
+const duplicateTemplates53Config = JSON.parse(readFileSync(duplicateTemplates53Path, "utf8"));
+const duplicateTemplate53Definition = {
+  bodySize: 1020, instructionCount: 255, count: 3, internalLabels: 1,
+  directCalls: 1, indirectCalls: 0, tailBranches: 0, poolSlots: 0,
+};
+const duplicateTemplates53Expected = [
+  { name: "func_001B04BC", template: "sixteen_lane_bilinear_block", setupHelper: "func_001B047C",
+    setupCallOffset: 4, directCalls: [{ offset: 4, kind: "R_ARM_CALL", symbol: "func_001B047C", role: "setup" }],
+    unitStride: 1024, farInputOffset: 15360, finalStoreStep: 1012, frameRewind: 16384,
+    anonymousMaterialOffset: 1020, nextGlobalOffset: 1296 },
+  { name: "func_001B6ABC", template: "sixteen_lane_bilinear_block", setupHelper: "func_001B6A7C",
+    setupCallOffset: 4, directCalls: [{ offset: 4, kind: "R_ARM_CALL", symbol: "func_001B6A7C", role: "setup" }],
+    unitStride: 256, farInputOffset: 3840, finalStoreStep: 244, frameRewind: 4096,
+    anonymousMaterialOffset: 1020, nextGlobalOffset: 1296 },
+  { name: "func_001BD0BC", template: "sixteen_lane_bilinear_block", setupHelper: "func_001BD07C",
+    setupCallOffset: 4, directCalls: [{ offset: 4, kind: "R_ARM_CALL", symbol: "func_001BD07C", role: "setup" }],
+    unitStride: 512, farInputOffset: 7680, finalStoreStep: 500, frameRewind: 8192,
+    anonymousMaterialOffset: 1020, nextGlobalOffset: 1296 },
+];
+if (duplicateTemplates53Config.version !== 1 || duplicateTemplates53Config.mode !== "arm" ||
+    duplicateTemplates53Config.source !== "src/main/arm_duplicate_templates_53.S" ||
+    duplicateTemplates53Config.expectedBodyBytes !== 3060 ||
+    JSON.stringify(duplicateTemplates53Config.templates) !== JSON.stringify({
+      sixteen_lane_bilinear_block: duplicateTemplate53Definition,
+    }) || JSON.stringify(duplicateTemplates53Config.internalLabelOffsets) !== JSON.stringify([500]) ||
+    JSON.stringify(duplicateTemplates53Config.functions) !== JSON.stringify(duplicateTemplates53Expected)) {
+  throw new Error("Unexpected duplicate template 53 positional relocation manifest format");
+}
+const duplicateTemplates53 = new Map();
+for (const entry of duplicateTemplates53Config.functions) {
+  if (entry === null || typeof entry !== "object" ||
+      Object.keys(entry).sort().join(",") !==
+        "anonymousMaterialOffset,directCalls,farInputOffset,finalStoreStep,frameRewind,name,nextGlobalOffset,setupCallOffset,setupHelper,template,unitStride" ||
+      entry.template !== "sixteen_lane_bilinear_block" || duplicateTemplates53.has(entry.name)) {
+    throw new Error("Invalid or duplicate duplicate-template 53 mapping entry");
+  }
+  duplicateTemplates53.set(entry.name, entry);
 }
 
 const duplicateContainerTemplatesConfig = JSON.parse(
@@ -5540,6 +5637,51 @@ if (ipcTemplate48Destinations.size !== 7 ||
   throw new Error("ARM IPC template 48 branch equality contract is invalid");
 }
 
+const ipcTemplate49Destinations = new Map();
+const ipcTemplate49SiteCounts = new Map();
+const ipcTemplate49PrimaryEntrySet = new Set(ipcTemplate49PrimaryEntries);
+for (const mapping of ipcTemplates49Config.functions) {
+  const entry = functionsByName.get(mapping.name);
+  if (entry?.mode !== "$a" || entry.size !== mapping.size) {
+    throw new Error(`ARM IPC template 49 function ${mapping.name} is missing from the function inventory`);
+  }
+  const offset = entry.address - textStart;
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + mapping.literals.length * 4;
+  if (offset < 0 || slotEnd - textStart > code.length ||
+      functions.some((candidate) => candidate.address < slotEnd &&
+        candidate.address + candidate.size > slotStart)) {
+    throw new Error(`ARM IPC template 49 function ${mapping.name} has invalid adjacent literal slots`);
+  }
+  for (const branch of mapping.branches) {
+    const instruction = code.readUInt32LE(offset + branch.offset);
+    let displacement = instruction & 0x00ffffff;
+    if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+    const destination = entry.address + branch.offset + 8 + displacement * 4;
+    const expectedOpcode = branch.mnemonic === "bl" ? 0xeb : branch.mnemonic === "b" ? 0xea : -1;
+    const destinationEntry = functions.find((candidate) => candidate.address === destination);
+    if (instruction >>> 24 !== expectedOpcode ||
+        destination % ipcTemplates49Config.branchIdentityContract.minimumAlignment !== 0 ||
+        !ipcTemplate49PrimaryEntrySet.has(branch.symbol) || destinationEntry?.mode !== "$a") {
+      throw new Error(`${mapping.name} has an invalid audited branch at offset ${branch.offset}`);
+    }
+    const previous = ipcTemplate49Destinations.get(branch.symbol);
+    if (previous !== undefined && previous !== destination) {
+      throw new Error(`ARM IPC template 49 branch identity ${branch.symbol} is not shared consistently`);
+    }
+    ipcTemplate49Destinations.set(branch.symbol, destination);
+    ipcTemplate49SiteCounts.set(branch.symbol, (ipcTemplate49SiteCounts.get(branch.symbol) ?? 0) + 1);
+  }
+}
+if (ipcTemplate49Destinations.size !== 4 ||
+    new Set(ipcTemplate49Destinations.values()).size !== 4 ||
+    ipcTemplate49PrimaryEntries.some((identity) => !ipcTemplate49Destinations.has(identity)) ||
+    ipcTemplate49SiteCounts.get("func_001748D4") !== 2 ||
+    ipcTemplate49PrimaryEntries.some((identity) =>
+      identity !== "func_001748D4" && ipcTemplate49SiteCounts.get(identity) !== 1)) {
+  throw new Error("ARM IPC template 49 branch equality contract is invalid");
+}
+
 const runtimeHelper33Destinations = new Map();
 const runtimeHelper33SiteCounts = new Map();
 const runtimeHelper33PrivateWords = new Map();
@@ -6012,6 +6154,11 @@ for (const [name, mapping] of ipcTemplates48) registerModernIpcLiterals(name, ma
 if (ipcMappedBytes !== 33408 || ipcMappedSlots !== 622 ||
     ipcIdentityWords.size !== 316 || ipcWordIdentities.size !== 316) {
   throw new Error("The 622 IPC slots must form a 316-to-316 identity/word bijection");
+}
+for (const [name, mapping] of ipcTemplates49) registerModernIpcLiterals(name, mapping, 49);
+if (ipcMappedBytes !== 34028 || ipcMappedSlots !== 626 ||
+    ipcIdentityWords.size !== 319 || ipcWordIdentities.size !== 319) {
+  throw new Error("The 626 IPC slots must form a 319-to-319 identity/word bijection");
 }
 
 const duplicateTemplate19IdentityWords = new Map();
@@ -7360,6 +7507,57 @@ for (const expected of duplicateTemplates52Expected) {
   duplicateTemplate52SlotValue = slotValue;
 }
 
+const duplicateTemplates53Destinations = new Map();
+for (const expected of duplicateTemplates53Expected) {
+  const destination = functionsByName.get(expected.setupHelper);
+  if (destination?.mode !== "$a" || destination.address % 4 !== 0) {
+    throw new Error(`Duplicate-template 53 call identity ${expected.setupHelper} is not an inventoried ARM function`);
+  }
+  duplicateTemplates53Destinations.set(expected.setupHelper, destination.address);
+}
+for (const expected of duplicateTemplates53Expected) {
+  const entry = functionsByName.get(expected.name);
+  if (entry?.mode !== "$a" || entry.size !== duplicateTemplate53Definition.bodySize) {
+    throw new Error(`${expected.name} is not the configured inventoried ARM duplicate-template 53 function`);
+  }
+  const offset = entry.address - textStart;
+  if (offset < 0 || offset + expected.nextGlobalOffset > code.length) {
+    throw new Error(`${expected.name} has out-of-bounds duplicate-template 53 material`);
+  }
+  const nextGlobal = functions.reduce((nearest, candidate) =>
+    candidate.address > entry.address &&
+      (nearest === undefined || candidate.address < nearest.address) ? candidate : nearest,
+  undefined);
+  if (nextGlobal === undefined || nextGlobal.address - entry.address !== expected.nextGlobalOffset) {
+    throw new Error(`${expected.name} does not have its approved duplicate-template 53 next-global boundary`);
+  }
+  const body = Buffer.from(code.subarray(offset, offset + entry.size));
+  const call = expected.directCalls[0];
+  if (call.kind !== "R_ARM_CALL" || call.offset !== expected.setupCallOffset ||
+      call.symbol !== expected.setupHelper ||
+      !isArmCallTo(body.readUInt32LE(call.offset), entry.address + call.offset,
+        duplicateTemplates53Destinations.get(call.symbol))) {
+    throw new Error(`${expected.name} does not call ${call.symbol} at audited offset ${call.offset}`);
+  }
+  body.fill(0, call.offset, call.offset + 4);
+  const localBranches = [];
+  for (let cursor = 0; cursor < entry.size; cursor += 4) {
+    if (cursor === call.offset) continue;
+    const instruction = body.readUInt32LE(cursor);
+    if ((instruction & 0x0e000000) !== 0x0a000000) continue;
+    let displacement = instruction & 0x00ffffff;
+    if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+    const target = cursor + 8 + displacement * 4;
+    if (target < 0 || target >= entry.size) {
+      throw new Error(`${expected.name} has an unexpected duplicate-template 53 external branch`);
+    }
+    localBranches.push({ offset: cursor, target });
+  }
+  if (JSON.stringify(localBranches) !== JSON.stringify([{ offset: 1004, target: 500 }])) {
+    throw new Error(`${expected.name} has unexpected duplicate-template 53 local branch targets`);
+  }
+}
+
 const duplicateTemplate34Destinations = new Map();
 for (const symbol of new Set([
   ...duplicateTemplates34CallContract.filter(({ symbol }) => symbol !== "operation").map(({ symbol }) => symbol),
@@ -7704,6 +7902,7 @@ for (const entry of functions) {
   const ipcTemplate46 = ipcTemplates46.get(entry.name);
   const ipcTemplate47 = ipcTemplates47.get(entry.name);
   const ipcTemplate48 = ipcTemplates48.get(entry.name);
+  const ipcTemplate49 = ipcTemplates49.get(entry.name);
   const duplicateTemplate19 = duplicateTemplates19.get(entry.name);
   const duplicateTemplate21 = duplicateTemplates21.get(entry.name);
   const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
@@ -7734,6 +7933,7 @@ for (const entry of functions) {
   const duplicateTemplate48 = duplicateTemplates48.get(entry.name);
   const duplicateTemplate49 = duplicateTemplates49.get(entry.name);
   const duplicateTemplate52 = duplicateTemplates52.get(entry.name);
+  const duplicateTemplate53 = duplicateTemplates53.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
@@ -7754,7 +7954,7 @@ for (const entry of functions) {
   const runtimeHelper44 = runtimeHelpers44ByName.get(entry.name);
   const runtimeHelper46 = runtimeHelpers46ByName.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, ipcTemplate27, ipcTemplate28, ipcTemplate29, ipcTemplate30, ipcTemplate31, ipcTemplate32, ipcTemplate33, ipcTemplate34, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateTemplate29, duplicateTemplate30, duplicateTemplate31, duplicateTemplate32, duplicateTemplate33, duplicateTemplate34, duplicateTemplate35, duplicateTemplate36, duplicateTemplate37, duplicateTemplate38, duplicateTemplate39, duplicateTemplate40, duplicateTemplate41, duplicateTemplate42, duplicateTemplate44, duplicateTemplate46, duplicateTemplate47, duplicateTemplate48, duplicateTemplate49, duplicateTemplate52, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27, runtimeHelper29, runtimeHelper30, runtimeHelper31, runtimeHelper32, runtimeHelper33, runtimeHelper34, runtimeHelper36, runtimeHelper37, runtimeHelper38, runtimeHelper41, runtimeHelper43, runtimeHelper44, runtimeHelper46].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, ipcTemplate27, ipcTemplate28, ipcTemplate29, ipcTemplate30, ipcTemplate31, ipcTemplate32, ipcTemplate33, ipcTemplate34, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateTemplate29, duplicateTemplate30, duplicateTemplate31, duplicateTemplate32, duplicateTemplate33, duplicateTemplate34, duplicateTemplate35, duplicateTemplate36, duplicateTemplate37, duplicateTemplate38, duplicateTemplate39, duplicateTemplate40, duplicateTemplate41, duplicateTemplate42, duplicateTemplate44, duplicateTemplate46, duplicateTemplate47, duplicateTemplate48, duplicateTemplate49, duplicateTemplate52, duplicateTemplate53, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27, runtimeHelper29, runtimeHelper30, runtimeHelper31, runtimeHelper32, runtimeHelper33, runtimeHelper34, runtimeHelper36, runtimeHelper37, runtimeHelper38, runtimeHelper41, runtimeHelper43, runtimeHelper44, runtimeHelper46].filter(Boolean);
   if (ipcTemplate35) configuredMappings.push(ipcTemplate35);
   if (ipcTemplate36) configuredMappings.push(ipcTemplate36);
   if (ipcTemplate37) configuredMappings.push(ipcTemplate37);
@@ -7769,6 +7969,7 @@ for (const entry of functions) {
   if (ipcTemplate46) configuredMappings.push(ipcTemplate46);
   if (ipcTemplate47) configuredMappings.push(ipcTemplate47);
   if (ipcTemplate48) configuredMappings.push(ipcTemplate48);
+  if (ipcTemplate49) configuredMappings.push(ipcTemplate49);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -8025,6 +8226,18 @@ for (const entry of functions) {
           throw new Error(`${entry.name} does not call ${duplicateTemplate52Call.symbol} at audited offset ${cursor}`);
         }
         instructions.push(`bl ${duplicateTemplate52Call.symbol}`);
+        continue;
+      }
+      const duplicateTemplate53Call = duplicateTemplate53?.directCalls.find(
+        (call) => call.offset === cursor,
+      );
+      if (duplicateTemplate53Call !== undefined) {
+        const destination = duplicateTemplates53Destinations.get(duplicateTemplate53Call.symbol);
+        if (entry.mode !== "$a" || duplicateTemplate53Call.kind !== "R_ARM_CALL" ||
+            !isArmCallTo(value, entry.address + cursor, destination)) {
+          throw new Error(`${entry.name} does not call ${duplicateTemplate53Call.symbol} at audited offset ${cursor}`);
+        }
+        instructions.push(`bl ${duplicateTemplate53Call.symbol}`);
         continue;
       }
       const duplicateTemplate34Call = duplicateTemplate34 === undefined ? undefined :
@@ -8305,6 +8518,20 @@ for (const entry of functions) {
           throw new Error(`${entry.name} does not branch to ${ipcTemplate48Branch.symbol} at audited offset ${cursor}`);
         }
         instructions.push(`${ipcTemplate48Branch.mnemonic} ${ipcTemplate48Branch.symbol}`);
+        continue;
+      }
+      const ipcTemplate49Branch = ipcTemplate49?.branches.find((branch) => branch.offset === cursor);
+      if (ipcTemplate49Branch !== undefined) {
+        const destinationAddress = ipcTemplate49Destinations.get(ipcTemplate49Branch.symbol);
+        let displacement = value & 0x00ffffff;
+        if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+        const actualDestination = entry.address + cursor + 8 + displacement * 4;
+        const expectedOpcode = ipcTemplate49Branch.mnemonic === "bl" ? 0xeb :
+          ipcTemplate49Branch.mnemonic === "b" ? 0xea : -1;
+        if (value >>> 24 !== expectedOpcode || actualDestination !== destinationAddress) {
+          throw new Error(`${entry.name} does not branch to ${ipcTemplate49Branch.symbol} at audited offset ${cursor}`);
+        }
+        instructions.push(`${ipcTemplate49Branch.mnemonic} ${ipcTemplate49Branch.symbol}`);
         continue;
       }
       const runtimeHelper26Call = runtimeHelper26?.calls.find((call) => call.offset === cursor);
@@ -8814,6 +9041,15 @@ for (const entry of functions) {
           ]),
         ]
       : []),
+    ...(ipcTemplate49
+      ? [
+          ...ipcTemplate49.literals.flatMap(({ symbol }) => [`.word ${symbol}`, `.global ${symbol}`]),
+          ...[...new Set(ipcTemplate49.branches.map(({ symbol }) => symbol))].flatMap((symbol) => [
+            `.global ${symbol}`,
+            `.type ${symbol}, %function`,
+          ]),
+        ]
+      : []),
     ...(duplicateTemplate19
       ? duplicateTemplate19.literals.flatMap(({ identity }) => {
           const symbol = duplicateTemplates19Config.literalIdentities[identity];
@@ -8979,6 +9215,7 @@ for (const entry of functions) {
   ipcTemplates46.delete(entry.name);
   ipcTemplates47.delete(entry.name);
   ipcTemplates48.delete(entry.name);
+  ipcTemplates49.delete(entry.name);
   duplicateTemplates19.delete(entry.name);
   duplicateTemplates21.delete(entry.name);
   duplicateTemplates22.delete(entry.name);
@@ -9009,6 +9246,7 @@ for (const entry of functions) {
   duplicateTemplates48.delete(entry.name);
   duplicateTemplates49.delete(entry.name);
   duplicateTemplates52.delete(entry.name);
+  duplicateTemplates53.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (runtimeHelper23Pending) {
@@ -9199,6 +9437,9 @@ if (ipcTemplates47.size !== 0) {
 if (ipcTemplates48.size !== 0) {
   throw new Error(`IPC template 48 mappings missing from the function inventory: ${[...ipcTemplates48.keys()].join(", ")}`);
 }
+if (ipcTemplates49.size !== 0) {
+  throw new Error(`IPC template 49 mappings missing from the function inventory: ${[...ipcTemplates49.keys()].join(", ")}`);
+}
 if (duplicateTemplates19.size !== 0) {
   throw new Error(
     `Duplicate template 19 mappings missing from the function inventory: ${[...duplicateTemplates19.keys()].join(", ")}`
@@ -9347,6 +9588,11 @@ if (duplicateTemplates49.size !== 0) {
 if (duplicateTemplates52.size !== 0) {
   throw new Error(
     `Duplicate template 52 mappings missing from the function inventory: ${[...duplicateTemplates52.keys()].join(", ")}`
+  );
+}
+if (duplicateTemplates53.size !== 0) {
+  throw new Error(
+    `Duplicate template 53 mappings missing from the function inventory: ${[...duplicateTemplates53.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {
