@@ -1,0 +1,846 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_03.S",
+  "sourceSha256": "d2415ba47395ea4d2fa9cd433ecac3fee6a514a445b5e4f12a983f66f41383a6",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 792,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 392,
+  "wideInstructionCount": 4,
+  "localBranchCount": 43,
+  "memoryOperationCount": 148,
+  "returnCount": 32,
+  "indirectCallCount": 15,
+  "indirectTailCount": 0,
+  "directCallCount": 4,
+  "directCalls": [
+    {
+      "function": "func_002FED38",
+      "offset": 8,
+      "mnemonic": "blx",
+      "symbol": "func_002FEDF0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301DC8",
+      "offset": 22,
+      "mnemonic": "bl",
+      "symbol": "func_00301D7C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 48,
+      "mnemonic": "blx",
+      "symbol": "func_00300750",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100B8C",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_002FFA44",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_002FED38",
+      "offset": 8,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDF0"
+    },
+    {
+      "function": "func_00301DC8",
+      "offset": 22,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D7C"
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 48,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300750"
+    },
+    {
+      "function": "func_00100B8C",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFA44"
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00102F0C",
+      "offset": 2,
+      "mnemonic": "ldr",
+      "targetOffset": 28,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102F0C",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 32,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0030098C",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 12,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00301DC8",
+      "offset": 50,
+      "mnemonic": "ldr",
+      "targetOffset": 64,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 16,
+      "mnemonic": "ldr",
+      "targetOffset": 152,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00302208"
+      ]
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 20,
+      "mnemonic": "ldr",
+      "targetOffset": 156,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00302208"
+      ]
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 32,
+      "mnemonic": "ldr",
+      "targetOffset": 160,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00302208"
+      ]
+    },
+    {
+      "function": "func_003021CC",
+      "offset": 36,
+      "mnemonic": "ldr",
+      "targetOffset": 164,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body",
+      "crossedFunctionIntervals": [
+        "func_00302208"
+      ]
+    },
+    {
+      "function": "func_00100B8C",
+      "offset": 24,
+      "mnemonic": "ldr",
+      "targetOffset": 56,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00100B8C",
+      "offset": 30,
+      "mnemonic": "ldr",
+      "targetOffset": 60,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [
+    {
+      "members": [
+        "func_003048B4",
+        "func_003055E6"
+      ]
+    },
+    {
+      "members": [
+        "func_00304C58",
+        "func_003054DE"
+      ]
+    },
+    {
+      "members": [
+        "func_00304DC6",
+        "func_003054C0"
+      ]
+    }
+  ],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rd, #imm schedule entry uses the 16-bit three-operand immediate form; it must not be canonicalized to the distinct two-operand immediate form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "97d309e139ed661acc0296331132f5cf07999c4a400ba493e052c1202913ba43",
+    "localTransferSchedule": "0b3efb41b004def3d3bbdbdf37350c5353b48bd25148bdb8ee33fe3c9c99a1ab",
+    "returnTransferSchedule": "39768fb943dc7d83fccdff8e6046ae631d0ad2f1a5a204b392d043ed2594fce4",
+    "indirectCallSchedule": "cf6a29aa834d53ac4812f7676c462bff2be5a60d2384f1a429a1dde0dbd99e1f",
+    "directCallSchedule": "e02213e0c20751c7293b26282d73f907890c6d5e40deb7b5b002fe9984d2be5b"
+  },
+  "functions": [
+    {
+      "name": "func_00100096",
+      "size": 78,
+      "instructionCount": 39,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 9,
+      "memoryOperationCount": 8,
+      "returnCount": 1,
+      "indirectCallCount": 2,
+      "directCallCount": 0,
+      "nextGlobal": "func_001000E4",
+      "nextGlobalOffset": 78,
+      "localTransfers": [
+        "a:beq.n:+36",
+        "e:beq.n:+2a",
+        "22:beq.n:+40",
+        "24:bge.n:+44",
+        "28:b.n:+8",
+        "34:beq.n:+3c",
+        "3e:b.n:+38",
+        "42:b.n:+38",
+        "4c:b.n:+8"
+      ],
+      "returns": [
+        "3a:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1e:blx:r2",
+        "30:blx:r2"
+      ],
+      "directCalls": [],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r6, r1|movs r4, r2|sub sp, #4|cmp r4, #0|beq.n local:+36|cmp r4, #1|beq.n local:+2a|ldr r0, [sp, #16]|lsrs r5, r4, #1|ldr r2, [sp, #40]|muls r0, r5|adds r7, r0, r6|ldr r0, [sp, #4]|movs r1, r7|blx r2|cmp r0, #0|beq.n local:+40|bge.n local:+44|movs r4, r5|b.n local:+8|ldr r2, [sp, #40]|ldr r0, [sp, #4]|movs r1, r6|blx r2|cmp r0, #0|beq.n local:+3c|movs r0, #0|add sp, #20|pop {r4, r5, r6, r7, pc}|movs r0, r6|b.n local:+38|movs r0, r7|b.n local:+38|ldr r0, [sp, #16]|subs r4, r4, r5|adds r6, r7, r0|subs r4, r4, #1|b.n local:+8"
+    },
+    {
+      "name": "func_0010018C",
+      "size": 34,
+      "instructionCount": 17,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 3,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_001001E0",
+      "nextGlobalOffset": 84,
+      "localTransfers": [
+        "c:beq.n:+1c",
+        "10:b.n:+18",
+        "1a:bcs.n:+12"
+      ],
+      "returns": [
+        "20:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "14:blx:r6"
+      ],
+      "directCalls": [],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #4|movs r4, r3|movs r6, r1|movs r7, r2|cmp r1, #0|beq.n local:+1c|ldr r5, [sp, #4]|b.n local:+18|movs r0, r5|blx r6|adds r5, r5, r7|subs r4, r4, #1|bcs.n local:+12|ldr r0, [sp, #4]|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00100294",
+      "size": 34,
+      "instructionCount": 17,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 2,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_001002B6",
+      "nextGlobalOffset": 34,
+      "localTransfers": [
+        "a:beq.n:+1c",
+        "1a:bne.n:+12"
+      ],
+      "returns": [
+        "20:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "16:blx:r6"
+      ],
+      "directCalls": [],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r5, r0|movs r6, r1|movs r7, r2|cmp r3, #0|beq.n local:+1c|movs r0, r7|muls r0, r3|adds r4, r0, r5|subs r4, r4, r7|movs r0, r4|blx r6|cmp r5, r4|bne.n local:+12|movs r0, r5|subs r0, #8|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_001003CC",
+      "size": 18,
+      "instructionCount": 9,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 1,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_001003E0",
+      "nextGlobalOffset": 20,
+      "localTransfers": [
+        "c:bne.n:+2"
+      ],
+      "returns": [
+        "10:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "movs r3, r0|ldrh r2, [r1, #0]|adds r1, r1, #2|strh r2, [r0, #0]|adds r0, r0, #2|cmp r2, #0|bne.n local:+2|movs r0, r3|bx lr"
+    },
+    {
+      "name": "func_001003E8",
+      "size": 18,
+      "instructionCount": 9,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 2,
+      "memoryOperationCount": 1,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_001003FA",
+      "nextGlobalOffset": 18,
+      "localTransfers": [
+        "2:b.n:+8",
+        "c:bne.n:+4"
+      ],
+      "returns": [
+        "10:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "movs r1, #0|b.n local:+8|adds r1, r1, #1|adds r0, r0, #2|ldrh r2, [r0, #0]|cmp r2, #0|bne.n local:+4|movs r0, r1|bx lr"
+    },
+    {
+      "name": "func_00102DEC",
+      "size": 28,
+      "instructionCount": 14,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 3,
+      "memoryOperationCount": 3,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_00102E08",
+      "nextGlobalOffset": 28,
+      "localTransfers": [
+        "2:b.n:+6",
+        "a:bne.n:+4",
+        "16:bne.n:+c"
+      ],
+      "returns": [
+        "1a:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "movs r3, r0|b.n local:+6|adds r0, r0, #2|ldrh r2, [r0, #0]|cmp r2, #0|bne.n local:+4|ldrh r2, [r1, #0]|adds r1, r1, #2|strh r2, [r0, #0]|adds r0, r0, #2|cmp r2, #0|bne.n local:+c|movs r0, r3|bx lr"
+    },
+    {
+      "name": "func_00102F0C",
+      "size": 26,
+      "instructionCount": 13,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 2,
+      "memoryOperationCount": 5,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_00102F30",
+      "nextGlobalOffset": 36,
+      "localTransfers": [
+        "a:b.n:+14",
+        "16:bne.n:+c"
+      ],
+      "returns": [
+        "18:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "10:blx:r0"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, r5, r6, lr}|ldr r4, [pc, #24]|add r4, pc|ldr r5, [pc, #24]|add r5, pc|b.n local:+14|ldr r0, [r4, #0]|adds r0, r0, r4|blx r0|adds r4, r4, #4|cmp r4, r5|bne.n local:+c|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_001048A0",
+      "size": 42,
+      "instructionCount": 21,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 3,
+      "memoryOperationCount": 6,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_00104A50",
+      "nextGlobalOffset": 432,
+      "localTransfers": [
+        "e:beq.n:+24",
+        "12:b.n:+20",
+        "22:bcs.n:+14"
+      ],
+      "returns": [
+        "28:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1a:blx:r2"
+      ],
+      "directCalls": [],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #4|movs r4, r3|movs r6, r1|movs r7, r2|ldr r0, [sp, #40]|cmp r0, #0|beq.n local:+24|ldr r5, [sp, #4]|b.n local:+20|ldr r2, [sp, #40]|movs r1, r6|movs r0, r5|blx r2|adds r5, r5, r7|adds r6, r6, r7|subs r4, r4, #1|bcs.n local:+14|ldr r0, [sp, #4]|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_002FEE04",
+      "size": 44,
+      "instructionCount": 22,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 4,
+      "memoryOperationCount": 9,
+      "returnCount": 2,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_002FEE30",
+      "nextGlobalOffset": 44,
+      "localTransfers": [
+        "a:bpl.n:+10",
+        "e:b.n:+12",
+        "14:beq.n:+26",
+        "28:bpl.n:+18"
+      ],
+      "returns": [
+        "16:pop:{r4, r5, r6, pc}",
+        "2a:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "1e:blx:r2"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, r5, r6, lr}|ldr r5, [r0, #24]|movs r4, r0|ldr r0, [r0, #0]|lsls r1, r0, #27|bpl.n local:+10|movs r6, #48|b.n local:+12|movs r6, #32|lsls r0, r0, #31|beq.n local:+26|pop {r4, r5, r6, pc}|ldr r2, [r4, #4]|ldr r1, [r4, #8]|movs r0, r6|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|subs r5, r5, #1|bpl.n local:+18|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_002FEE30",
+      "size": 34,
+      "instructionCount": 17,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 2,
+      "memoryOperationCount": 9,
+      "returnCount": 2,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_002FEE54",
+      "nextGlobalOffset": 36,
+      "localTransfers": [
+        "a:bne.n:+1c",
+        "1e:bpl.n:+e"
+      ],
+      "returns": [
+        "c:pop:{r4, r5, r6, pc}",
+        "20:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "14:blx:r2"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, r5, r6, lr}|ldr r5, [r0, #24]|movs r4, r0|ldr r0, [r0, #0]|lsls r0, r0, #31|bne.n local:+1c|pop {r4, r5, r6, pc}|ldr r2, [r4, #4]|ldr r1, [r4, #8]|movs r0, #32|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|subs r5, r5, #1|bpl.n local:+e|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_002FF95C",
+      "size": 22,
+      "instructionCount": 11,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 2,
+      "memoryOperationCount": 1,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_002FF972",
+      "nextGlobalOffset": 22,
+      "localTransfers": [
+        "4:bpl.n:+c",
+        "e:bpl.n:+a"
+      ],
+      "returns": [
+        "a:bx:lr",
+        "14:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "ldr r1, [r1, #0]|lsls r2, r1, #21|bpl.n local:+c|lsls r0, r0, #24|asrs r0, r0, #24|bx lr|lsls r1, r1, #23|bpl.n local:+a|lsls r0, r0, #16|asrs r0, r0, #16|bx lr"
+    },
+    {
+      "name": "func_0030098C",
+      "size": 12,
+      "instructionCount": 6,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_0030099C",
+      "nextGlobalOffset": 16,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "push {r4, lr}|nop|nop|ldr r1, [pc, #4]|str r1, [r0, #0]|pop {r4, pc}"
+    },
+    {
+      "name": "func_00302F52",
+      "size": 18,
+      "instructionCount": 9,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 1,
+      "memoryOperationCount": 2,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_00302F64",
+      "nextGlobalOffset": 18,
+      "localTransfers": [
+        "4:beq.n:+a"
+      ],
+      "returns": [
+        "8:bx:lr",
+        "10:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "ldr r1, [r0, #0]|cmp r1, #0|beq.n local:+a|movs r0, #0|bx lr|movs r1, #1|str r1, [r0, #0]|movs r0, r1|bx lr"
+    },
+    {
+      "name": "func_00304784",
+      "size": 58,
+      "instructionCount": 29,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 6,
+      "memoryOperationCount": 9,
+      "returnCount": 3,
+      "indirectCallCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_003047C8",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "8:b.n:+1c",
+        "e:bls.n:+14",
+        "12:b.n:+1c",
+        "18:bcs.n:+22",
+        "1e:bne.n:+a",
+        "26:beq.n:+30"
+      ],
+      "returns": [
+        "20:bx:lr",
+        "2e:bx:lr",
+        "38:bx:lr"
+      ],
+      "indirectCalls": [],
+      "directCalls": [],
+      "schedule": "movs r2, r0|ldr r2, [r2, #0]|movs r0, r1|adds r2, r2, #4|b.n local:+1c|ldrb r1, [r2, #12]|cmp r1, r0|bls.n local:+14|ldr r2, [r2, #0]|b.n local:+1c|ldrb r1, [r2, #13]|cmp r1, r0|bcs.n local:+22|ldr r2, [r2, #4]|cmp r2, #0|bne.n local:+a|bx lr|ldr r1, [r2, #8]|cmp r1, #0|beq.n local:+30|ldrb r2, [r2, #12]|subs r0, r0, r2|ldrb r0, [r1, r0]|bx lr|ldrb r1, [r2, #14]|adds r0, r1, r0|lsls r0, r0, #24|lsrs r0, r0, #24|bx lr"
+    },
+    {
+      "name": "func_003048B4",
+      "size": 10,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_003048BE",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [
+        "6:blx:r1"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, lr}|ldr r1, [r0, #0]|ldr r1, [r1, #24]|blx r1|pop {r4, pc}"
+    },
+    {
+      "name": "func_00304C58",
+      "size": 24,
+      "instructionCount": 12,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 7,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_00304C70",
+      "nextGlobalOffset": 24,
+      "localTransfers": [],
+      "returns": [
+        "16:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "12:blx:r4"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, r5, r6, r7, lr}|sub sp, #20|add r4, sp, #40|ldmia r4, {r4, r5, r6, r7}|str r7, [sp, #12]|mov r7, sp|stmia r7!, {r4, r5, r6}|ldr r4, [r0, #0]|ldr r4, [r4, #12]|blx r4|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00304DC6",
+      "size": 10,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_00304DD0",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [
+        "6:blx:r1"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, lr}|ldr r1, [r0, #0]|ldr r1, [r1, #28]|blx r1|pop {r4, pc}"
+    },
+    {
+      "name": "func_003054C0",
+      "size": 10,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_003054CA",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [
+        "6:blx:r1"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, lr}|ldr r1, [r0, #0]|ldr r1, [r1, #28]|blx r1|pop {r4, pc}"
+    },
+    {
+      "name": "func_003054DE",
+      "size": 24,
+      "instructionCount": 12,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 7,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_003054F6",
+      "nextGlobalOffset": 24,
+      "localTransfers": [],
+      "returns": [
+        "16:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "12:blx:r4"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, r5, r6, r7, lr}|sub sp, #20|add r4, sp, #40|ldmia r4, {r4, r5, r6, r7}|str r7, [sp, #12]|mov r7, sp|stmia r7!, {r4, r5, r6}|ldr r4, [r0, #0]|ldr r4, [r4, #12]|blx r4|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_003055E6",
+      "size": 10,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 4,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "directCallCount": 0,
+      "nextGlobal": "func_003055F0",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [
+        "6:blx:r1"
+      ],
+      "directCalls": [],
+      "schedule": "push {r4, lr}|ldr r1, [r0, #0]|ldr r1, [r1, #24]|blx r1|pop {r4, pc}"
+    },
+    {
+      "name": "func_002FED38",
+      "size": 64,
+      "instructionCount": 31,
+      "wideInstructionOffsets": [
+        8
+      ],
+      "localBranchCount": 2,
+      "memoryOperationCount": 9,
+      "returnCount": 3,
+      "indirectCallCount": 1,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FED78",
+      "nextGlobalOffset": 64,
+      "localTransfers": [
+        "16:beq.n:+24",
+        "1c:beq.n:+3a"
+      ],
+      "returns": [
+        "22:pop:{r4, r5, r6, pc}",
+        "38:pop:{r4, r5, r6, pc}",
+        "3e:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "36:blx:r3"
+      ],
+      "directCalls": [
+        {
+          "offset": 8,
+          "mnemonic": "blx",
+          "symbol": "func_002FEDF0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, lr}|movs r5, r0|movs r4, r1|movs r6, r2|blx func_002FEDF0|ldr r3, [r0, #0]|movs r0, #255|adds r0, #2|ldrb r0, [r0, r3]|cmp r0, #1|beq.n local:+24|ldrb r0, [r3, r4]|cmp r0, #0|beq.n local:+3a|movs r0, #1|strh r4, [r5, #0]|pop {r4, r5, r6, pc}|movs r0, #255|adds r0, #4|movs r2, r6|ldr r0, [r0, r3]|movs r1, r4|adds r3, r3, r0|adds r3, #255|adds r3, #4|movs r0, r5|blx r3|pop {r4, r5, r6, pc}|movs r0, #0|mvns r0, r0|pop {r4, r5, r6, pc}"
+    },
+    {
+      "name": "func_00301DC8",
+      "size": 60,
+      "instructionCount": 29,
+      "wideInstructionOffsets": [
+        22
+      ],
+      "localBranchCount": 1,
+      "memoryOperationCount": 16,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00301E0C",
+      "nextGlobalOffset": 68,
+      "localTransfers": [
+        "12:beq.n:+32"
+      ],
+      "returns": [
+        "3a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "directCalls": [
+        {
+          "offset": 22,
+          "mnemonic": "bl",
+          "symbol": "func_00301D7C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|movs r4, r0|ldr r0, [r0, #12]|movs r1, #32|bics r0, r1|str r0, [r4, #12]|ldr r1, [r4, #40]|ldr r0, [r4, #24]|cmp r0, r1|beq.n local:+32|movs r0, r4|bl func_00301D7C|ldr r0, [r4, #12]|movs r1, #3|lsls r1, r1, #12|bics r0, r1|movs r1, #16|orrs r0, r1|str r0, [r4, #12]|ldr r0, [r4, #40]|str r0, [r4, #24]|ldr r0, [r4, #16]|str r0, [r4, #44]|str r0, [r4, #4]|ldr r1, [pc, #12]|ldr r0, [r4, #12]|ands r0, r1|str r0, [r4, #12]|pop {r4, pc}"
+    },
+    {
+      "name": "func_003021CC",
+      "size": 60,
+      "instructionCount": 29,
+      "wideInstructionOffsets": [
+        48
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 15,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00302208",
+      "nextGlobalOffset": 60,
+      "localTransfers": [],
+      "returns": [
+        "3a:bx:r3"
+      ],
+      "indirectCalls": [],
+      "directCalls": [
+        {
+          "offset": 48,
+          "mnemonic": "blx",
+          "symbol": "func_00300750",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|movs r3, #0|push {lr}|sub sp, #36|add r1, sp, #48|str r1, [sp, #0]|ldr r1, [sp, #44]|str r3, [r1, #12]|ldr r3, [pc, #132]|add r3, pc|ldr r2, [pc, #132]|add r2, pc|str r2, [sp, #28]|movs r2, #4|str r3, [sp, #24]|str r2, [sp, #4]|ldr r2, [pc, #124]|str r2, [sp, #8]|ldr r2, [pc, #124]|add r2, pc|mov r3, sp|str r2, [sp, #32]|movs r2, r0|movs r0, #0|blx func_00300750|add sp, #36|pop {r3}|add sp, #16|bx r3"
+    },
+    {
+      "name": "func_00100B8C",
+      "size": 54,
+      "instructionCount": 26,
+      "wideInstructionOffsets": [
+        42
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 13,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00100BCC",
+      "nextGlobalOffset": 64,
+      "localTransfers": [],
+      "returns": [
+        "34:bx:r3"
+      ],
+      "indirectCalls": [],
+      "directCalls": [
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_002FFA44",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3}|push {lr}|sub sp, #52|add r1, sp, #64|str r0, [sp, #36]|str r0, [sp, #44]|movs r0, #0|mvns r0, r0|str r1, [sp, #0]|str r0, [sp, #40]|movs r0, #0|str r0, [sp, #48]|ldr r0, [pc, #28]|add r0, pc|str r0, [sp, #24]|ldr r0, [pc, #28]|add r0, pc|mov r2, sp|str r0, [sp, #28]|ldr r1, [sp, #60]|add r0, sp, #36|bl func_002FFA44|add sp, #52|pop {r3}|add sp, #16|bx r3"
+    }
+  ]
+}

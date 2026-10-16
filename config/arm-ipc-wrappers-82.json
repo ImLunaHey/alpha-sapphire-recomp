@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_82.S",
+  "sourceSha256": "a921f7d6df22d0d6bd3805602435f11302fa917186909c2dc7b80278049bc088",
+  "normalizedScheduleSha256": "a921f7d6df22d0d6bd3805602435f11302fa917186909c2dc7b80278049bc088",
+  "mode": "arm",
+  "totalBodySize": 636,
+  "totalAdjacentSize": 40,
+  "cumulativePoolSlots": 812,
+  "cumulativePoolClasses": 424,
+  "functions": [
+    {
+      "name": "func_0017A314", "section": ".text.func_0017A314", "size": 112,
+      "nextGlobal": "func_0017A388", "nextGlobalOffset": 116,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E4D8" }
+      ],
+      "literals": [
+        { "offset": 112, "loadOffsets": [40], "symbol": "ipc_controller_selector_offset_77" }
+      ]
+    },
+    {
+      "name": "func_0017A388", "section": ".text.func_0017A388", "size": 228,
+      "nextGlobal": "func_0017A470", "nextGlobalOffset": 232,
+      "branches": [
+        { "offset": 216, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017FFB8" }
+      ],
+      "literals": [
+        { "offset": 228, "loadOffsets": [212], "symbol": "ipc_shared_control_owner_72" }
+      ]
+    },
+    {
+      "name": "func_0017A470", "section": ".text.func_0017A470", "size": 56,
+      "nextGlobal": "func_0017A4A8", "nextGlobalOffset": 56,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "controller_query_secondary_82" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0017A4A8", "section": ".text.func_0017A4A8", "size": 112,
+      "nextGlobal": "func_0017A528", "nextGlobalOffset": 128,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00302F52" }
+      ],
+      "literals": [
+        { "offset": 112, "loadOffsets": [0, 20, 96], "symbol": "ipc_controller_matrix_guard_82" },
+        { "offset": 116, "loadOffsets": [40], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 120, "loadOffsets": [44], "symbol": "service_zero_scalar_51" },
+        { "offset": 124, "loadOffsets": [36, 104], "symbol": "ipc_controller_matrix_state_82" }
+      ]
+    },
+    {
+      "name": "func_0017A528", "section": ".text.func_0017A528", "size": 128,
+      "nextGlobal": "func_0017A5B8", "nextGlobalOffset": 144,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00302F52" }
+      ],
+      "literals": [
+        { "offset": 128, "loadOffsets": [0, 20, 112], "symbol": "ipc_controller_extended_matrix_guard_82" },
+        { "offset": 132, "loadOffsets": [40], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 136, "loadOffsets": [44], "symbol": "service_zero_scalar_51" },
+        { "offset": 140, "loadOffsets": [36, 120], "symbol": "ipc_controller_extended_matrix_state_82" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_controller_selector_offset_77",
+    "ipc_shared_control_owner_72",
+    "ipc_controller_matrix_guard_82",
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51",
+    "ipc_controller_matrix_state_82",
+    "ipc_controller_extended_matrix_guard_82",
+    "ipc_controller_extended_matrix_state_82"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_controller_selector_offset_77",
+    "ipc_shared_control_owner_72",
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "newLiteralIdentities": [
+    "ipc_controller_matrix_guard_82",
+    "ipc_controller_matrix_state_82",
+    "ipc_controller_extended_matrix_guard_82",
+    "ipc_controller_extended_matrix_state_82"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_0017E4D8",
+      "func_0017FFB8",
+      "func_00302F52"
+    ],
+    "secondaryEntries": [
+      "controller_query_secondary_82"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "controller_query_secondary_82",
+        "owner": "func_00133760",
+        "ownerOffset": 292,
+        "nextGlobal": "func_001338B8",
+        "bytesBeforeNextGlobal": 52
+      }
+    ],
+    "sharedClasses": [
+      {
+        "symbol": "func_00302F52",
+        "sites": [
+          { "function": "func_0017A4A8", "offset": 24 },
+          { "function": "func_0017A528", "offset": 24 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_0017E4D8",
+      "func_0017FFB8",
+      "controller_query_secondary_82"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0017E4D8",
+      "func_0017FFB8"
+    ],
+    "thumbPrimaryEntries": [
+      "func_00302F52"
+    ]
+  }
+}
