@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_61.S",
+  "mode": "arm",
+  "totalBodySize": 3592,
+  "totalAdjacentSize": 0,
+  "functions": [
+    { "name": "func_00195248", "size": 712, "calls": [], "adjacentWords": [] },
+    { "name": "func_00498E7C", "size": 680, "calls": [], "adjacentWords": [] },
+    { "name": "func_002FCAF0", "size": 604, "calls": [], "adjacentWords": [] },
+    { "name": "func_0039B50C", "size": 564, "calls": [], "adjacentWords": [] },
+    { "name": "func_004BB234", "size": 532, "calls": [], "adjacentWords": [] },
+    { "name": "func_001A5DE4", "size": 500, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_61": {
+      "members": [
+        "func_00195248",
+        "func_00498E7C",
+        "func_002FCAF0",
+        "func_0039B50C",
+        "func_004BB234",
+        "func_001A5DE4"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00195248",
+      "kind": "linkedByteTable",
+      "baseLabel": ".Lfunc_00195248_248",
+      "index": "mostSignificantInputByte",
+      "ownedAdjacentBytes": 0
+    }
+  ],
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

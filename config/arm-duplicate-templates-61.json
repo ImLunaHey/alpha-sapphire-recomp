@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_61.S",
+  "mode": "arm",
+  "expectedBodyBytes": 624,
+  "templates": {
+    "range_erase": {
+      "bodySize": 312,
+      "instructionCount": 78,
+      "count": 2,
+      "internalLabels": 9,
+      "directCalls": 2,
+      "indirectCalls": 0,
+      "ownedLiteralCount": 0
+    }
+  },
+  "internalLabelOffsets": [84, 120, 160, 168, 200, 220, 240, 264, 280],
+  "callOffsets": [92, 296],
+  "functions": [
+    {
+      "name": "func_005530BC",
+      "template": "range_erase",
+      "nextGlobalOffset": 312,
+      "calls": [
+        { "offset": 92, "kind": "R_ARM_CALL", "symbol": "func_005531F4", "role": "clear_right_subtree" },
+        { "offset": 296, "kind": "R_ARM_CALL", "symbol": "func_0014456C", "role": "erase_current_node" }
+      ]
+    },
+    {
+      "name": "func_00558688",
+      "template": "range_erase",
+      "nextGlobalOffset": 312,
+      "calls": [
+        { "offset": 92, "kind": "R_ARM_CALL", "symbol": "func_005588EC", "role": "clear_right_subtree" },
+        { "offset": 296, "kind": "R_ARM_CALL", "symbol": "func_00558028", "role": "erase_current_node" }
+      ]
+    }
+  ]
+}

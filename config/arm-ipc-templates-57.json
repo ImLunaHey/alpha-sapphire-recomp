@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_57.S",
+  "sourceSha256": "f21809ff595f7a38f70837f2a19644e2ff79d276b7ed281ec0ba36f58bc912f1",
+  "mode": "arm",
+  "totalBodySize": 692,
+  "cumulativePoolSlots": 684,
+  "cumulativePoolClasses": 363,
+  "functions": [
+    {
+      "name": "func_001686A0", "size": 292,
+      "branches": [],
+      "literals": [
+        { "offset": 292, "symbol": "ipc_bit_prefix_masks_57" },
+        { "offset": 296, "symbol": "ipc_render_context_54" },
+        { "offset": 300, "symbol": "ipc_layout_callback_context_55" },
+        { "offset": 304, "symbol": "ipc_bit_suffix_masks_57" }
+      ]
+    },
+    {
+      "name": "func_001687D4", "size": 40,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00175D64" }
+      ],
+      "literals": [
+        { "offset": 40, "symbol": "ipc_runtime_callback_table_57" },
+        { "offset": 44, "symbol": "ipc_runtime_owner_slot_57" }
+      ]
+    },
+    {
+      "name": "func_00168804", "size": 36,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "service_cache_lookup_secondary_57" }
+      ],
+      "literals": [
+        { "offset": 36, "symbol": "ipc_runtime_callback_table_57" },
+        { "offset": 40, "symbol": "ipc_runtime_owner_slot_57" }
+      ]
+    },
+    {
+      "name": "func_00168844", "size": 164,
+      "branches": [
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00144D28" },
+        { "offset": 144, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00144D28" }
+      ],
+      "literals": [
+        { "offset": 164, "symbol": "ipc_record_table_descriptor_57" },
+        { "offset": 168, "symbol": "ipc_record_upper_bound_57" }
+      ]
+    },
+    {
+      "name": "func_00168958", "size": 160,
+      "branches": [
+        { "offset": 132, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BADC" },
+        { "offset": 148, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0015EC10" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_bit_prefix_masks_57",
+    "ipc_render_context_54",
+    "ipc_layout_callback_context_55",
+    "ipc_bit_suffix_masks_57",
+    "ipc_runtime_callback_table_57",
+    "ipc_runtime_owner_slot_57",
+    "ipc_record_table_descriptor_57",
+    "ipc_record_upper_bound_57"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_render_context_54",
+    "ipc_layout_callback_context_55"
+  ],
+  "newLiteralIdentities": [
+    "ipc_bit_prefix_masks_57",
+    "ipc_bit_suffix_masks_57",
+    "ipc_runtime_callback_table_57",
+    "ipc_runtime_owner_slot_57",
+    "ipc_record_table_descriptor_57",
+    "ipc_record_upper_bound_57"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00175D64",
+      "func_00144D28",
+      "func_0016BADC",
+      "func_0015EC10"
+    ],
+    "secondaryEntries": ["service_cache_lookup_secondary_57"],
+    "sharedClasses": [
+      { "symbol": "func_00144D28", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_00175D64",
+      "service_cache_lookup_secondary_57",
+      "func_0016BADC",
+      "func_0015EC10"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
