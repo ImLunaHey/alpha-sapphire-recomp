@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_38.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2484,
+  "templates": {
+    "staged_polymorphic_aggregate_teardown": {
+      "bodySize": 828,
+      "instructionCount": 207,
+      "count": 3,
+      "internalLabels": 22,
+      "calls": 1,
+      "literalCount": 4
+    }
+  },
+  "callContract": [
+    { "offset": 20, "kind": "R_ARM_CALL", "symbol": "func_00312920" }
+  ],
+  "slotContract": [
+    { "offset": 828, "loadOffset": 8, "role": "derived_dispatch_identity" },
+    { "offset": 832, "loadOffset": 100, "role": "shared_dispatch_identity_1" },
+    { "offset": 836, "loadOffset": 164, "role": "shared_dispatch_identity_2" },
+    { "offset": 840, "loadOffset": 328, "role": "shared_dispatch_identity_3" }
+  ],
+  "literalIdentities": {
+    "derived_002EB58C": { "symbol": "func_002EB58C_dispatch_identity", "class": "dispatch-identity" },
+    "derived_002EC008": { "symbol": "func_002EC008_dispatch_identity", "class": "dispatch-identity" },
+    "derived_002F9B78": { "symbol": "func_002F9B78_dispatch_identity", "class": "dispatch-identity" },
+    "shared_1": { "symbol": "arm_duplicate_templates_38_shared_dispatch_identity_1", "class": "dispatch-identity" },
+    "shared_2": { "symbol": "arm_duplicate_templates_38_shared_dispatch_identity_2", "class": "dispatch-identity" },
+    "shared_3": { "symbol": "arm_duplicate_templates_38_shared_dispatch_identity_3", "class": "dispatch-identity" }
+  },
+  "functions": [
+    {
+      "name": "func_002EB58C",
+      "template": "staged_polymorphic_aggregate_teardown",
+      "literals": [
+        { "offset": 828, "loadOffset": 8, "identity": "derived_002EB58C" },
+        { "offset": 832, "loadOffset": 100, "identity": "shared_1" },
+        { "offset": 836, "loadOffset": 164, "identity": "shared_2" },
+        { "offset": 840, "loadOffset": 328, "identity": "shared_3" }
+      ]
+    },
+    {
+      "name": "func_002EC008",
+      "template": "staged_polymorphic_aggregate_teardown",
+      "literals": [
+        { "offset": 828, "loadOffset": 8, "identity": "derived_002EC008" },
+        { "offset": 832, "loadOffset": 100, "identity": "shared_1" },
+        { "offset": 836, "loadOffset": 164, "identity": "shared_2" },
+        { "offset": 840, "loadOffset": 328, "identity": "shared_3" }
+      ]
+    },
+    {
+      "name": "func_002F9B78",
+      "template": "staged_polymorphic_aggregate_teardown",
+      "literals": [
+        { "offset": 828, "loadOffset": 8, "identity": "derived_002F9B78" },
+        { "offset": 832, "loadOffset": 100, "identity": "shared_1" },
+        { "offset": 836, "loadOffset": 164, "identity": "shared_2" },
+        { "offset": 840, "loadOffset": 328, "identity": "shared_3" }
+      ]
+    }
+  ]
+}

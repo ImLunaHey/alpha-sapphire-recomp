@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_34.S",
+  "mode": "arm",
+  "sourceSha256": "8255a430cc0f62af62ec78da6df98be2ffe3fe1a4bc75cdd8bef3dcffad75377",
+  "totalBodySize": 576,
+  "cumulativePoolSlots": 519,
+  "cumulativePoolClasses": 249,
+  "functions": [
+    {
+      "name": "func_00109738", "size": 40,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00124FB0" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0010EFD8", "size": 52,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 52, "symbol": "service_seed_byte_34" },
+        { "offset": 56, "symbol": "service_request_kind_alpha_34" }
+      ]
+    },
+    {
+      "name": "func_0010F014", "size": 116,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00118C2C" },
+        { "offset": 52, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 80, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_publish_operation_34" }
+      ],
+      "literals": [
+        { "offset": 116, "symbol": "service_guard_state_34" }
+      ]
+    },
+    {
+      "name": "func_0010F158", "size": 40,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 28, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 40, "symbol": "service_request_kind_beta_34" }
+      ]
+    },
+    {
+      "name": "func_0010F184", "size": 108,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00118C2C" },
+        { "offset": 52, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 80, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_publish_operation_34" }
+      ],
+      "literals": [
+        { "offset": 108, "symbol": "service_guard_state_34" }
+      ]
+    },
+    {
+      "name": "func_0011863C", "size": 68,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 68, "symbol": "service_request_kind_gamma_34" }
+      ]
+    },
+    {
+      "name": "func_0012439C", "size": 152,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00124880" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00145FC0" },
+        { "offset": 92, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 152, "symbol": "service_request_kind_delta_34" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_seed_byte_34",
+    "service_request_kind_alpha_34",
+    "service_guard_state_34",
+    "service_request_kind_beta_34",
+    "service_request_kind_gamma_34",
+    "service_request_kind_delta_34"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_seed_byte_34",
+    "service_request_kind_alpha_34",
+    "service_guard_state_34",
+    "service_request_kind_beta_34",
+    "service_request_kind_gamma_34",
+    "service_request_kind_delta_34"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00124880",
+      "func_00124FB0",
+      "func_00118C2C",
+      "service_publish_operation_34",
+      "func_00145FC0"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_00124880", "siteCount": 8 },
+      { "symbol": "func_00124FB0", "siteCount": 11 },
+      { "symbol": "func_00118C2C", "siteCount": 2 },
+      { "symbol": "service_publish_operation_34", "siteCount": 2 }
+    ],
+    "singletonClasses": ["func_00145FC0"],
+    "classesPairwiseDistinct": true
+  }
+}

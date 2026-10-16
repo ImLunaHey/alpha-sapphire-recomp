@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_38.S",
+  "mode": "arm",
+  "sourceSha256": "8a1e3e0d616ee069f550f2a4d4ce30e677e20aa483924de855a5774ee5f40ddb",
+  "totalBodySize": 504,
+  "functions": [
+    {
+      "name": "func_0031DC98",
+      "size": 48,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 48, "kind": "R_ARM_ABS32", "symbol": "runtime_halfword_fill_38" }
+      ]
+    },
+    { "name": "func_0031E680", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_0031E6B8", "size": 60, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_0031E6F8",
+      "size": 104,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 104, "kind": "R_ARM_ABS32", "symbol": "runtime_float_zero_38" },
+        { "offset": 108, "kind": "R_ARM_ABS32", "symbol": "runtime_float_unit_38" }
+      ]
+    },
+    {
+      "name": "func_0031EE40",
+      "size": 152,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 152, "kind": "R_ARM_ABS32", "symbol": "runtime_float_zero_38" },
+        { "offset": 156, "kind": "R_ARM_ABS32", "symbol": "runtime_float_unit_38" }
+      ]
+    },
+    {
+      "name": "func_0031F044",
+      "size": 84,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 84, "kind": "R_ARM_ABS32", "symbol": "runtime_float_zero_38" },
+        { "offset": 88, "kind": "R_ARM_ABS32", "symbol": "runtime_float_unit_38" }
+      ]
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_halfword_fill_38": {
+      "minimumSlotAlignment": 4,
+      "equality": "singleton-distinct",
+      "usage": "low-halfword-counted-fill"
+    },
+    "runtime_float_zero_38": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-three-site-distinct-zero",
+      "usage": "vfp-single-additive-zero-and-equality-operand"
+    },
+    "runtime_float_unit_38": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-three-site-distinct-unit",
+      "usage": "vfp-single-multiplicative-unit"
+    }
+  }
+}
