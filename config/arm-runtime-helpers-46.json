@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_46.S",
+  "mode": "arm",
+  "totalBodySize": 640,
+  "functions": [
+    { "name": "func_004E43FC", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E4430", "size": 16, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_004E4670",
+      "size": 60,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 60, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_a_46" },
+        { "offset": 64, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_b_46" },
+        { "offset": 68, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_c_46" }
+      ]
+    },
+    {
+      "name": "func_004E46B8",
+      "size": 52,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 52, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_c_46" },
+        { "offset": 56, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_a_46" },
+        { "offset": 60, "kind": "R_ARM_ABS32", "symbol": "runtime_curve_coefficient_b_46" }
+      ]
+    },
+    { "name": "func_004E6014", "size": 24, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6064", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6084", "size": 24, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E68C4", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6FA0", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E7F90", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E82C4", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E8384", "size": 60, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E8D38", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E8D68", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E9E5C", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E9F98", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA03C", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_00520DDC", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_0053FC5C", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_005406DC", "size": 40, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "tri_state_byte_canonicalizers_46": {
+      "members": ["func_004E6014", "func_004E6084"],
+      "parameters": ["fieldOffset"]
+    },
+    "indexed_bit_tests_46": {
+      "members": ["func_004E6064", "func_004E68C4"],
+      "parameters": ["sourceWidth", "fieldOffset", "preMask", "preShift"]
+    },
+    "bounded_four_word_copies_46": {
+      "members": ["func_004E7F90", "func_004E8384"],
+      "parameters": ["limit", "sourceLayout", "transferSchedule"]
+    }
+  },
+  "symbolicIdentities": {
+    "runtime_curve_coefficient_a_46": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-two-site-pairwise-distinct-a",
+      "usage": "vfp-single-curve-coefficient"
+    },
+    "runtime_curve_coefficient_b_46": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-two-site-pairwise-distinct-b",
+      "usage": "vfp-single-curve-coefficient"
+    },
+    "runtime_curve_coefficient_c_46": {
+      "minimumSlotAlignment": 4,
+      "equality": "shared-two-site-pairwise-distinct-c",
+      "usage": "vfp-single-curve-coefficient"
+    }
+  },
+  "symbolicSlots": {}
+}

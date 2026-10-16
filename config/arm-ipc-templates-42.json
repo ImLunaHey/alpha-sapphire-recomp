@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_42.S",
+  "sourceSha256": "3dc0bbf83e9192949ca45eb61cc1c56bdc3eab28ebf68eebc0f7105129c037ce",
+  "mode": "arm",
+  "totalBodySize": 428,
+  "cumulativePoolSlots": 554,
+  "cumulativePoolClasses": 279,
+  "functions": [
+    {
+      "name": "func_0010703C", "size": 80,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00108808" }
+      ],
+      "literals": [
+        { "offset": 80, "symbol": "service_resource_state_42" }
+      ]
+    },
+    {
+      "name": "func_001260B4", "size": 48,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001103FC" }
+      ],
+      "literals": [
+        { "offset": 48, "symbol": "service_wait_handle_42" }
+      ]
+    },
+    {
+      "name": "func_003BAF98", "size": 56,
+      "branches": [
+        { "offset": 52, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003BD0B8" }
+      ],
+      "literals": [
+        { "offset": 56, "symbol": "service_cleanup_vtable_42_a" }
+      ]
+    },
+    {
+      "name": "func_002BC658", "size": 80,
+      "branches": [],
+      "literals": [
+        { "offset": 80, "symbol": "service_cleanup_vtable_42_b" }
+      ]
+    },
+    {
+      "name": "func_002CC8D0", "size": 80,
+      "branches": [
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002CCD5C" }
+      ],
+      "literals": [
+        { "offset": 80, "symbol": "service_nonpositive_result_42" },
+        { "offset": 84, "symbol": "service_dispatch_state_42" },
+        { "offset": 88, "symbol": "service_unavailable_result_42" }
+      ]
+    },
+    {
+      "name": "func_002CC9F8", "size": 84,
+      "branches": [
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002CCD5C" }
+      ],
+      "literals": [
+        { "offset": 84, "symbol": "service_cleanup_vtable_42_c" },
+        { "offset": 88, "symbol": "service_dispatch_state_42" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_resource_state_42",
+    "service_wait_handle_42",
+    "service_cleanup_vtable_42_a",
+    "service_cleanup_vtable_42_b",
+    "service_nonpositive_result_42",
+    "service_dispatch_state_42",
+    "service_unavailable_result_42",
+    "service_cleanup_vtable_42_c"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_resource_state_42",
+    "service_wait_handle_42",
+    "service_cleanup_vtable_42_a",
+    "service_cleanup_vtable_42_b",
+    "service_nonpositive_result_42",
+    "service_dispatch_state_42",
+    "service_unavailable_result_42",
+    "service_cleanup_vtable_42_c"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00108808",
+      "func_001603A0",
+      "func_001103FC",
+      "func_003BD0B8",
+      "func_002CCD5C"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_002CCD5C", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_00108808",
+      "func_001603A0",
+      "func_001103FC",
+      "func_003BD0B8"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
