@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_19.S",
+  "mode": "arm",
+  "expectedBodyBytes": 904,
+  "templates": {
+    "atomicMemberRelease": { "bodySize": 100, "count": 2 },
+    "allocatedTypedPair": { "bodySize": 52, "count": 3 },
+    "byteWindowPredicate": { "bodySize": 68, "count": 2 },
+    "activeEntryCount": { "bodySize": 72, "count": 2 },
+    "ownedObjectRelease": { "bodySize": 44, "count": 3 },
+    "halfwordStreamXor": { "bodySize": 68, "count": 2 }
+  },
+  "functions": [
+    { "name": "func_00170CC0", "template": "atomicMemberRelease", "literals": [{ "offset": 100, "loadOffset": 8, "identity": "objectVtable00170CC0" }] },
+    { "name": "func_002AFCCC", "template": "atomicMemberRelease", "literals": [{ "offset": 100, "loadOffset": 8, "identity": "objectVtable002AFCCC" }] },
+    { "name": "func_002FC244", "template": "allocatedTypedPair", "literals": [{ "offset": 52, "loadOffset": 40, "identity": "type002FC244" }] },
+    { "name": "func_00302C5C", "template": "allocatedTypedPair", "literals": [{ "offset": 52, "loadOffset": 40, "identity": "type00302C5C" }] },
+    { "name": "func_00305720", "template": "allocatedTypedPair", "literals": [{ "offset": 52, "loadOffset": 40, "identity": "type00305720" }] },
+    { "name": "func_00179D28", "template": "byteWindowPredicate", "literals": [{ "offset": 68, "loadOffset": 12, "identity": "byteWindowState" }] },
+    { "name": "func_00179D70", "template": "byteWindowPredicate", "literals": [{ "offset": 68, "loadOffset": 12, "identity": "byteWindowState" }] },
+    { "name": "func_0042875C", "template": "activeEntryCount", "literals": [{ "offset": 72, "loadOffset": 0, "identity": "activeEntryBase1" }, { "offset": 76, "loadOffset": 16, "identity": "activeEntryBase2" }, { "offset": 80, "loadOffset": 32, "identity": "activeEntryBase3" }, { "offset": 84, "loadOffset": 48, "identity": "activeEntryBase4" }] },
+    { "name": "func_0042CAA0", "template": "activeEntryCount", "literals": [{ "offset": 72, "loadOffset": 0, "identity": "activeEntryBase1" }, { "offset": 76, "loadOffset": 16, "identity": "activeEntryBase2" }, { "offset": 80, "loadOffset": 32, "identity": "activeEntryBase3" }, { "offset": 84, "loadOffset": 48, "identity": "activeEntryBase4" }] },
+    { "name": "func_003B0994", "template": "ownedObjectRelease", "literals": [{ "offset": 44, "loadOffset": 4, "identity": "ownedObjectSlot003B0994" }] },
+    { "name": "func_003B0B80", "template": "ownedObjectRelease", "literals": [{ "offset": 44, "loadOffset": 4, "identity": "ownedObjectSlot003B0B80" }] },
+    { "name": "func_003B14C0", "template": "ownedObjectRelease", "literals": [{ "offset": 44, "loadOffset": 4, "identity": "ownedObjectSlot003B14C0" }] },
+    { "name": "func_00168AC8", "template": "halfwordStreamXor", "literals": [{ "offset": 68, "loadOffset": 16, "identity": "lcgMultiplier" }] },
+    { "name": "func_00175F68", "template": "halfwordStreamXor", "literals": [{ "offset": 68, "loadOffset": 16, "identity": "lcgMultiplier" }] }
+  ],
+  "literalIdentities": {
+    "objectVtable00170CC0": "arm_duplicate_templates_19_object_vtable_00170CC0",
+    "objectVtable002AFCCC": "arm_duplicate_templates_19_object_vtable_002AFCCC",
+    "type002FC244": "arm_duplicate_templates_19_type_002FC244",
+    "type00302C5C": "arm_duplicate_templates_19_type_00302C5C",
+    "type00305720": "arm_duplicate_templates_19_type_00305720",
+    "byteWindowState": "arm_duplicate_templates_19_byte_window_state",
+    "activeEntryBase1": "arm_duplicate_templates_19_active_entry_base_1",
+    "activeEntryBase2": "arm_duplicate_templates_19_active_entry_base_2",
+    "activeEntryBase3": "arm_duplicate_templates_19_active_entry_base_3",
+    "activeEntryBase4": "arm_duplicate_templates_19_active_entry_base_4",
+    "ownedObjectSlot003B0994": "arm_duplicate_templates_19_owned_object_slot_003B0994",
+    "ownedObjectSlot003B0B80": "arm_duplicate_templates_19_owned_object_slot_003B0B80",
+    "ownedObjectSlot003B14C0": "arm_duplicate_templates_19_owned_object_slot_003B14C0",
+    "lcgMultiplier": "arm_duplicate_templates_19_lcg_multiplier"
+  }
+}
