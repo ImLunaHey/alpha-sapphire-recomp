@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_44.S",
+  "sourceSha256": "c7a7ba889a8d1b328b68e463380ab4afcff0864e3b722117102027b5bd6a0b60",
+  "mode": "arm",
+  "totalBodySize": 648,
+  "cumulativePoolSlots": 572,
+  "cumulativePoolClasses": 286,
+  "functions": [
+    {
+      "name": "func_00160594", "size": 100,
+      "branches": [
+        { "offset": 80, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00146000" }
+      ],
+      "literals": [
+        { "offset": 100, "symbol": "service_reference_state_44" },
+        { "offset": 104, "symbol": "ipc_handle_slot_nu" },
+        { "offset": 108, "symbol": "service_handle_replacement_41_b" }
+      ]
+    },
+    {
+      "name": "func_00166FE4", "size": 112,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174DD0" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_mark_ready_secondary_44" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001781F0" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001780E8", "size": 104,
+      "branches": [
+        { "offset": 64, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E324" }
+      ],
+      "literals": [
+        { "offset": 104, "symbol": "service_unlink_context_44" }
+      ]
+    },
+    {
+      "name": "func_0018C62C", "size": 128,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 52, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" },
+        { "offset": 88, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" },
+        { "offset": 116, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 128, "symbol": "service_completion_code_40" },
+        { "offset": 132, "symbol": "service_thread_completion_counts_43" }
+      ]
+    },
+    {
+      "name": "func_002DDD28", "size": 104,
+      "branches": [
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002DE7D4" },
+        { "offset": 64, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00146000" }
+      ],
+      "literals": [
+        { "offset": 104, "symbol": "service_acquisition_input_44" }
+      ]
+    },
+    {
+      "name": "func_0042D5E0", "size": 100,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001397B8" }
+      ],
+      "literals": [
+        { "offset": 100, "symbol": "service_cleanup_vtable_44" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_reference_state_44",
+    "ipc_handle_slot_nu",
+    "service_handle_replacement_41_b",
+    "service_unlink_context_44",
+    "service_completion_code_40",
+    "service_thread_completion_counts_43",
+    "service_acquisition_input_44",
+    "service_cleanup_vtable_44"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_handle_slot_nu",
+    "service_handle_replacement_41_b",
+    "service_completion_code_40",
+    "service_thread_completion_counts_43"
+  ],
+  "newLiteralIdentities": [
+    "service_reference_state_44",
+    "service_unlink_context_44",
+    "service_acquisition_input_44",
+    "service_cleanup_vtable_44"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00146000",
+      "func_00174DD0",
+      "func_001603A0",
+      "func_001781F0",
+      "func_0017E324",
+      "func_001602B8",
+      "func_00160380",
+      "func_002DE7D4",
+      "func_001397B8"
+    ],
+    "secondaryEntries": ["service_mark_ready_secondary_44"],
+    "sharedClasses": [
+      { "symbol": "func_00146000", "siteCount": 2 },
+      { "symbol": "func_001603A0", "siteCount": 4 }
+    ],
+    "singletonClasses": [
+      "func_00174DD0",
+      "service_mark_ready_secondary_44",
+      "func_001781F0",
+      "func_0017E324",
+      "func_001602B8",
+      "func_00160380",
+      "func_002DE7D4",
+      "func_001397B8"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

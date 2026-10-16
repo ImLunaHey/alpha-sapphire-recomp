@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_48.S",
+  "mode": "arm",
+  "totalBodySize": 832,
+  "functions": [
+    { "name": "func_00398958", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_00398D9C", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_00398E30", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399520", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399588", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_003995AC", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_003995D0", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_003995F4", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399628", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_0039964C", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399670", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399694", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_003996C0", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_003996F4", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399808", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_003998FC", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_003999B8", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_003999E4", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399A18", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_00399AD4", "size": 44, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "outer_record_byte_dirty_stores_48": {
+      "members": [
+        "func_00398958",
+        "func_00398D9C",
+        "func_00398E30",
+        "func_00399588",
+        "func_003995AC",
+        "func_003995D0",
+        "func_00399670"
+      ],
+      "parameters": ["byteOffset", "dirtyWordOffset", "dirtyMask"]
+    },
+    "nested_record_byte_dirty_stores_48": {
+      "members": [
+        "func_00399520",
+        "func_00399694",
+        "func_003996F4",
+        "func_003999B8",
+        "func_00399A18",
+        "func_00399AD4"
+      ],
+      "parameters": ["byteOffset", "dirtyMask"]
+    },
+    "deep_entry_byte_dirty_stores_48": {
+      "members": [
+        "func_003995F4",
+        "func_003996C0",
+        "func_00399808",
+        "func_003999E4"
+      ],
+      "parameters": ["byteOffset", "dirtyMask"]
+    },
+    "nested_record_byte_accessors_48": {
+      "members": [
+        "func_00399628",
+        "func_0039964C",
+        "func_003998FC"
+      ],
+      "parameters": ["byteOffset"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

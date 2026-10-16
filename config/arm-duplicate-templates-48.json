@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_48.S",
+  "mode": "arm",
+  "expectedBodyBytes": 816,
+  "templates": {
+    "registry_pair_attachment": {
+      "bodySize": 272,
+      "instructionCount": 68,
+      "count": 3,
+      "internalLabels": 4,
+      "directCalls": 12,
+      "indirectCalls": 0,
+      "poolSlots": 0,
+      "postBodyIdentifiers": 3
+    }
+  },
+  "commonDirectCalls": [
+    { "offset": 12, "kind": "R_ARM_CALL", "symbol": "func_0012B95C" },
+    { "offset": 28, "kind": "R_ARM_CALL", "symbol": "func_0036F398" },
+    { "offset": 48, "kind": "R_ARM_CALL", "symbol": "func_0036F398" },
+    { "offset": 68, "kind": "R_ARM_CALL", "symbol": "func_0036F4D0" },
+    { "offset": 84, "kind": "R_ARM_CALL", "symbol": "func_0036F4D0" },
+    { "offset": 96, "kind": "R_ARM_CALL", "symbol": "func_0036F28C" },
+    { "offset": 112, "kind": "R_ARM_CALL", "symbol": "func_00123480" },
+    { "offset": 156, "kind": "R_ARM_CALL", "symbol": "func_003AB384" },
+    { "offset": 184, "kind": "R_ARM_CALL", "symbol": "func_0012B95C", "addend": 16 },
+    { "offset": 220, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C" },
+    { "offset": 256, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C" }
+  ],
+  "internalLabelOffsets": [140, 196, 224, 260],
+  "identifierContract": [
+    {
+      "role": "shared_identifier_one",
+      "offset": 272,
+      "addressInstructionOffset": 24,
+      "nulTerminatedBytes": 21,
+      "reservedSpan": 24,
+      "sharedAcrossAllExpansions": true
+    },
+    {
+      "role": "shared_identifier_two",
+      "offset": 296,
+      "addressInstructionOffset": 40,
+      "nulTerminatedBytes": 23,
+      "reservedSpan": 24,
+      "sharedAcrossAllExpansions": true
+    },
+    {
+      "role": "expansion_identifier_three",
+      "offset": 320,
+      "addressInstructionOffset": 88,
+      "pairwiseDistinctAcrossExpansions": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00368600",
+      "template": "registry_pair_attachment",
+      "constructor": "func_0019C0F8",
+      "constructorCallOffset": 132,
+      "identifierThreeBytes": 20,
+      "templateMaterialEndOffset": 340,
+      "anonymousMaterialOffset": null,
+      "nextGlobalOffset": 340
+    },
+    {
+      "name": "func_00368CE0",
+      "template": "registry_pair_attachment",
+      "constructor": "func_0019C160",
+      "constructorCallOffset": 132,
+      "identifierThreeBytes": 22,
+      "templateMaterialEndOffset": 342,
+      "anonymousMaterialOffset": null,
+      "nextGlobalOffset": 344
+    },
+    {
+      "name": "func_00369104",
+      "template": "registry_pair_attachment",
+      "constructor": "func_0019C190",
+      "constructorCallOffset": 132,
+      "identifierThreeBytes": 22,
+      "templateMaterialEndOffset": 342,
+      "anonymousMaterialOffset": 344,
+      "nextGlobalOffset": 444
+    }
+  ]
+}
