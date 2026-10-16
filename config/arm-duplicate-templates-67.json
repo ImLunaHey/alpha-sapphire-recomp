@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_67.S",
+  "sourceSha256": "b467326b6808552585195457764b886efb134cd43d248e2178e2a9e2c21f1c2f",
+  "mode": "arm",
+  "expectedBodyBytes": 736,
+  "templates": {
+    "clear_intrusive_owner": {
+      "bodySize": 212,
+      "instructionCount": 53,
+      "count": 2,
+      "internalLabels": 6,
+      "directCalls": 2,
+      "indirectCalls": 1,
+      "ownedLiteralCount": 0
+    },
+    "release_or_grow_pointer_storage": {
+      "bodySize": 156,
+      "instructionCount": 39,
+      "count": 2,
+      "internalLabels": 4,
+      "directCalls": 2,
+      "indirectCalls": 1,
+      "ownedLiteralCount": 0
+    }
+  },
+  "functions": [
+    {
+      "name": "func_0056E4F0",
+      "template": "clear_intrusive_owner",
+      "internalLabelOffsets": [32, 104, 116, 144, 188, 204],
+      "nextGlobalOffset": 212,
+      "directTransfers": [
+        {
+          "offset": 160,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00160F9C",
+          "role": "release_block_storage"
+        },
+        {
+          "offset": 172,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00160F9C",
+          "role": "release_block_header"
+        }
+      ]
+    },
+    {
+      "name": "func_0056E6A8",
+      "template": "clear_intrusive_owner",
+      "internalLabelOffsets": [32, 104, 116, 144, 188, 204],
+      "nextGlobalOffset": 212,
+      "directTransfers": [
+        {
+          "offset": 160,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00160F9C",
+          "role": "release_block_storage"
+        },
+        {
+          "offset": 172,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00160F9C",
+          "role": "release_block_header"
+        }
+      ]
+    },
+    {
+      "name": "func_0056B390",
+      "template": "release_or_grow_pointer_storage",
+      "internalLabelOffsets": [80, 92, 136, 140],
+      "nextGlobalOffset": 156,
+      "directTransfers": [
+        {
+          "offset": 96,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0040AC94",
+          "role": "acquire_release_dispatch"
+        },
+        {
+          "offset": 148,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0056B42C",
+          "role": "grow_storage"
+        }
+      ]
+    },
+    {
+      "name": "func_0056B550",
+      "template": "release_or_grow_pointer_storage",
+      "internalLabelOffsets": [80, 92, 136, 140],
+      "nextGlobalOffset": 156,
+      "directTransfers": [
+        {
+          "offset": 96,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0040AC94",
+          "role": "acquire_release_dispatch"
+        },
+        {
+          "offset": 148,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0056B5EC",
+          "role": "grow_storage"
+        }
+      ]
+    }
+  ]
+}
