@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_51.S",
+  "sourceSha256": "3c2dc42b638ca5f4239ce3af6d4382ba6a9e3bd60824f9cd617e99b0c2c88605",
+  "mode": "arm",
+  "totalBodySize": 736,
+  "cumulativePoolSlots": 636,
+  "cumulativePoolClasses": 329,
+  "functions": [
+    {
+      "name": "func_001668E8", "size": 24,
+      "branches": [],
+      "literals": [
+        { "offset": 24, "symbol": "service_dispatch_root_51" }
+      ]
+    },
+    {
+      "name": "func_00166904", "size": 52,
+      "branches": [],
+      "literals": [
+        { "offset": 52, "symbol": "service_record_vtable_51" },
+        { "offset": 56, "symbol": "service_zero_scalar_51" }
+      ]
+    },
+    { "name": "func_00166F10", "size": 212, "branches": [], "literals": [] },
+    {
+      "name": "func_00167054", "size": 116,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017ABB8" },
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001757E8" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001754A8" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_0010018C" }
+      ],
+      "literals": [
+        { "offset": 116, "symbol": "service_instance_vtable_51" },
+        { "offset": 120, "symbol": "service_instance_index_bias_51" },
+        { "offset": 124, "symbol": "service_instance_template_51" },
+        { "offset": 128, "symbol": "service_instance_slot_bias_51" }
+      ]
+    },
+    {
+      "name": "func_001670D8", "size": 200,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" },
+        { "offset": 88, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" },
+        { "offset": 116, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" },
+        { "offset": 140, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" },
+        { "offset": 172, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017048C" },
+        { "offset": 196, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001671A0", "size": 132,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0015E354" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174E80" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "service_dispatch_root_51",
+    "service_record_vtable_51",
+    "service_zero_scalar_51",
+    "service_instance_vtable_51",
+    "service_instance_index_bias_51",
+    "service_instance_template_51",
+    "service_instance_slot_bias_51"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_dispatch_root_51",
+    "service_record_vtable_51",
+    "service_zero_scalar_51",
+    "service_instance_vtable_51",
+    "service_instance_index_bias_51",
+    "service_instance_template_51",
+    "service_instance_slot_bias_51"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_0017ABB8",
+      "func_001757E8",
+      "func_001754A8",
+      "func_0010018C",
+      "func_001602B8",
+      "func_00174E80",
+      "func_00160380",
+      "func_0017048C",
+      "func_0015E354"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_00174E80", "siteCount": 6 },
+      { "symbol": "func_00160380", "siteCount": 3 }
+    ],
+    "singletonClasses": [
+      "func_0017ABB8",
+      "func_001757E8",
+      "func_001754A8",
+      "func_0010018C",
+      "func_001602B8",
+      "func_0017048C",
+      "func_0015E354"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0017ABB8",
+      "func_001757E8",
+      "func_001754A8",
+      "func_001602B8",
+      "func_00174E80",
+      "func_00160380",
+      "func_0017048C",
+      "func_0015E354"
+    ],
+    "thumbPrimaryEntries": ["func_0010018C"]
+  }
+}
