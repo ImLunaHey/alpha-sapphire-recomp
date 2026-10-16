@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_42.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1840,
+  "templates": {
+    "pooled_u64_key_red_black_tree_node_insertion": {
+      "bodySize": 920,
+      "instructionCount": 230,
+      "count": 2,
+      "internalLabels": 22,
+      "calls": 2,
+      "poolSlots": 0
+    }
+  },
+  "callContract": [
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 128, "kind": "R_ARM_CALL", "symbol": "func_00184990" }
+  ],
+  "poolContract": [],
+  "functions": [
+    { "name": "func_0016F5B4", "template": "pooled_u64_key_red_black_tree_node_insertion" },
+    { "name": "func_005538C8", "template": "pooled_u64_key_red_black_tree_node_insertion" }
+  ]
+}

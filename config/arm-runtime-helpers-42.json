@@ -1,0 +1,58 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_42.S",
+  "sourceSha256": "03af44500a18cd10fe363eb1693cf524f9dd819922d859d9489fc54ea4f4b369",
+  "mode": "arm",
+  "totalBodySize": 1708,
+  "functions": [
+    { "name": "func_004E3D8C", "size": 60, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E4168", "size": 72, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E5DDC", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E5E08", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E60F4", "size": 92, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E65FC", "size": 72, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6644", "size": 84, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6698", "size": 88, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E66F0", "size": 72, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6738", "size": 84, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E678C", "size": 84, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E690C", "size": 84, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E69D4", "size": 84, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6B34", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6B60", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6D2C", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6D68", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6FB4", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E6FE4", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E7064", "size": 92, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E7124", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E7700", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E771C", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E7BB8", "size": 92, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EC724", "size": 96, "calls": [], "adjacentWords": [] },
+    { "name": "func_0056DCE4", "size": 96, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "active_520_byte_record_helpers_42": {
+      "members": ["func_004E6644", "func_004E6698", "func_004E66F0"],
+      "parameters": ["resultKind", "byte540Polarity"]
+    },
+    "fixed_width_uppercase_widening_42": {
+      "members": ["func_004E6738", "func_004E690C", "func_004E69D4"],
+      "parameters": ["sourceOffset", "maximumBytes", "sourceRegisterSchedule"]
+    },
+    "halfword_pair_predicate_42": {
+      "members": ["func_004E6B34", "func_004E6B60"],
+      "parameters": ["invertResult"]
+    },
+    "packed_display_field_helpers_42": {
+      "members": ["func_004E6FB4", "func_004E7064"],
+      "parameters": ["alternateSentinelFastPath"]
+    },
+    "fixed_three_slot_occupancy_42": {
+      "members": ["func_004E7700", "func_004E771C"],
+      "parameters": ["indexedOrAllSlots"]
+    }
+  },
+  "symbolicIdentities": {}
+}
