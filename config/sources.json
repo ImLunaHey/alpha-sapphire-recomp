@@ -736,6 +736,10 @@
     {
       "path": "src/main/arm_ipc_templates_63.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_ipc_templates_64.S",
+      "mode": "arm"
     }
   ]
 }
