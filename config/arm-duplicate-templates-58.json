@@ -1,0 +1,81 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_58.S",
+  "mode": "arm",
+  "expectedBodyBytes": 640,
+  "templates": {
+    "registry_triple_attachment": {
+      "bodySize": 320,
+      "instructionCount": 80,
+      "count": 2,
+      "internalLabels": 5,
+      "directCalls": 14,
+      "indirectCalls": 0,
+      "poolSlots": 0,
+      "postBodyIdentifiers": 3
+    }
+  },
+  "commonDirectCalls": [
+    { "offset": 8, "kind": "R_ARM_CALL", "symbol": "func_0012B95C", "role": "registry_acquire" },
+    { "offset": 24, "kind": "R_ARM_CALL", "symbol": "func_0036F398", "role": "lookup_first" },
+    { "offset": 44, "kind": "R_ARM_CALL", "symbol": "func_0036F398", "role": "lookup_second" },
+    { "offset": 64, "kind": "R_ARM_CALL", "symbol": "func_0036F398", "role": "lookup_third" },
+    { "offset": 84, "kind": "R_ARM_CALL", "symbol": "func_0036F4D0", "role": "submit_first" },
+    { "offset": 100, "kind": "R_ARM_CALL", "symbol": "func_0036F4D0", "role": "submit_second" },
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_0036F4D0", "role": "submit_third" },
+    { "offset": 128, "kind": "R_ARM_CALL", "symbol": "func_00123480", "role": "record_allocate" },
+    { "offset": 164, "kind": "R_ARM_CALL", "symbol": "func_003AB384", "role": "attach_record" },
+    { "offset": 192, "kind": "R_ARM_CALL", "symbol": "func_0012B95C", "addend": 16, "role": "array_allocate" },
+    { "offset": 228, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C", "role": "first_capacity_failure" },
+    { "offset": 264, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C", "role": "second_capacity_failure" },
+    { "offset": 300, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C", "role": "third_capacity_failure" }
+  ],
+  "internalLabelOffsets": [152, 204, 232, 268, 304],
+  "identifierContract": [
+    {
+      "role": "expansion_identifier_one",
+      "offset": 320,
+      "addressInstructionOffset": 20,
+      "reservedSpan": 28,
+      "pairwiseDistinctAcrossExpansions": true
+    },
+    {
+      "role": "shared_identifier_two",
+      "offset": 348,
+      "addressInstructionOffset": 36,
+      "nulTerminatedBytes": 19,
+      "reservedSpan": 20,
+      "sharedAcrossAllExpansions": true
+    },
+    {
+      "role": "shared_identifier_three",
+      "offset": 368,
+      "addressInstructionOffset": 56,
+      "nulTerminatedBytes": 23,
+      "reservedSpan": 24,
+      "sharedAcrossAllExpansions": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00369FAC",
+      "template": "registry_triple_attachment",
+      "constructor": "func_0019C250",
+      "constructorCallOffset": 144,
+      "identifierOneBytes": 26,
+      "templateMaterialEndOffset": 391,
+      "anonymousMaterialOffset": null,
+      "nextGlobalOffset": 392
+    },
+    {
+      "name": "func_0036A428",
+      "template": "registry_triple_attachment",
+      "constructor": "func_0019C2A0",
+      "constructorCallOffset": 144,
+      "identifierOneBytes": 27,
+      "templateMaterialEndOffset": 391,
+      "anonymousMaterialOffset": 392,
+      "nextGlobalOffset": 488
+    }
+  ]
+}

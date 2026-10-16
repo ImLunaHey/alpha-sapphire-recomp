@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_54.S",
+  "sourceSha256": "ed8e302ce8d94ce6d8f21ede5fc96ed4b80ac024a702ef3c7ab2b7748a55f269",
+  "mode": "arm",
+  "totalBodySize": 632,
+  "cumulativePoolSlots": 657,
+  "cumulativePoolClasses": 347,
+  "functions": [
+    {
+      "name": "func_001678FC", "size": 500,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014DBB8" },
+        { "offset": 96, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0013E9CC" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00157FBC" },
+        { "offset": 116, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175AD0" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176C88" },
+        { "offset": 256, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_geometry_setup_secondary_54" },
+        { "offset": 296, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176C88" },
+        { "offset": 364, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017C888" },
+        { "offset": 380, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_geometry_setup_secondary_54" },
+        { "offset": 420, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176C88" },
+        { "offset": 488, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175C54" }
+      ],
+      "literals": [
+        { "offset": 500, "symbol": "ipc_render_context_54" },
+        { "offset": 504, "symbol": "ipc_coordinate_scale_a_54" },
+        { "offset": 508, "symbol": "ipc_coordinate_scale_b_54" },
+        { "offset": 512, "symbol": "service_zero_scalar_51" }
+      ]
+    },
+    {
+      "name": "func_00167B00", "size": 132,
+      "branches": [],
+      "literals": [
+        { "offset": 132, "symbol": "ipc_default_flags_54" },
+        { "offset": 136, "symbol": "service_zero_scalar_51" },
+        { "offset": 140, "symbol": "ipc_unit_scalar_54" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_render_context_54",
+    "ipc_coordinate_scale_a_54",
+    "ipc_coordinate_scale_b_54",
+    "service_zero_scalar_51",
+    "ipc_default_flags_54",
+    "ipc_unit_scalar_54"
+  ],
+  "reusedLiteralIdentities": ["service_zero_scalar_51"],
+  "newLiteralIdentities": [
+    "ipc_render_context_54",
+    "ipc_coordinate_scale_a_54",
+    "ipc_coordinate_scale_b_54",
+    "ipc_default_flags_54",
+    "ipc_unit_scalar_54"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0014DBB8",
+      "func_0013E9CC",
+      "func_00157FBC",
+      "func_00175AD0",
+      "func_00176C88",
+      "func_0017C888",
+      "func_00175C54"
+    ],
+    "secondaryEntries": ["service_geometry_setup_secondary_54"],
+    "sharedClasses": [
+      { "symbol": "func_00176C88", "siteCount": 3 },
+      { "symbol": "service_geometry_setup_secondary_54", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_0014DBB8",
+      "func_0013E9CC",
+      "func_00157FBC",
+      "func_00175AD0",
+      "func_0017C888",
+      "func_00175C54"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
