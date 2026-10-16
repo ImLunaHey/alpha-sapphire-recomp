@@ -1,0 +1,142 @@
+import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
+import { readFileSync, readdirSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const root = join(dirname(fileURLToPath(import.meta.url)), "..");
+const manifestName = "arm-runtime-helpers-40.json";
+const manifest = JSON.parse(readFileSync(join(root, "config", manifestName), "utf8"));
+const sources = JSON.parse(readFileSync(join(root, "config/sources.json"), "utf8"));
+const expectedSourceHash = "130efb5ca22cfa1cbefa4a05b360f69ffe284f58ac4093864480208e06447d6d";
+const expectedFunctions = [
+  ["func_004A8D18", 156], ["func_004B71D0", 140], ["func_004B725C", 220],
+  ["func_004B7614", 152], ["func_004C3E9C", 216], ["func_004D5B8C", 208],
+  ["func_004D6E90", 208],
+];
+
+function fail(message) {
+  console.error(`arm-runtime-helpers-40 validation failed: ${message}`);
+  process.exit(1);
+}
+
+if (manifest.schemaVersion !== 1 || manifest.source !== "src/main/arm_runtime_helpers_40.S" ||
+    manifest.sourceSha256 !== expectedSourceHash || manifest.mode !== "arm" ||
+    manifest.totalBodySize !== 1300 || !Array.isArray(manifest.functions) ||
+    manifest.functions.length !== expectedFunctions.length) {
+  fail("manifest schema, source, digest, mode, function count, or total body size is invalid");
+}
+for (let index = 0; index < expectedFunctions.length; index++) {
+  const [name, size] = expectedFunctions[index];
+  const entry = manifest.functions[index];
+  if (entry?.name !== name || entry.size !== size || !Array.isArray(entry.calls) || entry.calls.length !== 0 ||
+      !Array.isArray(entry.adjacentWords) || entry.adjacentWords.length !== 0) {
+    fail(`manifest entry for ${name} is invalid`);
+  }
+}
+const expectedIdentityClasses = {
+  nested_table_search_40: {
+    members: ["func_004D5B8C", "func_004D6E90"],
+    parameters: ["signedCountOffset", "relativeTableFieldOffset"],
+  },
+};
+if (JSON.stringify(manifest.identityClasses) !== JSON.stringify(expectedIdentityClasses)) {
+  fail("nested-table structural identity class is invalid");
+}
+if (JSON.stringify(manifest.symbolicIdentities) !== "{}") fail("symbolic identities must be empty");
+
+const selected = new Set(expectedFunctions.map(([name]) => name));
+for (const name of readdirSync(join(root, "config"))) {
+  if (name === manifestName || !/^arm-.*\.json$/.test(name)) continue;
+  const other = JSON.parse(readFileSync(join(root, "config", name), "utf8"));
+  for (const entry of other.functions ?? []) {
+    if (selected.has(entry.name)) fail(`${entry.name} overlaps selection in config/${name}`);
+  }
+}
+
+const configured = sources.sources.filter((source) => source.path === manifest.source);
+if (configured.length !== 1 || configured[0].mode !== manifest.mode) {
+  fail(`${manifest.source} must occur once in config/sources.json with ARM mode`);
+}
+const source = readFileSync(join(root, manifest.source));
+const digest = createHash("sha256").update(source).digest("hex");
+if (digest !== expectedSourceHash) fail(`source digest ${digest} does not match the reviewed schedule`);
+const sourceText = source.toString("utf8");
+if (/^\s*\.(?:word|long|4byte)\b/m.test(sourceText)) fail("source must not contain literal or adjacent data words");
+if (/^\s*(?:bl|blx)\b/m.test(sourceText)) fail("source must not contain calls");
+if (!sourceText.startsWith(".syntax unified\n.arch armv6k\n.fpu vfpv2\n.arm\n")) {
+  fail("ARMv6K/VFPv2 source preamble is invalid");
+}
+for (const [name] of expectedFunctions) {
+  const declarations = [
+    `.section .text.${name}, "ax", %progbits`, `.global ${name}`,
+    `.type ${name}, %function`, `${name}:`, `.size ${name}, .-${name}`,
+  ];
+  for (const declaration of declarations) {
+    if (!sourceText.includes(declaration)) fail(`source declaration for ${name} is missing`);
+  }
+}
+
+const args = process.argv.slice(2);
+if (args.length !== 0 && args.length !== 2) fail("usage: validate-arm-runtime-helpers-40.mjs [base-object readelf]");
+if (args.length === 2) {
+  const [objectPath, readelf] = args;
+  let header;
+  let sections;
+  let symbols;
+  let relocations;
+  try {
+    const options = { encoding: "utf8", maxBuffer: 64 * 1024 * 1024 };
+    header = execFileSync(readelf, ["-h", objectPath], options);
+    sections = execFileSync(readelf, ["-SW", objectPath], options);
+    symbols = execFileSync(readelf, ["-sW", objectPath], options);
+    relocations = execFileSync(readelf, ["-rW", objectPath], options);
+  } catch (error) {
+    fail(`could not inspect object: ${error.message}`);
+  }
+  if (!/^\s*Machine:\s+ARM\s*$/m.test(header)) fail("object is not ARM");
+
+  const parsedSections = new Map();
+  for (const line of sections.split("\n")) {
+    const match = line.match(/^\s*\[\s*(\d+)\]\s+(\S+)\s+\S+\s+\S+\s+\S+\s+([0-9a-fA-F]+)\s+\S+\s+(\S+)\s+\S+\s+\S+\s+(\d+)\s*$/);
+    if (match) parsedSections.set(match[2], {
+      index: match[1], size: Number.parseInt(match[3], 16), flags: match[4],
+      alignment: Number.parseInt(match[5], 10),
+    });
+  }
+  const parsedSymbols = [];
+  for (const line of symbols.split("\n")) {
+    const fields = line.trim().split(/\s+/);
+    if (fields.length < 8 || !fields[0].endsWith(":")) continue;
+    parsedSymbols.push({
+      value: Number.parseInt(fields[1], 16), size: Number.parseInt(fields[2], 10),
+      type: fields[3], bind: fields[4], section: fields[6], name: fields.slice(7).join(" "),
+    });
+  }
+  for (const [name, size] of expectedFunctions) {
+    const sectionName = `.text.${name}`;
+    const section = parsedSections.get(sectionName);
+    if (!section || section.size !== size || !section.flags.includes("A") || !section.flags.includes("X") ||
+        section.alignment < 4) {
+      fail(`${name} must occupy one aligned executable section of exactly ${size} bytes`);
+    }
+    const matches = parsedSymbols.filter((symbol) => symbol.name === name);
+    if (matches.length !== 1 || matches[0].value !== 0 || matches[0].size !== size ||
+        matches[0].type !== "FUNC" || matches[0].bind !== "GLOBAL" || matches[0].section !== section.index) {
+      fail(`${name} must be one defined ${size}-byte global function spanning its section`);
+    }
+  }
+
+  let relocationSection = "";
+  for (const line of relocations.split("\n")) {
+    const heading = line.match(/^Relocation section '(?:\.rel|\.rela)([^']+)'/);
+    if (heading) { relocationSection = heading[1]; continue; }
+    const fields = line.trim().split(/\s+/);
+    if (fields.length >= 3 && /^[0-9a-fA-F]+$/.test(fields[0]) && /^R_ARM_/.test(fields[2]) &&
+        expectedFunctions.some(([name]) => relocationSection === `.text.${name}`)) {
+      fail(`${relocationSection} must have no relocations`);
+    }
+  }
+}
+
+console.log("Validated ARM runtime helpers batch 40: 7 functions, 1,300 body bytes, no calls, relocations, literals, adjacent words, or symbolic identities.");

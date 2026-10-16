@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_40.S",
+  "sourceSha256": "130efb5ca22cfa1cbefa4a05b360f69ffe284f58ac4093864480208e06447d6d",
+  "mode": "arm",
+  "totalBodySize": 1300,
+  "functions": [
+    { "name": "func_004A8D18", "size": 156, "calls": [], "adjacentWords": [] },
+    { "name": "func_004B71D0", "size": 140, "calls": [], "adjacentWords": [] },
+    { "name": "func_004B725C", "size": 220, "calls": [], "adjacentWords": [] },
+    { "name": "func_004B7614", "size": 152, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C3E9C", "size": 216, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D5B8C", "size": 208, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D6E90", "size": 208, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "nested_table_search_40": {
+      "members": ["func_004D5B8C", "func_004D6E90"],
+      "parameters": ["signedCountOffset", "relativeTableFieldOffset"]
+    }
+  },
+  "symbolicIdentities": {}
+}

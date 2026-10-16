@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_40.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1888,
+  "templates": {
+    "pooled_red_black_tree_node_insert": {
+      "bodySize": 944,
+      "instructionCount": 236,
+      "count": 2,
+      "internalLabels": 21,
+      "calls": 2,
+      "literalCount": 1
+    }
+  },
+  "callContract": [
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 132, "kind": "R_ARM_CALL", "symbol": "func_00184990" }
+  ],
+  "slotContract": [
+    { "offset": 944, "loadOffset": 200, "role": "shared_node_payload_dispatch_identity" }
+  ],
+  "literalIdentities": {
+    "node_payload_dispatch": {
+      "symbol": "arm_duplicate_templates_40_shared_node_payload_dispatch_identity",
+      "class": "read-only-address"
+    }
+  },
+  "functions": [
+    {
+      "name": "func_005522B8",
+      "template": "pooled_red_black_tree_node_insert",
+      "literals": [
+        { "offset": 944, "loadOffset": 200, "identity": "node_payload_dispatch" }
+      ]
+    },
+    {
+      "name": "func_00552D08",
+      "template": "pooled_red_black_tree_node_insert",
+      "literals": [
+        { "offset": 944, "loadOffset": 200, "identity": "node_payload_dispatch" }
+      ]
+    }
+  ]
+}
