@@ -1,0 +1,1533 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_81.S",
+  "sourceSha256": "21e70ee8653f1b1f311b8c5c9071504a0ef6020e03e1bf6f91d40f62121d2931",
+  "mode": "arm",
+  "expectedBodyBytes": 1288,
+  "expectedOwnedBytes": 1376,
+  "expectedInstructionCount": 322,
+  "templates": {
+    "grow_sequence": {
+      "bodySize": 88,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 22,
+      "internalLabels": 2,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "push {r4, lr}",
+        "ldr r1, [r0, #4]",
+        "ldr r2, [r0]",
+        "mov r4, r0",
+        "mov r3, #1",
+        "cmp r1, r2",
+        "sub r1, r1, r2",
+        "lslhi r0, r1, #29",
+        "add ip, r3, r1, asr #2",
+        "lsrhi r0, r0, #31",
+        "movls r0, #0",
+        "add r0, r0, #1",
+        "cmp ip, r0",
+        "addgt r1, r3, r1, asr #2",
+        "ble local:+72",
+        "add r0, r0, #2",
+        "cmp r1, r0",
+        "bgt local:+60",
+        "mov r0, r2",
+        "bl {resize}",
+        "mov r0, r4",
+        "pop {r4, pc}"
+      ]
+    },
+    "reset_polymorphic_record": {
+      "bodySize": 80,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 1,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 20,
+      "internalLabels": 2,
+      "addressReferences": 0,
+      "poolSlots": 2,
+      "instructions": [
+        "push {r4, lr}",
+        "mov r4, r0",
+        "ldr r0, [pc, #64]",
+        "str r0, [r4]",
+        "ldr r0, [r4, #12]",
+        "cmp r0, #0",
+        "beq local:+56",
+        "ldr r1, [r0, #-8]!",
+        "cmp r1, #0",
+        "beq local:+48",
+        "blx r1",
+        "b local:+56",
+        "nop {0}",
+        "bl {fallback}",
+        "ldr r0, [pc, #20]",
+        "str r0, [r4]",
+        "mov r0, #0",
+        "str r0, [r4, #4]",
+        "mov r0, r4",
+        "pop {r4, pc}"
+      ]
+    },
+    "guarded_active_tail": {
+      "bodySize": 80,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 20,
+      "internalLabels": 2,
+      "addressReferences": 0,
+      "poolSlots": 1,
+      "instructions": [
+        "ldrb r1, [r0, #44]",
+        "ldr r2, [pc, #68]",
+        "cmp r1, #2",
+        "beq local:+52",
+        "ldrb r1, [r0, #44]",
+        "cmp r1, #1",
+        "bne local:+76",
+        "ldr r1, [r0, #40]",
+        "cmp r1, #0",
+        "beq local:+76",
+        "ldr r3, [r2, #84]",
+        "bics r1, r1, r3",
+        "bne local:+76",
+        "ldrb r1, [r2, #4]",
+        "add r0, r0, #4",
+        "cmp r1, #0",
+        "bne local:+76",
+        "add r0, r0, #4",
+        "b {active_tail}",
+        "bx lr"
+      ]
+    },
+    "initialize_guarded_state": {
+      "bodySize": 72,
+      "count": 2,
+      "directTransfers": 2,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 18,
+      "internalLabels": 1,
+      "addressReferences": 0,
+      "poolSlots": 4,
+      "instructions": [
+        "ldr r0, [pc, #64]",
+        "push {r4, lr}",
+        "ldr r0, [r0]",
+        "tst r0, #1",
+        "bne local:+64",
+        "ldr r0, [pc, #44]",
+        "blx {probe}",
+        "cmp r0, #0",
+        "beq local:+64",
+        "ldr r0, [pc, #32]",
+        "bl {initialize}",
+        "ldr r2, [pc, #28]",
+        "ldr r1, [pc, #28]",
+        "mov r0, r0",
+        "ldr r0, [pc, #8]",
+        "mov r0, r0",
+        "ldr r0, [pc, #4]",
+        "pop {r4, pc}"
+      ]
+    },
+    "scaled_random_value": {
+      "bodySize": 64,
+      "count": 2,
+      "directTransfers": 3,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 2,
+      "instructionCount": 16,
+      "internalLabels": 1,
+      "addressReferences": 0,
+      "poolSlots": 1,
+      "instructions": [
+        "push {r4, lr}",
+        "mov r4, r1",
+        "ldr r1, [pc, #48]",
+        "cmp r4, r1",
+        "bcs local:+36",
+        "bl {random}",
+        "uxth r1, r4",
+        "umull r1, r0, r0, r1",
+        "pop {r4, pc}",
+        "nop {0}",
+        "bl {random}",
+        "mov r1, r4",
+        "nop {0}",
+        "bl {wide_scale}",
+        "mov r0, r1",
+        "pop {r4, pc}"
+      ]
+    },
+    "acquire_thread_counter": {
+      "bodySize": 56,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 14,
+      "internalLabels": 1,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "push {r4, lr}",
+        "mov r4, r0",
+        "mrc p15, 0, r0, c13, c0, 3",
+        "ldr r1, [r4, #4]",
+        "cmp r0, r1",
+        "beq local:+40",
+        "mov r0, r4",
+        "bl {refresh}",
+        "mrc p15, 0, r0, c13, c0, 3",
+        "str r0, [r4, #4]",
+        "ldr r0, [r4, #8]",
+        "add r0, r0, #1",
+        "str r0, [r4, #8]",
+        "pop {r4, pc}"
+      ]
+    },
+    "indirect_submit_tail": {
+      "bodySize": 52,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 1,
+      "indirectTailTransfers": 0,
+      "returns": 0,
+      "instructionCount": 13,
+      "internalLabels": 0,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "push {r4, r5, r6, lr}",
+        "mov r5, r0",
+        "ldr r0, [r1]",
+        "mov r4, r1",
+        "ldr r1, [r0, #28]",
+        "mov r0, r4",
+        "blx r1",
+        "mov r2, r0",
+        "mov r1, r5",
+        "mov r0, r4",
+        "pop {r4, r5, r6, lr}",
+        "mov r3, #1",
+        "b {submit_tail}"
+      ]
+    },
+    "locked_state_query": {
+      "bodySize": 52,
+      "count": 2,
+      "directTransfers": 2,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 1,
+      "instructionCount": 13,
+      "internalLabels": 0,
+      "addressReferences": 0,
+      "poolSlots": 2,
+      "instructions": [
+        "push {r4, r5, r6, lr}",
+        "ldr r4, [pc, #40]",
+        "mov r0, r4",
+        "bl {lock}",
+        "ldr r0, [pc, #32]",
+        "ldr r0, [r0]",
+        "cmp r0, #0",
+        "movne r5, #1",
+        "moveq r5, #0",
+        "mov r0, r4",
+        "bl {unlock}",
+        "mov r0, r5",
+        "pop {r4, r5, r6, pc}"
+      ]
+    },
+    "prepare_set_byte_tail": {
+      "bodySize": 44,
+      "count": 2,
+      "directTransfers": 3,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 0,
+      "instructionCount": 11,
+      "internalLabels": 0,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "push {r4, r5, r6, lr}",
+        "mov r4, r1",
+        "mov r5, r0",
+        "bl {prepare}",
+        "mov r1, #1",
+        "mov r0, r5",
+        "bl {select}",
+        "strb r4, [r0, #27]",
+        "mov r0, r5",
+        "pop {r4, r5, r6, lr}",
+        "b {finish_tail}"
+      ]
+    },
+    "optional_fallback_tail": {
+      "bodySize": 36,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 1,
+      "returns": 1,
+      "instructionCount": 9,
+      "internalLabels": 2,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "cmp r0, #0",
+        "beq local:+32",
+        "ldr r1, [r0, #-8]!",
+        "cmp r1, #0",
+        "beq local:+24",
+        "bx r1",
+        "nop {0}",
+        "b {fallback_tail}",
+        "bx lr"
+      ]
+    },
+    "literal_receiver_tail": {
+      "bodySize": 12,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 0,
+      "instructionCount": 3,
+      "internalLabels": 0,
+      "addressReferences": 0,
+      "poolSlots": 1,
+      "instructions": [
+        "mov r1, r0",
+        "ldr r0, [pc]",
+        "b {tail}"
+      ]
+    },
+    "add_four_tail": {
+      "bodySize": 8,
+      "count": 2,
+      "directTransfers": 1,
+      "indirectCalls": 0,
+      "indirectTailTransfers": 0,
+      "returns": 0,
+      "instructionCount": 2,
+      "internalLabels": 0,
+      "addressReferences": 0,
+      "poolSlots": 0,
+      "instructions": [
+        "add r0, r0, #4",
+        "b {tail}"
+      ]
+    }
+  },
+  "literalIdentities": {
+    "record_type_a": {
+      "symbol": "arm_duplicate_templates_81_record_type_a_identity",
+      "class": "record-type"
+    },
+    "shared_type": {
+      "symbol": "duplicate_template_25_shared_type",
+      "class": "reused-record-type"
+    },
+    "record_type_b": {
+      "symbol": "arm_duplicate_templates_81_record_type_b_identity",
+      "class": "record-type"
+    },
+    "dispatch_owner": {
+      "symbol": "ipc_allocator_dispatch_owner_68",
+      "class": "reused-dispatch-owner"
+    },
+    "guard_state_a": {
+      "symbol": "ipc_guard_state_52",
+      "class": "reused-guard-state"
+    },
+    "guard_context_a": {
+      "symbol": "arm_duplicate_templates_81_guard_context_a_identity",
+      "class": "guard-context"
+    },
+    "fixed_extent": {
+      "symbol": "ipc_fixed_extent_52",
+      "class": "reused-fixed-extent"
+    },
+    "fallback_a": {
+      "symbol": "ipc_fallback_entry_52",
+      "class": "reused-fallback-entry"
+    },
+    "guard_state_b": {
+      "symbol": "arm_duplicate_templates_81_guard_state_b_identity",
+      "class": "guard-state"
+    },
+    "guard_context_b": {
+      "symbol": "arm_duplicate_templates_81_guard_context_b_identity",
+      "class": "guard-context"
+    },
+    "fallback_b": {
+      "symbol": "arm_duplicate_templates_81_fallback_b_identity",
+      "class": "fallback-entry"
+    },
+    "scale_limit": {
+      "symbol": "arm_duplicate_templates_81_scale_limit_identity",
+      "class": "scale-limit"
+    },
+    "session_lock_a": {
+      "symbol": "service_session_lock_48",
+      "class": "reused-session-lock"
+    },
+    "query_state_a": {
+      "symbol": "arm_duplicate_templates_81_query_state_a_identity",
+      "class": "query-state"
+    },
+    "session_lock_b": {
+      "symbol": "arm_duplicate_templates_81_session_lock_b_identity",
+      "class": "session-lock"
+    },
+    "query_state_b": {
+      "symbol": "arm_duplicate_templates_81_query_state_b_identity",
+      "class": "query-state"
+    },
+    "receiver_context": {
+      "symbol": "service_unlink_context_44",
+      "class": "reused-receiver-context"
+    },
+    "submission_owner": {
+      "symbol": "ipc_submission_owner_72",
+      "class": "reused-submission-owner"
+    }
+  },
+  "reusedLiteralIdentities": [
+    "duplicate_template_25_shared_type",
+    "ipc_allocator_dispatch_owner_68",
+    "ipc_guard_state_52",
+    "ipc_fixed_extent_52",
+    "ipc_fallback_entry_52",
+    "service_session_lock_48",
+    "service_unlink_context_44",
+    "ipc_submission_owner_72"
+  ],
+  "newLiteralIdentities": [
+    "arm_duplicate_templates_81_record_type_a_identity",
+    "arm_duplicate_templates_81_record_type_b_identity",
+    "arm_duplicate_templates_81_guard_context_a_identity",
+    "arm_duplicate_templates_81_guard_state_b_identity",
+    "arm_duplicate_templates_81_guard_context_b_identity",
+    "arm_duplicate_templates_81_fallback_b_identity",
+    "arm_duplicate_templates_81_scale_limit_identity",
+    "arm_duplicate_templates_81_query_state_a_identity",
+    "arm_duplicate_templates_81_session_lock_b_identity",
+    "arm_duplicate_templates_81_query_state_b_identity"
+  ],
+  "branchIdentityContract": {
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_00160F9C",
+      "func_00302108",
+      "func_001602B8",
+      "func_00160380",
+      "func_00302F52",
+      "func_00136240",
+      "func_001364B0",
+      "func_0011A204",
+      "func_0015EC10",
+      "func_00164798",
+      "func_001183E4",
+      "func_0012B9A0",
+      "func_00168EC0",
+      "func_0016BC84",
+      "func_00168E50",
+      "func_00176EFC",
+      "func_0017E324",
+      "func_00190348",
+      "func_0017F4A4",
+      "func_00329E20"
+    ],
+    "thumbEntries": [
+      "func_00302F52"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_00160F9C",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_00302108",
+        "siteCount": 4
+      },
+      {
+        "symbol": "func_001602B8",
+        "siteCount": 3
+      },
+      {
+        "symbol": "func_00160380",
+        "siteCount": 3
+      },
+      {
+        "symbol": "func_00302F52",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_0011A204",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_0015EC10",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_00164798",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_001183E4",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_0012B9A0",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_00168EC0",
+        "siteCount": 2
+      },
+      {
+        "symbol": "func_00168E50",
+        "siteCount": 2
+      }
+    ],
+    "singletonClasses": [
+      "func_00136240",
+      "func_001364B0",
+      "func_0016BC84",
+      "func_00176EFC",
+      "func_0017E324",
+      "func_00190348",
+      "func_0017F4A4",
+      "func_00329E20"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "literalIdentityContract": {
+    "slotCount": 22,
+    "loadSiteCount": 28,
+    "classCount": 18,
+    "newClassCount": 10,
+    "reusedClassCount": 8,
+    "newClassesPairwiseDistinct": true,
+    "newClassesDistinctFromConfiguredClasses": true,
+    "reusedClassesPhysicallyVerified": true
+  },
+  "canonicalRecordFormat": {
+    "instruction": "function|offset|resolved instruction",
+    "localTransfer": "function|offset|mnemonic|local:+target",
+    "relocation": "function|offset|kind|mnemonic-or-word|symbol",
+    "literalIdentity": "function|loadOffset|slotOffset|identity-key"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "1876f02eca23de3d1cc7bf48a117846dca687d1a3939329998033ffe2a7b2435",
+    "localTransferSchedule": "ca94e41457db1eecf3b5161e8608ba56142c359485f39c0e7e1e3cbcf1f8b00b",
+    "relocationSchedule": "bdc28619dcf7db2a422209c1a4848fbe8f2e123cb19904787616ccc6c27da22f",
+    "literalIdentitySchedule": "223168708e62c18a32b45d513d1182d80fe706ef18afd84a2cf26ecd5a94074c"
+  },
+  "functions": [
+    {
+      "name": "func_002AD3EC",
+      "template": "grow_sequence",
+      "internalLabelOffsets": [
+        60,
+        72
+      ],
+      "nextGlobal": "func_002AD444",
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 76,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00160F9C",
+          "role": "resize"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 56,
+          "mnemonic": "ble",
+          "targetOffset": 72
+        },
+        {
+          "offset": 68,
+          "mnemonic": "bgt",
+          "targetOffset": 60
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_002AD4DC",
+      "template": "grow_sequence",
+      "internalLabelOffsets": [
+        60,
+        72
+      ],
+      "nextGlobal": "func_002AD534",
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 76,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00160F9C",
+          "role": "resize"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 56,
+          "mnemonic": "ble",
+          "targetOffset": 72
+        },
+        {
+          "offset": 68,
+          "mnemonic": "bgt",
+          "targetOffset": 60
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00163ED0",
+      "template": "reset_polymorphic_record",
+      "internalLabelOffsets": [
+        48,
+        56
+      ],
+      "templateMaterialEndOffset": 87,
+      "nextGlobal": "func_00163F38",
+      "nextGlobalOffset": 104,
+      "directTransfers": [
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00302108",
+          "role": "fallback"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 24,
+          "mnemonic": "beq",
+          "targetOffset": 56
+        },
+        {
+          "offset": 36,
+          "mnemonic": "beq",
+          "targetOffset": 48
+        },
+        {
+          "offset": 44,
+          "mnemonic": "b",
+          "targetOffset": 56
+        }
+      ],
+      "indirectCalls": [
+        {
+          "offset": 40,
+          "mnemonic": "blx",
+          "register": "r1",
+          "role": "destroy"
+        }
+      ],
+      "literals": [
+        {
+          "offset": 80,
+          "loadOffset": 8,
+          "loadOffsets": [
+            8
+          ],
+          "identity": "record_type_a"
+        },
+        {
+          "offset": 84,
+          "loadOffset": 56,
+          "loadOffsets": [
+            56
+          ],
+          "identity": "shared_type"
+        }
+      ]
+    },
+    {
+      "name": "func_00173304",
+      "template": "reset_polymorphic_record",
+      "internalLabelOffsets": [
+        48,
+        56
+      ],
+      "templateMaterialEndOffset": 87,
+      "nextGlobal": "func_0017335C",
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00302108",
+          "role": "fallback"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 24,
+          "mnemonic": "beq",
+          "targetOffset": 56
+        },
+        {
+          "offset": 36,
+          "mnemonic": "beq",
+          "targetOffset": 48
+        },
+        {
+          "offset": 44,
+          "mnemonic": "b",
+          "targetOffset": 56
+        }
+      ],
+      "indirectCalls": [
+        {
+          "offset": 40,
+          "mnemonic": "blx",
+          "register": "r1",
+          "role": "destroy"
+        }
+      ],
+      "literals": [
+        {
+          "offset": 80,
+          "loadOffset": 8,
+          "loadOffsets": [
+            8
+          ],
+          "identity": "record_type_b"
+        },
+        {
+          "offset": 84,
+          "loadOffset": 56,
+          "loadOffsets": [
+            56
+          ],
+          "identity": "shared_type"
+        }
+      ]
+    },
+    {
+      "name": "func_0017EA3C",
+      "template": "guarded_active_tail",
+      "internalLabelOffsets": [
+        52,
+        76
+      ],
+      "templateMaterialEndOffset": 83,
+      "nextGlobal": "func_0017EA90",
+      "nextGlobalOffset": 84,
+      "directTransfers": [
+        {
+          "offset": 72,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_001602B8",
+          "role": "active_tail"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 12,
+          "mnemonic": "beq",
+          "targetOffset": 52
+        },
+        {
+          "offset": 24,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        },
+        {
+          "offset": 36,
+          "mnemonic": "beq",
+          "targetOffset": 76
+        },
+        {
+          "offset": 48,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        },
+        {
+          "offset": 64,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        }
+      ],
+      "literals": [
+        {
+          "offset": 80,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "dispatch_owner"
+        }
+      ]
+    },
+    {
+      "name": "func_0017EA90",
+      "template": "guarded_active_tail",
+      "internalLabelOffsets": [
+        52,
+        76
+      ],
+      "templateMaterialEndOffset": 83,
+      "nextGlobal": "func_0017EAE4",
+      "nextGlobalOffset": 84,
+      "directTransfers": [
+        {
+          "offset": 72,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00160380",
+          "role": "active_tail"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 12,
+          "mnemonic": "beq",
+          "targetOffset": 52
+        },
+        {
+          "offset": 24,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        },
+        {
+          "offset": 36,
+          "mnemonic": "beq",
+          "targetOffset": 76
+        },
+        {
+          "offset": 48,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        },
+        {
+          "offset": 64,
+          "mnemonic": "bne",
+          "targetOffset": 76
+        }
+      ],
+      "literals": [
+        {
+          "offset": 80,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "dispatch_owner"
+        }
+      ]
+    },
+    {
+      "name": "func_001360FC",
+      "template": "initialize_guarded_state",
+      "internalLabelOffsets": [
+        64
+      ],
+      "templateMaterialEndOffset": 87,
+      "nextGlobal": "func_001361B0",
+      "nextGlobalOffset": 180,
+      "directTransfers": [
+        {
+          "offset": 24,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "blx",
+          "symbol": "func_00302F52",
+          "role": "probe"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00136240",
+          "role": "initialize"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 16,
+          "mnemonic": "bne",
+          "targetOffset": 64
+        },
+        {
+          "offset": 32,
+          "mnemonic": "beq",
+          "targetOffset": 64
+        }
+      ],
+      "literals": [
+        {
+          "offset": 72,
+          "loadOffset": 0,
+          "loadOffsets": [
+            0,
+            20,
+            56
+          ],
+          "identity": "guard_state_a"
+        },
+        {
+          "offset": 76,
+          "loadOffset": 36,
+          "loadOffsets": [
+            36,
+            64
+          ],
+          "identity": "guard_context_a"
+        },
+        {
+          "offset": 80,
+          "loadOffset": 44,
+          "loadOffsets": [
+            44
+          ],
+          "identity": "fixed_extent"
+        },
+        {
+          "offset": 84,
+          "loadOffset": 48,
+          "loadOffsets": [
+            48
+          ],
+          "identity": "fallback_a"
+        }
+      ]
+    },
+    {
+      "name": "func_0017541C",
+      "template": "initialize_guarded_state",
+      "internalLabelOffsets": [
+        64
+      ],
+      "templateMaterialEndOffset": 87,
+      "nextGlobal": "func_00175474",
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 24,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "blx",
+          "symbol": "func_00302F52",
+          "role": "probe"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_001364B0",
+          "role": "initialize"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 16,
+          "mnemonic": "bne",
+          "targetOffset": 64
+        },
+        {
+          "offset": 32,
+          "mnemonic": "beq",
+          "targetOffset": 64
+        }
+      ],
+      "literals": [
+        {
+          "offset": 72,
+          "loadOffset": 0,
+          "loadOffsets": [
+            0,
+            20,
+            56
+          ],
+          "identity": "guard_state_b"
+        },
+        {
+          "offset": 76,
+          "loadOffset": 36,
+          "loadOffsets": [
+            36,
+            64
+          ],
+          "identity": "guard_context_b"
+        },
+        {
+          "offset": 80,
+          "loadOffset": 44,
+          "loadOffsets": [
+            44
+          ],
+          "identity": "fixed_extent"
+        },
+        {
+          "offset": 84,
+          "loadOffset": 48,
+          "loadOffsets": [
+            48
+          ],
+          "identity": "fallback_b"
+        }
+      ]
+    },
+    {
+      "name": "func_00112310",
+      "template": "scaled_random_value",
+      "internalLabelOffsets": [
+        36
+      ],
+      "templateMaterialEndOffset": 67,
+      "nextGlobal": "func_00112354",
+      "nextGlobalOffset": 68,
+      "directTransfers": [
+        {
+          "offset": 20,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0011A204",
+          "role": "random"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0011A204",
+          "role": "random"
+        },
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0015EC10",
+          "role": "wide_scale"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 16,
+          "mnemonic": "bcs",
+          "targetOffset": 36
+        }
+      ],
+      "literals": [
+        {
+          "offset": 64,
+          "loadOffset": 8,
+          "loadOffsets": [
+            8
+          ],
+          "identity": "scale_limit"
+        }
+      ]
+    },
+    {
+      "name": "func_00175D64",
+      "template": "scaled_random_value",
+      "internalLabelOffsets": [
+        36
+      ],
+      "templateMaterialEndOffset": 67,
+      "nextGlobal": "func_00175E24",
+      "nextGlobalOffset": 192,
+      "directTransfers": [
+        {
+          "offset": 20,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00164798",
+          "role": "random"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00164798",
+          "role": "random"
+        },
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0015EC10",
+          "role": "wide_scale"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 16,
+          "mnemonic": "bcs",
+          "targetOffset": 36
+        }
+      ],
+      "literals": [
+        {
+          "offset": 64,
+          "loadOffset": 8,
+          "loadOffsets": [
+            8
+          ],
+          "identity": "scale_limit"
+        }
+      ]
+    },
+    {
+      "name": "func_001602B8",
+      "template": "acquire_thread_counter",
+      "internalLabelOffsets": [
+        40
+      ],
+      "nextGlobal": "func_00160380",
+      "nextGlobalOffset": 200,
+      "directTransfers": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_001183E4",
+          "role": "refresh"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 20,
+          "mnemonic": "beq",
+          "targetOffset": 40
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0050DC00",
+      "template": "acquire_thread_counter",
+      "internalLabelOffsets": [
+        40
+      ],
+      "nextGlobal": "func_0050DC38",
+      "nextGlobalOffset": 56,
+      "directTransfers": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_001183E4",
+          "role": "refresh"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 20,
+          "mnemonic": "beq",
+          "targetOffset": 40
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0012344C",
+      "template": "indirect_submit_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_00123480",
+      "nextGlobalOffset": 52,
+      "directTransfers": [
+        {
+          "offset": 48,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_0012B9A0",
+          "role": "submit_tail"
+        }
+      ],
+      "localTransfers": [],
+      "indirectCalls": [
+        {
+          "offset": 24,
+          "mnemonic": "blx",
+          "register": "r1",
+          "role": "prepare"
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00123480",
+      "template": "indirect_submit_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_001234B4",
+      "nextGlobalOffset": 52,
+      "directTransfers": [
+        {
+          "offset": 48,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_0012B9A0",
+          "role": "submit_tail"
+        }
+      ],
+      "localTransfers": [],
+      "indirectCalls": [
+        {
+          "offset": 24,
+          "mnemonic": "blx",
+          "register": "r1",
+          "role": "prepare"
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0014967C",
+      "template": "locked_state_query",
+      "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 59,
+      "nextGlobal": "func_0014983C",
+      "nextGlobalOffset": 448,
+      "directTransfers": [
+        {
+          "offset": 12,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_001602B8",
+          "role": "lock"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00160380",
+          "role": "unlock"
+        }
+      ],
+      "localTransfers": [],
+      "literals": [
+        {
+          "offset": 52,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "session_lock_a"
+        },
+        {
+          "offset": 56,
+          "loadOffset": 16,
+          "loadOffsets": [
+            16
+          ],
+          "identity": "query_state_a"
+        }
+      ]
+    },
+    {
+      "name": "func_0016FF00",
+      "template": "locked_state_query",
+      "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 59,
+      "nextGlobal": "func_0016FF3C",
+      "nextGlobalOffset": 60,
+      "directTransfers": [
+        {
+          "offset": 12,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_001602B8",
+          "role": "lock"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00160380",
+          "role": "unlock"
+        }
+      ],
+      "localTransfers": [],
+      "literals": [
+        {
+          "offset": 52,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "session_lock_b"
+        },
+        {
+          "offset": 56,
+          "loadOffset": 16,
+          "loadOffsets": [
+            16
+          ],
+          "identity": "query_state_b"
+        }
+      ]
+    },
+    {
+      "name": "func_003B2BEC",
+      "template": "prepare_set_byte_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_003B2C44",
+      "nextGlobalOffset": 88,
+      "directTransfers": [
+        {
+          "offset": 12,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00168EC0",
+          "role": "prepare"
+        },
+        {
+          "offset": 24,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0016BC84",
+          "role": "select"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00168E50",
+          "role": "finish_tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": []
+    },
+    {
+      "name": "func_003B32A0",
+      "template": "prepare_set_byte_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_003B32CC",
+      "nextGlobalOffset": 44,
+      "directTransfers": [
+        {
+          "offset": 12,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00168EC0",
+          "role": "prepare"
+        },
+        {
+          "offset": 24,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_00176EFC",
+          "role": "select"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00168E50",
+          "role": "finish_tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": []
+    },
+    {
+      "name": "func_00160A64",
+      "template": "optional_fallback_tail",
+      "internalLabelOffsets": [
+        24,
+        32
+      ],
+      "nextGlobal": "func_00160A88",
+      "nextGlobalOffset": 36,
+      "directTransfers": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00302108",
+          "role": "fallback_tail"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 4,
+          "mnemonic": "beq",
+          "targetOffset": 32
+        },
+        {
+          "offset": 16,
+          "mnemonic": "beq",
+          "targetOffset": 24
+        }
+      ],
+      "indirectTailTransfers": [
+        {
+          "offset": 20,
+          "mnemonic": "bx",
+          "register": "r1",
+          "role": "dynamic_tail"
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00160F9C",
+      "template": "optional_fallback_tail",
+      "internalLabelOffsets": [
+        24,
+        32
+      ],
+      "nextGlobal": "func_00160FC0",
+      "nextGlobalOffset": 36,
+      "directTransfers": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00302108",
+          "role": "fallback_tail"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 4,
+          "mnemonic": "beq",
+          "targetOffset": 32
+        },
+        {
+          "offset": 16,
+          "mnemonic": "beq",
+          "targetOffset": 24
+        }
+      ],
+      "indirectTailTransfers": [
+        {
+          "offset": 20,
+          "mnemonic": "bx",
+          "register": "r1",
+          "role": "dynamic_tail"
+        }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00178228",
+      "template": "literal_receiver_tail",
+      "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 15,
+      "nextGlobal": "func_00178238",
+      "nextGlobalOffset": 16,
+      "directTransfers": [
+        {
+          "offset": 8,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_0017E324",
+          "role": "tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": [
+        {
+          "offset": 12,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "receiver_context"
+        }
+      ]
+    },
+    {
+      "name": "func_0018EC24",
+      "template": "literal_receiver_tail",
+      "internalLabelOffsets": [],
+      "templateMaterialEndOffset": 15,
+      "nextGlobal": "func_0018EC4C",
+      "nextGlobalOffset": 40,
+      "directTransfers": [
+        {
+          "offset": 8,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00190348",
+          "role": "tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": [
+        {
+          "offset": 12,
+          "loadOffset": 4,
+          "loadOffsets": [
+            4
+          ],
+          "identity": "submission_owner"
+        }
+      ]
+    },
+    {
+      "name": "func_0021A9B8",
+      "template": "add_four_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_0021A9C0",
+      "nextGlobalOffset": 8,
+      "directTransfers": [
+        {
+          "offset": 4,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_0017F4A4",
+          "role": "tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": []
+    },
+    {
+      "name": "func_00328DFC",
+      "template": "add_four_tail",
+      "internalLabelOffsets": [],
+      "nextGlobal": "func_00328E04",
+      "nextGlobalOffset": 8,
+      "directTransfers": [
+        {
+          "offset": 4,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "b",
+          "symbol": "func_00329E20",
+          "role": "tail"
+        }
+      ],
+      "localTransfers": [],
+      "literals": []
+    }
+  ]
+}

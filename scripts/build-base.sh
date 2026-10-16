@@ -256,6 +256,9 @@ node "$root/scripts/validate-arm-duplicate-templates-79.mjs" --object "$output" 
 ARM_NONE_EABI_AS="$(dirname "$readelf")/arm-none-eabi-as" \
   ARM_NONE_EABI_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
   node "$root/scripts/validate-arm-duplicate-templates-80.mjs" --object "$output"
+ARM_DUPLICATE_TEMPLATES_81_AS="$(dirname "$readelf")/arm-none-eabi-as" \
+  ARM_DUPLICATE_TEMPLATES_81_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
+  node "$root/scripts/validate-arm-duplicate-templates-81.mjs" --object "$output"
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" "$output" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" "$output"
 ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
@@ -284,6 +287,9 @@ node "$root/scripts/validate-arm-ipc-wrappers-76.mjs" --object "$output"
 ARM_AS="$(dirname "$readelf")/arm-none-eabi-as" \
   ARM_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
   node "$root/scripts/validate-arm-ipc-wrappers-77.mjs" "$output"
+ARM_AS="$(dirname "$readelf")/arm-none-eabi-as" \
+  ARM_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
+  node "$root/scripts/validate-arm-ipc-wrappers-78.mjs" --object "$output"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-70.mjs" "$output"
@@ -302,4 +308,5 @@ node "$root/scripts/validate-arm-runtime-helpers-82.mjs" "$output"
 ARM_NONE_EABI_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
   node "$root/scripts/validate-arm-runtime-helpers-83.mjs" --object "$output"
 node "$root/scripts/validate-arm-runtime-helpers-84.mjs"
+node "$root/scripts/validate-arm-runtime-helpers-85.mjs"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
