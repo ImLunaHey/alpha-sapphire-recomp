@@ -441,5 +441,7 @@ ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-69.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-42.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
