@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_31.S",
+  "mode": "arm",
+  "sourceSha256": "d0cb30fed415276129b046426e32af73ee94102275c73726bb7d3e136d536eb2",
+  "totalBodySize": 160,
+  "functions": [
+    {
+      "name": "func_002DDA5C",
+      "size": 36,
+      "calls": [
+        { "offset": 16, "kind": "R_ARM_CALL", "symbol": "runtime_pair_out_query_31" },
+        { "offset": 24, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DDBAC",
+      "size": 28,
+      "calls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "runtime_zero_arg_query_alpha_31" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DDBC8",
+      "size": 28,
+      "calls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "runtime_zero_arg_query_beta_31" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DE3CC",
+      "size": 36,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "runtime_five_arg_query_31" },
+        { "offset": 28, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DEEEC",
+      "size": 32,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "runtime_signed_byte_query_31" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_pair_out_query_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "word-output-pair-query-call"
+    },
+    "runtime_zero_arg_query_alpha_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "distinct-operation-identity",
+      "usage": "zero-argument-status-alpha-call"
+    },
+    "runtime_zero_arg_query_beta_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "distinct-operation-identity",
+      "usage": "zero-argument-status-beta-call"
+    },
+    "runtime_five_arg_query_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "five-argument-status-call"
+    },
+    "runtime_signed_byte_query_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "signed-byte-output-query-call"
+    },
+    "runtime_failure_raise_entry_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "shared-five-site-identity",
+      "usage": "failure-linked-or-tail-transfer"
+    }
+  }
+}

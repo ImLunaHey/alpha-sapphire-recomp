@@ -1,0 +1,63 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_31.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2832,
+  "templates": {
+    "fixed_point_complex_transform_64": {
+      "bodySize": 1416,
+      "instructionCount": 354,
+      "count": 2,
+      "internalLabels": 12,
+      "calls": 0
+    }
+  },
+  "slotContract": [
+    {
+      "identity": "q15_coefficients",
+      "bodyOffset": -1288,
+      "uses": [124, 216, 264, 292, 876, 1148]
+    },
+    {
+      "identity": "permutation_indices",
+      "bodyOffset": -1280,
+      "uses": [56, 1300]
+    }
+  ],
+  "literalIdentities": {
+    "first_transform_q15_coefficients": {
+      "symbol": "transform31_first_q15_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "first_transform_permutation_indices": {
+      "symbol": "transform31_first_permutation_indices",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "second_transform_q15_coefficients": {
+      "symbol": "transform31_second_q15_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "second_transform_permutation_indices": {
+      "symbol": "transform31_second_permutation_indices",
+      "segment": "rodata",
+      "alignment": 4
+    }
+  },
+  "functions": [
+    {
+      "name": "func_001AB5F4",
+      "template": "fixed_point_complex_transform_64",
+      "coefficientIdentity": "first_transform_q15_coefficients",
+      "permutationIdentity": "first_transform_permutation_indices"
+    },
+    {
+      "name": "func_001AD528",
+      "template": "fixed_point_complex_transform_64",
+      "coefficientIdentity": "second_transform_q15_coefficients",
+      "permutationIdentity": "second_transform_permutation_indices"
+    }
+  ]
+}
