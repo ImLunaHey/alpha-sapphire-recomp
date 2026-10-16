@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_53.S",
+  "sourceSha256": "05f68669b519004019a575c9a007da1ed3ce5a05822fe7b4f8735a3fc9119291",
+  "mode": "arm",
+  "totalBodySize": 712,
+  "cumulativePoolSlots": 650,
+  "cumulativePoolClasses": 342,
+  "functions": [
+    {
+      "name": "func_00167608", "size": 540,
+      "branches": [
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00173ACC" },
+        { "offset": 292, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00177E8C" },
+        { "offset": 480, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188184" },
+        { "offset": 492, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176C20" }
+      ],
+      "literals": [
+        { "offset": 540, "symbol": "ipc_time_magic_a_53" },
+        { "offset": 544, "symbol": "ipc_time_magic_b_53" },
+        { "offset": 548, "symbol": "ipc_time_magic_c_53" },
+        { "offset": 552, "symbol": "ipc_time_scale_53" },
+        { "offset": 556, "symbol": "service_zero_scalar_51" },
+        { "offset": 560, "symbol": "ipc_time_limit_53" }
+      ]
+    },
+    {
+      "name": "func_0016783C", "size": 84,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00302F52" }
+      ],
+      "literals": [
+        { "offset": 84, "symbol": "ipc_statistics_guard_53" },
+        { "offset": 88, "symbol": "ipc_statistics_state_53" }
+      ]
+    },
+    {
+      "name": "func_001678A4", "size": 88,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0015EC10" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_time_magic_a_53",
+    "ipc_time_magic_b_53",
+    "ipc_time_magic_c_53",
+    "ipc_time_scale_53",
+    "service_zero_scalar_51",
+    "ipc_time_limit_53",
+    "ipc_statistics_guard_53",
+    "ipc_statistics_state_53"
+  ],
+  "reusedLiteralIdentities": ["service_zero_scalar_51"],
+  "newLiteralIdentities": [
+    "ipc_time_magic_a_53",
+    "ipc_time_magic_b_53",
+    "ipc_time_magic_c_53",
+    "ipc_time_scale_53",
+    "ipc_time_limit_53",
+    "ipc_statistics_guard_53",
+    "ipc_statistics_state_53"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_00173ACC",
+      "func_00177E8C",
+      "func_00188184",
+      "func_00176C20",
+      "func_00302F52",
+      "func_0015EC10"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_00173ACC",
+      "func_00177E8C",
+      "func_00188184",
+      "func_00176C20",
+      "func_00302F52",
+      "func_0015EC10"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_00173ACC",
+      "func_00177E8C",
+      "func_00188184",
+      "func_00176C20",
+      "func_0015EC10"
+    ],
+    "thumbPrimaryEntries": ["func_00302F52"]
+  }
+}

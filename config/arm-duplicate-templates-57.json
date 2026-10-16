@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_57.S",
+  "mode": "arm",
+  "expectedBodyBytes": 640,
+  "templates": {
+    "tree_advance_and_erase": {
+      "bodySize": 320,
+      "instructionCount": 80,
+      "count": 2,
+      "internalLabels": 9,
+      "directCalls": 2,
+      "indirectCalls": 0,
+      "literalCount": 0
+    }
+  },
+  "internalLabelOffsets": [84, 120, 160, 168, 208, 228, 248, 272, 288],
+  "callContract": [
+    { "offset": 92, "kind": "R_ARM_CALL", "symbol": "$clearHelper", "role": "clear_subtree" },
+    { "offset": 304, "kind": "R_ARM_CALL", "symbol": "$eraseHelper", "role": "erase_current" }
+  ],
+  "functions": [
+    {
+      "name": "func_0018396C",
+      "template": "tree_advance_and_erase",
+      "clearHelper": "func_0018A080",
+      "eraseHelper": "func_00189A24"
+    },
+    {
+      "name": "func_0018F7A8",
+      "template": "tree_advance_and_erase",
+      "clearHelper": "func_00192AE0",
+      "eraseHelper": "func_00192484"
+    }
+  ]
+}
