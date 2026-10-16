@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_66.S",
+  "sourceSha256": "77a5c8a918294b5848ec8a99a2949784ea2d9414e1a4384ef2d12321c48d9727",
+  "mode": "arm",
+  "totalBodySize": 1064,
+  "cumulativePoolSlots": 716,
+  "cumulativePoolClasses": 374,
+  "functions": [
+    {
+      "name": "func_001824D4", "size": 316,
+      "branches": [
+        { "offset": 160, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00301FBC" }
+      ],
+      "literals": [
+        { "offset": 316, "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 320, "symbol": "ipc_dirty_flag_owner_66" },
+        { "offset": 324, "symbol": "ipc_allocator_owner_65" }
+      ]
+    },
+    {
+      "name": "func_0018261C", "size": 188,
+      "branches": [],
+      "literals": [
+        { "offset": 188, "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 192, "symbol": "ipc_dirty_flag_owner_66" }
+      ]
+    },
+    {
+      "name": "func_001826E0", "size": 560,
+      "branches": [],
+      "literals": [
+        { "offset": 560, "symbol": "ipc_record_tree_owner_66" },
+        { "offset": 564, "symbol": "ipc_allocator_owner_65" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_allocator_owner_65",
+    "ipc_record_tree_owner_66",
+    "ipc_dirty_flag_owner_66"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_owner_65"
+  ],
+  "newLiteralIdentities": [
+    "ipc_record_tree_owner_66",
+    "ipc_dirty_flag_owner_66"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00301FBC"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_00301FBC"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

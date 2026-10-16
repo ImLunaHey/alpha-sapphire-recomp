@@ -6,7 +6,7 @@ Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (Eur
 
 - Default branch: `main`
 - Target: Europe, revision 2
-- Decompilation: 10,440 evidence-gated function bodies inventoried; 2,328 clean-room functions matched
+- Decompilation: 10,440 evidence-gated function bodies inventoried; 2,331 clean-room functions matched
 - ByteMatch: genuine local report available; registration deferred until reproducible CI reporting exists
 - Proprietary input: configured locally and excluded from Git
 
