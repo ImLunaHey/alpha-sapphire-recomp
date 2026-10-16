@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_27.S",
+  "mode": "arm",
+  "sourceSha256": "4311ade58296d22a5c693de9870e8f67423e1596c5f941a27792fbaf72a0016f",
+  "totalBodySize": 1208,
+  "functions": [
+    { "name": "func_0010F828", "size": 56, "template": "inline_global_word3", "inlineCommand": "ipc_inline_command_id_2_no_params", "handle": "ipc_handle_slot_delta" },
+    { "name": "func_00118C94", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_2_no_params", "handle": "ipc_handle_slot_nu" },
+    { "name": "func_00119F20", "size": 56, "template": "inline_global_word2", "inlineCommand": "ipc_inline_command_id_11_no_params", "handle": "ipc_handle_slot_delta" },
+    { "name": "func_0012696C", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_60_no_params", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_001269E4", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_59_no_params", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_00174848", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_1_no_params", "handle": "ipc_handle_slot_lambda" },
+    { "name": "func_001F7630", "size": 52, "template": "literal_entry_word3", "command": "ipc_command_func_001F7630" },
+    { "name": "func_001F7798", "size": 52, "template": "literal_entry_words2_3", "command": "ipc_command_func_001F7800" },
+    { "name": "func_001FB40C", "size": 56, "template": "inline_global_word3", "inlineCommand": "ipc_inline_command_id_11_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_001FB514", "size": 56, "template": "inline_global_word3", "inlineCommand": "ipc_inline_command_id_10_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_001FB670", "size": 56, "template": "inline_global_word3", "inlineCommand": "ipc_inline_command_id_12_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_00202CF8", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_6_no_params", "handle": "ipc_handle_slot_zeta" },
+    { "name": "func_002030EC", "size": 56, "template": "inline_global_word2", "inlineCommand": "ipc_inline_command_id_3_no_params", "handle": "ipc_handle_slot_xi" },
+    { "name": "func_002C5514", "size": 52, "template": "inline_entry_byte2", "inlineCommand": "ipc_inline_command_id_26_no_params" },
+    { "name": "func_002C5A20", "size": 52, "template": "inline_entry_halfword2", "inlineCommand": "ipc_inline_command_id_35_no_params" },
+    { "name": "func_002C6480", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_40_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C6534", "size": 56, "template": "inline_global_word3", "inlineCommand": "ipc_inline_command_id_15_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C6570", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_25_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C65AC", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_20_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002DED74", "size": 56, "template": "inline_global_byte2", "inlineCommand": "ipc_inline_command_id_54_no_params", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_002E24B4", "size": 52, "template": "inline_entry_word2", "inlineCommand": "ipc_inline_command_id_6_no_params" },
+    { "name": "func_002E4424", "size": 52, "template": "inline_entry_word2", "inlineCommand": "ipc_inline_command_id_22_no_params" }
+  ],
+  "newSymbolicIdentities": {
+    "ipc_handle_slot_nu": { "minimumAlignment": 4, "storage": "writable-initialized", "equality": "distinct" },
+    "ipc_handle_slot_xi": { "minimumAlignment": 4, "storage": "writable-initialized", "equality": "distinct" },
+    "ipc_command_func_001F7630": { "commandId": 2060, "normalWords": 0, "translatedWords": 0, "equality": "distinct" }
+  }
+}

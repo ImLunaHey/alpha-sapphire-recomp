@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_28.S",
+  "mode": "arm",
+  "sourceSha256": "50069cf44dd083388643a70379bc61e3cbb801f559ef55f243a290ef51dd7eea",
+  "totalBodySize": 312,
+  "functions": [
+    {
+      "name": "func_002D0318",
+      "size": 156,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DCC60",
+      "size": 156,
+      "calls": [],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {}
+}

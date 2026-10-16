@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_28.S",
+  "mode": "arm",
+  "expectedBodyBytes": 14688,
+  "templates": {
+    "intrusive_colored_tree_erase_b": { "bodySize": 1632, "instructionCount": 408, "count": 9, "internalLabels": 48 }
+  },
+  "functions": [
+    { "name": "func_0014456C", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_0018330C", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00551088", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_0055266C", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00557610", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00558028", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00561C44", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00568484", "template": "intrusive_colored_tree_erase_b" },
+    { "name": "func_00568B20", "template": "intrusive_colored_tree_erase_b" }
+  ]
+}
