@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_62.S",
+  "sourceSha256": "637d4c67968f5dba4af69b80e61cdf695d105c8fb2a9944c22fb276499f2a2ae",
+  "mode": "arm",
+  "totalBodySize": 864,
+  "cumulativePoolSlots": 686,
+  "cumulativePoolClasses": 364,
+  "functions": [
+    {
+      "name": "func_0017CEC0", "size": 48,
+      "branches": [],
+      "literals": [
+        { "offset": 48, "symbol": "service_record_tag_62" }
+      ]
+    },
+    {
+      "name": "func_0017CEF4", "size": 44,
+      "branches": [],
+      "literals": [
+        { "offset": 44, "symbol": "service_record_tag_62" }
+      ]
+    },
+    { "name": "func_0017CF24", "size": 40, "branches": [], "literals": [] },
+    { "name": "func_0017CF4C", "size": 44, "branches": [], "literals": [] },
+    { "name": "func_0017CF78", "size": 60, "branches": [], "literals": [] },
+    {
+      "name": "func_0017CFC0", "size": 32,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017D058" }
+      ],
+      "literals": []
+    },
+    { "name": "func_0017CFE0", "size": 44, "branches": [], "literals": [] },
+    { "name": "func_0017D00C", "size": 36, "branches": [], "literals": [] },
+    { "name": "func_0017D030", "size": 40, "branches": [], "literals": [] },
+    { "name": "func_0017D058", "size": 124, "branches": [], "literals": [] },
+    { "name": "func_0017D0D4", "size": 108, "branches": [], "literals": [] },
+    { "name": "func_0017D140", "size": 68, "branches": [], "literals": [] },
+    {
+      "name": "func_0017D184", "size": 40,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00144D28" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0017D1AC", "size": 40,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28" }
+      ],
+      "literals": []
+    },
+    { "name": "func_0017D720", "size": 96, "branches": [], "literals": [] }
+  ],
+  "literalIdentities": [
+    "service_record_tag_62"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_record_tag_62"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017D058",
+      "func_00144D28",
+      "func_00300B28"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_0017D058",
+      "func_00144D28",
+      "func_00300B28"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

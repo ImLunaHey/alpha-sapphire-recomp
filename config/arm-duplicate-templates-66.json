@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_66.S",
+  "sourceSha256": "bf8b3c5bd7c141b34543fa09f9e6e1fabb4bda8cb47a0f237352f9a8ed949ef5",
+  "mode": "arm",
+  "expectedBodyBytes": 944,
+  "templates": {
+    "allocate_and_populate_record": {
+      "bodySize": 244,
+      "instructionCount": 61,
+      "count": 2,
+      "internalLabels": 1,
+      "directCalls": 1,
+      "indirectCalls": 0,
+      "ownedLiteralCount": 0
+    },
+    "append_intrusive_record": {
+      "bodySize": 228,
+      "instructionCount": 57,
+      "count": 2,
+      "internalLabels": 4,
+      "directCalls": 3,
+      "indirectCalls": 0,
+      "ownedLiteralCount": 0
+    }
+  },
+  "functions": [
+    {
+      "name": "func_0049B080",
+      "template": "allocate_and_populate_record",
+      "internalLabelOffsets": [232],
+      "anonymousMaterialOffset": 244,
+      "nextGlobalOffset": 4208,
+      "directTransfers": [
+        {
+          "offset": 80,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0049A0F8",
+          "role": "allocate_record"
+        }
+      ]
+    },
+    {
+      "name": "func_004A1E14",
+      "template": "allocate_and_populate_record",
+      "internalLabelOffsets": [232],
+      "anonymousMaterialOffset": 244,
+      "nextGlobalOffset": 4216,
+      "directTransfers": [
+        {
+          "offset": 80,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_004A0CDC",
+          "role": "allocate_record"
+        }
+      ]
+    },
+    {
+      "name": "func_0056E77C",
+      "template": "append_intrusive_record",
+      "internalLabelOffsets": [88, 144, 156, 188],
+      "nextGlobalOffset": 228,
+      "directTransfers": [
+        {
+          "offset": 92,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00184990",
+          "role": "allocate_header"
+        },
+        {
+          "offset": 108,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00184990",
+          "role": "allocate_record_storage"
+        },
+        {
+          "offset": 168,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0020675C",
+          "role": "copy_record_prefix"
+        }
+      ]
+    },
+    {
+      "name": "func_0056E944",
+      "template": "append_intrusive_record",
+      "internalLabelOffsets": [88, 144, 156, 188],
+      "nextGlobalOffset": 228,
+      "directTransfers": [
+        {
+          "offset": 92,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00184990",
+          "role": "allocate_header"
+        },
+        {
+          "offset": 108,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_00184990",
+          "role": "allocate_record_storage"
+        },
+        {
+          "offset": 168,
+          "kind": "R_ARM_CALL",
+          "symbol": "func_0020675C",
+          "role": "copy_record_prefix"
+        }
+      ]
+    }
+  ]
+}

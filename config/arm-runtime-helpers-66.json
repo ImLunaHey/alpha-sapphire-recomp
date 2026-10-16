@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_66.S",
+  "sourceSha256": "97748f111b6629c1c81002ec737d7bde30d08de58c8a571f24edded9fa63abc3",
+  "mode": "arm",
+  "totalBodySize": 2596,
+  "totalAdjacentSize": 0,
+  "functions": [
+    { "name": "func_002A1E48", "size": 224, "calls": [], "adjacentWords": [] },
+    { "name": "func_002E1B38", "size": 212, "calls": [], "adjacentWords": [] },
+    { "name": "func_0037A278", "size": 200, "calls": [], "adjacentWords": [] },
+    { "name": "func_003EA730", "size": 196, "calls": [], "adjacentWords": [] },
+    { "name": "func_003B206C", "size": 184, "calls": [], "adjacentWords": [] },
+    { "name": "func_002FCFA4", "size": 176, "calls": [], "adjacentWords": [] },
+    { "name": "func_003A72C0", "size": 172, "calls": [], "adjacentWords": [] },
+    { "name": "func_0031AEC8", "size": 164, "calls": [], "adjacentWords": [] },
+    { "name": "func_002FC97C", "size": 164, "calls": [], "adjacentWords": [] },
+    { "name": "func_0032053C", "size": 160, "calls": [], "adjacentWords": [] },
+    { "name": "func_003C8988", "size": 156, "calls": [], "adjacentWords": [] },
+    { "name": "func_003A747C", "size": 152, "calls": [], "adjacentWords": [] },
+    { "name": "func_00201B1C", "size": 148, "calls": [], "adjacentWords": [] },
+    { "name": "func_0039C1D0", "size": 144, "calls": [], "adjacentWords": [] },
+    { "name": "func_00328E4C", "size": 144, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_66": {
+      "members": [
+        "func_002A1E48",
+        "func_002E1B38",
+        "func_0037A278",
+        "func_003EA730",
+        "func_003B206C",
+        "func_002FCFA4",
+        "func_003A72C0",
+        "func_0031AEC8",
+        "func_002FC97C",
+        "func_0032053C",
+        "func_003C8988",
+        "func_003A747C",
+        "func_00201B1C",
+        "func_0039C1D0",
+        "func_00328E4C"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
