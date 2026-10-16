@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_85.S",
+  "sourceSha256": "d356cc41e7a0cc181f0365af28f1ebcb706f2f6c2d7274b2948fe091450fe7a7",
+  "normalizedScheduleSha256": "d356cc41e7a0cc181f0365af28f1ebcb706f2f6c2d7274b2948fe091450fe7a7",
+  "mode": "arm",
+  "totalBodySize": 896,
+  "totalAdjacentSize": 48,
+  "cumulativePoolSlots": 837,
+  "cumulativePoolClasses": 440,
+  "functions": [
+    {
+      "name": "func_0017E65C", "section": ".text.func_0017E65C", "size": 476,
+      "nextGlobal": "func_0017E840", "nextGlobalOffset": 484,
+      "branches": [],
+      "literals": [
+        { "offset": 476, "loadOffsets": [52], "symbol": "service_free_block_tag_85" },
+        { "offset": 480, "loadOffsets": [348], "symbol": "service_allocated_block_tag_85" }
+      ]
+    },
+    {
+      "name": "func_0017EAE4", "section": ".text.func_0017EAE4", "size": 236,
+      "nextGlobal": "func_0017EBE8", "nextGlobalOffset": 260,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017EA3C" },
+        { "offset": 100, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0017EA90" },
+        { "offset": 112, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 172, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018B220" },
+        { "offset": 208, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 220, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0016148C" }
+      ],
+      "literals": [
+        { "offset": 236, "loadOffsets": [0], "symbol": "service_bootstrap_lock_85" },
+        { "offset": 240, "loadOffsets": [28], "symbol": "service_bootstrap_marker_85" },
+        { "offset": 244, "loadOffsets": [40], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 248, "loadOffsets": [128], "symbol": "service_runtime_record_vtable_85" },
+        { "offset": 252, "loadOffsets": [144], "symbol": "service_runtime_record_ops_85" },
+        { "offset": 256, "loadOffsets": [176], "symbol": "service_runtime_endpoint_vtable_85" }
+      ]
+    },
+    {
+      "name": "func_0017EBE8", "section": ".text.func_0017EBE8", "size": 56,
+      "nextGlobal": "func_0017EC24", "nextGlobalOffset": 60,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017EA3C" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0017EA90" }
+      ],
+      "literals": [
+        { "offset": 56, "loadOffsets": [12], "symbol": "service_record_lock_85" }
+      ]
+    },
+    {
+      "name": "func_0017EC24", "section": ".text.func_0017EC24", "size": 68,
+      "nextGlobal": "func_0017EC70", "nextGlobalOffset": 76,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001888A8" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184E10" }
+      ],
+      "literals": [
+        { "offset": 68, "loadOffsets": [8], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 72, "loadOffsets": [56], "symbol": "service_adapter_vtable_85" }
+      ]
+    },
+    {
+      "name": "func_0017EC70", "section": ".text.func_0017EC70", "size": 60,
+      "nextGlobal": "func_0017ECB0", "nextGlobalOffset": 64,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018BF64" }
+      ],
+      "literals": [
+        { "offset": 60, "loadOffsets": [20], "symbol": "service_node_vtable_85" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_free_block_tag_85",
+    "service_allocated_block_tag_85",
+    "service_bootstrap_lock_85",
+    "service_bootstrap_marker_85",
+    "ipc_allocator_dispatch_owner_68",
+    "service_runtime_record_vtable_85",
+    "service_runtime_record_ops_85",
+    "service_runtime_endpoint_vtable_85",
+    "service_record_lock_85",
+    "service_adapter_vtable_85",
+    "service_node_vtable_85"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_dispatch_owner_68"
+  ],
+  "newLiteralIdentities": [
+    "service_free_block_tag_85",
+    "service_allocated_block_tag_85",
+    "service_bootstrap_lock_85",
+    "service_bootstrap_marker_85",
+    "service_runtime_record_vtable_85",
+    "service_runtime_record_ops_85",
+    "service_runtime_endpoint_vtable_85",
+    "service_record_lock_85",
+    "service_adapter_vtable_85",
+    "service_node_vtable_85"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_00184990",
+      "func_0018B220",
+      "func_0016148C",
+      "func_001888A8",
+      "func_00184E10",
+      "func_0018BF64"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_00184990",
+      "func_0018B220",
+      "func_0016148C",
+      "func_001888A8",
+      "func_00184E10",
+      "func_0018BF64"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_00184990",
+      "func_0018B220",
+      "func_0016148C",
+      "func_001888A8",
+      "func_00184E10",
+      "func_0018BF64"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}
