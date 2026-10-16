@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_68.S",
+  "sourceSha256": "2fd6bdebe246629d9628b2c20020414baa552fa11af8a731659e751668a2b6c3",
+  "mode": "arm",
+  "totalBodySize": 632,
+  "cumulativePoolSlots": 724,
+  "cumulativePoolClasses": 377,
+  "functions": [
+    {
+      "name": "func_00184990", "section": ".text.func_00184990", "size": 72,
+      "nextGlobal": "func_001849DC", "nextGlobalOffset": 76,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002FECF8" }
+      ],
+      "literals": [
+        { "offset": 72, "loadOffsets": [4], "symbol": "ipc_allocator_dispatch_owner_68" }
+      ]
+    },
+    {
+      "name": "func_00186A54", "section": ".text.func_00186A54", "size": 88,
+      "nextGlobal": "func_00186AAC", "nextGlobalOffset": 88,
+      "branches": [
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00186EB8" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018C008" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00188090", "section": ".text.func_00188090", "size": 244,
+      "nextGlobal": "func_00188184", "nextGlobalOffset": 244,
+      "branches": [
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CB00" },
+        { "offset": 112, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CA98" },
+        { "offset": 176, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CB5C" },
+        { "offset": 208, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00191024" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00188228", "section": ".text.func_00188228", "size": 124,
+      "nextGlobal": "func_001882A4", "nextGlobalOffset": 124,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017541C" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CCF4" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CD00" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001882F8", "section": ".text.func_001882F8", "size": 16,
+      "nextGlobal": "func_00188308", "nextGlobalOffset": 16,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0017A8E8" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00188308", "section": ".text.func_00188308", "size": 28,
+      "nextGlobal": "func_00188324", "nextGlobalOffset": 28,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001882A4" },
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_list_reset_secondary_68" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00188324", "section": ".text.func_00188324", "size": 16,
+      "anonymousMaterialOffset": 16,
+      "nextGlobal": "func_00188338", "nextGlobalOffset": 20,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_0018850C", "section": ".text.func_0018850C", "size": 44,
+      "nextGlobal": "func_00188538", "nextGlobalOffset": 44,
+      "branches": [],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_allocator_dispatch_owner_68"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "ipc_allocator_dispatch_owner_68"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_002FECF8",
+      "func_00186EB8",
+      "func_0018C008",
+      "func_0018CB00",
+      "func_0018CA98",
+      "func_0018CB5C",
+      "func_00191024",
+      "func_0017541C",
+      "func_0018CCF4",
+      "func_0018CD00",
+      "func_0017A8E8",
+      "func_001882A4"
+    ],
+    "secondaryEntries": [
+      "service_list_reset_secondary_68"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "service_list_reset_secondary_68",
+        "owner": "func_0017A640",
+        "ownerOffset": 608,
+        "nextGlobal": "func_0017A8A8",
+        "bytesBeforeNextGlobal": 8
+      }
+    ],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_002FECF8",
+      "func_00186EB8",
+      "func_0018C008",
+      "func_0018CB00",
+      "func_0018CA98",
+      "func_0018CB5C",
+      "func_00191024",
+      "func_0017541C",
+      "func_0018CCF4",
+      "func_0018CD00",
+      "func_0017A8E8",
+      "func_001882A4",
+      "service_list_reset_secondary_68"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
