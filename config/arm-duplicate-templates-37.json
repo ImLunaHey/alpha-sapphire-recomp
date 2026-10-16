@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_37.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2676,
+  "templates": {
+    "pooled_word_pair_colored_tree_insert": {
+      "bodySize": 892,
+      "instructionCount": 223,
+      "count": 3,
+      "internalLabels": 21,
+      "calls": 2
+    }
+  },
+  "callContract": [
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 132, "kind": "R_ARM_CALL", "symbol": "func_00184990" }
+  ],
+  "functions": [
+    { "name": "func_00557CAC", "template": "pooled_word_pair_colored_tree_insert" },
+    { "name": "func_00558928", "template": "pooled_word_pair_colored_tree_insert" },
+    { "name": "func_00559478", "template": "pooled_word_pair_colored_tree_insert" }
+  ]
+}

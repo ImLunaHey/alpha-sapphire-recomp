@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_36.S",
+  "mode": "arm",
+  "sourceSha256": "dddab4128150c5c06fd79bcbe00b5d601dafa533170b4aa4567847fabf4b5b83",
+  "totalBodySize": 684,
+  "functions": [
+    { "name": "func_002F39D4", "size": 116, "calls": [], "adjacentWords": [] },
+    { "name": "func_002F3ED8", "size": 140, "calls": [], "adjacentWords": [] },
+    { "name": "func_002F9230", "size": 128, "calls": [], "adjacentWords": [] },
+    { "name": "func_002FF24C", "size": 152, "calls": [], "adjacentWords": [] },
+    { "name": "func_0030F584", "size": 148, "calls": [], "adjacentWords": [] }
+  ],
+  "symbolicIdentities": {}
+}
