@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_60.S",
+  "mode": "arm",
+  "expectedBodyBytes": 640,
+  "templates": {
+    "adaptive_sample_preprocessor": {
+      "bodySize": 320,
+      "instructionCount": 80,
+      "count": 2,
+      "internalLabels": 4,
+      "directCalls": 1,
+      "indirectCalls": 0,
+      "ownedLiteralCount": 0,
+      "externalWordReads": 1
+    }
+  },
+  "internalLabelOffsets": [32, 252, 296, 300],
+  "callContract": [
+    {
+      "offset": 256,
+      "kind": "R_ARM_CALL",
+      "symbol": "func_00300754",
+      "role": "derive_threshold_scale"
+    }
+  ],
+  "externalWordReadContract": [
+    {
+      "loadOffset": 20,
+      "targetOffset": 448,
+      "role": "signed_halfword_upper_bound",
+      "sharedSemanticValueAcrossExpansions": true,
+      "ownedByTemplate": false
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_001A3964",
+      "template": "adaptive_sample_preprocessor",
+      "nextGlobalOffset": 320
+    },
+    {
+      "name": "func_001A4110",
+      "template": "adaptive_sample_preprocessor",
+      "nextGlobalOffset": 320
+    }
+  ]
+}

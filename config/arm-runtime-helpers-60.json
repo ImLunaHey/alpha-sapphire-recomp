@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_60.S",
+  "mode": "arm",
+  "totalBodySize": 3496,
+  "totalAdjacentSize": 0,
+  "functions": [
+    { "name": "func_00190658", "size": 560, "calls": [], "adjacentWords": [] },
+    { "name": "func_001955F0", "size": 612, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D5C5C", "size": 692, "calls": [], "adjacentWords": [] },
+    { "name": "func_003BB0E8", "size": 560, "calls": [], "adjacentWords": [] },
+    { "name": "func_0015F800", "size": 552, "calls": [], "adjacentWords": [] },
+    { "name": "func_001F8244", "size": 520, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_60": {
+      "members": [
+        "func_00190658",
+        "func_001955F0",
+        "func_004D5C5C",
+        "func_003BB0E8",
+        "func_0015F800",
+        "func_001F8244"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
