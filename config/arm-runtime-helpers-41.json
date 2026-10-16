@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_41.S",
+  "sourceSha256": "a70860fa970031cc6addac2743202f369c8ee278933f06e17807bcf2d4ea3452",
+  "mode": "arm",
+  "totalBodySize": 1716,
+  "functions": [
+    { "name": "func_004C58DC", "size": 180, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D0014", "size": 124, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D42C8", "size": 156, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E41C8", "size": 116, "calls": [], "adjacentWords": [] },
+    { "name": "func_004E9FA8", "size": 100, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EAC54", "size": 132, "calls": [], "adjacentWords": [] },
+    { "name": "func_004F4C90", "size": 144, "calls": [], "adjacentWords": [] },
+    { "name": "func_00505F2C", "size": 128, "calls": [], "adjacentWords": [] },
+    { "name": "func_0052B610", "size": 112, "calls": [], "adjacentWords": [] },
+    { "name": "func_0052B680", "size": 100, "calls": [], "adjacentWords": [] },
+    { "name": "func_0053F700", "size": 120, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_0056B030",
+      "size": 144,
+      "calls": [],
+      "adjacentWords": [
+        { "offset": 144, "kind": "R_ARM_ABS32", "symbol": "blend_lower_endpoint_threshold_41" }
+      ]
+    },
+    { "name": "func_0056E0BC", "size": 160, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "mode_indexed_packed_selector_41": {
+      "members": ["func_004E9FA8", "func_004EAC54"],
+      "parameters": ["sourceWordOffset", "selectorCount", "fieldWidth", "descendingBitPosition"]
+    },
+    "bounded_fixed_width_stream_read_41": {
+      "members": ["func_0052B610", "func_0052B680"],
+      "parameters": ["payloadWidth", "availabilityThreshold", "outputStoreWidth", "cursorAdvance"]
+    }
+  },
+  "symbolicIdentities": {
+    "blend_lower_endpoint_threshold_41": {
+      "minimumSlotAlignment": 4,
+      "equality": "singleton-distinct",
+      "usage": "vfp-single-lower-endpoint-selection-threshold"
+    }
+  }
+}

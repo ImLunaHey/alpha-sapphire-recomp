@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_41.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2320,
+  "templates": {
+    "serialized_resource_operation_register_wrapper": {
+      "bodySize": 1160,
+      "instructionCount": 290,
+      "count": 2,
+      "internalLabels": 32,
+      "calls": 15,
+      "poolSlots": 2
+    }
+  },
+  "callContract": [
+    { "offset": 36, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 72, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 104, "kind": "R_ARM_CALL", "symbol": "func_0018C780" },
+    { "offset": 128, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 292, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 328, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 468, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 612, "kind": "R_ARM_CALL", "symbol": "func_0017048C" },
+    { "offset": 624, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 664, "kind": "R_ARM_CALL", "symbol": "operation" },
+    { "offset": 700, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 868, "kind": "R_ARM_CALL", "symbol": "func_001602B8" },
+    { "offset": 1028, "kind": "R_ARM_CALL", "symbol": "func_00160380" },
+    { "offset": 1116, "kind": "R_ARM_CALL", "symbol": "func_0017048C" },
+    { "offset": 1128, "kind": "R_ARM_CALL", "symbol": "func_00160380" }
+  ],
+  "poolContract": [
+    { "offset": 1160, "kind": "R_ARM_ABS32", "symbol": "resource_operation_state_41", "loadOffset": 20 },
+    { "offset": 1164, "kind": "R_ARM_ABS32", "symbol": "resource_unavailable_status_41", "loadOffset": 64 }
+  ],
+  "functions": [
+    { "name": "func_002E3518", "template": "serialized_resource_operation_register_wrapper", "operation": "func_002E40B0" },
+    { "name": "func_002E4E5C", "template": "serialized_resource_operation_register_wrapper", "operation": "func_002E42FC" }
+  ]
+}
