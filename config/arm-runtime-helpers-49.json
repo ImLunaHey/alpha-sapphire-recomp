@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_49.S",
+  "mode": "arm",
+  "totalBodySize": 1008,
+  "functions": [
+    { "name": "func_004C75A8", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C75D0", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7748", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7770", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C77F4", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C781C", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C784C", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7CF4", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7D4C", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7E2C", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7E5C", "size": 60, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C80D0", "size": 48, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8400", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8438", "size": 64, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C84B0", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C84E8", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8668", "size": 24, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8768", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8DC0", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8EC0", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8FB4", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C90B8", "size": 48, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "selected_view_scalar_accessors_49": {
+      "members": [
+        "func_004C75A8",
+        "func_004C75D0",
+        "func_004C7748",
+        "func_004C7770",
+        "func_004C77F4",
+        "func_004C781C",
+        "func_004C784C"
+      ],
+      "parameters": ["loadWidth", "signedness", "firstOffset", "secondOffset"]
+    },
+    "selected_view_mask_accessors_49": {
+      "members": [
+        "func_004C7CF4",
+        "func_004C7D4C",
+        "func_004C7E2C",
+        "func_004C8400",
+        "func_004C8438",
+        "func_004C84B0",
+        "func_004C84E8"
+      ],
+      "parameters": ["selectorScratch", "subrecordIndex", "wordOffsets"]
+    },
+    "selected_view_copy_or_index_49": {
+      "members": ["func_004C7E5C", "func_004C80D0"],
+      "parameters": ["operation"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

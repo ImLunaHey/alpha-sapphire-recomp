@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_49.S",
+  "mode": "arm",
+  "expectedBodyBytes": 760,
+  "templates": {
+    "indexed_halfword_pair_dispatch": {
+      "bodySize": 380,
+      "instructionCount": 95,
+      "count": 2,
+      "internalLabels": 5,
+      "directCalls": 2,
+      "indirectCalls": 1,
+      "tailBranches": 1,
+      "poolSlots": 1
+    }
+  },
+  "commonDirectCalls": [
+    {
+      "offset": 324,
+      "kind": "R_ARM_CALL",
+      "symbol": "func_00398FC0"
+    }
+  ],
+  "indirectCalls": [
+    {
+      "offset": 108,
+      "target": "selected_object_dispatch_slot_28"
+    }
+  ],
+  "tailBranches": [
+    {
+      "offset": 376,
+      "kind": "R_ARM_JUMP24",
+      "symbol": "func_0014EA68",
+      "addend": -4
+    }
+  ],
+  "internalLabelOffsets": [80, 96, 296, 348, 356],
+  "slotContract": [
+    {
+      "offset": 380,
+      "loadOffset": 32,
+      "kind": "R_ARM_ABS32",
+      "identity": "duplicate49_shared_registry_identity",
+      "sharedAcrossAllExpansions": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00493D18",
+      "template": "indexed_halfword_pair_dispatch",
+      "helper": "func_0049866C",
+      "helperCallOffset": 264,
+      "anonymousMaterialOffset": 384,
+      "nextGlobalOffset": 912
+    },
+    {
+      "name": "func_004977B4",
+      "template": "indexed_halfword_pair_dispatch",
+      "helper": "func_004995CC",
+      "helperCallOffset": 264,
+      "anonymousMaterialOffset": 384,
+      "nextGlobalOffset": 912
+    }
+  ]
+}
