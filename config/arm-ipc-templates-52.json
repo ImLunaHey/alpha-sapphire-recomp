@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_52.S",
+  "sourceSha256": "dac5eb198c2bad0e8bc94e13bbcdfb8ca60b3ae757f1d03e397ab7ec68f42463",
+  "mode": "arm",
+  "totalBodySize": 492,
+  "cumulativePoolSlots": 642,
+  "cumulativePoolClasses": 335,
+  "functions": [
+    {
+      "name": "func_00167224", "size": 368,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_record_lookup_secondary_52" },
+        { "offset": 84, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174F18" },
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175338" },
+        { "offset": 128, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016B22C" },
+        { "offset": 152, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176A0C" },
+        { "offset": 196, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00145D54" },
+        { "offset": 208, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00145D44" },
+        { "offset": 260, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28" },
+        { "offset": 276, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176A34" },
+        { "offset": 300, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001750A0" },
+        { "offset": 340, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001673F4" },
+        { "offset": 352, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_buffer_notify_secondary_52" }
+      ],
+      "literals": [
+        { "offset": 368, "symbol": "ipc_record_tag_52" }
+      ]
+    },
+    {
+      "name": "func_00167398", "size": 72,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00302F52" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00136240" }
+      ],
+      "literals": [
+        { "offset": 72, "symbol": "ipc_guard_state_52" },
+        { "offset": 76, "symbol": "ipc_service_handle_52" },
+        { "offset": 80, "symbol": "ipc_shared_object_52" },
+        { "offset": 84, "symbol": "ipc_fixed_extent_52" },
+        { "offset": 88, "symbol": "ipc_fallback_entry_52" }
+      ]
+    },
+    { "name": "func_001673F4", "size": 52, "branches": [], "literals": [] }
+  ],
+  "literalIdentities": [
+    "ipc_record_tag_52",
+    "ipc_guard_state_52",
+    "ipc_service_handle_52",
+    "ipc_shared_object_52",
+    "ipc_fixed_extent_52",
+    "ipc_fallback_entry_52"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "ipc_record_tag_52",
+    "ipc_guard_state_52",
+    "ipc_service_handle_52",
+    "ipc_shared_object_52",
+    "ipc_fixed_extent_52",
+    "ipc_fallback_entry_52"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_00174F18",
+      "func_00175338",
+      "func_0016B22C",
+      "func_00176A0C",
+      "func_00145D54",
+      "func_00145D44",
+      "func_00300B28",
+      "func_00176A34",
+      "func_001750A0",
+      "func_001673F4",
+      "func_00302F52",
+      "func_00136240"
+    ],
+    "secondaryEntries": [
+      "service_record_lookup_secondary_52",
+      "service_buffer_notify_secondary_52"
+    ],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "service_record_lookup_secondary_52",
+      "func_00174F18",
+      "func_00175338",
+      "func_0016B22C",
+      "func_00176A0C",
+      "func_00145D54",
+      "func_00145D44",
+      "func_00300B28",
+      "func_00176A34",
+      "func_001750A0",
+      "func_001673F4",
+      "service_buffer_notify_secondary_52",
+      "func_00302F52",
+      "func_00136240"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_00174F18",
+      "func_00175338",
+      "func_0016B22C",
+      "func_00176A0C",
+      "func_00145D54",
+      "func_00145D44",
+      "func_00300B28",
+      "func_00176A34",
+      "func_001750A0",
+      "func_001673F4",
+      "func_00136240"
+    ],
+    "thumbPrimaryEntries": ["func_00302F52"]
+  }
+}

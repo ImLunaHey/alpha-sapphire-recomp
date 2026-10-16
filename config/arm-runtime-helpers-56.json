@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_56.S",
+  "mode": "arm",
+  "totalBodySize": 16800,
+  "functions": [
+    {
+      "name": "func_0019E2E4",
+      "size": 3092,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019EEF8",
+      "size": 2388,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019F84C",
+      "size": 6412,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001A1158",
+      "size": 4908,
+      "calls": [],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "eleven_limb_arithmetic_helpers_56": {
+      "members": [
+        "func_0019E2E4",
+        "func_0019EEF8"
+      ],
+      "parameters": [
+        "operandArity",
+        "limbCount",
+        "productSchedule",
+        "carrySchedule",
+        "resultLayout"
+      ]
+    },
+    "sixteen_limb_arithmetic_helpers_56": {
+      "members": [
+        "func_0019F84C",
+        "func_001A1158"
+      ],
+      "parameters": [
+        "operandArity",
+        "limbCount",
+        "productSchedule",
+        "carrySchedule",
+        "resultLayout"
+      ]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

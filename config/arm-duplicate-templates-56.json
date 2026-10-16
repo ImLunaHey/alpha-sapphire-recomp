@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_56.S",
+  "mode": "arm",
+  "expectedBodyBytes": 672,
+  "templates": {
+    "owner_tree_clear": {
+      "bodySize": 336,
+      "instructionCount": 84,
+      "count": 2,
+      "internalLabels": 11,
+      "directCalls": 4,
+      "indirectCalls": 0,
+      "literalCount": 0
+    }
+  },
+  "internalLabelOffsets": [56, 92, 128, 152, 172, 188, 208, 220, 252, 280, 324],
+  "callContract": [
+    { "offset": 64, "kind": "R_ARM_CALL", "symbol": "$clearHelper", "role": "clear_subtree" },
+    { "offset": 236, "kind": "R_ARM_CALL", "symbol": "$eraseHelper", "role": "erase_current" },
+    { "offset": 296, "kind": "R_ARM_CALL", "symbol": "func_00160F9C", "role": "release_payload" },
+    { "offset": 308, "kind": "R_ARM_CALL", "symbol": "func_00160F9C", "role": "release_record" }
+  ],
+  "functions": [
+    {
+      "name": "func_002A0B88",
+      "template": "owner_tree_clear",
+      "clearHelper": "func_00568AE4",
+      "eraseHelper": "func_00568484"
+    },
+    {
+      "name": "func_002A0CD8",
+      "template": "owner_tree_clear",
+      "clearHelper": "func_00569180",
+      "eraseHelper": "func_00568B20"
+    }
+  ]
+}
