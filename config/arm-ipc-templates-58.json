@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_58.S",
+  "sourceSha256": "7d5a3894d620f8df8f6b22e06d1a6bb3739ff9dad04d49cdab48e1f944cb6d56",
+  "mode": "arm",
+  "totalBodySize": 1176,
+  "cumulativePoolSlots": 684,
+  "cumulativePoolClasses": 363,
+  "functions": [
+    {
+      "name": "func_00168B10", "size": 44,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BC84" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168B3C", "size": 44,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BC84" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168B68", "size": 60,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD80" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168BA4", "size": 60,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168BE0", "size": 64,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168C20", "size": 64,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168C60", "size": 64,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168CDC", "size": 84,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176EFC" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176EFC" },
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD80" },
+        { "offset": 80, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168D30", "size": 36,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168D54", "size": 64,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168D94", "size": 64,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD00" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168DD4", "size": 24,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168DF4", "size": 44,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD80" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168E50", "size": 112,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175F08" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168AC8" },
+        { "offset": 96, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168AC8" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168EC0", "size": 128,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175F68" },
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175F68" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00175F08" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168F48", "size": 44,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BC84" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168F74", "size": 44,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BC84" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00168FCC", "size": 36,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_00168FF0", "size": 96,
+      "branches": [],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00168EC0",
+      "func_0016BC84",
+      "func_00168E50",
+      "func_0016BD80",
+      "func_0016BD00",
+      "func_00176EFC",
+      "func_00175F08",
+      "func_00168AC8",
+      "func_00175F68"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_00168EC0", "siteCount": 14 },
+      { "symbol": "func_0016BC84", "siteCount": 4 },
+      { "symbol": "func_00168E50", "siteCount": 15 },
+      { "symbol": "func_0016BD80", "siteCount": 3 },
+      { "symbol": "func_0016BD00", "siteCount": 6 },
+      { "symbol": "func_00176EFC", "siteCount": 2 },
+      { "symbol": "func_00175F08", "siteCount": 2 },
+      { "symbol": "func_00168AC8", "siteCount": 2 },
+      { "symbol": "func_00175F68", "siteCount": 2 }
+    ],
+    "singletonClasses": [],
+    "classesPairwiseDistinct": true
+  }
+}

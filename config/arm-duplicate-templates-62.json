@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_62.S",
+  "mode": "arm",
+  "expectedBodyBytes": 608,
+  "templates": {
+    "exact_tree_fetch_or_create": {
+      "bodySize": 304,
+      "instructionCount": 76,
+      "count": 2,
+      "internalLabels": 7,
+      "directTransfers": 11,
+      "indirectCalls": 0,
+      "tailBranches": 0,
+      "poolSlots": 1
+    }
+  },
+  "directTransfers": [
+    { "offset": 28, "kind": "R_ARM_CALL", "symbol": "func_0017EA3C", "role": "enter_owner_guard" },
+    { "offset": 44, "kind": "R_ARM_CALL", "symbol": "func_0017E30C", "role": "obtain_lookup_key" },
+    { "offset": 52, "kind": "R_ARM_JUMP24", "symbol": "func_001603A0", "role": "lookup_key_failure" },
+    { "offset": 148, "kind": "R_ARM_CALL", "symbol": "func_0017E30C", "role": "obtain_first_creation_token" },
+    { "offset": 160, "kind": "R_ARM_JUMP24", "symbol": "func_001603A0", "role": "first_creation_token_failure" },
+    { "offset": 180, "kind": "R_ARM_CALL", "symbol": "func_0018D348", "role": "first_owner_operation" },
+    { "offset": 192, "kind": "R_ARM_CALL", "symbol": "func_0018D6D4", "role": "attach_owner_member" },
+    { "offset": 204, "kind": "R_ARM_CALL", "symbol": "func_0017E30C", "role": "obtain_second_creation_token" },
+    { "offset": 216, "kind": "R_ARM_JUMP24", "symbol": "func_001603A0", "role": "second_creation_token_failure" },
+    { "offset": 236, "kind": "R_ARM_CALL", "symbol": "func_0018D348", "role": "second_owner_operation" },
+    { "offset": 260, "kind": "R_ARM_CALL", "symbol": "func_0017EA90", "role": "leave_owner_guard" }
+  ],
+  "internalLabelOffsets": [80, 108, 128, 132, 256, 276, 292],
+  "slotContract": [
+    {
+      "offset": 304,
+      "loadOffset": 32,
+      "kind": "R_ARM_ABS32",
+      "identity": "duplicate62_shared_context_identity",
+      "sharedAcrossAllExpansions": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_0052DCB4",
+      "template": "exact_tree_fetch_or_create",
+      "templateMaterialEndOffset": 307,
+      "anonymousMaterialOffset": 308,
+      "nextGlobalOffset": 356
+    },
+    {
+      "name": "func_0056CF84",
+      "template": "exact_tree_fetch_or_create",
+      "templateMaterialEndOffset": 307,
+      "anonymousMaterialOffset": null,
+      "nextGlobalOffset": 308
+    }
+  ]
+}
