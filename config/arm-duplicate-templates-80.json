@@ -1,0 +1,208 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_80.S",
+  "sourceSha256": "f89a8f7770a7d3a1cc66502a1054ad14f438c5f009c698c8887005198a912fe1",
+  "mode": "arm",
+  "expectedBodyBytes": 460,
+  "expectedOwnedBytes": 488,
+  "expectedInstructionCount": 115,
+  "templates": {
+    "record_stream_writer": {
+      "bodySize": 128, "instructionCount": 32, "count": 2, "internalLabels": 2,
+      "directTransfers": 3, "directCalls": 3, "tailTransfers": 0, "returns": 1,
+      "addressReferences": 4, "poolSlots": 0,
+      "instructions": [
+        "push {r4, r5, r6, lr}", "mov r6, r1", "mov r4, r0", "mov r1, #32",
+        "bl {prepare}", "ldrb r0, [r4, #528]", "add r5, r4, #512", "cmp r0, #0",
+        "addeq r2, pc, #88", "beq local:+92", "ldrb r0, [r5, #17]", "cmp r0, #0",
+        "beq local:+76", "ldr r1, [pc, #76]", "ldr r0, [r4, #12]", "blx {copy}",
+        "ldr r0, [r4, #12]", "add r1, r0, #4", "str r1, [r4, #12]", "ldrb r0, [r5, #19]",
+        "cmp r0, #0", "addne r2, pc, #48", "addeq r2, pc, #56", "ldr r0, [r4, #12]",
+        "mov r3, r6", "mov r1, #32", "blx {encode}", "ldr r1, [r4, #12]",
+        "add r0, r1, r0, lsl #1", "str r0, [r4, #12]", "mov r0, r4", "pop {r4, r5, r6, pc}"
+      ]
+    },
+    "literal_context_tail": {
+      "bodySize": 8, "instructionCount": 2, "count": 5, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 1,
+      "instructions": ["ldr r0, [pc, #0]", "b {tail}"]
+    },
+    "load_member_tail": {
+      "bodySize": 8, "instructionCount": 2, "count": 5, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 0,
+      "instructions": ["ldr r0, [r0, #12]", "b {tail}"]
+    },
+    "literal_argument_tail": {
+      "bodySize": 12, "instructionCount": 3, "count": 2, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 1,
+      "instructions": ["mov r2, r1", "ldr r1, [pc, #0]", "b {tail}"]
+    },
+    "call_and_return": {
+      "bodySize": 12, "instructionCount": 3, "count": 3, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 1, "tailTransfers": 0, "returns": 1,
+      "addressReferences": 0, "poolSlots": 0,
+      "instructions": ["push {r4, lr}", "bl {invoke}", "pop {r4, pc}"]
+    },
+    "offset_16_tail": {
+      "bodySize": 8, "instructionCount": 2, "count": 3, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 0,
+      "instructions": ["add r0, r0, #16", "b {tail}"]
+    },
+    "offset_8_tail": {
+      "bodySize": 8, "instructionCount": 2, "count": 3, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 0,
+      "instructions": ["add r0, r0, #8", "b {tail}"]
+    },
+    "fixed_mode_tail": {
+      "bodySize": 8, "instructionCount": 2, "count": 2, "internalLabels": 0,
+      "directTransfers": 1, "directCalls": 0, "tailTransfers": 1, "returns": 0,
+      "addressReferences": 0, "poolSlots": 0,
+      "instructions": ["mov r1, #3", "b {tail}"]
+    }
+  },
+  "literalIdentities": {
+    "context_a": { "symbol": "arm_duplicate_templates_80_context_a_identity", "class": "context-object" },
+    "context_shared": { "symbol": "arm_duplicate_templates_80_context_shared_identity", "class": "context-object" },
+    "context_b": { "symbol": "arm_duplicate_templates_80_context_b_identity", "class": "context-object" },
+    "argument_a": { "symbol": "arm_duplicate_templates_80_argument_a_identity", "class": "argument-object" },
+    "argument_b": { "symbol": "arm_duplicate_templates_80_argument_b_identity", "class": "argument-object" }
+  },
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "arm_duplicate_templates_80_context_a_identity",
+    "arm_duplicate_templates_80_context_shared_identity",
+    "arm_duplicate_templates_80_context_b_identity",
+    "arm_duplicate_templates_80_argument_a_identity",
+    "arm_duplicate_templates_80_argument_b_identity"
+  ],
+  "postBodyReferenceContract": {
+    "siteCount": 8,
+    "targetOffsets": [128, 136, 140, 152],
+    "targetOffsetsRepeatedPerFunction": true,
+    "absoluteTargetsPairwiseDistinct": true,
+    "bytesOwnedByBatch": false,
+    "relocationFree": true
+  },
+  "branchIdentityContract": {
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_00217604", "func_00102DEC", "func_00102868", "func_00178238", "func_00132A14",
+      "func_001600B0", "func_00124150", "func_00266AE8", "func_0032A71C", "func_0014F814",
+      "func_00152EC4", "func_003B3144", "func_001788C8", "func_002C42C8",
+      "func_002C3FD0", "func_0017F4A4", "func_001602B8", "func_00160380", "func_00241090",
+      "func_004B2644", "func_004B2674", "func_0013335C"
+    ],
+    "thumbEntries": ["func_00102DEC", "func_00102868"],
+    "secondaryEntries": [
+      "arm_duplicate_templates_80_secondary_003B39F0",
+      "arm_duplicate_templates_80_secondary_001CF3AC"
+    ],
+    "secondaryEntryRelations": [
+      { "symbol": "arm_duplicate_templates_80_secondary_003B39F0", "owner": "func_003B39E4", "ownerOffset": 12, "nextGlobal": "func_003B3A1C", "bytesBeforeNextGlobal": 44 },
+      { "symbol": "arm_duplicate_templates_80_secondary_001CF3AC", "owner": "func_001CF360", "ownerOffset": 76, "nextGlobal": "func_001CF448", "bytesBeforeNextGlobal": 156 }
+    ],
+    "sharedClasses": [
+      { "symbol": "func_00217604", "siteCount": 2 },
+      { "symbol": "func_00102DEC", "siteCount": 2 },
+      { "symbol": "func_00102868", "siteCount": 2 },
+      { "symbol": "func_0013335C", "siteCount": 2 },
+      { "symbol": "arm_duplicate_templates_80_secondary_001CF3AC", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_00178238", "func_00132A14", "func_001600B0", "func_00124150", "func_00266AE8",
+      "func_0032A71C", "arm_duplicate_templates_80_secondary_003B39F0", "func_0014F814", "func_00152EC4",
+      "func_003B3144", "func_001788C8", "func_002C42C8", "func_002C3FD0",
+      "func_0017F4A4", "func_001602B8", "func_00160380", "func_00241090", "func_004B2644", "func_004B2674"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "literalIdentityContract": {
+    "siteCount": 7, "classCount": 5, "newClassCount": 5, "reusedClassCount": 0,
+    "newClassesPairwiseDistinct": true, "newClassesDistinctFromConfiguredClasses": true,
+    "reusedClassesPhysicallyVerified": true
+  },
+  "canonicalRecordFormat": {
+    "instruction": "function|offset|resolved instruction",
+    "localTransfer": "function|offset|mnemonic|local:+target",
+    "relocation": "function|offset|kind|mnemonic-or-word|symbol",
+    "literalIdentity": "function|loadOffset|slotOffset|identity-key"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "fc5ff4f02cb7c90bf40274316fd901105b18a4ae0231be6cd21f7dc7e28a5f28",
+    "localTransferSchedule": "a529a666c61ec1deb5541a741f022348c78b35f65ec4cb28497c02475608413a",
+    "relocationSchedule": "8e123b1d94e63fa1a8640efb3a0071a2e409eab64a125b9c8c56a0a08051efe8",
+    "literalIdentitySchedule": "1b3e5ba1d1c7e0985da09fa0fe68ec0fcd0cd3929e5c587b1c03a60cf8acc591"
+  },
+  "functions": [
+    {
+      "name": "func_00217434", "template": "record_stream_writer", "internalLabelOffsets": [76, 92],
+      "nextGlobal": "func_002174D4", "nextGlobalOffset": 160,
+      "directTransfers": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00217604", "role": "prepare" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00102DEC", "role": "copy" },
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00102868", "role": "encode" }
+      ],
+      "localTransfers": [
+        { "offset": 36, "mnemonic": "beq", "targetOffset": 92 },
+        { "offset": 48, "mnemonic": "beq", "targetOffset": 76 }
+      ],
+      "postBodyReferences": [
+        { "offset": 32, "mnemonic": "addeq", "targetOffset": 128, "role": "empty_descriptor" },
+        { "offset": 52, "mnemonic": "ldr", "targetOffset": 136, "role": "lookup_slot" },
+        { "offset": 84, "mnemonic": "addne", "targetOffset": 140, "role": "flagged_descriptor" },
+        { "offset": 88, "mnemonic": "addeq", "targetOffset": 152, "role": "default_descriptor" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_002174D4", "template": "record_stream_writer", "internalLabelOffsets": [76, 92],
+      "nextGlobal": "func_00217574", "nextGlobalOffset": 160,
+      "directTransfers": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00217604", "role": "prepare" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00102DEC", "role": "copy" },
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00102868", "role": "encode" }
+      ],
+      "localTransfers": [
+        { "offset": 36, "mnemonic": "beq", "targetOffset": 92 },
+        { "offset": 48, "mnemonic": "beq", "targetOffset": 76 }
+      ],
+      "postBodyReferences": [
+        { "offset": 32, "mnemonic": "addeq", "targetOffset": 128, "role": "empty_descriptor" },
+        { "offset": 52, "mnemonic": "ldr", "targetOffset": 136, "role": "lookup_slot" },
+        { "offset": 84, "mnemonic": "addne", "targetOffset": 140, "role": "flagged_descriptor" },
+        { "offset": 88, "mnemonic": "addeq", "targetOffset": 152, "role": "default_descriptor" }
+      ],
+      "literals": []
+    },
+    { "name": "func_0010CA9C", "template": "literal_context_tail", "templateMaterialEndOffset": 11, "internalLabelOffsets": [], "nextGlobal": "func_0010CAA8", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00178238", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 8, "loadOffset": 0, "identity": "context_a" }] },
+    { "name": "func_001261F0", "template": "literal_context_tail", "templateMaterialEndOffset": 11, "internalLabelOffsets": [], "nextGlobal": "func_001261FC", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00132A14", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 8, "loadOffset": 0, "identity": "context_shared" }] },
+    { "name": "func_00126484", "template": "literal_context_tail", "templateMaterialEndOffset": 11, "internalLabelOffsets": [], "nextGlobal": "func_00126490", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001600B0", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 8, "loadOffset": 0, "identity": "context_shared" }] },
+    { "name": "func_00126490", "template": "literal_context_tail", "templateMaterialEndOffset": 11, "internalLabelOffsets": [], "nextGlobal": "func_0012649C", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00124150", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 8, "loadOffset": 0, "identity": "context_shared" }] },
+    { "name": "func_00257034", "template": "literal_context_tail", "templateMaterialEndOffset": 11, "internalLabelOffsets": [], "nextGlobal": "func_00257040", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00266AE8", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 8, "loadOffset": 0, "identity": "context_b" }] },
+    { "name": "func_0032EC68", "template": "load_member_tail", "internalLabelOffsets": [], "nextGlobal": "func_0032EC70", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0032A71C", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_003B54C8", "template": "load_member_tail", "internalLabelOffsets": [], "nextGlobal": "func_003B54D0", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_80_secondary_003B39F0", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_003B54D0", "template": "load_member_tail", "internalLabelOffsets": [], "nextGlobal": "func_003B54D8", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0014F814", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_004CEF50", "template": "load_member_tail", "internalLabelOffsets": [], "nextGlobal": "func_004CEF98", "nextGlobalOffset": 72, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00152EC4", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_004D2994", "template": "load_member_tail", "internalLabelOffsets": [], "nextGlobal": "func_004D29EC", "nextGlobalOffset": 88, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003B3144", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_0051BE28", "template": "literal_argument_tail", "templateMaterialEndOffset": 15, "internalLabelOffsets": [], "nextGlobal": "func_0051BE38", "nextGlobalOffset": 16, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_80_secondary_001CF3AC", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 12, "loadOffset": 4, "identity": "argument_a" }] },
+    { "name": "func_0051BE38", "template": "literal_argument_tail", "templateMaterialEndOffset": 15, "internalLabelOffsets": [], "nextGlobal": "func_0051BFD8", "nextGlobalOffset": 416, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_80_secondary_001CF3AC", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [{ "offset": 12, "loadOffset": 4, "identity": "argument_b" }] },
+    { "name": "func_00163C30", "template": "call_and_return", "internalLabelOffsets": [], "nextGlobal": "func_00163C3C", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001788C8", "role": "invoke" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_002BB64C", "template": "call_and_return", "internalLabelOffsets": [], "nextGlobal": "func_002BB658", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C42C8", "role": "invoke" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_002BBD60", "template": "call_and_return", "internalLabelOffsets": [], "nextGlobal": "func_002BC23C", "nextGlobalOffset": 1244, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C3FD0", "role": "invoke" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_0021A9B0", "template": "offset_16_tail", "internalLabelOffsets": [], "nextGlobal": "func_0021A9B8", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0017F4A4", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_003B7EFC", "template": "offset_16_tail", "internalLabelOffsets": [], "nextGlobal": "func_003B7FE8", "nextGlobalOffset": 236, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001602B8", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_003B7FE8", "template": "offset_16_tail", "internalLabelOffsets": [], "nextGlobal": "func_003B7FF0", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_00253BF4", "template": "offset_8_tail", "internalLabelOffsets": [], "nextGlobal": "func_00253BFC", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00241090", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_004E6C6C", "template": "offset_8_tail", "internalLabelOffsets": [], "nextGlobal": "func_004E6C74", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2644", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_004E6C74", "template": "offset_8_tail", "internalLabelOffsets": [], "nextGlobal": "func_004E6C7C", "nextGlobalOffset": 8, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004B2674", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_0029F35C", "template": "fixed_mode_tail", "internalLabelOffsets": [], "nextGlobal": "func_0029F368", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0013335C", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] },
+    { "name": "func_0029F540", "template": "fixed_mode_tail", "internalLabelOffsets": [], "nextGlobal": "func_0029F57C", "nextGlobalOffset": 60, "directTransfers": [{ "offset": 4, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0013335C", "role": "tail" }], "localTransfers": [], "postBodyReferences": [], "literals": [] }
+  ]
+}
