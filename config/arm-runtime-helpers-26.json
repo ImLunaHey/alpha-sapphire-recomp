@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_26.S",
+  "mode": "arm",
+  "sourceSha256": "3e8facb11af7d6c9462114f3397ce285420f65a3d95b498a50ddaf4e6ddcf0a8",
+  "totalBodySize": 108,
+  "functions": [
+    {
+      "name": "func_002DBE58",
+      "size": 28,
+      "calls": [
+        { "offset": 16, "kind": "R_ARM_CALL", "symbol": "runtime_stacked_argument_helper_26" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DBE74",
+      "size": 80,
+      "calls": [
+        { "offset": 24, "kind": "R_ARM_CALL", "symbol": "runtime_record_expander_26" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_stacked_argument_helper_26": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "stacked-fourth-argument-call"
+    },
+    "runtime_record_expander_26": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "record-expansion-call"
+    }
+  }
+}

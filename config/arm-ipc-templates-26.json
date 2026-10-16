@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_26.S",
+  "functions": [
+    { "name": "func_00125E28", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_23_no_params" },
+    { "name": "func_001644DC", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_57_no_params" },
+    { "name": "func_00174748", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_25_no_params" },
+    { "name": "func_0017A618", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_12_no_params" },
+    { "name": "func_0017A640", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_20_no_params" },
+    { "name": "func_002C5640", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_8_no_params" },
+    { "name": "func_002C5744", "mode": "arm", "size": 40, "template": "inline_entry_no_params", "inlineCommand": "ipc_inline_command_id_10_no_params" },
+    { "name": "func_001FB3DC", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_9_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_001FB550", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_3_no_params", "handle": "ipc_handle_slot_epsilon" },
+    { "name": "func_00202894", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_17_no_params", "handle": "ipc_handle_slot_mu" },
+    { "name": "func_002028C4", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_18_no_params", "handle": "ipc_handle_slot_mu" },
+    { "name": "func_00202D78", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_5_no_params", "handle": "ipc_handle_slot_zeta" },
+    { "name": "func_002C6348", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_44_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C63B4", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_39_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002C6420", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_38_no_params", "handle": "ipc_handle_slot_gamma" },
+    { "name": "func_002DE8C0", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_58_no_params", "handle": "ipc_handle_slot_beta" },
+    { "name": "func_002DE9C8", "mode": "arm", "size": 44, "template": "inline_global_no_params", "inlineCommand": "ipc_inline_command_id_57_no_params", "handle": "ipc_handle_slot_beta" }
+  ]
+}
