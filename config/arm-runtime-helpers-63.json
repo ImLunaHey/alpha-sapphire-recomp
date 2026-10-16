@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_63.S",
+  "mode": "arm",
+  "totalBodySize": 3004,
+  "totalAdjacentSize": 0,
+  "functions": [
+    { "name": "func_003AA3A4", "size": 408, "calls": [], "adjacentWords": [] },
+    { "name": "func_00381210", "size": 404, "calls": [], "adjacentWords": [] },
+    { "name": "func_0034D0E8", "size": 392, "calls": [], "adjacentWords": [] },
+    { "name": "func_002E1DE0", "size": 372, "calls": [], "adjacentWords": [] },
+    { "name": "func_002E1F54", "size": 372, "calls": [], "adjacentWords": [] },
+    { "name": "func_0053FD88", "size": 372, "calls": [], "adjacentWords": [] },
+    { "name": "func_003ECA64", "size": 360, "calls": [], "adjacentWords": [] },
+    { "name": "func_004BD1C4", "size": 324, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_63": {
+      "members": [
+        "func_003AA3A4",
+        "func_00381210",
+        "func_0034D0E8",
+        "func_002E1DE0",
+        "func_002E1F54",
+        "func_0053FD88",
+        "func_003ECA64",
+        "func_004BD1C4"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

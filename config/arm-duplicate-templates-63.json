@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_63.S",
+  "mode": "arm",
+  "expectedBodyBytes": 600,
+  "templates": {
+    "unique_tree_insert_result": {
+      "bodySize": 300,
+      "instructionCount": 75,
+      "count": 2,
+      "internalLabels": 9,
+      "directCalls": 1,
+      "indirectCalls": 0,
+      "ownedLiteralCount": 0
+    }
+  },
+  "internalLabelOffsets": [44, 80, 152, 176, 196, 212, 232, 248, 280],
+  "callOffset": 256,
+  "functions": [
+    {
+      "name": "func_0016F94C",
+      "template": "unique_tree_insert_result",
+      "nextGlobalOffset": 300,
+      "call": {
+        "offset": 256,
+        "kind": "R_ARM_CALL",
+        "symbol": "func_0015E4C4",
+        "role": "insert_new_node"
+      }
+    },
+    {
+      "name": "func_005587C0",
+      "template": "unique_tree_insert_result",
+      "nextGlobalOffset": 300,
+      "call": {
+        "offset": 256,
+        "kind": "R_ARM_CALL",
+        "symbol": "func_00558928",
+        "role": "insert_new_node"
+      }
+    }
+  ]
+}
