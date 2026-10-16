@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_43.S",
+  "mode": "arm",
+  "totalBodySize": 320,
+  "functions": [
+    { "name": "func_004EA6F8", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA794", "size": 12, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_004EA7A0",
+      "size": 16,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_JUMP24", "symbol": "runtime_embedded_payload_transfer_43" }
+      ],
+      "adjacentWords": []
+    },
+    { "name": "func_004EA7C4", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA7F8", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA810", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA820", "size": 20, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_004EA834",
+      "size": 36,
+      "calls": [
+        { "offset": 32, "kind": "R_ARM_JUMP24", "symbol": "runtime_fixed_13_byte_copy_43" }
+      ],
+      "adjacentWords": []
+    },
+    { "name": "func_004EA858", "size": 36, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_004EA87C",
+      "size": 16,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_JUMP24", "symbol": "runtime_embedded_payload_transfer_43" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004EA89C",
+      "size": 20,
+      "calls": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "symbol": "runtime_embedded_payload_transfer_43" }
+      ],
+      "adjacentWords": []
+    },
+    { "name": "func_004EA8EC", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA924", "size": 16, "calls": [], "adjacentWords": [] },
+    { "name": "func_004EA940", "size": 24, "calls": [], "adjacentWords": [] },
+    {
+      "name": "func_004EA958",
+      "size": 32,
+      "calls": [
+        { "offset": 20, "kind": "R_ARM_CALL", "symbol": "runtime_fixed_368_byte_copy_43" }
+      ],
+      "adjacentWords": []
+    },
+    { "name": "func_004EA998", "size": 12, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "packed_status_bit_accessors_43": {
+      "members": ["func_004EA6F8", "func_004EA820"],
+      "parameters": ["selectedBit", "normalizingShift"]
+    },
+    "two_word_pair_accessors_43": {
+      "members": ["func_004EA7F8", "func_004EA810"],
+      "parameters": ["pairOffset"]
+    },
+    "embedded_payload_transfer_tails_43": {
+      "members": ["func_004EA7A0", "func_004EA87C", "func_004EA89C"],
+      "parameters": ["payloadAddressSchedule", "outputRegisterSchedule"]
+    }
+  },
+  "symbolicIdentities": {
+    "runtime_embedded_payload_transfer_43": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "shared-three-site-identity",
+      "usage": "embedded-payload-tail-transfer"
+    },
+    "runtime_fixed_13_byte_copy_43": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "fixed-13-byte-copy-tail-transfer"
+    },
+    "runtime_fixed_368_byte_copy_43": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "fixed-368-byte-copy-call"
+    }
+  }
+}

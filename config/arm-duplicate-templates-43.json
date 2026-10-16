@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_43.S",
+  "mode": "arm",
+  "expectedBodyBytes": 1784,
+  "templates": {
+    "pooled_word_key_red_black_tree_node_insertion": {
+      "bodySize": 892,
+      "instructionCount": 223,
+      "count": 2,
+      "internalLabels": 21,
+      "calls": 3,
+      "poolSlots": 0
+    }
+  },
+  "callContract": [
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 132, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 216, "kind": "R_ARM_CALL", "symbol": "payloadInitializer" }
+  ],
+  "poolContract": [],
+  "functions": [
+    { "name": "func_0018FC6C", "template": "pooled_word_key_red_black_tree_node_insertion", "payloadInitializer": "func_0018E1E0" },
+    { "name": "func_00560E5C", "template": "pooled_word_key_red_black_tree_node_insertion", "payloadInitializer": "func_0029F668" }
+  ]
+}

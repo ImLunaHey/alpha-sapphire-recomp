@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_39.S",
+  "sourceSha256": "b72f8de7a536570f3781b71da408a27a6190b0af3653eee308924f6a14b99a1c",
+  "mode": "arm",
+  "totalBodySize": 364,
+  "cumulativePoolSlots": 530,
+  "cumulativePoolClasses": 259,
+  "functions": [
+    {
+      "name": "func_001F461C", "size": 108,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001240C4" },
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001F72F4" }
+      ],
+      "literals": [
+        { "offset": 108, "symbol": "service_result_normalization_39" }
+      ]
+    },
+    {
+      "name": "func_001F78E8", "size": 28,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "bleq", "symbol": "func_00146000" }
+      ],
+      "literals": [
+        { "offset": 28, "symbol": "lazy_service_cell_39" }
+      ]
+    },
+    {
+      "name": "func_001FAFD8", "size": 76,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FB6AC" },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 76, "symbol": "service_default_word_39" },
+        { "offset": 80, "symbol": "service_fallback_state_39" }
+      ]
+    },
+    {
+      "name": "func_001FB388", "size": 80,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FB6F8" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FB4CC" },
+        { "offset": 68, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 80, "symbol": "service_filtered_status_39" }
+      ]
+    },
+    {
+      "name": "func_004A7960", "size": 36,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "bleq", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 36, "symbol": "required_handle_error_39" }
+      ]
+    },
+    {
+      "name": "func_004A79A8", "size": 36,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "bleq", "symbol": "func_00124FB0" }
+      ],
+      "literals": [
+        { "offset": 36, "symbol": "required_handle_error_39" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_result_normalization_39",
+    "lazy_service_cell_39",
+    "service_default_word_39",
+    "service_fallback_state_39",
+    "service_filtered_status_39",
+    "required_handle_error_39"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_result_normalization_39",
+    "lazy_service_cell_39",
+    "service_default_word_39",
+    "service_fallback_state_39",
+    "service_filtered_status_39",
+    "required_handle_error_39"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_001240C4",
+      "func_001F72F4",
+      "func_00146000",
+      "func_001FB6AC",
+      "func_00124FB0",
+      "func_001FB6F8",
+      "func_001FB4CC"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_00124FB0", "siteCount": 4 }
+    ],
+    "singletonClasses": [
+      "func_001240C4",
+      "func_001F72F4",
+      "func_00146000",
+      "func_001FB6AC",
+      "func_001FB6F8",
+      "func_001FB4CC"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
