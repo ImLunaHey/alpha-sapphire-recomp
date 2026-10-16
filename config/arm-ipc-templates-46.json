@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_46.S",
+  "sourceSha256": "d36d1e1f56d745dae68404957d7198d54ed54b7358c4fcb91265072562827817",
+  "mode": "arm",
+  "totalBodySize": 760,
+  "cumulativePoolSlots": 594,
+  "cumulativePoolClasses": 302,
+  "functions": [
+    {
+      "name": "func_00201668", "size": 108,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00146000" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00146000" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002DD944" }
+      ],
+      "literals": [
+        { "offset": 108, "symbol": "service_group_state_46" },
+        { "offset": 112, "symbol": "service_handle_array_46" },
+        { "offset": 116, "symbol": "service_finalize_context_46" },
+        { "offset": 120, "symbol": "service_owned_handle_46" },
+        { "offset": 124, "symbol": "service_handle_replacement_46" }
+      ]
+    },
+    {
+      "name": "func_002C36DC", "size": 112,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" },
+        { "offset": 100, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 112, "symbol": "service_shared_ref_state_46" },
+        { "offset": 116, "symbol": "service_ref_failure_marker_46" }
+      ]
+    },
+    {
+      "name": "func_0010FCF4", "size": 132,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00125E50" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002FF034" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_open_31" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00125E50" },
+        { "offset": 128, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 132, "symbol": "service_initialized_byte_35" },
+        { "offset": 136, "symbol": "service_lifecycle_object_43" },
+        { "offset": 140, "symbol": "service_creation_context_46" },
+        { "offset": 144, "symbol": "service_session_object_35" },
+        { "offset": 148, "symbol": "service_replacement_source_43" }
+      ]
+    },
+    {
+      "name": "func_0015FFE8", "size": 136,
+      "branches": [
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0015EC10" },
+        { "offset": 128, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "service_scale_dispatch_secondary_46" }
+      ],
+      "literals": [
+        { "offset": 136, "symbol": "service_state_slot_35" },
+        { "offset": 140, "symbol": "service_timing_scale_46" }
+      ]
+    },
+    {
+      "name": "func_001D2314", "size": 136,
+      "branches": [
+        { "offset": 120, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00529BDC" }
+      ],
+      "literals": [
+        { "offset": 136, "symbol": "service_record_vtable_46" },
+        { "offset": 140, "symbol": "service_debug_state_46" },
+        { "offset": 144, "symbol": "service_debug_enable_46" }
+      ]
+    },
+    {
+      "name": "func_002C3404", "size": 136,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 92, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00146000" },
+        { "offset": 124, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 136, "symbol": "service_ref_lock_46" },
+        { "offset": 140, "symbol": "service_ref_state_46" },
+        { "offset": 144, "symbol": "service_ref_busy_marker_46" },
+        { "offset": 148, "symbol": "ipc_handle_slot_delta" },
+        { "offset": 152, "symbol": "service_ref_replacement_46" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_group_state_46",
+    "service_handle_array_46",
+    "service_finalize_context_46",
+    "service_owned_handle_46",
+    "service_handle_replacement_46",
+    "service_shared_ref_state_46",
+    "service_ref_failure_marker_46",
+    "service_initialized_byte_35",
+    "service_lifecycle_object_43",
+    "service_creation_context_46",
+    "service_session_object_35",
+    "service_replacement_source_43",
+    "service_state_slot_35",
+    "service_timing_scale_46",
+    "service_record_vtable_46",
+    "service_debug_state_46",
+    "service_debug_enable_46",
+    "service_ref_lock_46",
+    "service_ref_state_46",
+    "service_ref_busy_marker_46",
+    "ipc_handle_slot_delta",
+    "service_ref_replacement_46"
+  ],
+  "reusedLiteralIdentities": [
+    "service_initialized_byte_35",
+    "service_lifecycle_object_43",
+    "service_session_object_35",
+    "service_replacement_source_43",
+    "service_state_slot_35",
+    "ipc_handle_slot_delta"
+  ],
+  "newLiteralIdentities": [
+    "service_group_state_46",
+    "service_handle_array_46",
+    "service_finalize_context_46",
+    "service_owned_handle_46",
+    "service_handle_replacement_46",
+    "service_shared_ref_state_46",
+    "service_ref_failure_marker_46",
+    "service_creation_context_46",
+    "service_timing_scale_46",
+    "service_record_vtable_46",
+    "service_debug_state_46",
+    "service_debug_enable_46",
+    "service_ref_lock_46",
+    "service_ref_state_46",
+    "service_ref_busy_marker_46",
+    "service_ref_replacement_46"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00146000",
+      "func_002DD944",
+      "func_001602B8",
+      "func_00160380",
+      "func_00125E50",
+      "func_002FF034",
+      "func_0015EC10",
+      "func_00529BDC"
+    ],
+    "secondaryEntries": [
+      "service_open_31",
+      "service_scale_dispatch_secondary_46"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_00146000", "siteCount": 3 },
+      { "symbol": "func_001602B8", "siteCount": 3 },
+      { "symbol": "func_00160380", "siteCount": 4 },
+      { "symbol": "func_00125E50", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_002DD944",
+      "func_002FF034",
+      "service_open_31",
+      "func_0015EC10",
+      "service_scale_dispatch_secondary_46",
+      "func_00529BDC"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

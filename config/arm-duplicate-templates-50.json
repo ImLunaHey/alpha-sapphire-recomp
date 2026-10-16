@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_50.S",
+  "mode": "arm",
+  "expectedBodyBytes": 8140,
+  "templates": {
+    "intrusive_red_black_tree_erase": {
+      "bodySize": 1628,
+      "instructionCount": 407,
+      "count": 5,
+      "internalLabels": 49,
+      "directCalls": 0,
+      "indirectCalls": 0,
+      "tailBranches": 0,
+      "poolSlots": 0
+    }
+  },
+  "internalLabelOffsets": [
+    36, 56, 72, 92, 104, 160, 176, 180, 252, 300, 336, 360, 368,
+    408, 448, 496, 548, 564, 568, 620, 636, 640, 668, 708, 728, 748,
+    856, 864, 952, 976, 988, 1008, 1016, 1044, 1048, 1076, 1084, 1168,
+    1196, 1216, 1236, 1256, 1364, 1368, 1376, 1464,
+    1492, 1516, 1600
+  ],
+  "relocations": [],
+  "functions": [
+    {
+      "name": "func_0054FD38",
+      "template": "intrusive_red_black_tree_erase",
+      "nextGlobal": "func_00550394"
+    },
+    {
+      "name": "func_00550510",
+      "template": "intrusive_red_black_tree_erase",
+      "nextGlobal": "func_00550B6C"
+    },
+    {
+      "name": "func_0055C19C",
+      "template": "intrusive_red_black_tree_erase",
+      "nextGlobal": "func_0055C7F8"
+    },
+    {
+      "name": "func_00566F04",
+      "template": "intrusive_red_black_tree_erase",
+      "nextGlobal": "func_00567560"
+    },
+    {
+      "name": "func_005691BC",
+      "template": "intrusive_red_black_tree_erase",
+      "nextGlobal": "func_00569818"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_50.S",
+  "mode": "arm",
+  "totalBodySize": 1128,
+  "functions": [
+    { "name": "func_004C90E8", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9640", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C96B4", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C96CC", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9700", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9714", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9728", "size": 52, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C975C", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9770", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C9784", "size": 60, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CCB20", "size": 40, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CCE90", "size": 68, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CCF64", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD004", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD070", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDB58", "size": 96, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDBB8", "size": 96, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDE94", "size": 104, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CE6CC", "size": 56, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CEF2C", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CF200", "size": 20, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CF6C8", "size": 96, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CFDF0", "size": 96, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "optional_subsystem_accessors_50": {
+      "members": [
+        "func_004C9640", "func_004C96B4", "func_004C96CC", "func_004C9700",
+        "func_004C9714", "func_004C9728", "func_004C975C"
+      ],
+      "parameters": ["fieldOffset", "indexedArrayOffset", "resultOffset"]
+    },
+    "tagged_byte_accessors_50": {
+      "members": ["func_004CDB58", "func_004CDBB8"],
+      "parameters": ["defaultValue", "kindTwoByteOffset", "kindThreeByteOffset"]
+    },
+    "matrix_vector_products_50": {
+      "members": ["func_004CF6C8", "func_004CFDF0"],
+      "parameters": ["matrixLayout"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
