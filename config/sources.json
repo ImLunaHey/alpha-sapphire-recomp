@@ -214,6 +214,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_ipc_templates_43.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_duplicate_container_templates_13.S",
       "mode": "arm"
     },
@@ -478,7 +482,15 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_duplicate_templates_47.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_46.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_47.S",
       "mode": "arm"
     }
   ]

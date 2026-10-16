@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_47.S",
+  "mode": "arm",
+  "totalBodySize": 652,
+  "functions": [
+    { "name": "func_004CD0DC", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD674", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD698", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD6A4", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD6C8", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD7D8", "size": 32, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD7F8", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD814", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD85C", "size": 36, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD880", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD89C", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD8B8", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD8D4", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CD8F0", "size": 28, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDC60", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDC8C", "size": 32, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CDCAC", "size": 32, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CFE50", "size": 44, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CFE7C", "size": 24, "calls": [], "adjacentWords": [] },
+    { "name": "func_004CFFE4", "size": 48, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "indexed_372_byte_record_accessors_47": {
+      "members": [
+        "func_004CD0DC",
+        "func_004CD674",
+        "func_004CD6A4",
+        "func_004CD6C8",
+        "func_004CD7D8",
+        "func_004CD7F8",
+        "func_004CD814",
+        "func_004CD85C",
+        "func_004CD880",
+        "func_004CD89C",
+        "func_004CD8B8",
+        "func_004CD8F0"
+      ],
+      "parameters": ["fieldOffset", "fieldWidth", "extraction", "normalization"]
+    },
+    "indexed_nested_record_accessors_47": {
+      "members": ["func_004CDC60", "func_004CDC8C", "func_004CDCAC"],
+      "parameters": ["rootOffset", "outerStride", "innerStride", "fieldOffset", "resultWidth"]
+    },
+    "fixed_float_word_transfers_47": {
+      "members": ["func_004CFE50", "func_004CFE7C", "func_004CFFE4"],
+      "parameters": ["sourceLayout", "destinationLayout", "transferSchedule", "arithmetic"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
