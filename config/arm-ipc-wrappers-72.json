@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_72.S",
+  "sourceSha256": "e2480389de33b142512bf4a004a51bbc95c080e38bf35f84fdb8a799b54a33ca",
+  "mode": "arm",
+  "totalBodySize": 644,
+  "cumulativePoolSlots": 751,
+  "cumulativePoolClasses": 398,
+  "functions": [
+    {
+      "name": "func_0018C18C", "section": ".text.func_0018C18C", "size": 152,
+      "nextGlobal": "func_0018C238", "nextGlobalOffset": 172,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018C62C" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "ipc_refresh_secondary_72" },
+        { "offset": 88, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001600B0" },
+        { "offset": 100, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00132A14" },
+        { "offset": 128, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "ipc_registration_secondary_72" },
+        { "offset": 136, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018C6B4" }
+      ],
+      "literals": [
+        { "offset": 152, "loadOffsets": [8], "symbol": "ipc_state_flags_72" },
+        { "offset": 156, "loadOffsets": [24], "symbol": "ipc_frame_payload_table_72" },
+        { "offset": 160, "loadOffsets": [28, 56, 132], "symbol": "ipc_shared_control_owner_72" },
+        { "offset": 164, "loadOffsets": [84, 92], "symbol": "ipc_shutdown_service_owner_72" },
+        { "offset": 168, "loadOffsets": [124], "symbol": "ipc_registration_handle_72" }
+      ]
+    },
+    {
+      "name": "func_0018C238", "section": ".text.func_0018C238", "size": 152,
+      "nextGlobal": "func_0018C2D4", "nextGlobalOffset": 156,
+      "branches": [
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00179DD0" },
+        { "offset": 148, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00179FBC" }
+      ],
+      "literals": [
+        { "offset": 152, "loadOffsets": [144], "symbol": "ipc_shared_control_owner_72" }
+      ]
+    },
+    {
+      "name": "func_0018C3EC", "section": ".text.func_0018C3EC", "size": 300,
+      "nextGlobal": "func_0018C62C", "nextGlobalOffset": 576,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017E4D8" },
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00186EB8" },
+        { "offset": 96, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "ipc_publish_secondary_72" },
+        { "offset": 112, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "ipc_publish_secondary_72" },
+        { "offset": 128, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E820" },
+        { "offset": 144, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E820" },
+        { "offset": 156, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E5C0" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E76C" },
+        { "offset": 184, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E7A0" },
+        { "offset": 196, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E54C" },
+        { "offset": 212, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018E5F4" },
+        { "offset": 268, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001603A0" }
+      ],
+      "literals": [
+        { "offset": 300, "loadOffsets": [20], "symbol": "ipc_exchange_context_72" },
+        { "offset": 304, "loadOffsets": [24], "symbol": "ipc_submission_owner_72" },
+        { "offset": 308, "loadOffsets": [44], "symbol": "ipc_payload_stride_72" }
+      ]
+    },
+    {
+      "name": "func_0018CA70", "section": ".text.func_0018CA70", "size": 40,
+      "nextGlobal": "func_0018CA98", "nextGlobalOffset": 40,
+      "branches": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00190C20" }
+      ],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_state_flags_72",
+    "ipc_frame_payload_table_72",
+    "ipc_shared_control_owner_72",
+    "ipc_shutdown_service_owner_72",
+    "ipc_registration_handle_72",
+    "ipc_exchange_context_72",
+    "ipc_submission_owner_72",
+    "ipc_payload_stride_72"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "ipc_state_flags_72",
+    "ipc_frame_payload_table_72",
+    "ipc_shared_control_owner_72",
+    "ipc_shutdown_service_owner_72",
+    "ipc_registration_handle_72",
+    "ipc_exchange_context_72",
+    "ipc_submission_owner_72",
+    "ipc_payload_stride_72"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0018C62C",
+      "func_001600B0",
+      "func_00132A14",
+      "func_0018C6B4",
+      "func_00179DD0",
+      "func_00179FBC",
+      "func_0017E4D8",
+      "func_00186EB8",
+      "func_0018E820",
+      "func_0018E5C0",
+      "func_0018E76C",
+      "func_0018E7A0",
+      "func_0018E54C",
+      "func_0018E5F4",
+      "func_001603A0",
+      "func_00190C20"
+    ],
+    "secondaryEntries": [
+      "ipc_publish_secondary_72",
+      "ipc_registration_secondary_72",
+      "ipc_refresh_secondary_72"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "ipc_publish_secondary_72",
+        "owner": "func_0018C008",
+        "ownerOffset": 32,
+        "nextGlobal": "func_0018C18C",
+        "bytesBeforeNextGlobal": 356
+      },
+      {
+        "symbol": "ipc_registration_secondary_72",
+        "owner": "func_00132C20",
+        "ownerOffset": 172,
+        "nextGlobal": "func_00132CFC",
+        "bytesBeforeNextGlobal": 48
+      },
+      {
+        "symbol": "ipc_refresh_secondary_72",
+        "owner": "func_0018C3EC",
+        "ownerOffset": 312,
+        "nextGlobal": "func_0018C62C",
+        "bytesBeforeNextGlobal": 264
+      }
+    ],
+    "sharedClasses": [
+      {
+        "symbol": "ipc_publish_secondary_72",
+        "sites": [
+          { "function": "func_0018C3EC", "offset": 96 },
+          { "function": "func_0018C3EC", "offset": 112 }
+        ]
+      },
+      {
+        "symbol": "func_0018E820",
+        "sites": [
+          { "function": "func_0018C3EC", "offset": 128 },
+          { "function": "func_0018C3EC", "offset": 144 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_0018C62C",
+      "ipc_refresh_secondary_72",
+      "func_001600B0",
+      "func_00132A14",
+      "ipc_registration_secondary_72",
+      "func_0018C6B4",
+      "func_00179DD0",
+      "func_00179FBC",
+      "func_0017E4D8",
+      "func_00186EB8",
+      "func_0018E5C0",
+      "func_0018E76C",
+      "func_0018E7A0",
+      "func_0018E54C",
+      "func_0018E5F4",
+      "func_001603A0",
+      "func_00190C20"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
