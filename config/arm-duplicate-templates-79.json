@@ -1,0 +1,105 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_79.S",
+  "sourceSha256": "2a8bdcbec389bebc933ee6edf73fd1b6aa8f6060a43aa6aef91e72a0d5e4a638",
+  "mode": "arm",
+  "expectedBodyBytes": 464,
+  "expectedInstructionCount": 116,
+  "templates": {
+    "release_global_object": { "bodySize": 36, "instructionCount": 9, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "optional_flagged_tail": { "bodySize": 32, "instructionCount": 8, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "install_tag_then_tail": { "bodySize": 28, "instructionCount": 7, "count": 2, "internalLabels": 0, "directTransfers": 2, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "set_identity_then_call": { "bodySize": 24, "instructionCount": 6, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "load_source_then_tail": { "bodySize": 16, "instructionCount": 4, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "indexed_address_tail": { "bodySize": 16, "instructionCount": 4, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 1, "poolSlots": 0 },
+    "optional_value_tail": { "bodySize": 16, "instructionCount": 4, "count": 2, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "load_member_then_tail": { "bodySize": 16, "instructionCount": 4, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "literal_service_tail": { "bodySize": 12, "instructionCount": 3, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 },
+    "call_preserve_r0": { "bodySize": 12, "instructionCount": 3, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "fixed_argument_tail": { "bodySize": 12, "instructionCount": 3, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 0 },
+    "store_identity_tail": { "bodySize": 12, "instructionCount": 3, "count": 2, "internalLabels": 0, "directTransfers": 1, "indirectCalls": 0, "indirectTailTransfers": 0, "conditionalReturns": 0, "addressReferences": 0, "poolSlots": 1 }
+  },
+  "literalIdentities": {
+    "release_slot_a": { "symbol": "arm_duplicate_templates_79_release_slot_a_identity", "class": "owned-object-slot" },
+    "release_slot_b": { "symbol": "arm_duplicate_templates_79_release_slot_b_identity", "class": "owned-object-slot" },
+    "dispatch_owner": { "symbol": "ipc_allocator_dispatch_owner_68", "class": "reused-dispatch-owner" },
+    "record_tag": { "symbol": "arm_duplicate_templates_79_record_tag_identity", "class": "record-tag" },
+    "constructor_tag": { "symbol": "arm_duplicate_templates_79_constructor_tag_identity", "class": "constructor-tag" },
+    "source_context": { "symbol": "arm_duplicate_templates_79_source_context_identity", "class": "source-context" },
+    "member_key_a": { "symbol": "arm_duplicate_templates_79_member_key_a_identity", "class": "member-key" },
+    "member_key_b": { "symbol": "arm_duplicate_templates_79_member_key_b_identity", "class": "member-key" },
+    "service_object": { "symbol": "service_lifecycle_object_43", "class": "reused-service-object" },
+    "stored_identity_a": { "symbol": "arm_duplicate_templates_79_stored_identity_a", "class": "stored-identity" },
+    "stored_identity_b": { "symbol": "arm_duplicate_templates_79_stored_identity_b", "class": "stored-identity" }
+  },
+  "reusedLiteralIdentities": ["ipc_allocator_dispatch_owner_68", "service_lifecycle_object_43"],
+  "newLiteralIdentities": [
+    "arm_duplicate_templates_79_release_slot_a_identity", "arm_duplicate_templates_79_release_slot_b_identity",
+    "arm_duplicate_templates_79_record_tag_identity", "arm_duplicate_templates_79_constructor_tag_identity",
+    "arm_duplicate_templates_79_source_context_identity", "arm_duplicate_templates_79_member_key_a_identity",
+    "arm_duplicate_templates_79_member_key_b_identity", "arm_duplicate_templates_79_stored_identity_a",
+    "arm_duplicate_templates_79_stored_identity_b"
+  ],
+  "addressIdentityContract": { "kind": "post-body-address-only", "siteCount": 2, "targetOffsets": [16], "pairwiseDistinctAcrossFunctions": true, "bytesOwnedByBatch": false, "relocationFree": true },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_002C20AC", "func_001602B8", "func_00160380", "func_001862FC", "func_00160A64",
+      "func_001787CC", "func_00205C3C", "func_0016BB14", "func_0016BB50", "func_0018BF20",
+      "func_003B7EC0", "func_001D1DC8", "func_0017F3F8", "func_00301034", "func_00300B28",
+      "func_004171D0", "func_0032ADB0", "func_003BD0B8"
+    ],
+    "secondaryEntries": ["arm_duplicate_templates_79_secondary_0041729C"],
+    "secondaryEntryRelations": [
+      { "symbol": "arm_duplicate_templates_79_secondary_0041729C", "owner": "func_0041728C", "ownerOffset": 16, "nextGlobal": "func_0041735C", "bytesBeforeNextGlobal": 192 }
+    ],
+    "sharedClasses": [
+      { "symbol": "func_002C20AC", "siteCount": 2 }, { "symbol": "func_001602B8", "siteCount": 2 },
+      { "symbol": "func_00160380", "siteCount": 2 }, { "symbol": "func_001862FC", "siteCount": 2 },
+      { "symbol": "func_00160A64", "siteCount": 2 }, { "symbol": "func_0018BF20", "siteCount": 2 },
+      { "symbol": "func_0017F3F8", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_001787CC", "func_00205C3C", "func_0016BB14", "func_0016BB50", "func_003B7EC0",
+      "func_001D1DC8", "func_00301034", "func_00300B28", "func_004171D0",
+      "arm_duplicate_templates_79_secondary_0041729C", "func_0032ADB0", "func_003BD0B8"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "literalIdentityContract": { "siteCount": 16, "classCount": 11, "newClassCount": 9, "reusedClassCount": 2, "newClassesPairwiseDistinct": true, "newClassesDistinctFromConfiguredClasses": true, "reusedClassesPhysicallyVerified": true },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "38a78bfacee333cd5cfa81c52be07cd37fe7a21cee7f1608232d03cae1cd030e",
+    "localTransferSchedule": "1f66e5b58eff0d9ebb883398ca62f4fc820e8ec25f84f342fb6e7c12c2a057a6",
+    "relocationSchedule": "78fb4531d01214bc69ac5d90b1b6970085ea33a80dfed1bf547f29812b32eb5d",
+    "literalIdentitySchedule": "cc9f6bc5be653f0eecd2fbe2e042e50716fa0f715da6af434c1eb3d0b9616b0c"
+  },
+  "functions": [
+    { "name": "func_002C27B0", "template": "release_global_object", "internalLabelOffsets": [32], "templateMaterialEndOffset": 39, "nextGlobal": "func_002C27D8", "nextGlobalOffset": 40, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C20AC", "role": "release_object" }], "literals": [{ "offset": 36, "loadOffset": 4, "identity": "release_slot_a" }] },
+    { "name": "func_002C2C48", "template": "release_global_object", "internalLabelOffsets": [32], "templateMaterialEndOffset": 39, "nextGlobal": "func_002C2C70", "nextGlobalOffset": 40, "directTransfers": [{ "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002C20AC", "role": "release_object" }], "literals": [{ "offset": 36, "loadOffset": 4, "identity": "release_slot_b" }] },
+    { "name": "func_00171F38", "template": "optional_flagged_tail", "internalLabelOffsets": [28], "templateMaterialEndOffset": 35, "nextGlobal": "func_00171F5C", "nextGlobalOffset": 36, "directTransfers": [{ "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001602B8", "role": "inactive_tail" }], "literals": [{ "offset": 32, "loadOffset": 0, "identity": "dispatch_owner" }] },
+    { "name": "func_00171F5C", "template": "optional_flagged_tail", "internalLabelOffsets": [28], "templateMaterialEndOffset": 35, "nextGlobal": "func_00171F80", "nextGlobalOffset": 36, "directTransfers": [{ "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380", "role": "inactive_tail" }], "literals": [{ "offset": 32, "loadOffset": 0, "identity": "dispatch_owner" }] },
+    { "name": "func_00206070", "template": "install_tag_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 31, "nextGlobal": "func_002060AC", "nextGlobalOffset": 60, "directTransfers": [{ "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC", "role": "install_tag" }, { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160A64", "role": "complete_tail" }], "literals": [{ "offset": 28, "loadOffset": 0, "identity": "record_tag" }] },
+    { "name": "func_002B005C", "template": "install_tag_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 31, "nextGlobal": "func_002B007C", "nextGlobalOffset": 32, "directTransfers": [{ "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC", "role": "install_tag" }, { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160A64", "role": "complete_tail" }], "literals": [{ "offset": 28, "loadOffset": 0, "identity": "record_tag" }] },
+    { "name": "func_0033A3C0", "template": "set_identity_then_call", "internalLabelOffsets": [], "templateMaterialEndOffset": 27, "nextGlobal": "func_0033A3FC", "nextGlobalOffset": 60, "directTransfers": [{ "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001787CC", "role": "initialize_record" }], "literals": [{ "offset": 24, "loadOffset": 0, "identity": "constructor_tag" }] },
+    { "name": "func_0033A3FC", "template": "set_identity_then_call", "internalLabelOffsets": [], "templateMaterialEndOffset": 27, "nextGlobal": "func_0033A418", "nextGlobalOffset": 28, "directTransfers": [{ "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00205C3C", "role": "initialize_record" }], "literals": [{ "offset": 24, "loadOffset": 0, "identity": "constructor_tag" }] },
+    { "name": "func_0014EB1C", "template": "load_source_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 19, "nextGlobal": "func_0014EB30", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0016BB14", "role": "source_tail" }], "literals": [{ "offset": 16, "loadOffset": 4, "identity": "source_context" }] },
+    { "name": "func_0014EBB4", "template": "load_source_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 19, "nextGlobal": "func_0014EBC8", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0016BB50", "role": "source_tail" }], "literals": [{ "offset": 16, "loadOffset": 4, "identity": "source_context" }] },
+    { "name": "func_00298E60", "template": "indexed_address_tail", "internalLabelOffsets": [], "nextGlobal": "func_00298E78", "nextGlobalOffset": 24, "addressReferences": [{ "offset": 8, "mnemonic": "adr", "targetOffset": 16, "role": "post_body_descriptor" }], "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0018BF20", "role": "indexed_tail" }], "literals": [] },
+    { "name": "func_00298EA8", "template": "indexed_address_tail", "internalLabelOffsets": [], "nextGlobal": "func_00298EC4", "nextGlobalOffset": 28, "addressReferences": [{ "offset": 8, "mnemonic": "adr", "targetOffset": 16, "role": "post_body_descriptor" }], "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0018BF20", "role": "indexed_tail" }], "literals": [] },
+    { "name": "func_002C20AC", "template": "optional_value_tail", "internalLabelOffsets": [12], "nextGlobal": "func_002C20BC", "nextGlobalOffset": 16, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003B7EC0", "role": "present_tail" }], "literals": [] },
+    { "name": "func_00520B18", "template": "optional_value_tail", "internalLabelOffsets": [12], "nextGlobal": "func_00520C7C", "nextGlobalOffset": 356, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001D1DC8", "role": "present_tail" }], "literals": [] },
+    { "name": "func_004AC6FC", "template": "load_member_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 19, "nextGlobal": "func_004AC710", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0017F3F8", "role": "member_tail" }], "literals": [{ "offset": 16, "loadOffset": 4, "identity": "member_key_a" }] },
+    { "name": "func_004B1E0C", "template": "load_member_then_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 19, "nextGlobal": "func_004B1E20", "nextGlobalOffset": 20, "directTransfers": [{ "offset": 12, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0017F3F8", "role": "member_tail" }], "literals": [{ "offset": 16, "loadOffset": 4, "identity": "member_key_b" }] },
+    { "name": "func_00164F44", "template": "literal_service_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 15, "nextGlobal": "func_00164F54", "nextGlobalOffset": 16, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001602B8", "role": "service_tail" }], "literals": [{ "offset": 12, "loadOffset": 4, "identity": "service_object" }] },
+    { "name": "func_00164F54", "template": "literal_service_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 15, "nextGlobal": "func_00164F64", "nextGlobalOffset": 16, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380", "role": "service_tail" }], "literals": [{ "offset": 12, "loadOffset": 4, "identity": "service_object" }] },
+    { "name": "func_001A3958", "template": "call_preserve_r0", "internalLabelOffsets": [], "nextGlobal": "func_001A3964", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301034", "role": "invoke" }], "literals": [] },
+    { "name": "func_00300980", "template": "call_preserve_r0", "internalLabelOffsets": [], "nextGlobal": "func_0030098C", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00300B28", "role": "invoke" }], "literals": [] },
+    { "name": "func_004175B8", "template": "fixed_argument_tail", "internalLabelOffsets": [], "nextGlobal": "func_004175C4", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_004171D0", "role": "forward_tail" }], "literals": [] },
+    { "name": "func_004175C4", "template": "fixed_argument_tail", "internalLabelOffsets": [], "nextGlobal": "func_004175D0", "nextGlobalOffset": 12, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "arm_duplicate_templates_79_secondary_0041729C", "role": "forward_tail" }], "literals": [] },
+    { "name": "func_0032BD18", "template": "store_identity_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 15, "nextGlobal": "func_0032BD58", "nextGlobalOffset": 64, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0032ADB0", "role": "initialize_tail" }], "literals": [{ "offset": 12, "loadOffset": 0, "identity": "stored_identity_a" }] },
+    { "name": "func_003B8038", "template": "store_identity_tail", "internalLabelOffsets": [], "templateMaterialEndOffset": 15, "nextGlobal": "func_003BA9C0", "nextGlobalOffset": 10632, "directTransfers": [{ "offset": 8, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003BD0B8", "role": "initialize_tail" }], "literals": [{ "offset": 12, "loadOffset": 0, "identity": "stored_identity_b" }] }
+  ]
+}

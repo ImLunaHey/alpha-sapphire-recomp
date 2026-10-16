@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_76.S",
+  "sourceSha256": "5bcb8105490dbf3ab2c06900213ca147105827854ede750bd0d6312933b89f6f",
+  "normalizedScheduleSha256": "5bcb8105490dbf3ab2c06900213ca147105827854ede750bd0d6312933b89f6f",
+  "mode": "arm",
+  "totalBodySize": 908,
+  "totalAdjacentSize": 24,
+  "cumulativePoolSlots": 777,
+  "cumulativePoolClasses": 410,
+  "functions": [
+    {
+      "name": "func_0018E080", "section": ".text.func_0018E080", "size": 348,
+      "nextGlobal": "func_0018E1E0", "nextGlobalOffset": 352,
+      "branches": [
+        { "offset": 128, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 300, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302108" }
+      ],
+      "literals": [
+        { "offset": 348, "loadOffsets": [0], "symbol": "ipc_record_vtable_76" }
+      ]
+    },
+    {
+      "name": "func_0018E480", "section": ".text.func_0018E480", "size": 80,
+      "nextGlobal": "func_0018E4D8", "nextGlobalOffset": 88,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001888A8" }
+      ],
+      "literals": [
+        { "offset": 80, "loadOffsets": [0], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 84, "loadOffsets": [12], "symbol": "ipc_service_record_table_76" }
+      ]
+    },
+    {
+      "name": "func_0018EAD8", "section": ".text.func_0018EAD8", "size": 256,
+      "nextGlobal": "func_0018EBE4", "nextGlobalOffset": 268,
+      "branches": [
+        { "offset": 240, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00190888" }
+      ],
+      "literals": [
+        { "offset": 256, "loadOffsets": [16], "symbol": "ipc_u32_float_limit_76" },
+        { "offset": 260, "loadOffsets": [20], "symbol": "ipc_u32_float_limit_76" },
+        { "offset": 264, "loadOffsets": [28], "symbol": "ipc_dimension_scale_76" }
+      ]
+    },
+    {
+      "name": "func_0018F43C", "section": ".text.func_0018F43C", "size": 224,
+      "nextGlobal": "func_0018F51C", "nextGlobalOffset": 224,
+      "branches": [],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [
+    "ipc_record_vtable_76",
+    "ipc_allocator_dispatch_owner_68",
+    "ipc_service_record_table_76",
+    "ipc_u32_float_limit_76",
+    "ipc_dimension_scale_76"
+  ],
+  "reusedLiteralIdentities": ["ipc_allocator_dispatch_owner_68"],
+  "newLiteralIdentities": [
+    "ipc_record_vtable_76",
+    "ipc_service_record_table_76",
+    "ipc_u32_float_limit_76",
+    "ipc_dimension_scale_76"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00184990",
+      "func_00302108",
+      "func_001888A8",
+      "func_00190888"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_00184990",
+      "func_00302108",
+      "func_001888A8",
+      "func_00190888"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
