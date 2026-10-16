@@ -126,6 +126,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-duplicate-templates-66.json" \
   "$root/config/arm-duplicate-templates-67.json" \
   "$root/config/arm-duplicate-templates-68.json" \
+  "$root/config/arm-duplicate-templates-69.json" \
   "$root/config/arm-duplicate-container-templates-13.json" \
   "$root/config/arm-runtime-helpers-23.json" \
   "$root/config/arm-runtime-helpers-24.json" \
@@ -435,6 +436,8 @@ node "$root/scripts/validate-arm-runtime-helpers-67.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-duplicate-templates-68.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-duplicate-templates-69.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" \
