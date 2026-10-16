@@ -1,0 +1,168 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_32.S",
+  "mode": "arm",
+  "sourceSha256": "bf43c65f0a2c5a50b56cc55dce709ffbadf51353b0c33118ac48c9bdec3f116c",
+  "totalBodySize": 808,
+  "cumulativePoolSlots": 507,
+  "cumulativePoolClasses": 238,
+  "functions": [
+    {
+      "name": "func_001FF27C", "size": 92,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFCB8" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FF5F0" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 96, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 100, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FF320", "size": 92,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFD74" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FF6AC" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 96, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 100, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FF388", "size": 92,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFDE4" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FF71C" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 96, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 100, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FF3F0", "size": 64,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFE54" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001FF78C" }
+      ],
+      "literals": [
+        { "offset": 64, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 68, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 72, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FF460", "size": 104,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFEAC" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FF7E4" }
+      ],
+      "literals": [
+        { "offset": 104, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 108, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 112, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FF54C", "size": 92,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FFF40" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001FF878" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 96, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 100, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FFBC8", "size": 48,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0020004C" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001FF984" }
+      ],
+      "literals": [
+        { "offset": 48, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 52, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 56, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_001FFC7C", "size": 48,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0020010C" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001FFA44" }
+      ],
+      "literals": [
+        { "offset": 48, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 52, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 56, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_00200254", "size": 64,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00200154" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001FFA8C" }
+      ],
+      "literals": [
+        { "offset": 64, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 68, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 72, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_002002A0", "size": 48,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_002001B0" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001FFAE8" }
+      ],
+      "literals": [
+        { "offset": 48, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 52, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 56, "symbol": "ipc_unavailable_status_32" }
+      ]
+    },
+    {
+      "name": "func_002002DC", "size": 64,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002001F8" },
+        { "offset": 56, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_001FFB30" }
+      ],
+      "literals": [
+        { "offset": 64, "symbol": "ipc_handle_slot_theta" },
+        { "offset": 68, "symbol": "ipc_handle_slot_eta" },
+        { "offset": 72, "symbol": "ipc_unavailable_status_32" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_handle_slot_theta",
+    "ipc_handle_slot_eta",
+    "ipc_unavailable_status_32"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_handle_slot_theta",
+    "ipc_handle_slot_eta"
+  ],
+  "newLiteralIdentities": [
+    "ipc_unavailable_status_32"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "singletonClasses": [
+      "func_001FFCB8", "func_001FF5F0", "func_001FFD74", "func_001FF6AC",
+      "func_001FFDE4", "func_001FF71C", "func_001FFE54", "func_001FF78C",
+      "func_001FFEAC", "func_001FF7E4", "func_001FFF40", "func_001FF878",
+      "func_0020004C", "func_001FF984", "func_0020010C", "func_001FFA44",
+      "func_00200154", "func_001FFA8C", "func_002001B0", "func_001FFAE8",
+      "func_002001F8", "func_001FFB30"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}
