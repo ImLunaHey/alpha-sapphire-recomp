@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_65.S",
+  "sourceSha256": "f8aec9e9ec353c1fa8c159d1b273e5f4a045f8dcba591d424481e697df14d056",
+  "mode": "arm",
+  "totalBodySize": 1060,
+  "cumulativePoolSlots": 709,
+  "cumulativePoolClasses": 372,
+  "functions": [
+    {
+      "name": "func_00181E14", "size": 204,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_00181EE0", "size": 244,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00188228" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187838" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DA0" },
+        { "offset": 84, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DB0" },
+        { "offset": 112, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018773C" },
+        { "offset": 136, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187790" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001882A4" },
+        { "offset": 180, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001882F8" },
+        { "offset": 192, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017541C" },
+        { "offset": 204, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_link_secondary_64" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001820E4", "size": 176,
+      "branches": [],
+      "literals": [
+        { "offset": 176, "symbol": "service_zero_scalar_51" },
+        { "offset": 180, "symbol": "ipc_step_scalar_a_65" },
+        { "offset": 184, "symbol": "ipc_step_scalar_b_65" }
+      ]
+    },
+    {
+      "name": "func_00182290", "size": 124,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017EA3C" },
+        { "offset": 92, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0017EA90" },
+        { "offset": 112, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0017EA90" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018230C", "size": 48,
+      "branches": [],
+      "literals": [
+        { "offset": 48, "symbol": "service_zero_scalar_51" },
+        { "offset": 52, "symbol": "ipc_gain_scalar_65" }
+      ]
+    },
+    {
+      "name": "func_001823AC", "size": 144,
+      "branches": [],
+      "literals": [
+        { "offset": 144, "symbol": "service_zero_scalar_51" },
+        { "offset": 148, "symbol": "ipc_callback_table_65" },
+        { "offset": 152, "symbol": "ipc_unit_scalar_54" }
+      ]
+    },
+    {
+      "name": "func_00182458", "size": 20,
+      "branches": [],
+      "literals": []
+    },
+    {
+      "name": "func_0018246C", "size": 100,
+      "branches": [],
+      "literals": [
+        { "offset": 100, "symbol": "ipc_allocator_owner_65" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54",
+    "ipc_step_scalar_a_65",
+    "ipc_step_scalar_b_65",
+    "ipc_gain_scalar_65",
+    "ipc_callback_table_65",
+    "ipc_allocator_owner_65"
+  ],
+  "reusedLiteralIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54"
+  ],
+  "newLiteralIdentities": [
+    "ipc_step_scalar_a_65",
+    "ipc_step_scalar_b_65",
+    "ipc_gain_scalar_65",
+    "ipc_callback_table_65",
+    "ipc_allocator_owner_65"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017541C",
+      "func_0018773C",
+      "func_00187790",
+      "func_00187838",
+      "func_00187DA0",
+      "func_00187DB0",
+      "func_00188228",
+      "func_001882A4",
+      "func_001882F8",
+      "func_0017EA3C",
+      "func_0017EA90"
+    ],
+    "secondaryEntries": [
+      "service_link_secondary_64"
+    ],
+    "sharedClasses": [
+      { "symbol": "func_0017EA90", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_0017541C",
+      "func_0018773C",
+      "func_00187790",
+      "func_00187838",
+      "func_00187DA0",
+      "func_00187DB0",
+      "func_00188228",
+      "func_001882A4",
+      "func_001882F8",
+      "func_0017EA3C",
+      "service_link_secondary_64"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

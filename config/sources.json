@@ -742,6 +742,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_ipc_templates_65.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_68.S",
       "mode": "arm"
     }
