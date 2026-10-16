@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_64.S",
+  "sourceSha256": "622087412ed8745e505eaa61e5e4d8793e960b10fdc2edb3b61f2cfbb5c48b0a",
+  "mode": "arm",
+  "expectedBodyBytes": 584,
+  "templates": {
+    "descriptor_dispatch_and_complete": {
+      "bodySize": 292,
+      "instructionCount": 73,
+      "count": 2,
+      "internalLabels": 6,
+      "directTransfers": 7,
+      "indirectCalls": 1,
+      "tailBranches": 2,
+      "poolSlots": 2
+    }
+  },
+  "internalLabelOffsets": [88, 144, 160, 204, 220, 268],
+  "directTransferOffsets": [56, 84, 112, 128, 156, 264, 288],
+  "slotContract": [
+    {
+      "offset": 292,
+      "loadOffset": 12,
+      "identity": "duplicate64_shared_state_identity",
+      "class": "shared-state-address",
+      "sharedAcrossAllExpansions": true
+    },
+    {
+      "offset": 296,
+      "loadOffset": 100,
+      "identityField": "descriptorIdentity",
+      "class": "read-only-table-address",
+      "sharedAcrossAllExpansions": false
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00492E68",
+      "template": "descriptor_dispatch_and_complete",
+      "descriptorIdentity": "duplicate64_descriptor_table_a_identity",
+      "templateMaterialEndOffset": 299,
+      "anonymousMaterialOffset": 300,
+      "nextGlobalOffset": 388,
+      "directTransfers": [
+        { "offset": 56, "kind": "R_ARM_CALL", "symbol": "func_0049F360", "role": "select_dispatch_index" },
+        { "offset": 84, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C", "role": "negative_index_failure" },
+        { "offset": 112, "kind": "R_ARM_CALL", "symbol": "func_0012EC80", "role": "expand_descriptor" },
+        { "offset": 128, "kind": "R_ARM_CALL", "symbol": "func_00300B28", "role": "copy_expanded_descriptor" },
+        { "offset": 156, "kind": "R_ARM_CALL", "symbol": "func_00300B28", "role": "copy_direct_descriptor" },
+        { "offset": 264, "kind": "R_ARM_JUMP24", "symbol": "func_004930B4", "role": "complete_with_selected_pair" },
+        { "offset": 288, "kind": "R_ARM_JUMP24", "symbol": "func_004930B4", "role": "complete_with_fallback_pair" }
+      ]
+    },
+    {
+      "name": "func_004968F0",
+      "template": "descriptor_dispatch_and_complete",
+      "descriptorIdentity": "duplicate64_descriptor_table_b_identity",
+      "templateMaterialEndOffset": 299,
+      "anonymousMaterialOffset": 300,
+      "nextGlobalOffset": 388,
+      "directTransfers": [
+        { "offset": 56, "kind": "R_ARM_CALL", "symbol": "func_0049F360", "role": "select_dispatch_index" },
+        { "offset": 84, "kind": "R_ARM_CALL", "symbol": "func_0011EF4C", "role": "negative_index_failure" },
+        { "offset": 112, "kind": "R_ARM_CALL", "symbol": "func_0012EF50", "role": "expand_descriptor" },
+        { "offset": 128, "kind": "R_ARM_CALL", "symbol": "func_00300B28", "role": "copy_expanded_descriptor" },
+        { "offset": 156, "kind": "R_ARM_CALL", "symbol": "func_00300B28", "role": "copy_direct_descriptor" },
+        { "offset": 264, "kind": "R_ARM_JUMP24", "symbol": "func_00496B3C", "role": "complete_with_selected_pair" },
+        { "offset": 288, "kind": "R_ARM_JUMP24", "symbol": "func_00496B3C", "role": "complete_with_fallback_pair" }
+      ]
+    }
+  ]
+}

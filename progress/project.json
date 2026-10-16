@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 2,111 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 2,135 clean-room functions are byte-identical.",
   "decompilationEnabled": false,
   "progress": {
-    "matchedCodePercent": 11.9176445,
-    "matchedFunctions": 2111,
+    "matchedCodePercent": 12.120283,
+    "matchedFunctions": 2135,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "2,111 routines, global-state helpers, container templates, IPC wrappers, and runtime/linker helpers match byte-for-byte",
+      "detail": "2,135 routines, global-state helpers, container templates, IPC wrappers, and runtime/linker helpers match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-16",
+      "title": "Duplicate batch 64, IPC batch 60, and runtime batch 64 matched",
+      "detail": "Two 292-byte duplicate routines, thirteen service/state helpers, and nine call-free runtime helpers raised the genuine report to 2,135 functions and 266,286 bytes."
+    },
     {
       "date": "2026-10-16",
       "title": "Duplicate batch 63, IPC batch 59, and runtime batch 63 matched",
