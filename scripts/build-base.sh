@@ -245,4 +245,5 @@ ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-templates-66.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" "$output"
+node "$root/scripts/validate-arm-runtime-helpers-70.mjs" "$output"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
