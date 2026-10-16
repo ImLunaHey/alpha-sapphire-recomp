@@ -117,6 +117,7 @@ const [
   duplicateTemplates68Path,
   duplicateTemplates69Path,
   duplicateTemplates70Path,
+  duplicateTemplates71Path,
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
   runtimeHelpers24Path,
@@ -251,6 +252,7 @@ if (
   !duplicateTemplates68Path ||
   !duplicateTemplates69Path ||
   !duplicateTemplates70Path ||
+  !duplicateTemplates71Path ||
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
   !runtimeHelpers24Path ||
@@ -5734,6 +5736,173 @@ if (configuredDuplicateTemplate70Bytes !== 1584 || configuredDuplicateTemplate70
     JSON.stringify([...duplicateTemplates70LiteralCounts]) !==
       JSON.stringify([...duplicateTemplates70ExpectedLiteralCounts])) {
   throw new Error("Unexpected duplicate template 70 positional totals or identity classes");
+}
+
+const duplicateTemplates71Config = JSON.parse(readFileSync(duplicateTemplates71Path, "utf8"));
+const duplicateTemplate71Digest = (value) =>
+  createHash("sha256").update(JSON.stringify(value)).digest("hex");
+const duplicateTemplates71ExpectedNameTemplates = new Map([
+  ["func_001C4EE8", "forward_five_argument_call"],
+  ["func_001C4F18", "forward_five_argument_call"],
+  ["func_001C4F48", "forward_five_argument_call"],
+  ["func_001C4F78", "forward_five_argument_call"],
+  ["func_001C4FA8", "forward_five_argument_call"],
+  ["func_001C4FD8", "forward_five_argument_call"],
+  ["func_001C5008", "forward_five_argument_call"],
+  ["func_001C5038", "forward_five_argument_call"],
+  ["func_001C5068", "forward_five_argument_call"],
+  ["func_001C5098", "forward_five_argument_call"],
+  ["func_001C50C8", "forward_five_argument_call"],
+  ["func_002179DC", "clear_intrusive_container"],
+  ["func_0024FD1C", "clear_intrusive_container"],
+  ["func_002DEF0C", "retry_status_operation"],
+  ["func_002DF024", "retry_status_operation"],
+  ["func_002DF0B0", "retry_status_operation"],
+  ["func_002EAD38", "accumulate_three_stages"],
+  ["func_002EB8D8", "accumulate_three_stages"],
+  ["func_002F0B88", "accumulate_three_stages"],
+  ["func_002F9440", "accumulate_three_stages"],
+  ["func_0028CF4C", "destroy_linked_chain"],
+  ["func_0029DCD8", "destroy_linked_chain"],
+  ["func_0029A554", "destroy_composite_state"],
+  ["func_0029DF68", "destroy_composite_state"],
+]);
+const duplicateTemplates71ExpectedLiteralIdentities = {
+  retry_base_status: {
+    symbol: "arm_duplicate_templates_71_retry_base_status_identity", class: "status-code-identity",
+  },
+  accepted_status: {
+    symbol: "service_query_accepted_status_31", class: "reused-status-code-identity",
+  },
+  chain_dispatch_a: {
+    symbol: "arm_duplicate_templates_71_chain_dispatch_a_identity", class: "dispatch-identity",
+  },
+  chain_dispatch_b: {
+    symbol: "arm_duplicate_templates_71_chain_dispatch_b_identity", class: "dispatch-identity",
+  },
+  composite_dispatch_a: {
+    symbol: "arm_duplicate_templates_71_composite_dispatch_a_identity", class: "dispatch-identity",
+  },
+  composite_dispatch_b: {
+    symbol: "arm_duplicate_templates_71_composite_dispatch_b_identity", class: "dispatch-identity",
+  },
+  nested_dispatch: {
+    symbol: "arm_duplicate_templates_71_nested_dispatch_identity", class: "dispatch-identity",
+  },
+};
+if (duplicateTemplates71Config.version !== 1 || duplicateTemplates71Config.mode !== "arm" ||
+    duplicateTemplates71Config.source !== "src/main/arm_duplicate_templates_71.S" ||
+    duplicateTemplates71Config.sourceSha256 !==
+      "f8d7097f62b286ea195b75fc80b82b81ac7deb8d0e227b52187c36c3486756dd" ||
+    duplicateTemplates71Config.expectedBodyBytes !== 2532 ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.templates) !==
+      "2e584d5873871adec3ef5612bd46343b79166755ba8e21868c2228ccc09950b2" ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.literalIdentities) !==
+      "5a9fac32e6d6d52eb4db8f206b54cb9e8b16e350ae977dba68b34b6b305215d7" ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.reusedLiteralIdentities) !==
+      "19dac9449c7bf704579d1a5d93ba1e74c749d4779c01924eaada9a7d6da59d6c" ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.newLiteralIdentities) !==
+      "96175758096a0d9da11a54718526e20e76f15660bc89583f949c5e09d7fc2d25" ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.branchIdentityContract) !==
+      "1598883bdf3d36845cb4c4eba19bf7afe0fdecd8be4ede9e5e04e588a409d1cb" ||
+    duplicateTemplate71Digest(duplicateTemplates71Config.functions) !==
+      "9c0b2db761b9869ab0e4764680d8d4a13f847bc8970acac3a3ff2a4b5117cb4e" ||
+    JSON.stringify(duplicateTemplates71Config.literalIdentities) !==
+      JSON.stringify(duplicateTemplates71ExpectedLiteralIdentities) ||
+    duplicateTemplates71Config.functions?.length !== 24 ||
+    duplicateTemplates71Config.reusedLiteralIdentities?.length !== 1 ||
+    duplicateTemplates71Config.reusedLiteralIdentities[0] !== "service_query_accepted_status_31" ||
+    duplicateTemplates71Config.newLiteralIdentities?.length !== 6) {
+  throw new Error("Unexpected duplicate template 71 exact positional relocation manifest");
+}
+const duplicateTemplates71 = new Map();
+const duplicateTemplates71TransferCounts = new Map();
+const duplicateTemplates71LiteralCounts = new Map();
+const duplicateTemplates71TemplateCounts = new Map();
+let configuredDuplicateTemplate71Bytes = 0;
+let configuredDuplicateTemplate71Transfers = 0;
+let configuredDuplicateTemplate71Slots = 0;
+for (const mapping of duplicateTemplates71Config.functions) {
+  const definition = duplicateTemplates71Config.templates[mapping?.template];
+  const materialEnd = mapping?.templateMaterialEndOffset ?? (definition?.bodySize - 1);
+  if (mapping === null || typeof mapping !== "object" ||
+      duplicateTemplates71ExpectedNameTemplates.get(mapping.name) !== mapping.template ||
+      definition === undefined || duplicateTemplates71.has(mapping.name) ||
+      definition.bodySize !== definition.instructionCount * 4 ||
+      !Array.isArray(mapping.internalLabelOffsets) ||
+      mapping.internalLabelOffsets.length !== definition.internalLabels ||
+      mapping.internalLabelOffsets.some((offset) => !Number.isInteger(offset) || offset < 0 ||
+        offset >= definition.bodySize || offset % 4 !== 0) ||
+      !Array.isArray(mapping.directTransfers) ||
+      mapping.directTransfers.length !== definition.directTransfers ||
+      mapping.directTransfers.some((transfer) => !Number.isInteger(transfer.offset) ||
+        transfer.offset < 0 || transfer.offset >= definition.bodySize || transfer.offset % 4 !== 0 ||
+        !["R_ARM_CALL", "R_ARM_JUMP24"].includes(transfer.kind) ||
+        !["bl", "blne", "b"].includes(transfer.mnemonic) || typeof transfer.symbol !== "string" ||
+        typeof transfer.role !== "string" || transfer.addend !== undefined ||
+        (transfer.mnemonic === "b" ? transfer.kind !== "R_ARM_JUMP24" :
+          transfer.kind !== (transfer.mnemonic === "blne" ? "R_ARM_JUMP24" : "R_ARM_CALL"))) ||
+      !Array.isArray(mapping.literals) || mapping.literals.length !== definition.poolSlots ||
+      mapping.literals.some((literal, index) =>
+        literal.offset !== definition.bodySize + index * 4 ||
+        !Number.isInteger(literal.loadOffset) || literal.loadOffset < 0 ||
+        literal.loadOffset >= definition.bodySize || literal.loadOffset % 4 !== 0 ||
+        duplicateTemplates71ExpectedLiteralIdentities[literal.identity] === undefined) ||
+      !Number.isInteger(mapping.nextGlobalOffset) || mapping.nextGlobalOffset < definition.bodySize ||
+      materialEnd + 1 !== definition.bodySize + mapping.literals.length * 4 ||
+      materialEnd >= mapping.nextGlobalOffset ||
+      (mapping.anonymousMaterialOffset === undefined && mapping.nextGlobalOffset !== materialEnd + 1) ||
+      (mapping.anonymousMaterialOffset !== undefined &&
+        (!Number.isInteger(mapping.anonymousMaterialOffset) ||
+          mapping.anonymousMaterialOffset !== materialEnd + 1 ||
+          mapping.anonymousMaterialOffset >= mapping.nextGlobalOffset))) {
+    throw new Error("Invalid or duplicate duplicate-template 71 positional mapping entry");
+  }
+  duplicateTemplates71.set(mapping.name, mapping);
+  duplicateTemplates71TemplateCounts.set(mapping.template,
+    (duplicateTemplates71TemplateCounts.get(mapping.template) ?? 0) + 1);
+  configuredDuplicateTemplate71Bytes += definition.bodySize;
+  configuredDuplicateTemplate71Transfers += mapping.directTransfers.length;
+  configuredDuplicateTemplate71Slots += mapping.literals.length;
+  for (const transfer of mapping.directTransfers) {
+    const key = `${transfer.symbol}@0`;
+    duplicateTemplates71TransferCounts.set(key, (duplicateTemplates71TransferCounts.get(key) ?? 0) + 1);
+  }
+  for (const literal of mapping.literals) {
+    duplicateTemplates71LiteralCounts.set(literal.identity,
+      (duplicateTemplates71LiteralCounts.get(literal.identity) ?? 0) + 1);
+  }
+}
+for (const [name, definition] of Object.entries(duplicateTemplates71Config.templates)) {
+  if (duplicateTemplates71TemplateCounts.get(name) !== definition.count) {
+    throw new Error(`Duplicate-template 71 ${name} has the wrong configured function count`);
+  }
+}
+const duplicateTemplates71ExpectedTransferCounts = new Map([
+  ["func_001C4D94@0", 1], ["func_001C4C94@0", 6], ["func_001C4DAC@0", 1],
+  ["func_001C4DC4@0", 1], ["func_001C4EAC@0", 1], ["func_001C4EB8@0", 1],
+  ["func_001C4ED0@0", 1], ["func_001C4DA0@0", 1], ["func_001C4DDC@0", 5],
+  ["func_001C4DB8@0", 1], ["func_001C4DD0@0", 1], ["func_001C4EC4@0", 1],
+  ["func_001C4EDC@0", 1], ["func_00302108@0", 4], ["func_002DEDFC@0", 1],
+  ["func_00146000@0", 3], ["func_002DEE4C@0", 1], ["func_002DEE9C@0", 1],
+  ["func_002F7220@0", 4], ["func_002EAF50@0", 1], ["shared_completion_secondary_71@0", 4],
+  ["func_002EBA04@0", 1], ["func_002F0D7C@0", 1], ["func_002F956C@0", 1],
+  ["func_005597F4@0", 2], ["func_00160F9C@0", 12], ["func_002412A4@0", 2],
+  ["func_0055A9E4@0", 2], ["func_00163ED0@0", 2], ["func_001862FC@0", 2],
+]);
+const duplicateTemplates71ExpectedLiteralCounts = new Map([
+  ["retry_base_status", 3], ["accepted_status", 3], ["chain_dispatch_a", 1],
+  ["chain_dispatch_b", 1], ["composite_dispatch_a", 1], ["nested_dispatch", 2],
+  ["composite_dispatch_b", 1],
+]);
+if (configuredDuplicateTemplate71Bytes !== 2532 || configuredDuplicateTemplate71Transfers !== 66 ||
+    configuredDuplicateTemplate71Slots !== 12 || duplicateTemplates71.size !== 24 ||
+    duplicateTemplates71TemplateCounts.size !== 6 ||
+    JSON.stringify([...duplicateTemplates71TransferCounts]) !==
+      JSON.stringify([...duplicateTemplates71ExpectedTransferCounts]) ||
+    JSON.stringify([...duplicateTemplates71LiteralCounts]) !==
+      JSON.stringify([...duplicateTemplates71ExpectedLiteralCounts])) {
+  throw new Error("Unexpected duplicate template 71 positional totals or identity classes");
 }
 
 const duplicateContainerTemplatesConfig = JSON.parse(
@@ -12005,6 +12174,127 @@ if (duplicateTemplates70IdentityWords.size !== 10 || duplicateTemplates70WordIde
   throw new Error("Duplicate-template 70 literals must form the approved fourteen-slot/ten-class bijection");
 }
 
+const duplicateTemplates71Destinations = new Map();
+for (const symbol of duplicateTemplates71Config.branchIdentityContract.primaryEntries) {
+  const destination = functionsByName.get(symbol);
+  if (destination?.mode !== "$a" || destination.address % 4 !== 0) {
+    throw new Error(`Duplicate-template 71 primary identity ${symbol} is not an inventoried ARM function`);
+  }
+  duplicateTemplates71Destinations.set(symbol, destination.address);
+}
+for (const relation of duplicateTemplates71Config.branchIdentityContract.secondaryEntryRelations) {
+  const owner = functionsByName.get(relation.owner);
+  const nextGlobal = functionsByName.get(relation.nextGlobal);
+  const destination = owner?.address + relation.ownerOffset;
+  if (owner?.mode !== "$a" || nextGlobal?.mode !== "$a" || destination % 4 !== 0 ||
+      nextGlobal.address - destination !== relation.bytesBeforeNextGlobal ||
+      functions.some((candidate) => candidate.address === destination)) {
+    throw new Error(`Duplicate-template 71 secondary identity ${relation.symbol} has an invalid owner relation`);
+  }
+  duplicateTemplates71Destinations.set(relation.symbol, destination);
+}
+if (duplicateTemplates71Destinations.size !== 30 ||
+    new Set(duplicateTemplates71Destinations.values()).size !== 30) {
+  throw new Error("Duplicate-template 71 destination identities must be pairwise distinct");
+}
+for (const { symbol, siteCount } of duplicateTemplates71Config.branchIdentityContract.sharedClasses) {
+  if (duplicateTemplates71TransferCounts.get(`${symbol}@0`) !== siteCount) {
+    throw new Error(`Duplicate-template 71 shared identity ${symbol} has the wrong site count`);
+  }
+}
+for (const symbol of duplicateTemplates71Config.branchIdentityContract.singletonClasses) {
+  if (duplicateTemplates71TransferCounts.get(`${symbol}@0`) !== 1) {
+    throw new Error(`Duplicate-template 71 singleton identity ${symbol} has the wrong site count`);
+  }
+}
+
+const duplicateTemplates71IdentityWords = new Map();
+const duplicateTemplates71WordIdentities = new Map();
+const duplicateTemplates71BodyReferences = new Map();
+for (const mapping of duplicateTemplates71Config.functions) {
+  const definition = duplicateTemplates71Config.templates[mapping.template];
+  const entry = functionsByName.get(mapping.name);
+  if (entry?.mode !== "$a" || entry.size !== definition.bodySize) {
+    throw new Error(`${mapping.name} is not the configured inventoried ARM duplicate-template 71 function`);
+  }
+  const offset = entry.address - textStart;
+  const materialStart = entry.address + entry.size;
+  const materialEnd = entry.address +
+    (mapping.templateMaterialEndOffset ?? (entry.size - 1)) + 1;
+  if (offset < 0 || materialEnd - textStart > code.length ||
+      functions.some((candidate) => candidate.address < materialEnd &&
+        candidate.address + candidate.size > materialStart)) {
+    throw new Error(`${mapping.name} has invalid or overlapping duplicate-template 71 material`);
+  }
+  const nextGlobal = functions.reduce((nearest, candidate) =>
+    candidate.address > entry.address &&
+      (nearest === undefined || candidate.address < nearest.address) ? candidate : nearest,
+  undefined);
+  if (nextGlobal === undefined || nextGlobal.address - entry.address !== mapping.nextGlobalOffset) {
+    throw new Error(`${mapping.name} does not have its approved duplicate-template 71 next-global boundary`);
+  }
+  const normalizedBody = Buffer.from(code.subarray(offset, offset + entry.size));
+  for (const transfer of mapping.directTransfers) {
+    const instruction = normalizedBody.readUInt32LE(transfer.offset);
+    const destination = duplicateTemplates71Destinations.get(transfer.symbol);
+    const condition = transfer.mnemonic === "blne" ? 0x1 : 0xe;
+    const link = transfer.mnemonic !== "b";
+    if (!isArmBranchTo(instruction, entry.address + transfer.offset, destination, condition, link)) {
+      throw new Error(`${mapping.name} has an invalid duplicate-template 71 transfer at ${transfer.offset}`);
+    }
+    normalizedBody.fill(0, transfer.offset, transfer.offset + 4);
+  }
+  for (const literal of mapping.literals) {
+    const instruction = normalizedBody.readUInt32LE(literal.loadOffset);
+    const immediate = instruction & 0xfff;
+    const loadedAddress = entry.address + literal.loadOffset + 8 +
+      ((instruction & 0x00800000) !== 0 ? immediate : -immediate);
+    if ((instruction & 0x0f7f0000) !== 0x051f0000 ||
+        loadedAddress !== entry.address + literal.offset) {
+      throw new Error(`${mapping.name} has an invalid duplicate-template 71 literal load at ${literal.loadOffset}`);
+    }
+    normalizedBody.fill(0, literal.loadOffset, literal.loadOffset + 4);
+    const word = code.readUInt32LE(offset + literal.offset);
+    const priorWord = duplicateTemplates71IdentityWords.get(literal.identity);
+    const priorIdentity = duplicateTemplates71WordIdentities.get(word);
+    if ((priorWord !== undefined && priorWord !== word) ||
+        (priorIdentity !== undefined && priorIdentity !== literal.identity)) {
+      throw new Error(`${mapping.name} violates duplicate-template 71 literal identity equality`);
+    }
+    duplicateTemplates71IdentityWords.set(literal.identity, word);
+    duplicateTemplates71WordIdentities.set(word, literal.identity);
+  }
+  const transferOffsets = new Set(mapping.directTransfers.map(({ offset: transferOffset }) => transferOffset));
+  const localTargets = new Set();
+  let indirectCalls = 0;
+  for (let cursor = 0; cursor < entry.size; cursor += 4) {
+    if (transferOffsets.has(cursor)) continue;
+    const instruction = normalizedBody.readUInt32LE(cursor);
+    if ((instruction & 0x0ffffff0) === 0x012fff30) indirectCalls += 1;
+    if ((instruction & 0x0e000000) !== 0x0a000000) continue;
+    let displacement = instruction & 0x00ffffff;
+    if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+    const target = cursor + 8 + displacement * 4;
+    if (target < 0 || target >= entry.size) {
+      throw new Error(`${mapping.name} has an unexpected duplicate-template 71 external branch`);
+    }
+    localTargets.add(target);
+  }
+  if (indirectCalls !== definition.indirectCalls ||
+      JSON.stringify([...localTargets].sort((a, b) => a - b)) !==
+        JSON.stringify(mapping.internalLabelOffsets)) {
+    throw new Error(`${mapping.name} violates duplicate-template 71 control-flow structure`);
+  }
+  const reference = duplicateTemplates71BodyReferences.get(mapping.template);
+  if (reference !== undefined && !normalizedBody.equals(reference)) {
+    throw new Error(`${mapping.name} violates duplicate-template 71 normalized complete-body equality`);
+  }
+  duplicateTemplates71BodyReferences.set(mapping.template, normalizedBody);
+}
+if (duplicateTemplates71IdentityWords.size !== 7 || duplicateTemplates71WordIdentities.size !== 7) {
+  throw new Error("Duplicate-template 71 literals must form the approved twelve-slot/seven-class bijection");
+}
+
 const duplicateTemplate34Destinations = new Map();
 for (const symbol of new Set([
   ...duplicateTemplates34CallContract.filter(({ symbol }) => symbol !== "operation").map(({ symbol }) => symbol),
@@ -12142,6 +12432,21 @@ for (const identity of Object.keys(duplicateTemplates70ExpectedLiteralIdentities
   if (identity !== "shared_owner" &&
       duplicateTemplate70PriorWords.has(duplicateTemplates70IdentityWords.get(identity))) {
     throw new Error(`Duplicate-template 70 new literal ${identity} collides with a prior literal identity`);
+  }
+}
+if (duplicateTemplates71IdentityWords.get("accepted_status") !== ipcTemplate31QueryStatus ||
+    duplicateTemplates71WordIdentities.get(ipcTemplate31QueryStatus) !== "accepted_status") {
+  throw new Error("Duplicate-template 71 accepted_status does not reuse service_query_accepted_status_31 exactly");
+}
+const duplicateTemplate71PriorWords = new Set([
+  ...duplicateTemplate70PriorWords,
+  ...duplicateTemplates70WordIdentities.keys(),
+  ...ipcTemplate31LiteralWords.values(),
+]);
+for (const identity of Object.keys(duplicateTemplates71ExpectedLiteralIdentities)) {
+  if (identity !== "accepted_status" &&
+      duplicateTemplate71PriorWords.has(duplicateTemplates71IdentityWords.get(identity))) {
+    throw new Error(`Duplicate-template 71 new literal ${identity} collides with a prior literal identity`);
   }
 }
 
@@ -12446,6 +12751,7 @@ for (const entry of functions) {
   const duplicateTemplate68 = duplicateTemplates68.get(entry.name);
   const duplicateTemplate69 = duplicateTemplates69.get(entry.name);
   const duplicateTemplate70 = duplicateTemplates70.get(entry.name);
+  const duplicateTemplate71 = duplicateTemplates71.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
@@ -12506,6 +12812,8 @@ for (const entry of functions) {
   if (duplicateTemplate67) configuredMappings.push(duplicateTemplate67);
   if (duplicateTemplate68) configuredMappings.push(duplicateTemplate68);
   if (duplicateTemplate69) configuredMappings.push(duplicateTemplate69);
+  if (duplicateTemplate70) configuredMappings.push(duplicateTemplate70);
+  if (duplicateTemplate71) configuredMappings.push(duplicateTemplate71);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -12991,6 +13299,19 @@ for (const entry of functions) {
           throw new Error(`${entry.name} does not transfer to ${duplicateTemplate70Transfer.symbol} at audited offset ${cursor}`);
         }
         instructions.push(`${duplicateTemplate70Transfer.mnemonic} ${duplicateTemplate70Transfer.symbol}`);
+        continue;
+      }
+      const duplicateTemplate71Transfer = duplicateTemplate71?.directTransfers.find(
+        (transfer) => transfer.offset === cursor);
+      if (duplicateTemplate71Transfer !== undefined) {
+        const destination = duplicateTemplates71Destinations.get(duplicateTemplate71Transfer.symbol);
+        const condition = duplicateTemplate71Transfer.mnemonic === "blne" ? 0x1 : 0xe;
+        const link = duplicateTemplate71Transfer.mnemonic !== "b";
+        if (entry.mode !== "$a" ||
+            !isArmBranchTo(value, entry.address + cursor, destination, condition, link)) {
+          throw new Error(`${entry.name} does not transfer to ${duplicateTemplate71Transfer.symbol} at audited offset ${cursor}`);
+        }
+        instructions.push(`${duplicateTemplate71Transfer.mnemonic} ${duplicateTemplate71Transfer.symbol}`);
         continue;
       }
       const duplicateTemplate34Call = duplicateTemplate34 === undefined ? undefined :
@@ -13773,6 +14094,20 @@ for (const entry of functions) {
             .flatMap((symbol) => [`.global ${symbol}`, `.type ${symbol}, %function`]),
         ]
       : []),
+    ...(duplicateTemplate71
+      ? [
+          ...(duplicateTemplate71.literals.length > 0 &&
+            duplicateTemplate71.literals[0].offset > entry.size
+            ? [`.space ${duplicateTemplate71.literals[0].offset - entry.size}`]
+            : []),
+          ...duplicateTemplate71.literals.flatMap(({ identity }) => {
+            const symbol = duplicateTemplates71ExpectedLiteralIdentities[identity].symbol;
+            return [`.word ${symbol}`, `.global ${symbol}`];
+          }),
+          ...[...new Set(duplicateTemplate71.directTransfers.map(({ symbol }) => symbol))]
+            .flatMap((symbol) => [`.global ${symbol}`, `.type ${symbol}, %function`]),
+        ]
+      : []),
     ...(duplicateTemplate52
       ? [
           ".word duplicate52_shared_result_identity",
@@ -14450,6 +14785,7 @@ for (const entry of functions) {
   duplicateTemplates68.delete(entry.name);
   duplicateTemplates69.delete(entry.name);
   duplicateTemplates70.delete(entry.name);
+  duplicateTemplates71.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (runtimeHelper23Pending) {
@@ -14935,6 +15271,11 @@ if (duplicateTemplates69.size !== 0) {
 if (duplicateTemplates70.size !== 0) {
   throw new Error(
     `Duplicate template 70 mappings missing from the function inventory: ${[...duplicateTemplates70.keys()].join(", ")}`
+  );
+}
+if (duplicateTemplates71.size !== 0) {
+  throw new Error(
+    `Duplicate template 71 mappings missing from the function inventory: ${[...duplicateTemplates71.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {
