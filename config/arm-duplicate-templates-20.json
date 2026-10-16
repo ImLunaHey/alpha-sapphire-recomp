@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_20.S",
+  "mode": "arm",
+  "expectedBodyBytes": 640,
+  "templates": {
+    "twoWordZero": { "bodySize": 16, "count": 7 },
+    "typedSentinel": { "bodySize": 56, "count": 2 },
+    "biasedHalfwordAddress": { "bodySize": 56, "count": 2 },
+    "fourWordByteSwap": { "bodySize": 52, "count": 2 },
+    "optionalBacklinkDetach": { "bodySize": 52, "count": 2 },
+    "nullableVtableTail": { "bodySize": 24, "count": 4 }
+  },
+  "functions": [
+    { "name": "func_001135B8", "template": "twoWordZero", "literals": [] },
+    { "name": "func_0017B42C", "template": "twoWordZero", "literals": [] },
+    { "name": "func_002B4A88", "template": "twoWordZero", "literals": [] },
+    { "name": "func_0032F8DC", "template": "twoWordZero", "literals": [] },
+    { "name": "func_0040ABC0", "template": "twoWordZero", "literals": [] },
+    { "name": "func_0040AF6C", "template": "twoWordZero", "literals": [] },
+    { "name": "func_00410D14", "template": "twoWordZero", "literals": [] },
+    { "name": "func_00115044", "template": "typedSentinel", "literals": [{ "offset": 56, "loadOffset": 0, "identity": "type00115044" }] },
+    { "name": "func_001150C8", "template": "typedSentinel", "literals": [{ "offset": 56, "loadOffset": 0, "identity": "type001150C8" }] },
+    { "name": "func_0011FA90", "template": "biasedHalfwordAddress", "literals": [] },
+    { "name": "func_0012FDD8", "template": "biasedHalfwordAddress", "literals": [] },
+    { "name": "func_0023C4BC", "template": "fourWordByteSwap", "literals": [] },
+    { "name": "func_0023C4F0", "template": "fourWordByteSwap", "literals": [] },
+    { "name": "func_0032B314", "template": "optionalBacklinkDetach", "literals": [] },
+    { "name": "func_0032DD00", "template": "optionalBacklinkDetach", "literals": [] },
+    { "name": "func_001F5C0C", "template": "nullableVtableTail", "literals": [] },
+    { "name": "func_003B72A4", "template": "nullableVtableTail", "literals": [] },
+    { "name": "func_003B73B8", "template": "nullableVtableTail", "literals": [] },
+    { "name": "func_0049990C", "template": "nullableVtableTail", "literals": [] }
+  ],
+  "literalIdentities": {
+    "type00115044": "arm_duplicate_templates_20_type_00115044",
+    "type001150C8": "arm_duplicate_templates_20_type_001150C8"
+  }
+}
