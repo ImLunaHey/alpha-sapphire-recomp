@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_52.S",
+  "mode": "arm",
+  "expectedBodyBytes": 720,
+  "templates": {
+    "guarded_handle_accumulator": {
+      "bodySize": 240,
+      "instructionCount": 60,
+      "count": 3,
+      "internalLabels": 5,
+      "directCalls": 4,
+      "indirectCalls": 0,
+      "tailBranches": 0,
+      "poolSlots": 1
+    }
+  },
+  "commonDirectCalls": [
+    { "offset": 80, "kind": "R_ARM_CALL", "symbol": "func_001D0F00" },
+    { "offset": 152, "kind": "R_ARM_CALL", "symbol": "func_001CF858" },
+    { "offset": 208, "kind": "R_ARM_CALL", "symbol": "func_001D07E0" }
+  ],
+  "internalLabelOffsets": [104, 188, 196, 216, 228],
+  "slotContract": [
+    {
+      "offset": 240,
+      "loadOffset": 16,
+      "kind": "R_ARM_ABS32",
+      "identity": "duplicate52_shared_result_identity",
+      "sharedAcrossAllExpansions": true
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_001D0834",
+      "template": "guarded_handle_accumulator",
+      "operation": "func_001C4EE8",
+      "operationCallOffset": 128,
+      "anonymousMaterialOffset": 240,
+      "nextGlobalOffset": 244
+    },
+    {
+      "name": "func_001D0928",
+      "template": "guarded_handle_accumulator",
+      "operation": "func_001C4F18",
+      "operationCallOffset": 128,
+      "anonymousMaterialOffset": 240,
+      "nextGlobalOffset": 244
+    },
+    {
+      "name": "func_001D0A1C",
+      "template": "guarded_handle_accumulator",
+      "operation": "func_001C4F48",
+      "operationCallOffset": 128,
+      "anonymousMaterialOffset": 240,
+      "nextGlobalOffset": 244
+    }
+  ]
+}

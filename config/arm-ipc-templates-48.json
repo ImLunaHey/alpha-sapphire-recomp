@@ -1,0 +1,121 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_48.S",
+  "sourceSha256": "b39863a8d60fe67aca4d9fb05b0a1f5e3638f80a77e8f841d3d7cf366aa068a1",
+  "mode": "arm",
+  "totalBodySize": 492,
+  "cumulativePoolSlots": 622,
+  "cumulativePoolClasses": 316,
+  "functions": [
+    {
+      "name": "func_00165B84", "size": 48,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001608E4" },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 48, "symbol": "service_queue_core_state_48" }
+      ]
+    },
+    {
+      "name": "func_00165BB8", "size": 108,
+      "branches": [
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00170A3C" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 108, "symbol": "service_queue_core_state_48" },
+        { "offset": 112, "symbol": "service_queue_submit_error_48" }
+      ]
+    },
+    {
+      "name": "func_00165C2C", "size": 92,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00170A3C" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "service_queue_core_state_48" }
+      ]
+    },
+    {
+      "name": "func_00165C8C", "size": 92,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" },
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014967C" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00174848" }
+      ],
+      "literals": [
+        { "offset": 92, "symbol": "service_session_lock_48" },
+        { "offset": 96, "symbol": "service_session_state_48" }
+      ]
+    },
+    {
+      "name": "func_00165CF0", "size": 52,
+      "branches": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 40, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" }
+      ],
+      "literals": [
+        { "offset": 52, "symbol": "service_session_lock_48" },
+        { "offset": 56, "symbol": "service_session_state_48" }
+      ]
+    },
+    {
+      "name": "func_00165D30", "size": 100,
+      "branches": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160380" },
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014967C" },
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001342C8" }
+      ],
+      "literals": [
+        { "offset": 100, "symbol": "service_session_lock_48" },
+        { "offset": 104, "symbol": "service_session_state_48" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_queue_core_state_48",
+    "service_queue_submit_error_48",
+    "service_session_lock_48",
+    "service_session_state_48"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_queue_core_state_48",
+    "service_queue_submit_error_48",
+    "service_session_lock_48",
+    "service_session_state_48"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_001602B8",
+      "func_001608E4",
+      "func_00160380",
+      "func_00170A3C",
+      "func_0014967C",
+      "func_00174848",
+      "func_001342C8"
+    ],
+    "secondaryEntries": [],
+    "sharedClasses": [
+      { "symbol": "func_001602B8", "siteCount": 6 },
+      { "symbol": "func_00160380", "siteCount": 6 },
+      { "symbol": "func_00170A3C", "siteCount": 2 },
+      { "symbol": "func_0014967C", "siteCount": 2 }
+    ],
+    "singletonClasses": [
+      "func_001608E4",
+      "func_00174848",
+      "func_001342C8"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

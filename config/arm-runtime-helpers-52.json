@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_52.S",
+  "mode": "arm",
+  "totalBodySize": 1160,
+  "functions": [
+    { "name": "func_004D4430", "size": 224, "calls": [], "adjacentWords": [] },
+    { "name": "func_004D4D68", "size": 232, "calls": [], "adjacentWords": [] },
+    { "name": "func_00506E20", "size": 216, "calls": [], "adjacentWords": [] },
+    { "name": "func_00513494", "size": 236, "calls": [], "adjacentWords": [] },
+    { "name": "func_0052D8D4", "size": 252, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "container_and_allocator_helpers_52": {
+      "members": ["func_004D4430", "func_0052D8D4"],
+      "parameters": ["recordLayout", "selectionOrRemovalPolicy"]
+    },
+    "bounded_data_transforms_52": {
+      "members": ["func_004D4D68", "func_00506E20", "func_00513494"],
+      "parameters": ["fieldOffsets", "loopBound", "resultConvention"]
+    }
+  },
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}
