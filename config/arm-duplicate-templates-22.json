@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "mode": "arm",
+  "expectedBodyBytes": 432,
+  "templates": {
+    "embedded_invalid_zero_pair_initializer": { "bodySize": 20, "count": 4, "literalCount": 0 },
+    "four_word_zero_initializer": { "bodySize": 24, "count": 3, "literalCount": 0 },
+    "cursor_word_read_optional_advance": { "bodySize": 36, "count": 2, "literalCount": 0 },
+    "indexed_packed_nibble_lookup": { "bodySize": 36, "count": 2, "literalCount": 0 },
+    "enabled_empty_circular_list_initializer": { "bodySize": 36, "count": 2, "literalCount": 0 },
+    "member_presence_identity_selector": { "bodySize": 32, "count": 2, "literalCount": 1, "callOffset": 12 }
+  },
+  "literalIdentities": {
+    "presence": "duplicate_template_22_presence_identity"
+  },
+  "functions": [
+    { "name": "func_00375800", "template": "embedded_invalid_zero_pair_initializer", "literals": [] },
+    { "name": "func_0037A0C8", "template": "embedded_invalid_zero_pair_initializer", "literals": [] },
+    { "name": "func_00381CA8", "template": "embedded_invalid_zero_pair_initializer", "literals": [] },
+    { "name": "func_00382930", "template": "embedded_invalid_zero_pair_initializer", "literals": [] },
+    { "name": "func_00174A74", "template": "four_word_zero_initializer", "literals": [] },
+    { "name": "func_0023C524", "template": "four_word_zero_initializer", "literals": [] },
+    { "name": "func_003345F4", "template": "four_word_zero_initializer", "literals": [] },
+    { "name": "func_003C4BA4", "template": "cursor_word_read_optional_advance", "literals": [] },
+    { "name": "func_003C4BC8", "template": "cursor_word_read_optional_advance", "literals": [] },
+    { "name": "func_004CDC18", "template": "indexed_packed_nibble_lookup", "literals": [] },
+    { "name": "func_004CDC3C", "template": "indexed_packed_nibble_lookup", "literals": [] },
+    { "name": "func_0053FAEC", "template": "enabled_empty_circular_list_initializer", "literals": [] },
+    { "name": "func_0053FCB8", "template": "enabled_empty_circular_list_initializer", "literals": [] },
+    { "name": "func_001D0F88", "template": "member_presence_identity_selector", "call": "func_001C5008", "literals": [{ "offset": 32, "identity": "presence" }] },
+    { "name": "func_001D1018", "template": "member_presence_identity_selector", "call": "func_001C5098", "literals": [{ "offset": 32, "identity": "presence" }] }
+  ]
+}

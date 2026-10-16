@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_22.S",
+  "mode": "arm",
+  "sourceSha256": "8a86b36f747121ea6e83e73fb9e7f80ef435ff51c1a50b99b9855e00fd043e13",
+  "totalSize": 308,
+  "functions": [{ "name": "func_002DAE74", "size": 308 }],
+  "bodyEndOffset": 308,
+  "adjacentWordOffsets": [308, 312, 316, 320, 324],
+  "adjacentWords": [19650218, 623, 1812433253, 1664525, 1566083941]
+}

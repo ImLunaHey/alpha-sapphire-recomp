@@ -22,8 +22,10 @@ const [
   ipcTemplates19Path,
   ipcTemplates20Path,
   ipcTemplates21Path,
+  ipcTemplates22Path,
   duplicateTemplates19Path,
   duplicateTemplates21Path,
+  duplicateTemplates22Path,
   duplicateContainerTemplatesPath,
   literalIdentitiesPath,
   targetConfigPath,
@@ -46,14 +48,16 @@ if (
   !ipcTemplates19Path ||
   !ipcTemplates20Path ||
   !ipcTemplates21Path ||
+  !ipcTemplates22Path ||
   !duplicateTemplates19Path ||
   !duplicateTemplates21Path ||
+  !duplicateTemplates22Path ||
   !duplicateContainerTemplatesPath ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate container mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate container mapping, target literal identities, and target config paths"
   );
 }
 
@@ -550,6 +554,32 @@ for (const entry of ipcTemplates21Config.functions ?? []) {
 }
 if (ipcTemplates21.size !== 12 || configuredIpcTemplate21Bytes !== 1616 || configuredIpcTemplate21Slots !== 14) throw new Error("Unexpected IPC template 21 totals");
 
+const ipcTemplates22Config = JSON.parse(readFileSync(ipcTemplates22Path, "utf8"));
+const ipcTemplate22Definitions = new Map([
+  ["global_twelve_word", { size: 120, literals: ["command", "handle"] }],
+  ["inline_global_six_outputs", { size: 116, literals: ["handle"], inlineCommand: "ipc_inline_command_id_10_no_params" }],
+  ["global_mapped_static", { size: 116, literals: ["command", "handle"] }],
+  ["structured_mapped", { size: 116, literals: ["command"] }],
+  ["two_descriptor_pairs", { size: 116, literals: ["command"] }],
+  ["mixed_static", { size: 112, literals: ["command"] }],
+  ["structure_halfword", { size: 112, literals: ["command"] }],
+  ["scaled_static", { size: 112, literals: ["command"] }],
+]);
+const ipcTemplates22 = new Map();
+let configuredIpcTemplate22Bytes = 0;
+let configuredIpcTemplate22Slots = 0;
+for (const entry of ipcTemplates22Config.functions ?? []) {
+  const definition = ipcTemplate22Definitions.get(entry?.template);
+  if (!definition || entry.mode !== "arm" || entry.size !== definition.size ||
+      definition.literals.some((key) => typeof entry[key] !== "string") ||
+      (definition.inlineCommand === undefined ? entry.inlineCommand !== undefined : entry.inlineCommand !== definition.inlineCommand) ||
+      ipcTemplates22.has(entry.name)) throw new Error("Invalid IPC template 22 mapping entry");
+  ipcTemplates22.set(entry.name, entry);
+  configuredIpcTemplate22Bytes += entry.size;
+  configuredIpcTemplate22Slots += definition.literals.length;
+}
+if (ipcTemplates22.size !== 8 || configuredIpcTemplate22Bytes !== 920 || configuredIpcTemplate22Slots !== 10) throw new Error("Unexpected IPC template 22 totals");
+
 const duplicateTemplates19Config = JSON.parse(readFileSync(duplicateTemplates19Path, "utf8"));
 if (duplicateTemplates19Config.version !== 1 || duplicateTemplates19Config.mode !== "arm" ||
     duplicateTemplates19Config.expectedBodyBytes !== 904 ||
@@ -615,6 +645,42 @@ if (configuredDuplicateTemplate21Bytes !== 536 || configuredDuplicateTemplate21S
     Object.keys(duplicateTemplates21Config.templates ?? {}).length !== 6 ||
     Object.keys(duplicateTemplates21Config.literalIdentities).length !== 11) {
   throw new Error("Unexpected duplicate template 21 totals");
+}
+
+const duplicateTemplates22Config = JSON.parse(readFileSync(duplicateTemplates22Path, "utf8"));
+if (duplicateTemplates22Config.version !== 1 || duplicateTemplates22Config.mode !== "arm" ||
+    duplicateTemplates22Config.expectedBodyBytes !== 432 ||
+    !Array.isArray(duplicateTemplates22Config.functions) ||
+    duplicateTemplates22Config.functions.length !== 15 ||
+    duplicateTemplates22Config.literalIdentities?.presence !== "duplicate_template_22_presence_identity") {
+  throw new Error("Unexpected duplicate template 22 mapping format");
+}
+const duplicateTemplates22 = new Map();
+let configuredDuplicateTemplate22Bytes = 0;
+let configuredDuplicateTemplate22Slots = 0;
+for (const entry of duplicateTemplates22Config.functions) {
+  const definition = duplicateTemplates22Config.templates?.[entry?.template];
+  const isSelector = entry?.template === "member_presence_identity_selector";
+  if (entry === null || typeof entry !== "object" || !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      definition === undefined || !Number.isInteger(definition.bodySize) ||
+      !Number.isInteger(definition.literalCount) || !Array.isArray(entry.literals) ||
+      entry.literals.length !== definition.literalCount || entry.literals.some((literal, index) =>
+        literal === null || typeof literal !== "object" ||
+        literal.offset !== definition.bodySize + index * 4 ||
+        typeof duplicateTemplates22Config.literalIdentities[literal.identity] !== "string") ||
+      (isSelector ? !/^func_[0-9A-F]{8}$/.test(entry.call) || definition.callOffset !== 12 :
+        entry.call !== undefined || definition.callOffset !== undefined) ||
+      duplicateTemplates22.has(entry.name)) {
+    throw new Error("Invalid or duplicate duplicate-template 22 mapping entry");
+  }
+  duplicateTemplates22.set(entry.name, entry);
+  configuredDuplicateTemplate22Bytes += definition.bodySize;
+  configuredDuplicateTemplate22Slots += entry.literals.length;
+}
+if (configuredDuplicateTemplate22Bytes !== 432 || configuredDuplicateTemplate22Slots !== 2 ||
+    Object.keys(duplicateTemplates22Config.templates ?? {}).length !== 6 ||
+    Object.keys(duplicateTemplates22Config.literalIdentities).length !== 1) {
+  throw new Error("Unexpected duplicate template 22 totals");
 }
 
 const duplicateContainerTemplatesConfig = JSON.parse(
@@ -767,10 +833,13 @@ const ipcMappings = [
   ...[...ipcTemplates19].filter(([, mapping]) => ipcTemplate19Definitions.get(mapping.template).literals.length !== 0),
   ...[...ipcTemplates20].filter(([, mapping]) => ipcTemplate20Definitions.get(mapping.template).literals.length !== 0),
   ...ipcTemplates21,
+  ...ipcTemplates22,
 ];
 for (const [name, mapping] of ipcMappings) {
   const entry = functionsByName.get(name);
-  const identities = ipcTemplates21.has(name)
+  const identities = ipcTemplates22.has(name)
+    ? ipcTemplate22Definitions.get(mapping.template).literals.map((key) => mapping[key])
+    : ipcTemplates21.has(name)
     ? ipcTemplate21Definitions.get(mapping.template).literals.map((key) => mapping[key])
     : ipcTemplates20.has(name)
     ? ipcTemplate20Definitions.get(mapping.template).literals.map((key) => mapping[key])
@@ -806,16 +875,17 @@ for (const [name, mapping] of ipcMappings) {
   ipcMappedBytes += entry.size;
   ipcMappedSlots += identities.length;
 }
-if (ipcMappings.length !== 186 || ipcMappedBytes !== 13892 || ipcMappedSlots !== 284 ||
-    ipcIdentityWords.size !== 147 || ipcWordIdentities.size !== 147 ||
+if (ipcMappings.length !== 194 || ipcMappedBytes !== 14812 || ipcMappedSlots !== 294 ||
+    ipcIdentityWords.size !== 155 || ipcWordIdentities.size !== 155 ||
     !ipcIdentityWords.has("ipc_handle_slot_alpha") ||
     !ipcIdentityWords.has("ipc_handle_slot_gamma") ||
     !ipcIdentityWords.has("ipc_handle_slot_eta") ||
     !ipcIdentityWords.has("ipc_handle_slot_theta") ||
     !ipcIdentityWords.has("ipc_handle_slot_kappa") ||
     !ipcIdentityWords.has("ipc_handle_slot_lambda") ||
+    !ipcIdentityWords.has("ipc_handle_slot_mu") ||
     !ipcIdentityWords.has("ipc_aux_literal_class_15")) {
-  throw new Error("The 284 IPC slots must form a 147-to-147 identity/word bijection");
+  throw new Error("The 294 IPC slots must form a 155-to-155 identity/word bijection");
 }
 
 const duplicateTemplate19IdentityWords = new Map();
@@ -894,6 +964,46 @@ for (const identities of [
   if (new Set(identities.map((identity) => duplicateTemplate21IdentityWords.get(identity))).size !== identities.length) {
     throw new Error("Duplicate-template 21 distinct identity classes alias in the target");
   }
+}
+
+const duplicateTemplate22IdentityWords = new Map();
+for (const [name, mapping] of duplicateTemplates22) {
+  const definition = duplicateTemplates22Config.templates[mapping.template];
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== definition.bodySize) {
+    throw new Error(`${name} is not the configured inventoried ARM duplicate-template 22 function`);
+  }
+  const offset = entry.address - textStart;
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + mapping.literals.length * 4;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + entry.size + mapping.literals.length * 4 > code.length) {
+    throw new Error(`${name} has invalid or out-of-bounds duplicate-template 22 identity slots`);
+  }
+  const overlap = functions.find((candidate) =>
+    candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) {
+    throw new Error(`${name} duplicate-template 22 identity slots overlap inventoried function ${overlap.name}`);
+  }
+  if (mapping.call !== undefined) {
+    const callee = functionsByName.get(mapping.call);
+    const callWord = code.readUInt32LE(offset + definition.callOffset);
+    if (callee?.mode !== "$a" || !isArmCallTo(callWord, entry.address + definition.callOffset, callee.address)) {
+      throw new Error(`${name} does not call ${mapping.call} at audited offset ${definition.callOffset}`);
+    }
+  }
+  for (let index = 0; index < mapping.literals.length; index++) {
+    const identity = mapping.literals[index].identity;
+    const privateWord = code.readUInt32LE(offset + entry.size + index * 4);
+    const priorWord = duplicateTemplate22IdentityWords.get(identity);
+    if (priorWord !== undefined && priorWord !== privateWord) {
+      throw new Error(`Duplicate-template 22 identity equality is inconsistent for ${name} slot ${index}`);
+    }
+    duplicateTemplate22IdentityWords.set(identity, privateWord);
+  }
+}
+if (duplicateTemplate22IdentityWords.size !== 1 ||
+    !duplicateTemplate22IdentityWords.has("presence")) {
+  throw new Error("Duplicate-template 22 presence identity class is invalid");
 }
 
 for (const [name, mapping] of adjacentGlobalLoads) {
@@ -1154,11 +1264,13 @@ for (const entry of functions) {
   const ipcTemplate19 = ipcTemplates19.get(entry.name);
   const ipcTemplate20 = ipcTemplates20.get(entry.name);
   const ipcTemplate21 = ipcTemplates21.get(entry.name);
+  const ipcTemplate22 = ipcTemplates22.get(entry.name);
   const duplicateTemplate19 = duplicateTemplates19.get(entry.name);
   const duplicateTemplate21 = duplicateTemplates21.get(entry.name);
+  const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, duplicateTemplate19, duplicateTemplate21, duplicateContainerTemplate].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateContainerTemplate].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -1175,7 +1287,10 @@ for (const entry of functions) {
       const recyclerOffset = duplicateContainerTemplate?.template.startsWith("range_erase_") ? 92 : -1;
       const eraseOffset = duplicateContainerTemplate?.template === "range_erase_a" ? 304 :
         duplicateContainerTemplate?.template === "range_erase_b" ? 296 : -1;
-      const callee = ipcTemplate21?.call !== undefined && cursor === 60 ? ipcTemplate21.call :
+      const duplicateTemplate22CallOffset = duplicateTemplate22 === undefined ? -1 :
+        duplicateTemplates22Config.templates[duplicateTemplate22.template].callOffset ?? -1;
+      const callee = duplicateTemplate22?.call !== undefined && cursor === duplicateTemplate22CallOffset ? duplicateTemplate22.call :
+        ipcTemplate21?.call !== undefined && cursor === 60 ? ipcTemplate21.call :
         cursor === recyclerOffset ? duplicateContainerTemplate.recycler :
         cursor === eraseOffset ? duplicateContainerTemplate.erase : undefined;
       if (callee !== undefined) {
@@ -1271,6 +1386,12 @@ for (const entry of functions) {
           `.global ${ipcTemplate21[key]}`,
         ])
       : []),
+    ...(ipcTemplate22
+      ? ipcTemplate22Definitions.get(ipcTemplate22.template).literals.flatMap((key) => [
+          `.word ${ipcTemplate22[key]}`,
+          `.global ${ipcTemplate22[key]}`,
+        ])
+      : []),
     ...(duplicateTemplate19
       ? duplicateTemplate19.literals.flatMap(({ identity }) => {
           const symbol = duplicateTemplates19Config.literalIdentities[identity];
@@ -1280,6 +1401,12 @@ for (const entry of functions) {
     ...(duplicateTemplate21
       ? duplicateTemplate21.literals.flatMap(({ identity }) => {
           const symbol = duplicateTemplates21Config.literalIdentities[identity];
+          return [`.word ${symbol}`, `.global ${symbol}`];
+        })
+      : []),
+    ...(duplicateTemplate22
+      ? duplicateTemplate22.literals.flatMap(({ identity }) => {
+          const symbol = duplicateTemplates22Config.literalIdentities[identity];
           return [`.word ${symbol}`, `.global ${symbol}`];
         })
       : []),
@@ -1295,8 +1422,10 @@ for (const entry of functions) {
   ipcTemplates19.delete(entry.name);
   ipcTemplates20.delete(entry.name);
   ipcTemplates21.delete(entry.name);
+  ipcTemplates22.delete(entry.name);
   duplicateTemplates19.delete(entry.name);
   duplicateTemplates21.delete(entry.name);
+  duplicateTemplates22.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (branchThunks.size !== 0) {
@@ -1352,6 +1481,9 @@ if (ipcTemplates20.size !== 0) {
 if (ipcTemplates21.size !== 0) {
   throw new Error(`IPC template 21 mappings missing from the function inventory: ${[...ipcTemplates21.keys()].join(", ")}`);
 }
+if (ipcTemplates22.size !== 0) {
+  throw new Error(`IPC template 22 mappings missing from the function inventory: ${[...ipcTemplates22.keys()].join(", ")}`);
+}
 if (duplicateTemplates19.size !== 0) {
   throw new Error(
     `Duplicate template 19 mappings missing from the function inventory: ${[...duplicateTemplates19.keys()].join(", ")}`
@@ -1360,6 +1492,11 @@ if (duplicateTemplates19.size !== 0) {
 if (duplicateTemplates21.size !== 0) {
   throw new Error(
     `Duplicate template 21 mappings missing from the function inventory: ${[...duplicateTemplates21.keys()].join(", ")}`
+  );
+}
+if (duplicateTemplates22.size !== 0) {
+  throw new Error(
+    `Duplicate template 22 mappings missing from the function inventory: ${[...duplicateTemplates22.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {
