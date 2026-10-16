@@ -49,6 +49,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-duplicate-container-templates-13.json" \
   "$root/config/arm-runtime-helpers-23.json" \
   "$root/config/arm-runtime-helpers-24.json" \
+  "$root/config/arm-runtime-helpers-25.json" \
   "$root/config/target-literal-identities/AS_EUR_REV2.json" \
   "$root/config/targets/AS_EUR_REV2.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
@@ -100,4 +101,6 @@ node "$root/scripts/validate-arm-duplicate-container-templates-13.mjs" \
 node "$root/scripts/validate-arm-runtime-helpers-23.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-24.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
+node "$root/scripts/validate-arm-runtime-helpers-25.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

@@ -35,6 +35,7 @@ const [
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
   runtimeHelpers24Path,
+  runtimeHelpers25Path,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -69,11 +70,12 @@ if (
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
   !runtimeHelpers24Path ||
+  !runtimeHelpers25Path ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, IPC template 25 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate template 25 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, IPC template 25 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate template 25 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, runtime helper 25 mapping, target literal identities, and target config paths"
   );
 }
 
@@ -944,6 +946,37 @@ if (runtimeHelpers24Config.schemaVersion !== 1 || runtimeHelpers24Config.mode !=
 }
 let runtimeHelper24Pending = true;
 
+const runtimeHelpers25Config = JSON.parse(readFileSync(runtimeHelpers25Path, "utf8"));
+const runtimeHelpers25Expected = [
+  ["func_002DAC28", 88, [[88, "R_ARM_ABS32", "runtime_descriptor_25"]]],
+  ["func_002DAFBC", 48, [[48, "u32", 1812433253], [52, "u32", 1566083941], [56, "R_ARM_ABS32", "runtime_prng_parameter_c_25"]]],
+  ["func_002DB1B0", 56, [[56, "f32", 32], [60, "R_ARM_ABS32", "runtime_interpolation_table_25"]]],
+];
+const runtimeHelpers25Identities = runtimeHelpers25Config.symbolicIdentities;
+if (runtimeHelpers25Config.schemaVersion !== 1 || runtimeHelpers25Config.mode !== "arm" ||
+    runtimeHelpers25Config.totalBodySize !== 192 || runtimeHelpers25Config.functions?.length !== 3 ||
+    runtimeHelpers25Identities === null || typeof runtimeHelpers25Identities !== "object" ||
+    Object.keys(runtimeHelpers25Identities).sort().join(",") !== "runtime_descriptor_25,runtime_interpolation_table_25,runtime_prng_parameter_c_25" ||
+    runtimeHelpers25Identities.runtime_descriptor_25?.minimumSlotAlignment !== 4 ||
+    runtimeHelpers25Identities.runtime_descriptor_25.equality !== "batch-local-distinct" ||
+    runtimeHelpers25Identities.runtime_descriptor_25.usage !== "copied-only" ||
+    runtimeHelpers25Identities.runtime_prng_parameter_c_25?.minimumSlotAlignment !== 4 ||
+    runtimeHelpers25Identities.runtime_prng_parameter_c_25.equality !== "batch-local-distinct" ||
+    runtimeHelpers25Identities.runtime_prng_parameter_c_25.usage !== "integer-copied-only" ||
+    runtimeHelpers25Identities.runtime_interpolation_table_25?.minimumSlotAlignment !== 4 ||
+    runtimeHelpers25Identities.runtime_interpolation_table_25.minimumPointeeAlignment !== 4 ||
+    runtimeHelpers25Identities.runtime_interpolation_table_25.equality !== "batch-local-distinct" ||
+    runtimeHelpers25Identities.runtime_interpolation_table_25.usage !== "f32-record-reads-at-8n-and-8n-plus-4" ||
+    runtimeHelpers25Config.functions.some((entry, index) => {
+      const [name, size, words] = runtimeHelpers25Expected[index];
+      return entry?.name !== name || entry.size !== size || !Array.isArray(entry.adjacentWords) ||
+        JSON.stringify(entry.adjacentWords.map((word) => [word.offset, word.kind, word.symbol ?? word.value])) !== JSON.stringify(words);
+    })) {
+  throw new Error("Unexpected ARM runtime helper 25 mapping format");
+}
+const runtimeHelpers25ByName = new Map(runtimeHelpers25Config.functions.map((entry) => [entry.name, entry]));
+const runtimeHelpers25Pending = new Set(runtimeHelpers25ByName.keys());
+
 const literalIdentityConfig = JSON.parse(readFileSync(literalIdentitiesPath, "utf8"));
 if (literalIdentityConfig.version !== 1 ||
     Object.keys(literalIdentityConfig).sort().join(",") !== "armAdjacentAbsoluteLiterals,version" ||
@@ -1027,6 +1060,38 @@ if (runtimeHelper24SlotStart % runtimeHelpers24Constant.minimumAlignment !== 0 |
 }
 if (code.readUInt32LE(runtimeHelper24Offset + runtimeHelper24Inventory.size) !== 0xEDB88320) {
   throw new Error("ARM runtime helper 24 has an unexpected adjacent polynomial value");
+}
+const runtimeHelper25PrivateWords = new Map();
+for (const mapping of runtimeHelpers25Config.functions) {
+  const inventory = functionsByName.get(mapping.name);
+  if (inventory?.mode !== "$a" || inventory.size !== mapping.size) {
+    throw new Error(`ARM runtime helper 25 function ${mapping.name} is missing from the function inventory`);
+  }
+  const offset = inventory.address - textStart;
+  const slotStart = inventory.address + mapping.size;
+  const slotEnd = inventory.address + mapping.adjacentWords.at(-1).offset + 4;
+  if (slotStart % 4 !== 0 || offset < 0 || slotEnd - textStart > code.length ||
+      functions.some((candidate) => candidate.address < slotEnd && candidate.address + candidate.size > slotStart)) {
+    throw new Error(`ARM runtime helper 25 function ${mapping.name} has invalid adjacent words`);
+  }
+  for (const word of mapping.adjacentWords) {
+    const privateWord = code.readUInt32LE(offset + word.offset);
+    if (word.kind === "R_ARM_ABS32") {
+      runtimeHelper25PrivateWords.set(word.symbol, privateWord);
+    } else {
+      const expected = word.kind === "f32" ? 0x42000000 : word.value;
+      if (privateWord !== expected) {
+        throw new Error(`ARM runtime helper 25 function ${mapping.name} has an unexpected public adjacent word`);
+      }
+    }
+  }
+}
+if (runtimeHelper25PrivateWords.size !== 3 || new Set(runtimeHelper25PrivateWords.values()).size !== 3) {
+  throw new Error("ARM runtime helper 25 opaque identities do not have the documented distinct equality classes");
+}
+if (runtimeHelper25PrivateWords.get("runtime_interpolation_table_25") %
+    runtimeHelpers25Identities.runtime_interpolation_table_25.minimumPointeeAlignment !== 0) {
+  throw new Error("ARM runtime helper 25 interpolation table does not meet its documented alignment");
 }
 const identityWords = new Map();
 const wordIdentities = new Map();
@@ -1634,8 +1699,9 @@ for (const entry of functions) {
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
+  const runtimeHelper25 = runtimeHelpers25ByName.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -1815,10 +1881,16 @@ for (const entry of functions) {
           `.word ${runtimeHelpers24Constant.value}`,
         ]
       : []),
+    ...(runtimeHelper25
+      ? runtimeHelper25.adjacentWords.flatMap((word) => word.kind === "R_ARM_ABS32"
+        ? [`.word ${word.symbol}`, `.global ${word.symbol}`]
+        : [`.word ${word.kind === "f32" ? "0x42000000" : word.value}`])
+      : []),
     ""
   );
   if (runtimeHelper23) runtimeHelper23Pending = false;
   if (runtimeHelper24) runtimeHelper24Pending = false;
+  if (runtimeHelper25) runtimeHelpers25Pending.delete(entry.name);
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
   ipcUniqueTemplates.delete(entry.name);
@@ -1846,6 +1918,9 @@ if (runtimeHelper23Pending) {
 }
 if (runtimeHelper24Pending) {
   throw new Error("ARM runtime helper 24 mapping is missing from the function inventory");
+}
+if (runtimeHelpers25Pending.size !== 0) {
+  throw new Error(`ARM runtime helper 25 mappings missing from the function inventory: ${[...runtimeHelpers25Pending].join(", ")}`);
 }
 if (branchThunks.size !== 0) {
   throw new Error(

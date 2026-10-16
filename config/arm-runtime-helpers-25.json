@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_25.S",
+  "mode": "arm",
+  "sourceSha256": "751c624b94e82d0dcaaf64889f8ed80fa7d4f5d09f5c595388ec5371b1a06c57",
+  "totalBodySize": 192,
+  "functions": [
+    {
+      "name": "func_002DAC28",
+      "size": 88,
+      "adjacentWords": [
+        { "offset": 88, "kind": "R_ARM_ABS32", "symbol": "runtime_descriptor_25" }
+      ]
+    },
+    {
+      "name": "func_002DAFBC",
+      "size": 48,
+      "adjacentWords": [
+        { "offset": 48, "kind": "u32", "value": 1812433253 },
+        { "offset": 52, "kind": "u32", "value": 1566083941 },
+        { "offset": 56, "kind": "R_ARM_ABS32", "symbol": "runtime_prng_parameter_c_25" }
+      ]
+    },
+    {
+      "name": "func_002DB1B0",
+      "size": 56,
+      "adjacentWords": [
+        { "offset": 56, "kind": "f32", "value": 32 },
+        { "offset": 60, "kind": "R_ARM_ABS32", "symbol": "runtime_interpolation_table_25" }
+      ]
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_descriptor_25": {
+      "minimumSlotAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "copied-only"
+    },
+    "runtime_prng_parameter_c_25": {
+      "minimumSlotAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "integer-copied-only"
+    },
+    "runtime_interpolation_table_25": {
+      "minimumSlotAlignment": 4,
+      "minimumPointeeAlignment": 4,
+      "equality": "batch-local-distinct",
+      "usage": "f32-record-reads-at-8n-and-8n-plus-4"
+    }
+  }
+}
