@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_86.S",
+  "sourceSha256": "4163763ad1730df836d3de4327f32315938c59b1ac512d9d30cbe714d3634225",
+  "normalizedScheduleSha256": "c46dddd5babc34919067cb07421d8226061ef6440b45fad32512c19ffb28353d",
+  "mode": "arm",
+  "totalBodySize": 856,
+  "totalAdjacentSize": 28,
+  "cumulativePoolSlots": 844,
+  "cumulativePoolClasses": 444,
+  "functions": [
+    {
+      "name": "func_0017ECB0", "section": ".text.func_0017ECB0", "size": 148,
+      "nextGlobal": "func_0017ED4C", "nextGlobalOffset": 156,
+      "branches": [
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017EA3C" },
+        { "offset": 136, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0017EA90" }
+      ],
+      "literals": [
+        { "offset": 148, "loadOffsets": [12], "symbol": "service_linked_node_vtable_86" },
+        { "offset": 152, "loadOffsets": [20], "symbol": "ipc_allocator_dispatch_owner_68" }
+      ]
+    },
+    {
+      "name": "func_0017ED4C", "section": ".text.func_0017ED4C", "size": 544,
+      "nextGlobal": "func_0017EF74", "nextGlobalOffset": 552,
+      "branches": [
+        { "offset": 152, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017F0D8" },
+        { "offset": 172, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001720A4" },
+        { "offset": 188, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018A438" },
+        { "offset": 304, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178604" },
+        { "offset": 344, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302108" },
+        { "offset": 448, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017F0D8" },
+        { "offset": 460, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00172044" },
+        { "offset": 472, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00160BA8" },
+        { "offset": 532, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302108" }
+      ],
+      "literals": [
+        { "offset": 544, "loadOffsets": [36], "symbol": "service_query_flags_86" },
+        { "offset": 548, "loadOffsets": [40], "symbol": "service_query_context_86" }
+      ]
+    },
+    {
+      "name": "func_0017F0D8", "section": ".text.func_0017F0D8", "size": 60,
+      "nextGlobal": "func_0017F11C", "nextGlobalOffset": 68,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001888A8" },
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00171324" }
+      ],
+      "literals": [
+        { "offset": 60, "loadOffsets": [0], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 64, "loadOffsets": [36], "symbol": "ipc_service_registry_owner_71" }
+      ]
+    },
+    {
+      "name": "func_0017F11C", "section": ".text.func_0017F11C", "size": 104,
+      "nextGlobal": "func_0017F188", "nextGlobalOffset": 108,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001602B8" },
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017EAE4" },
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017F0D8" },
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017F0D8" },
+        { "offset": 68, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160380" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184990" },
+        { "offset": 88, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00185F88" }
+      ],
+      "literals": [
+        { "offset": 104, "loadOffsets": [0, 60], "symbol": "service_runtime_singleton_86" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_linked_node_vtable_86",
+    "ipc_allocator_dispatch_owner_68",
+    "service_query_flags_86",
+    "service_query_context_86",
+    "ipc_service_registry_owner_71",
+    "service_runtime_singleton_86"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_dispatch_owner_68",
+    "ipc_service_registry_owner_71"
+  ],
+  "newLiteralIdentities": [
+    "service_linked_node_vtable_86",
+    "service_query_flags_86",
+    "service_query_context_86",
+    "service_runtime_singleton_86"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_0017F0D8",
+      "func_001720A4",
+      "func_0018A438",
+      "func_00178604",
+      "func_00302108",
+      "func_00172044",
+      "func_00160BA8",
+      "func_001888A8",
+      "func_00171324",
+      "func_001602B8",
+      "func_0017EAE4",
+      "func_00160380",
+      "func_00184990",
+      "func_00185F88"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_0017F0D8",
+      "func_001720A4",
+      "func_0018A438",
+      "func_00178604",
+      "func_00302108",
+      "func_00172044",
+      "func_00160BA8",
+      "func_001888A8",
+      "func_00171324",
+      "func_001602B8",
+      "func_0017EAE4",
+      "func_00160380",
+      "func_00184990",
+      "func_00185F88"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0017EA3C",
+      "func_0017EA90",
+      "func_0017F0D8",
+      "func_001720A4",
+      "func_0018A438",
+      "func_00178604",
+      "func_00302108",
+      "func_00172044",
+      "func_00160BA8",
+      "func_001888A8",
+      "func_00171324",
+      "func_001602B8",
+      "func_0017EAE4",
+      "func_00160380",
+      "func_00184990",
+      "func_00185F88"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}

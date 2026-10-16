@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_93.S",
+  "sourceSha256": "ca4db5f785de03461be75a916f44a3052543bfe8ffc7f325673b9e07bbee227d",
+  "mode": "arm",
+  "totalBodySize": 288,
+  "totalAdjacentSize": 0,
+  "instructionScheduleSha256": "772a2381b25904d0645fc1506d37aeca0d7f0ff9625668b951bb3a03b035874f",
+  "branchScheduleSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "returnScheduleSha256": "34358630c9f70559b3532d95e6080f6f9af45698b363ab63ce1635def2195eef",
+  "functions": [
+    { "name": "func_004112AC", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004219B0", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_00428598", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_0042FEE8", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_00434538", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_00437A08", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_0045BA1C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_0045CD04", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_0045CD10", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_0045EC3C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_00465228", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004A6CD4", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004A711C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004A9F08", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004AAD0C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004B0B08", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004B223C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004BF8DC", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004BF8E8", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C22E4", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C6500", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C7EA4", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C865C", "size": 12, "calls": [], "adjacentWords": [] },
+    { "name": "func_004C8808", "size": 12, "calls": [], "adjacentWords": [] }
+  ],
+  "identityClasses": {
+    "call_free_runtime_helpers_93": {
+      "members": [
+        "func_004112AC", "func_004219B0", "func_00428598", "func_0042FEE8",
+        "func_00434538", "func_00437A08", "func_0045BA1C", "func_0045CD04",
+        "func_0045CD10", "func_0045EC3C", "func_00465228", "func_004A6CD4",
+        "func_004A711C", "func_004A9F08", "func_004AAD0C", "func_004B0B08",
+        "func_004B223C", "func_004BF8DC", "func_004BF8E8", "func_004C22E4",
+        "func_004C6500", "func_004C7EA4", "func_004C865C", "func_004C8808"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "memoryAccessSchedule",
+        "arithmeticSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "symbolicIdentities": {},
+  "symbolicSlots": {}
+}

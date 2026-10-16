@@ -1,0 +1,1297 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_07.S",
+  "sourceSha256": "f0483219b86b9a8e4dbf9c1567e4fff8ef7577caf978e96ebcfabc023d84ac1f",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 256,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 99,
+  "wideInstructionCount": 29,
+  "localBranchCount": 0,
+  "memoryOperationCount": 49,
+  "returnCount": 24,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 29,
+  "directCalls": [
+    {
+      "function": "func_00101CC8",
+      "offset": 2,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001029F6",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00102F30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001029FE",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00102FAC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF094",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_002FFD20",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303920",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00304408",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303BF0",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00304408",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100B74",
+      "offset": 2,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102DD8",
+      "offset": 4,
+      "mnemonic": "blx",
+      "symbol": "func_00300980",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00304CA6",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00302C50",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030551C",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00302C50",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103174",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_00302328",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103758",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E24",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00303914",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E24",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E30",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00303928",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E30",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010405C",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00303BE4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010405C",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104068",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_00303BF8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104068",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FED84",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_0010068E",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF86C",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00300A00",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFAF4",
+      "offset": 4,
+      "mnemonic": "blx",
+      "symbol": "func_00300B28",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003009F4",
+      "offset": 2,
+      "mnemonic": "bl",
+      "symbol": "func_001001FC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003009F4",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_002FF10C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303914",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00303920",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303928",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00303920",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303BE4",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00303BF0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303BF8",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00303BF0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00101CC8",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_001029F6",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00102F30"
+    },
+    {
+      "function": "func_001029FE",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00102FAC"
+    },
+    {
+      "function": "func_002FF094",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFD20"
+    },
+    {
+      "function": "func_00303920",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304408"
+    },
+    {
+      "function": "func_00303BF0",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304408"
+    },
+    {
+      "function": "func_00100B74",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_00102DD8",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300980"
+    },
+    {
+      "function": "func_00304CA6",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302C50"
+    },
+    {
+      "function": "func_0030551C",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302C50"
+    },
+    {
+      "function": "func_00103174",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302328"
+    },
+    {
+      "function": "func_00103758",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_00103E24",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303914"
+    },
+    {
+      "function": "func_00103E24",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_00103E30",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303928"
+    },
+    {
+      "function": "func_00103E30",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_0010405C",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303BE4"
+    },
+    {
+      "function": "func_0010405C",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_00104068",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303BF8"
+    },
+    {
+      "function": "func_00104068",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_002FED84",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0010068E"
+    },
+    {
+      "function": "func_002FF86C",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300A00"
+    },
+    {
+      "function": "func_002FFAF4",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300B28"
+    },
+    {
+      "function": "func_003009F4",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_001001FC"
+    },
+    {
+      "function": "func_003009F4",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF10C"
+    },
+    {
+      "function": "func_00303914",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303920"
+    },
+    {
+      "function": "func_00303928",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303920"
+    },
+    {
+      "function": "func_00303BE4",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303BF0"
+    },
+    {
+      "function": "func_00303BF8",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303BF0"
+    }
+  ],
+  "pcRelativeDataAccesses": [],
+  "duplicateBodyClasses": [
+    {
+      "members": [
+        "func_00303914",
+        "func_00303BE4"
+      ]
+    },
+    {
+      "members": [
+        "func_00303928",
+        "func_00303BF8"
+      ]
+    }
+  ],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "indirectTail": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rd, #imm schedule entry uses the 16-bit three-operand immediate form; it must not be canonicalized to the distinct two-operand immediate form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    },
+    {
+      "form": "thumb-code-mapping",
+      "rule": "Every complete function body is continuously covered by Thumb code mapping beginning with $t at body offset zero and contains no interior $d mapping interval."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "indirectTail": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "97ccea5a7a84d4bc96272fa2a27ce93f152ed08358bcc15a2d47d425c2f9c92d",
+    "localTransferSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "returnTransferSchedule": "c6a80e70963908bacce0913d85ca0d743fecdd5767deb9b826ab64a578ae1f20",
+    "indirectCallSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "indirectTailSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "directCallSchedule": "b4c7ede9b9ddfe74c11891a5824d835018c99d95ec24bc1de8eb040da483ddcc"
+  },
+  "functions": [
+    {
+      "name": "func_00101CC8",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00101CD0",
+      "nextGlobalOffset": 8,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|blx func_002FF8C0|pop {r4, pc}"
+    },
+    {
+      "name": "func_001029F6",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_001029FE",
+      "nextGlobalOffset": 8,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00102F30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00102F30|pop {r4, pc}"
+    },
+    {
+      "name": "func_001029FE",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00102A56",
+      "nextGlobalOffset": 88,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00102FAC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00102FAC|pop {r4, pc}"
+    },
+    {
+      "name": "func_002FF094",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FF09C",
+      "nextGlobalOffset": 8,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_002FFD20",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_002FFD20|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303920",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303928",
+      "nextGlobalOffset": 8,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00304408",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00304408|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303BF0",
+      "size": 8,
+      "instructionCount": 3,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303BF8",
+      "nextGlobalOffset": 8,
+      "localTransfers": [],
+      "returns": [
+        "6:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00304408",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00304408|pop {r4, pc}"
+    },
+    {
+      "name": "func_00100B74",
+      "size": 10,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 3,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00100B7E",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|blx func_002FED78|ldr r0, [r0, #0]|pop {r4, pc}"
+    },
+    {
+      "name": "func_00102DD8",
+      "size": 10,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00102DE2",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "blx",
+          "symbol": "func_00300980",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|lsls r2, r2, #1|blx func_00300980|pop {r4, pc}"
+    },
+    {
+      "name": "func_00304CA6",
+      "size": 10,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00304CB0",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00302C50",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, #48|push {r4, lr}|bl func_00302C50|pop {r4, pc}"
+    },
+    {
+      "name": "func_0030551C",
+      "size": 10,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00305526",
+      "nextGlobalOffset": 10,
+      "localTransfers": [],
+      "returns": [
+        "8:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00302C50",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, #48|push {r4, lr}|bl func_00302C50|pop {r4, pc}"
+    },
+    {
+      "name": "func_00103174",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00103180",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_00302328",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "movs r1, r0|push {r4, lr}|movs r0, #12|blx func_00302328|pop {r4, pc}"
+    },
+    {
+      "name": "func_00103758",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00103764",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, r0, #4|push {r4, lr}|bl func_002FF86C|subs r0, r0, #4|pop {r4, pc}"
+    },
+    {
+      "name": "func_00103E24",
+      "size": 12,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2,
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00103E30",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00303914",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00303914|blx func_002FF8C0|pop {r4, pc}"
+    },
+    {
+      "name": "func_00103E30",
+      "size": 12,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2,
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00103E3C",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00303928",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00303928|blx func_002FF8C0|pop {r4, pc}"
+    },
+    {
+      "name": "func_0010405C",
+      "size": 12,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2,
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00104068",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00303BE4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00303BE4|blx func_002FF8C0|pop {r4, pc}"
+    },
+    {
+      "name": "func_00104068",
+      "size": 12,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2,
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00104080",
+      "nextGlobalOffset": 24,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_00303BF8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_00303BF8|blx func_002FF8C0|pop {r4, pc}"
+    },
+    {
+      "name": "func_002FED84",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        2
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FED9A",
+      "nextGlobalOffset": 22,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_0010068E",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_0010068E|lsls r0, r0, #31|lsrs r0, r0, #31|pop {r4, pc}"
+    },
+    {
+      "name": "func_002FF86C",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FF878",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00300A00",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|movs r4, r0|bl func_00300A00|movs r0, r4|pop {r4, pc}"
+    },
+    {
+      "name": "func_002FFAF4",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_002FFB00",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "blx",
+          "symbol": "func_00300B28",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|movs r4, r0|blx func_00300B28|movs r0, r4|pop {r4, pc}"
+    },
+    {
+      "name": "func_003009F4",
+      "size": 12,
+      "instructionCount": 4,
+      "wideInstructionOffsets": [
+        2,
+        6
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00300A00",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 2,
+          "mnemonic": "bl",
+          "symbol": "func_001001FC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_002FF10C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, lr}|bl func_001001FC|blx func_002FF10C|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303914",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303920",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00303920",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, #8|push {r4, lr}|bl func_00303920|subs r0, #8|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303928",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303934",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00303920",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, r0, #4|push {r4, lr}|bl func_00303920|subs r0, r0, #4|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303BE4",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303BF0",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00303BF0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, #8|push {r4, lr}|bl func_00303BF0|subs r0, #8|pop {r4, pc}"
+    },
+    {
+      "name": "func_00303BF8",
+      "size": 12,
+      "instructionCount": 5,
+      "wideInstructionOffsets": [
+        4
+      ],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303C04",
+      "nextGlobalOffset": 12,
+      "localTransfers": [],
+      "returns": [
+        "a:pop:{r4, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00303BF0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "adds r0, r0, #4|push {r4, lr}|bl func_00303BF0|subs r0, r0, #4|pop {r4, pc}"
+    }
+  ]
+}
