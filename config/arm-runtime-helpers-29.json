@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_29.S",
+  "mode": "arm",
+  "sourceSha256": "547b0ba39d541ae1c078643d6e8ef19767096ebdf559ae2d241f1d151aceceec",
+  "totalBodySize": 364,
+  "functions": [
+    {
+      "name": "func_002D03B4",
+      "size": 284,
+      "calls": [],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DFED0",
+      "size": 80,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "runtime_record_prepare_29" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_record_prepare_29": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "equality": "batch-local-unique",
+      "usage": "original-source-output-preparation-call"
+    }
+  }
+}
