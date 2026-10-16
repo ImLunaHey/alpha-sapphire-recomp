@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_70.S",
+  "sourceSha256": "b3a6dd722b089ef5abc32300d2a932dfd3f87a0a182dae933381aec6c647a455",
+  "mode": "arm",
+  "totalBodySize": 432,
+  "cumulativePoolSlots": 738,
+  "cumulativePoolClasses": 387,
+  "functions": [
+    {
+      "name": "func_0018B220", "section": ".text.func_0018B220", "size": 124,
+      "nextGlobal": "func_0018B2AC", "nextGlobalOffset": 140,
+      "branches": [
+        { "offset": 44, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00132C04" }
+      ],
+      "literals": [
+        { "offset": 124, "loadOffsets": [8], "symbol": "ipc_endpoint_primary_vtable_70" },
+        { "offset": 128, "loadOffsets": [12], "symbol": "ipc_endpoint_secondary_vtable_70" },
+        { "offset": 132, "loadOffsets": [48], "symbol": "ipc_endpoint_state_table_70" },
+        { "offset": 136, "loadOffsets": [76], "symbol": "ipc_allocator_dispatch_owner_68" }
+      ]
+    },
+    {
+      "name": "func_0018B2AC", "section": ".text.func_0018B2AC", "size": 140,
+      "nextGlobal": "func_0018B348", "nextGlobalOffset": 156,
+      "branches": [
+        { "offset": 56, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178974" },
+        { "offset": 88, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018DCA8" },
+        { "offset": 116, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188878" }
+      ],
+      "literals": [
+        { "offset": 140, "loadOffsets": [12], "symbol": "ipc_allocator_dispatch_owner_68" },
+        { "offset": 144, "loadOffsets": [40], "symbol": "ipc_wait_error_code_70" },
+        { "offset": 148, "loadOffsets": [44], "symbol": "ipc_wait_log_context_70" },
+        { "offset": 152, "loadOffsets": [100], "symbol": "service_timing_scale_46" }
+      ]
+    },
+    {
+      "name": "func_0018B348", "section": ".text.func_0018B348", "size": 76,
+      "nextGlobal": "func_0018B394", "nextGlobalOffset": 76,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018B9B4" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0018B394", "section": ".text.func_0018B394", "size": 92,
+      "nextGlobal": "func_0018B3F4", "nextGlobalOffset": 96,
+      "branches": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178974" },
+        { "offset": 80, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178974" }
+      ],
+      "literals": [
+        { "offset": 92, "loadOffsets": [12, 64], "symbol": "ipc_slot_error_context_70" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_endpoint_primary_vtable_70",
+    "ipc_endpoint_secondary_vtable_70",
+    "ipc_endpoint_state_table_70",
+    "ipc_allocator_dispatch_owner_68",
+    "ipc_wait_error_code_70",
+    "ipc_wait_log_context_70",
+    "service_timing_scale_46",
+    "ipc_slot_error_context_70"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_allocator_dispatch_owner_68",
+    "service_timing_scale_46"
+  ],
+  "newLiteralIdentities": [
+    "ipc_endpoint_primary_vtable_70",
+    "ipc_endpoint_secondary_vtable_70",
+    "ipc_endpoint_state_table_70",
+    "ipc_wait_error_code_70",
+    "ipc_wait_log_context_70",
+    "ipc_slot_error_context_70"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00132C04",
+      "func_00178974",
+      "func_0018DCA8",
+      "func_00188878",
+      "func_0018B9B4"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_00178974",
+        "sites": [
+          { "function": "func_0018B2AC", "offset": 56 },
+          { "function": "func_0018B394", "offset": 28 },
+          { "function": "func_0018B394", "offset": 80 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_00132C04",
+      "func_0018DCA8",
+      "func_00188878",
+      "func_0018B9B4"
+    ],
+    "classesPairwiseDistinct": true
+  }
+}

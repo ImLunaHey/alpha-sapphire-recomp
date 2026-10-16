@@ -1,0 +1,288 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_73.S",
+  "sourceSha256": "ae4f23843ea55cab126b9c676b24322bc047d5cb4ff14113df28dd385cbcf798",
+  "mode": "arm",
+  "expectedBodyBytes": 1800,
+  "expectedInstructionCount": 450,
+  "templates": {
+    "initialize_pointer_vector": { "bodySize": 120, "instructionCount": 30, "count": 3, "internalLabels": 2, "directTransfers": 3, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 1 },
+    "lazy_shared_object": { "bodySize": 84, "instructionCount": 21, "count": 3, "internalLabels": 2, "directTransfers": 3, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 1 },
+    "guarded_dispatch": { "bodySize": 84, "instructionCount": 21, "count": 3, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 2 },
+    "register_literal_sized_record": { "bodySize": 76, "instructionCount": 19, "count": 3, "internalLabels": 0, "directTransfers": 4, "indirectCalls": 0, "addressReferences": 1, "poolSlots": 1 },
+    "register_fixed_68_record": { "bodySize": 76, "instructionCount": 19, "count": 3, "internalLabels": 0, "directTransfers": 4, "indirectCalls": 0, "addressReferences": 1, "poolSlots": 0 },
+    "select_relative_identity": { "bodySize": 64, "instructionCount": 16, "count": 3, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 2 },
+    "visit_24_entries": { "bodySize": 52, "instructionCount": 13, "count": 3, "internalLabels": 1, "directTransfers": 1, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 0 },
+    "set_object_flag": { "bodySize": 44, "instructionCount": 11, "count": 3, "internalLabels": 0, "directTransfers": 3, "indirectCalls": 0, "addressReferences": 0, "poolSlots": 0 }
+  },
+  "addressIdentityContract": {
+    "kind": "post-body-address-only",
+    "siteCount": 6,
+    "targetOffset": 76,
+    "pairwiseDistinctAcrossFunctions": true,
+    "bytesOwnedByBatch": false,
+    "relocationCount": 0
+  },
+  "literalIdentities": {
+    "vector_descriptor_a": { "symbol": "arm_duplicate_templates_73_vector_descriptor_a_identity", "class": "descriptor-identity" },
+    "vector_descriptor_b": { "symbol": "arm_duplicate_templates_73_vector_descriptor_b_identity", "class": "descriptor-identity" },
+    "vector_descriptor_c": { "symbol": "arm_duplicate_templates_73_vector_descriptor_c_identity", "class": "descriptor-identity" },
+    "owned_slot_a": { "symbol": "arm_duplicate_templates_19_owned_object_slot_003B0994", "class": "reused-owned-object-slot" },
+    "owned_slot_b": { "symbol": "arm_duplicate_templates_19_owned_object_slot_003B0B80", "class": "reused-owned-object-slot" },
+    "owned_slot_c": { "symbol": "arm_duplicate_templates_19_owned_object_slot_003B14C0", "class": "reused-owned-object-slot" },
+    "guard_state": { "symbol": "service_guard_state_41", "class": "reused-guard-state" },
+    "inactive_result": { "symbol": "arm_duplicate_templates_73_inactive_result_identity", "class": "status-identity" },
+    "record_extent_a": { "symbol": "arm_duplicate_templates_73_record_extent_a_identity", "class": "record-extent-identity" },
+    "record_extent_b": { "symbol": "arm_duplicate_templates_73_record_extent_b_identity", "class": "record-extent-identity" },
+    "record_extent_c": { "symbol": "arm_duplicate_templates_73_record_extent_c_identity", "class": "record-extent-identity" },
+    "relative_primary_a": { "symbol": "arm_duplicate_templates_73_relative_primary_a_identity", "class": "relative-address-identity" },
+    "relative_fallback_a": { "symbol": "arm_duplicate_templates_73_relative_fallback_a_identity", "class": "relative-address-identity" },
+    "relative_primary_b": { "symbol": "arm_duplicate_templates_73_relative_primary_b_identity", "class": "relative-address-identity" },
+    "relative_fallback_b": { "symbol": "arm_duplicate_templates_73_relative_fallback_b_identity", "class": "relative-address-identity" },
+    "relative_primary_c": { "symbol": "arm_duplicate_templates_73_relative_primary_c_identity", "class": "relative-address-identity" },
+    "relative_fallback_c": { "symbol": "arm_duplicate_templates_73_relative_fallback_c_identity", "class": "relative-address-identity" }
+  },
+  "reusedLiteralIdentities": [
+    "arm_duplicate_templates_19_owned_object_slot_003B0994",
+    "arm_duplicate_templates_19_owned_object_slot_003B0B80",
+    "arm_duplicate_templates_19_owned_object_slot_003B14C0",
+    "service_guard_state_41"
+  ],
+  "newLiteralIdentities": [
+    "arm_duplicate_templates_73_vector_descriptor_a_identity",
+    "arm_duplicate_templates_73_vector_descriptor_b_identity",
+    "arm_duplicate_templates_73_vector_descriptor_c_identity",
+    "arm_duplicate_templates_73_inactive_result_identity",
+    "arm_duplicate_templates_73_record_extent_a_identity",
+    "arm_duplicate_templates_73_record_extent_b_identity",
+    "arm_duplicate_templates_73_record_extent_c_identity",
+    "arm_duplicate_templates_73_relative_primary_a_identity",
+    "arm_duplicate_templates_73_relative_fallback_a_identity",
+    "arm_duplicate_templates_73_relative_primary_b_identity",
+    "arm_duplicate_templates_73_relative_fallback_b_identity",
+    "arm_duplicate_templates_73_relative_primary_c_identity",
+    "arm_duplicate_templates_73_relative_fallback_c_identity"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0012344C", "func_00123480", "func_0012BE70", "func_0012BEAC", "func_0012BEEC",
+      "func_00128D08", "func_001289EC", "func_002E3EA4", "func_002E41E0", "func_002E42B0",
+      "func_0036F28C", "func_0019C050", "func_0019C208", "func_0019C320", "func_003AB384",
+      "func_0019C218", "func_0019C258", "func_0019C308", "func_00302334", "func_0018713C",
+      "func_00168EC0", "func_0016BC84", "func_00176EFC", "func_0016BD80", "func_00168E50"
+    ],
+    "secondaryEntries": ["visit_target_secondary_73_a", "visit_target_secondary_73_c"],
+    "secondaryEntryRelations": [
+      { "symbol": "visit_target_secondary_73_a", "owner": "func_001870E4", "ownerOffset": 76, "nextGlobal": "func_0018713C", "bytesBeforeNextGlobal": 12 },
+      { "symbol": "visit_target_secondary_73_c", "owner": "func_00190C20", "ownerOffset": 164, "nextGlobal": "func_00190CD8", "bytesBeforeNextGlobal": 20 }
+    ],
+    "sharedClasses": [
+      { "symbol": "func_0012344C", "siteCount": 3 },
+      { "symbol": "func_00123480", "siteCount": 12 },
+      { "symbol": "func_00128D08", "siteCount": 3 },
+      { "symbol": "func_001289EC", "siteCount": 3 },
+      { "symbol": "func_0036F28C", "siteCount": 6 },
+      { "symbol": "func_003AB384", "siteCount": 6 },
+      { "symbol": "func_00302334", "siteCount": 3 },
+      { "symbol": "func_00168EC0", "siteCount": 3 },
+      { "symbol": "func_00168E50", "siteCount": 3 }
+    ],
+    "singletonClasses": [
+      "func_0012BE70", "func_0012BEAC", "func_0012BEEC", "func_002E3EA4", "func_002E41E0", "func_002E42B0",
+      "func_0019C050", "func_0019C208", "func_0019C320", "func_0019C218", "func_0019C258", "func_0019C308",
+      "visit_target_secondary_73_a", "func_0018713C", "visit_target_secondary_73_c",
+      "func_0016BC84", "func_00176EFC", "func_0016BD80"
+    ],
+    "classesPairwiseDistinct": true
+  },
+  "functions": [
+    {
+      "name": "func_0011F26C", "template": "initialize_pointer_vector", "internalLabelOffsets": [68, 112], "templateMaterialEndOffset": 123, "nextGlobal": "func_0011F2E8", "nextGlobalOffset": 124,
+      "directTransfers": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012344C", "role": "allocate_pointer_vector" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_element" },
+        { "offset": 88, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0012BE70", "role": "construct_element" }
+      ],
+      "literals": [{ "offset": 120, "loadOffset": 12, "identity": "vector_descriptor_a" }]
+    },
+    {
+      "name": "func_0011F2E8", "template": "initialize_pointer_vector", "internalLabelOffsets": [68, 112], "templateMaterialEndOffset": 123, "nextGlobal": "func_0011F364", "nextGlobalOffset": 124,
+      "directTransfers": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012344C", "role": "allocate_pointer_vector" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_element" },
+        { "offset": 88, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0012BEAC", "role": "construct_element" }
+      ],
+      "literals": [{ "offset": 120, "loadOffset": 12, "identity": "vector_descriptor_b" }]
+    },
+    {
+      "name": "func_0011F364", "template": "initialize_pointer_vector", "internalLabelOffsets": [68, 112], "templateMaterialEndOffset": 123, "nextGlobal": "func_0011F3E0", "nextGlobalOffset": 124,
+      "directTransfers": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0012344C", "role": "allocate_pointer_vector" },
+        { "offset": 76, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_element" },
+        { "offset": 88, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0012BEEC", "role": "construct_element" }
+      ],
+      "literals": [{ "offset": 120, "loadOffset": 12, "identity": "vector_descriptor_c" }]
+    },
+    {
+      "name": "func_0011F0C4", "template": "lazy_shared_object", "internalLabelOffsets": [64, 80], "templateMaterialEndOffset": 87, "nextGlobal": "func_0011F11C", "nextGlobalOffset": 88,
+      "directTransfers": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_shared_object" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00128D08", "role": "initialize_shared_object" },
+        { "offset": 76, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001289EC", "role": "finalize_shared_object_tail" }
+      ],
+      "literals": [{ "offset": 84, "loadOffset": 8, "identity": "owned_slot_a" }]
+    },
+    {
+      "name": "func_0011F198", "template": "lazy_shared_object", "internalLabelOffsets": [64, 80], "templateMaterialEndOffset": 87, "nextGlobal": "func_0011F1F0", "nextGlobalOffset": 88,
+      "directTransfers": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_shared_object" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00128D08", "role": "initialize_shared_object" },
+        { "offset": 76, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001289EC", "role": "finalize_shared_object_tail" }
+      ],
+      "literals": [{ "offset": 84, "loadOffset": 8, "identity": "owned_slot_b" }]
+    },
+    {
+      "name": "func_0011F3E0", "template": "lazy_shared_object", "internalLabelOffsets": [64, 80], "templateMaterialEndOffset": 87, "nextGlobal": "func_0011F438", "nextGlobalOffset": 88,
+      "directTransfers": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_shared_object" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00128D08", "role": "initialize_shared_object" },
+        { "offset": 76, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_001289EC", "role": "finalize_shared_object_tail" }
+      ],
+      "literals": [{ "offset": 84, "loadOffset": 8, "identity": "owned_slot_c" }]
+    },
+    {
+      "name": "func_002E2554", "template": "guarded_dispatch", "internalLabelOffsets": [76], "templateMaterialEndOffset": 91, "nextGlobal": "func_002E25B0", "nextGlobalOffset": 92,
+      "directTransfers": [{ "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002E3EA4", "role": "dispatch_active_request" }],
+      "literals": [{ "offset": 84, "loadOffset": 4, "identity": "guard_state" }, { "offset": 88, "loadOffset": 28, "identity": "inactive_result" }]
+    },
+    {
+      "name": "func_002E4904", "template": "guarded_dispatch", "internalLabelOffsets": [76], "templateMaterialEndOffset": 91, "nextGlobal": "func_002E4960", "nextGlobalOffset": 92,
+      "directTransfers": [{ "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002E41E0", "role": "dispatch_active_request" }],
+      "literals": [{ "offset": 84, "loadOffset": 4, "identity": "guard_state" }, { "offset": 88, "loadOffset": 28, "identity": "inactive_result" }]
+    },
+    {
+      "name": "func_002E4E00", "template": "guarded_dispatch", "internalLabelOffsets": [76], "templateMaterialEndOffset": 91, "nextGlobal": "func_002E4E5C", "nextGlobalOffset": 92,
+      "directTransfers": [{ "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_002E42B0", "role": "dispatch_active_request" }],
+      "literals": [{ "offset": 84, "loadOffset": 4, "identity": "guard_state" }, { "offset": 88, "loadOffset": 28, "identity": "inactive_result" }]
+    },
+    {
+      "name": "func_00367B64", "template": "register_literal_sized_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 95, "anonymousMaterialOffset": 76, "nextGlobal": "func_00367BC4", "nextGlobalOffset": 96,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C050", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": [{ "offset": 92, "loadOffset": 32, "identity": "record_extent_a" }]
+    },
+    {
+      "name": "func_00369B68", "template": "register_literal_sized_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 103, "anonymousMaterialOffset": 76, "nextGlobal": "func_00369BD0", "nextGlobalOffset": 104,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C208", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": [{ "offset": 100, "loadOffset": 32, "identity": "record_extent_b" }]
+    },
+    {
+      "name": "func_0036ACA0", "template": "register_literal_sized_record", "internalLabelOffsets": [], "templateMaterialEndOffset": 111, "anonymousMaterialOffset": 76, "nextGlobal": "func_0036AD3C", "nextGlobalOffset": 156,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C320", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": [{ "offset": 108, "loadOffset": 32, "identity": "record_extent_c" }]
+    },
+    {
+      "name": "func_00369C84", "template": "register_fixed_68_record", "internalLabelOffsets": [], "anonymousMaterialOffset": 76, "nextGlobal": "func_00369CEC", "nextGlobalOffset": 104,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C218", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0036A134", "template": "register_fixed_68_record", "internalLabelOffsets": [], "anonymousMaterialOffset": 76, "nextGlobal": "func_0036A20C", "nextGlobalOffset": 216,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C258", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0036AB9C", "template": "register_fixed_68_record", "internalLabelOffsets": [], "anonymousMaterialOffset": 76, "nextGlobal": "func_0036AC34", "nextGlobalOffset": 152,
+      "addressReferences": [{ "offset": 12, "mnemonic": "adr", "destinationRegister": "r0", "targetOffset": 76, "role": "post_body_identifier_address" }],
+      "directTransfers": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0036F28C", "role": "registry_lookup" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00123480", "role": "allocate_record" },
+        { "offset": 48, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_0019C308", "role": "construct_record" },
+        { "offset": 72, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_003AB384", "role": "attach_record_tail" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_0016F3FC", "template": "select_relative_identity", "internalLabelOffsets": [52], "templateMaterialEndOffset": 71, "anonymousMaterialOffset": 64, "nextGlobal": "func_0016F454", "nextGlobalOffset": 88,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302334", "role": "resolve_primary_identity" }],
+      "literals": [{ "offset": 64, "loadOffset": 24, "identity": "relative_primary_a" }, { "offset": 68, "loadOffset": 52, "identity": "relative_fallback_a" }]
+    },
+    {
+      "name": "func_00193C20", "template": "select_relative_identity", "internalLabelOffsets": [52], "templateMaterialEndOffset": 71, "nextGlobal": "func_00193C68", "nextGlobalOffset": 72,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302334", "role": "resolve_primary_identity" }],
+      "literals": [{ "offset": 64, "loadOffset": 24, "identity": "relative_primary_b" }, { "offset": 68, "loadOffset": 52, "identity": "relative_fallback_b" }]
+    },
+    {
+      "name": "func_0052AEC4", "template": "select_relative_identity", "internalLabelOffsets": [52], "templateMaterialEndOffset": 71, "nextGlobal": "func_0052AF0C", "nextGlobalOffset": 72,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00302334", "role": "resolve_primary_identity" }],
+      "literals": [{ "offset": 64, "loadOffset": 24, "identity": "relative_primary_c" }, { "offset": 68, "loadOffset": 52, "identity": "relative_fallback_c" }]
+    },
+    {
+      "name": "func_00147838", "template": "visit_24_entries", "internalLabelOffsets": [12], "anonymousMaterialOffset": 52, "nextGlobal": "func_0014787C", "nextGlobalOffset": 68,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "visit_target_secondary_73_a", "role": "visit_entry" }], "literals": []
+    },
+    {
+      "name": "func_0018E5C0", "template": "visit_24_entries", "internalLabelOffsets": [12], "nextGlobal": "func_0018E5F4", "nextGlobalOffset": 52,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018713C", "role": "visit_entry" }], "literals": []
+    },
+    {
+      "name": "func_0018E76C", "template": "visit_24_entries", "internalLabelOffsets": [12], "nextGlobal": "func_0018E7A0", "nextGlobalOffset": 52,
+      "directTransfers": [{ "offset": 32, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "visit_target_secondary_73_c", "role": "visit_entry" }], "literals": []
+    },
+    {
+      "name": "func_003B2BC0", "template": "set_object_flag", "internalLabelOffsets": [], "nextGlobal": "func_003B2BEC", "nextGlobalOffset": 44,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0", "role": "prepare_object" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BC84", "role": "select_object_member" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50", "role": "finish_object_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_003B3084", "template": "set_object_flag", "internalLabelOffsets": [], "anonymousMaterialOffset": 44, "nextGlobal": "func_003B30DC", "nextGlobalOffset": 88,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0", "role": "prepare_object" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00176EFC", "role": "select_object_member" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50", "role": "finish_object_tail" }
+      ], "literals": []
+    },
+    {
+      "name": "func_003B3658", "template": "set_object_flag", "internalLabelOffsets": [], "nextGlobal": "func_003B3684", "nextGlobalOffset": 44,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00168EC0", "role": "prepare_object" },
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0016BD80", "role": "select_object_member" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00168E50", "role": "finish_object_tail" }
+      ], "literals": []
+    }
+  ]
+}
