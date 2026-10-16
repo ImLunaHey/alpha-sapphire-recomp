@@ -30,6 +30,7 @@ const [
   duplicateTemplates22Path,
   duplicateTemplates23Path,
   duplicateTemplates24Path,
+  duplicateTemplates25Path,
   duplicateContainerTemplatesPath,
   runtimeHelpers23Path,
   runtimeHelpers24Path,
@@ -62,6 +63,7 @@ if (
   !duplicateTemplates22Path ||
   !duplicateTemplates23Path ||
   !duplicateTemplates24Path ||
+  !duplicateTemplates25Path ||
   !duplicateContainerTemplatesPath ||
   !runtimeHelpers23Path ||
   !runtimeHelpers24Path ||
@@ -69,7 +71,7 @@ if (
   !targetConfigPath
 ) {
   throw new Error(
-    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, target literal identities, and target config paths"
+    "Expected code, symbol inventory, assembler, readelf, branch thunk mapping, adjacent-global-load mapping, global-state mapping, duplicate IPC/table mapping, multi-identity mapping, unique IPC mapping, IPC template 15 mapping, IPC template 16 mapping, IPC template 17 mapping, IPC template 18 mapping, IPC template 19 mapping, IPC template 20 mapping, IPC template 21 mapping, IPC template 22 mapping, IPC template 23 mapping, IPC template 24 mapping, duplicate template 19 mapping, duplicate template 21 mapping, duplicate template 22 mapping, duplicate template 23 mapping, duplicate template 24 mapping, duplicate template 25 mapping, duplicate container mapping, runtime helper 23 mapping, runtime helper 24 mapping, target literal identities, and target config paths"
   );
 }
 
@@ -806,6 +808,42 @@ if (configuredDuplicateTemplate24Bytes !== 640 ||
   throw new Error("Unexpected duplicate template 24 totals");
 }
 
+const duplicateTemplates25Config = JSON.parse(readFileSync(duplicateTemplates25Path, "utf8"));
+if (duplicateTemplates25Config.version !== 1 || duplicateTemplates25Config.mode !== "arm" ||
+    duplicateTemplates25Config.expectedBodyBytes !== 300 ||
+    !Array.isArray(duplicateTemplates25Config.functions) ||
+    duplicateTemplates25Config.functions.length !== 15 ||
+    duplicateTemplates25Config.literalIdentities === null ||
+    typeof duplicateTemplates25Config.literalIdentities !== "object") {
+  throw new Error("Unexpected duplicate template 25 mapping format");
+}
+const duplicateTemplates25 = new Map();
+let configuredDuplicateTemplate25Bytes = 0;
+let configuredDuplicateTemplate25Slots = 0;
+for (const entry of duplicateTemplates25Config.functions) {
+  const definition = duplicateTemplates25Config.templates?.[entry?.template];
+  if (entry === null || typeof entry !== "object" || !/^func_[0-9A-F]{8}$/.test(entry.name) ||
+      definition === undefined || !Number.isInteger(definition.bodySize) ||
+      !Number.isInteger(definition.literalCount) || !Array.isArray(entry.literals) ||
+      entry.literals.length !== definition.literalCount || entry.literals.some((literal, index) => {
+        const identity = duplicateTemplates25Config.literalIdentities[literal?.identity];
+        return literal === null || typeof literal !== "object" ||
+          literal.offset !== definition.bodySize + index * 4 || identity === null ||
+          typeof identity !== "object" || typeof identity.symbol !== "string" ||
+          !["data-address", "rodata-address", "unsigned-scalar"].includes(identity.class);
+      }) || duplicateTemplates25.has(entry.name)) {
+    throw new Error("Invalid or duplicate duplicate-template 25 mapping entry");
+  }
+  duplicateTemplates25.set(entry.name, entry);
+  configuredDuplicateTemplate25Bytes += definition.bodySize;
+  configuredDuplicateTemplate25Slots += entry.literals.length;
+}
+if (configuredDuplicateTemplate25Bytes !== 300 || configuredDuplicateTemplate25Slots !== 10 ||
+    Object.keys(duplicateTemplates25Config.templates ?? {}).length !== 7 ||
+    Object.keys(duplicateTemplates25Config.literalIdentities).length !== 9) {
+  throw new Error("Unexpected duplicate template 25 totals");
+}
+
 const duplicateContainerTemplatesConfig = JSON.parse(
   readFileSync(duplicateContainerTemplatesPath, "utf8")
 );
@@ -1246,6 +1284,48 @@ for (const [name, mapping] of duplicateTemplates24) {
   }
 }
 
+const duplicateTemplate25IdentityWords = new Map();
+for (const [name, mapping] of duplicateTemplates25) {
+  const definition = duplicateTemplates25Config.templates[mapping.template];
+  const entry = functionsByName.get(name);
+  if (entry === undefined || entry.mode !== "$a" || entry.size !== definition.bodySize) {
+    throw new Error(`${name} is not the configured inventoried ARM duplicate-template 25 function`);
+  }
+  const offset = entry.address - textStart;
+  const slotStart = entry.address + entry.size;
+  const slotEnd = slotStart + mapping.literals.length * 4;
+  if (slotStart % 4 !== 0 || offset < 0 || offset + entry.size + mapping.literals.length * 4 > code.length) {
+    throw new Error(`${name} has invalid or out-of-bounds duplicate-template 25 identity slots`);
+  }
+  const overlap = functions.find((candidate) =>
+    candidate.address < slotEnd && candidate.address + candidate.size > slotStart);
+  if (overlap !== undefined) {
+    throw new Error(`${name} duplicate-template 25 identity slots overlap inventoried function ${overlap.name}`);
+  }
+  for (let index = 0; index < mapping.literals.length; index++) {
+    const identityName = mapping.literals[index].identity;
+    const identity = duplicateTemplates25Config.literalIdentities[identityName];
+    const privateWord = code.readUInt32LE(offset + entry.size + index * 4);
+    const segmentName = identity.class === "data-address" ? "data" :
+      identity.class === "rodata-address" ? "rodata" : undefined;
+    if (segmentName !== undefined) {
+      const segment = targetSegments.get(segmentName);
+      if (privateWord < segment.address || privateWord >= segment.address + segment.size) {
+        throw new Error(`${name} duplicate-template 25 identity ${identityName} is outside ${segmentName}`);
+      }
+    }
+    const priorWord = duplicateTemplate25IdentityWords.get(identityName);
+    if (priorWord !== undefined && priorWord !== privateWord) {
+      throw new Error(`Duplicate-template 25 identity equality is inconsistent for ${name} slot ${index}`);
+    }
+    duplicateTemplate25IdentityWords.set(identityName, privateWord);
+  }
+}
+if (duplicateTemplate25IdentityWords.size !== 9 ||
+    new Set(duplicateTemplate25IdentityWords.values()).size !== 9) {
+  throw new Error("Duplicate-template 25 identities must form 9 distinct equality classes");
+}
+
 for (const [name, mapping] of adjacentGlobalLoads) {
   const entry = functionsByName.get(name);
   if (entry === undefined || entry.mode !== "$a" || entry.size !== 12) {
@@ -1512,11 +1592,12 @@ for (const entry of functions) {
   const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
   const duplicateTemplate23 = duplicateTemplates23.get(entry.name);
   const duplicateTemplate24 = duplicateTemplates24.get(entry.name);
+  const duplicateTemplate25 = duplicateTemplates25.get(entry.name);
   const duplicateContainerTemplate = duplicateContainerTemplates.get(entry.name);
   const runtimeHelper23 = runtimeHelper23Pending && entry.name === runtimeHelpers23Entry.name;
   const runtimeHelper24 = runtimeHelper24Pending && entry.name === runtimeHelpers24Entry.name;
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24].filter(Boolean);
   if (configuredMappings.length > 1) {
     throw new Error(`${entry.name} has conflicting target-generation mappings`);
   } else if (destination) {
@@ -1674,6 +1755,12 @@ for (const entry of functions) {
           return [`.word ${symbol}`, `.global ${symbol}`];
         })
       : []),
+    ...(duplicateTemplate25
+      ? duplicateTemplate25.literals.flatMap(({ identity }) => {
+          const symbol = duplicateTemplates25Config.literalIdentities[identity].symbol;
+          return [`.word ${symbol}`, `.global ${symbol}`];
+        })
+      : []),
     ...(runtimeHelper23
       ? [`.word ${runtimeHelpers23Config.adjacentRelocation.symbol}`, `.global ${runtimeHelpers23Config.adjacentRelocation.symbol}`]
       : []),
@@ -1706,6 +1793,7 @@ for (const entry of functions) {
   duplicateTemplates22.delete(entry.name);
   duplicateTemplates23.delete(entry.name);
   duplicateTemplates24.delete(entry.name);
+  duplicateTemplates25.delete(entry.name);
   duplicateContainerTemplates.delete(entry.name);
 }
 if (runtimeHelper23Pending) {
@@ -1799,6 +1887,11 @@ if (duplicateTemplates23.size !== 0) {
 if (duplicateTemplates24.size !== 0) {
   throw new Error(
     `Duplicate template 24 mappings missing from the function inventory: ${[...duplicateTemplates24.keys()].join(", ")}`
+  );
+}
+if (duplicateTemplates25.size !== 0) {
+  throw new Error(
+    `Duplicate template 25 mappings missing from the function inventory: ${[...duplicateTemplates25.keys()].join(", ")}`
   );
 }
 if (duplicateContainerTemplates.size !== 0) {

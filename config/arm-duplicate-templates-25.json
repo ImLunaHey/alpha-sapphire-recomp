@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "mode": "arm",
+  "expectedBodyBytes": 300,
+  "templates": {
+    "halfword_merge": { "bodySize": 20, "count": 3, "literalCount": 0 },
+    "conditional_mutable_word_clear": { "bodySize": 24, "count": 2, "literalCount": 1 },
+    "descriptor_pair_byte_state_initializer": { "bodySize": 24, "count": 2, "literalCount": 1 },
+    "shared_type_two_word_initializer": { "bodySize": 20, "count": 2, "literalCount": 1 },
+    "unsigned_inclusive_bound_predicate": { "bodySize": 20, "count": 2, "literalCount": 1 },
+    "packed_selector_stride_pointer": { "bodySize": 20, "count": 2, "literalCount": 0 },
+    "indirect_dispatch_tail_transfer": { "bodySize": 12, "count": 2, "literalCount": 1 }
+  },
+  "literalIdentities": {
+    "mutableStateA": { "symbol": "duplicate_template_25_mutable_state_a", "class": "data-address" },
+    "mutableStateB": { "symbol": "duplicate_template_25_mutable_state_b", "class": "data-address" },
+    "descriptorBaseA": { "symbol": "duplicate_template_25_descriptor_base_a", "class": "rodata-address" },
+    "descriptorBaseB": { "symbol": "duplicate_template_25_descriptor_base_b", "class": "rodata-address" },
+    "sharedType": { "symbol": "duplicate_template_25_shared_type", "class": "rodata-address" },
+    "unsignedBoundA": { "symbol": "duplicate_template_25_unsigned_bound_a", "class": "unsigned-scalar" },
+    "unsignedBoundB": { "symbol": "duplicate_template_25_unsigned_bound_b", "class": "unsigned-scalar" },
+    "dispatchOwnerA": { "symbol": "duplicate_template_25_dispatch_owner_a", "class": "data-address" },
+    "dispatchOwnerB": { "symbol": "duplicate_template_25_dispatch_owner_b", "class": "data-address" }
+  },
+  "functions": [
+    { "name": "func_001B0468", "template": "halfword_merge", "literals": [] },
+    { "name": "func_001B6A68", "template": "halfword_merge", "literals": [] },
+    { "name": "func_001BD068", "template": "halfword_merge", "literals": [] },
+    { "name": "func_00153B54", "template": "conditional_mutable_word_clear", "literals": [{ "offset": 24, "identity": "mutableStateA" }] },
+    { "name": "func_00154014", "template": "conditional_mutable_word_clear", "literals": [{ "offset": 24, "identity": "mutableStateB" }] },
+    { "name": "func_00411040", "template": "descriptor_pair_byte_state_initializer", "literals": [{ "offset": 24, "identity": "descriptorBaseA" }] },
+    { "name": "func_00411270", "template": "descriptor_pair_byte_state_initializer", "literals": [{ "offset": 24, "identity": "descriptorBaseB" }] },
+    { "name": "func_00240AD8", "template": "shared_type_two_word_initializer", "literals": [{ "offset": 20, "identity": "sharedType" }] },
+    { "name": "func_0029F57C", "template": "shared_type_two_word_initializer", "literals": [{ "offset": 20, "identity": "sharedType" }] },
+    { "name": "func_002C2CD4", "template": "unsigned_inclusive_bound_predicate", "literals": [{ "offset": 20, "identity": "unsignedBoundA" }] },
+    { "name": "func_002C2EB8", "template": "unsigned_inclusive_bound_predicate", "literals": [{ "offset": 20, "identity": "unsignedBoundB" }] },
+    { "name": "func_003279C8", "template": "packed_selector_stride_pointer", "literals": [] },
+    { "name": "func_004BE69C", "template": "packed_selector_stride_pointer", "literals": [] },
+    { "name": "func_001D1EB0", "template": "indirect_dispatch_tail_transfer", "literals": [{ "offset": 12, "identity": "dispatchOwnerA" }] },
+    { "name": "func_001E2C0C", "template": "indirect_dispatch_tail_transfer", "literals": [{ "offset": 12, "identity": "dispatchOwnerB" }] }
+  ]
+}

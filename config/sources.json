@@ -232,6 +232,10 @@
     {
       "path": "src/main/arm_duplicate_templates_24.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_duplicate_templates_25.S",
+      "mode": "arm"
     }
   ]
 }
