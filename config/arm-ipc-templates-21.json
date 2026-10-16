@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_templates_21.S",
+  "functions": [
+    { "name": "func_002E3F94", "mode": "arm", "size": 160, "template": "four_word_two_outputs_static", "command": "ipc_command_func_001FFA8C" },
+    { "name": "func_001325A4", "mode": "arm", "size": 156, "template": "eleven_word_two_static", "command": "ipc_command_func_001325A4" },
+    { "name": "func_002C5B84", "mode": "arm", "size": 144, "template": "structured_mapped", "command": "ipc_command_func_002C5B84" },
+    { "name": "func_001F6F40", "mode": "arm", "size": 136, "template": "four_mixed_outputs_static", "command": "ipc_command_func_001F6F40" },
+    { "name": "func_002E4110", "mode": "arm", "size": 136, "template": "scaled_static_buffer", "command": "ipc_command_func_002E4110" },
+    { "name": "func_002E6BA0", "mode": "arm", "size": 136, "template": "global_struct_mixed", "command": "ipc_command_func_002E6BA0", "handle": "ipc_handle_slot_lambda" },
+    { "name": "func_002E3F10", "mode": "arm", "size": 128, "template": "dual_static_output", "command": "ipc_command_func_002E3F10" },
+    { "name": "func_002E422C", "mode": "arm", "size": 128, "template": "static_mapped_output", "command": "ipc_command_func_002E422C" },
+    { "name": "func_002E435C", "mode": "arm", "size": 128, "template": "mapped_preserved_static", "command": "ipc_command_func_002E435C" },
+    { "name": "func_002E6A88", "mode": "arm", "size": 124, "template": "global_helper_structure", "command": "ipc_command_func_002E6A88", "handle": "ipc_handle_slot_lambda", "call": "func_0016C090" },
+    { "name": "func_00174770", "mode": "arm", "size": 120, "template": "static_two_outputs", "command": "ipc_command_func_00174770" },
+    { "name": "func_00194D78", "mode": "arm", "size": 120, "template": "mapped_static_output", "command": "ipc_command_func_002C9190" }
+  ]
+}

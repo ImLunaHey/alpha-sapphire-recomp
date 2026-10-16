@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_21.S",
+  "mode": "arm",
+  "sourceSha256": "ae47518c5821f7963282a0c820add12fbb72c210f8e8d608f35ea8cb20220da0",
+  "totalSize": 244,
+  "functions": [
+    {
+      "name": "func_002D30F4",
+      "size": 84
+    },
+    {
+      "name": "func_002D3148",
+      "size": 88
+    },
+    {
+      "name": "func_002DAFF8",
+      "size": 72
+    }
+  ]
+}

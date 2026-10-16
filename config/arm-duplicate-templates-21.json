@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "mode": "arm",
+  "expectedBodyBytes": 536,
+  "templates": {
+    "typed_two_word_initializer": { "bodySize": 16, "count": 6, "literalCount": 1 },
+    "two_tag_tail_dispatcher": { "bodySize": 48, "count": 2, "literalCount": 1 },
+    "tagged_relative_entry_lookup": { "bodySize": 48, "count": 2, "literalCount": 1 },
+    "bounded_halfword_span_export": { "bodySize": 44, "count": 2, "literalCount": 1 },
+    "paired_store_zero_initializer": { "bodySize": 16, "count": 5, "literalCount": 0 },
+    "packed_two_axis_offset": { "bodySize": 40, "count": 2, "literalCount": 0 }
+  },
+  "literalIdentities": {
+    "typeShared": "duplicate_template_21_type_shared",
+    "type0028D188": "duplicate_template_21_type_func_0028D188",
+    "type00330C0C": "duplicate_template_21_type_func_00330C0C",
+    "type00374CBC": "duplicate_template_21_type_func_00374CBC",
+    "type0039BC80": "duplicate_template_21_type_func_0039BC80",
+    "dispatchTable0030E398": "duplicate_template_21_dispatch_table_func_0030E398",
+    "dispatchTable0030F074": "duplicate_template_21_dispatch_table_func_0030F074",
+    "entryTag004BF560": "duplicate_template_21_entry_tag_func_004BF560",
+    "entryTag004BF594": "duplicate_template_21_entry_tag_func_004BF594",
+    "error004A9E30": "duplicate_template_21_error_func_004A9E30",
+    "error004A9EB4": "duplicate_template_21_error_func_004A9EB4"
+  },
+  "functions": [
+    { "name": "func_00257BB4", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "typeShared" }] },
+    { "name": "func_00257BF4", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "typeShared" }] },
+    { "name": "func_0028D188", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "type0028D188" }] },
+    { "name": "func_00330C0C", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "type00330C0C" }] },
+    { "name": "func_00374CBC", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "type00374CBC" }] },
+    { "name": "func_0039BC80", "template": "typed_two_word_initializer", "literals": [{ "offset": 16, "identity": "type0039BC80" }] },
+    { "name": "func_0030E398", "template": "two_tag_tail_dispatcher", "handlers": ["func_002F81EC", "func_0031001C"], "literals": [{ "offset": 48, "identity": "dispatchTable0030E398" }] },
+    { "name": "func_0030F074", "template": "two_tag_tail_dispatcher", "handlers": ["dispatch_high_bit_func_0030F074", "func_00311648"], "literals": [{ "offset": 48, "identity": "dispatchTable0030F074" }] },
+    { "name": "func_004BF560", "template": "tagged_relative_entry_lookup", "literals": [{ "offset": 48, "identity": "entryTag004BF560" }] },
+    { "name": "func_004BF594", "template": "tagged_relative_entry_lookup", "literals": [{ "offset": 48, "identity": "entryTag004BF594" }] },
+    { "name": "func_004A9E30", "template": "bounded_halfword_span_export", "literals": [{ "offset": 44, "identity": "error004A9E30" }] },
+    { "name": "func_004A9EB4", "template": "bounded_halfword_span_export", "literals": [{ "offset": 44, "identity": "error004A9EB4" }] },
+    { "name": "func_00139404", "template": "paired_store_zero_initializer", "literals": [] },
+    { "name": "func_0017357C", "template": "paired_store_zero_initializer", "literals": [] },
+    { "name": "func_0040ECE8", "template": "paired_store_zero_initializer", "literals": [] },
+    { "name": "func_00410850", "template": "paired_store_zero_initializer", "literals": [] },
+    { "name": "func_0041090C", "template": "paired_store_zero_initializer", "literals": [] },
+    { "name": "func_00328E24", "template": "packed_two_axis_offset", "literals": [] },
+    { "name": "func_004BE73C", "template": "packed_two_axis_offset", "literals": [] }
+  ]
+}
