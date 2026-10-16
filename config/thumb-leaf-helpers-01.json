@@ -1,0 +1,972 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_01.S",
+  "sourceSha256": "33f5074d59f9215e913e5c47b2a5bf1613e2e0c9cbaeadec31b5ac35ff59b814",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 470,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 235,
+  "localBranchCount": 29,
+  "memoryOperationCount": 72,
+  "returnCount": 34,
+  "indirectTailCount": 2,
+  "directCalls": [],
+  "relocations": [],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_0010420C",
+      "offset": 0,
+      "mnemonic": "ldr",
+      "targetOffset": 4,
+      "requiredEntryAlignment": 4,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [
+    {
+      "members": [
+        "func_00303934",
+        "func_00303944",
+        "func_00304774"
+      ]
+    },
+    {
+      "members": [
+        "func_00304DB4",
+        "func_003055D4"
+      ]
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:offset:mnemonic:operands",
+    "localTransfer": "function:offset:mnemonic:local:+target",
+    "returnTransfer": "function:offset:mnemonic:operand"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "82de23679dba280a97b763b9d8ae94fceaeff53df34f808173288bf8beaed131",
+    "localTransferSchedule": "491f6998c9987816e500d407e99990b875340608c269591b731efa793fb28275",
+    "returnTransferSchedule": "47530e42d17f362b2ffc5aa8809852931757e78c7b9217e4275842f4ba75126c"
+  },
+  "functions": [
+    {
+      "name": "func_0030232C",
+      "size": 8,
+      "instructionCount": 4,
+      "localBranches": [],
+      "returns": [
+        {
+          "offset": 6,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 1,
+      "nextGlobal": "func_00302334",
+      "nextGlobalOffset": 8,
+      "instructions": [
+        "ldr r0, [r0, #12]",
+        "movs r1, #128",
+        "ands r0, r1",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00302C50",
+      "size": 10,
+      "instructionCount": 5,
+      "localBranches": [
+        {
+          "offset": 4,
+          "mnemonic": "beq.n",
+          "targetOffset": 8
+        }
+      ],
+      "returns": [
+        {
+          "offset": 8,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 1,
+      "nextGlobal": "func_00302C5C",
+      "nextGlobalOffset": 12,
+      "instructions": [
+        "ldr r0, [r0, #0]",
+        "cmp r0, #0",
+        "beq.n local:+8",
+        "movs r0, #1",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_0030490A",
+      "size": 10,
+      "instructionCount": 5,
+      "localBranches": [],
+      "returns": [
+        {
+          "offset": 8,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 3,
+      "nextGlobal": "func_00304914",
+      "nextGlobalOffset": 10,
+      "instructions": [
+        "str r1, [r0, #0]",
+        "movs r1, #0",
+        "str r1, [r0, #4]",
+        "str r1, [r0, #8]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_003034C0",
+      "size": 12,
+      "instructionCount": 6,
+      "localBranches": [
+        {
+          "offset": 2,
+          "mnemonic": "beq.n",
+          "targetOffset": 8
+        }
+      ],
+      "returns": [
+        {
+          "offset": 6,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 10,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 0,
+      "nextGlobal": "func_003034CC",
+      "nextGlobalOffset": 12,
+      "instructions": [
+        "lsrs r0, r0, #8",
+        "beq.n local:+8",
+        "movs r0, #0",
+        "bx lr",
+        "movs r0, #1",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_002FFB94",
+      "size": 14,
+      "instructionCount": 7,
+      "localBranches": [
+        {
+          "offset": 4,
+          "mnemonic": "bcs.n",
+          "targetOffset": 10
+        }
+      ],
+      "returns": [
+        {
+          "offset": 8,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 12,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 0,
+      "nextGlobal": "func_002FFBAE",
+      "nextGlobalOffset": 26,
+      "instructions": [
+        "subs r0, #48",
+        "cmp r0, #10",
+        "bcs.n local:+a",
+        "movs r0, #1",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00303304",
+      "size": 14,
+      "instructionCount": 7,
+      "localBranches": [
+        {
+          "offset": 8,
+          "mnemonic": "beq.n",
+          "targetOffset": 12
+        }
+      ],
+      "returns": [
+        {
+          "offset": 12,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_00303314",
+      "nextGlobalOffset": 16,
+      "instructions": [
+        "ldr r0, [r0, #20]",
+        "lsls r2, r2, #1",
+        "ldrh r0, [r0, r2]",
+        "ands r0, r1",
+        "beq.n local:+c",
+        "movs r0, #1",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304766",
+      "size": 14,
+      "instructionCount": 7,
+      "localBranches": [],
+      "returns": [
+        {
+          "offset": 12,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 6,
+      "nextGlobal": "func_00304774",
+      "nextGlobalOffset": 14,
+      "instructions": [
+        "ldr r2, [r1, #0]",
+        "str r2, [r0, #0]",
+        "ldr r2, [r1, #8]",
+        "ldr r1, [r1, #4]",
+        "str r2, [r0, #8]",
+        "str r1, [r0, #4]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_002FEDC0",
+      "size": 16,
+      "instructionCount": 8,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "bcs.n",
+          "targetOffset": 14
+        }
+      ],
+      "returns": [
+        {
+          "offset": 14,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 4,
+      "nextGlobal": "func_002FEDD0",
+      "nextGlobalOffset": 16,
+      "instructions": [
+        "ldr r3, [r1, #4]",
+        "ldr r2, [r1, #0]",
+        "cmp r2, r3",
+        "bcs.n local:+e",
+        "adds r3, r2, #2",
+        "str r3, [r1, #0]",
+        "strh r0, [r2, #0]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00303934",
+      "size": 16,
+      "instructionCount": 8,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "bne.n",
+          "targetOffset": 12
+        }
+      ],
+      "returns": [
+        {
+          "offset": 10,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 14,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_00303944",
+      "nextGlobalOffset": 16,
+      "instructions": [
+        "ldr r0, [r0, #0]",
+        "ldr r1, [r1, #0]",
+        "cmp r0, r1",
+        "bne.n local:+c",
+        "movs r0, #1",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00303944",
+      "size": 16,
+      "instructionCount": 8,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "bne.n",
+          "targetOffset": 12
+        }
+      ],
+      "returns": [
+        {
+          "offset": 10,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 14,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_00303954",
+      "nextGlobalOffset": 16,
+      "instructions": [
+        "ldr r0, [r0, #0]",
+        "ldr r1, [r1, #0]",
+        "cmp r0, r1",
+        "bne.n local:+c",
+        "movs r0, #1",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304774",
+      "size": 16,
+      "instructionCount": 8,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "bne.n",
+          "targetOffset": 12
+        }
+      ],
+      "returns": [
+        {
+          "offset": 10,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 14,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_00304784",
+      "nextGlobalOffset": 16,
+      "instructions": [
+        "ldr r0, [r0, #0]",
+        "ldr r1, [r1, #0]",
+        "cmp r0, r1",
+        "bne.n local:+c",
+        "movs r0, #1",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_003048BE",
+      "size": 18,
+      "instructionCount": 9,
+      "localBranches": [
+        {
+          "offset": 2,
+          "mnemonic": "beq.n",
+          "targetOffset": 14
+        },
+        {
+          "offset": 8,
+          "mnemonic": "beq.n",
+          "targetOffset": 14
+        }
+      ],
+      "returns": [
+        {
+          "offset": 12,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 16,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 1,
+      "nextGlobal": "func_003048D0",
+      "nextGlobalOffset": 18,
+      "instructions": [
+        "cmp r0, #0",
+        "beq.n local:+e",
+        "ldr r0, [r0, #0]",
+        "cmp r0, #0",
+        "beq.n local:+e",
+        "movs r0, #0",
+        "bx lr",
+        "movs r0, #1",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304974",
+      "size": 18,
+      "instructionCount": 9,
+      "localBranches": [
+        {
+          "offset": 2,
+          "mnemonic": "beq.n",
+          "targetOffset": 16
+        }
+      ],
+      "returns": [
+        {
+          "offset": 16,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 6,
+      "nextGlobal": "func_00304C58",
+      "nextGlobalOffset": 740,
+      "instructions": [
+        "cmp r1, r0",
+        "beq.n local:+10",
+        "ldr r2, [r1, #0]",
+        "str r2, [r0, #0]",
+        "ldr r2, [r1, #8]",
+        "ldr r1, [r1, #4]",
+        "str r2, [r0, #8]",
+        "str r1, [r0, #4]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304DB4",
+      "size": 18,
+      "instructionCount": 9,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "beq.n",
+          "targetOffset": 12
+        },
+        {
+          "offset": 10,
+          "mnemonic": "b.n",
+          "targetOffset": 14
+        }
+      ],
+      "returns": [
+        {
+          "offset": 16,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_00304DC6",
+      "nextGlobalOffset": 18,
+      "instructions": [
+        "ldr r2, [r0, #16]",
+        "movs r3, #2",
+        "cmp r1, #0",
+        "beq.n local:+c",
+        "orrs r2, r3",
+        "b.n local:+e",
+        "bics r2, r3",
+        "str r2, [r0, #16]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_003055D4",
+      "size": 18,
+      "instructionCount": 9,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "beq.n",
+          "targetOffset": 12
+        },
+        {
+          "offset": 10,
+          "mnemonic": "b.n",
+          "targetOffset": 14
+        }
+      ],
+      "returns": [
+        {
+          "offset": 16,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 2,
+      "nextGlobal": "func_003055E6",
+      "nextGlobalOffset": 18,
+      "instructions": [
+        "ldr r2, [r0, #16]",
+        "movs r3, #2",
+        "cmp r1, #0",
+        "beq.n local:+c",
+        "orrs r2, r3",
+        "b.n local:+e",
+        "bics r2, r3",
+        "str r2, [r0, #16]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00301D1C",
+      "size": 20,
+      "instructionCount": 10,
+      "localBranches": [],
+      "returns": [
+        {
+          "offset": 18,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 4,
+      "nextGlobal": "func_00301D30",
+      "nextGlobalOffset": 20,
+      "instructions": [
+        "ldr r1, [r0, #12]",
+        "movs r2, #128",
+        "orrs r1, r2",
+        "lsls r2, r2, #14",
+        "bics r1, r2",
+        "str r1, [r0, #12]",
+        "movs r1, #0",
+        "str r1, [r0, #8]",
+        "str r1, [r0, #0]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_002FF972",
+      "size": 22,
+      "instructionCount": 11,
+      "localBranches": [
+        {
+          "offset": 4,
+          "mnemonic": "bpl.n",
+          "targetOffset": 12
+        },
+        {
+          "offset": 14,
+          "mnemonic": "bpl.n",
+          "targetOffset": 10
+        }
+      ],
+      "returns": [
+        {
+          "offset": 10,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 20,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 1,
+      "nextGlobal": "func_002FF988",
+      "nextGlobalOffset": 22,
+      "instructions": [
+        "ldr r1, [r1, #0]",
+        "lsls r2, r1, #21",
+        "bpl.n local:+c",
+        "lsls r0, r0, #24",
+        "lsrs r0, r0, #24",
+        "bx lr",
+        "lsls r1, r1, #23",
+        "bpl.n local:+a",
+        "lsls r0, r0, #16",
+        "lsrs r0, r0, #16",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304DEE",
+      "size": 24,
+      "instructionCount": 12,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "beq.n",
+          "targetOffset": 20
+        },
+        {
+          "offset": 12,
+          "mnemonic": "beq.n",
+          "targetOffset": 20
+        }
+      ],
+      "returns": [
+        {
+          "offset": 18,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 22,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 3,
+      "nextGlobal": "func_00304E3C",
+      "nextGlobalOffset": 78,
+      "instructions": [
+        "ldr r1, [r0, #4]",
+        "lsls r1, r1, #29",
+        "lsrs r1, r1, #31",
+        "beq.n local:+14",
+        "ldr r1, [r0, #24]",
+        "cmp r1, #0",
+        "beq.n local:+14",
+        "ldr r0, [r0, #20]",
+        "subs r0, r1, r0",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_0030560E",
+      "size": 26,
+      "instructionCount": 13,
+      "localBranches": [
+        {
+          "offset": 6,
+          "mnemonic": "beq.n",
+          "targetOffset": 22
+        },
+        {
+          "offset": 12,
+          "mnemonic": "beq.n",
+          "targetOffset": 22
+        }
+      ],
+      "returns": [
+        {
+          "offset": 20,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 24,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 3,
+      "nextGlobal": "func_0030570C",
+      "nextGlobalOffset": 254,
+      "instructions": [
+        "ldr r1, [r0, #4]",
+        "lsls r1, r1, #29",
+        "lsrs r1, r1, #31",
+        "beq.n local:+16",
+        "ldr r1, [r0, #24]",
+        "cmp r1, #0",
+        "beq.n local:+16",
+        "ldr r0, [r0, #20]",
+        "subs r0, r1, r0",
+        "asrs r0, r0, #1",
+        "bx lr",
+        "movs r0, #0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_002FEDD0",
+      "size": 30,
+      "instructionCount": 15,
+      "localBranches": [
+        {
+          "offset": 2,
+          "mnemonic": "bcs.n",
+          "targetOffset": 6
+        },
+        {
+          "offset": 14,
+          "mnemonic": "bcc.n",
+          "targetOffset": 20
+        },
+        {
+          "offset": 22,
+          "mnemonic": "bcc.n",
+          "targetOffset": 28
+        }
+      ],
+      "returns": [
+        {
+          "offset": 28,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 0,
+      "nextGlobal": "func_002FEDF0",
+      "nextGlobalOffset": 32,
+      "instructions": [
+        "cmp r0, #58",
+        "bcs.n local:+6",
+        "subs r0, #48",
+        "movs r3, #32",
+        "movs r2, r0",
+        "bics r2, r3",
+        "cmp r2, #65",
+        "bcc.n local:+14",
+        "movs r0, r2",
+        "subs r0, #55",
+        "cmp r0, r1",
+        "bcc.n local:+1c",
+        "movs r0, #0",
+        "mvns r0, r0",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_0030242A",
+      "size": 40,
+      "instructionCount": 20,
+      "localBranches": [
+        {
+          "offset": 20,
+          "mnemonic": "beq.n",
+          "targetOffset": 26
+        }
+      ],
+      "returns": [
+        {
+          "offset": 24,
+          "mnemonic": "bx",
+          "operand": "lr"
+        },
+        {
+          "offset": 38,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 8,
+      "nextGlobal": "func_00302452",
+      "nextGlobalOffset": 40,
+      "instructions": [
+        "ldr r1, [r0, #12]",
+        "movs r2, #64",
+        "orrs r1, r2",
+        "lsls r2, r2, #6",
+        "bics r1, r2",
+        "movs r2, #0",
+        "str r2, [r0, #0]",
+        "str r1, [r0, #12]",
+        "lsls r1, r1, #21",
+        "lsrs r1, r1, #30",
+        "beq.n local:+1a",
+        "str r2, [r0, #8]",
+        "bx lr",
+        "ldr r2, [r0, #16]",
+        "ldr r1, [r0, #4]",
+        "subs r1, r1, r2",
+        "ldr r2, [r0, #28]",
+        "subs r1, r1, r2",
+        "str r1, [r0, #8]",
+        "bx lr"
+      ]
+    },
+    {
+      "name": "func_00304D7E",
+      "size": 42,
+      "instructionCount": 21,
+      "localBranches": [
+        {
+          "offset": 12,
+          "mnemonic": "beq.n",
+          "targetOffset": 34
+        },
+        {
+          "offset": 20,
+          "mnemonic": "beq.n",
+          "targetOffset": 34
+        }
+      ],
+      "returns": [
+        {
+          "offset": 32,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [
+        {
+          "offset": 40,
+          "mnemonic": "bx",
+          "operand": "r2"
+        }
+      ],
+      "memoryOperations": 9,
+      "nextGlobal": "func_00304DA8",
+      "nextGlobalOffset": 42,
+      "instructions": [
+        "push {r0, r1}",
+        "ldr r1, [r0, #4]",
+        "lsls r1, r1, #28",
+        "lsrs r2, r1, #31",
+        "mov r1, sp",
+        "ldrb r1, [r1, #4]",
+        "beq.n local:+22",
+        "ldr r3, [r0, #40]",
+        "ldr r2, [r0, #36]",
+        "subs r3, r3, r2",
+        "beq.n local:+22",
+        "adds r3, r2, #1",
+        "str r3, [r0, #36]",
+        "strb r1, [r2, #0]",
+        "movs r0, r1",
+        "add sp, #8",
+        "bx lr",
+        "ldr r2, [r0, #0]",
+        "ldr r2, [r2, #40]",
+        "add sp, #8",
+        "bx r2"
+      ]
+    },
+    {
+      "name": "func_003055A8",
+      "size": 44,
+      "instructionCount": 22,
+      "localBranches": [
+        {
+          "offset": 12,
+          "mnemonic": "beq.n",
+          "targetOffset": 36
+        },
+        {
+          "offset": 22,
+          "mnemonic": "beq.n",
+          "targetOffset": 36
+        }
+      ],
+      "returns": [
+        {
+          "offset": 34,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [
+        {
+          "offset": 42,
+          "mnemonic": "bx",
+          "operand": "r2"
+        }
+      ],
+      "memoryOperations": 9,
+      "nextGlobal": "func_003055D4",
+      "nextGlobalOffset": 44,
+      "instructions": [
+        "push {r0, r1}",
+        "ldr r1, [r0, #4]",
+        "lsls r1, r1, #28",
+        "lsrs r2, r1, #31",
+        "mov r1, sp",
+        "ldrh r1, [r1, #4]",
+        "beq.n local:+24",
+        "ldr r3, [r0, #40]",
+        "ldr r2, [r0, #36]",
+        "subs r3, r3, r2",
+        "asrs r3, r3, #1",
+        "beq.n local:+24",
+        "adds r3, r2, #2",
+        "str r3, [r0, #36]",
+        "strh r1, [r2, #0]",
+        "movs r0, r1",
+        "add sp, #8",
+        "bx lr",
+        "ldr r2, [r0, #0]",
+        "ldr r2, [r2, #40]",
+        "add sp, #8",
+        "bx r2"
+      ]
+    },
+    {
+      "name": "func_0010420C",
+      "size": 4,
+      "instructionCount": 2,
+      "localBranches": [],
+      "returns": [
+        {
+          "offset": 2,
+          "mnemonic": "bx",
+          "operand": "lr"
+        }
+      ],
+      "indirectTails": [],
+      "memoryOperations": 1,
+      "nextGlobal": "func_001042A6",
+      "nextGlobalOffset": 154,
+      "instructions": [
+        "ldr r0, [pc, #0]",
+        "bx lr"
+      ]
+    }
+  ]
+}

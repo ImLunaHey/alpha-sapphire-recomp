@@ -94,6 +94,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-wrappers-77.json" \
   "$root/config/arm-ipc-wrappers-78.json" \
   "$root/config/arm-ipc-wrappers-79.json" \
+  "$root/config/arm-ipc-wrappers-80.json" \
   "$root/config/arm-duplicate-templates-19.json" \
   "$root/config/arm-duplicate-templates-21.json" \
   "$root/config/arm-duplicate-templates-22.json" \
@@ -542,6 +543,9 @@ ARM_AS="$assembler" ARM_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-wrappers-79.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-ipc-wrappers-80.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" \
@@ -578,5 +582,9 @@ ARM_NONE_EABI_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
 node "$root/scripts/validate-arm-runtime-helpers-84.mjs"
 node "$root/scripts/validate-arm-runtime-helpers-85.mjs"
 node "$root/scripts/validate-arm-runtime-helpers-86.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-87.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-thumb-leaf-helpers-01.mjs"
 node "$root/scripts/validate-arm-runtime-helpers-42.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

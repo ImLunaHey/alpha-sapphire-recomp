@@ -81,6 +81,7 @@ const [
   ipcTemplates77Path,
   ipcTemplates78Path,
   ipcTemplates79Path,
+  ipcTemplates80Path,
   duplicateTemplates19Path,
   duplicateTemplates21Path,
   duplicateTemplates22Path,
@@ -239,6 +240,7 @@ if (
   !ipcTemplates77Path ||
   !ipcTemplates78Path ||
   !ipcTemplates79Path ||
+  !ipcTemplates80Path ||
   !duplicateTemplates19Path ||
   !duplicateTemplates21Path ||
   !duplicateTemplates22Path ||
@@ -4354,6 +4356,71 @@ const ipcTemplates79 = new Map();
 for (const entry of ipcTemplates79Config.functions) {
   if (ipcTemplates79.has(entry.name)) throw new Error("Duplicate IPC wrapper 79 mapping entry");
   ipcTemplates79.set(entry.name, entry);
+}
+
+const ipcTemplates80Config = JSON.parse(readFileSync(ipcTemplates80Path, "utf8"));
+const ipcTemplates80Expected = [
+  { name: "func_00194854", section: ".text.func_00194854", size: 76,
+    nextGlobal: "func_001948A4", nextGlobalOffset: 80, branches: [
+      { offset: 12, kind: "R_ARM_CALL", mnemonic: "bl", symbol: "func_0017E4D8" },
+    ], literals: [
+      { offset: 76, loadOffsets: [24], symbol: "ipc_controller_selector_offset_77" },
+    ] },
+  { name: "func_001948A4", section: ".text.func_001948A4", size: 352,
+    nextGlobal: "func_00194A0C", nextGlobalOffset: 360, branches: [
+      { offset: 20, kind: "R_ARM_CALL", mnemonic: "bl", symbol: "func_0017E4D8" },
+      { offset: 276, kind: "R_ARM_CALL", mnemonic: "bl", symbol: "func_001950F8" },
+    ], literals: [
+      { offset: 352, loadOffsets: [52], symbol: "ipc_controller_selector_offset_77" },
+      { offset: 356, loadOffsets: [180], symbol: "ipc_controller_scale_magic_80" },
+    ] },
+  { name: "func_00194A0C", section: ".text.func_00194A0C", size: 164,
+    nextGlobal: "func_00194AB0", nextGlobalOffset: 164, branches: [
+      { offset: 16, kind: "R_ARM_CALL", mnemonic: "bl", symbol: "func_0017E4D8" },
+    ], literals: [] },
+  { name: "func_00194AB0", section: ".text.func_00194AB0", size: 440,
+    nextGlobal: "func_00194D78", nextGlobalOffset: 712, branches: [
+      { offset: 16, kind: "R_ARM_CALL", mnemonic: "bl", symbol: "func_0017E4D8" },
+    ], literals: [
+      { offset: 440, loadOffsets: [152], symbol: "ipc_controller_scale_magic_80" },
+      { offset: 444, loadOffsets: [196], symbol: "ipc_controller_selector_offset_77" },
+    ] },
+];
+const ipcTemplate80LiteralIdentities = [
+  "ipc_controller_selector_offset_77", "ipc_controller_scale_magic_80",
+];
+const ipcTemplate80ReusedLiteralIdentities = ["ipc_controller_selector_offset_77"];
+const ipcTemplate80NewLiteralIdentities = ["ipc_controller_scale_magic_80"];
+const ipcTemplate80PrimaryEntries = ["func_0017E4D8", "func_001950F8"];
+if (JSON.stringify(Object.keys(ipcTemplates80Config).sort()) !== JSON.stringify(ipcTemplates78TopLevelKeys) ||
+    ipcTemplates80Config.schemaVersion !== 1 ||
+    ipcTemplates80Config.source !== "src/main/arm_ipc_wrappers_80.S" ||
+    ipcTemplates80Config.sourceSha256 !== "ca5d2d683ef6db31f26b2cf2bd381a86f9d79c49706cdf29669d7da36a266e9d" ||
+    ipcTemplates80Config.normalizedScheduleSha256 !== "ca5d2d683ef6db31f26b2cf2bd381a86f9d79c49706cdf29669d7da36a266e9d" ||
+    ipcTemplates80Config.mode !== "arm" || ipcTemplates80Config.totalBodySize !== 1032 ||
+    ipcTemplates80Config.totalAdjacentSize !== 20 ||
+    ipcTemplates80Config.cumulativePoolSlots !== 793 ||
+    ipcTemplates80Config.cumulativePoolClasses !== 418 ||
+    JSON.stringify(ipcTemplates80Config.functions) !== JSON.stringify(ipcTemplates80Expected) ||
+    JSON.stringify(ipcTemplates80Config.literalIdentities) !== JSON.stringify(ipcTemplate80LiteralIdentities) ||
+    JSON.stringify(ipcTemplates80Config.reusedLiteralIdentities) !== JSON.stringify(ipcTemplate80ReusedLiteralIdentities) ||
+    JSON.stringify(ipcTemplates80Config.newLiteralIdentities) !== JSON.stringify(ipcTemplate80NewLiteralIdentities) ||
+    JSON.stringify(ipcTemplates80Config.branchIdentityContract) !== JSON.stringify({
+      mode: "arm", minimumAlignment: 4, primaryEntries: ipcTemplate80PrimaryEntries,
+      secondaryEntries: [], secondaryEntryRelations: [],
+      sharedClasses: [{ symbol: "func_0017E4D8", sites: [
+        { function: "func_00194854", offset: 12 },
+        { function: "func_001948A4", offset: 20 },
+        { function: "func_00194A0C", offset: 16 },
+        { function: "func_00194AB0", offset: 16 },
+      ] }], singletonClasses: ["func_001950F8"], classesPairwiseDistinct: true,
+    })) {
+  throw new Error("Unexpected IPC wrapper 80 exact neutral positional manifest format");
+}
+const ipcTemplates80 = new Map();
+for (const entry of ipcTemplates80Config.functions) {
+  if (ipcTemplates80.has(entry.name)) throw new Error("Duplicate IPC wrapper 80 mapping entry");
+  ipcTemplates80.set(entry.name, entry);
 }
 
 const duplicateTemplates19Config = JSON.parse(readFileSync(duplicateTemplates19Path, "utf8"));
@@ -12370,6 +12437,115 @@ if (ipcTemplate79OwnedRanges.length !== 5 || ipcTemplate79BodyBytes !== 260 ||
   throw new Error("ARM IPC wrapper 79 completeness, boundary, ownership, or identity contract is invalid");
 }
 
+const ipcTemplate80Destinations = new Map();
+const ipcTemplate80SiteCounts = new Map();
+const ipcTemplate80LiteralLoads = new Set();
+const ipcTemplate80LiteralSlots = new Set();
+const ipcTemplate80OwnedRanges = [];
+let ipcTemplate80TransferSites = 0;
+let ipcTemplate80BodyBytes = 0;
+let ipcTemplate80AdjacentBytes = 0;
+let ipcTemplate80UnownedInterstitialBytes = 0;
+let ipcTemplate80LocalBranches = 0;
+let ipcTemplate80Returns = 0;
+for (const mapping of ipcTemplates80Config.functions) {
+  const entry = functionsByName.get(mapping.name);
+  const nextGlobal = functionsByName.get(mapping.nextGlobal);
+  const materialEnd = Math.max(mapping.size, ...mapping.literals.map(({ offset }) => offset + 4));
+  const expectedGap = mapping.name === "func_00194AB0" ? 264 : 0;
+  if (entry?.mode !== "$a" || entry.size !== mapping.size || entry.address % 4 !== 0 ||
+      nextGlobal?.address !== entry.address + mapping.nextGlobalOffset ||
+      materialEnd > mapping.nextGlobalOffset || mapping.nextGlobalOffset - materialEnd !== expectedGap) {
+    throw new Error(`ARM IPC wrapper 80 function ${mapping.name} has an invalid exact inventory boundary`);
+  }
+  const offset = entry.address - textStart;
+  const ownedEnd = entry.address + materialEnd;
+  if (offset < 0 || offset + materialEnd > code.length ||
+      functions.some((candidate) => candidate.name !== mapping.name &&
+        candidate.address < ownedEnd && candidate.address + candidate.size > entry.address + entry.size) ||
+      ipcTemplate80OwnedRanges.some(({ start, end }) => entry.address < end && ownedEnd > start)) {
+    throw new Error(`ARM IPC wrapper 80 function ${mapping.name} has invalid or conflicting material ownership`);
+  }
+  ipcTemplate80OwnedRanges.push({ start: entry.address, end: ownedEnd });
+  ipcTemplate80BodyBytes += entry.size;
+  ipcTemplate80AdjacentBytes += materialEnd - entry.size;
+  ipcTemplate80UnownedInterstitialBytes += mapping.nextGlobalOffset - materialEnd;
+  const ownedOffsets = new Set();
+  for (const literal of mapping.literals) {
+    const slot = `${mapping.name}:${literal.offset}`;
+    if (literal.offset < entry.size || literal.offset + 4 > materialEnd || literal.offset % 4 !== 0 ||
+        ipcTemplate80LiteralSlots.has(slot)) {
+      throw new Error(`ARM IPC wrapper 80 function ${mapping.name} has an invalid literal slot`);
+    }
+    ipcTemplate80LiteralSlots.add(slot);
+    for (const loadOffset of literal.loadOffsets) {
+      const instruction = code.readUInt32LE(offset + loadOffset);
+      const isCoreLiteralLoad = (instruction & 0x0f7f0000) === 0x051f0000;
+      const displacement = instruction & 0xfff;
+      const targetOffset = loadOffset + 8 + ((instruction & 0x00800000) ? displacement : -displacement);
+      const site = `${mapping.name}:${loadOffset}`;
+      if (loadOffset < 0 || loadOffset + 4 > entry.size || loadOffset % 4 !== 0 ||
+          !isCoreLiteralLoad || targetOffset !== literal.offset ||
+          ipcTemplate80LiteralLoads.has(site) || ownedOffsets.has(loadOffset)) {
+        throw new Error(`ARM IPC wrapper 80 literal reach ${site} is invalid or conflicting`);
+      }
+      ipcTemplate80LiteralLoads.add(site);
+      ownedOffsets.add(loadOffset);
+    }
+  }
+  for (const branch of mapping.branches) {
+    const destination = functionsByName.get(branch.symbol);
+    const canonicalAddress = Number.parseInt(branch.symbol.slice(5), 16);
+    const destinationAddress = destination?.address ?? canonicalAddress;
+    const canonicalPrimary = destination === undefined &&
+      !functions.some((candidate) => candidate.address < canonicalAddress &&
+        candidate.address + candidate.size > canonicalAddress);
+    const instruction = code.readUInt32LE(offset + branch.offset);
+    if (branch.offset < 0 || branch.offset + 4 > entry.size || branch.offset % 4 !== 0 ||
+        ownedOffsets.has(branch.offset) || branch.kind !== "R_ARM_CALL" || branch.mnemonic !== "bl" ||
+        !ipcTemplate80PrimaryEntries.includes(branch.symbol) || destinationAddress % 4 !== 0 ||
+        (destination === undefined ? !canonicalPrimary : destination.mode !== "$a") ||
+        !isArmBranchTo(instruction, entry.address + branch.offset, destinationAddress, 0xe, true)) {
+      throw new Error(`${mapping.name} has an invalid or conflicting audited IPC wrapper 80 transfer at ${branch.offset}`);
+    }
+    ownedOffsets.add(branch.offset);
+    const prior = ipcTemplate80Destinations.get(branch.symbol);
+    if (prior !== undefined && prior !== destinationAddress) {
+      throw new Error(`ARM IPC wrapper 80 transfer identity ${branch.symbol} is not shared consistently`);
+    }
+    ipcTemplate80Destinations.set(branch.symbol, destinationAddress);
+    ipcTemplate80SiteCounts.set(branch.symbol, (ipcTemplate80SiteCounts.get(branch.symbol) ?? 0) + 1);
+    ipcTemplate80TransferSites++;
+  }
+  for (let cursor = 0; cursor < entry.size; cursor += 4) {
+    const instruction = code.readUInt32LE(offset + cursor);
+    if ((instruction & 0x0e000000) === 0x0a000000 && !ownedOffsets.has(cursor)) {
+      let displacement = instruction & 0x00ffffff;
+      if ((displacement & 0x00800000) !== 0) displacement -= 0x01000000;
+      const destination = entry.address + cursor + 8 + displacement * 4;
+      if (destination < entry.address || destination >= entry.address + entry.size) {
+        throw new Error(`${mapping.name} has an unaudited non-local direct branch at ${cursor}`);
+      }
+      ipcTemplate80LocalBranches++;
+    }
+    if ((instruction & 0x0fff8000) === 0x08bd8000) ipcTemplate80Returns++;
+  }
+}
+if (ipcTemplate80OwnedRanges.length !== 4 || ipcTemplate80BodyBytes !== 1032 ||
+    ipcTemplate80AdjacentBytes !== 20 || ipcTemplate80UnownedInterstitialBytes !== 264 ||
+    ipcTemplate80LiteralSlots.size !== 5 || ipcTemplate80LiteralLoads.size !== 5 ||
+    ipcTemplate80TransferSites !== 5 || ipcTemplate80Destinations.size !== 2 ||
+    new Set(ipcTemplate80Destinations.values()).size !== 2 ||
+    ipcTemplate80Destinations.get("func_0017E4D8") !==
+      (functionsByName.get("func_0017E4D8")?.address ?? 0x0017e4d8) ||
+    ipcTemplate80Destinations.get("func_001950F8") !==
+      (functionsByName.get("func_001950F8")?.address ?? 0x001950f8) ||
+    ipcTemplate80SiteCounts.get("func_0017E4D8") !== 4 ||
+    ipcTemplate80SiteCounts.get("func_001950F8") !== 1 ||
+    ipcTemplate80LocalBranches !== 24 || ipcTemplate80Returns !== 6) {
+  throw new Error("ARM IPC wrapper 80 completeness, boundary, schedule, ownership, or identity contract is invalid");
+}
+
 const runtimeHelper33Destinations = new Map();
 const runtimeHelper33SiteCounts = new Map();
 const runtimeHelper33PrivateWords = new Map();
@@ -13024,6 +13200,17 @@ if (ipcMappedBytes !== 57404 || ipcMappedSlots !== 788 ||
     ipcTemplate79ReusedLiteralIdentities.some((identity) => !ipcIdentityWords.has(identity)) ||
     ipcTemplate79NewLiteralIdentities.some((identity) => !ipcIdentityWords.has(identity))) {
   throw new Error("The 788 IPC slots must form a 417-to-417 identity/word bijection with exact wrapper 79 reuse/new ownership");
+}
+if (ipcTemplate80ReusedLiteralIdentities.some((identity) => !ipcIdentityWords.has(identity)) ||
+    ipcTemplate80NewLiteralIdentities.some((identity) => ipcIdentityWords.has(identity))) {
+  throw new Error("IPC wrapper 80 reuse/new literal identity partition does not match the prior batches");
+}
+for (const [name, mapping] of ipcTemplates80) registerModernIpcLiterals(name, mapping, 80);
+if (ipcMappedBytes !== 58436 || ipcMappedSlots !== 793 ||
+    ipcIdentityWords.size !== 418 || ipcWordIdentities.size !== 418 ||
+    ipcTemplate80ReusedLiteralIdentities.some((identity) => !ipcIdentityWords.has(identity)) ||
+    ipcTemplate80NewLiteralIdentities.some((identity) => !ipcIdentityWords.has(identity))) {
+  throw new Error("The 793 IPC slots must form a 418-to-418 identity/word bijection with exact wrapper 80 reuse/new ownership");
 }
 
 const duplicateTemplate19IdentityWords = new Map();
@@ -18119,6 +18306,7 @@ for (const entry of functions) {
   const ipcTemplate77 = ipcTemplates77.get(entry.name);
   const ipcTemplate78 = ipcTemplates78.get(entry.name);
   const ipcTemplate79 = ipcTemplates79.get(entry.name);
+  const ipcTemplate80 = ipcTemplates80.get(entry.name);
   const duplicateTemplate19 = duplicateTemplates19.get(entry.name);
   const duplicateTemplate21 = duplicateTemplates21.get(entry.name);
   const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
@@ -18243,6 +18431,7 @@ for (const entry of functions) {
   if (ipcTemplate77) configuredMappings.push(ipcTemplate77);
   if (ipcTemplate78) configuredMappings.push(ipcTemplate78);
   if (ipcTemplate79) configuredMappings.push(ipcTemplate79);
+  if (ipcTemplate80) configuredMappings.push(ipcTemplate80);
   if (duplicateTemplate64) configuredMappings.push(duplicateTemplate64);
   if (duplicateTemplate65) configuredMappings.push(duplicateTemplate65);
   if (duplicateTemplate66) configuredMappings.push(duplicateTemplate66);
@@ -19616,6 +19805,16 @@ for (const entry of functions) {
         instructions.push(`bl ${ipcTemplate79Branch.symbol}`);
         continue;
       }
+      const ipcTemplate80Branch = ipcTemplate80?.branches.find((branch) => branch.offset === cursor);
+      if (ipcTemplate80Branch !== undefined) {
+        const destinationAddress = ipcTemplate80Destinations.get(ipcTemplate80Branch.symbol);
+        if (entry.mode !== "$a" ||
+            !isArmBranchTo(value, entry.address + cursor, destinationAddress, 0xe, true)) {
+          throw new Error(`${entry.name} does not call ${ipcTemplate80Branch.symbol} at audited offset ${cursor}`);
+        }
+        instructions.push(`bl ${ipcTemplate80Branch.symbol}`);
+        continue;
+      }
       const runtimeHelper26Call = runtimeHelper26?.calls.find((call) => call.offset === cursor);
       if (runtimeHelper26Call !== undefined) {
         const destinationAddress = runtimeHelper26Destinations.get(runtimeHelper26Call.symbol);
@@ -20616,6 +20815,15 @@ for (const entry of functions) {
           ]),
         ]
       : []),
+    ...(ipcTemplate80
+      ? [
+          ...ipcTemplate80.literals.flatMap(({ symbol }) => [`.word ${symbol}`, `.global ${symbol}`]),
+          ...[...new Set(ipcTemplate80.branches.map(({ symbol }) => symbol))].flatMap((symbol) => [
+            `.global ${symbol}`,
+            `.type ${symbol}, %function`,
+          ]),
+        ]
+      : []),
     ...(duplicateTemplate19
       ? duplicateTemplate19.literals.flatMap(({ identity }) => {
           const symbol = duplicateTemplates19Config.literalIdentities[identity];
@@ -20812,6 +21020,7 @@ for (const entry of functions) {
   ipcTemplates77.delete(entry.name);
   ipcTemplates78.delete(entry.name);
   ipcTemplates79.delete(entry.name);
+  ipcTemplates80.delete(entry.name);
   duplicateTemplates19.delete(entry.name);
   duplicateTemplates21.delete(entry.name);
   duplicateTemplates22.delete(entry.name);
@@ -21154,6 +21363,9 @@ if (ipcTemplates78.size !== 0) {
 }
 if (ipcTemplates79.size !== 0) {
   throw new Error(`IPC wrapper 79 mappings missing from the function inventory: ${[...ipcTemplates79.keys()].join(", ")}`);
+}
+if (ipcTemplates80.size !== 0) {
+  throw new Error(`IPC wrapper 80 mappings missing from the function inventory: ${[...ipcTemplates80.keys()].join(", ")}`);
 }
 if (duplicateTemplates19.size !== 0) {
   throw new Error(

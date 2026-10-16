@@ -294,6 +294,8 @@ ARM_AS="$(dirname "$readelf")/arm-none-eabi-as" \
   node "$root/scripts/validate-arm-ipc-wrappers-78.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-wrappers-79.mjs" "$output"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-ipc-wrappers-80.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-70.mjs" "$output"
@@ -314,4 +316,8 @@ ARM_NONE_EABI_OBJDUMP="$(dirname "$readelf")/arm-none-eabi-objdump" \
 node "$root/scripts/validate-arm-runtime-helpers-84.mjs"
 node "$root/scripts/validate-arm-runtime-helpers-85.mjs"
 node "$root/scripts/validate-arm-runtime-helpers-86.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-87.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
