@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_33.S",
+  "mode": "arm",
+  "expectedBodyBytes": 8028,
+  "templates": {
+    "pooled_intrusive_colored_tree_insert": {
+      "bodySize": 892,
+      "instructionCount": 223,
+      "count": 9,
+      "internalLabels": 20,
+      "calls": 2
+    }
+  },
+  "callContract": [
+    { "offset": 116, "kind": "R_ARM_CALL", "symbol": "func_00184990" },
+    { "offset": 132, "kind": "R_ARM_CALL", "symbol": "func_00184990" }
+  ],
+  "functions": [
+    { "name": "func_0015E4C4", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_0017DAEC", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_0017DE68", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_005622E0", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_0056348C", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_00563FA0", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_00564AB4", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_005654C8", "template": "pooled_intrusive_colored_tree_insert" },
+    { "name": "func_00565FDC", "template": "pooled_intrusive_colored_tree_insert" }
+  ]
+}

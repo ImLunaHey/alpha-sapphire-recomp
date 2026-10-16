@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "source": "src/main/arm_duplicate_templates_32.S",
+  "mode": "arm",
+  "expectedBodyBytes": 2552,
+  "templates": {
+    "inverse_fixed_point_complex_transform_64": {
+      "bodySize": 1276,
+      "instructionCount": 319,
+      "count": 2,
+      "internalLabels": 10,
+      "calls": 0
+    }
+  },
+  "slotContract": [
+    {
+      "identity": "q15_coefficients",
+      "bodyOffset": -12,
+      "uses": [424, 1052, 1140, 1188, 1224]
+    },
+    {
+      "identity": "permutation_and_late_coefficients",
+      "bodyOffset": -4,
+      "uses": [832, 980]
+    },
+    {
+      "identity": "reverse_stage_coefficients",
+      "bodyOffset": 2692,
+      "uses": [696]
+    }
+  ],
+  "literalIdentities": {
+    "first_transform_q15_coefficients": {
+      "symbol": "transform31_first_q15_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "first_transform_permutation_indices": {
+      "symbol": "transform31_first_permutation_indices",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "first_transform_reverse_stage_coefficients": {
+      "symbol": "transform32_first_reverse_stage_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "second_transform_q15_coefficients": {
+      "symbol": "transform31_second_q15_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "second_transform_permutation_indices": {
+      "symbol": "transform31_second_permutation_indices",
+      "segment": "rodata",
+      "alignment": 4
+    },
+    "second_transform_reverse_stage_coefficients": {
+      "symbol": "transform32_second_reverse_stage_coefficients",
+      "segment": "rodata",
+      "alignment": 4
+    }
+  },
+  "functions": [
+    {
+      "name": "func_001AB0F8",
+      "template": "inverse_fixed_point_complex_transform_64",
+      "coefficientIdentity": "first_transform_q15_coefficients",
+      "permutationIdentity": "first_transform_permutation_indices",
+      "reverseIdentity": "first_transform_reverse_stage_coefficients"
+    },
+    {
+      "name": "func_001AD02C",
+      "template": "inverse_fixed_point_complex_transform_64",
+      "coefficientIdentity": "second_transform_q15_coefficients",
+      "permutationIdentity": "second_transform_permutation_indices",
+      "reverseIdentity": "second_transform_reverse_stage_coefficients"
+    }
+  ]
+}

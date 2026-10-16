@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_32.S",
+  "mode": "arm",
+  "sourceSha256": "f5c54155b980fe7e94aeb0f24e52b3ce12204375de367e616979b5d48163ac29",
+  "totalBodySize": 332,
+  "functions": [
+    {
+      "name": "func_002DD8FC",
+      "size": 52,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "runtime_guard_enter_32" },
+        { "offset": 28, "kind": "R_ARM_CALL", "symbol": "runtime_guarded_operation_32" },
+        { "offset": 36, "kind": "R_ARM_CALL", "symbol": "runtime_guard_leave_32" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DD9C4",
+      "size": 56,
+      "calls": [
+        { "offset": 44, "kind": "R_ARM_CALL", "symbol": "runtime_aligned_word_forward_32" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DDE18",
+      "size": 28,
+      "calls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "symbol": "runtime_zero_arg_query_gamma_32" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DE38C",
+      "size": 64,
+      "calls": [
+        { "offset": 20, "kind": "R_ARM_CALL", "symbol": "runtime_resource_acquire_alpha_32" },
+        { "offset": 28, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002DE490",
+      "size": 64,
+      "calls": [
+        { "offset": 20, "kind": "R_ARM_CALL", "symbol": "runtime_resource_acquire_beta_32" },
+        { "offset": 28, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_002E0B9C",
+      "size": 68,
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "symbol": "runtime_sequence_begin_32" },
+        { "offset": 20, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" },
+        { "offset": 32, "kind": "R_ARM_CALL", "symbol": "runtime_sequence_apply_32" },
+        { "offset": 40, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" },
+        { "offset": 44, "kind": "R_ARM_CALL", "symbol": "runtime_sequence_finish_32" },
+        { "offset": 60, "kind": "R_ARM_JUMP24", "symbol": "runtime_failure_raise_entry_31" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_guard_enter_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "guard-enter-call"
+    },
+    "runtime_guarded_operation_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "guarded-operation-call"
+    },
+    "runtime_guard_leave_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "guard-leave-call"
+    },
+    "runtime_aligned_word_forward_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "aligned-stacked-word-forward-call"
+    },
+    "runtime_zero_arg_query_gamma_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "distinct-operation-identity",
+      "usage": "zero-argument-status-gamma-call"
+    },
+    "runtime_resource_acquire_alpha_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "distinct-operation-identity",
+      "usage": "resource-acquire-alpha-call"
+    },
+    "runtime_resource_acquire_beta_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "distinct-operation-identity",
+      "usage": "resource-acquire-beta-call"
+    },
+    "runtime_sequence_begin_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "sequence-begin-call"
+    },
+    "runtime_sequence_apply_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "sequence-apply-call"
+    },
+    "runtime_sequence_finish_32": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "batch-local-unique",
+      "usage": "sequence-finish-call"
+    },
+    "runtime_failure_raise_entry_31": {
+      "mode": "arm", "minimumAlignment": 4, "equality": "shared-runtime-31-failure-identity",
+      "usage": "failure-linked-or-tail-transfer"
+    }
+  }
+}
