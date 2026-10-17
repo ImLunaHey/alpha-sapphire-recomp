@@ -16,24 +16,24 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Current verified progress
 
-The 146 published units contain 4,152 exactly matched functions and 406,868
-matched code bytes, or 10.938429% overall. `main/code` contributes 3,963
-functions and 400,848 bytes. The CROs contribute 189 functions and 6,020 code
-bytes across 88 units; their matched-data total is zero. The other 57 CRO
+The 146 published units contain 4,224 exactly matched functions and 413,016
+matched code bytes, or 11.103715% overall. `main/code` contributes 3,969
+functions and 401,188 bytes. The CROs contribute 255 functions and 11,828 code
+bytes across 96 units; their matched-data total is zero. The other 49 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 17 functions and 2,580 code bytes. Main runtime
-batch 144 and IPC wrapper batch 108 contribute nine functions and 836 bytes.
-CRO contract batch 09 contributes eight functions and 1,744 bytes
-across eight newly credited units.
+The latest verified wave added 72 functions and 6,148 code bytes. Main runtime
+batch 145 contributes six functions and 340 bytes. Five DllBattle batches add
+58 functions and 3,196 bytes, while CRO contract batch 10 contributes eight
+functions and 2,612 bytes across eight newly credited units.
 
 ## Executable units
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 88 CROs; all
-unclaimed code, all CRO data, and all 57 zero-credit CROs remain unmatched.
+Reviewed clean-room function sections now earn code credit in 96 CROs; all
+unclaimed code, all CRO data, and all 49 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must

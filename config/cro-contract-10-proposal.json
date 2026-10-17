@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllCommWait",
+      "sources": [{ "path": "src/cro/DllCommWait/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000808", "address": 2056, "size": 328, "semantics": "contract-10-wait-scene-setup" }]
+    },
+    {
+      "name": "DllFieldEventSecretBaseMyBasePc",
+      "sources": [{ "path": "src/cro/DllFieldEventSecretBaseMyBasePc/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00003644", "address": 13892, "size": 368, "semantics": "contract-10-secret-base-menu-update" }]
+    },
+    {
+      "name": "DllFieldEventSlopeSlip",
+      "sources": [{ "path": "src/cro/DllFieldEventSlopeSlip/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000308", "address": 776, "size": 344, "semantics": "contract-10-slope-slip-action" }]
+    },
+    {
+      "name": "DllStartMenu",
+      "sources": [{ "path": "src/cro/DllStartMenu/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000014D4", "address": 5332, "size": 416, "semantics": "contract-10-start-menu-state-update" }]
+    },
+    {
+      "name": "DllUSAreaTenji",
+      "sources": [{ "path": "src/cro/DllUSAreaTenji/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_0000007C", "address": 124, "size": 292, "semantics": "contract-10-area-display-setup" }]
+    },
+    {
+      "name": "DllUSGymFighting",
+      "sources": [{ "path": "src/cro/DllUSGymFighting/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000006FC", "address": 1788, "size": 152, "semantics": "contract-10-gym-fighting-event" }]
+    },
+    {
+      "name": "DllUSGymFire",
+      "sources": [{ "path": "src/cro/DllUSGymFire/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000DCC", "address": 3532, "size": 224, "semantics": "contract-10-gym-fire-object-setup" }]
+    },
+    {
+      "name": "DllUSPassage",
+      "sources": [{ "path": "src/cro/DllUSPassage/contract_10.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000019F4", "address": 6644, "size": 488, "semantics": "contract-10-passage-state-update" }]
+    }
+  ]
+}

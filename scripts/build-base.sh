@@ -503,6 +503,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-144.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-145.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"
@@ -576,4 +578,11 @@ node "$root/scripts/validate-cro-contract-08.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-09.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
+node "$root/scripts/validate-cro-contract-10.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
+node "$root/scripts/validate-cro-dll-battle-record-leaves-01.mjs" --self-test
+node "$root/scripts/validate-cro-dll-battle-scalar-leaves-02.mjs" --self-test
+node "$root/scripts/validate-cro-dll-battle-packed-selectors-03.mjs" --self-test
+node "$root/scripts/validate-cro-dll-battle-record-ops-04.mjs" --self-test
+node "$root/scripts/validate-cro-dll-battle-medium-leaves-05.mjs" --self-test
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
