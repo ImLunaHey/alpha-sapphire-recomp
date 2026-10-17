@@ -293,6 +293,30 @@ function inventoryGlobals(inventory) {
     info: (STB_GLOBAL << 4) | (range.kind === "pool" ? STT_OBJECT : STT_FUNC) }));
 }
 
+export function canonicalizeDllContestCommonImports(structural, inventory) {
+  const aliases = new Map();
+  if (inventory.module !== "DllContestCommon") return aliases;
+  check(structural.moduleName === "DllContestCommon", "DllContestCommon alias canonicalization module mismatch");
+  const expectedOffsets = [0x004, 0x00c, 0x014, 0x01c, 0x024, 0x02c];
+  const undefinedRelocations = structural.relocations.filter(({ symbol }) => symbol.shndx === 0);
+  check(undefinedRelocations.length === expectedOffsets.length,
+    "DllContestCommon must have exactly six undefined import relocations");
+  undefinedRelocations.sort((left, right) => left.offset - right.offset);
+  const identities = new Set(), aliasNames = new Set(expectedOffsets.map((_, index) => `dll_contest_common_import_${index}`));
+  for (const [index, relocation] of undefinedRelocations.entries()) {
+    check(relocation.output.index === structural.text.index && relocation.offset === expectedOffsets[index],
+      `DllContestCommon import slot ${index} is not at its public text offset`);
+    check((relocation.symbol.info >> 4) === STB_GLOBAL && (relocation.symbol.info & 0xf) === STT_NOTYPE,
+      `DllContestCommon import slot ${index} does not target an undefined global NOTYPE symbol`);
+    check(!identities.has(relocation.symbol.index), "DllContestCommon import equality classes are not bijective");
+    identities.add(relocation.symbol.index);
+    aliases.set(relocation.symbol.index, `dll_contest_common_import_${index}`);
+  }
+  check(!structural.symbols.some((symbol) => !identities.has(symbol.index) && aliasNames.has(symbol.name)),
+    "DllContestCommon public import alias collides with an unrelated symbol");
+  return aliases;
+}
+
 function sectionSpecs(structural, inventory, emptyBase) {
   const specs = inventory.ranges.map(range => ({ key: range.name, name: range.sectionName,
     type: emptyBase ? SHT_NOBITS : SHT_PROGBITS,
@@ -323,6 +347,7 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
   check(structural.text.size === inventory.textSize, "inventory textSize does not match structural target");
   const sectionKey = new Map([[structural.rodata.index, "rodata"], [structural.data.index, "data"],
     [structural.bss.index, "bss"], [structural.byName.get(".cro.module").index, "module"]]);
+  const importAliases = canonicalizeDllContestCommonImports(structural, inventory);
   const globals = inventoryGlobals(inventory), names = new Set(globals.map(s => s.name));
   const oldGlobal = new Map();
   for (const symbol of structural.symbols) {
@@ -343,7 +368,7 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
       oldGlobal.set(symbol.index, { symbolKind: "section", symbolKey: key, addendDelta: symbol.value });
       continue;
     }
-    const spec = { name: symbol.name, value: 0, size: symbol.size, info: symbol.info };
+    const spec = { name: importAliases.get(symbol.index) ?? symbol.name, value: 0, size: symbol.size, info: symbol.info };
     if (!names.has(spec.name)) { names.add(spec.name); globals.push(spec); }
     else {
       const existing = globals.find(item => item.name === spec.name);

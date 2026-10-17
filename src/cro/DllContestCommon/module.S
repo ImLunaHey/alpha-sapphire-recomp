@@ -58,7 +58,7 @@ FUNCTION_BEGIN func_00000030
     push {r4-r7, lr}
     mov r5, r0
     sub sp, sp, #28
-    ldr r1, [r5]
+    ldr r1, [r0]
     mov r0, #120
     CALL_VENEER 0x00, 0x30, func_00000030
     movs r4, r0
@@ -68,9 +68,9 @@ FUNCTION_BEGIN func_00000030
     ldr r1, [r1, #0x34]
     blx r1
     mov r1, r0
-    mov r0, r4
-    mov r2, #242
     mov r3, #1
+    mov r2, #242
+    mov r0, r4
     CALL_VENEER 0x08, 0x30, func_00000030
 .Lstore_builder:
     mov r1, #0
@@ -85,8 +85,8 @@ FUNCTION_BEGIN func_00000030
     CALL_VENEER 0x18, 0x30, func_00000030
     mov r4, r0
     ldr r0, [r5, #4]
-    mov r1, #0
     mov r2, r4
+    mov r1, #0
     CALL_VENEER 0x20, 0x30, func_00000030
     str r4, [r5, #8]
 
@@ -102,8 +102,8 @@ FUNCTION_BEGIN func_00000030
     CALL_VENEER 0x18, 0x30, func_00000030
     mov r4, r0
     ldr r0, [r5, #4]
-    mov r1, #1
     mov r2, r4
+    mov r1, #1
     CALL_VENEER 0x20, 0x30, func_00000030
     str r4, [r5, #0x0c]
 
@@ -136,8 +136,8 @@ FUNCTION_BEGIN func_00000030
     CALL_VENEER 0x18, 0x30, func_00000030
     mov r4, r0
     ldr r0, [r5, #4]
-    mov r1, #3
     mov r2, r4
+    mov r1, #3
     CALL_VENEER 0x20, 0x30, func_00000030
     str r4, [r5, #0x14]
 
@@ -242,7 +242,7 @@ FUNCTION_BEGIN func_00000258
     add r4, r4, #1
     cmp r4, #6
     mov r0, r5
-    str r6, [r0, #0x14]
+    str r6, [r5, #0x14]
     bcc .Lrelease_second
     pop {r4-r6, pc}
 FUNCTION_END func_00000258, 0x64

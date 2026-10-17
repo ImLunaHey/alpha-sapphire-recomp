@@ -2,14 +2,14 @@
   "schemaVersion": 1,
   "unit": "DllContestCommon",
   "source": "src/cro/DllContestCommon/module.S",
-  "sourceHash": "62cf859f28b52b581f72e048da366505e6f5c145d6ed2d026fab9350f3d03b2a",
+  "sourceHash": "e168b7b60b27ef99218ae4a12c0e302bd992af3c376d63bd7add8a208a4eb283",
   "architecture": "ARMv6K",
   "mode": "arm",
   "minimumAlignment": 4,
   "functions": [
-    { "name": "func_00000030", "address": 48, "size": 472, "instructionCount": 118, "semantics": "contest-resource-build", "bodyHash": "e5c63299b0ddabc12abbe087475b1ff3ef428e34484b700830c24dff76161c13" },
+    { "name": "func_00000030", "address": 48, "size": 472, "instructionCount": 118, "semantics": "contest-resource-build", "bodyHash": "fa20423c4bdc4b434235edbd87527f1b5f3394743853acd1f3eacfc6d3394712" },
     { "name": "func_0000020C", "address": 524, "size": 76, "instructionCount": 19, "semantics": "contest-control-initialize", "bodyHash": "19c2c6342c9f36f9960cfadb0f4fb2210deb76abf61073d24fbccc6b5984df4a" },
-    { "name": "func_00000258", "address": 600, "size": 100, "instructionCount": 25, "semantics": "contest-resource-release", "bodyHash": "d974dcd17310d09bc6dbaf24eff8ce1ee3c7bdf6715a4007d805397259e1e931" }
+    { "name": "func_00000258", "address": 600, "size": 100, "instructionCount": 25, "semantics": "contest-resource-release", "bodyHash": "a859cca70528ebef97b7468930a5270211ca56da59d848b39033120b5fc398c5" }
   ],
   "veneerAddresses": [0, 8, 16, 24, 32, 40],
   "poolAddresses": [4, 12, 20, 28, 36, 44, 520],
@@ -18,6 +18,7 @@
   "validation": {
     "targetRevision": "AS_EUR_REV2",
     "requireExactPublicBoundaries": true,
+    "requireCanonicalImportAliases": true,
     "requireUniqueOwnership": true,
     "requireFailClosedControlResidue": true,
     "expectedAuthoredRelocations": 12,

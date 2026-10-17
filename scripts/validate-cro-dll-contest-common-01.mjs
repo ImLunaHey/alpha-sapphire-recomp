@@ -6,6 +6,7 @@ import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { canonicalizeDllContestCommonImports } from "./split-cro-target-object.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MANIFEST_PATH = path.join(ROOT, "config/cro-dll-contest-common-01.json");
@@ -53,9 +54,10 @@ function readManifest() {
     JSON.stringify(manifest.functions.map((fn) => [fn.name, fn.address, fn.size, fn.instructionCount, fn.semantics])) === JSON.stringify(expectedFunctions),
     "function claims differ");
   exactKeys(manifest.validation,
-    "expectedAuthoredRelocations,maximumObjectSize,maximumSectionCount,maximumSymbolCount,requireExactPublicBoundaries,requireFailClosedControlResidue,requireUniqueOwnership,targetRevision",
+    "expectedAuthoredRelocations,maximumObjectSize,maximumSectionCount,maximumSymbolCount,requireCanonicalImportAliases,requireExactPublicBoundaries,requireFailClosedControlResidue,requireUniqueOwnership,targetRevision",
     "validation policy");
   check(manifest.validation.targetRevision === "AS_EUR_REV2" && manifest.validation.expectedAuthoredRelocations === 12 &&
+    manifest.validation.requireCanonicalImportAliases === true &&
     manifest.validation.requireExactPublicBoundaries === true && manifest.validation.requireFailClosedControlResidue === true &&
     manifest.validation.requireUniqueOwnership === true && manifest.validation.maximumObjectSize === 1048576 &&
     manifest.validation.maximumSectionCount === 256 && manifest.validation.maximumSymbolCount === 4096,
@@ -208,7 +210,39 @@ function run(executable, args) {
   if (result.error) fail(`could not execute ${executable}: ${result.error.message}`);
   if (result.status !== 0) fail(`${executable} exited ${result.status}: ${result.stderr.trim()}`);
 }
+function validateImportAliasCanonicalization() {
+  const text = { index: 1 };
+  const symbols = [...Array(6).keys()].map((index) => ({
+    index: index + 10, name: `private-import-${index}`, info: 0x10, shndx: 0
+  }));
+  const offsets = [0x004, 0x00c, 0x014, 0x01c, 0x024, 0x02c];
+  const relocations = offsets.map((offset, index) => ({ output: text, offset, symbol: symbols[index], addend: 0 }));
+  const structural = { moduleName: "DllContestCommon", text, symbols, relocations };
+  const inventory = { module: "DllContestCommon" };
+  const before = relocations.map(({ output, offset, symbol, addend }) => [output.index, offset, symbol.index, addend]);
+  const aliases = canonicalizeDllContestCommonImports(structural, inventory);
+  check(JSON.stringify([...aliases]) === JSON.stringify(symbols.map((symbol, index) =>
+    [symbol.index, `dll_contest_common_import_${index}`])), "canonical import aliases differ");
+  check(JSON.stringify(relocations.map(({ output, offset, symbol, addend }) =>
+    [output.index, offset, symbol.index, addend])) === JSON.stringify(before),
+  "canonical import aliasing changed relocation structure");
+
+  const reject = (fixture, label) => {
+    let rejected = false;
+    try { canonicalizeDllContestCommonImports(fixture, inventory); } catch { rejected = true; }
+    check(rejected, `hostile alias fixture was accepted: ${label}`);
+  };
+  reject({ ...structural, relocations: relocations.map((relocation, index) =>
+    index === 1 ? { ...relocation, symbol: symbols[0] } : relocation) }, "non-bijective equality classes");
+  reject({ ...structural, relocations: relocations.map((relocation, index) =>
+    index === 2 ? { ...relocation, offset: 0x018 } : relocation) }, "unexpected slot mapping");
+  reject({ ...structural, relocations: [...relocations, { output: text, offset: 0x034, symbol: {
+    index: 20, name: "private-import-6", info: 0x10, shndx: 0 }, addend: 0 }] }, "extra import class");
+  reject({ ...structural, symbols: [...symbols, {
+    index: 20, name: "dll_contest_common_import_0", info: 0x10, shndx: 0 }] }, "public alias collision");
+}
 function selfTest(manifest) {
+  validateImportAliasCanonicalization();
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "dll-contest-common-01-"));
   try {
     const object = path.join(directory, "module.o");
@@ -252,7 +286,7 @@ try {
   validateRepository(manifest);
   if (options.selfTest) selfTest(manifest);
   if (options.object) validateObject(fs.readFileSync(options.object), manifest);
-  console.log(`Validated 3 exact DllContestCommon instruction schedules, 6 import veneers, 1 control jump table, selector data, and fail-closed control residue${options.selfTest ? " with hostile fixtures" : ""}.`);
+  console.log(`Validated 3 exact DllContestCommon instruction schedules, 6 canonical import aliases, 1 control jump table, selector data, and fail-closed control residue${options.selfTest ? " with hostile fixtures" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
