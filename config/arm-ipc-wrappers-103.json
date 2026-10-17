@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_103.S",
+  "sourceHash": "b61543c931c514ce4e6a6bbf7bd70897012214a62f1a37cc6ee2e52da2f7e71f",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "objectMetadataContract": {
+    "elfClass": "ELF32",
+    "dataEncoding": "little-endian",
+    "osAbi": "System V",
+    "objectType": "ET_REL",
+    "machine": "EM_ARM",
+    "elfVersion": 1,
+    "armFlags": ["EF_ARM_EABI_VER5"],
+    "entryPoint": 0,
+    "programHeaderCount": 0,
+    "canonicalNullSection": true,
+    "armAttributes": { "cpuName": "6K", "cpuArchitecture": "v6K", "armIsaUse": true, "thumbIsaUse": "Thumb-1", "floatingPointArchitecture": "VFPv2" },
+    "ownedSection": { "name": ".text.func_00185AEC", "type": "SHT_PROGBITS", "flags": ["SHF_ALLOC", "SHF_EXECINSTR"], "address": 0, "alignment": 4, "size": 240 },
+    "ownedSymbols": [
+      { "name": "", "binding": "STB_LOCAL", "type": "STT_SECTION", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "$a", "binding": "STB_LOCAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "func_00185AEC", "binding": "STB_GLOBAL", "type": "STT_FUNC", "visibility": "STV_DEFAULT", "value": 0, "size": 240 }
+    ],
+    "undefinedDestinationSymbols": { "binding": "STB_GLOBAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+    "undefinedLiteralSymbols": { "binding": "STB_GLOBAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+    "additionalOwnedAliases": 0,
+    "dataMappingSymbols": 0
+  },
+  "totalBodySize": 240,
+  "totalAdjacentSize": 0,
+  "cumulativePoolSlots": 915,
+  "cumulativePoolClasses": 489,
+  "functions": [
+    {
+      "name": "func_00185AEC",
+      "section": ".text.func_00185AEC",
+      "size": 240,
+      "instructionCount": 60,
+      "localBranchCount": 3,
+      "nextGlobal": "func_00185BDC",
+      "nextGlobalOffset": 240,
+      "branches": [
+        { "offset": 96, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+        { "offset": 112, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" }
+      ],
+      "localBranches": [
+        { "offset": 36, "condition": "notEqual", "targetOffset": 156 },
+        { "offset": 48, "condition": "notEqual", "targetOffset": 148 },
+        { "offset": 64, "condition": "equal", "targetOffset": 92 }
+      ],
+      "indirectCalls": [
+        { "offset": 228, "targetRegister": "r1", "targetLoadOffset": 220, "dispatchTableOffset": 56, "receiverRegister": "r0", "receiverIdentity": "container-r4" }
+      ],
+      "returnOffsets": [236],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [],
+  "literalIdentityContract": { "slotCount": 0, "classCount": 0, "classesPairwiseDistinct": true, "allSlotsOwnedByBatch": true, "remainingUnownedGapBytes": 0 },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": ["func_00184990"],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [{ "symbol": "func_00184990", "sites": [{ "function": "func_00185AEC", "offset": 96 }, { "function": "func_00185AEC", "offset": 112 }] }],
+    "singletonClasses": [],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": ["func_00184990"],
+    "thumbPrimaryEntries": []
+  },
+  "selectionNotes": {
+    "skippedEarlierUnmatched": [
+      { "name": "func_00180F24", "size": 1356, "reason": "large multi-loop scheduler/dispatcher outside the bounded wrapper cohort" },
+      { "name": "func_00184AAC", "size": 808, "reason": "large multi-path service routine outside the bounded wrapper cohort" },
+      { "name": "func_00184F20", "size": 1052, "reason": "large multi-path service initializer outside the bounded wrapper cohort" },
+      { "name": "func_00185774", "size": 392, "reason": "its required adjacent extent contains a target-authored UTF-16 diagnostic string, excluded from clean-room source" }
+    ],
+    "skippedBeforeNextSuitable": [],
+    "nextUnselectedSuitable": "func_00185BDC"
+  }
+}
