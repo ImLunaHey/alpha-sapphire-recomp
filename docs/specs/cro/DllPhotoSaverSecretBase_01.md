@@ -117,6 +117,174 @@ the function are likewise expressible as identities: pool slot `0x1F78`
 relocates to data offset `0x0C`, while pool slot `0x1F7C` relocates to read-only
 offset `0x48`. The function does not own those pool words.
 
+### Caller-visible types and complete pseudocode
+
+Only caller-visible ABI types are asserted here. A dependency result that this
+routine does not consume is written as `void`; the callee's original
+language-level return type is immaterial to this call site. `word` and `sword`
+are unsigned and signed 32-bit values respectively, and all pointer types are
+32-bit ARM pointers.
+
+```text
+type word = uint32
+type sword = int32
+type Object = opaque
+type ParameterOwner = opaque
+type Context = opaque
+type Helper = opaque
+
+word  guard_acquire(word *guard)
+void  guard_complete(word *guard)
+void  register_setup(Object *object, word forwarded_1, word forwarded_2,
+                     word mode,
+                     void *data_identity, word data_count,
+                     const void *readonly_identity, word readonly_count,
+                     word scalar_59, word flag_1, word scalar_0,
+                     word scalar_8)
+Context *get_context(void)
+void  helper_construct(Helper *helper, const void *source)
+word  helper_read(Helper *helper)
+ParameterOwner *get_parameter_owner(Object *object)
+void  write_parameter(ParameterOwner *owner, word slot, word value,
+                      word kind, word trailing_0, word trailing_1)
+void  configure_object(Object *object, word first, word second, word third)
+sword read_source_0(void *subobject)
+word  read_source_1(void *subobject)
+word  read_source_2(void *subobject)
+word  read_source_3(void *subobject)
+word  read_source_4(void *subobject)
+void  helper_destroy(Helper *helper)
+```
+
+`register_setup` receives its first four arguments in `r0` through `r3` and
+the remaining eight at the following outgoing-stack offsets. This descriptor
+occupies frame offsets `0` through `31`; frame offset `32` is not part of the
+descriptor.
+
+| Frame offset | Logical argument | Exact value |
+| ---: | ---: | --- |
+| `+0` | 5 | Pointer to module data offset `0x0C` |
+| `+4` | 6 | `1` |
+| `+8` | 7 | Pointer to module read-only offset `0x48` |
+| `+12` | 8 | `1` |
+| `+16` | 9 | `59` |
+| `+20` | 10 | `1` |
+| `+24` | 11 | `0` |
+| `+28` | 12 | `8` |
+
+After `register_setup` returns, frame offset `+8` is reused as the start of
+the aligned opaque helper storage. The frame makes 28 bytes available from
+that address through its end; the helper's language-level size is not exposed
+by this routine. Later six-argument calls reuse only frame offsets `+0` and
+`+4` for their two stacked arguments, so they do not overlap the helper.
+
+The complete behavior, with calls in exact order, is:
+
+```text
+void func_00001D60(Object *object, word forwarded_1, word forwarded_2)
+{
+    word *const data_identity = module_data + 0x0C;
+    word *const guard = module_data + 0x00;
+    word *const guarded_value = module_data + 0x14;
+    const void *const readonly_identity = module_rodata + 0x48;
+
+    if ((*guard & 1) == 0) {
+        if (guard_acquire(guard) != 0) {
+            *guarded_value = 0;
+            guard_complete(guard);
+        }
+    }
+
+    register_setup(object, forwarded_1, forwarded_2, 1,
+                   data_identity, 1, readonly_identity, 1,
+                   59, 1, 0, 8);
+
+    Context *context = get_context();
+    void *level_1 = *(void **)((byte *)context + 28);
+    byte *helper_source = *(byte **)level_1 + 0x20400;
+    Helper *helper = helper_storage_at_frame_offset_8;
+    helper_construct(helper, helper_source);
+    word helper_value = helper_read(helper);
+
+    write_parameter(get_parameter_owner(object), 5, helper_value, 6, 1, 1);
+    configure_object(object, 0, 43, 12);
+
+    void *source = (byte *)object + 120;
+    sword normalized = read_source_0(source) % 100;
+    write_parameter(get_parameter_owner(object), 0, (word)normalized, 2, 2, 1);
+
+    word value_1 = read_source_1(source);
+    write_parameter(get_parameter_owner(object), 1, value_1, 2, 0, 1);
+
+    word value_2 = read_source_2(source);
+    write_parameter(get_parameter_owner(object), 2, value_2, 2, 0, 1);
+
+    word value_3 = read_source_3(source);
+    write_parameter(get_parameter_owner(object), 3, value_3, 2, 1, 1);
+
+    word value_4 = read_source_4(source);
+    write_parameter(get_parameter_owner(object), 4, value_4, 2, 2, 1);
+
+    configure_object(object, 0, 49, 10);
+    helper_destroy(helper);
+}
+```
+
+At the machine-call boundary, each `write_parameter` receives owner, slot,
+value, and kind in `r0` through `r3`; `trailing_0` is at outgoing stack offset
+`+0` and `trailing_1` at `+4`. Getter results are preserved across the
+subsequent `get_parameter_owner` call before becoming the third argument to
+`write_parameter`. The `get_context` call has no logical arguments; the value
+incidentally left in `r0` by `register_setup` is not prepared or consumed as an
+argument.
+
+### Exact scheduling constraints
+
+- The prologue first saves `r4` through `r9` and `lr`, preserves the object in
+  `r4`, allocates the 36-byte frame, then preserves `forwarded_1` in `r5`,
+  loads the data identity into `r9`, preserves `forwarded_2` in `r6`, and
+  materializes zero in `r8`.
+- The only conditional control flow is the two-level guard sequence: one
+  branch skips acquisition when guard bit 0 is set, and one skips the clear and
+  completion call when acquisition returns zero. The remainder of the function
+  is straight-line.
+- The setup descriptor is emitted in this store order: offset `+28`; offset
+  `+0`; one three-word store covering `+16`, `+20`, and `+24`; offset `+4`;
+  then one two-word store covering `+8` and `+12`. Afterward the preserved
+  third, second, and first arguments are moved into `r2`, `r1`, and `r0` in
+  that order immediately before `register_setup`.
+- Two consecutive legacy ARM hint words occur immediately after
+  `register_setup` and immediately before `get_context`.
+- One legacy ARM hint occurs after the helper pointer is placed in `r0` and
+  immediately before `helper_read`.
+- One legacy ARM hint occurs after `(byte *)object + 120` is placed in `r0` and
+  immediately before each of `read_source_0`, `read_source_1`,
+  `read_source_2`, `read_source_3`, and `read_source_4`.
+- One legacy ARM hint occurs after the helper pointer is placed in `r0` and
+  immediately before `helper_destroy`. These placements account for all nine
+  hints.
+- Zero and one remain resident in preserved registers for the whole main call
+  sequence. The value two becomes resident before the slot-0 write and is
+  reused through the slot-4 write. Getter results are kept in one preserved
+  register across each owner-accessor call.
+- For the slot-5 write, trailing offset `+0` is stored before `+4`. The slot-0
+  pair is issued as one aligned doubleword store. For slot 1 and slot 2,
+  trailing offset `+4` is stored before `+0`. For slot 3, `+0` is stored before
+  `+4`. The slot-4 pair is issued as one aligned doubleword store.
+- The signed remainder sequence forms the signed high half of the reciprocal
+  product, arithmetic-shifts it by five, subtracts its sign adjustment,
+  multiplies that quotient by `-25`, then adds the original value plus that
+  product shifted left by two. This is exactly truncating signed remainder by
+  100 and does not call a division helper.
+- The epilogue follows `helper_destroy` directly: the 36-byte frame is released
+  and the preserved-register set is restored with return. There is no return-
+  value materialization.
+- The authored 536-byte body must have no relocations of its own. All calls are
+  fixed module-relative branches to the veneers above. Its three literal loads
+  refer to the adjacent, unowned pool words at `0x1F78`, `0x1F7C`, and
+  `0x1F80`; the first two retain the skeleton's data/read-only relocations and
+  the last is the unrelocated reciprocal used for signed division by 100.
+
 ## Relocation-backed tail entry points
 
 The checked-in partition combines several genuine functions into gaps after
