@@ -140,11 +140,20 @@ call `import_2` without reloading `r0`. Thus the first descriptor call receives
 the stored builder (the `import_1` result on success), not necessarily the
 original allocation.
 
+For exact encoding, the first owner load at function offset `0x0C` uses the
+incoming `r0` as its base, not the equivalent saved `r5`. Immediately before
+`import_1`, establish its remaining arguments in this order: set `r3 = 1`,
+then `r2 = 242`, then copy `r4` to `r0`. (`r1` already holds the owner-method
+result.)
+
 Selectors 0, 1, and 3 are unrolled and use `r4` for both descriptor and
 resource. For each, call `import_2`, call the owner method with the owner in
 `r0`, pass its result in `r0` and the descriptor in `r1` to `import_3`, reload
 the builder from offset `0x04`, pass `(builder, selector, resource)` to
 `import_4`, and only then store the resource in the control object.
+For each of those three `import_4` calls, establish `r2 = r4` before loading
+the selector immediate into `r1`; reversing those two independent moves is not
+the target schedule.
 
 Selector 2 deliberately uses a different schedule: after `import_3`, store
 the resource from `r0` at offset `0x10` before `import_4`; load the builder into
@@ -203,7 +212,9 @@ The six-entry loop must be index-based, not pointer/count-based. Compute
 `self + r4 * 4`, load its word at `+0x18`, and call `import_5`; increment `r4`,
 compare it unsigned with 6, copy `self` to `r0`, write zero to offset `0x14`
 again, and branch back on carry-clear. The copy to `r0` and repeated clear are
-inside every iteration and occur after the compare. Restore `r4`, `r5`, `r6`,
+inside every iteration and occur after the compare. The repeated clear must
+encode `r5` as its address base even though the immediately preceding move
+makes `r0` equal to `r5`. Restore `r4`, `r5`, `r6`,
 and `pc` together, with no padding or trailing instruction. This makes the
 final `r0` value equal to `self` while leaving offsets `0x18..0x2C` unchanged.
 
@@ -301,10 +312,31 @@ four-byte-aligned writable allocatable section; the structural `.bss` is empty.
 
 The six veneer relocations form six distinct undefined-global equality
 classes in veneer order. A public implementation may call them `import_0`
-through `import_5`, but the final comparison object must deterministically map
-those aliases one-to-one to the target converter's neutral anonymous-import
-identities. They must not collapse into one symbol or be reordered. No copied
-binary string is needed to express this equality contract.
+through `import_5`. They must not collapse into one symbol or be reordered.
+
+The converter's current anonymous-import spelling cannot be reconstructed
+from the public slot addresses alone: its documented format includes the hex
+encoding of an import-module string held only in the private CRO. Publishing
+that spelling would publish a binary-derived string, so it is not part of this
+specification. A safe reproducible alias mechanism is instead:
+
+1. while producing the ignored split target, collect undefined symbols
+   referenced by import relocations and sort their relocation outputs by
+   public text/pool address;
+2. preserve equality by grouping references which use the same original
+   undefined symbol identity;
+3. assign each first-seen equality class the module-scoped public alias
+   `dll_contest_common_import_<ordinal>`; and
+4. rewrite the ignored target symbol and its relocation references to that
+   alias, requiring a bijection and the six slot-to-ordinal mappings
+   `0x004 -> 0` through `0x02C -> 5` in address order.
+
+This canonicalization changes only comparison-object symbol metadata, retains
+all relocation outputs/addends and equality relationships, is deterministic,
+and does not copy a private string into Git. The authored object already uses
+these public aliases. Applying the same canonicalization to the ignored target
+is preferable to embedding the converter's private-string-derived spellings
+in source or configuration.
 
 ## Authored-object comparison evidence
 
@@ -329,6 +361,28 @@ unrolled/loop schedules; the initializer cleared fields in linear order; and
 the release routine used a pointer/count loop plus an extra saved register and
 trailing word. These are implementation discrepancies, not alternate target
 behaviors.
+
+After the second implementation round, `func_0000020C` was exact at 76/76
+bytes. The builder reached 99.41525% fuzzy similarity and differed at exactly
+nine word offsets: `0x0C`, `0x34`, `0x3C`, `0x74`, `0x78`, `0xB4`, `0xB8`,
+`0x134`, and `0x138`. Offset `0x0C` is the equivalent-base-register choice;
+`0x34`/`0x3C` are the `r3`/`r0` argument scheduling around an unchanged
+`r2` move; and each of the final three pairs reverses the target order of the
+independent `r2 = resource` and `r1 = selector` moves. The release routine
+reached 99.8% and differed only at offset `0x58`, where the authored store used
+the just-equalized `r0` base instead of the target's `r5` base. These ten
+locations are encoding/schedule differences only.
+
+The aggregate pool fuzzy score of 30.952381% has two structural causes. The
+authored object has the first seven four-byte pools and the 20-byte jump-table
+pool, but not the final 36-byte pool at `0x344`. In addition, the six import
+slots carry the correct distinct equality pattern and zero addends but name
+public aliases rather than the target converter's private-string-derived
+undefined symbols. The `0x208` `.rodata` relocation and the five `0x2D0`
+jump-table relocations already have the required public targets and addends.
+Exact pool comparison therefore requires both the safe alias canonicalization
+above and eventual independently justified ownership of the blocked final
+pool; fuzzy similarity must not be interpreted as partial completion.
 
 ## Completion and validation requirements
 
