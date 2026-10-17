@@ -37,6 +37,10 @@ function regularFile(path, label) {
   check(statSync(path).size <= MAX_INPUT_SIZE, `${label} exceeds the 64 MiB input limit`);
 }
 
+function executableFile(path, label) {
+  check(existsSync(path) && statSync(path).isFile(), `${label} is not a regular file`);
+}
+
 function readJson(path, label) {
   regularFile(path, label);
   try {
@@ -75,7 +79,10 @@ function parseArguments(argv) {
     "--target and --objdiff must be supplied together");
   check(result.target === undefined || result.object !== undefined,
     "authoritative comparison also requires --object and --readelf");
-  for (const [label, path] of Object.entries(result)) regularFile(path, label);
+  for (const [label, path] of Object.entries(result)) {
+    if (label === "readelf" || label === "objdiff") executableFile(path, label);
+    else regularFile(path, label);
+  }
   return result;
 }
 
