@@ -22,6 +22,9 @@ readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
 }
 export CROSS_COMPILE="$(dirname "$assembler")/arm-none-eabi-"
 
+node "$root/scripts/validate-arm-runtime-helpers-139.mjs" --self-test
+node "$root/scripts/validate-arm-runtime-helpers-140.mjs" --self-test
+
 node "$root/scripts/generate-target-object.mjs" \
   "$code" "$symbols" "$assembler" "$readelf" \
   "$root/config/arm-direct-branch-thunks.json" \
@@ -254,6 +257,8 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-runtime-helpers-136.json" \
   "$root/config/arm-runtime-helpers-137.json" \
   "$root/config/arm-tail-adapters-138.json" \
+  "$root/config/arm-runtime-helpers-139.json" \
+  "$root/config/arm-runtime-helpers-140.json" \
   "$root/config/thumb-leaf-helpers-27.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"

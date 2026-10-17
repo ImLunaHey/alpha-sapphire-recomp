@@ -25959,6 +25959,8 @@ const supplementalIpcPaths = [
   "config/arm-runtime-helpers-136.json",
   "config/arm-runtime-helpers-137.json",
   "config/arm-tail-adapters-138.json",
+  "config/arm-runtime-helpers-139.json",
+  "config/arm-runtime-helpers-140.json",
   "config/thumb-leaf-helpers-27.json",
 ].map((path) => join(root, path));
 const supplementalIpcBodies = new Map();
@@ -25970,9 +25972,13 @@ for (const configPath of supplementalIpcPaths) {
   const sourcePath = join(root, config.source);
   const lines = readFileSync(sourcePath, "utf8").split(/\r?\n/);
   for (const mapping of config.functions ?? []) {
-    const begin = lines.findIndex((line) => line.trim() === `${mapping.name}:`);
+    const begin = lines.findIndex((line) => {
+      const text = line.trim();
+      return text === `${mapping.name}:` || text === `BEGIN ${mapping.name}`;
+    });
     const end = lines.findIndex((line, index) => index > begin &&
-      line.trim().startsWith(`.size ${mapping.name},`));
+      (line.trim().startsWith(`.size ${mapping.name},`) ||
+        line.trim() === `END ${mapping.name}`));
     if (begin < 0 || end <= begin || mapping.size === undefined) {
       throw new Error(`Invalid supplemental IPC source boundary for ${mapping.name}`);
     }
@@ -25982,7 +25988,7 @@ for (const configPath of supplementalIpcPaths) {
       .map((line) => line.replace(/\.L([A-Za-z0-9_.$]+)/g,
         `.L_supplemental_${mapping.name}_$1`));
     const nextSection = lines.findIndex((line, index) => index > end &&
-      line.trim().startsWith(".section "));
+      (line.trim().startsWith(".section ") || line.trim().startsWith("BEGIN ")));
     const tail = lines.slice(end + 1, nextSection < 0 ? lines.length : nextSection)
       .map((line) => line.trim())
       .filter(Boolean)

@@ -1368,6 +1368,14 @@
     {
       "path": "src/main/arm_tail_adapters_138.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_139.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_140.S",
+      "mode": "arm"
     }
   ]
 }
