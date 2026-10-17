@@ -35,11 +35,6 @@
       "name": "DllUSGymFlight",
       "sources": [{ "path": "src/cro/DllUSGymFlight/contract_08.S", "mode": "arm" }],
       "functions": [{ "name": "func_00000FA4", "address": 4004, "size": 152, "semantics": "contract-08-flight-interpolation" }]
-    },
-    {
-      "name": "DllWazaOboe",
-      "sources": [{ "path": "src/cro/DllWazaOboe/contract_08.S", "mode": "arm" }],
-      "functions": [{ "name": "func_000035D8", "address": 13784, "size": 148, "semantics": "contract-08-selection-dispatch" }]
     }
   ]
 }

@@ -82,7 +82,6 @@
     { "name": "DllUSR113", "sources": [{ "path": "src/cro/DllUSR113/contract_06.S", "mode": "arm" }], "functions": [{ "name": "func_00000CD4", "address": 3284, "size": 88, "semantics": "contract-06-indexed-buffer-read" }] },
     { "name": "DllUSSecretBase", "sources": [{ "path": "src/cro/DllUSSecretBase/pod_leaves.S", "mode": "arm" }], "functions": [{ "name": "func_000079B4", "address": 31156, "size": 20, "semantics": "pod-copy-two-words" }] },
     { "name": "DllVSDemo", "sources": [{ "path": "src/cro/DllVSDemo/contract_06.S", "mode": "arm" }], "functions": [{ "name": "func_000018A8", "address": 6312, "size": 64, "semantics": "contract-06-vs-demo-placement" }] },
-    { "name": "DllWazaOboe", "sources": [{ "path": "src/cro/DllWazaOboe/contract_08.S", "mode": "arm" }], "functions": [{ "name": "func_000035D8", "address": 13784, "size": 148, "semantics": "contract-08-selection-dispatch" }] },
     { "name": "DllWazaOmoidashi", "sources": [{ "path": "src/cro/DllWazaOmoidashi.c", "mode": "arm" }], "functions": [{ "name": "func_00005228", "address": 21032, "size": 8, "semantics": "store-u8", "offset": 217 }] }
   ]
 }

@@ -67,15 +67,6 @@ const CONTRACT = [
     0x11A0100D, 0x1BFFFC04, 0xE59400DC, 0xE5901000, 0xE5911008, 0xE12FFF31,
     0xE28DD010, 0xE8BD8070,
   ]],
-  ["DllWazaOboe", "func_000035D8", 0x35D8, "contract-08-selection-dispatch", [
-    0xE92D4070, 0xE1A04000, 0xE24DD010, 0xE1A00001, 0xE1A05002, 0xE1A06003,
-    0xEBFFF3D8, 0xE1A01005, 0xEBFFF3D8, 0xE3E01000, 0xE3500001, 0xE58D1004,
-    0xE58D1008, 0x0A000002, 0xE3700001, 0x0A000006, 0xEA00000A, 0xE59F0048,
-    0xE5901000, 0xE58D1004, 0xE5900000, 0xE58D0008, 0xEA000004, 0xE59F0034,
-    0xE5901000, 0xE58D1004, 0xE5900000, 0xE58D0008, 0xE28D0008, 0xE58D0000,
-    0xE5941024, 0xE28D3004, 0xE1A02006, 0xE284001C, 0xEBFFF3C0, 0xE28DD010,
-    0xE8BD8070,
-  ]],
 ].map(([unit, name, address, semantics, words]) => ({
   unit, name, address, semantics, words, size: words.length * 4,
   source: `src/cro/${unit}/contract_08.S`,
@@ -214,8 +205,8 @@ function validatePublicContract(manifestPath) {
       check(source.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
-  check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 1052 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 263, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 904 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 226, "aggregate contract totals are invalid");
   return units;
 }
 
@@ -258,7 +249,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 08: 8 ARM functions in 8 units (1,052 bytes, 263 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 08: 7 ARM functions in 7 units (904 bytes, 226 instructions, zero relocations/adjacent bytes); DllWazaOboe is quarantined${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

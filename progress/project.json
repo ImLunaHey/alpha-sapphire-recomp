@@ -7,8 +7,8 @@
   "summary": "The public report retains 4,241 exact functions and 415,812 code bytes after the DllPokeList provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.178883864480781,
-    "matchedFunctions": 4241,
+    "matchedCodePercent": 11.174904823303223,
+    "matchedFunctions": 4240,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
