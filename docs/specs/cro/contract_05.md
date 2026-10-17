@@ -15,7 +15,10 @@ total 460 executable bytes and 115 ARM instructions.
 `scripts/validate-cro-contract-05.mjs` pins the exact public unit/function
 inventory, boundaries, instruction schedules, section and symbol ownership,
 three resolved local branches, and the absence of relocations, calls, literal
-pools, PC-relative data, and adjacent owned bytes. Authoritative objdiff
+pools, and PC-relative data in the original contract bodies. DllTestPGL also
+builds a separately specified 20-byte non-function dispatcher prefix; the
+validator permits exactly that section while rejecting other adjacent bytes.
+Authoritative objdiff
 comparison credits all eight functions and all 460 bytes exactly. It grants no
 CRO data or completed-unit credit; even the three modules whose accepted
 function inventories are fully matched remain explicitly incomplete because
