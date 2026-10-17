@@ -68,40 +68,17 @@ implementable as `base[217] = value`.
 
 ### Observable contract
 
-1. Save two subject-derived scalar values, temporarily publish the subject's
-   bytes at offsets 2190 and 2191 through opaque setters, and restore the saved
-   values before selecting the result.
-2. For each of four lanes, build two candidate temporaries. Query an opaque
-   availability operation for each candidate and retain eight one-byte status
-   values. A zero query result is normalized to status 2 unless a secondary
-   subject query succeeds and its returned object passes a Boolean predicate.
-3. Derive a mode from the subject plus the `direction` and `event` arguments.
-   Modes 0 through 3 enter selection directly. Modes 4 through 7 first apply
-   one of four pairs of lane predicates; the predicates depend on whether
-   `state[312]` equals 6 and on the eight status bytes. An out-of-range mode
-   invokes the unit's fail-fast veneer and returns 0 if control resumes.
-4. Map the selected mode to two candidate indices using the same opaque mapping
-   operation with deltas -2 and +2. A four-byte-per-lane selector chooses
-   whether each mapped index addresses the first or second four-status group.
-   If the first candidate status is zero, try the second. If both are zero,
-   return 0 without committing a selection.
-5. On selection, write the chosen index to `state[185]` and a one-byte group
-   flag to `state[186]`. Copy one 44-byte descriptor into
-   `state[196..239]`. The source descriptor stride is 44 bytes. This copy is
-   value data, not permission to reproduce the target descriptor table.
-6. Build two further opaque temporaries from the chosen descriptor and subject.
-   Store a scalar result at `state + 240`; one branch uses the saved subject
-   scalar and the other uses a floating-point query. Store the final mode byte
-   at `state + 184`.
-7. Unless `state[312]` is 5, prepare the four-byte command record at
-   `state[296..299]` and submit it to the subject with Boolean argument 1.
-   When `state[312]` is 7 the command halfword is 112 if the subject mode equals
-   the selected mode, otherwise 115. For other values the command halfword is
-   either 1 or 239 according to an opaque subject predicate and the same-mode
-   comparison. Bytes 298 and 299 receive the selected mode and 1.
-8. Return 1 after a committed selection. The other observed exits return 0:
-   the early event/context rejection, invalid selection state if fail-fast
-   returns, or exhaustion of both candidates.
+The routine selects a directional event candidate using the supplied state,
+subject, direction, event, and context. It returns 1 when a candidate is
+committed and 0 when the request is rejected or no candidate is available.
+
+A successful call updates the state's selected mode, candidate index and group,
+copies a 44-byte candidate descriptor, stores a derived scalar, and may submit
+a four-byte command record through the subject. These effects are confined to
+state offsets 184 through 186, 196 through 240, and 296 through 299; opaque
+collaborators may have additional effects through their own arguments. The
+descriptor contents and collaborator interfaces are not part of this
+specification and must not be inferred or copied from the target.
 
 ## Remaining boundaries and completion status
 
