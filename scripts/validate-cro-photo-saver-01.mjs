@@ -12,6 +12,7 @@ const SECTION = `.text.${FUNCTION}`;
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const SOURCE_PATH = join(ROOT, "src", "cro", "DllPhotoSaver.c");
 const INVENTORY_PATH = join(ROOT, "symbols", "cro", "DllPhotoSaver.csv");
+const SPEC_PATH = join(ROOT, "docs", "specs", "cro", "DllPhotoSaver_01.md");
 
 function fail(message) {
   throw new Error(`CRO DllPhotoSaver validation: ${message}`);
@@ -69,6 +70,16 @@ function validatePublicContract() {
   const rows = readFileSync(INVENTORY_PATH, "utf8").split(/\r?\n/u).filter((line) => /^[0-9A-F]{8},/u.test(line));
   check(rows.length === 1, `${UNIT} public inventory must contain exactly one neutral function`);
   check(rows[0] === '00000000,"func_00000000","Global",$a,00000008,".text"', `${UNIT} public inventory boundary changed`);
+
+  const spec = readFileSync(SPEC_PATH, "utf8");
+  check(spec.includes("GNU Binutils) 2.44") &&
+    spec.includes("## Clean-room quarantine and blocker") &&
+    spec.includes("`metadata.complete` must remain `false`"),
+  "specification does not preserve exact tool provenance, quarantine, and incomplete status");
+  check(!/^\|\s*`?0x[0-9a-f]+/imu.test(spec) &&
+    !/\b(?:Required operation|Target addend|precise relocation ledger)\b/iu.test(spec) &&
+    !/\b(?:vstmia|vldr|vstr|ldrcc)\b/iu.test(spec),
+  "specification republishes a target lowering schedule or relocation ledger");
 
   const source = readFileSync(SOURCE_PATH, "utf8");
   check(!/\b(?:asm|__asm__|__attribute__)\b/u.test(source), "source uses an opaque compiler escape hatch");
