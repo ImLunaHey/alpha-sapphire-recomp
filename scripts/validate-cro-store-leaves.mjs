@@ -10,6 +10,8 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,offset,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
+const QUARANTINED_UNIT = "DllGift";
+const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S"];
 
 function fail(message) {
   throw new Error(`CRO store-leaf validation: ${message}`);
@@ -66,6 +68,13 @@ function readAndValidateContract() {
   exactKeys(config, "schemaVersion,units", "config");
   check(config.schemaVersion === 1 && Array.isArray(config.units) && config.units.length > 0,
     "config version or units are invalid");
+  check(!config.units.some((unit) => unit?.name === QUARANTINED_UNIT),
+    `${QUARANTINED_UNIT} must remain absent from authored CRO claims`);
+  check(!config.units.some((unit) => Array.isArray(unit?.sources) &&
+    unit.sources.some((source) => QUARANTINED_PATHS.includes(source?.path))),
+  `${QUARANTINED_UNIT} quarantined source paths must remain unclaimed`);
+  check(QUARANTINED_PATHS.every((path) => !existsSync(resolve(ROOT, path))),
+    `${QUARANTINED_UNIT} quarantined source files must remain absent`);
 
   let previousUnit = "";
   const names = new Set();
@@ -115,7 +124,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 52, `expected 52 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 51, `expected 51 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -163,7 +172,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 52 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 51 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
