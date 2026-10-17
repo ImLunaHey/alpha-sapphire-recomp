@@ -1,0 +1,78 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_25.S",
+  "sourceHash": "dbaa98e715ca155ea8e0481e3149df1b59f35a3fd51467e1c185836ca8e48892",
+  "architecture": "ARMv6K",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "requiredEntryModulo4": 2,
+  "totalBodySize": 486,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 232,
+  "wideInstructionCount": 11,
+  "legacyNopCount": 0,
+  "localBranchCount": 30,
+  "memoryOperationCount": 83,
+  "returnCount": 5,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 11,
+  "directTailCount": 0,
+  "directCalls": [
+    { "function": "func_00302452", "offset": 64, "kind": "call", "destinationSymbol": "func_00301DC8", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -1674, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 80, "kind": "call", "destinationSymbol": "func_00301D1C", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -1846, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 164, "kind": "call", "destinationSymbol": "func_002FECF8", "destinationState": "arm", "stateSwitch": true, "targetOffset": -14170, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 218, "kind": "call", "destinationSymbol": "func_00301D7C", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -1750, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 260, "kind": "call", "destinationSymbol": "func_003022C8", "destinationState": "arm", "stateSwitch": true, "targetOffset": -394, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 300, "kind": "call", "destinationSymbol": "func_00301D7C", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -1750, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 312, "kind": "call", "destinationSymbol": "func_003022C8", "destinationState": "arm", "stateSwitch": true, "targetOffset": -394, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 352, "kind": "call", "destinationSymbol": "func_00301D7C", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -1750, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 394, "kind": "call", "destinationSymbol": "func_00103568", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -2092778, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 432, "kind": "call", "destinationSymbol": "func_003023F0", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -98, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00302452", "offset": 480, "kind": "call", "destinationSymbol": "func_0030242A", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -40, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 }
+  ],
+  "relocations": [
+    { "offset": 64, "type": "R_ARM_THM_CALL", "symbol": "func_00301DC8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 80, "type": "R_ARM_THM_CALL", "symbol": "func_00301D1C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 164, "type": "R_ARM_THM_CALL", "symbol": "func_002FECF8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 218, "type": "R_ARM_THM_CALL", "symbol": "func_00301D7C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 260, "type": "R_ARM_THM_CALL", "symbol": "func_003022C8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 300, "type": "R_ARM_THM_CALL", "symbol": "func_00301D7C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 312, "type": "R_ARM_THM_CALL", "symbol": "func_003022C8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 352, "type": "R_ARM_THM_CALL", "symbol": "func_00301D7C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 394, "type": "R_ARM_THM_CALL", "symbol": "func_00103568", "format": "REL", "implicitAddend": -4 },
+    { "offset": 432, "type": "R_ARM_THM_CALL", "symbol": "func_003023F0", "format": "REL", "implicitAddend": -4 },
+    { "offset": 480, "type": "R_ARM_THM_CALL", "symbol": "func_0030242A", "format": "REL", "implicitAddend": -4 }
+  ],
+  "pcRelativeDataAccesses": [
+    { "offset": 10, "mnemonic": "ldr", "pcDisplacement": 472, "targetOffset": 486, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" },
+    { "offset": 68, "mnemonic": "ldr", "pcDisplacement": 420, "targetOffset": 490, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" },
+    { "offset": 118, "mnemonic": "ldr", "pcDisplacement": 372, "targetOffset": 494, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" }
+  ],
+  "duplicateBodyClasses": [],
+  "objectContract": {
+    "elfClass": "ELF32", "endianness": "little", "fileType": "ET_REL", "machine": "EM_ARM", "elfVersion": 1,
+    "osAbi": "ELFOSABI_NONE", "abiVersion": 0, "flags": 83886080,
+    "executableSectionAlignment": 2, "primarySymbolThumbValue": 1, "mappingSymbol": "$t",
+    "relocationSectionType": "SHT_REL", "namedAliases": [], "unnamedAliases": []
+  },
+  "encodingConstraints": [
+    { "form": "threeOperandImmediate3", "rule": "Offsets 110, 436, 448, and 452 retain their exact two-byte forms." },
+    { "form": "literalOffset", "rule": "The three literal loads address offsets 486, 490, and 494 for an entry modulo four of two; none of those words is owned." },
+    { "form": "localTransfers", "rule": "All 30 local transfers remain narrow, resolved, and relocation-free." },
+    { "form": "directImmediate", "rule": "Eight Thumb calls and three ARM-state-switching calls are four bytes and carry one REL R_ARM_THM_CALL each." },
+    { "form": "thumbCodeMapping", "rule": "The exact 486-byte body is continuously Thumb-mapped and contains no data mapping interval." },
+    { "form": "sectionOwnership", "rule": "The executable section ends at byte 486 and owns none of the 116-byte gap before the next global." }
+  ],
+  "functions": [
+    {
+      "name": "func_00302452", "size": 486, "instructionCount": 232,
+      "wideInstructionOffsets": [64, 80, 164, 218, 260, 300, 312, 352, 394, 432, 480],
+      "legacyNopOffsets": [], "localBranchCount": 30, "memoryOperationCount": 83,
+      "returnCount": 5, "indirectCallCount": 0, "indirectCallOffsets": [],
+      "indirectTailCount": 0, "directCallCount": 11, "directTailCount": 0,
+      "nextGlobal": "func_003026AC", "nextGlobalOffset": 602,
+      "semanticContract": "The validator pins the complete instruction body, every local branch, all eleven call states and relocations, five returns, symbols, mapping, and the exact authoritative linked bytes."
+    }
+  ]
+}
