@@ -2,7 +2,7 @@
 
 // Public quarantine accounting only. Never reads source contents or build inputs.
 import { closeSync, constants, fstatSync, lstatSync, openSync, readFileSync,
-  readdirSync, realpathSync, mkdtempSync, mkdirSync, renameSync, writeFileSync,
+  readdirSync, realpathSync, linkSync, mkdtempSync, mkdirSync, renameSync, writeFileSync,
   symlinkSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
@@ -109,7 +109,7 @@ function safePath(path) {
       && part !== "." && part !== ".."), "unsafe public path");
 }
 
-function checkedPath(root, path, directory = false) {
+function checkedPathState(root, path, directory = false) {
   safePath(path);
   const absoluteRoot = resolve(root);
   // Check every ancestor as well as every relative component before any read.
@@ -120,42 +120,71 @@ function checkedPath(root, path, directory = false) {
   }
   let cursor = absoluteRoot;
   for (const part of path.split("/")) { cursor = join(cursor, part); chain.push(cursor); }
+  const snapshots = [];
   for (const [index, candidate] of chain.entries()) {
-    const stat = lstatSync(candidate);
+    const stat = lstatSync(candidate, { bigint: true });
     check(!stat.isSymbolicLink(), "symlink in public input path");
     const isDirectory = index < chain.length - 1 || directory;
     check(isDirectory ? stat.isDirectory() : stat.isFile(), "public input has an unsafe file type");
-    if (!isDirectory) check(stat.size > 0 && stat.size <= 32 * 1024 * 1024,
-      "public input size is invalid");
+    if (!isDirectory) {
+      check(stat.nlink === 1n, "hardlinked public input is forbidden");
+      check(stat.size > 0n && stat.size <= 32n * 1024n * 1024n, "public input size is invalid");
+    }
+    snapshots.push({ path: candidate, dev: stat.dev, ino: stat.ino, mode: stat.mode, nlink: stat.nlink });
   }
-  return cursor;
+  return { absolute: cursor, snapshots };
+}
+
+function checkedPath(root, path, directory = false) {
+  return checkedPathState(root, path, directory).absolute;
+}
+
+function stableSnapshots(snapshots) {
+  for (const expected of snapshots) {
+    const current = lstatSync(expected.path, { bigint: true });
+    check(!current.isSymbolicLink() && current.dev === expected.dev && current.ino === expected.ino
+      && current.mode === expected.mode && current.nlink === expected.nlink,
+    "public input ancestor identity changed");
+  }
 }
 
 function sameFile(left, right) {
   return left.dev === right.dev && left.ino === right.ino && left.mode === right.mode
-    && left.size === right.size && left.mtimeNs === right.mtimeNs && left.ctimeNs === right.ctimeNs;
+    && left.nlink === right.nlink && left.size === right.size
+    && left.mtimeNs === right.mtimeNs && left.ctimeNs === right.ctimeNs;
 }
 
-function stableRead(root, path, directory, reader, afterOpen) {
-  const expected = checkedPath(root, path, directory);
+function stableRead(root, path, directory, reader, hooks = {}) {
+  const initial = checkedPathState(root, path, directory);
+  const expected = initial.absolute;
   check(Number.isInteger(constants.O_NOFOLLOW) && (!directory || Number.isInteger(constants.O_DIRECTORY)),
     "platform lacks no-follow descriptor support");
   const flags = constants.O_RDONLY | constants.O_NOFOLLOW | (directory ? constants.O_DIRECTORY : 0);
   let descriptor;
   try {
+    if (hooks.beforeOpen) hooks.beforeOpen();
     descriptor = openSync(expected, flags);
     const before = fstatSync(descriptor, { bigint: true });
     check(directory ? before.isDirectory() : before.isFile(), "descriptor has an unsafe file type");
-    if (!directory) check(before.size > 0n && before.size <= 32n * 1024n * 1024n,
-      "public input size is invalid");
+    if (!directory) {
+      check(before.nlink === 1n, "hardlinked public input is forbidden");
+      check(before.size > 0n && before.size <= 32n * 1024n * 1024n, "public input size is invalid");
+    }
+    const initialLeaf = initial.snapshots.at(-1);
+    check(before.dev === initialLeaf.dev && before.ino === initialLeaf.ino
+      && before.mode === initialLeaf.mode && before.nlink === initialLeaf.nlink,
+    "public input leaf identity changed before open");
+    stableSnapshots(initial.snapshots);
     const descriptorPath = `/proc/self/fd/${descriptor}`;
     check(realpathSync(descriptorPath) === expected, "public input canonical identity changed");
-    if (afterOpen) afterOpen();
+    if (hooks.afterOpen) hooks.afterOpen();
     const result = reader(descriptor, descriptorPath);
     const after = fstatSync(descriptor, { bigint: true });
     check(sameFile(before, after), "public input changed while being read");
     check(realpathSync(descriptorPath) === expected, "public input canonical identity changed");
-    check(checkedPath(root, path, directory) === expected, "public input path changed while being read");
+    stableSnapshots(initial.snapshots);
+    check(checkedPathState(root, path, directory).absolute === expected,
+      "public input path changed while being read");
     const current = lstatSync(expected, { bigint: true });
     check(current.dev === after.dev && current.ino === after.ino,
       "public input path was reassigned while being read");
@@ -165,12 +194,12 @@ function stableRead(root, path, directory, reader, afterOpen) {
   }
 }
 
-function readStableFile(root, path, afterOpen) {
-  return stableRead(root, path, false, descriptor => readFileSync(descriptor, "utf8"), afterOpen);
+function readStableFile(root, path, hooks) {
+  return stableRead(root, path, false, descriptor => readFileSync(descriptor, "utf8"), hooks);
 }
 
-function readStableDirectory(root, path, afterOpen) {
-  return stableRead(root, path, true, (_descriptor, descriptorPath) => readdirSync(descriptorPath), afterOpen);
+function readStableDirectory(root, path, hooks) {
+  return stableRead(root, path, true, (_descriptor, descriptorPath) => readdirSync(descriptorPath), hooks);
 }
 
 function readState(root) {
@@ -479,21 +508,33 @@ function selfTest(state) {
     }
     assert.equal(readStableFile(temporary, "public/fixture.json"), "{}");
     accepted++;
+    const directHardlink = join(temporary, "public", "direct-hardlink.json");
+    linkSync(join(temporary, "public", "fixture.json"), directHardlink);
+    assert.throws(() => readStableFile(temporary, "public/direct-hardlink.json"), /hardlinked/); rejected++;
+    rmSync(directHardlink);
     const directRace = join(temporary, "public", "direct-race.json");
     const directOriginal = join(temporary, "public", "direct-race-original.json");
     writeFileSync(directRace, "{}");
-    assert.throws(() => readStableFile(temporary, "public/direct-race.json", () => {
+    assert.throws(() => readStableFile(temporary, "public/direct-race.json", { afterOpen: () => {
       renameSync(directRace, directOriginal);
       symlinkSync("fixture.json", directRace);
-    }), /canonical identity|symlink|changed|reassigned/); rejected++;
+    } }), /canonical identity|symlink|changed|reassigned/); rejected++;
     rmSync(directRace); renameSync(directOriginal, directRace);
     const racedDirectory = join(temporary, "raced-directory");
     const heldDirectory = join(temporary, "held-directory");
     mkdirSync(racedDirectory); writeFileSync(join(racedDirectory, "fixture.json"), "{}");
-    assert.throws(() => readStableFile(temporary, "raced-directory/fixture.json", () => {
+    assert.throws(() => readStableFile(temporary, "raced-directory/fixture.json", { afterOpen: () => {
       renameSync(racedDirectory, heldDirectory);
       symlinkSync("public", racedDirectory);
-    }), /canonical identity|symlink|changed|reassigned/); rejected++;
+    } }), /canonical identity|symlink|changed|reassigned|ancestor/); rejected++;
+    const preOpenDirectory = join(temporary, "pre-open-directory");
+    const heldPreOpenDirectory = join(temporary, "held-pre-open-directory");
+    mkdirSync(preOpenDirectory); writeFileSync(join(preOpenDirectory, "fixture.json"), "{}");
+    assert.throws(() => readStableFile(temporary, "pre-open-directory/fixture.json", { beforeOpen: () => {
+      renameSync(preOpenDirectory, heldPreOpenDirectory);
+      mkdirSync(preOpenDirectory);
+      linkSync(join(heldPreOpenDirectory, "fixture.json"), join(preOpenDirectory, "fixture.json"));
+    } }), /ancestor identity|hardlinked|leaf identity/); rejected++;
   } finally { rmSync(temporary, { recursive: true, force: true }); }
   console.log(`Passed ${accepted + rejected} synthetic quarantine tests (${accepted} acceptance, ${rejected} rejection).`);
 }
