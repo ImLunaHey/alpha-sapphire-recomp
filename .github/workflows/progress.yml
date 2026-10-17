@@ -43,9 +43,18 @@ jobs:
 
       - name: Test CRO unit configuration
         run: |
+          node --check scripts/generate-cro-symbols.mjs
           node --check scripts/generate-objdiff-config.mjs
+          node --check scripts/split-cro-target-object.mjs
+          node --check scripts/validate-cro-function-semantics.mjs
+          node --check scripts/validate-split-cro-target-object.mjs
+          node --check scripts/test-cro-function-semantics.mjs
+          node --check scripts/test-generate-cro-symbols.mjs
           node --check scripts/test-generate-objdiff-config.mjs
+          node scripts/test-cro-function-semantics.mjs
+          node scripts/test-generate-cro-symbols.mjs
           node scripts/test-generate-objdiff-config.mjs
+          node scripts/validate-split-cro-target-object.mjs --self-test
 
       - name: Prepare validated ByteMatch report
         run: npm run report

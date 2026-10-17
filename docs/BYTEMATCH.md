@@ -25,8 +25,8 @@ boundary and uses the stable name `cro/DllName`. Local target conversion and
 clean-room builds place comparison objects at:
 
 ```text
-build/AS_EUR_REV2/target/cro/DllName.o
-build/AS_EUR_REV2/base/cro/DllName.o
+build/AS_EUR_REV2/target/cro-split/DllName.o
+build/AS_EUR_REV2/base/cro-split/DllName.o
 ```
 
 Run `node scripts/generate-objdiff-config.mjs` to regenerate the ignored

@@ -1,5 +1,5 @@
 import { readFileSync } from "node:fs";
-import { basename, join } from "node:path";
+import { basename, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = join(fileURLToPath(new URL(".", import.meta.url)), "..");
@@ -78,7 +78,7 @@ export function validateCroInventory(text, { expectedUnit, expectedTextSize } = 
   if (Buffer.byteLength(text) > MAX_INPUT) fail("inventory exceeds size limit");
   const lines = text.split(/\r?\n/);
   if (lines.at(-1) === "") lines.pop();
-  if (lines.length < 5 || lines[0] !== "# Format,CRO_FUNCTIONS_V1" ||
+  if (lines.length < 4 || lines[0] !== "# Format,CRO_FUNCTIONS_V1" ||
       !lines[1].startsWith("# Module,") || !/^# TextSize,[0-9A-F]{8}$/.test(lines[2]) || lines[3] !== HEADER) {
     fail("header or metadata is invalid");
   }
@@ -106,7 +106,6 @@ export function validateCroInventory(text, { expectedUnit, expectedTextSize } = 
         location + size > textSize) fail(`${name} has invalid mode, alignment, size, or range`);
     return { location, size, name };
   });
-  if (entries.length === 0) fail("inventory is empty");
   for (let index = 1; index < entries.length; index++) {
     const previous = entries[index - 1];
     const current = entries[index];
@@ -137,17 +136,19 @@ function selfTest() {
   console.log("CRO function inventory validator self-test: ok");
 }
 
-if (process.argv.includes("--self-test")) selfTest();
-else {
-  const inventoryPath = process.argv[2];
-  const objectPath = process.argv[3];
-  if (!inventoryPath || !objectPath) fail("usage: validate-cro-symbols.mjs <inventory.csv> <target.o>");
-  const stem = basename(objectPath, ".o");
-  if (!/^Dll[A-Za-z0-9_]+$/.test(stem)) fail("target object name is invalid");
-  const result = validateCroInventory(bounded(inventoryPath).toString("utf8"), {
-    expectedUnit: `cro/${stem}`,
-    expectedTextSize: elfTextSize(objectPath),
-  });
-  console.log(`Validated ${result.unit}: ${result.functionCount} functions, ${result.bodyBytes} body bytes, ` +
-    `${((result.bodyBytes / result.textSize) * 100).toFixed(2)}% conservative text coverage.`);
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  if (process.argv.includes("--self-test")) selfTest();
+  else {
+    const inventoryPath = process.argv[2];
+    const objectPath = process.argv[3];
+    if (!inventoryPath || !objectPath) fail("usage: validate-cro-symbols.mjs <inventory.csv> <target.o>");
+    const stem = basename(objectPath, ".o");
+    if (!/^Dll[A-Za-z0-9_]+$/.test(stem)) fail("target object name is invalid");
+    const result = validateCroInventory(bounded(inventoryPath).toString("utf8"), {
+      expectedUnit: `cro/${stem}`,
+      expectedTextSize: elfTextSize(objectPath),
+    });
+    console.log(`Validated ${result.unit}: ${result.functionCount} functions, ${result.bodyBytes} body bytes, ` +
+      `${((result.bodyBytes / result.textSize) * 100).toFixed(2)}% conservative text coverage.`);
+  }
 }

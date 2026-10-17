@@ -51,13 +51,15 @@ export function parseFunctionInventory(input) {
   check(Buffer.byteLength(text) <= MAX_INVENTORY_SIZE, "function inventory is too large");
   let source;
   try { source = JSON.parse(text); } catch { throw new Error("function inventory is not valid JSON"); }
-  exactKeys(source, new Set(["format", "module", "textSize", "functions", "gaps", "pools"]), "inventory");
+  exactKeys(source, new Set(["format", "module", "textSize", "functions", "gaps", "pools", "unknown"]), "inventory");
   check(source.format === 1, "inventory format must be 1");
   check(typeof source.module === "string" && source.module.length > 0 && source.module.length <= 255
     && !source.module.includes("\0"), "inventory module is invalid");
   check(Number.isSafeInteger(source.textSize) && source.textSize > 0 && source.textSize <= MAX_ELF_SIZE,
     "inventory textSize is invalid");
   for (const key of ["functions", "gaps", "pools"]) check(Array.isArray(source[key]), `inventory ${key} must be an array`);
+  if (source.unknown === undefined) source.unknown = [];
+  check(Array.isArray(source.unknown), "inventory unknown must be an array");
 
   const names = new Set();
   const ranges = [];
@@ -87,16 +89,25 @@ export function parseFunctionInventory(input) {
   addCode(source.gaps, "gap");
   source.pools.forEach((entry, index) => {
     exactKeys(entry, new Set(["address", "size"]), `pool ${index}`);
-    check(Number.isSafeInteger(entry.address) && entry.address >= 0 && entry.address % 2 === 0,
-      `pool ${index} address is misaligned`);
-    check(Number.isSafeInteger(entry.size) && entry.size > 0 && entry.size % 2 === 0,
-      `pool ${index} size is misaligned`);
+    check(Number.isSafeInteger(entry.address) && entry.address >= 0, `pool ${index} address is invalid`);
+    check(Number.isSafeInteger(entry.size) && entry.size > 0, `pool ${index} size is invalid`);
     const end = checkedAdd(entry.address, entry.size, source.textSize, `pool ${index} exceeds .text`);
     const name = `__cro_pool_${entry.address.toString(16).padStart(8, "0")}`;
     check(!names.has(name), `duplicate inventory symbol ${name}`);
     names.add(name);
     ranges.push({ kind: "pool", name, address: entry.address, size: entry.size, end,
       sectionName: `.pool.${name}` });
+  });
+  source.unknown.forEach((entry, index) => {
+    exactKeys(entry, new Set(["address", "size"]), `unknown ${index}`);
+    check(Number.isSafeInteger(entry.address) && entry.address >= 0, `unknown ${index} address is invalid`);
+    check(Number.isSafeInteger(entry.size) && entry.size > 0, `unknown ${index} size is invalid`);
+    const end = checkedAdd(entry.address, entry.size, source.textSize, `unknown ${index} exceeds .text`);
+    const name = `__cro_unknown_${entry.address.toString(16).padStart(8, "0")}`;
+    check(!names.has(name), `duplicate inventory range ${name}`);
+    names.add(name);
+    ranges.push({ kind: "unknown", name, address: entry.address, size: entry.size, end,
+      sectionName: `.cro.unknown.${entry.address.toString(16).padStart(8, "0")}` });
   });
   ranges.sort((a, b) => a.address - b.address || a.end - b.end || a.name.localeCompare(b.name));
   check(ranges.length > 0, "inventory does not classify .text");
@@ -208,7 +219,7 @@ function sectionHeader(section) {
 }
 
 function emitElf(sectionSpecs, globalSpecs, relocationSpecs) {
-  const sections = [{ name: "", type: SHT_NULL, flags: 0, align: 1, size: 0, data: Buffer.alloc(0), index: 0 }];
+  const sections = [{ name: "", type: SHT_NULL, flags: 0, align: 0, size: 0, data: Buffer.alloc(0), index: 0 }];
   for (const spec of sectionSpecs) { const section = { ...spec, index: sections.length }; sections.push(section); }
   const contentByKey = new Map(sectionSpecs.map((spec, i) => [spec.key, sections[i + 1]]));
   const relSections = [];
@@ -277,22 +288,29 @@ function findRange(ranges, address, outputWidth = 1) {
 }
 
 function inventoryGlobals(inventory) {
-  return inventory.ranges.map(range => ({ name: range.name, key: range.name,
+  return inventory.ranges.filter(range => range.kind === "function" || range.kind === "pool").map(range => ({ name: range.name, key: range.name,
     value: range.kind === "pool" ? 0 : range.mode === "thumb" ? 1 : 0, size: range.size,
     info: (STB_GLOBAL << 4) | (range.kind === "pool" ? STT_OBJECT : STT_FUNC) }));
 }
 
-function sectionSpecs(structural, inventory, zero) {
-  const specs = inventory.ranges.map(range => ({ key: range.name, name: range.sectionName, type: SHT_PROGBITS,
-    flags: range.kind === "pool" ? SHF_ALLOC : SHF_ALLOC | SHF_EXECINSTR,
-    align: range.kind === "pool" ? 2 : range.mode === "arm" ? 4 : 2, size: range.size,
-    data: zero ? Buffer.alloc(range.size) : Buffer.from(structural.text.data.subarray(range.address, range.end)),
-    mapping: range.kind === "pool" ? "$d" : range.mode === "arm" ? "$a" : "$t" }));
+function sectionSpecs(structural, inventory, emptyBase) {
+  const specs = inventory.ranges.map(range => ({ key: range.name, name: range.sectionName,
+    type: emptyBase ? SHT_NOBITS : SHT_PROGBITS,
+    flags: range.kind === "unknown" ? 0 : range.kind === "pool" ? SHF_ALLOC : SHF_ALLOC | SHF_EXECINSTR,
+    align: range.kind === "unknown" || range.kind === "pool" ? 1 : range.mode === "arm" ? 4 : 2, size: range.size,
+    data: emptyBase ? null : Buffer.from(structural.text.data.subarray(range.address, range.end)),
+    mapping: range.kind === "unknown" ? undefined : range.kind === "pool" ? "$d" : range.mode === "arm" ? "$a" : "$t" }));
   for (const [key, source] of [["rodata", structural.rodata], ["data", structural.data]]) specs.push({ key,
-    name: `.${key}`, type: SHT_PROGBITS, flags: key === "data" ? SHF_ALLOC | SHF_WRITE : SHF_ALLOC,
-    align: 4, size: source.size, data: zero ? Buffer.alloc(source.size) : Buffer.from(source.data), mapping: "$d" });
-  specs.push({ key: "bss", name: ".bss", type: SHT_NOBITS, flags: SHF_ALLOC | SHF_WRITE, align: 4,
-    size: structural.bss.size, data: null });
+    name: `.${key}`, type: emptyBase ? SHT_NOBITS : SHT_PROGBITS,
+    flags: key === "data" ? SHF_ALLOC | SHF_WRITE : SHF_ALLOC,
+    align: 4, size: source.size, data: emptyBase ? null : Buffer.from(source.data), mapping: "$d" });
+  specs.push({ key: "bss", name: ".bss", type: emptyBase ? SHT_NOBITS : SHT_PROGBITS,
+    flags: SHF_ALLOC | SHF_WRITE, align: 4,
+    // Objdiff awards NOBITS target allocation automatic match credit. The
+    // progress target materializes the zero-initialization requirement so its
+    // full denominator remains visible; the empty base owns no payload yet.
+    size: emptyBase ? 0 : structural.bss.size,
+    data: emptyBase ? null : Buffer.alloc(structural.bss.size) });
   const marker = Buffer.from(`${inventory.module}\0`);
   specs.push({ key: "module", name: ".cro.module", type: SHT_PROGBITS, flags: 0, align: 1,
     size: marker.length, data: marker });
@@ -309,23 +327,29 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
   const oldGlobal = new Map();
   for (const symbol of structural.symbols) {
     if ((symbol.info >> 4) !== STB_GLOBAL) continue;
-    let spec;
-    if (symbol.shndx === 0) spec = { name: symbol.name, value: 0, size: symbol.size, info: symbol.info };
-    else if (symbol.shndx === structural.text.index) {
+    if (symbol.shndx === structural.text.index) {
       const logical = symbol.value & ~1, range = findRange(inventory.ranges, logical);
-      check(range, `text symbol ${symbol.name} is outside the inventory`);
-      spec = { name: symbol.name, key: range.name, value: ((logical - range.address) | (symbol.value & 1)) >>> 0,
-        size: symbol.size, info: symbol.info };
-    } else {
-      const key = sectionKey.get(symbol.shndx); check(key, `symbol ${symbol.name} uses unsupported section`);
-      spec = { name: symbol.name, key, value: symbol.value, size: symbol.size, info: symbol.info };
+      check(range, `defined text symbol ${symbol.name} is outside the inventory`);
+      const replacement = range.kind === "function" || range.kind === "pool"
+        ? { symbolKind: "global", symbolName: range.name,
+          value: range.kind === "function" && range.mode === "thumb" ? 1 : 0 }
+        : { symbolKind: "section", symbolKey: range.name, value: 0 };
+      const oldValue = ((logical - range.address) | (symbol.value & 1)) >>> 0;
+      oldGlobal.set(symbol.index, { ...replacement, addendDelta: (oldValue - replacement.value) >>> 0 });
+      continue;
     }
+    if (symbol.shndx !== 0) {
+      const key = sectionKey.get(symbol.shndx); check(key, `defined symbol ${symbol.name} uses unsupported section`);
+      oldGlobal.set(symbol.index, { symbolKind: "section", symbolKey: key, addendDelta: symbol.value });
+      continue;
+    }
+    const spec = { name: symbol.name, value: 0, size: symbol.size, info: symbol.info };
     if (!names.has(spec.name)) { names.add(spec.name); globals.push(spec); }
     else {
       const existing = globals.find(item => item.name === spec.name);
       check(existing.key === spec.key && existing.value === spec.value, `inventory conflicts with symbol ${spec.name}`);
     }
-    oldGlobal.set(symbol.index, spec.name);
+    oldGlobal.set(symbol.index, { symbolKind: "global", symbolName: spec.name, addendDelta: 0 });
   }
   const relocations = new Map();
   function addRel(key, entry) { if (!relocations.has(key)) relocations.set(key, []); relocations.get(key).push(entry); }
@@ -337,6 +361,7 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
     if (relocation.output.index === structural.text.index) {
       const range = findRange(inventory.ranges, relocation.offset, 4);
       check(range, `text relocation at 0x${relocation.offset.toString(16)} crosses an inventory boundary`);
+      check(range.kind !== "unknown", `text relocation at 0x${relocation.offset.toString(16)} cannot remain unknown`);
       outputKey = range.name; outputOffset = relocation.offset - range.address;
     } else { outputKey = sectionKey.get(relocation.output.index); outputOffset = relocation.offset; }
     let target, addend = relocation.addend;
@@ -347,13 +372,18 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
       if (!range) range = addend >= 0x80000000 ? inventory.ranges[0] : inventory.ranges.at(-1);
       const base = range.address + (range.kind !== "pool" && range.mode === "thumb" ? 1 : 0);
       addend = (addend - base) >>> 0;
-      target = { symbolKind: "global", symbolName: range.name };
+      target = range.kind === "unknown" || range.kind === "gap" ? { symbolKind: "section", symbolKey: range.name }
+        : { symbolKind: "global", symbolName: range.name };
     } else if (targetSection !== undefined) {
       const key = sectionKey.get(targetSection); check(key, "relocation targets an unsupported section symbol");
       target = { symbolKind: "section", symbolKey: key };
     } else {
-      const name = oldGlobal.get(relocation.symbol.index); check(name, "relocation targets an unsupported local symbol");
-      target = { symbolKind: "global", symbolName: name };
+      const replacement = oldGlobal.get(relocation.symbol.index);
+      check(replacement, "relocation targets an unsupported local symbol");
+      addend = (addend + replacement.addendDelta) >>> 0;
+      target = replacement.symbolKind === "global"
+        ? { symbolKind: "global", symbolName: replacement.symbolName }
+        : { symbolKind: "section", symbolKey: replacement.symbolKey };
     }
     mutableData.get(outputKey).writeUInt32LE(addend, outputOffset);
     addRel(outputKey, { offset: outputOffset, ...target });
@@ -395,7 +425,7 @@ function main() {
   check(![structuralPath, inventoryPath].includes(targetPath)
     && ![structuralPath, inventoryPath].includes(basePath), "outputs must not overwrite inputs");
   safeOutput(args[2], result.target); safeOutput(args[3], result.base);
-  console.log(`Split ${result.inventory.module}: ${result.inventory.functions.length} functions, ${result.inventory.gaps.length} gaps, ${result.inventory.pools.length} pools`);
+  console.log(`Split ${result.inventory.module}: ${result.inventory.functions.length} functions, ${result.inventory.gaps.length} gaps, ${result.inventory.pools.length} pools, ${result.inventory.unknown.length} unknown ranges`);
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) main();

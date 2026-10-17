@@ -63,9 +63,10 @@ export function fixture() {
     ],
     gaps: [
       { address: 8, size: 8, mode: "arm" },
-      { address: 0x20, size: 0x20, mode: "thumb" },
+      { address: 0x20, size: 0x10, mode: "thumb" },
     ],
-    pools: [{ address: 0x10, size: 8 }],
+    pools: [{ address: 0x10, size: 7 }],
+    unknown: [{ address: 0x17, size: 1 }, { address: 0x30, size: 0x10 }],
   };
   return { structural, inventory };
 }
@@ -99,8 +100,8 @@ function selfTest() {
   assert.deepEqual(gapRelocs.map(reloc => reloc.offset), [0, 4]);
   assert.equal(target.symbols[gapRelocs[1].symbol].name, "thumb_func");
   const rodataRelocs = target.relocs.filter(reloc => reloc.section === ".rel.rodata");
-  assert.equal(target.symbols[rodataRelocs[0].symbol].name, "__cro_gap_00000020");
-  assert.equal(first.target.readUInt32LE(target.byName.get(".rodata").offset), 0x1f,
+  assert.equal(target.symbols[rodataRelocs[0].symbol].shndx, target.byName.get(".cro.unknown.00000030").index);
+  assert.equal(first.target.readUInt32LE(target.byName.get(".rodata").offset), 0x10,
     "one-past text addend was not rebased against the final coverage range");
   assert.equal(target.symbols[rodataRelocs[1].symbol].name, "arm_func");
   assert.equal(first.target.readUInt32LE(target.byName.get(".rodata").offset + 4), 0xfffffff4,
@@ -110,23 +111,32 @@ function selfTest() {
   const arm = target.symbols.find(symbol => symbol.name === "arm_func");
   assert.deepEqual([arm.value, arm.size, arm.info & 0xf], [0, 8, 2]);
   const pool = target.symbols.find(symbol => symbol.name === "__cro_pool_00000010");
-  assert.deepEqual([pool.value, pool.size, pool.info & 0xf], [0, 8, 1]);
+  assert.deepEqual([pool.value, pool.size, pool.info & 0xf], [0, 7, 1]);
+  const unknownSection = target.byName.get(".cro.unknown.00000030");
+  assert.deepEqual([unknownSection.type, unknownSection.flags, unknownSection.size], [1, 0, 0x10]);
+  assert.equal(target.symbols.some(symbol => symbol.name === "__cro_unknown_00000030"), false,
+    "unknown residue must not emit a global symbol");
 
   assert.equal(base.relocs.length, 0, "base skeleton must not copy target relocations");
   for (const range of ranges) {
     const targetSection = target.byName.get(range.sectionName), baseSection = base.byName.get(range.sectionName);
     assert.deepEqual([baseSection.type, baseSection.flags, baseSection.size],
-      [targetSection.type, targetSection.flags, targetSection.size]);
-    assert.ok(first.base.subarray(baseSection.offset, baseSection.offset + baseSection.size).every(byte => byte === 0),
-      `${range.sectionName} base payload is not empty`);
+      [8, targetSection.flags, targetSection.size]);
   }
   for (const name of [".rodata", ".data"]) {
     const section = base.byName.get(name);
-    assert.ok(first.base.subarray(section.offset, section.offset + section.size).every(byte => byte === 0),
-      `${name} base payload is not empty`);
+    assert.equal(section.type, 8, `${name} base payload must be NOBITS`);
   }
-  for (const name of ["arm_func", "thumb_func", "__cro_gap_00000008", "__cro_gap_00000020", "__cro_pool_00000010"])
+  assert.deepEqual([target.byName.get(".bss").type, target.byName.get(".bss").size], [1, 0x10],
+    "progress target must materialize zero-initialized BSS data");
+  assert.deepEqual([base.byName.get(".bss").size, base.byName.get(".bss").flags], [0, 3],
+    "empty base must not receive BSS match credit");
+  for (const name of ["arm_func", "thumb_func", "__cro_pool_00000010"])
     assert.ok(base.symbols.some(symbol => symbol.name === name), `base lacks ${name}`);
+  for (const name of ["__cro_gap_00000008", "__cro_gap_00000020"])
+    assert.equal(base.symbols.some(symbol => symbol.name === name), false, `${name} must not be a function symbol`);
+  const baseUnknown = base.byName.get(".cro.unknown.00000030");
+  assert.equal(baseUnknown.type, 8);
 
   expectInventoryFailure("unknown key", inv => { inv.surprise = true; }, /unknown key/);
   expectInventoryFailure("wrong format", inv => { inv.format = 2; }, /format must be 1/);
@@ -135,11 +145,12 @@ function selfTest() {
   expectInventoryFailure("bad arm alignment", inv => { inv.functions[0].size = 6; inv.gaps[0].address = 6; inv.gaps[0].size = 10; }, /misaligned/);
   expectInventoryFailure("overlap", inv => { inv.gaps[0].address = 4; inv.gaps[0].size = 12; }, /overlap/);
   expectInventoryFailure("hole", inv => { inv.gaps[0].address = 12; inv.gaps[0].size = 4; }, /hole/);
-  expectInventoryFailure("bad pool alignment", inv => { inv.pools[0].address = 17; }, /misaligned/);
+  expectInventoryFailure("empty pool", inv => { inv.pools[0].size = 0; }, /size is invalid/);
+  expectInventoryFailure("unknown overlap", inv => { inv.unknown[0].address = 0x16; }, /overlap/);
 
   assert.throws(() => splitCroTargetElf(structural, JSON.stringify({ ...inventory, module: "Other" })), /does not match/);
   assert.throws(() => splitCroTargetElf(structural, JSON.stringify({ ...inventory, textSize: 0x44,
-    gaps: [...inventory.gaps.slice(0, 1), { address: 0x20, size: 0x24, mode: "thumb" }] })), /textSize does not match/);
+    unknown: [{ address: 0x17, size: 1 }, { address: 0x30, size: 0x14 }] })), /textSize does not match/);
   const badMarker = Buffer.from(structural), marker = source.byName.get(".cro.module"); badMarker[marker.offset + marker.size - 1] = 1;
   assert.throws(() => splitCroTargetElf(badMarker, inventoryJson), /marker is invalid/);
   const badRel = Buffer.from(structural), relText = source.byName.get(".rel.text");
@@ -149,10 +160,10 @@ function selfTest() {
     functions: [{ name: "arm_func", address: 0, size: 8, mode: "arm" },
       { name: "thumb_func", address: 0x18, size: 8, mode: "thumb" }],
     gaps: [{ address: 8, size: 2, mode: "thumb" }, { address: 0x20, size: 0x20, mode: "thumb" }],
-    pools: [{ address: 10, size: 14 }] };
+    pools: [{ address: 10, size: 14 }], unknown: [] };
   assert.throws(() => splitCroTargetElf(structural, JSON.stringify(crossing)), /crosses an inventory boundary/);
 
-  process.stdout.write("split-cro-target-object self-test: ok (complete partition, ARM/Thumb identities, relocation rebasing, zero base, 13 hostile cases)\n");
+  process.stdout.write("split-cro-target-object self-test: ok (complete partition, ARM/Thumb identities, unknown residue, relocation rebasing, zero base, 14 hostile cases)\n");
 }
 
 function main() {

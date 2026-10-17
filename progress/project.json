@@ -4,14 +4,14 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated main-code functions are inventoried, and 3,814 clean-room functions are byte-identical. Another 145 genuine CRO link units are privately inventoried for integration.",
+  "summary": "The owned target is verified, 10,799 evidence-gated functions across two published link units are inventoried, and 3,814 clean-room functions are byte-identical. Another 144 genuine CRO link units are privately inventoried for integration.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 17.889622,
+    "matchedCodePercent": 17.19892,
     "matchedFunctions": 3814,
-    "totalFunctions": 10440,
+    "totalFunctions": 10799,
     "completeUnits": 0,
-    "totalUnits": 1
+    "totalUnits": 2
   },
   "milestones": [
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllTitle published as the second ByteMatch unit",
+      "detail": "A conservative CRO partition publishes 359 neutral function bodies and 88,232 executable bytes as cro/DllTitle. Unknown ranges remain explicitly incomplete, the empty base earns no matches, and no module bytes or authored symbol names enter Git."
+    },
     {
       "date": "2026-10-17",
       "title": "Wave28 matched and 145 CRO units discovered",

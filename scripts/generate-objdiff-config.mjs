@@ -92,7 +92,8 @@ export function inspectArmObject(path, { requireCode = true, requireFunctions = 
   const shstrData = range(buffer, shstr.offset, shstr.size, `${path} section names`);
   for (const section of sections) section.name = cString(shstrData, section.nameOffset, `${path} section ${section.index}`);
 
-  const executableSections = sections.filter((section) => section.type === 1 && (section.flags & 0x6) === 0x6);
+  const executableSections = sections.filter((section) => (section.type === 1 || (!requireCode && section.type === 8))
+    && (section.flags & 0x6) === 0x6);
   const executable = new Set(executableSections.map((section) => section.index));
   if (executable.size === 0) fail(`${path} has no allocated executable section`);
   if (requireCode && !executableSections.some((section) => section.size > 0)) {
@@ -150,7 +151,8 @@ export function inspectArmObject(path, { requireCode = true, requireFunctions = 
     }
   }
   if (requireFunctions && functions.size === 0) fail(`${path} has no defined global functions`);
-  return { buffer, functions };
+  const hasUnknown = sections.some((section) => section.name.startsWith(".cro.unknown.") && section.size > 0);
+  return { buffer, functions, hasUnknown };
 }
 
 function ignoredByGit(root, path) {
@@ -205,8 +207,8 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
   }
   if (!/^[A-Za-z0-9_]+$/.test(version)) fail("version contains unsafe characters");
 
-  const targetDirectory = join(root, "build", version, "target", "cro");
-  const baseDirectory = join(root, "build", version, "base", "cro");
+  const targetDirectory = join(root, "build", version, "target", "cro-split");
+  const baseDirectory = join(root, "build", version, "base", "cro-split");
   const allowlist = loadCroAllowlist(root, version);
   const targets = candidates(targetDirectory);
   const bases = candidates(baseDirectory);
@@ -239,12 +241,13 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
       const baseObject = inspectArmObject(base, { requireCode: false, requireFunctions: false });
       units.push({
         name: `cro/${name}`,
-        target_path: `build/${version}/target/cro/${name}.o`,
-        base_path: `build/${version}/base/cro/${name}.o`,
+        target_path: `build/${version}/target/cro-split/${name}.o`,
+        base_path: `build/${version}/base/cro-split/${name}.o`,
         // Whole-file identity is intentionally stricter than objdiff's code-only
         // score. Anything less remains incomplete until a stronger attestation
         // mechanism is introduced.
-        metadata: { complete: targetObject.buffer.equals(baseObject.buffer) },
+        metadata: { complete: targetObject.buffer.equals(baseObject.buffer) &&
+          !targetObject.hasUnknown && !baseObject.hasUnknown },
       });
     } catch (error) {
       warn(`${name}: excluded: ${error.message}`);

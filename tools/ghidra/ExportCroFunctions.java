@@ -7,6 +7,7 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 
 import ghidra.app.script.GhidraScript;
@@ -16,6 +17,7 @@ import ghidra.program.model.listing.Function;
 import ghidra.program.model.listing.FunctionIterator;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.mem.MemoryBlock;
+import ghidra.program.model.reloc.Relocation;
 import ghidra.program.model.symbol.Reference;
 import ghidra.program.model.symbol.ReferenceIterator;
 
@@ -52,6 +54,52 @@ public class ExportCroFunctions extends GhidraScript {
         return instruction != null && instruction.getMaxAddress().equals(end) && instruction.getFallThrough() == null;
     }
 
+    private String modeAt(Register tMode, Address address) {
+        BigInteger value = currentProgram.getProgramContext().getValue(tMode, address, false);
+        if (BigInteger.ZERO.equals(value)) return "$a";
+        if (BigInteger.ONE.equals(value)) return "$t";
+        return null;
+    }
+
+    private boolean hasExactInstructionTiling(Function function, Register tMode, String expectedMode) {
+        Address entry = function.getEntryPoint();
+        Address end = function.getBody().getMaxAddress();
+        Address cursor = entry;
+        while (cursor.compareTo(end) <= 0) {
+            Instruction instruction = currentProgram.getListing().getInstructionAt(cursor);
+            if (instruction == null || instruction.getMaxAddress().compareTo(end) > 0 ||
+                !expectedMode.equals(modeAt(tMode, cursor))) return false;
+            cursor = instruction.getMaxAddress().next();
+        }
+        return cursor.equals(end.next());
+    }
+
+    private boolean hasInteriorFlowTarget(Function function) {
+        Address entry = function.getEntryPoint();
+        Address end = function.getBody().getMaxAddress();
+        for (Address target = entry.next(); target.compareTo(end) <= 0; target = target.next()) {
+            ReferenceIterator references = currentProgram.getReferenceManager().getReferencesTo(target);
+            while (references.hasNext()) {
+                Reference reference = references.next();
+                Address source = reference.getFromAddress();
+                if (reference.getReferenceType().isFlow() &&
+                    (source.compareTo(entry) < 0 || source.compareTo(end) > 0)) return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean hasRelocationOutput(Function function) {
+        Address start = function.getEntryPoint();
+        Address end = function.getBody().getMaxAddress();
+        Iterator<Relocation> relocations = currentProgram.getRelocationTable().getRelocations();
+        while (relocations.hasNext()) {
+            Address address = relocations.next().getAddress();
+            if (address.compareTo(start) >= 0 && address.compareTo(end) <= 0) return true;
+        }
+        return false;
+    }
+
     @Override
     public void run() throws Exception {
         String[] arguments = getScriptArgs();
@@ -79,16 +127,17 @@ public class ExportCroFunctions extends GhidraScript {
         for (Function function : functions) {
             Address entry = function.getEntryPoint();
             if (entry.compareTo(textStart) < 0 || entry.compareTo(textEnd) > 0) continue;
-            BigInteger value = currentProgram.getProgramContext().getValue(tMode, entry, false);
-            if (value == null || (!BigInteger.ZERO.equals(value) && !BigInteger.ONE.equals(value)) ||
+            String mode = modeAt(tMode, entry);
+            if (mode == null ||
                 function.getBody().getNumAddressRanges() != 1 ||
                 !function.getBody().getMinAddress().equals(entry) ||
                 function.getBody().getMaxAddress().compareTo(textEnd) > 0 ||
-                !hasCallEvidence(entry) || !hasTerminalInstruction(function)) {
+                !hasCallEvidence(entry) || !hasTerminalInstruction(function) ||
+                !hasExactInstructionTiling(function, tMode, mode) || hasInteriorFlowTarget(function) ||
+                hasRelocationOutput(function)) {
                 rejected++;
                 continue;
             }
-            String mode = BigInteger.ONE.equals(value) ? "$t" : "$a";
             long location = entry.subtract(textStart);
             long size = function.getBody().getMaxAddress().subtract(entry) + 1;
             long alignment = "$a".equals(mode) ? 4 : 2;
@@ -107,8 +156,6 @@ public class ExportCroFunctions extends GhidraScript {
                 throw new IllegalStateException("Accepted function bodies overlap");
             }
         }
-        if (accepted.isEmpty()) throw new IllegalStateException("No conservative CRO functions were accepted");
-
         try (PrintWriter output = new PrintWriter(new File(arguments[0]), StandardCharsets.UTF_8)) {
             output.print("# Format,CRO_FUNCTIONS_V1\n");
             output.print("# Module," + arguments[1] + "\n");

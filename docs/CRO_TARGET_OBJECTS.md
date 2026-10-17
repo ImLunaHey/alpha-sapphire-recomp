@@ -24,7 +24,8 @@ location. It writes through a mode-0600 temporary file and atomically renames
 the completed object.
 
 The resulting file is deterministic ELF32 little-endian `ET_REL` for ARM EABI
-version 5. It contains `.text`, `.rodata`, `.data`, and NOBITS `.bss` sections.
+version 5. It contains `.text`, `.rodata`, `.data`, and NOBITS `.bss` sections,
+plus a non-allocating `.cro.module` identity marker used by later validation.
 Those sections come from the CRO segment table, not from an invented contiguous
 image. Empty reserved segments remain honest empty ELF sections.
 
@@ -86,6 +87,128 @@ and external `R_ARM_ABS32` entries, exact addends and symbol classes, byte-exact
 segment recovery after reversing REL slots, deterministic output, and hostile
 mutations. No fixture or generated object is written to the repository.
 
+## Complete partition and split objects
+
+`scripts/split-cro-target-object.mjs` is the conservative second stage. It
+accepts the ignored structural object plus a neutral JSON partition and emits:
+
+- an ignored target object with one section per known function, explicit
+  unmatched code gap, or literal/data pool, plus isolated
+  non-allocating sections for objectively unknown residue; and
+- an ignored clean-room base skeleton with the same section and symbol
+  identities represented by payload-free NOBITS sections, a zero-sized BSS,
+  and no target relocations.
+
+The base is only a compilation/layout skeleton. It contains no target code or
+data payload to receive accidental zero-byte or fuzzy-match credit. Real
+clean-room source replaces these placeholders module by module. The progress
+target materializes the structural BSS zero-initialization as zero-filled
+PROGBITS so its full size remains in the data denominator; the empty base has
+no BSS payload, avoiding objdiff's automatic same-size NOBITS credit.
+
+The partition schema is deliberately separate from a functions-only discovery
+CSV. It must classify every byte in `.text`; the splitter rejects overlaps and
+implicit holes rather than guessing whether unknown bytes are ARM, Thumb, or a
+pool:
+
+```json
+{
+  "format": 1,
+  "module": "DllTitle",
+  "textSize": 48,
+  "functions": [
+    { "name": "func_00000000", "address": 0, "size": 24, "mode": "arm" }
+  ],
+  "gaps": [
+    { "address": 24, "size": 8, "mode": "arm" }
+  ],
+  "pools": [
+    { "address": 32, "size": 4 }
+  ],
+  "unknown": [
+    { "address": 36, "size": 12 }
+  ]
+}
+```
+
+Function names must be unique ELF identifiers and may not use the reserved
+`__cro_` prefix. Only accepted functions receive `STT_FUNC` identities; gaps
+remain executable sections with mapping symbols but are not functions. Pools
+receive neutral object identities. The tool assigns deterministic internal
+names to gaps and pools. ARM
+code is four-byte aligned and Thumb code is two-byte aligned. Pools and unknown
+residue are byte-granular so proven odd-sized strings/data are never rounded or
+silently claimed. All ranges must be nonempty, nonoverlapping, within
+`textSize`, and form an exact partition from zero through the end of `.text`.
+The inventory module and text size must agree with the structural object.
+
+Use `unknown` instead of guessing when bytes cannot objectively be classified
+as code or a pool. The target retains those bytes in `.cro.unknown.*` sections
+with no allocation/execution flags and no global function or object symbol;
+the base has a payload-free NOBITS section of the same logical extent.
+Consequently unknown residue remains
+visible and byte-accounted but cannot contribute a matched function or make a
+unit complete. A relocation output cannot remain unknown because the
+relocation itself is objective evidence for a word-sized pool entry.
+
+Run the split only after that complete classification exists:
+
+```sh
+node scripts/split-cro-target-object.mjs \
+  build/AS_EUR_REV2/target/cro/DllTitle.o \
+  symbols/cro-partitions/DllTitle.json \
+  build/AS_EUR_REV2/target/cro-split/DllTitle.o \
+  build/AS_EUR_REV2/base/cro-split/DllTitle.o
+
+node --check scripts/split-cro-target-object.mjs
+node --check scripts/validate-split-cro-target-object.mjs
+node scripts/validate-split-cro-target-object.mjs --self-test
+```
+
+Relocation output offsets are moved into their containing split sections. A
+relocation is rejected if its four-byte output word crosses a partition
+boundary. References to the original `.text` section are rebased to the
+appropriate function, gap, or pool identity, including the low Thumb bit and
+wrapping negative/one-past addends. `.rodata`, `.data`, and deterministic
+undefined imports retain neutral structural identities. Original defined
+globals are rewritten to neutral inventory or section identities so authored
+target export names cannot become duplicate functions or leak into reports.
+
+The synthetic test constructs the CRO and complete inventory in memory. It
+checks deterministic target/base generation, byte-exact text reconstruction
+after relocation rebasing, ARM and Thumb values/sizes, explicit gap and pool
+coverage, isolated unknown residue, zero base payloads, and hostile malformed
+inventories and ELFs.
+
+## Target-aware semantic gate
+
+The structural CSV validator proves canonical metadata and nonoverlap, but it
+does not prove that every accepted byte is an instruction. Before publishing a
+partition, run the independent target-aware gate:
+
+```sh
+node scripts/validate-cro-function-semantics.mjs \
+  symbols/cro/DllTitle.csv \
+  build/AS_EUR_REV2/target/cro/DllTitle.o \
+  symbols/cro-partitions/DllTitle.json
+
+node scripts/test-cro-function-semantics.mjs
+```
+
+The gate independently parses `.text`, `.symtab`, and `.rel.text`, then uses
+GNU ARM objdump 2.44 to require exact, gap-free instruction tiling of every CSV
+body in its declared ARM or Thumb mode. Undefined instructions, partial wide
+instructions, and relocation output words inside functions are rejected. Every
+text relocation word must instead fit wholly in a declared pool which cannot
+overlap a function.
+
+Four-byte bodies are fail-closed. ARM permits only `bx lr`, `mov pc, lr`, an
+unconditional in-range aligned `b`, or the exact `ldr pc, [pc, #-4]` import
+veneer. Thumb permits canonical `bx lr`, unconditional `b`/`b.w`, or the exact
+four-byte `ldr.w pc, [pc]` veneer. Each veneer must have an undefined
+`R_ARM_ABS32` import slot exactly at entry plus four, wholly covered by a pool.
+Unknown or nonterminal one-instruction shapes are not accepted.
+
 ## Not yet a progress unit
 
 CRO exports identify entry points but do not provide function extents. The
@@ -114,8 +237,10 @@ The resulting `symbols/cro/DllTitle.csv` contains only the public unit name,
 body sizes. Original export names, strings, bytes, imports, and private paths
 are not emitted. A body is accepted only with known instruction mode, one
 contiguous entry-rooted range, call or exported-entry evidence, an in-range
-terminal instruction, and mode-correct alignment. Unknown text gaps remain
-unowned.
+terminal instruction, exact contiguous Ghidra instruction coverage in one
+known mode, no relocation output in the body, no flow reference from outside
+the body into its interior, and mode-correct alignment. Internal branches are
+permitted. Unknown text gaps remain unowned.
 
 The exporter address-sorts its output and rejects internal overlap. The
 independent validator checks the public 145-unit manifest, exact deterministic
@@ -127,3 +252,23 @@ node scripts/validate-cro-symbols.mjs --self-test
 node scripts/validate-cro-symbols.mjs symbols/cro/DllTitle.csv \
   build/AS_EUR_REV2/target/cro/DllTitle.o
 ```
+
+Generate every manifest-listed inventory with bounded parallelism:
+
+```sh
+node scripts/generate-cro-symbols.mjs --jobs 4
+node scripts/generate-cro-symbols.mjs --jobs 4 --check
+```
+
+The batch driver requires the manifest and converted-target sets to contain the
+same 145 modules. Every worker uses an isolated temporary Ghidra project and
+staging directory under `DECOMP_PRIVATE`; every CSV passes the independent
+validator and the target-aware semantic gate. Ghidra flow and listing evidence
+selects candidates; the independent semantic gate separately decodes target
+bytes and verifies short veneers/tails and relocation-owned pools. It does not
+treat arbitrary undecoded bytes as code or data.
+
+Publication happens only after the complete set succeeds. One rollback-safe
+transaction replaces the CSVs, JSON partitions, ignored target split objects,
+and ignored base split objects. `--check` regenerates all four artifact sets
+and compares every byte without modifying them.

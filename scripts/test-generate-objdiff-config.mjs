@@ -58,9 +58,41 @@ function armObject(functionName, instruction = 0xe12fff1e) {
   return output;
 }
 
+function withUnknownSection(input) {
+  const oldSectionOffset = input.readUInt32LE(32);
+  const oldCount = input.readUInt16LE(48);
+  const namesIndex = input.readUInt16LE(50);
+  const namesHeader = oldSectionOffset + namesIndex * 40;
+  const oldNamesOffset = input.readUInt32LE(namesHeader + 16);
+  const oldNamesSize = input.readUInt32LE(namesHeader + 20);
+  const suffix = Buffer.from(".cro.unknown.test\0");
+  const names = Buffer.concat([input.subarray(oldNamesOffset, oldNamesOffset + oldNamesSize), suffix]);
+  const prefix = input.subarray(0, oldSectionOffset);
+  const namesOffset = prefix.length;
+  const unknownOffset = namesOffset + names.length;
+  const sectionOffset = align(unknownOffset + 1, 4);
+  const output = Buffer.alloc(sectionOffset + (oldCount + 1) * 40);
+  prefix.copy(output);
+  names.copy(output, namesOffset);
+  output[unknownOffset] = 0x5a;
+  input.subarray(oldSectionOffset, oldSectionOffset + oldCount * 40).copy(output, sectionOffset);
+  output.writeUInt32LE(sectionOffset, 32);
+  output.writeUInt16LE(oldCount + 1, 48);
+  const movedNamesHeader = sectionOffset + namesIndex * 40;
+  output.writeUInt32LE(namesOffset, movedNamesHeader + 16);
+  output.writeUInt32LE(names.length, movedNamesHeader + 20);
+  const extra = sectionOffset + oldCount * 40;
+  output.writeUInt32LE(oldNamesSize, extra);
+  output.writeUInt32LE(1, extra + 4);
+  output.writeUInt32LE(unknownOffset, extra + 16);
+  output.writeUInt32LE(1, extra + 20);
+  output.writeUInt32LE(1, extra + 32);
+  return output;
+}
+
 const root = mkdtempSync(join(tmpdir(), "as-objdiff-config-"));
-const target = join(root, "build", "TEST", "target", "cro");
-const base = join(root, "build", "TEST", "base", "cro");
+const target = join(root, "build", "TEST", "target", "cro-split");
+const base = join(root, "build", "TEST", "base", "cro-split");
 mkdirSync(target, { recursive: true });
 mkdirSync(base, { recursive: true });
 mkdirSync(join(root, "progress", "units"), { recursive: true });
@@ -96,6 +128,9 @@ writeFileSync(join(target, "DllMismatch.o"), armObject("target_only_entry"));
 writeFileSync(join(base, "DllMismatch.o"), armObject("base_only_entry"));
 writeFileSync(join(target, "DllUnknown.o"), armObject("unknown_entry"));
 writeFileSync(join(base, "DllUnknown.o"), armObject("unknown_entry"));
+const unknownResidue = withUnknownSection(armObject("residue_entry"));
+writeFileSync(join(target, "DllTitle.o"), unknownResidue);
+writeFileSync(join(base, "DllTitle.o"), unknownResidue);
 writeFileSync(join(target, "NotADll.o"), armObject("ignored_entry"));
 writeFileSync(join(base, "NotADll.o"), armObject("ignored_entry"));
 symlinkSync(join(target, "DllBattle.o"), join(target, "DllTest000.o"));
@@ -106,14 +141,14 @@ assert.throws(() => inspectArmObject(join(target, "DllBroken.o")), /ELF32|invali
 const warnings = [];
 const config = generateObjdiffConfig({ root, version: "TEST", requireIgnored: false, warn: (value) => warnings.push(value) });
 assert.deepEqual(config.units.map((unit) => unit.name), [
-  "main/code", "cro/DllBattle", "cro/DllEmpty", "cro/DllField", "cro/DllMismatch",
+  "main/code", "cro/DllBattle", "cro/DllEmpty", "cro/DllField", "cro/DllMismatch", "cro/DllTitle",
 ]);
 assert.equal(config.units[1].metadata.complete, true);
 assert.equal(config.units[2].metadata.complete, false);
 assert.equal(config.units[3].metadata.complete, false);
 assert.equal(config.units[4].metadata.complete, false);
+assert.equal(config.units[5].metadata.complete, false);
 assert.match(warnings.join("\n"), /DllBroken: excluded/);
-assert.match(warnings.join("\n"), /DllTitle: excluded because its target\/base pair is incomplete/);
 assert.match(warnings.join("\n"), /DllUnknown: excluded because it is absent from the public CRO manifest/);
 assert.match(warnings.join("\n"), /DllTest000: excluded: .*not a regular file/);
 assert.equal(JSON.stringify(config).includes("NotADll"), false);
