@@ -1,0 +1,467 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_17.S",
+  "sourceHash": "bd757ce25f8ef8aab8568858e0bee211e070768081aaad56a22f984e240f1a7e",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 54,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 25,
+  "wideInstructionCount": 2,
+  "legacyNopCount": 0,
+  "localBranchCount": 3,
+  "memoryOperationCount": 6,
+  "returnCount": 1,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 2,
+  "directTailCount": 0,
+  "directCalls": [
+    {
+      "function": "func_00103ADE",
+      "offset": 8,
+      "kind": "call",
+      "destinationSymbol": "func_00303110",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "targetOffset": 2094642,
+      "relocation": "R_ARM_THM_CALL",
+      "implicitAddend": -4
+    },
+    {
+      "function": "func_00103ADE",
+      "offset": 40,
+      "kind": "call",
+      "destinationSymbol": "thumb_secondary_001035A0",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "targetOffset": -1342,
+      "relocation": "R_ARM_THM_CALL",
+      "implicitAddend": -4
+    }
+  ],
+  "directTails": [],
+  "relocations": [
+    {
+      "function": "func_00103ADE",
+      "offset": 8,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303110",
+      "format": "REL",
+      "implicitAddend": -4
+    },
+    {
+      "function": "func_00103ADE",
+      "offset": 40,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "thumb_secondary_001035A0",
+      "format": "REL",
+      "implicitAddend": -4
+    }
+  ],
+  "externalEntryIdentities": [
+    {
+      "symbol": "func_00303110",
+      "kind": "primary-global",
+      "state": "thumb",
+      "targetOffset": 2094642,
+      "ownership": "external-owned-public",
+      "owner": "config/thumb-leaf-helpers-09.json",
+      "objectSymbol": true
+    },
+    {
+      "symbol": "thumb_secondary_001035A0",
+      "kind": "secondary-entry",
+      "state": "thumb",
+      "targetOffset": -1342,
+      "ownership": "external-unowned",
+      "objectSymbol": true,
+      "precedingGlobal": {
+        "symbol": "func_00103568",
+        "offset": -1398,
+        "bodySize": 46,
+        "bodyEndOffset": -1352
+      },
+      "followingGlobal": {
+        "symbol": "func_001035E4",
+        "offset": -1274
+      }
+    }
+  ],
+  "pcRelativeDataAccesses": [],
+  "duplicateBodyClasses": [],
+  "objectContract": {
+    "elfClass": "ELF32",
+    "endianness": "little",
+    "fileType": "ET_REL",
+    "machine": "EM_ARM",
+    "elfVersion": 1,
+    "osAbi": "ELFOSABI_NONE",
+    "abiVersion": 0,
+    "flags": 83886080,
+    "executableSectionType": "SHT_PROGBITS",
+    "executableSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+    "executableSectionAlignment": 2,
+    "primarySymbolBinding": "STB_GLOBAL",
+    "primarySymbolType": "STT_FUNC",
+    "primarySymbolVisibility": "STV_DEFAULT",
+    "primarySymbolOther": 0,
+    "primarySymbolThumbValue": 1,
+    "mappingSymbol": "$t",
+    "mappingSymbolBinding": "STB_LOCAL",
+    "mappingSymbolType": "STT_NOTYPE",
+    "mappingSymbolVisibility": "STV_DEFAULT",
+    "mappingSymbolValue": 0,
+    "sectionSymbolBinding": "STB_LOCAL",
+    "sectionSymbolType": "STT_SECTION",
+    "externalSymbolBinding": "STB_GLOBAL",
+    "externalSymbolType": "STT_FUNC",
+    "externalSymbolVisibility": "STV_DEFAULT",
+    "externalSymbolOther": 0,
+    "externalSymbolSectionIndex": "SHN_UNDEF",
+    "externalSymbolValue": 0,
+    "externalSymbolSize": 0,
+    "relocationSectionType": "SHT_REL",
+    "namedAliases": [],
+    "unnamedAliases": []
+  },
+  "semanticEncoding": {
+    "instructionRows": "ordered objects with explicit byte offset and width",
+    "registers": "architectural register roles are named in operands",
+    "immediates": "unsigned numeric values are used for constants, shifts, memory displacements, and local destinations",
+    "localBranches": "conditional transfer rows use an exact body-relative target offset and do not create relocations",
+    "directCalls": "call rows name the destination identity and state, signed entry-relative target offset, relocation type, and implicit addend",
+    "externalIdentities": "callee identities record linkage and ownership only and do not transfer destination bytes"
+  },
+  "encodingConstraints": [
+    {
+      "form": "lowRegister",
+      "rule": "Each flag-setting register copy remains the two-byte low-register form encoded through a zero-distance logical shift; it is not interchangeable with a non-flag-setting high-register copy."
+    },
+    {
+      "form": "highRegister",
+      "rule": "Each stack-pointer copy remains the two-byte high-register copy form and does not set flags."
+    },
+    {
+      "form": "conditionalImmediate8",
+      "rule": "Each local condition uses the two-byte Thumb conditional-immediate form and reaches exactly the recorded body-relative destination without a relocation."
+    },
+    {
+      "form": "directImmediate",
+      "rule": "Each call is four bytes at its recorded offset and carries exactly one SHT_REL R_ARM_THM_CALL relocation to its distinct undefined Thumb function identity with implicit addend -4."
+    },
+    {
+      "form": "thumbCodeMapping",
+      "rule": "The complete function body is continuously covered by Thumb code mapping from body offset zero and contains no interior data mapping interval."
+    },
+    {
+      "form": "sectionOwnership",
+      "rule": "The executable section ends at the 54-byte body boundary and owns none of the 520 bytes before the next global entry."
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00103ADE",
+      "size": 54,
+      "instructionCount": 25,
+      "legacyNopOffsets": [],
+      "localBranchCount": 3,
+      "memoryOperationCount": 6,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "directTailCount": 0,
+      "nextGlobal": "func_00103D1C",
+      "nextGlobalOffset": 574,
+      "semantics": [
+        {
+          "offset": 0,
+          "width": 2,
+          "operation": "stackSave",
+          "form": "registerList",
+          "operands": {
+            "registers": ["r3", "r4", "r5", "r6", "r7", "lr"]
+          }
+        },
+        {
+          "offset": 2,
+          "width": 2,
+          "operation": "copy",
+          "form": "lowRegister",
+          "operands": {
+            "destination": "r4",
+            "source": "r2",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 4,
+          "width": 2,
+          "operation": "copy",
+          "form": "lowRegister",
+          "operands": {
+            "destination": "r6",
+            "source": "r1",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 6,
+          "width": 2,
+          "operation": "copy",
+          "form": "lowRegister",
+          "operands": {
+            "destination": "r5",
+            "source": "r3",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "transfer",
+          "form": "directImmediate",
+          "operands": {
+            "kind": "call",
+            "destinationSymbol": "func_00303110",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "targetOffset": 2094642,
+            "relocation": "R_ARM_THM_CALL",
+            "implicitAddend": -4
+          }
+        },
+        {
+          "offset": 12,
+          "width": 2,
+          "operation": "load",
+          "form": "wordImmediate5",
+          "operands": {
+            "destination": "r1",
+            "base": "r0",
+            "byteOffset": 4
+          }
+        },
+        {
+          "offset": 14,
+          "width": 2,
+          "operation": "compare",
+          "form": "lowRegister",
+          "operands": {
+            "left": "r1",
+            "right": "r6",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 16,
+          "width": 2,
+          "operation": "transfer",
+          "form": "conditionalImmediate8",
+          "operands": {
+            "kind": "branch",
+            "condition": "lessOrEqualSigned",
+            "targetOffset": 50,
+            "relocation": null
+          }
+        },
+        {
+          "offset": 18,
+          "width": 2,
+          "operation": "load",
+          "form": "wordImmediate5",
+          "operands": {
+            "destination": "r0",
+            "base": "r0",
+            "byteOffset": 0
+          }
+        },
+        {
+          "offset": 20,
+          "width": 2,
+          "operation": "logicalShiftLeft",
+          "form": "immediate5",
+          "operands": {
+            "destination": "r1",
+            "source": "r6",
+            "amount": 3,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 22,
+          "width": 2,
+          "operation": "add",
+          "form": "lowRegisterThreeOperand",
+          "operands": {
+            "destination": "r0",
+            "left": "r0",
+            "right": "r1",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 24,
+          "width": 2,
+          "operation": "load",
+          "form": "wordImmediate5",
+          "operands": {
+            "destination": "r0",
+            "base": "r0",
+            "byteOffset": 0
+          }
+        },
+        {
+          "offset": 26,
+          "width": 2,
+          "operation": "add",
+          "form": "immediate3",
+          "operands": {
+            "destination": "r1",
+            "source": "r0",
+            "value": 1,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 28,
+          "width": 2,
+          "operation": "transfer",
+          "form": "conditionalImmediate8",
+          "operands": {
+            "kind": "branch",
+            "condition": "equal",
+            "targetOffset": 50,
+            "relocation": null
+          }
+        },
+        {
+          "offset": 30,
+          "width": 2,
+          "operation": "constant",
+          "form": "immediate8",
+          "operands": {
+            "destination": "r1",
+            "value": 0,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 32,
+          "width": 2,
+          "operation": "store",
+          "form": "spRelativeImmediate8",
+          "operands": {
+            "source": "r1",
+            "base": "sp",
+            "byteOffset": 0
+          }
+        },
+        {
+          "offset": 34,
+          "width": 2,
+          "operation": "copy",
+          "form": "lowRegister",
+          "operands": {
+            "destination": "r2",
+            "source": "r5",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 36,
+          "width": 2,
+          "operation": "copy",
+          "form": "lowRegister",
+          "operands": {
+            "destination": "r1",
+            "source": "r4",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 38,
+          "width": 2,
+          "operation": "copy",
+          "form": "highRegister",
+          "operands": {
+            "destination": "r3",
+            "source": "sp",
+            "setFlags": false
+          }
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "operation": "transfer",
+          "form": "directImmediate",
+          "operands": {
+            "kind": "call",
+            "destinationSymbol": "thumb_secondary_001035A0",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "targetOffset": -1342,
+            "relocation": "R_ARM_THM_CALL",
+            "implicitAddend": -4
+          }
+        },
+        {
+          "offset": 44,
+          "width": 2,
+          "operation": "copy",
+          "form": "highRegister",
+          "operands": {
+            "destination": "r1",
+            "source": "sp",
+            "setFlags": false
+          }
+        },
+        {
+          "offset": 46,
+          "width": 2,
+          "operation": "compare",
+          "form": "lowRegister",
+          "operands": {
+            "left": "r0",
+            "right": "r1",
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 48,
+          "width": 2,
+          "operation": "transfer",
+          "form": "conditionalImmediate8",
+          "operands": {
+            "kind": "branch",
+            "condition": "notEqual",
+            "targetOffset": 52,
+            "relocation": null
+          }
+        },
+        {
+          "offset": 50,
+          "width": 2,
+          "operation": "constant",
+          "form": "immediate8",
+          "operands": {
+            "destination": "r0",
+            "value": 0,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 52,
+          "width": 2,
+          "operation": "transfer",
+          "form": "stackRestore",
+          "operands": {
+            "kind": "return",
+            "restoredRegisters": ["r3", "r4", "r5", "r6", "r7"]
+          }
+        }
+      ]
+    }
+  ]
+}
