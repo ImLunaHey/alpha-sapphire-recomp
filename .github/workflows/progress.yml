@@ -19,6 +19,14 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
 
+      - name: Select pinned ARM toolchain
+        shell: bash
+        run: |
+          toolchain="$(nix build --no-link --print-out-paths nixpkgs#gcc-arm-embedded)"
+          compiler="$(find "$toolchain" -type f -name arm-none-eabi-gcc -print -quit)"
+          test -x "$compiler"
+          printf 'CROSS_COMPILE=%s\n' "${compiler%gcc}" >> "$GITHUB_ENV"
+
       - name: Build clean-room base objects
         run: npm run base:build
 
