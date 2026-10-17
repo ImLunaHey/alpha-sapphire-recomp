@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,252 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,261 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.171356,
-    "matchedFunctions": 4252,
+    "matchedCodePercent": 11.209854,
+    "matchedFunctions": 4261,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,252 routines across main/code and 96 CRO units match byte-for-byte",
+      "detail": "4,261 routines across main/code and 96 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllBattleMatch adds nine exact functions",
+      "detail": "Nine independently implemented DllBattleMatch functions add 1,432 byte-identical code bytes. The genuine report now contains 4,261 exact functions and 416,964 bytes. CRO data remains entirely unmatched and every unit remains incomplete."
+    },
     {
       "date": "2026-10-17",
       "title": "Runtime, DllBattle, and CRO contract wave adds 28 exact functions",
