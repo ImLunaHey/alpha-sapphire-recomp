@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_95.S",
+  "mode": "arm",
+  "totalBodySize": 328,
+  "totalAdjacentSize": 0,
+  "cumulativePoolSlots": 892,
+  "cumulativePoolClasses": 469,
+  "functions": [
+    {
+      "name": "func_00183E28",
+      "section": ".text.func_00183E28",
+      "size": 328,
+      "nextGlobal": "func_00184020",
+      "nextGlobalOffset": 504,
+      "branches": [
+        { "offset": 280, "kind": "R_ARM_CALL", "transfer": "linked", "symbol": "func_0018A0BC" }
+      ],
+      "indirectCalls": [],
+      "returnOffsets": [324],
+      "literals": []
+    }
+  ],
+  "literalIdentities": [],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0018A0BC"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_0018A0BC"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0018A0BC"
+    ],
+    "thumbPrimaryEntries": []
+  },
+  "selectionNotes": {
+    "skippedEarlierUnmatched": [
+      {
+        "name": "func_00180F24",
+        "size": 1356,
+        "reason": "large multi-loop scheduler/dispatcher outside the bounded wrapper cohort"
+      }
+    ],
+    "unownedBytesBeforeNextGlobal": 176,
+    "nextUnselectedSuitable": "func_00184744"
+  }
+}

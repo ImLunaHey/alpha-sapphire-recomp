@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_102.S",
+  "sourceHash": "f81039401a439b7fceece105555a9a3bb19c86086a20f73ec415f53ed0419542",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 104,
+  "totalAdjacentSize": 20,
+  "expectedInstructionCount": 26,
+  "memoryOperationCount": 15,
+  "directTailCount": 2,
+  "indirectTransferCount": 2,
+  "returnCount": 1,
+  "expectedRelocationCount": 7,
+  "functions": [
+    {
+      "name": "func_0014EB08",
+      "size": 16,
+      "ownedSize": 20,
+      "nextGlobal": "func_0014EB1C",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "register-move", "destination": "r1", "source": "r0", "updatesFlags": false },
+        { "offset": 4, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 16, "symbol": "runtime_shared_dispatch_root_102" },
+        { "offset": 8, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 20 },
+        { "offset": 12, "width": 4, "kind": "direct-tail-branch", "symbol": "runtime_secondary_dispatch_tail_102", "relocation": "R_ARM_JUMP24" }
+      ],
+      "adjacentWords": [
+        { "offset": 16, "kind": "R_ARM_ABS32", "symbol": "runtime_shared_dispatch_root_102" }
+      ]
+    },
+    {
+      "name": "func_0014EB30",
+      "size": 20,
+      "ownedSize": 24,
+      "nextGlobal": "func_0014EB48",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "register-move", "destination": "r2", "source": "r1", "updatesFlags": false },
+        { "offset": 4, "width": 4, "kind": "register-move", "destination": "r1", "source": "r0", "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 20, "symbol": "runtime_shared_dispatch_root_102" },
+        { "offset": 12, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 20 },
+        { "offset": 16, "width": 4, "kind": "direct-tail-branch", "symbol": "func_00168844", "relocation": "R_ARM_JUMP24" }
+      ],
+      "adjacentWords": [
+        { "offset": 20, "kind": "R_ARM_ABS32", "symbol": "runtime_shared_dispatch_root_102" }
+      ]
+    },
+    {
+      "name": "func_001DBCD8",
+      "size": 24,
+      "ownedSize": 28,
+      "nextGlobal": "func_001DBD18",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r2", "targetOffset": 24, "symbol": "runtime_vector_record_table_102" },
+        { "offset": 4, "width": 4, "kind": "add-shifted-register", "destination": "r0", "left": "r0", "right": "r0", "shift": "lsl", "shiftAmount": 1, "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "add-shifted-register", "destination": "r0", "left": "r2", "right": "r0", "shift": "lsl", "shiftAmount": 3, "updatesFlags": false },
+        { "offset": 12, "width": 4, "kind": "vfp-load-multiple", "base": "r0", "registers": ["s0", "s1", "s2", "s3", "s4", "s5"], "writeback": false },
+        { "offset": 16, "width": 4, "kind": "vfp-store-multiple", "base": "r1", "registers": ["s0", "s1", "s2", "s3", "s4", "s5"], "writeback": false },
+        { "offset": 20, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 24, "kind": "R_ARM_ABS32", "symbol": "runtime_vector_record_table_102" }
+      ]
+    },
+    {
+      "name": "func_00324E84",
+      "size": 24,
+      "ownedSize": 28,
+      "nextGlobal": "func_00325764",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "register-move", "destination": "r1", "source": "r0", "updatesFlags": false },
+        { "offset": 4, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 24, "symbol": "runtime_object_dispatch_root_102" },
+        { "offset": 8, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-load", "destination": "r2", "base": "r0", "displacement": 0 },
+        { "offset": 16, "width": 4, "kind": "word-load", "destination": "r2", "base": "r2", "displacement": 12 },
+        { "offset": 20, "width": 4, "kind": "indirect-tail-branch", "register": "r2" }
+      ],
+      "adjacentWords": [
+        { "offset": 24, "kind": "R_ARM_ABS32", "symbol": "runtime_object_dispatch_root_102" }
+      ]
+    },
+    {
+      "name": "func_0042FF40",
+      "size": 20,
+      "ownedSize": 24,
+      "nextGlobal": "func_00430238",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 20, "symbol": "runtime_method_dispatch_root_102" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 36 },
+        { "offset": 8, "width": 4, "kind": "word-load", "destination": "r1", "base": "r0", "displacement": 0 },
+        { "offset": 12, "width": 4, "kind": "word-load", "destination": "r1", "base": "r1", "displacement": 56 },
+        { "offset": 16, "width": 4, "kind": "indirect-tail-branch", "register": "r1" }
+      ],
+      "adjacentWords": [
+        { "offset": 20, "kind": "R_ARM_ABS32", "symbol": "runtime_method_dispatch_root_102" }
+      ]
+    }
+  ],
+  "identityClasses": {
+    "literal_backed_runtime_helpers_102": {
+      "members": [
+        "func_0014EB08",
+        "func_0014EB30",
+        "func_001DBCD8",
+        "func_00324E84",
+        "func_0042FF40"
+      ],
+      "parameters": [
+        "literalIdentity",
+        "memoryAccessSchedule",
+        "argumentSchedule",
+        "transferKind",
+        "transferIdentity"
+      ]
+    },
+    "shared_dispatch_root_pair_102": {
+      "members": ["func_0014EB08", "func_0014EB30"],
+      "sharedIdentity": "runtime_shared_dispatch_root_102",
+      "varyingParameter": "argumentSchedule"
+    }
+  },
+  "pcRelativeDataAccesses": [
+    { "function": "func_0014EB08", "offset": 4, "width": 4, "targetOffset": 16, "symbol": "runtime_shared_dispatch_root_102", "ownership": "owned-adjacent-word" },
+    { "function": "func_0014EB30", "offset": 8, "width": 4, "targetOffset": 20, "symbol": "runtime_shared_dispatch_root_102", "ownership": "owned-adjacent-word" },
+    { "function": "func_001DBCD8", "offset": 0, "width": 4, "targetOffset": 24, "symbol": "runtime_vector_record_table_102", "ownership": "owned-adjacent-word" },
+    { "function": "func_00324E84", "offset": 4, "width": 4, "targetOffset": 24, "symbol": "runtime_object_dispatch_root_102", "ownership": "owned-adjacent-word" },
+    { "function": "func_0042FF40", "offset": 0, "width": 4, "targetOffset": 20, "symbol": "runtime_method_dispatch_root_102", "ownership": "owned-adjacent-word" }
+  ],
+  "directTransfers": [
+    { "function": "func_0014EB08", "offset": 12, "width": 4, "kind": "R_ARM_JUMP24", "symbol": "runtime_secondary_dispatch_tail_102" },
+    { "function": "func_0014EB30", "offset": 16, "width": 4, "kind": "R_ARM_JUMP24", "symbol": "func_00168844" }
+  ],
+  "indirectTransfers": [
+    { "function": "func_00324E84", "offset": 20, "width": 4, "kind": "register-tail-branch", "register": "r2" },
+    { "function": "func_0042FF40", "offset": 16, "width": 4, "kind": "register-tail-branch", "register": "r1" }
+  ],
+  "returns": [
+    { "function": "func_001DBCD8", "offset": 20, "width": 4, "kind": "register-return", "register": "lr" }
+  ],
+  "relocations": [
+    { "function": "func_0014EB08", "offset": 12, "type": "R_ARM_JUMP24", "symbol": "runtime_secondary_dispatch_tail_102", "addend": 0 },
+    { "function": "func_0014EB08", "offset": 16, "type": "R_ARM_ABS32", "symbol": "runtime_shared_dispatch_root_102", "addend": 0 },
+    { "function": "func_0014EB30", "offset": 16, "type": "R_ARM_JUMP24", "symbol": "func_00168844", "addend": 0 },
+    { "function": "func_0014EB30", "offset": 20, "type": "R_ARM_ABS32", "symbol": "runtime_shared_dispatch_root_102", "addend": 0 },
+    { "function": "func_001DBCD8", "offset": 24, "type": "R_ARM_ABS32", "symbol": "runtime_vector_record_table_102", "addend": 0 },
+    { "function": "func_00324E84", "offset": 24, "type": "R_ARM_ABS32", "symbol": "runtime_object_dispatch_root_102", "addend": 0 },
+    { "function": "func_0042FF40", "offset": 20, "type": "R_ARM_ABS32", "symbol": "runtime_method_dispatch_root_102", "addend": 0 }
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": ["func_00168844"],
+    "secondaryEntries": ["runtime_secondary_dispatch_tail_102"],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "runtime_secondary_dispatch_tail_102",
+        "anchorSymbol": "func_0016B73C",
+        "anchorOffset": 28,
+        "nextGlobal": "func_0016BADC",
+        "bytesBeforeNextGlobal": 900,
+        "targetVisibility": "no-standalone-inventory-symbol"
+      }
+    ],
+    "armPrimaryEntries": ["func_00168844"],
+    "thumbPrimaryEntries": []
+  },
+  "symbolicIdentities": {
+    "runtime_shared_dispatch_root_102": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "shared-by-two-distinct-from-all-established-identities",
+      "usage": "dispatch-context-root"
+    },
+    "runtime_vector_record_table_102": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "read-only-data",
+      "equality": "singleton-distinct-from-all-established-identities",
+      "usage": "fixed-width-vector-record-table"
+    },
+    "runtime_object_dispatch_root_102": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "singleton-distinct-from-all-established-identities",
+      "usage": "object-dispatch-root"
+    },
+    "runtime_method_dispatch_root_102": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "singleton-distinct-from-all-established-identities",
+      "usage": "method-dispatch-root"
+    },
+    "runtime_secondary_dispatch_tail_102": {
+      "mode": "arm",
+      "minimumAlignment": 4,
+      "entryKind": "secondary",
+      "equality": "singleton-distinct-from-all-established-transfer-identities",
+      "usage": "dispatch-tail"
+    }
+  },
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": [
+    "runtime_shared_dispatch_root_102",
+    "runtime_vector_record_table_102",
+    "runtime_object_dispatch_root_102",
+    "runtime_method_dispatch_root_102",
+    "runtime_secondary_dispatch_tail_102"
+  ],
+  "aliases": [],
+  "duplicateBodyClasses": [],
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "eabiVersion": 5,
+    "requiredFlags": "0x05000000",
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": [
+      { "name": "$a", "offset": 0, "binding": "STB_LOCAL", "type": "STT_NOTYPE" },
+      { "name": "$d", "offset": "body-size", "binding": "STB_LOCAL", "type": "STT_NOTYPE" }
+    ],
+    "definedFunctionSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_FUNC",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": "body-size"
+    },
+    "undefinedRelocationSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_NOTYPE",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": 0,
+      "sectionIndex": "SHN_UNDEF"
+    }
+  }
+}

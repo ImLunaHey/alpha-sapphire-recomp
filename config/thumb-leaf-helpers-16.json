@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_16.S",
+  "sourceHash": "b65b982516ed54bc566f6ea6d180cbee40c0d8dd14b6668280a6b0a43f2c7754",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 12,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 5,
+  "wideInstructionCount": 1,
+  "legacyNopCount": 0,
+  "localBranchCount": 0,
+  "memoryOperationCount": 2,
+  "returnCount": 1,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 1,
+  "directTailCount": 2,
+  "directCalls": [
+    {
+      "function": "func_00102008",
+      "offset": 2,
+      "kind": "call",
+      "destinationSymbol": "thumb_secondary_00300AA0",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "targetOffset": 2091672,
+      "relocation": "R_ARM_THM_CALL",
+      "implicitAddend": -4
+    }
+  ],
+  "directTails": [
+    {
+      "function": "func_0010046E",
+      "offset": 0,
+      "kind": "tail",
+      "destinationSymbol": "thumb_secondary_00100474",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "targetOffset": 6,
+      "relocation": null,
+      "implicitAddend": null
+    },
+    {
+      "function": "func_00102E30",
+      "offset": 0,
+      "kind": "tail",
+      "destinationSymbol": "thumb_secondary_00102E34",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "targetOffset": 4,
+      "relocation": null,
+      "implicitAddend": null
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00102008",
+      "offset": 2,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "thumb_secondary_00300AA0",
+      "format": "REL",
+      "implicitAddend": -4
+    }
+  ],
+  "externalEntryIdentities": [
+    {
+      "symbol": "thumb_secondary_00100474",
+      "kind": "secondary-entry",
+      "state": "thumb",
+      "targetOffset": 6,
+      "ownership": "external-unowned-post-body",
+      "objectSymbol": false,
+      "precedingGlobal": {
+        "symbol": "func_0010046E",
+        "offset": 0,
+        "bodySize": 2,
+        "bodyEndOffset": 2
+      },
+      "followingGlobal": {
+        "symbol": "func_0010048A",
+        "offset": 28
+      }
+    },
+    {
+      "symbol": "thumb_secondary_00102E34",
+      "kind": "secondary-entry",
+      "state": "thumb",
+      "targetOffset": 4,
+      "ownership": "external-unowned-post-body",
+      "objectSymbol": false,
+      "precedingGlobal": {
+        "symbol": "func_00102E30",
+        "offset": 0,
+        "bodySize": 2,
+        "bodyEndOffset": 2
+      },
+      "followingGlobal": {
+        "symbol": "func_00102E4A",
+        "offset": 26
+      }
+    },
+    {
+      "symbol": "thumb_secondary_00300AA0",
+      "kind": "secondary-entry",
+      "state": "thumb",
+      "targetOffset": 2091672,
+      "ownership": "external-unowned",
+      "objectSymbol": true,
+      "precedingGlobal": {
+        "symbol": "func_00300A48",
+        "offset": 2091584,
+        "bodySize": 24,
+        "bodyEndOffset": 2091608
+      },
+      "followingGlobal": {
+        "symbol": "func_00300ABC",
+        "offset": 2091700
+      }
+    }
+  ],
+  "pcRelativeDataAccesses": [],
+  "duplicateBodyClasses": [],
+  "objectContract": {
+    "elfClass": "ELF32",
+    "endianness": "little",
+    "fileType": "ET_REL",
+    "machine": "EM_ARM",
+    "elfVersion": 1,
+    "osAbi": "ELFOSABI_NONE",
+    "abiVersion": 0,
+    "flags": 83886080,
+    "executableSectionType": "SHT_PROGBITS",
+    "executableSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+    "executableSectionAlignment": 2,
+    "primarySymbolBinding": "STB_GLOBAL",
+    "primarySymbolType": "STT_FUNC",
+    "primarySymbolVisibility": "STV_DEFAULT",
+    "primarySymbolOther": 0,
+    "primarySymbolThumbValue": 1,
+    "mappingSymbol": "$t",
+    "mappingSymbolBinding": "STB_LOCAL",
+    "mappingSymbolType": "STT_NOTYPE",
+    "mappingSymbolVisibility": "STV_DEFAULT",
+    "mappingSymbolValue": 0,
+    "sectionSymbolBinding": "STB_LOCAL",
+    "sectionSymbolType": "STT_SECTION",
+    "externalSymbolBinding": "STB_GLOBAL",
+    "externalSymbolType": "STT_FUNC",
+    "externalSymbolVisibility": "STV_DEFAULT",
+    "externalSymbolOther": 0,
+    "externalSymbolSectionIndex": "SHN_UNDEF",
+    "externalSymbolValue": 0,
+    "externalSymbolSize": 0,
+    "relocationSectionType": "SHT_REL",
+    "namedAliases": [],
+    "unnamedAliases": []
+  },
+  "semanticEncoding": {
+    "instructionRows": "ordered objects with explicit byte offset and width",
+    "registers": "architectural register roles are named in operands",
+    "directTransfers": "transfer rows name the destination identity and state, signed entry-relative target offset, relocation status, and implicit addend",
+    "externalIdentities": "secondary destinations are neutral linkage identities and do not transfer ownership"
+  },
+  "encodingConstraints": [
+    {
+      "form": "directImmediate16",
+      "rule": "Each two-byte tail uses the Thumb unconditional immediate form to the exact recorded entry-relative target. It remains fully resolved without an object relocation or emitted external symbol."
+    },
+    {
+      "form": "directImmediate",
+      "rule": "The call is four bytes at its recorded offset and carries exactly one SHT_REL R_ARM_THM_CALL relocation to the recorded undefined Thumb function identity with implicit addend -4."
+    },
+    {
+      "form": "thumbCodeMapping",
+      "rule": "Every complete function body is continuously covered by Thumb code mapping from body offset zero and contains no interior data mapping interval."
+    },
+    {
+      "form": "sectionOwnership",
+      "rule": "Each executable section ends at its recorded body size and owns no byte between that end and its next global entry."
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_0010046E",
+      "size": 2,
+      "instructionCount": 1,
+      "legacyNopOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 0,
+      "returnCount": 0,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 0,
+      "directTailCount": 1,
+      "nextGlobal": "func_0010048A",
+      "nextGlobalOffset": 28,
+      "semantics": [
+        {
+          "offset": 0,
+          "width": 2,
+          "operation": "transfer",
+          "form": "directImmediate16",
+          "operands": {
+            "kind": "tail",
+            "condition": "always",
+            "destinationSymbol": "thumb_secondary_00100474",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "targetOffset": 6,
+            "relocation": null,
+            "implicitAddend": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "func_00102008",
+      "size": 8,
+      "instructionCount": 3,
+      "legacyNopOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "directTailCount": 0,
+      "nextGlobal": "func_00102046",
+      "nextGlobalOffset": 62,
+      "semantics": [
+        {
+          "offset": 0,
+          "width": 2,
+          "operation": "stackSave",
+          "form": "registerList",
+          "operands": {
+            "registers": ["r4", "lr"]
+          }
+        },
+        {
+          "offset": 2,
+          "width": 4,
+          "operation": "transfer",
+          "form": "directImmediate",
+          "operands": {
+            "kind": "call",
+            "destinationSymbol": "thumb_secondary_00300AA0",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "targetOffset": 2091672,
+            "relocation": "R_ARM_THM_CALL",
+            "implicitAddend": -4
+          }
+        },
+        {
+          "offset": 6,
+          "width": 2,
+          "operation": "transfer",
+          "form": "stackRestore",
+          "operands": {
+            "kind": "return",
+            "restoredRegisters": ["r4"]
+          }
+        }
+      ]
+    },
+    {
+      "name": "func_00102E30",
+      "size": 2,
+      "instructionCount": 1,
+      "legacyNopOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 0,
+      "returnCount": 0,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 0,
+      "directTailCount": 1,
+      "nextGlobal": "func_00102E4A",
+      "nextGlobalOffset": 26,
+      "semantics": [
+        {
+          "offset": 0,
+          "width": 2,
+          "operation": "transfer",
+          "form": "directImmediate16",
+          "operands": {
+            "kind": "tail",
+            "condition": "always",
+            "destinationSymbol": "thumb_secondary_00102E34",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "targetOffset": 4,
+            "relocation": null,
+            "implicitAddend": null
+          }
+        }
+      ]
+    }
+  ]
+}
