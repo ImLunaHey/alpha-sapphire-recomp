@@ -102,6 +102,126 @@ methods also have identical bodies. Their distinct vtable slots and addresses
 must still remain distinct symbols/sections if promoted into the public
 inventory.
 
+## Exact neutral mnemonic schedules requested for implementation
+
+These schedules use public ARM mnemonics and symbolic local labels. They are
+not encoded target words or copied disassembler output. Offsets in the
+predicate schedule are relative to `func_00000610`; veneer destinations remain
+module-text offsets so an implementation can preserve the observed direct-call
+shape. Local-label names are non-normative. Mnemonic, condition, operands,
+registers, instruction order, branch topology, and body boundaries are
+normative.
+
+### Trivial vtable methods
+
+Each candidate occupies its own ARM code range, contains no literal, call, or
+relocation, and has no adjacent data owned by the body:
+
+| Module range | Size | Complete ordered schedule | Body SHA-256 |
+| --- | ---: | --- | --- |
+| `0x0C8..0x0CC` | 4 | `bx lr` | `379bec29dccd0a93c94826144d7ef6e42fab64ef195a3b8313a16926f66f388f` |
+| `0x0CC..0x0D4` | 8 | `mov r0, #0`; `bx lr` | `6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877` |
+| `0x0D4..0x0DC` | 8 | `mov r0, #0`; `bx lr` | `6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877` |
+| `0x0DC..0x0E4` | 8 | `mov r0, #0`; `bx lr` | `6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877` |
+| `0x0E4..0x0E8` | 4 | `bx lr` | `379bec29dccd0a93c94826144d7ef6e42fab64ef195a3b8313a16926f66f388f` |
+| `0x0E8..0x0F0` | 8 | `mov r0, #0`; `bx lr` | `6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877` |
+| `0x0F0..0x0F4` | 4 | `bx lr` | `379bec29dccd0a93c94826144d7ef6e42fab64ef195a3b8313a16926f66f388f` |
+| `0x70C..0x710` | 4 | `bx lr` | `379bec29dccd0a93c94826144d7ef6e42fab64ef195a3b8313a16926f66f388f` |
+
+The digest is over each complete unresolved target body only. Identical hashes
+are expected for identical schedules; address and vtable-slot evidence keeps
+the identities distinct.
+
+### `func_00000610`
+
+The accepted ARM section is exactly `.text.func_00000610`, size `0xF8` (248
+bytes, 62 instructions), alignment 4. Its complete unresolved body SHA-256 is
+`135aa7cf432bc27f4f3961e9b8c9b92bcc6c733d139ebc675e2a86a55c989230`.
+The body contains no relocation. It has three direct PC-relative calls, to
+neutral import veneers at module offsets `0x098`, `0x0A0`, and `0x038`. Its
+single literal load reads the unowned adjacent word at module offset `0x708`;
+that word is integer `0x4010`, is four bytes, has SHA-256
+`51695fff94c05039ea2b9942266cbffdfaefe5029dbded3d02eeb282dd14615d`,
+and has no relocation. The function body ends before that word.
+
+```text
+000  push    {r4-r8, lr}
+004  mov     r4, r0
+008  ldr     r0, [r0, #0x40]
+00C  ldr     r1, [r4, #0x10]
+010  ldr     r0, [r0]
+014  ldrb    r1, [r1]
+018  and     r5, r0, #0xFF
+01C  lsl     r2, r0, #8
+020  cmp     r1, #0x20
+024  lsr     r6, r2, #24
+028  bne     .Ldescriptor_mode
+02C  ldr     r0, [r4, #8]
+030  ldr     r0, [r0, #0x60]
+034  ldr     r0, [r0, #0x1C]
+038  ldr     r0, [r0]
+03C  add     r0, r0, #0xEF0
+040  bl      veneer_00000098
+044  mov     r7, r0
+048  ldr     r0, [r4, #8]
+04C  ldr     r1, [pc, #0xA4]
+050  ldr     r0, [r0, #0x60]
+054  ldr     r0, [r0, #0x1C]
+058  ldr     r0, [r0]
+05C  add     r0, r0, #0x10000
+060  add     r0, r0, #0x3140
+064  bl      veneer_000000A0
+068  ldrh    r1, [r0]
+06C  cmp     r7, #0x11
+070  beq     .Ldescriptor_mode
+074  cmp     r1, #2
+078  bne     .Ltrue
+.Ldescriptor_mode:
+07C  ldr     r0, [r4, #0x10]
+080  ldrh    r1, [r0, #0x1C]
+084  cmp     r1, #0
+088  beq     .Lmode_zero
+08C  cmp     r1, #1
+090  beq     .Lmode_one
+094  mov     r2, #0
+098  mov     r1, r2
+09C  mov     r0, r2
+0A0  bl      veneer_00000038
+.Lfalse:
+0A4  mov     r0, #0
+0A8  pop     {r4-r8, pc}
+.Lmode_zero:
+0AC  ldrh    r1, [r0, #0x18]
+0B0  cmp     r1, r5
+0B4  bne     .Lfalse
+0B8  ldrh    r0, [r0, #0x1A]
+0BC  cmp     r0, #9
+0C0  beq     .Ltrue
+0C4  cmp     r0, r6
+0C8  beq     .Ltrue
+0CC  b       .Lfalse
+.Lmode_one:
+0D0  ldrh    r1, [r0, #0x18]
+0D4  cmp     r1, r5
+0D8  beq     .Lfalse
+0DC  ldrh    r0, [r0, #0x1A]
+0E0  cmp     r0, #9
+0E4  beq     .Ltrue
+0E8  cmp     r0, r6
+0EC  beq     .Lfalse
+.Ltrue:
+0F0  mov     r0, #1
+0F4  pop     {r4-r8, pc}
+```
+
+At relative offset `0x04C`, architectural PC is module offset `0x664`; adding
+`0xA4` selects module offset `0x708`. The three call identities resolve through
+the relocation contract as follows: veneer `0x098` is static segment 0 source
+offset `0x3EAD40`, veneer `0x0A0` is static segment 0 source offset `0x01FA90`,
+and veneer `0x038` is static segment 0 source offset `0x04EA64`. These calls
+remain direct branches to the veneers and introduce no relocation into the
+accepted function section.
+
 ## Behavioral contracts
 
 ### Update method (`0x0F4`)
