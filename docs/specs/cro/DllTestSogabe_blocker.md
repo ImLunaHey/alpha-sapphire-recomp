@@ -10,6 +10,10 @@ This analysis-only record is not a behavioral contract or approval to implement.
 - Audit date: 2026-10-17, Europe/London (BST, UTC+01:00).
 - Exact baseline and verified checkout HEAD:
   `4f0ffaabc9d9da88b52910ba507cff17fe5d2351`.
+- PR integration base after refreshing and rebasing against `origin/main` on
+  2026-10-17: `1cf1ac2bdfa1c63ffe2bfc96be918d2a76acb977`. This integration
+  base is recorded separately from the audit baseline above; the audit remains
+  scoped to its stated baseline even if the PR is rebased again.
 - Intended target revision: Pokemon Alpha Sapphire `AS_EUR_REV2` (Europe,
   revision 2), declared by `README.md` and [repository provenance](../../PROVENANCE.md).
   This is public-facing repository metadata, not independent target verification.
@@ -66,4 +70,6 @@ writes original code solely from the approved specification. This audit neither
 assigns those roles nor supplies that approval.
 
 No implementation, match, full-link, or completion claim is made. No code was
-implemented, and no commit or push was performed.
+implemented, and no implementation, source, or match-credit commit was made.
+The only committed and pushed change is this analysis-only documentation
+record.
