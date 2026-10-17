@@ -176,7 +176,11 @@ void func_00000394(ActionWork *self, uint32_t first, uint32_t second);
 ```
 
 Store the two incoming words consecutively at `self + 0x24` and `self + 0x28`.
-This is a three-instruction leaf with no stack frame.
+This is a three-instruction leaf with no stack frame. For exact compiler shape,
+form `self + 0x24` as the destination first, then perform one paired/multiple
+word store of the two incoming values, followed by the leaf return. Two
+independent word stores are behaviorally equivalent but do not match this
+target.
 
 ### `func_000003A0` — constant-success leaf
 

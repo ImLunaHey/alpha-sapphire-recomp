@@ -580,6 +580,8 @@ node "$root/scripts/validate-cro-contract-08.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-09.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
+node "$root/scripts/validate-cro-dll-field-event-poke-ride-action-leaves.mjs" \
+  --object "$root/build/AS_EUR_REV2/base/cro-code/DllFieldEventPokeRideAction.o"
 node "$root/scripts/validate-cro-contract-10.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-11.mjs" \
