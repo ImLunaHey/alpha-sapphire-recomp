@@ -4,21 +4,22 @@ Audit date: 2026-10-17. Baseline repository revision:
 `33de800b35f2fbe34e799f97bc36a109023d88a2`.
 
 This administrative record covers exactly `cro/DllTrainerCase` for
-`AS_EUR_REV2`, under `docs/CLEAN_ROOM.md`. The approved provenance review found
-no independently authored and reviewed neutral behavioral specification.
+`AS_EUR_REV2`, under `docs/CLEAN_ROOM.md`. The available repository evidence
+contains no independently authored and reviewed neutral behavioral specification
+or durable record of an independent review and approval.
 Commit `404a40b3` introduced the source and contract machinery together;
 co-introduction does not establish the required independent specification or
 role separation. This provenance gap warrants withdrawal of unsupported credit
 without making an allegation of unlawful copying.
 
-The implementer remains target-blind. Permitted repository evidence categories
-are clean-room policy, public neutral inventories and partitions, ownership
-manifests, accounting reports, documentation, validation/build scripts, and
-repository history metadata. These establish administrative status and public
-accounting only. The quarantined source body, ROMs, extracted assets, private
-target bytes or objects, disassembly, proprietary material, target-derived
-implementation aids, private settings, and target-derived behavior are outside
-this implementation role's evidence boundary.
+No durable contribution record identifies distinct analyst, reviewer, and
+target-blind implementer roles for the withdrawn implementation, so this record
+does not claim that separation occurred. Evidence supporting this administrative
+quarantine is limited to clean-room policy, public neutral inventories and
+partitions, ownership manifests, accounting reports, documentation,
+validation/build scripts, and repository history metadata. These establish
+administrative status and public accounting only; they do not supply missing
+behavioral provenance or approval.
 
 The source pathname and ownership entries are withdrawn administratively, as is
 the unit's credited function. Public inventory, partition, section records, and
