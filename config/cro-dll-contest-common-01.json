@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "unit": "DllContestCommon",
   "source": "src/cro/DllContestCommon/module.S",
-  "sourceHash": "e168b7b60b27ef99218ae4a12c0e302bd992af3c376d63bd7add8a208a4eb283",
+  "sourceHash": "18590dd504519be281d76d2863fca2691a49bf74d01b7930b5af8b6983d099e0",
   "architecture": "ARMv6K",
   "mode": "arm",
   "minimumAlignment": 4,
@@ -11,17 +11,23 @@
     { "name": "func_0000020C", "address": 524, "size": 76, "instructionCount": 19, "semantics": "contest-control-initialize", "bodyHash": "19c2c6342c9f36f9960cfadb0f4fb2210deb76abf61073d24fbccc6b5984df4a" },
     { "name": "func_00000258", "address": 600, "size": 100, "instructionCount": 25, "semantics": "contest-resource-release", "bodyHash": "a859cca70528ebef97b7468930a5270211ca56da59d848b39033120b5fc398c5" }
   ],
+  "controlFragments": [
+    { "name": "controlPrelude", "address": 700, "size": 20, "instructionCount": 5, "bodyHash": "d354f6231d0117c94d6cadc81c07f710cf32306924ea71c539770f09139be214" },
+    { "name": "controlCasesAndDiagnostic", "address": 740, "size": 96, "instructionCount": 24, "bodyHash": "e96be396a1701a7819b22cb9079a8c4a9086b1327379663aba2cb94dcc511f26" }
+  ],
   "veneerAddresses": [0, 8, 16, 24, 32, 40],
   "poolAddresses": [4, 12, 20, 28, 36, 44, 520],
   "jumpTablePoolAddress": 720,
+  "terminalPoolAddress": 836,
   "selectorValues": [5, 6, 7, 8, 9, 10],
   "validation": {
     "targetRevision": "AS_EUR_REV2",
     "requireExactPublicBoundaries": true,
     "requireCanonicalImportAliases": true,
+    "requireCanonicalBaseEmission": true,
+    "requireCompleteControlEntry": true,
     "requireUniqueOwnership": true,
-    "requireFailClosedControlResidue": true,
-    "expectedAuthoredRelocations": 12,
+    "expectedAuthoredRelocations": 17,
     "maximumObjectSize": 1048576,
     "maximumSectionCount": 256,
     "maximumSymbolCount": 4096

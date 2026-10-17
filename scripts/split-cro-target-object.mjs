@@ -204,6 +204,73 @@ function parseElf(buffer) {
   return { buffer, sections, byName, symbols, relocations, moduleName, text, rodata, data, bss };
 }
 
+function parseAuthoredSplitElf(buffer) {
+  check(Buffer.isBuffer(buffer) && buffer.length >= 52 && buffer.length <= MAX_ELF_SIZE,
+    "authored DllContestCommon object must be a bounded ELF file");
+  check(buffer.subarray(0, 7).equals(Buffer.from([0x7f, 0x45, 0x4c, 0x46, 1, 1, 1]))
+    && buffer.readUInt16LE(16) === 1 && buffer.readUInt16LE(18) === 40
+    && buffer.readUInt32LE(20) === 1 && buffer.readUInt32LE(36) === 0x05000000,
+  "authored DllContestCommon object must be ELF32 little-endian ARM EABI5 REL");
+  check(buffer.readUInt16LE(40) === 52 && buffer.readUInt16LE(46) === 40,
+    "authored DllContestCommon object has unsupported header sizes");
+  const shoff = buffer.readUInt32LE(32), count = buffer.readUInt16LE(48), shstrndx = buffer.readUInt16LE(50);
+  check(count > 0 && count <= 4096 && shstrndx > 0 && shstrndx < count,
+    "authored DllContestCommon object has an invalid section table");
+  checkedAdd(shoff, count * 40, buffer.length, "authored DllContestCommon section table is out of bounds");
+  const sections = [];
+  for (let index = 0; index < count; index++) {
+    const at = shoff + index * 40;
+    const section = { index, nameOffset: buffer.readUInt32LE(at), type: buffer.readUInt32LE(at + 4),
+      flags: buffer.readUInt32LE(at + 8), offset: buffer.readUInt32LE(at + 16), size: buffer.readUInt32LE(at + 20),
+      link: buffer.readUInt32LE(at + 24), info: buffer.readUInt32LE(at + 28), align: buffer.readUInt32LE(at + 32),
+      entsize: buffer.readUInt32LE(at + 36) };
+    check(section.align === 0 || (section.align & (section.align - 1)) === 0,
+      `authored section ${index} alignment is invalid`);
+    if (section.type !== SHT_NOBITS) checkedAdd(section.offset, section.size, buffer.length,
+      `authored section ${index} is out of bounds`);
+    sections.push(section);
+  }
+  check(sections[0].type === SHT_NULL, "authored section zero is not null");
+  const shstr = sections[shstrndx];
+  check(shstr.type === SHT_STRTAB, "authored section-name table is invalid");
+  const names = buffer.subarray(shstr.offset, shstr.offset + shstr.size), byName = new Map();
+  for (const section of sections) {
+    section.name = section.index === 0 ? "" : cstring(names, section.nameOffset, `authored section ${section.index}`);
+    check(!byName.has(section.name), `duplicate authored ELF section ${section.name}`);
+    byName.set(section.name, section);
+    section.data = section.type === SHT_NOBITS ? null : buffer.subarray(section.offset, section.offset + section.size);
+  }
+  const symtab = byName.get(".symtab");
+  check(symtab?.type === SHT_SYMTAB && symtab.entsize === 16 && symtab.size % 16 === 0
+    && symtab.link < sections.length && sections[symtab.link].type === SHT_STRTAB,
+  "authored symbol table is invalid");
+  const strings = sections[symtab.link].data, symbols = [];
+  for (let index = 0; index < symtab.size / 16; index++) {
+    const at = symtab.offset + index * 16, shndx = buffer.readUInt16LE(at + 14);
+    check(shndx < sections.length || shndx >= 0xff00, `authored symbol ${index} section is invalid`);
+    symbols.push({ index, name: cstring(strings, buffer.readUInt32LE(at), `authored symbol ${index}`),
+      value: buffer.readUInt32LE(at + 4), size: buffer.readUInt32LE(at + 8), info: buffer[at + 12], shndx });
+  }
+  const relocations = [];
+  for (const section of sections) {
+    if (section.type === SHT_RELA) throw new Error("authored RELA relocations are unsupported");
+    if (section.type !== SHT_REL) continue;
+    check(section.flags === SHF_INFO_LINK && section.entsize === 8 && section.size % 8 === 0
+      && section.link === symtab.index && section.info > 0 && section.info < sections.length,
+    `${section.name} authored relocation metadata is invalid`);
+    const output = sections[section.info];
+    for (let at = section.offset; at < section.offset + section.size; at += 8) {
+      const offset = buffer.readUInt32LE(at), info = buffer.readUInt32LE(at + 4), symbolIndex = info >>> 8;
+      check((info & 0xff) === R_ARM_ABS32 && symbolIndex > 0 && symbolIndex < symbols.length,
+        `${section.name} contains an unsupported authored relocation`);
+      check(offset % 4 === 0 && offset + 4 <= output.size,
+        `${section.name} authored relocation output is invalid`);
+      relocations.push({ output, offset, symbol: symbols[symbolIndex], addend: output.data.readUInt32LE(offset) });
+    }
+  }
+  return { buffer, sections, byName, symbols, relocations };
+}
+
 function symbolBuffer(nameOffset, value, size, info, shndx) {
   const out = Buffer.alloc(16);
   out.writeUInt32LE(nameOffset, 0); out.writeUInt32LE(value >>> 0, 4); out.writeUInt32LE(size, 8);
@@ -293,6 +360,101 @@ function inventoryGlobals(inventory) {
     info: (STB_GLOBAL << 4) | (range.kind === "pool" ? STT_OBJECT : STT_FUNC) }));
 }
 
+export function canonicalizeDllContestCommonBaseElf(authoredBuffer, inventoryInput) {
+  const authored = parseAuthoredSplitElf(Buffer.from(authoredBuffer));
+  const inventory = parseFunctionInventory(inventoryInput);
+  check(inventory.module === "DllContestCommon" && inventory.textSize === 0x368,
+    "canonical base emission is restricted to DllContestCommon");
+  const expectedRanges = [
+    ["gap", 0x000, 0x004], ["pool", 0x004, 0x004], ["gap", 0x008, 0x004], ["pool", 0x00c, 0x004],
+    ["gap", 0x010, 0x004], ["pool", 0x014, 0x004], ["gap", 0x018, 0x004], ["pool", 0x01c, 0x004],
+    ["gap", 0x020, 0x004], ["pool", 0x024, 0x004], ["gap", 0x028, 0x004], ["pool", 0x02c, 0x004],
+    ["function", 0x030, 0x1d8], ["pool", 0x208, 0x004], ["function", 0x20c, 0x04c],
+    ["function", 0x258, 0x064], ["gap", 0x2bc, 0x014], ["pool", 0x2d0, 0x014],
+    ["gap", 0x2e4, 0x060], ["pool", 0x344, 0x024]
+  ];
+  check(JSON.stringify(inventory.ranges.map(({ kind, address, size }) => [kind, address, size])) === JSON.stringify(expectedRanges),
+    "DllContestCommon public partition differs from the canonical base contract");
+
+  const specs = inventory.ranges.map(range => {
+    const source = authored.byName.get(range.sectionName);
+    const flags = range.kind === "pool" ? SHF_ALLOC : SHF_ALLOC | SHF_EXECINSTR;
+    const alignment = range.kind === "pool" ? 1 : 4;
+    check(source?.type === SHT_PROGBITS && source.flags === flags && source.align === alignment && source.size === range.size,
+      `${range.sectionName} authored section differs from the canonical contract`);
+    return { key: range.name, name: range.sectionName, type: SHT_PROGBITS, flags, align: alignment,
+      size: range.size, data: Buffer.from(source.data), mapping: range.kind === "pool" ? "$d" : "$a" };
+  });
+  for (const [key, flags, size] of [["rodata", SHF_ALLOC, 0x18], ["data", SHF_ALLOC | SHF_WRITE, 0x04]]) {
+    const source = authored.byName.get(`.${key}`);
+    check(source?.type === SHT_PROGBITS && source.flags === flags && source.align === 4 && source.size === size,
+      `.${key} authored section differs from the canonical contract`);
+    specs.push({ key, name: `.${key}`, type: SHT_PROGBITS, flags, align: 4, size, data: Buffer.from(source.data), mapping: "$d" });
+  }
+  const bss = authored.byName.get(".bss");
+  check(bss && bss.flags === (SHF_ALLOC | SHF_WRITE) && bss.size === 0, "authored .bss differs from the canonical contract");
+  specs.push({ key: "bss", name: ".bss", type: SHT_PROGBITS, flags: SHF_ALLOC | SHF_WRITE,
+    align: 4, size: 0, data: Buffer.alloc(0) });
+  const marker = Buffer.from("DllContestCommon\0");
+  specs.push({ key: "module", name: ".cro.module", type: SHT_PROGBITS, flags: 0, align: 1,
+    size: marker.length, data: marker });
+  const ownedNames = new Set(specs.map(({ name }) => name));
+  check(authored.sections.filter(section => section.flags & SHF_ALLOC)
+    .every(section => ownedNames.has(section.name) || (section.name === ".text" && section.size === 0)),
+  "authored object contains an unowned allocated section");
+
+  const globals = inventoryGlobals(inventory);
+  for (const expected of globals) {
+    const sourceSection = authored.byName.get(specs.find(({ key }) => key === expected.key).name);
+    check(authored.symbols.filter(symbol => symbol.name === expected.name && symbol.shndx === sourceSection.index
+      && symbol.value === expected.value && symbol.size === expected.size && symbol.info === expected.info).length === 1,
+    `${expected.name} authored global identity differs`);
+  }
+  for (let index = 0; index < 6; index++) globals.push({ name: `dll_contest_common_import_${index}`,
+    value: 0, size: 0, info: (STB_GLOBAL << 4) | STT_NOTYPE });
+
+  const keyBySection = new Map(specs.map(spec => [spec.name, spec.key]));
+  const relocations = new Map(), records = [];
+  const addRel = (key, entry) => { if (!relocations.has(key)) relocations.set(key, []); relocations.get(key).push(entry); };
+  for (const range of inventory.ranges) {
+    const output = authored.byName.get(range.sectionName);
+    const entries = authored.relocations.filter(relocation => relocation.output.index === output.index)
+      .sort((left, right) => left.offset - right.offset);
+    for (const relocation of entries) {
+      let target, targetName;
+      if (relocation.symbol.shndx === 0) {
+        check(/^dll_contest_common_import_[0-5]$/u.test(relocation.symbol.name)
+          && relocation.symbol.info === ((STB_GLOBAL << 4) | STT_NOTYPE),
+        "authored import relocation does not use a canonical public alias");
+        target = { symbolKind: "global", symbolName: relocation.symbol.name };
+        targetName = relocation.symbol.name;
+      } else {
+        check((relocation.symbol.info & 0xf) === STT_SECTION,
+          "authored internal relocation does not target a section identity");
+        const targetSection = authored.sections[relocation.symbol.shndx], key = keyBySection.get(targetSection.name);
+        check(key, "authored relocation targets an unowned section");
+        target = { symbolKind: "section", symbolKey: key };
+        targetName = targetSection.name;
+      }
+      addRel(range.name, { offset: relocation.offset, ...target });
+      records.push([range.address + relocation.offset, targetName, relocation.addend]);
+    }
+  }
+  const expectedRecords = [
+    [0x004, "dll_contest_common_import_0", 0], [0x00c, "dll_contest_common_import_1", 0],
+    [0x014, "dll_contest_common_import_2", 0], [0x01c, "dll_contest_common_import_3", 0],
+    [0x024, "dll_contest_common_import_4", 0], [0x02c, "dll_contest_common_import_5", 0],
+    [0x208, ".rodata", 0], [0x2d0, ".text.__cro_gap_000002e4", 0],
+    [0x2d4, ".text.__cro_gap_000002e4", 8], [0x2d8, ".text.__cro_gap_000002e4", 0x10],
+    [0x2dc, ".text.__cro_gap_000002e4", 0x1c], [0x2e0, ".text.__cro_gap_000002e4", 0x2c],
+    [0x344, ".data", 0], [0x34c, ".pool.__cro_pool_00000344", 0x24],
+    [0x350, ".pool.__cro_pool_00000344", 0x24], [0x354, ".rodata", 0x18], [0x358, ".rodata", 0x18]
+  ];
+  check(JSON.stringify(records) === JSON.stringify(expectedRecords),
+    "authored relocation schedule differs from the canonical DllContestCommon contract");
+  return emitElf(specs, globals, relocations);
+}
+
 export function canonicalizeDllContestCommonImports(structural, inventory) {
   const aliases = new Map();
   if (inventory.module !== "DllContestCommon") return aliases;
@@ -301,6 +463,8 @@ export function canonicalizeDllContestCommonImports(structural, inventory) {
   const undefinedRelocations = structural.relocations.filter(({ symbol }) => symbol.shndx === 0);
   check(undefinedRelocations.length === expectedOffsets.length,
     "DllContestCommon must have exactly six undefined import relocations");
+  check(structural.symbols.filter(symbol => symbol.shndx === 0 && (symbol.info >> 4) === STB_GLOBAL).length === 6,
+    "DllContestCommon has an unexpected undefined global symbol");
   undefinedRelocations.sort((left, right) => left.offset - right.offset);
   const identities = new Set(), aliasNames = new Set(expectedOffsets.map((_, index) => `dll_contest_common_import_${index}`));
   for (const [index, relocation] of undefinedRelocations.entries()) {
@@ -348,7 +512,11 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
   const sectionKey = new Map([[structural.rodata.index, "rodata"], [structural.data.index, "data"],
     [structural.bss.index, "bss"], [structural.byName.get(".cro.module").index, "module"]]);
   const importAliases = canonicalizeDllContestCommonImports(structural, inventory);
-  const globals = inventoryGlobals(inventory), names = new Set(globals.map(s => s.name));
+  const globals = inventoryGlobals(inventory);
+  if (importAliases.size) for (let index = 0; index < 6; index++) globals.push({
+    name: `dll_contest_common_import_${index}`, value: 0, size: 0, info: (STB_GLOBAL << 4) | STT_NOTYPE
+  });
+  const names = new Set(globals.map(s => s.name));
   const oldGlobal = new Map();
   for (const symbol of structural.symbols) {
     if ((symbol.info >> 4) !== STB_GLOBAL) continue;
@@ -372,7 +540,8 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
     if (!names.has(spec.name)) { names.add(spec.name); globals.push(spec); }
     else {
       const existing = globals.find(item => item.name === spec.name);
-      check(existing.key === spec.key && existing.value === spec.value, `inventory conflicts with symbol ${spec.name}`);
+      check(existing.key === spec.key && existing.value === spec.value && existing.size === spec.size && existing.info === spec.info,
+        `inventory conflicts with symbol ${spec.name}`);
     }
     oldGlobal.set(symbol.index, { symbolKind: "global", symbolName: spec.name, addendDelta: 0 });
   }
@@ -416,7 +585,12 @@ export function splitCroTargetElf(structuralBuffer, inventoryInput) {
   const targetSpecs = sectionSpecs(structural, inventory, false);
   for (const spec of targetSpecs) if (mutableData.has(spec.key)) spec.data = mutableData.get(spec.key);
   for (const entries of relocations.values()) entries.sort((a,b) => a.offset - b.offset);
-  const target = emitElf(targetSpecs, globals, relocations);
+  const orderedRelocations = inventory.module === "DllContestCommon"
+    ? new Map(inventory.ranges.filter(range => relocations.has(range.name)).map(range => [range.name, relocations.get(range.name)]))
+    : relocations;
+  check(inventory.module !== "DllContestCommon" || orderedRelocations.size === relocations.size,
+    "DllContestCommon has a relocation outside its public text partition");
+  const target = emitElf(targetSpecs, globals, orderedRelocations);
   const base = emitElf(sectionSpecs(structural, inventory, true), globals, new Map());
   return { target, base, inventory };
 }

@@ -248,12 +248,23 @@ FUNCTION_BEGIN func_00000258
 FUNCTION_END func_00000258, 0x64
 
 /*
- * The supported control cases begin in this public gap identity.  No code is
- * emitted: selector >= 5 shares the gap and remains semantically blocked.
+ * The public CRO control entry is non-contiguous: this prelude dispatches
+ * through the following pool, while the cases and diagnostic tail live in
+ * the second gap.  Neither fragment is advertised as an STT_FUNC.
  */
-.section .text.__cro_gap_000002e4, "ax", %progbits
+.section .text.__cro_gap_000002bc, "ax", %progbits
 .balign 4
-.Lcontrol_case_base:
+.Lcontrol_entry:
+    /* Load .data through the first word of the terminal pool at 0x344. */
+    .inst 0xe59f2080
+    cmp r1, #5
+    push {r4, lr}
+    ldrcc pc, [pc, r1, lsl #2]
+    /* Unsupported operations continue at text address 0x328. */
+    .inst 0xea000015
+.if (. - .Lcontrol_entry) != 0x14
+    .error "DllContestCommon control prelude differs from its public gap"
+.endif
 
 /* Public five-entry control jump table, expressed only as relocations. */
 .section .pool.__cro_pool_000002d0, "a", %progbits
@@ -268,6 +279,69 @@ __cro_pool_000002d0:
     .word .Lcontrol_case_base + 0x2c
 .size __cro_pool_000002d0, . - __cro_pool_000002d0
 
+.section .text.__cro_gap_000002e4, "ax", %progbits
+.balign 4
+.Lcontrol_case_base:
+    /* operation 0: absent exception-information node */
+    .inst 0xe59f105c
+    b .Lcontrol_store_word
+
+    /* operation 1: save the loader-supplied CRO-end pointer */
+    str r0, [r2]
+    b .Lcontrol_success
+
+    /* operation 2: report the saved CRO-end pointer */
+    ldr r1, [r2]
+.Lcontrol_store_word:
+    str r1, [r0]
+    b .Lcontrol_success
+
+    /* operation 3: empty first initializer range (.text + 0x368) */
+    .inst 0xe59f1044
+    str r1, [r0]
+    .inst 0xe59f1040
+    b .Lcontrol_store_end
+
+    /* operation 4: empty second initializer range (.rodata + 0x18) */
+    .inst 0xe59f103c
+    str r1, [r0]
+    .inst 0xe59f1038
+.Lcontrol_store_end:
+    str r1, [r0, #4]
+.Lcontrol_success:
+    mov r0, #0
+    pop {r4, pc}
+
+    /* Fixed public toolchain diagnostic sequence for unsupported selectors. */
+    .inst 0xe59f002c
+    nop
+    .inst 0xe59f0028
+    msr CPSR_c, #0
+    nop
+    .inst 0xe59f0020
+    pop {r4, pc}
+.if (. - .Lcontrol_case_base) != 0x60
+    .error "DllContestCommon control cases differ from their public gap"
+.endif
+
+/* Terminal control literals and their public relocation classes. */
+.section .pool.__cro_pool_00000344, "a", %progbits
+.balign 1
+.global __cro_pool_00000344
+.type __cro_pool_00000344, %object
+__cro_pool_00000344:
+    .word dll_contest_common_global
+    .word 0
+    .word .Lcontrol_pool_end
+    .word .Lcontrol_pool_end
+    .word dll_contest_common_selectors + 0x18
+    .word dll_contest_common_selectors + 0x18
+    .word 0x30000000
+    .word 0x30000026
+    .word 0xd8e12c21
+.Lcontrol_pool_end:
+.size __cro_pool_00000344, . - __cro_pool_00000344
+
 /* The selectors are a link-unit contract, not an inferred lookup table. */
 .section .rodata, "a", %progbits
 .balign 4
@@ -276,16 +350,10 @@ dll_contest_common_selectors:
     .word 5, 6, 7, 8, 9, 10
 .size dll_contest_common_selectors, . - dll_contest_common_selectors
 
-/* Sole writable module-global pointer used by the supported control entry. */
+/* Sole writable module-global pointer used by the control entry. */
 .section .data, "aw", %progbits
 .balign 4
 .type dll_contest_common_global, %object
 dll_contest_common_global:
     .word 0
 .size dll_contest_common_global, . - dll_contest_common_global
-
-/*
- * The non-contiguous module control entry is intentionally absent.  Its
- * selector >= 5 path has no semantic contract, so claiming the surrounding
- * gap would invent behavior and violate the fail-closed partition.
- */
