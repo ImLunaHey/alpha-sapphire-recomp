@@ -3,13 +3,4 @@
 # TextSize,00000A14
 Location,Name,Namespace,Mode,Size,Segment
 00000158,"func_00000158","Global",$a,0000022C,".text"
-00000394,"func_00000394","Global",$a,0000000C,".text"
-000003A0,"func_000003A0","Global",$a,00000008,".text"
-000003A8,"func_000003A8","Global",$a,000000EC,".text"
 00000494,"func_00000494","Global",$a,00000130,".text"
-000005D0,"func_000005D0","Global",$a,0000008C,".text"
-0000065C,"func_0000065C","Global",$a,00000038,".text"
-0000087C,"func_0000087C","Global",$a,00000054,".text"
-000008DC,"func_000008DC","Global",$a,00000050,".text"
-00000938,"func_00000938","Global",$a,00000020,".text"
-00000964,"func_00000964","Global",$a,00000014,".text"
