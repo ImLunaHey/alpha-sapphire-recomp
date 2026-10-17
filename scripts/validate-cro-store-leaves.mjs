@@ -10,9 +10,10 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,offset,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPssMessageWindow"];
+const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPssFavorite", "DllPssMessageWindow"];
 const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S",
-  "src/cro/DllHologramMail.c", "src/cro/DllPssMessageWindow.c"];
+  "src/cro/DllHologramMail.c", "src/cro/DllPssFavorite.c",
+  "src/cro/DllPssMessageWindow.c"];
 
 function fail(message) {
   throw new Error(`CRO store-leaf validation: ${message}`);
