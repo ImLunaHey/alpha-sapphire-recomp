@@ -29,6 +29,7 @@ const UNIT = "cro/DllPoke3Select";
 const STEM = "DllPoke3Select";
 const TARGET_SIZE = 45056;
 const TARGET_SHA256 = "3e32bd9eaba44de96f06246ea9900c2ff7e8211ae55487d26b59bad98a94a3cb";
+const UNIT_MANIFEST_SHA256 = "ae2c9b80c5db4a7f099ed98d45cf292c77a87353bfaa9cafc5ea66192dd7d92e";
 const QUARANTINE_SHA256 = "4ea43161318d8a757426537974af0d108c9fddb8b2ed802159de4e9ee5aa26e5";
 const BLOCKER_COMMIT = "a1ee50288f7bda1ac801775f5fb00a5c6364a8e7";
 const REJECTED = Object.freeze({
@@ -142,18 +143,6 @@ function canonicalPath(root, relativePath, allowMissing = false) {
   const candidate = resolve(canonicalRoot, relativePath);
   check(relative(canonicalRoot, candidate) !== ".."
     && !relative(canonicalRoot, candidate).startsWith(`..${sep}`), `path escapes repository ROOT: ${relativePath}`);
-  const parts = relativePath.split("/");
-  let cursor = canonicalRoot;
-  for (let index = 0; index < parts.length; index++) {
-    cursor = join(cursor, parts[index]);
-    let stat;
-    try { stat = lstatSync(cursor); } catch (error) {
-      if (allowMissing && error?.code === "ENOENT") return candidate;
-      throw error;
-    }
-    check(!stat.isSymbolicLink(), `${relativePath} traverses a symlink`);
-    if (index < parts.length - 1) check(stat.isDirectory(), `${relativePath} has a non-directory parent`);
-  }
   return candidate;
 }
 
@@ -163,30 +152,62 @@ function sameFileSnapshot(left, right) {
     && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs;
 }
 
-function captureReadLocation(root, relativePath) {
-  const path = canonicalPath(root, relativePath);
+function procDescriptorPath(descriptor, suffix = "") {
+  return `/proc/self/fd/${descriptor}${suffix ? `/${suffix}` : ""}`;
+}
+
+function directoryReadFlags(fsConstants = constants) {
+  const flags = regularReadFlags(fsConstants);
+  check(Number.isInteger(fsConstants.O_DIRECTORY) && fsConstants.O_DIRECTORY !== 0,
+    "O_DIRECTORY is unavailable or unsafe");
+  return flags | fsConstants.O_DIRECTORY;
+}
+
+function captureReadLocation(root, relativePath, allowMissing = false) {
+  const path = canonicalPath(root, relativePath, allowMissing);
   const canonicalRoot = realpathSync(root);
   const parts = relativePath.split("/");
-  const ancestorPaths = [canonicalRoot];
-  let cursor = canonicalRoot;
-  for (const part of parts.slice(0, -1)) {
-    cursor = join(cursor, part);
-    ancestorPaths.push(cursor);
+  const ancestors = [];
+  try {
+    let descriptor = openSync(canonicalRoot, directoryReadFlags());
+    let expected = canonicalRoot;
+    for (const part of [null, ...parts.slice(0, -1)]) {
+      if (part !== null) {
+        expected = join(expected, part);
+        try { descriptor = openSync(procDescriptorPath(descriptor, part), directoryReadFlags()); }
+        catch (error) {
+          if (allowMissing && error?.code === "ENOENT") return { path, ancestors, missing: true };
+          if (error?.code === "ELOOP" || error?.code === "ENOTDIR")
+            fail(`${relativePath} traverses a symlink or non-directory ancestor`);
+          throw error;
+        }
+      }
+      const stat = fstatSync(descriptor);
+      const ancestor = { descriptor, expected, stat };
+      ancestors.push(ancestor);
+      check(stat.isDirectory() && realpathSync(procDescriptorPath(descriptor)) === expected,
+        `${relativePath} has a noncanonical ancestor`);
+    }
+    const leafPath = procDescriptorPath(ancestors.at(-1).descriptor, parts.at(-1));
+    let leaf;
+    try { leaf = lstatSync(leafPath); } catch (error) {
+      if (allowMissing && error?.code === "ENOENT") return { path, ancestors, leafPath, missing: true };
+      throw error;
+    }
+    check(!leaf.isSymbolicLink(), `${relativePath} leaf is a symlink`);
+    return { path, ancestors, leafPath, leaf };
+  } catch (error) {
+    for (const ancestor of ancestors.reverse()) closeSync(ancestor.descriptor);
+    throw error;
   }
-  const ancestors = ancestorPaths.map((ancestorPath) => {
-    const stat = lstatSync(ancestorPath);
-    check(stat.isDirectory() && !stat.isSymbolicLink(),
-      `${relativePath} has a noncanonical ancestor ${ancestorPath}`);
-    return { path: ancestorPath, stat };
-  });
-  return { path, ancestors };
 }
 
 function validateAncestorSnapshots(location, relativePath) {
   for (const ancestor of location.ancestors) {
-    const stat = lstatSync(ancestor.path);
-    check(stat.isDirectory() && !stat.isSymbolicLink()
-      && sameFileSnapshot(ancestor.stat, stat), `${relativePath} ancestor changed during validation`);
+    const stat = fstatSync(ancestor.descriptor);
+    check(stat.isDirectory() && sameFileSnapshot(ancestor.stat, stat)
+      && realpathSync(procDescriptorPath(ancestor.descriptor)) === ancestor.expected,
+    `${relativePath} ancestor changed during validation`);
   }
 }
 
@@ -210,10 +231,14 @@ function readRegular(root, relativePath, hooks = {}) {
   let descriptor;
   try {
     validateAncestorSnapshots(location, relativePath);
-    descriptor = openSync(path, flags);
+    validateOpenStat(location.leaf, relativePath);
+    descriptor = openSync(location.leafPath, flags);
     validateAncestorSnapshots(location, relativePath);
     const opened = fstatSync(descriptor);
     validateOpenStat(opened, relativePath);
+    check(sameFileSnapshot(location.leaf, opened)
+      && realpathSync(procDescriptorPath(descriptor)) === path,
+    `${relativePath} leaf changed between snapshot and open`);
     hooks.afterOpen?.({ descriptor, path });
     const before = fstatSync(descriptor);
     validateOpenStat(before, relativePath);
@@ -233,8 +258,7 @@ function readRegular(root, relativePath, hooks = {}) {
       `${relativePath} changed during read`);
     hooks.afterRead?.({ descriptor, path });
     validateAncestorSnapshots(location, relativePath);
-    check(canonicalPath(root, relativePath) === path, `${relativePath} path changed after read`);
-    const finalPath = lstatSync(path);
+    const finalPath = lstatSync(location.leafPath);
     check(finalPath.isFile() && !finalPath.isSymbolicLink() && finalPath.nlink === 1
       && finalPath.dev === after.dev && finalPath.ino === after.ino
       && finalPath.size === after.size && finalPath.mtimeMs === after.mtimeMs
@@ -242,16 +266,18 @@ function readRegular(root, relativePath, hooks = {}) {
     return bytes.toString("utf8");
   } finally {
     if (descriptor !== undefined) closeSync(descriptor);
+    for (const ancestor of location.ancestors.reverse()) closeSync(ancestor.descriptor);
   }
 }
 
 function requireAbsent(root, relativePath) {
-  const path = canonicalPath(root, relativePath, true);
-  try { lstatSync(path); } catch (error) {
-    if (error?.code === "ENOENT") return;
-    throw error;
+  const location = captureReadLocation(root, relativePath, true);
+  try {
+    validateAncestorSnapshots(location, relativePath);
+    check(location.missing, `${relativePath} must be absent`);
+  } finally {
+    for (const ancestor of location.ancestors.reverse()) closeSync(ancestor.descriptor);
   }
-  fail(`${relativePath} must be absent`);
 }
 
 function rejectDuplicateJsonKeys(text, context) {
@@ -354,15 +380,23 @@ function validatePartition(text, csvFunctions = CSV_FUNCTIONS) {
   return partition;
 }
 
-function validateTargetManifest(manifest) {
+function validateTargetManifest(manifest, text) {
+  check(sha256(text) === UNIT_MANIFEST_SHA256, "target unit manifest hash differs from the authoritative inventory");
   check(manifest?.schemaVersion === 1 && manifest.target === "AS_EUR_REV2"
     && Number.isSafeInteger(manifest.unitCount) && Array.isArray(manifest.units)
     && manifest.unitCount === manifest.units.length, "target manifest schema or identity is invalid");
+  const names = new Set(["main/code"]);
+  for (const unit of manifest.units) {
+    exactKeys(unit, ["name", "size", "sha256"], "target manifest unit");
+    check(typeof unit.name === "string" && /^cro\/Dll[A-Za-z0-9_]+$/u.test(unit.name)
+      && !names.has(unit.name), "target manifest unit identity is invalid or duplicated");
+    names.add(unit.name);
+  }
   const entries = manifest.units.filter((unit) => unit?.name === UNIT);
   check(entries.length === 1, "target manifest must contain exactly one unit identity");
-  exactKeys(entries[0], ["name", "size", "sha256"], "target manifest unit");
   check(entries[0].name === UNIT && entries[0].size === TARGET_SIZE
     && entries[0].sha256 === TARGET_SHA256, "target unit metadata differs from the reviewed identity");
+  return [...names].sort();
 }
 
 function validateSourceConfig(config, text) {
@@ -389,6 +423,64 @@ function checkPercent(actual, expected, context) {
   `${context} differs from the derived float serialization`);
 }
 
+function validateUnitAccounting(unit) {
+  check(unit && typeof unit.name === "string" && unit.measures && Array.isArray(unit.sections),
+    "report unit accounting shape is invalid");
+  const functions = unit.functions ?? [];
+  check(Array.isArray(functions), `${unit.name} functions must be an array`);
+  let totalCode = 0, matchedCode = 0, matchedFunctions = 0, fuzzyNumerator = 0;
+  for (const fn of functions) {
+    check(fn && typeof fn.name === "string" && /^func_[0-9A-F]{8}$/u.test(fn.name)
+      && typeof fn.size === "string" && /^\d+$/u.test(fn.size)
+      && typeof fn.address === "string" && /^\d+$/u.test(fn.address)
+      && fn.metadata && Object.keys(fn.metadata).length === 0,
+    `${unit.name} contains invalid function accounting`);
+    const size = Number(fn.size);
+    const fuzzy = numeric(fn.fuzzy_match_percent, `${unit.name}.${fn.name}.fuzzy_match_percent`, 0);
+    check(fuzzy <= 100, `${unit.name}.${fn.name} fuzzy percent exceeds 100`);
+    totalCode += size;
+    fuzzyNumerator += size * fuzzy / 100;
+    if (fuzzy === 100) { matchedCode += size; matchedFunctions++; }
+  }
+  let totalData = 0;
+  const sectionNames = new Set();
+  for (const section of unit.sections) {
+    check(section && typeof section.name === "string" && !sectionNames.has(section.name),
+      `${unit.name} section identity is invalid or duplicated`);
+    sectionNames.add(section.name);
+    if (section.name !== ".text" && !section.name.startsWith(".text."))
+      totalData += numeric(section.size, `${unit.name}.${section.name}.size`, 0);
+  }
+  const measures = unit.measures;
+  check(numeric(measures.total_code, `${unit.name}.total_code`, 0) === totalCode
+    && numeric(measures.total_data, `${unit.name}.total_data`, 0) === totalData
+    && numeric(measures.total_functions, `${unit.name}.total_functions`, 0) === functions.length
+    && numeric(measures.matched_code, `${unit.name}.matched_code`, 0) === matchedCode
+    && numeric(measures.matched_functions, `${unit.name}.matched_functions`, 0) === matchedFunctions
+    && numeric(measures.total_units, `${unit.name}.total_units`, 1) === 1,
+  `${unit.name} measures differ from its sections/functions`);
+  checkPercent(numeric(measures.fuzzy_match_percent, `${unit.name}.fuzzy_match_percent`, 0),
+    expectedPercent(fuzzyNumerator, totalCode), `${unit.name} fuzzy percent`);
+  checkPercent(numeric(measures.matched_code_percent, `${unit.name}.matched_code_percent`, 0),
+    expectedPercent(matchedCode, totalCode), `${unit.name} matched-code percent`);
+  checkPercent(numeric(measures.matched_functions_percent, `${unit.name}.matched_functions_percent`, 0),
+    expectedPercent(matchedFunctions, functions.length), `${unit.name} matched-functions percent`);
+  exactKeys(unit.metadata, typeof unit.metadata?.source_path === "string"
+    ? ["complete", "source_path"] : ["complete"], `${unit.name} metadata`);
+  check(typeof unit.metadata.complete === "boolean", `${unit.name} completion flag is invalid`);
+  const sourcePath = unit.metadata.source_path;
+  if (unit.name === "main/code") check(sourcePath === "src/main", "main/code source path is invalid");
+  else {
+    const expectedSource = `src/${unit.name}`;
+    check((matchedFunctions > 0) === (sourcePath === expectedSource),
+      `${unit.name} source credit differs from exact matched functions`);
+  }
+  if (unit.metadata.complete) check(matchedCode === totalCode && matchedFunctions === functions.length,
+    `${unit.name} is complete without complete code credit`);
+  return { totalCode, totalData, totalFunctions: functions.length, matchedCode, matchedFunctions,
+    fuzzyNumerator, complete: unit.metadata.complete, creditedCro: unit.name.startsWith("cro/") && matchedFunctions > 0 };
+}
+
 function deriveReportAggregates(report) {
   check(Array.isArray(report?.units) && report.units.length > 0, "report units are missing");
   const result = {
@@ -406,23 +498,15 @@ function deriveReportAggregates(report) {
   for (const unit of report.units) {
     check(unit && typeof unit.name === "string" && !names.has(unit.name), "report unit identity is invalid or duplicated");
     names.add(unit.name);
-    const measures = unit.measures ?? {};
-    const totalCode = numeric(measures.total_code, `${unit.name}.total_code`, 0);
-    const totalFunctions = numeric(measures.total_functions, `${unit.name}.total_functions`, 0);
-    const functions = unit.functions ?? [];
-    check(Array.isArray(functions) && totalFunctions === functions.length,
-      `${unit.name} function count differs from its report inventory`);
-    result.totalCode += totalCode;
-    result.totalData += numeric(measures.total_data, `${unit.name}.total_data`, 0);
-    result.totalFunctions += totalFunctions;
-    result.matchedCode += numeric(measures.matched_code, `${unit.name}.matched_code`, 0);
-    const matchedFunctions = numeric(measures.matched_functions, `${unit.name}.matched_functions`, 0);
-    result.matchedFunctions += matchedFunctions;
-    result.fuzzyNumerator += totalCode * numeric(measures.fuzzy_match_percent,
-      `${unit.name}.fuzzy_match_percent`, 0) / 100;
-    if (unit.metadata?.complete === true) result.completeUnits++;
-    if (unit.name.startsWith("cro/") && typeof unit.metadata?.source_path === "string" && matchedFunctions > 0)
-      result.creditedCros++;
+    const accounting = validateUnitAccounting(unit);
+    result.totalCode += accounting.totalCode;
+    result.totalData += accounting.totalData;
+    result.totalFunctions += accounting.totalFunctions;
+    result.matchedCode += accounting.matchedCode;
+    result.matchedFunctions += accounting.matchedFunctions;
+    result.fuzzyNumerator += accounting.fuzzyNumerator;
+    if (accounting.complete) result.completeUnits++;
+    if (accounting.creditedCro) result.creditedCros++;
   }
   return result;
 }
@@ -472,8 +556,11 @@ function expectedSummary(derived) {
     + `authored exact matches; ${completion}`;
 }
 
-function validateReport(report, csvFunctions = CSV_FUNCTIONS) {
+function validateReport(report, csvFunctions = CSV_FUNCTIONS, expectedNames) {
   check(report?.version === 2 && Array.isArray(report.units), "report shape is invalid");
+  check(Array.isArray(expectedNames)
+    && JSON.stringify(report.units.map((unit) => unit?.name).sort()) === JSON.stringify(expectedNames),
+  "report unit names differ from authoritative main/code plus CRO manifest inventory");
   const entries = report.units.filter((unit) => unit?.name === UNIT);
   check(entries.length === 1, "report must contain exactly one unit identity");
   const unit = entries[0];
@@ -581,10 +668,10 @@ function validateTree(root = ROOT) {
   const partitionText = readRegular(root, PARTITION_PATH);
   const csvFunctions = validateCsv(csvText);
   validatePartition(partitionText, csvFunctions);
-  validateTargetManifest(parseJson(manifestText, "target manifest"));
+  const expectedNames = validateTargetManifest(parseJson(manifestText, "target manifest"), manifestText);
   validateSourceConfig(parseJson(configText, "source manifest"), configText);
   const report = parseJson(reportText, "public report");
-  const derived = validateReport(report, csvFunctions);
+  const derived = validateReport(report, csvFunctions, expectedNames);
   validateProject(parseJson(projectText, "project progress"), report, derived);
   validateQuarantine(quarantineText);
   validateActiveContract(contractScript, contractProse);
@@ -619,6 +706,8 @@ function runSelfTests() {
   assert.throws(() => canonicalPath(ROOT, "../escape"), /escapes|noncanonical/u);
   assert.throws(() => regularReadFlags({ O_RDONLY: 0, O_NOFOLLOW: undefined }), /O_NOFOLLOW/u);
   assert.throws(() => regularReadFlags({ O_RDONLY: 0, O_NOFOLLOW: 0 }), /O_NOFOLLOW/u);
+  assert.throws(() => directoryReadFlags({ O_RDONLY: 0, O_NOFOLLOW: 1, O_DIRECTORY: undefined }), /O_DIRECTORY/u);
+  assert.throws(() => directoryReadFlags({ O_RDONLY: 0, O_NOFOLLOW: 1, O_DIRECTORY: 0 }), /O_DIRECTORY/u);
   const temporary = mkdtempSync(join(tmpdir(), "dll-poke3-select-validator-"));
   try {
     writeFileSync(join(temporary, "regular.json"), "{}\n");
@@ -726,13 +815,15 @@ function runSelfTests() {
     "npm run validate:cro-dll-number-input", "npm run validate:cro-dll-number-input-mutated");
   assert.throws(() => validatePackage(mutatedCheck), /NumberInput npm check prefix identity/u);
 
-  const manifest = parseJson(readRegular(ROOT, "progress/units/AS_EUR_REV2.cro.json"), "target manifest");
+  const manifestText = readRegular(ROOT, "progress/units/AS_EUR_REV2.cro.json");
+  const manifest = parseJson(manifestText, "target manifest");
+  const expectedNames = validateTargetManifest(manifest, manifestText);
   for (const [field, value] of [["name", "cro/DllPoke3SelectMutated"], ["size", TARGET_SIZE + 1],
     ["sha256", `0${TARGET_SHA256.slice(1)}`]]) {
     const mutated = clone(manifest);
     const entry = mutated.units.find((unit) => unit.name === UNIT);
     entry[field] = value;
-    assert.throws(() => validateTargetManifest(mutated));
+    assert.throws(() => validateTargetManifest(mutated, JSON.stringify(mutated)));
   }
 
   const quarantine = readRegular(ROOT, "docs/specs/cro/DllPoke3Select_quarantine.md");
@@ -743,6 +834,7 @@ function runSelfTests() {
   }
 
   const report = parseJson(readRegular(ROOT, "progress/reports/AS_EUR_REV2/report.json"), "public report");
+  const project = parseJson(readRegular(ROOT, "progress/project.json"), "project progress");
   for (const mutate of [
     (value) => { value.units.find((unit) => unit.name === UNIT).name = `${UNIT}Mutated`; },
     (value) => { value.units.find((unit) => unit.name === UNIT).measures.total_functions = 24; },
@@ -759,11 +851,32 @@ function runSelfTests() {
   ]) {
     const mutated = clone(report);
     mutate(mutated);
-    assert.throws(() => validateReport(mutated));
+    assert.throws(() => validateReport(mutated, CSV_FUNCTIONS, expectedNames));
   }
 
+  const extraUnit = clone(report);
+  const ghost = clone(extraUnit.units.find((unit) => unit.name.startsWith("cro/")
+    && numeric(unit.measures?.matched_functions, "ghost fixture", 0) === 0));
+  ghost.name = "cro/GhostInjected";
+  extraUnit.units.push(ghost);
+  const extraProject = clone(project);
+  synchronizeAggregateFixture(extraUnit, extraProject);
+  assert.throws(() => validateReport(extraUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
+  const missingUnit = clone(report);
+  missingUnit.units.pop();
+  assert.throws(() => validateReport(missingUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
+  const duplicateUnit = clone(report);
+  duplicateUnit.units[1].name = duplicateUnit.units[2].name;
+  assert.throws(() => validateReport(duplicateUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
+  const coordinatedCredit = clone(report);
+  const unrelatedCredit = coordinatedCredit.units.find((unit) => unit.name !== UNIT
+    && numeric(unit.measures?.matched_functions, "credit fixture", 0) > 0);
+  unrelatedCredit.measures.matched_functions += 1;
+  coordinatedCredit.measures.matched_functions += 1;
+  assert.throws(() => validateReport(coordinatedCredit, CSV_FUNCTIONS, expectedNames), /sections\/functions/u);
+
   const unrelatedReport = clone(report);
-  const unrelatedProject = clone(parseJson(readRegular(ROOT, "progress/project.json"), "project progress"));
+  const unrelatedProject = clone(project);
   const originalDerived = deriveReportAggregates(unrelatedReport);
   const unrelated = unrelatedReport.units.find((unit) => unit.name === "cro/DllBackGround");
   check(unrelated && typeof unrelated.metadata?.source_path === "string"
@@ -777,6 +890,7 @@ function runSelfTests() {
     "positive fixture matched code") - removedBytes);
   unrelated.measures.matched_functions = numeric(unrelated.measures.matched_functions,
     "positive fixture matched functions") - 1;
+  delete unrelated.metadata.source_path;
   const unrelatedTotalCode = numeric(unrelated.measures.total_code, "positive fixture total code");
   const unrelatedTotalFunctions = numeric(unrelated.measures.total_functions, "positive fixture total functions");
   unrelated.measures.matched_code_percent = expectedPercent(Number(unrelated.measures.matched_code), unrelatedTotalCode);
@@ -792,7 +906,7 @@ function runSelfTests() {
   assert.match(unrelatedProject.summary,
     new RegExp(`${derivedCreditedWords[0].toUpperCase()}${derivedCreditedWords.slice(1)} CRO units`, "u"));
   assert.doesNotThrow(() => {
-    const checked = validateReport(unrelatedReport);
+    const checked = validateReport(unrelatedReport, CSV_FUNCTIONS, expectedNames);
     validateProject(unrelatedProject, unrelatedReport, checked);
     assert.deepEqual(checked, unrelatedDerived);
   });
