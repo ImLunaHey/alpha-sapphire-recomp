@@ -1,60 +1,129 @@
 #!/usr/bin/env node
 
-import { lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
-import { join } from "node:path";
+import { createHash } from "node:crypto";
+import { lstatSync, mkdirSync, mkdtempSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const UNIT = "DllFieldEventScreenEffect";
 const REPORT_UNIT = `cro/${UNIT}`;
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
+const REVIEWED_INPUTS = Object.freeze({
+  manifest: Object.freeze({ path: "progress/units/AS_EUR_REV2.cro.json", sha256: "ae2c9b80c5db4a7f099ed98d45cf292c77a87353bfaa9cafc5ea66192dd7d92e" }),
+  inventory: Object.freeze({ path: `symbols/cro/${UNIT}.csv`, sha256: "31cfe4ecad63347f637f7df7153fdd2f6865de3eddacb829f1f13f7cb8b9b3aa" }),
+  partition: Object.freeze({ path: `symbols/cro-partitions/${UNIT}.json`, sha256: "024f2a3ac76b4d5258d114f99a120bc8107bdb60026e59f84375023d1fddb0ce" }),
+  report: Object.freeze({ path: "progress/reports/AS_EUR_REV2/report.json", sha256: "59c35c5fdac6943e5c0c19e3568028e9cb92b40008ed9060f82b3d2590cc2f41" }),
+  specification: Object.freeze({ path: `docs/specs/cro/${UNIT}.md`, sha256: "383d88c33b767636fdd6a8253ba8d52fa87faf0e318617173f8ee970f9ab34dd" }),
+  config: Object.freeze({ path: "config/cro-sources.json", sha256: "3341229fc96ffd03bbd12786154502976be2dbc22a1ad7aefeab1d31375a0696" }),
+});
 
-function fail(message) {
-  throw new Error(`CRO ${UNIT} validation: ${message}`);
-}
-
-function check(condition, message) {
-  if (!condition) fail(message);
-}
-
-function readRegularFile(path, label) {
-  let details;
-  try {
-    details = lstatSync(path);
-  } catch (error) {
-    fail(`${label} is unavailable: ${error.message}`);
-  }
-  check(details.isFile() && !details.isSymbolicLink(), `${label} is not a regular owned file`);
-  check(statSync(path).size <= MAX_INPUT_SIZE, `${label} exceeds the input-size limit`);
-  return readFileSync(path, "utf8");
-}
-
-function readJson(path, label) {
-  try {
-    return JSON.parse(readRegularFile(path, label));
-  } catch (error) {
-    if (error.message.startsWith(`CRO ${UNIT} validation:`)) throw error;
-    fail(`${label} is not valid JSON: ${error.message}`);
-  }
-}
+function fail(message) { throw new Error(`CRO ${UNIT} validation: ${message}`); }
+function check(condition, message) { if (!condition) fail(message); }
+function sha256(text) { return createHash("sha256").update(text).digest("hex"); }
 
 function exactKeys(value, keys, label) {
   check(value !== null && typeof value === "object" && !Array.isArray(value), `${label} is not an object`);
   check(Object.keys(value).sort().join(",") === [...keys].sort().join(","), `${label} schema changed`);
 }
 
-function validateManifest() {
-  const manifest = readJson(join(ROOT, "progress", "units", "AS_EUR_REV2.cro.json"), "public CRO manifest");
-  const units = manifest.units?.filter((entry) => entry?.name === REPORT_UNIT) ?? [];
-  check(units.length === 1, `manifest must contain exactly one ${REPORT_UNIT} unit`);
-  check(units[0].size === 12288, "published container size changed");
-  check(typeof units[0].sha256 === "string" && /^[0-9a-f]{64}$/u.test(units[0].sha256),
-    "published unit identity is malformed");
+function rejectDuplicateJsonKeys(text, label) {
+  const stack = [];
+  for (let index = 0; index < text.length;) {
+    const character = text[index];
+    if (character === "{") { stack.push({ type: "object", keys: new Set() }); index += 1; continue; }
+    if (character === "[") { stack.push({ type: "array" }); index += 1; continue; }
+    if (character === "}" || character === "]") { stack.pop(); index += 1; continue; }
+    if (character !== '"') { index += 1; continue; }
+    const start = index;
+    index += 1;
+    let escaped = false;
+    while (index < text.length) {
+      const current = text[index];
+      index += 1;
+      if (escaped) escaped = false;
+      else if (current === "\\") escaped = true;
+      else if (current === '"') break;
+    }
+    check(text[index - 1] === '"', `${label} has an unterminated string`);
+    let cursor = index;
+    while (/\s/u.test(text[cursor] ?? "")) cursor += 1;
+    if (text[cursor] !== ":") continue;
+    const owner = stack.at(-1);
+    check(owner?.type === "object", `${label} has a key outside an object`);
+    let key;
+    try { key = JSON.parse(text.slice(start, index)); }
+    catch { fail(`${label} contains an invalid key`); }
+    check(!owner.keys.has(key), `${label} contains duplicate key ${key}`);
+    owner.keys.add(key);
+  }
 }
 
-function validateInventory() {
-  const inventory = readRegularFile(join(ROOT, "symbols", "cro", `${UNIT}.csv`), "neutral function inventory");
-  const lines = inventory.trimEnd().split(/\r?\n/u);
+function canonicalRoot(root) {
+  const absolute = resolve(root);
+  let details;
+  try { details = lstatSync(absolute); }
+  catch (error) { fail(`repository root is unavailable: ${error.message}`); }
+  check(details.isDirectory() && !details.isSymbolicLink() && realpathSync(absolute) === absolute,
+    "repository root is not a canonical non-symlink directory");
+  return absolute;
+}
+
+function readOwnedRegularFile(root, input, label) {
+  const ownedRoot = canonicalRoot(root);
+  check(!isAbsolute(input.path), `${label} path is not repository-relative`);
+  const path = resolve(ownedRoot, input.path);
+  const displacement = relative(ownedRoot, path);
+  check(displacement !== "" && displacement !== ".." && !displacement.startsWith(`..${sep}`) && !isAbsolute(displacement),
+    `${label} escapes the repository root`);
+  const components = displacement.split(sep);
+  let cursor = ownedRoot;
+  for (const [index, component] of components.entries()) {
+    cursor = join(cursor, component);
+    let details;
+    try { details = lstatSync(cursor); }
+    catch (error) { fail(`${label} is unavailable: ${error.message}`); }
+    check(!details.isSymbolicLink(), `${label} has a symbolic-link path component`);
+    if (index === components.length - 1) {
+      check(details.isFile(), `${label} is not a regular owned file`);
+      check(details.size <= MAX_INPUT_SIZE, `${label} exceeds the input-size limit`);
+    } else check(details.isDirectory(), `${label} ancestor is not a directory`);
+    check(realpathSync(cursor) === cursor, `${label} path is not canonical`);
+  }
+  return readFileSync(path, "utf8");
+}
+
+function readReviewedText(root, key, label) {
+  const input = REVIEWED_INPUTS[key];
+  const text = readOwnedRegularFile(root, input, label);
+  check(sha256(text) === input.sha256, `${label} whole-file identity changed`);
+  return text;
+}
+
+function readReviewedJson(root, key, label) {
+  const input = REVIEWED_INPUTS[key];
+  const text = readOwnedRegularFile(root, input, label);
+  rejectDuplicateJsonKeys(text, label);
+  check(sha256(text) === input.sha256, `${label} whole-file identity changed`);
+  try { return JSON.parse(text); }
+  catch (error) { fail(`${label} is not valid JSON: ${error.message}`); }
+}
+
+function validateManifest(root) {
+  const manifest = readReviewedJson(root, "manifest", "public CRO manifest");
+  exactKeys(manifest, ["schemaVersion", "target", "unitCount", "units"], "public CRO manifest");
+  check(manifest.schemaVersion === 1 && manifest.target === "AS_EUR_REV2" && Number.isSafeInteger(manifest.unitCount) &&
+    Array.isArray(manifest.units) && manifest.units.length === manifest.unitCount, "public CRO manifest identity changed");
+  const units = manifest.units.filter((entry) => entry?.name === REPORT_UNIT);
+  check(units.length === 1, `manifest must contain exactly one ${REPORT_UNIT} unit`);
+  exactKeys(units[0], ["name", "sha256", "size"], "public CRO manifest unit");
+  check(units[0].size === 12288 && typeof units[0].sha256 === "string" && /^[0-9a-f]{64}$/u.test(units[0].sha256),
+    "published unit identity changed");
+}
+
+function validateInventory(root) {
+  const lines = readReviewedText(root, "inventory", "neutral function inventory").trimEnd().split(/\r?\n/u);
   check(lines[0] === "# Format,CRO_FUNCTIONS_V1", "inventory format changed");
   check(lines[1] === `# Module,${REPORT_UNIT}`, "inventory module changed");
   check(lines[2] === "# TextSize,00000850", "inventory text extent changed");
@@ -62,26 +131,23 @@ function validateInventory() {
   check(lines.length === 4, "inventory must remain free of accepted function boundaries");
 }
 
-function validatePartition() {
-  const partition = readJson(join(ROOT, "symbols", "cro-partitions", `${UNIT}.json`), "text partition");
-  exactKeys(partition, ["format", "module", "textSize", "functions", "gaps", "pools", "unknown"],
-    "text partition");
+function validatePartition(root) {
+  const partition = readReviewedJson(root, "partition", "text partition");
+  exactKeys(partition, ["format", "module", "textSize", "functions", "gaps", "pools", "unknown"], "text partition");
   check(partition.format === 1 && partition.module === UNIT && partition.textSize === 2128,
     "partition identity or text extent changed");
   check(Array.isArray(partition.functions) && partition.functions.length === 0,
     "partition must remain free of accepted functions");
-
   const expected = new Map([
-    ["gaps", [37, 1840]],
-    ["pools", [37, 224]],
-    ["unknown", [2, 64]],
+    ["gaps", [37, 1840, ["address", "mode", "size"]]],
+    ["pools", [37, 224, ["address", "size"]]],
+    ["unknown", [2, 64, ["address", "size"]]],
   ]);
   const intervals = [];
-  for (const [name, [count, bytes]] of expected) {
-    check(Array.isArray(partition[name]) && partition[name].length === count,
-      `partition ${name} count changed`);
-    check(partition[name].reduce((sum, entry) => sum + entry.size, 0) === bytes,
-      `partition ${name} byte total changed`);
+  for (const [name, [count, bytes, schema]] of expected) {
+    check(Array.isArray(partition[name]) && partition[name].length === count, `partition ${name} count changed`);
+    check(partition[name].reduce((sum, entry) => sum + entry.size, 0) === bytes, `partition ${name} byte total changed`);
+    for (const [index, entry] of partition[name].entries()) exactKeys(entry, schema, `partition ${name} entry ${index}`);
     intervals.push(...partition[name]);
   }
   intervals.sort((left, right) => left.address - right.address);
@@ -95,49 +161,128 @@ function validatePartition() {
   check(cursor === partition.textSize, "partition does not cover the complete text extent");
 }
 
-function validateSourceRegistry() {
-  const registry = readJson(join(ROOT, "config", "cro-sources.json"), "CRO source registry");
-  check(Array.isArray(registry.units), "CRO source registry lacks a units array");
-  check(!registry.units.some((entry) => entry?.name === UNIT),
-    "blocked unit unexpectedly has an authored-source claim");
+function validateSourceRegistry(root) {
+  const registry = readReviewedJson(root, "config", "CRO source registry");
+  exactKeys(registry, ["schemaVersion", "units"], "CRO source registry");
+  check(registry.schemaVersion === 1 && Array.isArray(registry.units), "CRO source registry identity changed");
+  check(!registry.units.some((entry) => entry?.name === UNIT), "blocked unit unexpectedly has an authored-source claim");
 }
 
-function validateReport() {
-  const report = readJson(join(ROOT, "progress", "reports", "AS_EUR_REV2", "report.json"),
-    "checked-in objdiff report");
-  const units = report.units?.filter((entry) => entry?.name === REPORT_UNIT) ?? [];
-  check(units.length === 1, `report must contain exactly one ${REPORT_UNIT} unit`);
-  const unit = units[0];
-  check(unit.metadata?.complete === false && unit.metadata.source_path === undefined,
-    "report completion or source ownership is not fail-closed");
-  check(!Array.isArray(unit.functions) || unit.functions.length === 0,
-    "report unexpectedly credits an accepted function");
-  check(unit.measures?.fuzzy_match_percent === 0 && unit.measures?.matched_code_percent === 0 &&
-    unit.measures?.matched_functions_percent === 0 && unit.measures?.complete_code_percent === 0 &&
-    unit.measures?.total_data === "316" && unit.measures?.total_units === 1,
-  "report measures no longer describe the blocked zero-credit unit");
-
-  const sections = new Map(unit.sections?.map((entry) => [entry.name, entry.size]));
-  const expected = new Map([
-    [".text", "1840"],
-    [".pool", "224"],
-    [".rodata", "72"],
-    [".data", "4"],
-    [".bss", "16"],
-  ]);
-  check(sections.size === expected.size, "report section set changed");
-  for (const [name, size] of expected) {
-    check(sections.get(name) === size, `report ${name} accounting changed`);
+function validateSpecification(root) {
+  const specification = readReviewedText(root, "specification", "analysis handoff");
+  for (const marker of ["AS_EUR_REV2", "2026-10-17", "independent ANALYSIS only", "No target-analysis engine started",
+    "Deterministic whole-unit proof remains blocked"]) {
+    check(specification.includes(marker), `analysis handoff lacks ${marker}`);
   }
 }
 
+function validateReport(root) {
+  const report = readReviewedJson(root, "report", "checked-in objdiff report");
+  exactKeys(report, ["version", "measures", "units"], "checked-in objdiff report");
+  const units = report.units?.filter((entry) => entry?.name === REPORT_UNIT) ?? [];
+  check(units.length === 1, `report must contain exactly one ${REPORT_UNIT} unit`);
+  const unit = units[0];
+  exactKeys(unit, ["name", "metadata", "measures", "sections"], "report unit");
+  exactKeys(unit.metadata, ["complete"], "report metadata");
+  check(unit.metadata.complete === false, "report completion is not fail-closed");
+  check(!("functions" in unit), "report unexpectedly contains a function inventory");
+  exactKeys(unit.measures, ["fuzzy_match_percent", "matched_code_percent", "matched_functions_percent",
+    "complete_code_percent", "total_data", "total_units"], "report measures");
+  check(unit.measures.fuzzy_match_percent === 0 && unit.measures.matched_code_percent === 0 &&
+    unit.measures.matched_functions_percent === 0 && unit.measures.complete_code_percent === 0 &&
+    unit.measures.total_data === "316" && unit.measures.total_units === 1,
+  "report measures no longer describe the blocked zero-credit unit");
+  const expected = new Map([[".text", "1840"], [".pool", "224"], [".rodata", "72"], [".data", "4"], [".bss", "16"]]);
+  check(Array.isArray(unit.sections) && unit.sections.length === expected.size, "report section set changed");
+  const seen = new Set();
+  for (const section of unit.sections) {
+    exactKeys(section, ["name", "size", "metadata"], `report section ${section.name}`);
+    check(!seen.has(section.name) && expected.get(section.name) === section.size && section.metadata !== null &&
+      Object.keys(section.metadata).length === 0, `report ${section.name} accounting or metadata changed`);
+    seen.add(section.name);
+  }
+  check([...expected.keys()].every((name) => seen.has(name)), "report section set is incomplete");
+}
+
+function validateReviewedState(root) {
+  validateManifest(root);
+  validateInventory(root);
+  validatePartition(root);
+  validateSourceRegistry(root);
+  validateSpecification(root);
+  validateReport(root);
+}
+
+function copyReviewedFixture(destination) {
+  for (const input of Object.values(REVIEWED_INPUTS)) {
+    const target = join(destination, input.path);
+    mkdirSync(dirname(target), { recursive: true });
+    writeFileSync(target, readFileSync(join(ROOT, input.path)));
+  }
+}
+
+function expectFixtureFailure(name, mutate, expectedMessage) {
+  const fixture = mkdtempSync(join(tmpdir(), "screen-effect-validator-"));
+  const external = mkdtempSync(join(tmpdir(), "screen-effect-external-"));
+  try {
+    copyReviewedFixture(fixture);
+    mutate(fixture, external);
+    let message = "";
+    try { validateReviewedState(fixture); }
+    catch (error) { message = error.message; }
+    check(expectedMessage.test(message), `self-test ${name} did not fail closed: ${message || "no error"}`);
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+    rmSync(external, { recursive: true, force: true });
+  }
+}
+
+function append(path) { writeFileSync(path, `${readFileSync(path, "utf8")} `); }
+
+function runSelfTests() {
+  const baseline = mkdtempSync(join(tmpdir(), "screen-effect-baseline-"));
+  try { copyReviewedFixture(baseline); validateReviewedState(baseline); }
+  finally { rmSync(baseline, { recursive: true, force: true }); }
+
+  expectFixtureFailure("ancestor symlink escape", (fixture, external) => {
+    const owned = join(fixture, "symbols", "cro-partitions");
+    const escaped = join(external, "cro-partitions");
+    renameSync(owned, escaped);
+    symlinkSync(escaped, owned, "dir");
+  }, /symbolic-link path component/u);
+  expectFixtureFailure("duplicate JSON key", (fixture) => {
+    const path = join(fixture, REVIEWED_INPUTS.partition.path);
+    writeFileSync(path, readFileSync(path, "utf8").replace("{", '{"module":"duplicate",'));
+  }, /duplicate key module/u);
+  expectFixtureFailure("manifest identity mutation", (fixture) => {
+    const path = join(fixture, REVIEWED_INPUTS.manifest.path);
+    const manifest = JSON.parse(readFileSync(path, "utf8"));
+    manifest.units.find((entry) => entry.name === REPORT_UNIT).sha256 = "0".repeat(64);
+    writeFileSync(path, `${JSON.stringify(manifest, null, 2)}\n`);
+  }, /whole-file identity changed/u);
+  expectFixtureFailure("inventory identity mutation", (fixture) => {
+    append(join(fixture, REVIEWED_INPUTS.inventory.path));
+  }, /whole-file identity changed/u);
+  expectFixtureFailure("coordinated partition and report mutations", (fixture) => {
+    append(join(fixture, REVIEWED_INPUTS.partition.path));
+    append(join(fixture, REVIEWED_INPUTS.report.path));
+  }, /whole-file identity changed/u);
+  expectFixtureFailure("handoff identity mutation", (fixture) => {
+    append(join(fixture, REVIEWED_INPUTS.specification.path));
+  }, /whole-file identity changed/u);
+  expectFixtureFailure("source registry identity mutation", (fixture) => {
+    append(join(fixture, REVIEWED_INPUTS.config.path));
+  }, /whole-file identity changed/u);
+}
+
 try {
-  validateManifest();
-  validateInventory();
-  validatePartition();
-  validateSourceRegistry();
-  validateReport();
+  const argv = process.argv.slice(2);
+  check(argv.length === 0 || (argv.length === 1 && argv[0] === "--self-test"),
+    "usage: validate-cro-dll-field-event-screen-effect.mjs [--self-test]");
+  if (argv[0] === "--self-test") runSelfTests();
+  validateReviewedState(ROOT);
   console.log(`Validated ${REPORT_UNIT}: zero accepted functions, zero match credit, completion remains false.`);
+  if (argv[0] === "--self-test") console.log("Hostile input self-tests passed.");
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
