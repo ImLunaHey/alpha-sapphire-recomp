@@ -98,6 +98,7 @@ const [
   ipcTemplates94Path,
   ipcTemplates95Path,
   ipcTemplates96Path,
+  ipcTemplates97Path,
   duplicateTemplates19Path,
   duplicateTemplates21Path,
   duplicateTemplates22Path,
@@ -186,6 +187,7 @@ const [
   runtimeHelpers101Path,
   runtimeHelpers102Path,
   runtimeHelpers103Path,
+  runtimeHelpers104Path,
   thumbLeafHelpers03Path,
   thumbLeafHelpers04Path,
   thumbLeafHelpers05Path,
@@ -201,6 +203,7 @@ const [
   thumbLeafHelpers15Path,
   thumbLeafHelpers16Path,
   thumbLeafHelpers17Path,
+  thumbLeafHelpers18Path,
   literalIdentitiesPath,
   targetConfigPath,
 ] = process.argv.slice(2);
@@ -297,6 +300,7 @@ if (
   !ipcTemplates94Path ||
   !ipcTemplates95Path ||
   !ipcTemplates96Path ||
+  !ipcTemplates97Path ||
   !duplicateTemplates19Path ||
   !duplicateTemplates21Path ||
   !duplicateTemplates22Path ||
@@ -385,6 +389,7 @@ if (
   !runtimeHelpers101Path ||
   !runtimeHelpers102Path ||
   !runtimeHelpers103Path ||
+  !runtimeHelpers104Path ||
   !thumbLeafHelpers03Path ||
   !thumbLeafHelpers04Path ||
   !thumbLeafHelpers05Path ||
@@ -400,6 +405,7 @@ if (
   !thumbLeafHelpers15Path ||
   !thumbLeafHelpers16Path ||
   !thumbLeafHelpers17Path ||
+  !thumbLeafHelpers18Path ||
   !literalIdentitiesPath ||
   !targetConfigPath
 ) {
@@ -25282,6 +25288,147 @@ if (JSON.stringify(thumbLeafHelpers17Config.directCalls.map(({ offset, destinati
   throw new Error("Thumb leaf/helper 17 external entry ownership contract is invalid");
 }
 
+// Wave 18 is likewise source-driven. Pin all three public inputs independently,
+// and retain ownership of IPC 97's literal pool and Runtime 104's adjacent words.
+function wave18Stable(value) {
+  if (Array.isArray(value)) return `[${value.map(wave18Stable).join(",")}]`;
+  if (value !== null && typeof value === "object") {
+    return `{${Object.keys(value).sort().map((key) =>
+      `${JSON.stringify(key)}:${wave18Stable(value[key])}`).join(",")}}`;
+  }
+  return JSON.stringify(value);
+}
+
+function wave18PinnedConfig(configPath, rawHash, contractHash, sourceHash, label) {
+  const bytes = readFileSync(configPath);
+  if (createHash("sha256").update(bytes).digest("hex") !== rawHash) {
+    throw new Error(`Unexpected ${label} exact neutral manifest bytes`);
+  }
+  const config = JSON.parse(bytes);
+  const normalized = structuredClone(config);
+  normalized.sourceHash = null;
+  if (createHash("sha256").update(wave18Stable(normalized)).digest("hex") !== contractHash) {
+    throw new Error(`Unexpected ${label} normalized neutral manifest contract`);
+  }
+  const sourceBytes = readFileSync(join(root, config.source));
+  if (config.sourceHash !== sourceHash ||
+      createHash("sha256").update(sourceBytes).digest("hex") !== sourceHash) {
+    throw new Error(`Unexpected ${label} exact implementation source bytes`);
+  }
+  return { config, source: sourceBytes.toString("utf8") };
+}
+
+const { config: ipcTemplates97Config, source: ipcTemplates97Source } = wave18PinnedConfig(
+  ipcTemplates97Path,
+  "193cfac0ab3b30d8df2e16d8112124d467c294c9dc82e3e93a20dec82ff31bbc",
+  "15833310b27ecd0b031ca84721423783f1fc50b175b9cd0065127693e99ad2e4",
+  "e465ac8e87480b96d9f1c413017b97c2848c5e4c07a985222caa1f444d58e43d",
+  "IPC wrapper 97");
+if (ipcTemplates97Config.schemaVersion !== 1 || ipcTemplates97Config.architecture !== "ARMv6K" ||
+    ipcTemplates97Config.mode !== "arm" || ipcTemplates97Config.source !== "src/main/arm_ipc_wrappers_97.S" ||
+    ipcTemplates97Config.totalBodySize !== 200 || ipcTemplates97Config.totalAdjacentSize !== 8 ||
+    ipcTemplates97Config.cumulativePoolSlots !== 894 || ipcTemplates97Config.cumulativePoolClasses !== 471 ||
+    ipcTemplates97Config.functions?.length !== 1 || ipcTemplates97Config.literalIdentities?.length !== 2 ||
+    ipcTemplates97Config.reusedLiteralIdentities?.length !== 0 ||
+    JSON.stringify(ipcTemplates97Config.newLiteralIdentities) !==
+      JSON.stringify(["service_object_descriptor_97", "service_object_vtable_97"])) {
+  throw new Error("Unexpected IPC wrapper 97 exact neutral positional manifest format");
+}
+const ipcTemplates97 = new Map();
+const ipcTemplate97SemanticBodies = new Map();
+for (const mapping of ipcTemplates97Config.functions) {
+  const lines = ipcTemplates97Source.split(/\r?\n/);
+  const begin = lines.findIndex((line) => line.trim() === `${mapping.name}:`);
+  const end = lines.findIndex((line, index) => index > begin && line.trim().startsWith(`.size ${mapping.name},`));
+  const body = lines.slice(begin + 1, end).map((line) => line.trim()).filter(Boolean);
+  const instructions = body.filter((line) => !line.endsWith(":") && !line.startsWith(".reloc"));
+  if (begin < 0 || end <= begin || instructions.length !== mapping.instructionCount ||
+      mapping.section !== `.text.${mapping.name}` || mapping.size !== 200 || mapping.nextGlobalOffset !== 208 ||
+      mapping.literals?.length !== 2 || mapping.literals.some((literal, index) =>
+        literal.offset !== 200 + index * 4 || literal.relocation !== "R_ARM_ABS32" || literal.addend !== 0 ||
+        literal.symbol !== ipcTemplates97Config.literalIdentities[index]) ||
+      mapping.branches?.length !== 5 || mapping.returnOffsets?.length !== 1) {
+    throw new Error(`IPC wrapper 97 ${mapping.name} violates its exact source/pool contract`);
+  }
+  ipcTemplates97.set(mapping.name, mapping);
+  ipcTemplate97SemanticBodies.set(mapping.name, body);
+}
+
+const { config: runtimeHelpers104Config, source: runtimeHelpers104Source } = wave18PinnedConfig(
+  runtimeHelpers104Path,
+  "acbcd37a51d7a99ca2b5b6c2dace202fb36a30b2c58efe81c7db9f1bec59a89c",
+  "6c9d40b0f82546645f80a9c5fd43ef80d80dfdf7a93c01c50edd0e2f4b2849d0",
+  "2cb0e570860e22d70a4473d5e4d2e4a9ef4cc4d838b9e251956e13d89082d954",
+  "ARM runtime helper 104");
+if (runtimeHelpers104Config.schemaVersion !== 1 || runtimeHelpers104Config.architecture !== "ARMv6K" ||
+    runtimeHelpers104Config.mode !== "arm" || runtimeHelpers104Config.minimumAlignment !== 4 ||
+    runtimeHelpers104Config.source !== "src/main/arm_runtime_helpers_104.S" ||
+    runtimeHelpers104Config.totalBodySize !== 128 || runtimeHelpers104Config.totalAdjacentSize !== 20 ||
+    runtimeHelpers104Config.expectedInstructionCount !== 32 || runtimeHelpers104Config.functions?.length !== 5 ||
+    runtimeHelpers104Config.expectedRelocationCount !== 5 || runtimeHelpers104Config.relocations?.length !== 5) {
+  throw new Error("Unexpected ARM runtime helper 104 exact neutral positional manifest format");
+}
+const runtimeHelpers104ByName = new Map();
+const runtimeHelpers104SemanticBodies = new Map();
+const runtimeHelpers104Pending = new Set();
+for (const mapping of runtimeHelpers104Config.functions) {
+  const lines = runtimeHelpers104Source.split(/\r?\n/);
+  const begin = lines.findIndex((line) => line.trim() === `${mapping.name}:`);
+  const bodyEnd = lines.findIndex((line, index) => index > begin &&
+    line.trim() === `.L${mapping.name}_body_end:`);
+  const body = lines.slice(begin + 1, bodyEnd).map((line) => line.trim()).filter(Boolean);
+  const relocs = runtimeHelpers104Config.relocations.filter((entry) => entry.function === mapping.name);
+  if (begin < 0 || bodyEnd <= begin || body.length !== mapping.operations.length ||
+      mapping.size !== mapping.operations.reduce((size, operation) => size + operation.width, 0) ||
+      mapping.ownedSize !== mapping.size + 4 || mapping.adjacentWords?.length !== 1 ||
+      mapping.adjacentWords[0].offset !== mapping.size || mapping.adjacentWords[0].kind !== "R_ARM_ABS32" ||
+      relocs.length !== 1 || relocs[0].offset !== mapping.size || relocs[0].type !== "R_ARM_ABS32" ||
+      relocs[0].symbol !== mapping.adjacentWords[0].symbol || relocs[0].addend !== 0) {
+    throw new Error(`ARM runtime helper 104 ${mapping.name} violates its exact owned relocation contract`);
+  }
+  runtimeHelpers104ByName.set(mapping.name, mapping);
+  runtimeHelpers104SemanticBodies.set(mapping.name, body);
+  runtimeHelpers104Pending.add(mapping.name);
+}
+if (JSON.stringify(runtimeHelpers104Config.reusedSymbolicIdentities) !==
+      JSON.stringify(["service_query_context_86", "duplicate_template_25_shared_type"]) ||
+    JSON.stringify(runtimeHelpers104Config.newSymbolicIdentities) !==
+      JSON.stringify(["runtime_record_descriptor_104_a", "runtime_record_descriptor_104_b"])) {
+  throw new Error("ARM runtime helper 104 symbolic identity partition is invalid");
+}
+
+const { config: thumbLeafHelpers18Config, source: thumbLeafHelpers18Source } = wave18PinnedConfig(
+  thumbLeafHelpers18Path,
+  "c30c82238f95eaa185b41c6e2653fad54b8236007fc2c973fd661f718edd5d52",
+  "2edb89bb20c18b562214a652aacd6436760284872b2c5691e63dc720624d2ca1",
+  "1b5da8d84f24f00c91a42401f389ac652e80b1b178bab6f2532911aac63605ac",
+  "Thumb leaf/helper 18");
+if (thumbLeafHelpers18Config.schemaVersion !== 3 || thumbLeafHelpers18Config.architecture !== "ARMv6K" ||
+    thumbLeafHelpers18Config.mode !== "thumb" || thumbLeafHelpers18Config.minimumAlignment !== 2 ||
+    thumbLeafHelpers18Config.source !== "src/main/thumb_leaf_helpers_18.S" ||
+    thumbLeafHelpers18Config.totalBodySize !== 100 || thumbLeafHelpers18Config.totalAdjacentSize !== 0 ||
+    thumbLeafHelpers18Config.expectedInstructionCount !== 47 || thumbLeafHelpers18Config.directCallCount !== 3 ||
+    thumbLeafHelpers18Config.relocations?.length !== 3 || thumbLeafHelpers18Config.functions?.length !== 1) {
+  throw new Error("Unexpected Thumb leaf/helper 18 exact neutral positional manifest format");
+}
+const thumbLeafHelpers18 = new Map();
+const thumbLeafHelpers18SemanticBodies = new Map();
+for (const mapping of thumbLeafHelpers18Config.functions) {
+  const parsed = wave14SourceBody(thumbLeafHelpers18Source, mapping.name, mapping.instructionCount,
+    "Thumb leaf/helper 18");
+  if (mapping.size !== 100 || mapping.semantics?.length !== mapping.instructionCount ||
+      mapping.semantics.reduce((offset, row) => offset === row.offset ? offset + row.width : -1, 0) !== mapping.size) {
+    throw new Error(`Thumb leaf/helper 18 ${mapping.name} violates its exact semantic contract`);
+  }
+  thumbLeafHelpers18.set(mapping.name, mapping);
+  thumbLeafHelpers18SemanticBodies.set(mapping.name, parsed.body);
+}
+if (JSON.stringify(thumbLeafHelpers18Config.directCalls.map(({ offset, destinationSymbol }) =>
+      [offset, destinationSymbol])) !== JSON.stringify([
+        [24, "func_003027AE"], [30, "func_003026AC"], [80, "func_002FF7EC"]])) {
+  throw new Error("Thumb leaf/helper 18 external entry identity contract is invalid");
+}
+
 const assembly = [
   ".syntax unified",
   ".arch armv6k",
@@ -25385,6 +25532,7 @@ for (const entry of functions) {
   const ipcTemplate94 = ipcTemplates94.get(entry.name);
   const ipcTemplate95 = ipcTemplates95.get(entry.name);
   const ipcTemplate96 = ipcTemplates96.get(entry.name);
+  const ipcTemplate97 = ipcTemplates97.get(entry.name);
   const thumbLeafHelper03 = thumbLeafHelpers03.get(entry.name);
   const thumbLeafHelper04 = thumbLeafHelpers04.get(entry.name);
   const thumbLeafHelper05 = thumbLeafHelpers05.get(entry.name);
@@ -25400,6 +25548,7 @@ for (const entry of functions) {
   const thumbLeafHelper15 = thumbLeafHelpers15.get(entry.name);
   const thumbLeafHelper16 = thumbLeafHelpers16.get(entry.name);
   const thumbLeafHelper17 = thumbLeafHelpers17.get(entry.name);
+  const thumbLeafHelper18 = thumbLeafHelpers18.get(entry.name);
   const duplicateTemplate19 = duplicateTemplates19.get(entry.name);
   const duplicateTemplate21 = duplicateTemplates21.get(entry.name);
   const duplicateTemplate22 = duplicateTemplates22.get(entry.name);
@@ -25488,8 +25637,9 @@ for (const entry of functions) {
   const runtimeHelper101 = runtimeHelpers101ByName.get(entry.name);
   const runtimeHelper102 = runtimeHelpers102ByName.get(entry.name);
   const runtimeHelper103 = runtimeHelpers103ByName.get(entry.name);
+  const runtimeHelper104 = runtimeHelpers104ByName.get(entry.name);
   const instructions = [];
-  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, ipcTemplate27, ipcTemplate28, ipcTemplate29, ipcTemplate30, ipcTemplate31, ipcTemplate32, ipcTemplate33, ipcTemplate34, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateTemplate29, duplicateTemplate30, duplicateTemplate31, duplicateTemplate32, duplicateTemplate33, duplicateTemplate34, duplicateTemplate35, duplicateTemplate36, duplicateTemplate37, duplicateTemplate38, duplicateTemplate39, duplicateTemplate40, duplicateTemplate41, duplicateTemplate42, duplicateTemplate44, duplicateTemplate46, duplicateTemplate47, duplicateTemplate48, duplicateTemplate49, duplicateTemplate52, duplicateTemplate53, duplicateTemplate54, duplicateTemplate55, duplicateTemplate58, duplicateTemplate60, duplicateTemplate62, duplicateTemplate73, duplicateTemplate74, duplicateTemplate75, duplicateTemplate76, duplicateTemplate77, duplicateTemplate78, duplicateTemplate79, duplicateTemplate80, duplicateTemplate81, duplicateTemplate82, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27, runtimeHelper29, runtimeHelper30, runtimeHelper31, runtimeHelper32, runtimeHelper33, runtimeHelper34, runtimeHelper36, runtimeHelper37, runtimeHelper38, runtimeHelper41, runtimeHelper43, runtimeHelper44, runtimeHelper46, runtimeHelper95, runtimeHelper96, runtimeHelper97, runtimeHelper98, runtimeHelper99, runtimeHelper100, runtimeHelper101, runtimeHelper102, runtimeHelper103].filter(Boolean);
+  const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, ipcTemplate27, ipcTemplate28, ipcTemplate29, ipcTemplate30, ipcTemplate31, ipcTemplate32, ipcTemplate33, ipcTemplate34, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateTemplate29, duplicateTemplate30, duplicateTemplate31, duplicateTemplate32, duplicateTemplate33, duplicateTemplate34, duplicateTemplate35, duplicateTemplate36, duplicateTemplate37, duplicateTemplate38, duplicateTemplate39, duplicateTemplate40, duplicateTemplate41, duplicateTemplate42, duplicateTemplate44, duplicateTemplate46, duplicateTemplate47, duplicateTemplate48, duplicateTemplate49, duplicateTemplate52, duplicateTemplate53, duplicateTemplate54, duplicateTemplate55, duplicateTemplate58, duplicateTemplate60, duplicateTemplate62, duplicateTemplate73, duplicateTemplate74, duplicateTemplate75, duplicateTemplate76, duplicateTemplate77, duplicateTemplate78, duplicateTemplate79, duplicateTemplate80, duplicateTemplate81, duplicateTemplate82, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27, runtimeHelper29, runtimeHelper30, runtimeHelper31, runtimeHelper32, runtimeHelper33, runtimeHelper34, runtimeHelper36, runtimeHelper37, runtimeHelper38, runtimeHelper41, runtimeHelper43, runtimeHelper44, runtimeHelper46, runtimeHelper95, runtimeHelper96, runtimeHelper97, runtimeHelper98, runtimeHelper99, runtimeHelper100, runtimeHelper101, runtimeHelper102, runtimeHelper103, runtimeHelper104].filter(Boolean);
   if (ipcTemplate35) configuredMappings.push(ipcTemplate35);
   if (ipcTemplate36) configuredMappings.push(ipcTemplate36);
   if (ipcTemplate37) configuredMappings.push(ipcTemplate37);
@@ -25550,6 +25700,7 @@ for (const entry of functions) {
   if (ipcTemplate94) configuredMappings.push(ipcTemplate94);
   if (ipcTemplate95) configuredMappings.push(ipcTemplate95);
   if (ipcTemplate96) configuredMappings.push(ipcTemplate96);
+  if (ipcTemplate97) configuredMappings.push(ipcTemplate97);
   if (thumbLeafHelper03) configuredMappings.push(thumbLeafHelper03);
   if (thumbLeafHelper04) configuredMappings.push(thumbLeafHelper04);
   if (thumbLeafHelper05) configuredMappings.push(thumbLeafHelper05);
@@ -25565,6 +25716,7 @@ for (const entry of functions) {
   if (thumbLeafHelper15) configuredMappings.push(thumbLeafHelper15);
   if (thumbLeafHelper16) configuredMappings.push(thumbLeafHelper16);
   if (thumbLeafHelper17) configuredMappings.push(thumbLeafHelper17);
+  if (thumbLeafHelper18) configuredMappings.push(thumbLeafHelper18);
   if (duplicateTemplate64) configuredMappings.push(duplicateTemplate64);
   if (duplicateTemplate65) configuredMappings.push(duplicateTemplate65);
   if (duplicateTemplate66) configuredMappings.push(duplicateTemplate66);
@@ -25600,6 +25752,8 @@ for (const entry of functions) {
     instructions.push(...runtimeHelpers102SemanticBodies.get(entry.name));
   } else if (runtimeHelper103) {
     instructions.push(...runtimeHelpers103SemanticBodies.get(entry.name));
+  } else if (runtimeHelper104) {
+    instructions.push(...runtimeHelpers104SemanticBodies.get(entry.name));
   } else if (ipcTemplate86) {
     instructions.push(...ipcTemplate86SemanticBodies.get(entry.name));
   } else if (ipcTemplate87) {
@@ -25622,6 +25776,8 @@ for (const entry of functions) {
     instructions.push(...ipcTemplate95SemanticBodies.get(entry.name));
   } else if (ipcTemplate96) {
     instructions.push(...ipcTemplate96SemanticBodies.get(entry.name));
+  } else if (ipcTemplate97) {
+    instructions.push(...ipcTemplate97SemanticBodies.get(entry.name));
   } else if (thumbLeafHelper06) {
     const localLabels = new Map(thumbLeafHelper06.localTransfers.map((transfer) => {
       const target = transfer.slice(transfer.lastIndexOf(":+") + 2);
@@ -25894,6 +26050,8 @@ for (const entry of functions) {
     instructions.push(...thumbLeafHelpers16SemanticBodies.get(entry.name));
   } else if (thumbLeafHelper17) {
     instructions.push(...thumbLeafHelpers17SemanticBodies.get(entry.name));
+  } else if (thumbLeafHelper18) {
+    instructions.push(...thumbLeafHelpers18SemanticBodies.get(entry.name));
   } else {
     for (let cursor = 0; cursor < entry.size; cursor += alignment) {
       const value = alignment === 4
@@ -28517,6 +28675,13 @@ for (const entry of functions) {
       ? [...new Set(ipcTemplate96.branches.map(({ symbol }) => symbol))]
         .flatMap((symbol) => [`.global ${symbol}`])
       : []),
+    ...(ipcTemplate97
+      ? [
+          ...ipcTemplate97.literals.flatMap(({ symbol }) => [`.word ${symbol}`, `.global ${symbol}`]),
+          ...[...new Set(ipcTemplate97.branches.map(({ symbol }) => symbol))]
+            .flatMap((symbol) => [`.global ${symbol}`]),
+        ]
+      : []),
     ...(thumbLeafHelper03
       ? [...new Set(thumbLeafHelper03.directCalls.map(({ symbol }) => symbol))].flatMap((symbol) => [
           `.global ${symbol}`,
@@ -28593,6 +28758,12 @@ for (const entry of functions) {
       : []),
     ...(thumbLeafHelper17
       ? [...new Set(thumbLeafHelpers17Config.directCalls
+        .filter(({ function: name }) => name === entry.name)
+        .map(({ destinationSymbol }) => destinationSymbol))]
+        .flatMap((symbol) => [`.global ${symbol}`, `.type ${symbol}, %function`])
+      : []),
+    ...(thumbLeafHelper18
+      ? [...new Set(thumbLeafHelpers18Config.directCalls
         .filter(({ function: name }) => name === entry.name)
         .map(({ destinationSymbol }) => destinationSymbol))]
         .flatMap((symbol) => [`.global ${symbol}`, `.type ${symbol}, %function`])
@@ -28784,6 +28955,18 @@ for (const entry of functions) {
           ];
         })
       : []),
+    ...(runtimeHelper104
+      ? runtimeHelper104.adjacentWords.flatMap((word) => {
+          if (word.offset !== runtimeHelper104.size || word.kind !== "R_ARM_ABS32") {
+            throw new Error(`ARM runtime helper 104 ${entry.name} has an invalid adjacent symbolic word`);
+          }
+          return [
+            "1:",
+            `.word ${word.symbol}`,
+            `.global ${word.symbol}`,
+          ];
+        })
+      : []),
     ""
   );
   if (runtimeHelper23) runtimeHelper23Pending = false;
@@ -28813,6 +28996,7 @@ for (const entry of functions) {
   if (runtimeHelper101) runtimeHelpers101Pending.delete(entry.name);
   if (runtimeHelper102) runtimeHelpers102Pending.delete(entry.name);
   if (runtimeHelper103) runtimeHelpers103Pending.delete(entry.name);
+  if (runtimeHelper104) runtimeHelpers104Pending.delete(entry.name);
   duplicateIpcAndTables.delete(entry.name);
   multiIdentityGlobals.delete(entry.name);
   ipcUniqueTemplates.delete(entry.name);
@@ -28898,6 +29082,7 @@ for (const entry of functions) {
   ipcTemplates94.delete(entry.name);
   ipcTemplates95.delete(entry.name);
   ipcTemplates96.delete(entry.name);
+  ipcTemplates97.delete(entry.name);
   thumbLeafHelpers03.delete(entry.name);
   thumbLeafHelpers04.delete(entry.name);
   thumbLeafHelpers05.delete(entry.name);
@@ -28913,6 +29098,7 @@ for (const entry of functions) {
   thumbLeafHelpers15.delete(entry.name);
   thumbLeafHelpers16.delete(entry.name);
   thumbLeafHelpers17.delete(entry.name);
+  thumbLeafHelpers18.delete(entry.name);
   duplicateTemplates19.delete(entry.name);
   duplicateTemplates21.delete(entry.name);
   duplicateTemplates22.delete(entry.name);
@@ -29055,6 +29241,9 @@ if (runtimeHelpers102Pending.size !== 0) {
 }
 if (runtimeHelpers103Pending.size !== 0) {
   throw new Error(`ARM runtime helper 103 mappings missing from the function inventory: ${[...runtimeHelpers103Pending].join(", ")}`);
+}
+if (runtimeHelpers104Pending.size !== 0) {
+  throw new Error(`ARM runtime helper 104 mappings missing from the function inventory: ${[...runtimeHelpers104Pending].join(", ")}`);
 }
 if (branchThunks.size !== 0) {
   throw new Error(
@@ -29334,6 +29523,9 @@ if (ipcTemplates95.size !== 0) {
 if (ipcTemplates96.size !== 0) {
   throw new Error(`IPC wrapper 96 mappings missing from the function inventory: ${[...ipcTemplates96.keys()].join(", ")}`);
 }
+if (ipcTemplates97.size !== 0) {
+  throw new Error(`IPC wrapper 97 mappings missing from the function inventory: ${[...ipcTemplates97.keys()].join(", ")}`);
+}
 if (thumbLeafHelpers03.size !== 0) {
   throw new Error(`Thumb leaf/helper 03 mappings missing from the function inventory: ${[...thumbLeafHelpers03.keys()].join(", ")}`);
 }
@@ -29378,6 +29570,9 @@ if (thumbLeafHelpers16.size !== 0) {
 }
 if (thumbLeafHelpers17.size !== 0) {
   throw new Error(`Thumb leaf/helper 17 mappings missing from the function inventory: ${[...thumbLeafHelpers17.keys()].join(", ")}`);
+}
+if (thumbLeafHelpers18.size !== 0) {
+  throw new Error(`Thumb leaf/helper 18 mappings missing from the function inventory: ${[...thumbLeafHelpers18.keys()].join(", ")}`);
 }
 if (duplicateTemplates19.size !== 0) {
   throw new Error(
@@ -29688,7 +29883,7 @@ writeFileSync(assemblyPath, `${assembly.join("\n")}\n`);
 
 const assembled = spawnSync(
   assembler,
-  ["-mcpu=mpcore", "-o", objectPath, assemblyPath],
+  ["-march=armv6k", "-mcpu=mpcore", "-o", objectPath, assemblyPath],
   { cwd: root, stdio: "inherit" }
 );
 if (assembled.error || assembled.status !== 0) {
@@ -29808,6 +30003,20 @@ if (runtimeHelpers103Validated.error || runtimeHelpers103Validated.status !== 0)
     new Error(`ARM runtime helper 103 object validation exited with status ${runtimeHelpers103Validated.status}`);
 }
 
+const runtimeHelpers104Validated = spawnSync(
+  process.execPath,
+  [join(root, "scripts/validate-arm-runtime-helpers-104.mjs"), "--self-test"],
+  {
+    cwd: root,
+    stdio: "inherit",
+    env: { ...process.env, CROSS_COMPILE: join(dirname(assembler), "arm-none-eabi-") },
+  }
+);
+if (runtimeHelpers104Validated.error || runtimeHelpers104Validated.status !== 0) {
+  throw runtimeHelpers104Validated.error ??
+    new Error(`ARM runtime helper 104 object validation exited with status ${runtimeHelpers104Validated.status}`);
+}
+
 const ipcTemplates88Validated = spawnSync(
   process.execPath,
   [join(root, "scripts/validate-arm-ipc-wrappers-88.mjs"), "--object", objectPath],
@@ -29912,6 +30121,20 @@ const ipcTemplates96Validated = spawnSync(
 if (ipcTemplates96Validated.error || ipcTemplates96Validated.status !== 0) {
   throw ipcTemplates96Validated.error ??
     new Error(`IPC wrapper 96 object validation exited with status ${ipcTemplates96Validated.status}`);
+}
+
+const ipcTemplates97Validated = spawnSync(
+  process.execPath,
+  [join(root, "scripts/validate-arm-ipc-wrappers-97.mjs"), "--self-test"],
+  {
+    cwd: root,
+    stdio: "inherit",
+    env: { ...process.env, CROSS_COMPILE: join(dirname(assembler), "arm-none-eabi-") },
+  }
+);
+if (ipcTemplates97Validated.error || ipcTemplates97Validated.status !== 0) {
+  throw ipcTemplates97Validated.error ??
+    new Error(`IPC wrapper 97 object validation exited with status ${ipcTemplates97Validated.status}`);
 }
 
 const thumbLeafHelpers09Validated = spawnSync(
@@ -30026,6 +30249,20 @@ const thumbLeafHelpers17Validated = spawnSync(
 if (thumbLeafHelpers17Validated.error || thumbLeafHelpers17Validated.status !== 0) {
   throw thumbLeafHelpers17Validated.error ??
     new Error(`Thumb leaf/helper 17 object validation exited with status ${thumbLeafHelpers17Validated.status}`);
+}
+
+const thumbLeafHelpers18Validated = spawnSync(
+  process.execPath,
+  [join(root, "scripts/validate-thumb-leaf-helpers-18.mjs"), "--self-test"],
+  {
+    cwd: root,
+    stdio: "inherit",
+    env: { ...process.env, CROSS_COMPILE: join(dirname(assembler), "arm-none-eabi-") },
+  }
+);
+if (thumbLeafHelpers18Validated.error || thumbLeafHelpers18Validated.status !== 0) {
+  throw thumbLeafHelpers18Validated.error ??
+    new Error(`Thumb leaf/helper 18 object validation exited with status ${thumbLeafHelpers18Validated.status}`);
 }
 
 const symbols = spawnSync(readelf, ["--symbols", "--wide", objectPath], {
