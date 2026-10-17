@@ -7,8 +7,8 @@
   "summary": "The published report retains independently reviewed clean-room matches after provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.187594413757324,
-    "matchedFunctions": 4251,
+    "matchedCodePercent": 11.185766220092773,
+    "matchedFunctions": 4250,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
