@@ -15,6 +15,7 @@ const inventoryPath = path.join(ROOT, "symbols/cro/DllLangSelect.csv");
 const partitionPath = path.join(ROOT, "symbols/cro-partitions/DllLangSelect.json");
 const reportPath = path.join(ROOT, "progress/reports/AS_EUR_REV2/report.json");
 const packagePath = path.join(ROOT, "package.json");
+const sourcePath = path.join(ROOT, "src/cro/DllLangSelect/contract_09.S");
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
 // Exact UTF-8 bytes of the reviewed blocker document.
 const EXPECTED_BLOCKER_SHA256 = "87e481270e3b2caabe9d3d4290325ef22cbd92473d57eca33488c9e54103dfaf";
@@ -24,6 +25,9 @@ const EXPECTED_INVENTORY_SHA256 = "03cba23c86a6e5784d6bfca3192d16dd13614def87a1e
 const EXPECTED_PARTITION_SHA256 = "b45edadba3c6289b667844840810ddf24ca6f2d5bd34b6c46e976086fc58e108";
 // JSON.stringify of the complete reviewed report unit after duplicate-key rejection.
 const EXPECTED_REPORT_UNIT_SHA256 = "4ab865d800c7b0866eb3e863f1826aef528ae13a17eaf5438ba65d187206c98e";
+// Exact UTF-8 bytes of the only source registered for this unit.
+const EXPECTED_SOURCE_SHA256 = "240cb8e2a26c2c6241189fef65fee3bb54439987a50daa0ed15ca33d7ff68fd8";
+const EXPECTED_SOURCE_SIZE = 1201;
 
 const expectedManifestEntry = {
   name: "cro/DllLangSelect",
@@ -77,7 +81,19 @@ export function inside(parent, candidate) {
   return nested !== "" && nested !== ".." && !nested.startsWith(`..${sep}`) && !isAbsolute(nested);
 }
 
-export function readOwnedText(filePath, label, ownedRoot = ROOT) {
+function sameFileIdentity(left, right) {
+  return left.dev === right.dev && left.ino === right.ino;
+}
+
+function sameFileSnapshot(left, right) {
+  return sameFileIdentity(left, right)
+    && left.mode === right.mode
+    && left.size === right.size
+    && left.mtimeNs === right.mtimeNs
+    && left.ctimeNs === right.ctimeNs;
+}
+
+export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = undefined) {
   let canonicalRoot;
   try {
     canonicalRoot = fs.realpathSync(ownedRoot);
@@ -89,12 +105,12 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT) {
 
   let stat;
   try {
-    stat = fs.lstatSync(filePath);
+    stat = fs.lstatSync(filePath, { bigint: true });
   } catch (error) {
     fail(`${label} cannot be inspected: ${error.message}`);
   }
   if (!stat.isFile() || stat.isSymbolicLink()) fail(`${label} is not a non-symlink regular file`);
-  if (stat.size > MAX_INPUT_SIZE) fail(`${label} exceeds the 64 MiB input limit`);
+  if (stat.size > BigInt(MAX_INPUT_SIZE)) fail(`${label} exceeds the 64 MiB input limit`);
 
   let canonicalPath;
   try {
@@ -104,7 +120,51 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT) {
   }
   if (canonicalPath !== filePath) fail(`${label} path is not canonical`);
   if (!inside(canonicalRoot, canonicalPath)) fail(`${label} canonical path is outside ROOT`);
-  return fs.readFileSync(canonicalPath, "utf8");
+
+  let descriptor;
+  try {
+    testHooks?.beforeOpen?.();
+    descriptor = fs.openSync(filePath, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+  } catch (error) {
+    fail(`${label} cannot be opened without following symlinks: ${error.message}`);
+  }
+
+  try {
+    const opened = fs.fstatSync(descriptor, { bigint: true });
+    if (!opened.isFile()) fail(`${label} opened descriptor is not a regular file`);
+    if (opened.size > BigInt(MAX_INPUT_SIZE)) fail(`${label} exceeds the 64 MiB input limit`);
+    if (!sameFileIdentity(stat, opened)) fail(`${label} changed before it was opened`);
+
+    testHooks?.afterOpen?.();
+    const text = fs.readFileSync(descriptor, "utf8");
+    testHooks?.afterRead?.();
+
+    const afterRead = fs.fstatSync(descriptor, { bigint: true });
+    if (!sameFileSnapshot(opened, afterRead)) fail(`${label} changed while it was read`);
+
+    let pathAfterRead;
+    try {
+      pathAfterRead = fs.lstatSync(filePath, { bigint: true });
+    } catch (error) {
+      fail(`${label} path changed while it was read: ${error.message}`);
+    }
+    if (!pathAfterRead.isFile() || pathAfterRead.isSymbolicLink()) {
+      fail(`${label} path changed to a non-regular file while it was read`);
+    }
+    if (!sameFileIdentity(opened, pathAfterRead)) fail(`${label} path identity changed while it was read`);
+
+    let canonicalPathAfterRead;
+    try {
+      canonicalPathAfterRead = fs.realpathSync(filePath);
+    } catch (error) {
+      fail(`${label} path cannot be resolved after reading: ${error.message}`);
+    }
+    if (canonicalPathAfterRead !== filePath) fail(`${label} path stopped being canonical while it was read`);
+    if (!inside(canonicalRoot, canonicalPathAfterRead)) fail(`${label} path escaped ROOT while it was read`);
+    return text;
+  } finally {
+    fs.closeSync(descriptor);
+  }
 }
 
 export function rejectDuplicateJsonKeys(text, label) {
@@ -195,7 +255,7 @@ function validatePartition(partition, inventoryFunctions) {
   assert.equal(partition.unknown?.length, 4, "DllLangSelect partition unknown entries changed");
 }
 
-export function validateState({ blocker, sourceEntries, manifest, inventory, partition, reportUnits, scripts }) {
+export function validateState({ blocker, source, sourceEntries, manifest, inventory, partition, reportUnits, scripts }) {
   assert.equal(typeof blocker, "string", "blocker document must be readable text");
   assert.equal(
     sha256(blocker),
@@ -224,6 +284,8 @@ export function validateState({ blocker, sourceEntries, manifest, inventory, par
   const sourceMatches = sourceEntries.filter((entry) => entry?.name === "DllLangSelect");
   assert.equal(sourceMatches.length, 1, "source registry must contain exactly one DllLangSelect entry");
   assert.deepEqual(sourceMatches[0], expectedSource, "DllLangSelect source claims changed from the frozen baseline");
+  assert.equal(Buffer.byteLength(source, "utf8"), EXPECTED_SOURCE_SIZE, "reviewed DllLangSelect source size changed");
+  assert.equal(sha256(source), EXPECTED_SOURCE_SHA256, "reviewed DllLangSelect source identity changed");
 
   assert.equal(manifest?.schemaVersion, 1, "CRO manifest schema changed");
   assert.equal(manifest?.target, "AS_EUR_REV2", "CRO manifest target changed");
@@ -305,6 +367,10 @@ function selfTest(baseline) {
     state.sourceEntries.find((entry) => entry?.name === "DllLangSelect")
       .sources.push({ path: "extra.S", mode: "arm" });
   }, /source claims/);
+  expectFailure(baseline, (state) => { state.source += "\n"; }, /source size/);
+  expectFailure(baseline, (state) => {
+    state.source = `${state.source[0] === "X" ? "Y" : "X"}${state.source.slice(1)}`;
+  }, /source identity/);
   expectFailure(baseline, (state) => {
     state.manifest.units.find((entry) => entry?.name === "cro/DllLangSelect").sha256 = "0".repeat(64);
   }, /manifest entry/);
@@ -369,6 +435,43 @@ function selfTest(baseline) {
       () => readOwnedText(outsidePath, "outside fixture", canonicalRoot),
       /outside ROOT/,
     );
+
+    const mutablePath = path.join(canonicalRoot, "mutable.txt");
+    fs.writeFileSync(mutablePath, "stable fixture\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(mutablePath, "content race fixture", canonicalRoot, {
+        afterRead: () => fs.appendFileSync(mutablePath, "raced\n"),
+      }),
+      /changed while it was read/,
+    );
+
+    const replacedPath = path.join(canonicalRoot, "replaced.txt");
+    const displacedPath = path.join(canonicalRoot, "displaced.txt");
+    fs.writeFileSync(replacedPath, "original fixture\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(replacedPath, "path race fixture", canonicalRoot, {
+        afterOpen: () => {
+          fs.renameSync(replacedPath, displacedPath);
+          fs.writeFileSync(replacedPath, "replacement fixture\n", { flag: "wx" });
+        },
+      }),
+      /changed while it was read/,
+    );
+
+    const noFollowPath = path.join(canonicalRoot, "nofollow.txt");
+    const noFollowOriginalPath = path.join(canonicalRoot, "nofollow-original.txt");
+    const noFollowTargetPath = path.join(canonicalRoot, "nofollow-target.txt");
+    fs.writeFileSync(noFollowPath, "original nofollow fixture\n", { flag: "wx" });
+    fs.writeFileSync(noFollowTargetPath, "target nofollow fixture\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(noFollowPath, "nofollow race fixture", canonicalRoot, {
+        beforeOpen: () => {
+          fs.renameSync(noFollowPath, noFollowOriginalPath);
+          fs.symlinkSync(noFollowTargetPath, noFollowPath);
+        },
+      }),
+      /cannot be opened without following symlinks/,
+    );
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
@@ -381,9 +484,11 @@ const partition = readOwnedJson(partitionPath, "symbols/cro-partitions/DllLangSe
 const report = readOwnedJson(reportPath, "progress/reports/AS_EUR_REV2/report.json");
 const packageJson = readOwnedJson(packagePath, "package.json");
 const blocker = readOwnedText(blockerPath, "docs/specs/cro/DllLangSelect_blocker.md");
+const source = readOwnedText(sourcePath, "src/cro/DllLangSelect/contract_09.S");
 
 const actualState = {
   blocker,
+  source,
   sourceEntries: sources.units,
   manifest,
   inventory,
