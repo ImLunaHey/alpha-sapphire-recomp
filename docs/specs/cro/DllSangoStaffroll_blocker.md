@@ -14,8 +14,13 @@ The analysis role read `docs/CLEAN_ROOM.md` in full before unit work. Evidence
 was limited to tracked policy and publication documentation, existing
 specification filenames, Git status and commit metadata, the current unit
 source for provenance review, and public web documentation. Tools were Node.js
-24.21.0, npm 11.19.0, Git 2.53.0, ripgrep 15.2.0, Bash 5.3.9, and public web
-search/open on 2026-10-17.
+24.21.0, npm 11.19.0, Git 2.53.0, ripgrep 15.2.0, Bash 5.3.9, and OpenAI's
+`web.run` public web search/open interface on 2026-10-17. The interface exposed
+`search_query`, `open`, and page-text `find` operations through the Codex
+harness, but exposed no reliable provider version, search-index version,
+backend identity, or stable build identifier. None is invented here; the
+provider, interface name, available operations, and access date are the full
+reproducible tool identification available to this audit.
 
 No ROM, CRO, container content, extracted asset, private target object,
 proprietary or leaked source, SDK material, disassembly, target bytes, private
