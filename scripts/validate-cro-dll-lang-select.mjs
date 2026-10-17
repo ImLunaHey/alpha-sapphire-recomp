@@ -10,13 +10,36 @@ import { fileURLToPath } from "node:url";
 const ROOT = fs.realpathSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
 const blockerPath = path.join(ROOT, "docs/specs/cro/DllLangSelect_blocker.md");
 const sourcesPath = path.join(ROOT, "config/cro-sources.json");
+const manifestPath = path.join(ROOT, "progress/units/AS_EUR_REV2.cro.json");
+const inventoryPath = path.join(ROOT, "symbols/cro/DllLangSelect.csv");
+const partitionPath = path.join(ROOT, "symbols/cro-partitions/DllLangSelect.json");
 const reportPath = path.join(ROOT, "progress/reports/AS_EUR_REV2/report.json");
 const packagePath = path.join(ROOT, "package.json");
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
 // Exact UTF-8 bytes of the reviewed blocker document.
 const EXPECTED_BLOCKER_SHA256 = "87e481270e3b2caabe9d3d4290325ef22cbd92473d57eca33488c9e54103dfaf";
+// Exact UTF-8 bytes of the reviewed public function inventory.
+const EXPECTED_INVENTORY_SHA256 = "03cba23c86a6e5784d6bfca3192d16dd13614def87a1e70b76e842ec46c3cc40";
+// JSON.stringify of the complete reviewed partition after duplicate-key rejection.
+const EXPECTED_PARTITION_SHA256 = "b45edadba3c6289b667844840810ddf24ca6f2d5bd34b6c46e976086fc58e108";
 // JSON.stringify of the complete reviewed report unit after duplicate-key rejection.
 const EXPECTED_REPORT_UNIT_SHA256 = "4ab865d800c7b0866eb3e863f1826aef528ae13a17eaf5438ba65d187206c98e";
+
+const expectedManifestEntry = {
+  name: "cro/DllLangSelect",
+  size: 16384,
+  sha256: "a08dd6616b6aa2de369edb6c0e6e236beeb22e3397d7bbaf618955935385b912",
+};
+
+const expectedFunctions = [
+  { name: "func_000002B8", address: 696, size: 368, mode: "arm" },
+  { name: "func_00000704", address: 1796, size: 268, mode: "arm" },
+  { name: "func_00000DD4", address: 3540, size: 216, mode: "arm" },
+  { name: "func_00000EB0", address: 3760, size: 168, mode: "arm" },
+  { name: "func_00001298", address: 4760, size: 316, mode: "arm" },
+  { name: "func_000013E8", address: 5096, size: 676, mode: "arm" },
+  { name: "func_00001698", address: 5784, size: 232, mode: "arm" },
+];
 
 const expectedSource = {
   name: "DllLangSelect",
@@ -127,7 +150,52 @@ export function readOwnedJson(filePath, label, ownedRoot = ROOT) {
   }
 }
 
-export function validateState({ blocker, sourceEntries, reportUnits, scripts }) {
+function parseInventory(inventory) {
+  assert.equal(sha256(inventory), EXPECTED_INVENTORY_SHA256, "reviewed DllLangSelect inventory identity changed");
+  const lines = inventory.split(/\r?\n/u);
+  assert.equal(lines.pop(), "", "DllLangSelect inventory must end with one newline");
+  assert.deepEqual(lines.slice(0, 4), [
+    "# Format,CRO_FUNCTIONS_V1",
+    "# Module,cro/DllLangSelect",
+    "# TextSize,00001B54",
+    "Location,Name,Namespace,Mode,Size,Segment",
+  ], "DllLangSelect inventory schema changed");
+  const functions = lines.slice(4).map((line, index) => {
+    const match = /^([0-9A-F]{8}),"(func_[0-9A-F]{8})","Global",\$(a|t),([0-9A-F]{8}),"\.text"$/u.exec(line);
+    assert.ok(match, `DllLangSelect inventory entry ${index} is not canonical`);
+    return {
+      name: match[2],
+      address: Number.parseInt(match[1], 16),
+      size: Number.parseInt(match[4], 16),
+      mode: match[3] === "a" ? "arm" : "thumb",
+    };
+  });
+  assert.deepEqual(functions, expectedFunctions, "DllLangSelect inventory entries changed");
+  return functions;
+}
+
+function validatePartition(partition, inventoryFunctions) {
+  assert.equal(
+    sha256(JSON.stringify(partition)),
+    EXPECTED_PARTITION_SHA256,
+    "reviewed DllLangSelect partition identity changed",
+  );
+  assert.deepEqual(
+    Object.keys(partition).sort(),
+    ["format", "functions", "gaps", "module", "pools", "textSize", "unknown"],
+    "DllLangSelect partition schema changed",
+  );
+  assert.equal(partition.format, 1, "DllLangSelect partition format changed");
+  assert.equal(partition.module, "DllLangSelect", "DllLangSelect partition module changed");
+  assert.equal(partition.textSize, 6996, "DllLangSelect partition text size changed");
+  assert.deepEqual(partition.functions, expectedFunctions, "DllLangSelect partition function entries changed");
+  assert.deepEqual(partition.functions, inventoryFunctions, "DllLangSelect inventory and partition functions diverged");
+  assert.equal(partition.gaps?.length, 107, "DllLangSelect partition gap entries changed");
+  assert.equal(partition.pools?.length, 111, "DllLangSelect partition pool entries changed");
+  assert.equal(partition.unknown?.length, 4, "DllLangSelect partition unknown entries changed");
+}
+
+export function validateState({ blocker, sourceEntries, manifest, inventory, partition, reportUnits, scripts }) {
   assert.equal(typeof blocker, "string", "blocker document must be readable text");
   assert.equal(
     sha256(blocker),
@@ -156,6 +224,17 @@ export function validateState({ blocker, sourceEntries, reportUnits, scripts }) 
   const sourceMatches = sourceEntries.filter((entry) => entry?.name === "DllLangSelect");
   assert.equal(sourceMatches.length, 1, "source registry must contain exactly one DllLangSelect entry");
   assert.deepEqual(sourceMatches[0], expectedSource, "DllLangSelect source claims changed from the frozen baseline");
+
+  assert.equal(manifest?.schemaVersion, 1, "CRO manifest schema changed");
+  assert.equal(manifest?.target, "AS_EUR_REV2", "CRO manifest target changed");
+  assert.equal(manifest?.unitCount, 145, "CRO manifest unit count changed");
+  assert.ok(Array.isArray(manifest?.units), "CRO manifest must contain a units array");
+  const manifestMatches = manifest.units.filter((entry) => entry?.name === "cro/DllLangSelect");
+  assert.equal(manifestMatches.length, 1, "manifest must contain exactly one cro/DllLangSelect entry");
+  assert.deepEqual(manifestMatches[0], expectedManifestEntry, "reviewed DllLangSelect manifest entry changed");
+
+  const inventoryFunctions = parseInventory(inventory);
+  validatePartition(partition, inventoryFunctions);
 
   assert.ok(Array.isArray(reportUnits), "published report must contain a units array");
   const reportMatches = reportUnits.filter((entry) => entry?.name === "cro/DllLangSelect");
@@ -226,6 +305,19 @@ function selfTest(baseline) {
     state.sourceEntries.find((entry) => entry?.name === "DllLangSelect")
       .sources.push({ path: "extra.S", mode: "arm" });
   }, /source claims/);
+  expectFailure(baseline, (state) => {
+    state.manifest.units.find((entry) => entry?.name === "cro/DllLangSelect").sha256 = "0".repeat(64);
+  }, /manifest entry/);
+  expectFailure(baseline, (state) => {
+    state.inventory = state.inventory.replace("000002B8", "000002BC");
+  }, /inventory identity/);
+  expectFailure(baseline, (state) => {
+    state.partition.functions.find((entry) => entry.name === "func_000002B8").address += 4;
+  }, /partition identity/);
+  expectFailure(baseline, (state) => {
+    state.inventory = state.inventory.replace("000002B8", "000002BC");
+    state.partition.functions.find((entry) => entry.name === "func_000002B8").address += 4;
+  }, /inventory identity/);
   expectFailure(baseline, (state) => { state.reportUnits = {}; }, /units array/);
   expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
 
@@ -236,6 +328,14 @@ function selfTest(baseline) {
   assert.throws(
     () => rejectDuplicateJsonKeys('{"outer":{"complete":false,"complete":true}}', "report fixture"),
     /duplicate key complete/,
+  );
+  assert.throws(
+    () => rejectDuplicateJsonKeys('{"units":[],"units":[1]}', "manifest fixture"),
+    /duplicate key units/,
+  );
+  assert.throws(
+    () => rejectDuplicateJsonKeys('{"functions":[],"functions":[1]}', "partition fixture"),
+    /duplicate key functions/,
   );
   assert.throws(
     () => rejectDuplicateJsonKeys('{"scr\u0069pts":{},"scripts":{"check":"ok"}}', "package fixture"),
@@ -275,6 +375,9 @@ function selfTest(baseline) {
 }
 
 const sources = readOwnedJson(sourcesPath, "config/cro-sources.json");
+const manifest = readOwnedJson(manifestPath, "progress/units/AS_EUR_REV2.cro.json");
+const inventory = readOwnedText(inventoryPath, "symbols/cro/DllLangSelect.csv");
+const partition = readOwnedJson(partitionPath, "symbols/cro-partitions/DllLangSelect.json");
 const report = readOwnedJson(reportPath, "progress/reports/AS_EUR_REV2/report.json");
 const packageJson = readOwnedJson(packagePath, "package.json");
 const blocker = readOwnedText(blockerPath, "docs/specs/cro/DllLangSelect_blocker.md");
@@ -282,6 +385,9 @@ const blocker = readOwnedText(blockerPath, "docs/specs/cro/DllLangSelect_blocker
 const actualState = {
   blocker,
   sourceEntries: sources.units,
+  manifest,
+  inventory,
+  partition,
   reportUnits: report.units,
   scripts: packageJson.scripts,
 };
