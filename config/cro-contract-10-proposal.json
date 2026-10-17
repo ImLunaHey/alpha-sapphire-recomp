@@ -35,11 +35,6 @@
       "name": "DllUSGymFire",
       "sources": [{ "path": "src/cro/DllUSGymFire/contract_10.S", "mode": "arm" }],
       "functions": [{ "name": "func_00000DCC", "address": 3532, "size": 224, "semantics": "contract-10-gym-fire-object-setup" }]
-    },
-    {
-      "name": "DllUSPassage",
-      "sources": [{ "path": "src/cro/DllUSPassage/contract_10.S", "mode": "arm" }],
-      "functions": [{ "name": "func_000019F4", "address": 6644, "size": 488, "semantics": "contract-10-passage-state-update" }]
     }
   ]
 }

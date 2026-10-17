@@ -7,8 +7,8 @@
   "summary": "The published report retains independently reviewed clean-room matches after provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.200714111328125,
-    "matchedFunctions": 4252,
+    "matchedCodePercent": 11.187594413757324,
+    "matchedFunctions": 4251,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllUSPassage unsupported match quarantined",
+      "detail": "The DllUSPassage assembly claim lacked a unit-specific independently attributable analyst handoff, so its source, ownership claim, and one function / 488 bytes of published credit are withdrawn. Neutral inventory remains, and the unit stays blocked and explicitly incomplete with no source path."
+    },
     {
       "date": "2026-10-17",
       "title": "DllPssFavorite provenance quarantine",

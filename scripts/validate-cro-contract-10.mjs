@@ -9,6 +9,8 @@ import { fileURLToPath } from "node:url";
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-10-proposal.json");
+const QUARANTINED_UNIT = "DllUSPassage";
+const QUARANTINED_SOURCE = "src/cro/DllUSPassage/contract_10.S";
 
 const CONTRACT = [
   ["DllCommWait", "func_00000808", 0x0808, 328, "contract-10-wait-scene-setup", "6410a5680728d09dd8e6549651be0f4728935e0ed337d00d4a0fd223572acf8e"],
@@ -18,7 +20,6 @@ const CONTRACT = [
   ["DllUSAreaTenji", "func_0000007C", 0x007C, 292, "contract-10-area-display-setup", "3f69e61f624296c0a5dd43280af863ffc868a38cce9cb09f38a851df844ef068"],
   ["DllUSGymFighting", "func_000006FC", 0x06FC, 152, "contract-10-gym-fighting-event", "76f0642a25e2f34de6494771eb8d024d1c8b555337e664763e36388a07a6d94d"],
   ["DllUSGymFire", "func_00000DCC", 0x0DCC, 224, "contract-10-gym-fire-object-setup", "984d6534477ff789271a7776b6a1d10c2d537b7c1f858b1cffa92565fe04e99a"],
-  ["DllUSPassage", "func_000019F4", 0x19F4, 488, "contract-10-passage-state-update", "70fd8be721ab195ceac4e6d657b31ae3858f7eedb37f0113ba37de4b0ce63665"],
 ].map(([unit, name, address, size, semantics, sha256]) => ({
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
@@ -120,6 +121,13 @@ function validateProposal(proposal, existing) {
 
 function validatePublicContract(manifestPath) {
   const proposal = readManifest(PROPOSAL_PATH), existing = readManifest(CONFIG_PATH);
+  for (const manifest of [proposal, existing]) {
+    check(!manifest.units.some((unit) => unit.name === QUARANTINED_UNIT),
+      `${QUARANTINED_UNIT} quarantined ownership remains registered`);
+    check(!manifest.units.some((unit) => unit.sources.some((source) => source.path === QUARANTINED_SOURCE)),
+      `${QUARANTINED_UNIT} quarantined source remains registered`);
+  }
+  check(!existsSync(join(ROOT, QUARANTINED_SOURCE)), `${QUARANTINED_SOURCE} remains in the working tree`);
   validateProposal(proposal, existing);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
@@ -177,8 +185,8 @@ function validatePublicContract(manifestPath) {
       }
     }
   }
-  check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 2612 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 653, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 2124 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 531, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_10.md"),
     resolve(ROOT, TENJI_VENEER_SOURCE), ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
@@ -249,7 +257,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 10: 8 accepted ARM functions in 8 units (2,612 bytes, 653 instructions), plus 8 unaccepted DllUSAreaTenji veneers with 8 neutral relocations${options.objectDirectory ? ", and objects" : ""}.`);
+  console.log(`Validated CRO contract 10: 7 accepted ARM functions in 7 units (2,124 bytes, 531 instructions), plus 8 unaccepted DllUSAreaTenji veneers with 8 neutral relocations; DllUSPassage is quarantined${options.objectDirectory ? ", and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
