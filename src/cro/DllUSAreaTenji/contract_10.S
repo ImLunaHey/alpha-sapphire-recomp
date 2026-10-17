@@ -3,6 +3,29 @@
 .fpu vfp
 .arm
 
+.macro import_veneer address, pool_address, import
+.section .text.func_\address, "ax", %progbits
+.balign 4
+.global func_\address
+.type func_\address, %function
+func_\address:
+    ldr pc, [pc, #-4]
+.size func_\address, . - func_\address
+
+.section .pool.__cro_pool_\pool_address, "a", %progbits
+.balign 4
+    .word \import
+.endm
+
+import_veneer 00000000, 00000004, __cro_import_anon_m7c7374617469637c_s0_002fd48
+import_veneer 00000008, 0000000c, __cro_import_anon_m446c6c4669656c64_s0_0087014
+import_veneer 00000010, 00000014, __cro_import_anon_m7c7374617469637c_s0_02dc63c
+import_veneer 00000018, 0000001c, __cro_import_anon_m446c6c4669656c64_s0_00d8e40
+import_veneer 00000020, 00000024, __cro_import_anon_m446c6c4669656c64_s0_0015d34
+import_veneer 00000028, 0000002c, __cro_import_anon_m446c6c4669656c64_s0_00d8eb0
+import_veneer 00000030, 00000034, __cro_import_anon_m446c6c4669656c64_s0_00158d4
+import_veneer 00000038, 0000003c, __cro_import_anon_m7c7374617469637c_s0_01ff8c0
+
 .section .text.func_0000007C, "ax", %progbits
 .balign 4
 .global func_0000007C
