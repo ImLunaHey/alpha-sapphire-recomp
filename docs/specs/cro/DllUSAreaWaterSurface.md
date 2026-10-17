@@ -15,6 +15,16 @@ strings are reproduced here. Hashes below identify evidence without embedding
 it. This document is intended for a separate implementer who has not inspected
 the target.
 
+## Clean-room quarantine note
+
+An earlier revision of this document contained target-derived instruction
+schedules that exceeded the clean-room specification boundary. Those schedules
+and the implementation derived from them were removed by explicit revert
+commits without rewriting history. They must not be consulted or reused. This
+cleaned specification retains only high-level behavior, interface facts, and
+structural metadata; implementation may use target comparison solely as a
+blind pass/fail oracle.
+
 The private generated structural object has SHA-256
 `7fc600c91ca859a9ad8ba2afde825072f966b20e01437e167fba7bc97eed07d0`.
 Its allocatable segment facts are:
