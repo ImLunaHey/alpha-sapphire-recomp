@@ -6,6 +6,7 @@ import {
   closeSync,
   constants,
   fstatSync,
+  linkSync,
   lstatSync,
   mkdirSync,
   mkdtempSync,
@@ -15,6 +16,7 @@ import {
   renameSync,
   rmSync,
   symlinkSync,
+  unlinkSync,
   writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
@@ -137,13 +139,41 @@ function canonicalPath(root, relativePath, allowMissing = false) {
 }
 
 function sameFileSnapshot(left, right) {
-  return left.dev === right.dev && left.ino === right.ino && left.size === right.size
+  return left.dev === right.dev && left.ino === right.ino && left.mode === right.mode
+    && left.nlink === right.nlink && left.size === right.size
     && left.mtimeMs === right.mtimeMs && left.ctimeMs === right.ctimeMs;
 }
 
+function captureReadLocation(root, relativePath) {
+  const path = canonicalPath(root, relativePath);
+  const canonicalRoot = realpathSync(root);
+  const parts = relativePath.split("/");
+  const ancestorPaths = [canonicalRoot];
+  let cursor = canonicalRoot;
+  for (const part of parts.slice(0, -1)) {
+    cursor = join(cursor, part);
+    ancestorPaths.push(cursor);
+  }
+  const ancestors = ancestorPaths.map((ancestorPath) => {
+    const stat = lstatSync(ancestorPath);
+    check(stat.isDirectory() && !stat.isSymbolicLink(),
+      `${relativePath} has a noncanonical ancestor ${ancestorPath}`);
+    return { path: ancestorPath, stat };
+  });
+  return { path, ancestors };
+}
+
+function validateAncestorSnapshots(location, relativePath) {
+  for (const ancestor of location.ancestors) {
+    const stat = lstatSync(ancestor.path);
+    check(stat.isDirectory() && !stat.isSymbolicLink()
+      && sameFileSnapshot(ancestor.stat, stat), `${relativePath} ancestor changed during validation`);
+  }
+}
+
 function validateOpenStat(stat, relativePath) {
-  check(stat.isFile() && stat.size > 0 && stat.size <= MAX_FILE_SIZE,
-    `${relativePath} must be a bounded canonical regular file`);
+  check(stat.isFile() && stat.nlink === 1 && stat.size > 0 && stat.size <= MAX_FILE_SIZE,
+    `${relativePath} must be a bounded canonical regular file with one link`);
 }
 
 function regularReadFlags(fsConstants = constants) {
@@ -155,28 +185,38 @@ function regularReadFlags(fsConstants = constants) {
 }
 
 function readRegular(root, relativePath, hooks = {}) {
-  const path = canonicalPath(root, relativePath);
+  const location = captureReadLocation(root, relativePath);
+  const { path } = location;
   const flags = regularReadFlags();
   let descriptor;
   try {
+    validateAncestorSnapshots(location, relativePath);
     descriptor = openSync(path, flags);
+    validateAncestorSnapshots(location, relativePath);
     const opened = fstatSync(descriptor);
     validateOpenStat(opened, relativePath);
     hooks.afterOpen?.({ descriptor, path });
     const before = fstatSync(descriptor);
     validateOpenStat(before, relativePath);
     check(sameFileSnapshot(opened, before), `${relativePath} changed after open`);
-    const read = () => readFileSync(descriptor);
+    const read = () => {
+      validateAncestorSnapshots(location, relativePath);
+      const value = readFileSync(descriptor);
+      validateAncestorSnapshots(location, relativePath);
+      return value;
+    };
     const bytes = hooks.read ? hooks.read({ descriptor, path, read }) : read();
+    validateAncestorSnapshots(location, relativePath);
     check(Buffer.isBuffer(bytes), `${relativePath} read hook returned non-bytes`);
     const after = fstatSync(descriptor);
     validateOpenStat(after, relativePath);
     check(sameFileSnapshot(before, after) && bytes.length === after.size,
       `${relativePath} changed during read`);
     hooks.afterRead?.({ descriptor, path });
+    validateAncestorSnapshots(location, relativePath);
     check(canonicalPath(root, relativePath) === path, `${relativePath} path changed after read`);
     const finalPath = lstatSync(path);
-    check(finalPath.isFile() && !finalPath.isSymbolicLink()
+    check(finalPath.isFile() && !finalPath.isSymbolicLink() && finalPath.nlink === 1
       && finalPath.dev === after.dev && finalPath.ino === after.ino
       && finalPath.size === after.size && finalPath.mtimeMs === after.mtimeMs
       && finalPath.ctimeMs === after.ctimeMs, `${relativePath} was replaced during validation`);
@@ -572,6 +612,9 @@ function runSelfTests() {
     assert.throws(() => readRegular(temporary, "linked-parent/nested.json"), /symlink/u);
     mkdirSync(join(temporary, "directory.json"));
     assert.throws(() => readRegular(temporary, "directory.json"), /regular file/u);
+    writeFileSync(join(temporary, "hardlink-source.json"), "trusted\n");
+    linkSync(join(temporary, "hardlink-source.json"), join(temporary, "hardlink.json"));
+    assert.throws(() => readRegular(temporary, "hardlink.json"), /one link/u);
 
     writeFileSync(join(temporary, "after-open.json"), "trusted\n");
     writeFileSync(join(temporary, "after-open-replacement.json"), "hostile\n");
@@ -603,6 +646,25 @@ function runSelfTests() {
         symlinkSync(join(temporary, "race-alternate"), join(temporary, "race-parent"));
       },
     }), /symlink|changed|replaced/u);
+
+    mkdirSync(join(temporary, "restore-parent"));
+    mkdirSync(join(temporary, "restore-alternate"));
+    writeFileSync(join(temporary, "restore-parent", "input.json"), "trusted\n");
+    writeFileSync(join(temporary, "restore-alternate", "input.json"), "hostile\n");
+    assert.throws(() => readRegular(temporary, "restore-parent/input.json", {
+      afterOpen: () => {
+        renameSync(join(temporary, "restore-parent"), join(temporary, "restore-parent-original"));
+        symlinkSync(join(temporary, "restore-alternate"), join(temporary, "restore-parent"));
+      },
+      read: ({ read }) => {
+        try {
+          return read();
+        } finally {
+          unlinkSync(join(temporary, "restore-parent"));
+          renameSync(join(temporary, "restore-parent-original"), join(temporary, "restore-parent"));
+        }
+      },
+    }), /ancestor changed/u);
   } finally {
     rmSync(temporary, { recursive: true, force: true });
   }
