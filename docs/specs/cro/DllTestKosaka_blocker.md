@@ -7,13 +7,17 @@ a behavioral specification or approval to implement.
 ## Scope and provenance
 
 - Review date: 2026-10-17.
-- Repository revision: `5696432c6d5a2c815b50470ec3c32b7c49d20d18`.
+- Audited public baseline: `4f0ffaabc9d9da88b52910ba507cff17fe5d2351`,
+  the current `main` revision after rebasing this contribution.
 - Target revision: Pokemon Alpha Sapphire `AS_EUR_REV2` (Europe, revision 2),
   as declared in [repository provenance](../../PROVENANCE.md). The target was
   not independently inspected or executed.
+- Contributor/reviewer role: Luna, acting only as the analysis-side public-
+  evidence auditor and reviewer of this blocker documentation. This
+  contribution is analysis-only and contains no implementation.
 - Tools: Git 2.53.0, Node.js v24.21.0, npm 11.19.0, ripgrep 15.2.0, and GNU
   Bash 5.3.9.
-- Method: read the [clean-room policy](../../CLEAN_ROOM.md) and
+- Review method: read the [clean-room policy](../../CLEAN_ROOM.md) and
   [specification policy](../README.md) in full, then review only tracked public
   repository documentation, unit metadata, history, and authored-source
   registration for this unit.
@@ -25,11 +29,12 @@ or private comparison output was inspected.
 ## Public observations
 
 The tracked symbol inventory accepts no function boundary for this unit. Its
-complete text partition records 116 bytes as unmatched executable gaps and 56
-bytes as pools, with no accepted function and no unknown residue. The
-published objdiff report gives the unit no match credit, omits an authored
-source path, and records `metadata.complete: false`. No unit-specific reviewed
-specification or authored source is present.
+complete text partition leaves the executable content unclaimed, separates
+non-code pool regions, and has no unknown residue. The published objdiff
+report gives the unit no match credit, omits an authored source path, and
+records `metadata.complete: false`. No unit-specific reviewed specification or
+authored source is present. Exact structural accounting remains solely in the
+tracked machine-readable inventory and partition artifacts.
 
 These are aggregate structural facts from already tracked neutral metadata.
 They do not establish behavior, source-level identities, or whole-object
@@ -52,7 +57,10 @@ repeatability, and uncertainties. It must exclude target bytes, physical
 instruction schedules, relocation-derived implementation details, and all
 other implementation-directed target artifacts.
 
-Only after independent review may a distinct implementation contributor write
-original code from that specification. Any later matching or completion claim
-must pass the repository's deterministic full-unit publication gates. Until
-then the inventory, match credit, and incomplete status must remain unchanged.
+The analysis-side contributor/reviewer for this blocker will not implement
+this unit or provide target-derived implementation guidance. Only after an
+independently authored specification is reviewed may a different contributor,
+kept target-blind and limited to that approved neutral specification, write
+original code. Any later matching or completion claim must pass the
+repository's deterministic full-unit publication gates. Until then the
+inventory, match credit, and incomplete status must remain unchanged.
