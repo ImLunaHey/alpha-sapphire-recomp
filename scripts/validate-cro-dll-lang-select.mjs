@@ -2,14 +2,16 @@
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import path from "node:path";
+import os from "node:os";
+import path, { isAbsolute, relative, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const blockerPath = path.join(root, "docs/specs/cro/DllLangSelect_blocker.md");
-const sourcesPath = path.join(root, "config/cro-sources.json");
-const reportPath = path.join(root, "progress/reports/AS_EUR_REV2/report.json");
-const packagePath = path.join(root, "package.json");
+const ROOT = fs.realpathSync(path.resolve(path.dirname(fileURLToPath(import.meta.url)), ".."));
+const blockerPath = path.join(ROOT, "docs/specs/cro/DllLangSelect_blocker.md");
+const sourcesPath = path.join(ROOT, "config/cro-sources.json");
+const reportPath = path.join(ROOT, "progress/reports/AS_EUR_REV2/report.json");
+const packagePath = path.join(ROOT, "package.json");
+const MAX_INPUT_SIZE = 64 * 1024 * 1024;
 
 const expectedSource = {
   name: "DllLangSelect",
@@ -32,6 +34,88 @@ const expectedMeasures = {
 
 function clone(value) {
   return structuredClone(value);
+}
+
+function fail(message) {
+  throw new Error(`cro/DllLangSelect validation: ${message}`);
+}
+
+export function inside(parent, candidate) {
+  const nested = relative(parent, candidate);
+  return nested !== "" && nested !== ".." && !nested.startsWith(`..${sep}`) && !isAbsolute(nested);
+}
+
+export function readOwnedText(filePath, label, ownedRoot = ROOT) {
+  let canonicalRoot;
+  try {
+    canonicalRoot = fs.realpathSync(ownedRoot);
+  } catch (error) {
+    fail(`${label} root cannot be resolved: ${error.message}`);
+  }
+  if (canonicalRoot !== ownedRoot) fail(`${label} root is not canonical`);
+  if (!inside(canonicalRoot, filePath)) fail(`${label} is outside ROOT`);
+
+  let stat;
+  try {
+    stat = fs.lstatSync(filePath);
+  } catch (error) {
+    fail(`${label} cannot be inspected: ${error.message}`);
+  }
+  if (!stat.isFile() || stat.isSymbolicLink()) fail(`${label} is not a non-symlink regular file`);
+  if (stat.size > MAX_INPUT_SIZE) fail(`${label} exceeds the 64 MiB input limit`);
+
+  let canonicalPath;
+  try {
+    canonicalPath = fs.realpathSync(filePath);
+  } catch (error) {
+    fail(`${label} cannot be resolved: ${error.message}`);
+  }
+  if (canonicalPath !== filePath) fail(`${label} path is not canonical`);
+  if (!inside(canonicalRoot, canonicalPath)) fail(`${label} canonical path is outside ROOT`);
+  return fs.readFileSync(canonicalPath, "utf8");
+}
+
+export function rejectDuplicateJsonKeys(text, label) {
+  const stack = [];
+  for (let index = 0; index < text.length;) {
+    const character = text[index];
+    if (character === "{") { stack.push({ type: "object", keys: new Set() }); index++; continue; }
+    if (character === "[") { stack.push({ type: "array" }); index++; continue; }
+    if (character === "}" || character === "]") { stack.pop(); index++; continue; }
+    if (character !== '"') { index++; continue; }
+    const start = index++;
+    let escaped = false;
+    while (index < text.length) {
+      const current = text[index++];
+      if (escaped) escaped = false;
+      else if (current === "\\") escaped = true;
+      else if (current === '"') break;
+    }
+    if (index > text.length || text[index - 1] !== '"') fail(`${label} has an unterminated string`);
+    let cursor = index;
+    while (/\s/u.test(text[cursor] ?? "")) cursor++;
+    if (text[cursor] !== ":") continue;
+    const owner = stack.at(-1);
+    if (owner?.type !== "object") fail(`${label} has a key outside an object`);
+    let key;
+    try {
+      key = JSON.parse(text.slice(start, index));
+    } catch {
+      fail(`${label} contains an invalid key`);
+    }
+    if (owner.keys.has(key)) fail(`${label} contains duplicate key ${key}`);
+    owner.keys.add(key);
+  }
+}
+
+export function readOwnedJson(filePath, label, ownedRoot = ROOT) {
+  const text = readOwnedText(filePath, label, ownedRoot);
+  rejectDuplicateJsonKeys(text, label);
+  try {
+    return JSON.parse(text);
+  } catch (error) {
+    fail(`${label} is not valid JSON: ${error.message}`);
+  }
 }
 
 export function validateState({ blocker, sourceEntries, reportUnits, scripts }) {
@@ -129,12 +213,56 @@ function selfTest() {
   expectFailure((state) => { state.sourceEntries[0].sources.push({ path: "extra.S", mode: "arm" }); }, /source claims/);
   expectFailure((state) => { state.reportUnits = {}; }, /units array/);
   expectFailure((state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
+
+  assert.throws(
+    () => rejectDuplicateJsonKeys('{"units":[],"units":[1]}', "config fixture"),
+    /duplicate key units/,
+  );
+  assert.throws(
+    () => rejectDuplicateJsonKeys('{"outer":{"complete":false,"complete":true}}', "report fixture"),
+    /duplicate key complete/,
+  );
+  assert.throws(
+    () => rejectDuplicateJsonKeys('{"scr\u0069pts":{},"scripts":{"check":"ok"}}', "package fixture"),
+    /duplicate key scripts/,
+  );
+
+  const temporaryRoot = fs.mkdtempSync(path.join(os.tmpdir(), "dll-lang-select-validator-"));
+  try {
+    const canonicalRoot = fs.realpathSync(temporaryRoot);
+    const regularPath = path.join(canonicalRoot, "blocker.md");
+    const symlinkPath = path.join(canonicalRoot, "blocker-link.md");
+    const outsidePath = path.join(path.dirname(canonicalRoot), "outside-blocker.md");
+    const realDirectory = path.join(canonicalRoot, "real");
+    const linkedDirectory = path.join(canonicalRoot, "linked");
+    fs.writeFileSync(regularPath, "blocker fixture\n", { flag: "wx" });
+    fs.symlinkSync(regularPath, symlinkPath);
+    fs.mkdirSync(realDirectory);
+    fs.writeFileSync(path.join(realDirectory, "report.json"), "{}\n", { flag: "wx" });
+    fs.symlinkSync(realDirectory, linkedDirectory, "dir");
+
+    assert.equal(readOwnedText(regularPath, "regular fixture", canonicalRoot), "blocker fixture\n");
+    assert.throws(
+      () => readOwnedText(symlinkPath, "symlink fixture", canonicalRoot),
+      /non-symlink regular file/,
+    );
+    assert.throws(
+      () => readOwnedText(path.join(linkedDirectory, "report.json"), "noncanonical fixture", canonicalRoot),
+      /not canonical/,
+    );
+    assert.throws(
+      () => readOwnedText(outsidePath, "outside fixture", canonicalRoot),
+      /outside ROOT/,
+    );
+  } finally {
+    fs.rmSync(temporaryRoot, { recursive: true, force: true });
+  }
 }
 
-const sources = JSON.parse(fs.readFileSync(sourcesPath, "utf8"));
-const report = JSON.parse(fs.readFileSync(reportPath, "utf8"));
-const packageJson = JSON.parse(fs.readFileSync(packagePath, "utf8"));
-const blocker = fs.readFileSync(blockerPath, "utf8");
+const sources = readOwnedJson(sourcesPath, "config/cro-sources.json");
+const report = readOwnedJson(reportPath, "progress/reports/AS_EUR_REV2/report.json");
+const packageJson = readOwnedJson(packagePath, "package.json");
+const blocker = readOwnedText(blockerPath, "docs/specs/cro/DllLangSelect_blocker.md");
 
 if (process.argv.includes("--self-test")) selfTest();
 validateState({
