@@ -20,6 +20,7 @@ readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
   printf '%s\n' 'GNU Arm assembler tools were not found.' >&2
   exit 1
 }
+export CROSS_COMPILE="$(dirname "$assembler")/arm-none-eabi-"
 
 node "$root/scripts/generate-target-object.mjs" \
   "$code" "$symbols" "$assembler" "$readelf" \
@@ -224,7 +225,11 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/thumb-leaf-helpers-19.json" \
   "$root/config/thumb-leaf-helpers-20.json" \
   "$root/config/target-literal-identities/AS_EUR_REV2.json" \
-  "$root/config/targets/AS_EUR_REV2.json"
+  "$root/config/targets/AS_EUR_REV2.json" \
+  "$root/config/arm-ipc-wrappers-105.json" \
+  "$root/config/arm-ipc-wrappers-106.json" \
+  "$root/config/arm-ipc-wrappers-107.json" \
+  "$root/config/arm-runtime-helpers-114.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-global-state-and-pointer-chases-11.mjs" \

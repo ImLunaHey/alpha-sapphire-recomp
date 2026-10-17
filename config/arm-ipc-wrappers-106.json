@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_106.S",
+  "sourceHash": "4bdf5a3f25c526fbed907b9051f87092eb0fe5abd254c277b6f0b135ea72b39e",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "entryRange": [2097152, 3145728],
+  "totalBodySize": 48,
+  "totalAdjacentSize": 4,
+  "functions": [
+    {
+      "name": "func_002AC050",
+      "section": ".text.func_002AC050",
+      "size": 48,
+      "instructionCount": 12,
+      "ownedSize": 52,
+      "nextGlobal": "func_002AC084",
+      "nextGlobalOffset": 52,
+      "branches": [
+        { "offset": 8, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00171FC0" },
+        { "offset": 24, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00171324" },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "addend": 0, "transfer": "tail", "symbol": "func_0017F4A4" }
+      ],
+      "localBranches": [],
+      "indirectCalls": [],
+      "returnOffsets": [],
+      "literals": [
+        { "offset": 48, "loadOffsets": [16], "symbol": "ipc_service_registry_owner_71", "relocation": "R_ARM_ABS32", "addend": 0 }
+      ]
+    }
+  ],
+  "literalIdentities": ["ipc_service_registry_owner_71"],
+  "reusedLiteralIdentities": ["ipc_service_registry_owner_71"],
+  "newLiteralIdentities": [],
+  "literalIdentityContract": {
+    "slotCount": 1,
+    "classCount": 1,
+    "allSlotsOwnedByBatch": true,
+    "remainingUnownedGapBytes": 0,
+    "witness": { "function": "func_0018BFC4", "offset": 64 }
+  },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": ["func_00171FC0", "func_00171324", "func_0017F4A4"],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": ["func_00171FC0", "func_00171324", "func_0017F4A4"],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": ["func_00171FC0", "func_00171324", "func_0017F4A4"],
+    "thumbPrimaryEntries": []
+  },
+  "objectMetadataContract": {
+    "elfClass": "ELF32",
+    "dataEncoding": "little-endian",
+    "objectType": "ET_REL",
+    "machine": "EM_ARM",
+    "armEabiVersion": 5,
+    "entryPoint": 0,
+    "programHeaderCount": 0,
+    "ownedSection": { "name": ".text.func_002AC050", "type": "SHT_PROGBITS", "flags": ["SHF_ALLOC", "SHF_EXECINSTR"], "address": 0, "alignment": 4, "size": 52 },
+    "armAttributes": { "cpuName": "6K", "cpuArchitecture": "v6K", "armIsaUse": true, "thumbIsaUse": "Thumb-1", "floatingPointArchitecture": "VFPv2" },
+    "additionalOwnedAliases": 0,
+    "dataMappingSymbols": 1
+  },
+  "auditContract": {
+    "sourceUnownedExceptThisLane": true,
+    "reportEntryRequired": true,
+    "reportMatchRequired": true,
+    "normalizedDuplicateCount": 0,
+    "externalInteriorDirectTransfers": 0,
+    "alignedInteriorPointers": 0,
+    "scanModes": ["arm", "thumb"]
+  }
+}

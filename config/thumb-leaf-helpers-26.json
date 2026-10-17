@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_26.S",
+  "sourceHash": "a64b5d02719b3d28ed7571dd22612b79221985f50b97f8edefbbcb72956c6f0e",
+  "architecture": "ARMv6K",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "requiredEntryModulo4": 2,
+  "totalBodySize": 410,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 198,
+  "wideInstructionCount": 7,
+  "legacyNopCount": 0,
+  "localBranchCount": 35,
+  "memoryOperationCount": 62,
+  "returnCount": 1,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 7,
+  "directTailCount": 0,
+  "directCalls": [
+    { "function": "func_002FF3AE", "offset": 26, "kind": "call", "destinationSymbol": "func_002FF110", "destinationState": "arm", "stateSwitch": true, "targetOffset": -670, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 162, "kind": "call", "destinationSymbol": "func_002FF118", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -662, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 178, "kind": "call", "destinationSymbol": "arm_secondary_001947E8", "destinationState": "arm", "stateSwitch": true, "targetOffset": -1485766, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 214, "kind": "call", "destinationSymbol": "func_002FF1EC", "destinationState": "arm", "stateSwitch": true, "targetOffset": -450, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 232, "kind": "call", "destinationSymbol": "func_002FF21C", "destinationState": "arm", "stateSwitch": true, "targetOffset": -402, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 274, "kind": "call", "destinationSymbol": "func_002FF24C", "destinationState": "arm", "stateSwitch": true, "targetOffset": -354, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_002FF3AE", "offset": 322, "kind": "call", "destinationSymbol": "func_002FF24C", "destinationState": "arm", "stateSwitch": true, "targetOffset": -354, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 }
+  ],
+  "relocations": [
+    { "offset": 26, "type": "R_ARM_THM_CALL", "symbol": "func_002FF110", "format": "REL", "implicitAddend": -4 },
+    { "offset": 162, "type": "R_ARM_THM_CALL", "symbol": "func_002FF118", "format": "REL", "implicitAddend": -4 },
+    { "offset": 178, "type": "R_ARM_THM_CALL", "symbol": "arm_secondary_001947E8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 214, "type": "R_ARM_THM_CALL", "symbol": "func_002FF1EC", "format": "REL", "implicitAddend": -4 },
+    { "offset": 232, "type": "R_ARM_THM_CALL", "symbol": "func_002FF21C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 274, "type": "R_ARM_THM_CALL", "symbol": "func_002FF24C", "format": "REL", "implicitAddend": -4 },
+    { "offset": 322, "type": "R_ARM_THM_CALL", "symbol": "func_002FF24C", "format": "REL", "implicitAddend": -4 }
+  ],
+  "externalEntryIdentities": [
+    { "symbol": "func_002FF110", "kind": "primary-global", "state": "arm", "targetOffset": -670, "ownership": "external-owned-public", "objectSymbol": true },
+    { "symbol": "func_002FF118", "kind": "primary-global", "state": "thumb", "targetOffset": -662, "ownership": "external-owned-public", "owner": "config/thumb-leaf-helpers-10.json", "objectSymbol": true },
+    { "symbol": "arm_secondary_001947E8", "kind": "secondary-entry", "state": "arm", "targetOffset": -1485766, "ownership": "external-unowned", "objectSymbol": true, "precedingGlobal": { "symbol": "func_001947D8", "offset": -1485782, "bodySize": 16, "bodyEndOffset": -1485766 }, "followingGlobal": { "symbol": "func_00194854", "offset": -1485658 } },
+    { "symbol": "func_002FF1EC", "kind": "primary-global", "state": "arm", "targetOffset": -450, "ownership": "external-owned-public", "owner": "config/arm-duplicate-templates-77.json", "objectSymbol": true },
+    { "symbol": "func_002FF21C", "kind": "primary-global", "state": "arm", "targetOffset": -402, "ownership": "external-owned-public", "owner": "config/arm-duplicate-templates-77.json", "objectSymbol": true },
+    { "symbol": "func_002FF24C", "kind": "primary-global", "state": "arm", "targetOffset": -354, "ownership": "external-owned-public", "owner": "config/arm-runtime-helpers-36.json", "objectSymbol": true }
+  ],
+  "pcRelativeDataAccesses": [
+    { "offset": 70, "mnemonic": "ldr", "pcDisplacement": 956, "targetOffset": 1030, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" },
+    { "offset": 72, "mnemonic": "ldr", "pcDisplacement": 960, "targetOffset": 1034, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" },
+    { "offset": 186, "mnemonic": "ldr", "pcDisplacement": 848, "targetOffset": 1038, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" },
+    { "offset": 198, "mnemonic": "ldr", "pcDisplacement": 836, "targetOffset": 1038, "requiredEntryModulo4": 2, "ownership": "unowned-post-body" }
+  ],
+  "duplicateBodyClasses": [],
+  "objectContract": { "elfClass": "ELF32", "endianness": "little", "fileType": "ET_REL", "machine": "EM_ARM", "elfVersion": 1, "osAbi": "ELFOSABI_NONE", "abiVersion": 0, "flags": 83886080, "executableSectionAlignment": 2, "primarySymbolThumbValue": 1, "mappingSymbol": "$t", "relocationSectionType": "SHT_REL", "namedAliases": [], "unnamedAliases": [] },
+  "encodingConstraints": [
+    { "form": "literalOffset", "rule": "Four literal loads reference three unowned words at offsets 1030, 1034, and 1038; the final word ends exactly at the next global." },
+    { "form": "localTransfers", "rule": "All 35 local transfers remain narrow, resolved, and relocation-free." },
+    { "form": "directImmediate", "rule": "One Thumb call and six ARM-state-switching calls each carry one REL R_ARM_THM_CALL." },
+    { "form": "thumbCodeMapping", "rule": "The exact 410-byte body is continuously Thumb-mapped with no interior data." },
+    { "form": "sectionOwnership", "rule": "No byte in the 632-byte post-body gap is owned." }
+  ],
+  "functions": [
+    { "name": "func_002FF3AE", "size": 410, "instructionCount": 198, "wideInstructionOffsets": [26, 162, 178, 214, 232, 274, 322], "legacyNopOffsets": [], "localBranchCount": 35, "memoryOperationCount": 62, "returnCount": 1, "indirectCallCount": 0, "indirectCallOffsets": [], "indirectTailCount": 0, "directCallCount": 7, "directTailCount": 0, "nextGlobal": "func_002FF7C0", "nextGlobalOffset": 1042, "semanticContract": "The validator pins all instruction bytes, local branches, call states and relocations, the return, mapping, symbols, and authoritative linked body." }
+  ]
+}

@@ -1,0 +1,988 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_114.S",
+  "sourceHash": "d1ceec018f145ddcc75a26ddb351aa3de3baf695050e4943d41e7d5aa8c44009",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00520000",
+    "endExclusive": "0x00540000"
+  },
+  "totalBodySize": 404,
+  "totalAdjacentSize": 4,
+  "expectedInstructionCount": 101,
+  "expectedRelocationCount": 6,
+  "functions": [
+    {
+      "name": "func_0052A400",
+      "size": 32,
+      "ownedSize": 32,
+      "nextGlobal": "func_0052A420",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Save r4,r5,r6,lr on the full descending stack."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Copy r1 to r5."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Copy r2 to r6."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Copy r0 to r4."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "Call ARM primary func_0052A420."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "Store r5 at r4+96 and write that address back to r4."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Store r6 at r4+8."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "operation": "Restore r4,r5,r6 and return through the stacked pc."
+        }
+      ],
+      "adjacentWords": [],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        }
+      ],
+      "calls": [
+        {
+          "offset": 16,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0052A420"
+        }
+      ]
+    },
+    {
+      "name": "func_0052A5C4",
+      "size": 136,
+      "ownedSize": 140,
+      "nextGlobal": "func_0052A650",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Move 3 to r12."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Set r3 to r12+(r3 logically shifted right by 1)."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Save r4,r5,r6 on the stack."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Clear low two bits of r3 into r12, updating flags."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "If equal, branch to offset 128."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "Set r12 to r0-2."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Set r0 to r2-2."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "operation": "Load scalar 32767 from owned offset 136 into r2."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "operation": "Logically shift r3 right by 2."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "operation": "Set r4 to r3 shifted left by 1."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "operation": "Set r3 to r1-2."
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "operation": "Set r5 to the bitwise complement of r2."
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "operation": "Load signed halfword at r12+2 into r1."
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "operation": "Load signed halfword at r3+2 into r6."
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "operation": "Add r6 to r1."
+        },
+        {
+          "offset": 60,
+          "width": 4,
+          "operation": "Compare signed r1 with 32768."
+        },
+        {
+          "offset": 64,
+          "width": 4,
+          "operation": "If greater or equal, copy r2 to r1."
+        },
+        {
+          "offset": 68,
+          "width": 4,
+          "operation": "If greater or equal, branch to offset 80."
+        },
+        {
+          "offset": 72,
+          "width": 4,
+          "operation": "Compare signed r1 with -32768 using CMN flags."
+        },
+        {
+          "offset": 76,
+          "width": 4,
+          "operation": "If less or equal, copy r5 to r1."
+        },
+        {
+          "offset": 80,
+          "width": 4,
+          "operation": "Store low halfword of r1 at r0+2."
+        },
+        {
+          "offset": 84,
+          "width": 4,
+          "operation": "Load signed halfword at r12+4 into r1 with base writeback."
+        },
+        {
+          "offset": 88,
+          "width": 4,
+          "operation": "Load signed halfword at r3+4 into r6 with base writeback."
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "operation": "Add r6 to r1."
+        },
+        {
+          "offset": 96,
+          "width": 4,
+          "operation": "Compare signed r1 with 32768."
+        },
+        {
+          "offset": 100,
+          "width": 4,
+          "operation": "If greater or equal, copy r2 to r1."
+        },
+        {
+          "offset": 104,
+          "width": 4,
+          "operation": "If greater or equal, branch to offset 116."
+        },
+        {
+          "offset": 108,
+          "width": 4,
+          "operation": "Compare signed r1 with -32768 using CMN flags."
+        },
+        {
+          "offset": 112,
+          "width": 4,
+          "operation": "If less or equal, copy r5 to r1."
+        },
+        {
+          "offset": 116,
+          "width": 4,
+          "operation": "Subtract 1 from r4, updating flags."
+        },
+        {
+          "offset": 120,
+          "width": 4,
+          "operation": "Store low halfword of r1 at r0+4 with base writeback."
+        },
+        {
+          "offset": 124,
+          "width": 4,
+          "operation": "If not equal, branch to offset 48."
+        },
+        {
+          "offset": 128,
+          "width": 4,
+          "operation": "Restore r4,r5,r6 from the stack."
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "operation": "Return through lr."
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 136,
+          "kind": "scalar",
+          "value": 32767
+        }
+      ],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        },
+        {
+          "name": "$d",
+          "offset": 136
+        }
+      ],
+      "calls": []
+    },
+    {
+      "name": "func_0052A6E0",
+      "size": 44,
+      "ownedSize": 44,
+      "nextGlobal": "func_0052A70C",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Save r4,lr on the stack."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Copy r0 to r4."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Load word at r0+108 into r0."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Compare r0 with zero."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "If equal, branch to offset 32."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "Call ARM primary func_0014307C."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Move zero to r0."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "operation": "Store r0 at r4+108."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "operation": "Set r0 to all ones."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "operation": "Store r0 at r4+104."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "operation": "Restore r4 and return through the stacked pc."
+        }
+      ],
+      "adjacentWords": [],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        }
+      ],
+      "calls": [
+        {
+          "offset": 20,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0014307C"
+        }
+      ]
+    },
+    {
+      "name": "func_0053FC40",
+      "size": 28,
+      "ownedSize": 28,
+      "nextGlobal": "func_0053FC5C",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Save r3,lr on the stack."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Load word at r1 into r12."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Copy r2 to r3."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Copy sp to r2."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "Store r12 at sp."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "Call ARM primary func_0053FB10."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Restore r3 and return through the stacked pc."
+        }
+      ],
+      "adjacentWords": [],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        }
+      ],
+      "calls": [
+        {
+          "offset": 20,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_0053FB10"
+        }
+      ]
+    },
+    {
+      "name": "func_0053FCDC",
+      "size": 92,
+      "ownedSize": 92,
+      "nextGlobal": "func_0053FD38",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Save r4,r5,r6,lr on the stack."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Set r6 to r0+8."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Load word at r0+16 into r0."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Copy r6 to r4."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "Compare r0 with zero."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "If equal, branch to offset 84."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Load word at r4+4 into r5."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "operation": "Compare r5 with r4."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "operation": "If equal, branch to offset 68."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "operation": "Copy r5 to r1."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "operation": "Load word at r5+4 into r5."
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "operation": "Load word at r4+8 into r0."
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "operation": "Move 1 to r2."
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "operation": "Call ARM primary func_002B807C."
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "operation": "Compare r5 with r4."
+        },
+        {
+          "offset": 60,
+          "width": 4,
+          "operation": "Execute ARM architectural hint NOP (not a register move)."
+        },
+        {
+          "offset": 64,
+          "width": 4,
+          "operation": "If not equal, branch to offset 36."
+        },
+        {
+          "offset": 68,
+          "width": 4,
+          "operation": "Move zero to r0."
+        },
+        {
+          "offset": 72,
+          "width": 4,
+          "operation": "Store r0 at r4+8."
+        },
+        {
+          "offset": 76,
+          "width": 4,
+          "operation": "Store r4 at r4."
+        },
+        {
+          "offset": 80,
+          "width": 4,
+          "operation": "Store r4 at r4+4."
+        },
+        {
+          "offset": 84,
+          "width": 4,
+          "operation": "Set r0 to r6-8."
+        },
+        {
+          "offset": 88,
+          "width": 4,
+          "operation": "Restore r4,r5,r6 and return through the stacked pc."
+        }
+      ],
+      "adjacentWords": [],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        }
+      ],
+      "calls": [
+        {
+          "offset": 52,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_002B807C"
+        }
+      ]
+    },
+    {
+      "name": "func_0053FD38",
+      "size": 72,
+      "ownedSize": 72,
+      "nextGlobal": "func_0053FD88",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "operation": "Save r4,r5,r6,lr on the stack."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "operation": "Copy r0 to r6."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "Load word at r1+8 into r0."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "operation": "Copy r1 to r5."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "operation": "Move 2 to r1."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "operation": "Call ARM primary func_002B80B0."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "operation": "Copy r0 to r4 and update flags."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "operation": "If equal, store r0 at r6."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "operation": "If equal, branch to offset 68."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "operation": "Set r0 to r4+8 and update flags."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "operation": "If not equal, call ARM primary func_0053FCB8."
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "operation": "Load word at r5 into r0."
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "operation": "Store r0,r5 in ascending words at r4 without writeback."
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "operation": "Store r4 at r5."
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "operation": "Load word at r4 into r0."
+        },
+        {
+          "offset": 60,
+          "width": 4,
+          "operation": "Store r4 at r0+4."
+        },
+        {
+          "offset": 64,
+          "width": 4,
+          "operation": "Store r4 at r6."
+        },
+        {
+          "offset": 68,
+          "width": 4,
+          "operation": "Restore r4,r5,r6 and return through the stacked pc."
+        }
+      ],
+      "adjacentWords": [],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        }
+      ],
+      "calls": [
+        {
+          "offset": 20,
+          "kind": "R_ARM_CALL",
+          "mnemonic": "bl",
+          "symbol": "func_002B80B0"
+        },
+        {
+          "offset": 40,
+          "kind": "R_ARM_JUMP24",
+          "mnemonic": "blne",
+          "symbol": "func_0053FCB8"
+        }
+      ]
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_0052A400",
+      "offset": 16,
+      "type": "R_ARM_CALL",
+      "symbol": "func_0052A420",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "always"
+    },
+    {
+      "function": "func_0052A6E0",
+      "offset": 20,
+      "type": "R_ARM_CALL",
+      "symbol": "func_0014307C",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "always"
+    },
+    {
+      "function": "func_0053FC40",
+      "offset": 20,
+      "type": "R_ARM_CALL",
+      "symbol": "func_0053FB10",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "always"
+    },
+    {
+      "function": "func_0053FCDC",
+      "offset": 52,
+      "type": "R_ARM_CALL",
+      "symbol": "func_002B807C",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "always"
+    },
+    {
+      "function": "func_0053FD38",
+      "offset": 20,
+      "type": "R_ARM_CALL",
+      "symbol": "func_002B80B0",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "always"
+    },
+    {
+      "function": "func_0053FD38",
+      "offset": 40,
+      "type": "R_ARM_JUMP24",
+      "symbol": "func_0053FCB8",
+      "addend": -8,
+      "targetMode": "arm",
+      "condition": "not-equal"
+    }
+  ],
+  "aliases": [],
+  "secondaryEntries": [],
+  "duplicateBodyClasses": [],
+  "symbolicIdentities": {},
+  "audits": {
+    "inventoryFunctions": 10440,
+    "rangeEntries": 129,
+    "unownedUnmatchedArmCandidates": 93,
+    "bodyOccurrences": {
+      "func_0052A400": 1,
+      "func_0052A5C4": 1,
+      "func_0052A6E0": 1,
+      "func_0053FC40": 1,
+      "func_0053FCDC": 1,
+      "func_0053FD38": 1
+    },
+    "inboundDirectTransfers": [
+      {
+        "from": "0x1d2788",
+        "to": "0x52a5c4",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0052A5C4",
+        "offset": 0
+      },
+      {
+        "from": "0x1d2bbc",
+        "to": "0x52a6e0",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0052A6E0",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6894",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6a64",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6cc0",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6d44",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6e20",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6ee8",
+        "to": "0x53fc40",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FC40",
+        "offset": 0
+      },
+      {
+        "from": "0x2b6fe0",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      },
+      {
+        "from": "0x2b70d0",
+        "to": "0x53fcdc",
+        "state": "arm",
+        "kind": "call",
+        "owner": "func_0053FCDC",
+        "offset": 0
+      }
+    ],
+    "interiorInboundCount": 0,
+    "sourceDefinitionsExcluded": [
+      "src/main/arm_runtime_helpers_114.S"
+    ],
+    "adjacentOwnership": "Only the scalar at func_0052A5C4+136; all other post-body bytes excluded.",
+    "scope": "Direct ARM and Thumb-1 branches/calls within all inventoried bodies; mapping state and exact primary entries checked. Indirect runtime targets are not statically enumerable. All aligned words in the private executable were also scanned for absolute references into owned ranges; none occur.",
+    "alignedAbsoluteWordReferences": []
+  },
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "requiredFlags": "0x05000000",
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": 6,
+    "ownedSectionAlignment": 4,
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "canonicalNullSymbol": true,
+    "exactOwnedSymbols": true,
+    "exactRelocations": true
+  },
+  "provenance": {
+    "target": "AS_EUR_REV2",
+    "date": "2026-10-17",
+    "assembler": "GNU Arm binutils 2.44",
+    "activity": "Behavioral analysis and independent reconstruction; not a separated two-party clean-room implementation.",
+    "evidence": "Existing ignored private code.bin, generated target ELF, local objdiff report; public neutral symbol inventory.",
+    "targetObjectSha256": "4a8c290d3b3a84960e087f7d6109a68cc6c9d4c2208c65cfaf20d6c81003c0c1"
+  },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0052A420",
+      "func_0014307C",
+      "func_0053FB10",
+      "func_002B807C",
+      "func_002B80B0",
+      "func_0053FCB8"
+    ],
+    "secondaryEntries": [],
+    "armPrimaryEntries": [
+      "func_0052A420",
+      "func_0014307C",
+      "func_0053FB10",
+      "func_002B807C",
+      "func_002B80B0",
+      "func_0053FCB8"
+    ],
+    "thumbPrimaryEntries": []
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_0052A5C4",
+      "offset": 28,
+      "width": 4,
+      "kind": "scalar-word-load",
+      "targetOffset": 136,
+      "value": 32767,
+      "ownership": "owned-adjacent-word"
+    }
+  ],
+  "directTransfers": [
+    {
+      "function": "func_0052A400",
+      "offset": 16,
+      "kind": "call",
+      "condition": "always",
+      "symbol": "func_0052A420",
+      "mode": "arm"
+    },
+    {
+      "function": "func_0052A6E0",
+      "offset": 20,
+      "kind": "call",
+      "condition": "always",
+      "symbol": "func_0014307C",
+      "mode": "arm"
+    },
+    {
+      "function": "func_0053FC40",
+      "offset": 20,
+      "kind": "call",
+      "condition": "always",
+      "symbol": "func_0053FB10",
+      "mode": "arm"
+    },
+    {
+      "function": "func_0053FCDC",
+      "offset": 52,
+      "kind": "call",
+      "condition": "always",
+      "symbol": "func_002B807C",
+      "mode": "arm"
+    },
+    {
+      "function": "func_0053FD38",
+      "offset": 20,
+      "kind": "call",
+      "condition": "always",
+      "symbol": "func_002B80B0",
+      "mode": "arm"
+    },
+    {
+      "function": "func_0053FD38",
+      "offset": 40,
+      "kind": "call",
+      "condition": "not-equal",
+      "symbol": "func_0053FCB8",
+      "mode": "arm"
+    }
+  ],
+  "indirectTransfers": [],
+  "returns": [
+    {
+      "function": "func_0052A400",
+      "offset": 28,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    },
+    {
+      "function": "func_0052A5C4",
+      "offset": 132,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_0052A6E0",
+      "offset": 40,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    },
+    {
+      "function": "func_0053FC40",
+      "offset": 24,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    },
+    {
+      "function": "func_0053FCDC",
+      "offset": 88,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    },
+    {
+      "function": "func_0053FD38",
+      "offset": 68,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    }
+  ]
+}

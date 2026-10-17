@@ -1,0 +1,256 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_107.S",
+  "sourceHash": "29c7f84b933a0a530c4de486a17b01f8e40a22c0ffb51af86d0a884244dc1796",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "entryRange": [
+    3145728,
+    4194304
+  ],
+  "totalBodySize": 332,
+  "totalAdjacentSize": 4,
+  "functions": [
+    {
+      "name": "func_003AC2A0",
+      "section": ".text.func_003AC2A0",
+      "size": 332,
+      "instructionCount": 83,
+      "ownedSize": 336,
+      "nextGlobal": "func_003AC3F0",
+      "nextGlobalOffset": 336,
+      "branches": [
+        {
+          "offset": 328,
+          "kind": "R_ARM_JUMP24",
+          "addend": 0,
+          "transfer": "tail",
+          "symbol": "func_003A7EE8"
+        }
+      ],
+      "localBranches": [
+        {
+          "offset": 32,
+          "targetOffset": 44,
+          "condition": "eq"
+        },
+        {
+          "offset": 56,
+          "targetOffset": 68,
+          "condition": "eq"
+        },
+        {
+          "offset": 80,
+          "targetOffset": 92,
+          "condition": "eq"
+        },
+        {
+          "offset": 104,
+          "targetOffset": 116,
+          "condition": "eq"
+        },
+        {
+          "offset": 128,
+          "targetOffset": 140,
+          "condition": "eq"
+        },
+        {
+          "offset": 152,
+          "targetOffset": 164,
+          "condition": "eq"
+        },
+        {
+          "offset": 176,
+          "targetOffset": 188,
+          "condition": "eq"
+        },
+        {
+          "offset": 208,
+          "targetOffset": 220,
+          "condition": "eq"
+        },
+        {
+          "offset": 228,
+          "targetOffset": 240,
+          "condition": "eq"
+        },
+        {
+          "offset": 248,
+          "targetOffset": 260,
+          "condition": "eq"
+        },
+        {
+          "offset": 268,
+          "targetOffset": 280,
+          "condition": "eq"
+        },
+        {
+          "offset": 288,
+          "targetOffset": 300,
+          "condition": "eq"
+        },
+        {
+          "offset": 308,
+          "targetOffset": 320,
+          "condition": "eq"
+        }
+      ],
+      "indirectCalls": [],
+      "returnOffsets": [],
+      "supervisorCalls": [
+        {
+          "offset": 36,
+          "number": 35
+        },
+        {
+          "offset": 60,
+          "number": 35
+        },
+        {
+          "offset": 84,
+          "number": 35
+        },
+        {
+          "offset": 108,
+          "number": 35
+        },
+        {
+          "offset": 132,
+          "number": 35
+        },
+        {
+          "offset": 156,
+          "number": 35
+        },
+        {
+          "offset": 180,
+          "number": 35
+        },
+        {
+          "offset": 212,
+          "number": 35
+        },
+        {
+          "offset": 232,
+          "number": 35
+        },
+        {
+          "offset": 252,
+          "number": 35
+        },
+        {
+          "offset": 272,
+          "number": 35
+        },
+        {
+          "offset": 292,
+          "number": 35
+        },
+        {
+          "offset": 312,
+          "number": 35
+        }
+      ],
+      "literals": [
+        {
+          "offset": 332,
+          "loadOffsets": [
+            8
+          ],
+          "symbol": "service_handle_owner_dispatch_107",
+          "relocation": "R_ARM_ABS32",
+          "addend": 0
+        }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_handle_owner_dispatch_107"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_handle_owner_dispatch_107"
+  ],
+  "literalIdentityContract": {
+    "slotCount": 1,
+    "classCount": 1,
+    "allSlotsOwnedByBatch": true,
+    "remainingUnownedGapBytes": 0,
+    "witness": {
+      "kind": "aligned-image-dispatch-slot",
+      "slotOffset": 0,
+      "entry": "func_003AC2A0"
+    },
+    "distinctFromOtherPublicLiteralIdentities": true
+  },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_003A7EE8"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_003A7EE8"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_003A7EE8"
+    ],
+    "thumbPrimaryEntries": []
+  },
+  "objectMetadataContract": {
+    "elfClass": "ELF32",
+    "dataEncoding": "little-endian",
+    "osAbi": "System V",
+    "objectType": "ET_REL",
+    "machine": "EM_ARM",
+    "elfVersion": 1,
+    "armEabiVersion": 5,
+    "entryPoint": 0,
+    "programHeaderCount": 0,
+    "ownedSection": {
+      "name": ".text.func_003AC2A0",
+      "type": "SHT_PROGBITS",
+      "flags": [
+        "SHF_ALLOC",
+        "SHF_EXECINSTR"
+      ],
+      "address": 0,
+      "alignment": 4,
+      "size": 336
+    },
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "additionalOwnedAliases": 0,
+    "dataMappingSymbols": 1,
+    "foreignSections": "Only empty PROGBITS/NOBITS sections and canonical section symbols are permitted beyond required metadata."
+  },
+  "auditContract": {
+    "sourceUnownedExceptThisLane": true,
+    "reportEntryRequired": true,
+    "reportMatchRequired": true,
+    "normalizedDuplicateCount": 0,
+    "externalInteriorDirectTransfers": 0,
+    "alignedInteriorPointers": 0,
+    "scanModes": [
+      "arm",
+      "thumb"
+    ],
+    "compositeSelfTestForeignSections": 12000,
+    "resourceCaps": {
+      "fileBytes": 67108864,
+      "executableBytes": 16777216,
+      "sections": 16384,
+      "symbols": 1000000,
+      "combinedRelAndRela": 1000000
+    }
+  }
+}

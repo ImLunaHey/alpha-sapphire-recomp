@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_112.S",
+  "sourceHash": "b291f4c0e9e5f0692c427835e07dbb6240e191bce2a9dcb960073d2cad726cff",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 48,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 12,
+  "memoryOperationCount": 8,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 2,
+  "expectedRelocationCount": 0,
+  "functions": [
+    {
+      "name": "func_001767B4", "size": 12, "ownedSize": 12, "nextGlobal": "func_001767C0",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "word-load", "destination": "r1", "base": "r0", "displacement": 60 },
+        { "offset": 4, "width": 4, "kind": "register-add", "destination": "r0", "left": "r0", "right": "r1", "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001870E4", "size": 36, "ownedSize": 36, "nextGlobal": "func_0018713C",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "constant-move", "destination": "r1", "value": 0, "updatesFlags": false },
+        { "offset": 4, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 0 },
+        { "offset": 8, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 8 },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 12 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 16 },
+        { "offset": 24, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 20 },
+        { "offset": 28, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 17 },
+        { "offset": 32, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "call_free_runtime_leaves_112": {
+      "members": ["func_001767B4", "func_001870E4"],
+      "parameters": ["instructionSchedule", "registerAssignments", "memoryWidths", "memoryDisplacements"]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    { "function": "func_001767B4", "offset": 8, "width": 4, "kind": "register-return", "register": "lr" },
+    { "function": "func_001870E4", "offset": 32, "width": 4, "kind": "register-return", "register": "lr" }
+  ],
+  "relocations": [],
+  "branchIdentityContract": { "mode": "arm", "minimumAlignment": 4, "primaryEntries": [], "secondaryEntries": [], "armPrimaryEntries": [], "thumbPrimaryEntries": [] },
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": [],
+  "aliases": [],
+  "duplicateBodyClasses": [],
+  "elfContract": {
+    "class": "ELF32", "endianness": "little", "type": "ET_REL", "machine": "EM_ARM", "eabiVersion": 5, "requiredFlags": "0x05000000",
+    "armAttributes": { "cpuName": "6K", "cpuArchitecture": "v6K", "armIsaUse": true, "thumbIsaUse": "Thumb-1", "floatingPointArchitecture": "VFPv2" },
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": [{ "name": "$a", "offset": 0, "binding": "STB_LOCAL", "type": "STT_NOTYPE" }],
+    "definedFunctionSymbols": { "binding": "STB_GLOBAL", "type": "STT_FUNC", "visibility": "STV_DEFAULT", "other": 0, "value": 0, "size": "body-size" }
+  }
+}

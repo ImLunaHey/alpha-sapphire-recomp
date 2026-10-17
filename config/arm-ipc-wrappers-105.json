@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_105.S",
+  "sourceHash": "2cfbd93a10a2da26fda4f0272bce65e34c34fb748e5e82ce33ba8e195b0812ca",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "objectMetadataContract": {
+    "elfClass": "ELF32", "dataEncoding": "little-endian", "osAbi": "System V",
+    "objectType": "ET_REL", "machine": "EM_ARM", "elfVersion": 1,
+    "armFlags": ["EF_ARM_EABI_VER5"], "entryPoint": 0, "programHeaderCount": 0,
+    "canonicalNullSection": true,
+    "armAttributes": { "cpuName": "6K", "cpuArchitecture": "v6K", "armIsaUse": true, "thumbIsaUse": "Thumb-1", "floatingPointArchitecture": "VFPv2" },
+    "ownedSection": { "name": ".text.func_00185C94", "type": "SHT_PROGBITS", "flags": ["SHF_ALLOC", "SHF_EXECINSTR"], "address": 0, "alignment": 4, "size": 420 },
+    "ownedSymbols": [
+      { "name": "", "binding": "STB_LOCAL", "type": "STT_SECTION", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "$a", "binding": "STB_LOCAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "$d", "binding": "STB_LOCAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 404, "size": 0 },
+      { "name": "func_00185C94", "binding": "STB_GLOBAL", "type": "STT_FUNC", "visibility": "STV_DEFAULT", "value": 0, "size": 404 }
+    ],
+    "undefinedDestinationSymbols": { "binding": "STB_GLOBAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+    "undefinedLiteralSymbols": { "binding": "STB_GLOBAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+    "additionalOwnedAliases": 0, "dataMappingSymbols": 1
+  },
+  "totalBodySize": 404,
+  "totalAdjacentSize": 16,
+  "cumulativePoolSlots": 921,
+  "cumulativePoolClasses": 493,
+  "functions": [{
+    "name": "func_00185C94", "section": ".text.func_00185C94", "size": 404,
+    "instructionCount": 101, "localBranchCount": 0,
+    "nextGlobal": "func_00185E38", "nextGlobalOffset": 420,
+    "branches": [
+      { "offset": 56, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+      { "offset": 68, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+      { "offset": 136, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0017ECB0" },
+      { "offset": 152, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018E1E0" },
+      { "offset": 164, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018B220" },
+      { "offset": 228, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+      { "offset": 240, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+      { "offset": 340, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0017E30C" },
+      { "offset": 348, "kind": "R_ARM_JUMP24", "addend": 0, "transfer": "conditionalLinked", "symbol": "func_001603A0" },
+      { "offset": 368, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018D348" },
+      { "offset": 376, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018D6D4" },
+      { "offset": 388, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018E370" }
+    ],
+    "localBranches": [], "indirectCalls": [], "returnOffsets": [400],
+    "literals": [
+      { "offset": 404, "loadOffsets": [12], "symbol": "service_owner_vtable_105", "relocation": "R_ARM_ABS32", "addend": 0 },
+      { "offset": 408, "loadOffsets": [140], "symbol": "service_adapter_vtable_105", "relocation": "R_ARM_ABS32", "addend": 0 },
+      { "offset": 412, "loadOffsets": [168], "symbol": "service_runtime_endpoint_vtable_85", "relocation": "R_ARM_ABS32", "addend": 0 },
+      { "offset": 416, "loadOffsets": [328], "symbol": "service_runtime_context_105", "relocation": "R_ARM_ABS32", "addend": 0 }
+    ]
+  }],
+  "literalIdentities": ["service_owner_vtable_105", "service_adapter_vtable_105", "service_runtime_endpoint_vtable_85", "service_runtime_context_105"],
+  "reusedLiteralIdentities": ["service_runtime_endpoint_vtable_85"],
+  "newLiteralIdentities": ["service_owner_vtable_105", "service_adapter_vtable_105", "service_runtime_context_105"],
+  "literalIdentityContract": { "slotCount": 4, "classCount": 4, "classesPairwiseDistinct": true, "allSlotsOwnedByBatch": true, "remainingUnownedGapBytes": 0 },
+  "branchIdentityContract": {
+    "mode": "arm", "minimumAlignment": 4,
+    "primaryEntries": ["func_00184990", "func_0017ECB0", "func_0018E1E0", "func_0018B220", "func_0017E30C", "func_001603A0", "func_0018D348", "func_0018D6D4", "func_0018E370"],
+    "secondaryEntries": [], "secondaryEntryRelations": [],
+    "sharedClasses": [{ "symbol": "func_00184990", "sites": [{ "function": "func_00185C94", "offset": 56 }, { "function": "func_00185C94", "offset": 68 }, { "function": "func_00185C94", "offset": 228 }, { "function": "func_00185C94", "offset": 240 }] }],
+    "singletonClasses": ["func_0017ECB0", "func_0018E1E0", "func_0018B220", "func_0017E30C", "func_001603A0", "func_0018D348", "func_0018D6D4", "func_0018E370"],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": ["func_00184990", "func_0017ECB0", "func_0018E1E0", "func_0018B220", "func_0017E30C", "func_001603A0", "func_0018D348", "func_0018D6D4", "func_0018E370"],
+    "thumbPrimaryEntries": []
+  },
+  "selectionNotes": {
+    "skippedEarlierUnmatched": [
+      { "name": "func_00180F24", "size": 1356, "reason": "large multi-loop scheduler/dispatcher outside the bounded wrapper cohort" },
+      { "name": "func_00184AAC", "size": 808, "reason": "large multi-path service routine outside the bounded wrapper cohort" },
+      { "name": "func_00184F20", "size": 1052, "reason": "large multi-path service initializer outside the bounded wrapper cohort" },
+      { "name": "func_00185774", "size": 392, "reason": "its required adjacent extent contains a target-authored UTF-16 diagnostic string, excluded from clean-room source" }
+    ],
+    "skippedBeforeNextSuitable": [], "nextUnselectedSuitable": "func_00185E38"
+  }
+}

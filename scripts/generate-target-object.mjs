@@ -25673,6 +25673,50 @@ if (JSON.stringify(thumbLeafHelpers20Config.directCalls.map(({ offset, destinati
   throw new Error("Thumb leaf/helper 20 external entry identity contract is invalid");
 }
 
+// Later relocation-bearing batches are supplied after the fixed positional manifest. Their
+// validators independently prove that these clean-room source bodies encode
+// the audited target transfers; emitting the same symbolic bodies here gives
+// objdiff relocation metadata instead of opaque resolved branch words.
+const supplementalIpcPaths = [
+  "config/arm-ipc-wrappers-105.json",
+  "config/arm-ipc-wrappers-106.json",
+  "config/arm-ipc-wrappers-107.json",
+  "config/arm-runtime-helpers-114.json",
+].map((path) => join(root, path));
+const supplementalIpcBodies = new Map();
+for (const configPath of supplementalIpcPaths) {
+  if (!process.argv.includes(configPath)) {
+    throw new Error(`Missing supplemental IPC target manifest ${relative(root, configPath)}`);
+  }
+  const config = JSON.parse(readFileSync(configPath, "utf8"));
+  const sourcePath = join(root, config.source);
+  const lines = readFileSync(sourcePath, "utf8").split(/\r?\n/);
+  for (const mapping of config.functions ?? []) {
+    const begin = lines.findIndex((line) => line.trim() === `${mapping.name}:`);
+    const end = lines.findIndex((line, index) => index > begin &&
+      line.trim().startsWith(`.size ${mapping.name},`));
+    if (begin < 0 || end <= begin || mapping.size === undefined) {
+      throw new Error(`Invalid supplemental IPC source boundary for ${mapping.name}`);
+    }
+    const body = lines.slice(begin + 1, end)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => line.replace(/\.L([A-Za-z0-9_.$]+)/g,
+        `.L_supplemental_${mapping.name}_$1`));
+    const nextSection = lines.findIndex((line, index) => index > end &&
+      line.trim().startsWith(".section "));
+    const tail = lines.slice(end + 1, nextSection < 0 ? lines.length : nextSection)
+      .map((line) => line.trim())
+      .filter(Boolean)
+      .map((line) => line.replace(/\.L([A-Za-z0-9_.$]+)/g,
+        `.L_supplemental_${mapping.name}_$1`));
+    if (supplementalIpcBodies.has(mapping.name)) {
+      throw new Error(`Duplicate supplemental IPC mapping for ${mapping.name}`);
+    }
+    supplementalIpcBodies.set(mapping.name, { body, mapping, tail });
+  }
+}
+
 const assembly = [
   ".syntax unified",
   ".arch armv6k",
@@ -25888,6 +25932,7 @@ for (const entry of functions) {
   const runtimeHelper104 = runtimeHelpers104ByName.get(entry.name);
   const runtimeHelper105 = runtimeHelpers105ByName.get(entry.name);
   const runtimeHelper106 = runtimeHelpers106ByName.get(entry.name);
+  const supplementalIpc = supplementalIpcBodies.get(entry.name);
   const instructions = [];
   const configuredMappings = [destination, adjacentGlobalLoad, globalState, duplicateIpcAndTable, multiIdentityGlobal, ipcUniqueTemplate, ipcTemplate15, ipcTemplate16, ipcTemplate17, ipcTemplate18, ipcTemplate19, ipcTemplate20, ipcTemplate21, ipcTemplate22, ipcTemplate23, ipcTemplate24, ipcTemplate25, ipcTemplate26, ipcTemplate27, ipcTemplate28, ipcTemplate29, ipcTemplate30, ipcTemplate31, ipcTemplate32, ipcTemplate33, ipcTemplate34, duplicateTemplate19, duplicateTemplate21, duplicateTemplate22, duplicateTemplate23, duplicateTemplate24, duplicateTemplate25, duplicateTemplate26, duplicateTemplate27, duplicateTemplate29, duplicateTemplate30, duplicateTemplate31, duplicateTemplate32, duplicateTemplate33, duplicateTemplate34, duplicateTemplate35, duplicateTemplate36, duplicateTemplate37, duplicateTemplate38, duplicateTemplate39, duplicateTemplate40, duplicateTemplate41, duplicateTemplate42, duplicateTemplate44, duplicateTemplate46, duplicateTemplate47, duplicateTemplate48, duplicateTemplate49, duplicateTemplate52, duplicateTemplate53, duplicateTemplate54, duplicateTemplate55, duplicateTemplate58, duplicateTemplate60, duplicateTemplate62, duplicateTemplate73, duplicateTemplate74, duplicateTemplate75, duplicateTemplate76, duplicateTemplate77, duplicateTemplate78, duplicateTemplate79, duplicateTemplate80, duplicateTemplate81, duplicateTemplate82, duplicateContainerTemplate, runtimeHelper23, runtimeHelper24, runtimeHelper25, runtimeHelper26, runtimeHelper27, runtimeHelper29, runtimeHelper30, runtimeHelper31, runtimeHelper32, runtimeHelper33, runtimeHelper34, runtimeHelper36, runtimeHelper37, runtimeHelper38, runtimeHelper41, runtimeHelper43, runtimeHelper44, runtimeHelper46, runtimeHelper95, runtimeHelper96, runtimeHelper97, runtimeHelper98, runtimeHelper99, runtimeHelper100, runtimeHelper101, runtimeHelper102, runtimeHelper103, runtimeHelper104, runtimeHelper105].filter(Boolean);
   if (ipcTemplate35) configuredMappings.push(ipcTemplate35);
@@ -25972,6 +26017,7 @@ for (const entry of functions) {
   if (thumbLeafHelper19) configuredMappings.push(thumbLeafHelper19);
   if (thumbLeafHelper20) configuredMappings.push(thumbLeafHelper20);
   if (runtimeHelper106) configuredMappings.push(runtimeHelper106);
+  if (supplementalIpc) configuredMappings.push(supplementalIpc.mapping);
   if (duplicateTemplate64) configuredMappings.push(duplicateTemplate64);
   if (duplicateTemplate65) configuredMappings.push(duplicateTemplate65);
   if (duplicateTemplate66) configuredMappings.push(duplicateTemplate66);
@@ -25989,6 +26035,11 @@ for (const entry of functions) {
     }
     instructions.push(`b ${destination}`);
     branchThunks.delete(entry.name);
+  } else if (supplementalIpc) {
+    if (supplementalIpc.mapping.size !== entry.size || entry.mode !== "$a") {
+      throw new Error(`${entry.name} violates its supplemental IPC target boundary`);
+    }
+    instructions.push(...supplementalIpc.body);
   } else if (runtimeHelper95) {
     instructions.push(...runtimeHelpers95SemanticBodies.get(entry.name));
   } else if (runtimeHelper96) {
@@ -27927,6 +27978,7 @@ for (const entry of functions) {
     `${entry.name}:`,
     ...instructions,
     `.size ${entry.name}, .-${entry.name}`,
+    ...(supplementalIpc?.tail ?? []),
     ...((duplicateTemplate72?.addressReferences ?? []).length > 0
       ? [`.Lduplicate_template72_post_body_${entry.name}:`]
       : []),

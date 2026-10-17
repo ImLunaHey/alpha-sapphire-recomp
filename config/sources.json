@@ -1232,6 +1232,42 @@
     {
       "path": "src/main/thumb_leaf_helpers_25.S",
       "mode": "thumb"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_112.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/thumb_leaf_helpers_26.S",
+      "mode": "thumb"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_105.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_113.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_114.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_115.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_106.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_116.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_107.S",
+      "mode": "arm"
     }
   ]
 }

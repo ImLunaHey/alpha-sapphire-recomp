@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 3,722 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 3,751 clean-room functions are byte-identical.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 17.491903,
-    "matchedFunctions": 3722,
+    "matchedCodePercent": 17.638556,
+    "matchedFunctions": 3751,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "3,722 routines, global-state helpers, container templates, IPC wrappers, and runtime/linker helpers match byte-for-byte",
+      "detail": "3,751 routines, global-state helpers, container templates, IPC wrappers, and runtime/linker helpers match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "Wave26 and six parallel ARM batches matched",
+      "detail": "Three IPC wrappers, twenty-five ARM runtime helpers, and one Thumb helper raised the genuine report to 3,751 functions and 387,524 bytes. All 3,222 executable bytes passed authoritative objdiff at 100%."
+    },
     {
       "date": "2026-10-17",
       "title": "IPC batch 104, runtime batch 111, and Thumb leaf batch 25 matched",
