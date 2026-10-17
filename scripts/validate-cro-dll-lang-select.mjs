@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
+import crypto from "node:crypto";
 import fs from "node:fs";
 import os from "node:os";
 import path, { isAbsolute, relative, sep } from "node:path";
@@ -12,6 +13,10 @@ const sourcesPath = path.join(ROOT, "config/cro-sources.json");
 const reportPath = path.join(ROOT, "progress/reports/AS_EUR_REV2/report.json");
 const packagePath = path.join(ROOT, "package.json");
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
+// Exact UTF-8 bytes of the reviewed blocker document.
+const EXPECTED_BLOCKER_SHA256 = "87e481270e3b2caabe9d3d4290325ef22cbd92473d57eca33488c9e54103dfaf";
+// JSON.stringify of the complete reviewed report unit after duplicate-key rejection.
+const EXPECTED_REPORT_UNIT_SHA256 = "4ab865d800c7b0866eb3e863f1826aef528ae13a17eaf5438ba65d187206c98e";
 
 const expectedSource = {
   name: "DllLangSelect",
@@ -34,6 +39,10 @@ const expectedMeasures = {
 
 function clone(value) {
   return structuredClone(value);
+}
+
+function sha256(value) {
+  return crypto.createHash("sha256").update(value).digest("hex");
 }
 
 function fail(message) {
@@ -120,6 +129,11 @@ export function readOwnedJson(filePath, label, ownedRoot = ROOT) {
 
 export function validateState({ blocker, sourceEntries, reportUnits, scripts }) {
   assert.equal(typeof blocker, "string", "blocker document must be readable text");
+  assert.equal(
+    sha256(blocker),
+    EXPECTED_BLOCKER_SHA256,
+    "canonical DllLangSelect blocker content digest changed",
+  );
   const normalizedBlocker = blocker.replace(/\s+/g, " ");
   for (const required of [
     "# DllLangSelect publication blocker",
@@ -147,6 +161,11 @@ export function validateState({ blocker, sourceEntries, reportUnits, scripts }) 
   const reportMatches = reportUnits.filter((entry) => entry?.name === "cro/DllLangSelect");
   assert.equal(reportMatches.length, 1, "report must contain exactly one cro/DllLangSelect unit");
   const reportUnit = reportMatches[0];
+  assert.equal(
+    sha256(JSON.stringify(reportUnit)),
+    EXPECTED_REPORT_UNIT_SHA256,
+    "reviewed DllLangSelect report-unit identity changed",
+  );
   assert.equal(reportUnit?.metadata?.complete, false, "DllLangSelect must remain explicitly incomplete");
   assert.equal(reportUnit?.metadata?.source_path, "src/cro/DllLangSelect", "unexpected DllLangSelect source path");
   for (const [key, value] of Object.entries(expectedMeasures)) {
@@ -170,49 +189,45 @@ export function validateState({ blocker, sourceEntries, reportUnits, scripts }) 
   );
 }
 
-function fixtures() {
-  return {
-    blocker: [
-      "# DllLangSelect publication blocker",
-      "## Scope and provenance",
-      "## Public metadata baseline",
-      "## Missing behavioral evidence",
-      "## Blocker and exit criteria",
-      "## Evidence consulted",
-      "cro/DllLangSelect AS_EUR_REV2",
-      "734779d6819e24ba882999e1dc108d72095a1340",
-      "The target revision was not independently verified.",
-      "No new implementation, match credit, data reconstruction, or completion claim",
-      "Implementation remains blocked",
-    ].join("\n"),
-    sourceEntries: [clone(expectedSource)],
-    reportUnits: [{
-      name: "cro/DllLangSelect",
-      measures: clone(expectedMeasures),
-      functions: [{ fuzzy_match_percent: 100 }],
-      metadata: { complete: false, source_path: "src/cro/DllLangSelect" },
-    }],
-    scripts: {
-      "validate:cro-dll-lang-select": "node --check scripts/validate-cro-dll-lang-select.mjs && node scripts/validate-cro-dll-lang-select.mjs --self-test",
-      check: "npm run validate:cro-dll-lang-select && npm run check:clean",
-    },
-  };
-}
-
-function expectFailure(mutator, pattern) {
-  const state = fixtures();
+function expectFailure(baseline, mutator, pattern) {
+  const state = clone(baseline);
   mutator(state);
   assert.throws(() => validateState(state), pattern);
 }
 
-function selfTest() {
-  validateState(fixtures());
-  expectFailure((state) => { state.blocker = ""; }, /missing/);
-  expectFailure((state) => { state.reportUnits[0].metadata.complete = true; }, /incomplete/);
-  expectFailure((state) => { state.reportUnits[0].measures.matched_code = "169"; }, /matched_code/);
-  expectFailure((state) => { state.sourceEntries[0].sources.push({ path: "extra.S", mode: "arm" }); }, /source claims/);
-  expectFailure((state) => { state.reportUnits = {}; }, /units array/);
-  expectFailure((state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
+function selfTest(baseline) {
+  validateState(baseline);
+  expectFailure(baseline, (state) => { state.blocker = ""; }, /blocker content digest/);
+  expectFailure(
+    baseline,
+    (state) => {
+      state.blocker += "\n\nContradictory mutation: implementation is approved and the unit is complete.\n";
+    },
+    /blocker content digest/,
+  );
+  expectFailure(baseline, (state) => {
+    state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect").metadata.complete = true;
+  }, /report-unit identity/);
+  expectFailure(baseline, (state) => {
+    state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect").measures.matched_code = "169";
+  }, /report-unit identity/);
+  expectFailure(
+    baseline,
+    (state) => {
+      const reportUnit = state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect");
+      const oldMatch = reportUnit.functions.find((entry) => entry.name === "func_00000EB0");
+      const reassignedMatch = reportUnit.functions.find((entry) => entry.name === "func_000002B8");
+      delete oldMatch.fuzzy_match_percent;
+      reassignedMatch.fuzzy_match_percent = 100;
+    },
+    /report-unit identity/,
+  );
+  expectFailure(baseline, (state) => {
+    state.sourceEntries.find((entry) => entry?.name === "DllLangSelect")
+      .sources.push({ path: "extra.S", mode: "arm" });
+  }, /source claims/);
+  expectFailure(baseline, (state) => { state.reportUnits = {}; }, /units array/);
+  expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
 
   assert.throws(
     () => rejectDuplicateJsonKeys('{"units":[],"units":[1]}', "config fixture"),
@@ -264,12 +279,13 @@ const report = readOwnedJson(reportPath, "progress/reports/AS_EUR_REV2/report.js
 const packageJson = readOwnedJson(packagePath, "package.json");
 const blocker = readOwnedText(blockerPath, "docs/specs/cro/DllLangSelect_blocker.md");
 
-if (process.argv.includes("--self-test")) selfTest();
-validateState({
+const actualState = {
   blocker,
   sourceEntries: sources.units,
   reportUnits: report.units,
   scripts: packageJson.scripts,
-});
+};
+if (process.argv.includes("--self-test")) selfTest(actualState);
+validateState(actualState);
 
 console.log("Validated cro/DllLangSelect blocker and frozen public baseline (168 bytes; incomplete).");
