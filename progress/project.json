@@ -7,8 +7,8 @@
   "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,261 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.209854,
-    "matchedFunctions": 4261,
+    "matchedCodePercent": 11.204801,
+    "matchedFunctions": 4260,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146

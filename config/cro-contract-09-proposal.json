@@ -22,11 +22,6 @@
       "functions": [{ "name": "func_00000494", "address": 1172, "size": 304, "semantics": "contract-09-ride-action-update" }]
     },
     {
-      "name": "DllGameClearSave",
-      "sources": [{ "path": "src/cro/DllGameClearSave/contract_09.S", "mode": "arm" }],
-      "functions": [{ "name": "func_000006DC", "address": 1756, "size": 188, "semantics": "contract-09-clear-save-dispatch" }]
-    },
-    {
       "name": "DllLangSelect",
       "sources": [{ "path": "src/cro/DllLangSelect/contract_09.S", "mode": "arm" }],
       "functions": [{ "name": "func_00000EB0", "address": 3760, "size": 168, "semantics": "contract-09-language-layout-update" }]

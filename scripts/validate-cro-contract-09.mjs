@@ -9,13 +9,15 @@ import { fileURLToPath } from "node:url";
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-09-proposal.json");
+const QUARANTINED_UNIT = "DllGameClearSave";
+const QUARANTINED_FUNCTION = "func_000006DC";
+const QUARANTINED_SOURCE = "src/cro/DllGameClearSave/contract_09.S";
 
 const CONTRACT = [
   ["DllDendouPC", "func_00001840", 0x1840, 172, "contract-09-record-finalization", "3387a729db70f080f5b10452d173d3ab9cbe0a1755ee146594d21c8e5d923dcb"],
   ["DllDialogCommon", "func_000002C0", 0x02C0, 332, "contract-09-dialog-state-update", "0a590bcff6f0146d6f3700ce3fed4dc4be7acd9c9eba3631220b70f4b85538ef"],
   ["DllFieldEventFishing", "func_00001058", 0x1058, 192, "contract-09-fishing-object-setup", "ce3d66a1ef7acd4ee5c7929d39d8330bc35bc4c581f9395e82e32af04c47ef3d"],
   ["DllFieldEventPokeRideAction", "func_00000494", 0x0494, 304, "contract-09-ride-action-update", "646c3eda6dd902a65987a0f2a71f729b040b3600809c17cac0be7c8df97953ad"],
-  ["DllGameClearSave", "func_000006DC", 0x06DC, 188, "contract-09-clear-save-dispatch", "432681e63ecd0bf9e4ec62551fef76804f9118fbfb9c291684b2f31a7b292882"],
   ["DllLangSelect", "func_00000EB0", 0x0EB0, 168, "contract-09-language-layout-update", "433d718a35068c6d0435a1be8ecdf5bc14bf4a6074e445808bee15ecdb5a1e91"],
   ["DllPssAssistPower", "func_0000081C", 0x081C, 240, "contract-09-assist-power-lifecycle", "196e6f3125ad7c9afb50d15436195d1c598cdc4d52e2e2e7be39536862262baf"],
   ["DllTrainerCase", "func_00001ED4", 0x1ED4, 148, "contract-09-trainer-case-mode-switch", "4af1d4b4271fc0ddcac11412d1628d3e585b192e4550b086e7429d462bec7322"],
@@ -109,6 +111,14 @@ function validateProposal(proposal, existing) {
 function validatePublicContract(manifestPath) {
   const proposal = readManifest(PROPOSAL_PATH), existing = readManifest(CONFIG_PATH);
   validateProposal(proposal, existing);
+  for (const manifest of [proposal, existing]) {
+    check(!manifest.units.some((unit) => unit.sources.some((source) => source.path === QUARANTINED_SOURCE)),
+      `${QUARANTINED_UNIT} quarantined source remains registered`);
+    const quarantined = manifest.units.find((unit) => unit.name === QUARANTINED_UNIT);
+    check(!quarantined || !quarantined.functions.some((claim) => claim.name === QUARANTINED_FUNCTION),
+      `${QUARANTINED_FUNCTION} quarantined claim remains registered`);
+  }
+  check(!existsSync(join(ROOT, QUARANTINED_SOURCE)), `${QUARANTINED_SOURCE} remains in the working tree`);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
   for (const fn of CONTRACT) {
@@ -142,8 +152,8 @@ function validatePublicContract(manifestPath) {
       check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
-  check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 1744 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 436, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 1556 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 389, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_09.md"),
     ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
@@ -193,7 +203,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 09: 8 ARM functions in 8 units (1,744 bytes, 436 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 09: 7 ARM functions in 7 units (1,556 bytes, 389 instructions, zero relocations/adjacent bytes); DllGameClearSave is quarantined${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
