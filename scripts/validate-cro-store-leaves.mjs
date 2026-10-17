@@ -83,6 +83,9 @@ function readAndValidateContract() {
     exactKeys(unit, UNIT_KEYS, `unit ${index}`);
     check(typeof unit.name === "string" && /^Dll[A-Za-z0-9_]+$/u.test(unit.name) &&
       unit.name > previousUnit && !names.has(unit.name), `unit ${index} has an invalid, duplicate, or unsorted name`);
+    check(unit.name !== "DllHologramMail" &&
+      !JSON.stringify(unit).toLowerCase().includes("hologrammail"),
+      "DllHologramMail is quarantined and cannot participate in this family");
     previousUnit = unit.name;
     names.add(unit.name);
     check(Array.isArray(unit.sources) && unit.sources.length > 0, `${unit.name} must own at least one source`);
@@ -124,7 +127,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 51, `expected 51 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 50, `expected 50 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -172,7 +175,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 51 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 50 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

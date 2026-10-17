@@ -14,26 +14,31 @@ ByteMatch tracks matching decompilation progress from `objdiff` reports. The pub
 
 The tracked snapshot is a genuine `objdiff-cli` report generated locally from the verified target and clean-room base objects. It contains names, sizes, addresses, and match measures only; target objects, ROM bytes, extracted assets, and local paths remain ignored. CI validates the snapshot against `progress/project.json`, rebuilds all clean-room base objects, and uploads the report without requiring proprietary inputs.
 
-## Current verified progress
+Public provenance withdrawals can remove source metadata and credit while
+preserving neutral inventory. These corrections do not claim new target
+verification.
 
-The 146 published units contain 4,252 exactly matched functions and 415,532
-matched code bytes, or 11.171356% overall. `main/code` contributes 3,978
-functions and 401,724 bytes. The CROs contribute 274 functions and 13,808 code
-bytes across 96 units; their matched-data total is zero. The other 49 CRO
+## Current credited progress
+
+The 146 published units contain 4,257 exactly matched functions and 416,740
+matched code bytes, or 11.203833% overall. `main/code` contributes 3,978
+functions and 401,724 bytes. The CROs contribute 279 functions and 15,016 code
+bytes across 93 units; their matched-data total is zero. The other 52 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 28 functions and 2,516 code bytes. Main runtime
-batch 146 contributes nine functions and 536 bytes. DllBattle batch 06 adds
-11 functions and 1,700 bytes, while CRO contract batch 11 contributes eight
-functions and 280 bytes across eight already-credited units.
+The 2026-10-17 provenance quarantine withdraws the DllHologramMail source,
+ownership claim, and one function / eight bytes of credit under CLEAN_ROOM.
+Its neutral inventory and denominators remain. No behavioral contract is
+approved; the unit stays blocked and incomplete. See the
+[analysis-only provenance audit](specs/cro/DllHologramMail_blocker.md).
 
 ## Executable units
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 96 CROs; all
-unclaimed code, all CRO data, and all 49 zero-credit CROs remain unmatched.
+Reviewed clean-room function sections now earn code credit in 93 CROs; all
+unclaimed code, all CRO data, and all 52 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
 
 Each authored unit publishes objdiff `metadata.source_path`: `main/code` points
