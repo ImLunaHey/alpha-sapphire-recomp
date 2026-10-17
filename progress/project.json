@@ -4,12 +4,12 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,261 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,898 evidence-gated functions, and 4,319 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.209854,
-    "matchedFunctions": 4261,
-    "totalFunctions": 14840,
+    "matchedCodePercent": 11.216251,
+    "matchedFunctions": 4319,
+    "totalFunctions": 14898,
     "completeUnits": 0,
     "totalUnits": 146
   },

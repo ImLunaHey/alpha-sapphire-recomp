@@ -5,15 +5,16 @@
 This specification covers `cro/DllUSGymFire` for `AS_EUR_REV2`. Analysis began
 from repository revision `4a07fbcd399281cd0006d8cf3c439e6bc50ec2bb` and was
 corrected and revalidated on 2026-10-17 after rebasing onto `main` revision
-`ce08a012a889eb661a51be380108066d5c31b7f0`.
+`cf5e98620a136c512012f9d91e624fb8dc2a050e`.
 Analysis used the repository's public metadata and validators plus a privately
 held verification input located through the ignored root `.env.local`. No ROM,
 target object, extracted asset, Nintendo SDK material, private path, or
 binary-derived string/table is included.
 
 Exact tools used for the corrective verification were Node.js v24.21.0, Arm GNU
-Toolchain GCC 14.2.1 20241119 (`14.2.Rel1`, build `arm-14.52`), GNU binutils
-2.44 `readelf` and `objdump`, and `objdiff-cli` 3.8.2. Repository methods were
+Toolchain GCC 14.2.1 20241119 (`14.2.Rel1`, build `arm-14.52`) with its
+2.43.1.20241119 `readelf`, the separately pinned GNU binutils 2.44 assembler,
+`objdump`, and `objcopy`, and `objdiff-cli` 3.8.2. Repository methods were
 `split-cro-target-object.mjs`, `validate-cro-function-semantics.mjs`,
 `validate-cro-dll-us-gym-fire-leaves-01.mjs`, `generate-objdiff-config.mjs`,
 and the standard base/report validation commands.
