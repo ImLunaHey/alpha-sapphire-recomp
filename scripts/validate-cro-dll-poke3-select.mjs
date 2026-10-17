@@ -29,7 +29,6 @@ const UNIT = "cro/DllPoke3Select";
 const STEM = "DllPoke3Select";
 const TARGET_SIZE = 45056;
 const TARGET_SHA256 = "3e32bd9eaba44de96f06246ea9900c2ff7e8211ae55487d26b59bad98a94a3cb";
-const UNIT_MANIFEST_SHA256 = "ae2c9b80c5db4a7f099ed98d45cf292c77a87353bfaa9cafc5ea66192dd7d92e";
 const QUARANTINE_SHA256 = "4ea43161318d8a757426537974af0d108c9fddb8b2ed802159de4e9ee5aa26e5";
 const BLOCKER_COMMIT = "a1ee50288f7bda1ac801775f5fb00a5c6364a8e7";
 const REJECTED = Object.freeze({
@@ -97,8 +96,9 @@ const REQUIRED_PACKAGE_SCRIPTS = Object.freeze({
   "postvalidate:cro-dll-fatal-error-proc":
     "npm run validate:cro-contract10",
 });
-const REQUIRED_CHECK_PREFIX = "npm run validate:cro-dll-number-input && npm run check:clean && ";
-const PERCENT_DECIMAL_TOLERANCE = 0.000005;
+const REQUIRED_CHECK_PREFIX = "node --check scripts/validate-publication-integrity.mjs && "
+  + "node scripts/validate-publication-integrity.mjs --self-test && "
+  + "npm run validate:cro-dll-number-input && npm run check:clean && ";
 const REPORT_FUNCTIONS = Object.freeze([
   ["func_000004F8", "12708", "256"],
   ["func_00000B28", "12964", "556"],
@@ -384,23 +384,15 @@ function validatePartition(text, csvFunctions = CSV_FUNCTIONS) {
   return partition;
 }
 
-function validateTargetManifest(manifest, text) {
-  check(sha256(text) === UNIT_MANIFEST_SHA256, "target unit manifest hash differs from the authoritative inventory");
+function validateTargetManifest(manifest) {
   check(manifest?.schemaVersion === 1 && manifest.target === "AS_EUR_REV2"
     && Number.isSafeInteger(manifest.unitCount) && Array.isArray(manifest.units)
     && manifest.unitCount === manifest.units.length, "target manifest schema or identity is invalid");
-  const names = new Set(["main/code"]);
-  for (const unit of manifest.units) {
-    exactKeys(unit, ["name", "size", "sha256"], "target manifest unit");
-    check(typeof unit.name === "string" && /^cro\/Dll[A-Za-z0-9_]+$/u.test(unit.name)
-      && !names.has(unit.name), "target manifest unit identity is invalid or duplicated");
-    names.add(unit.name);
-  }
   const entries = manifest.units.filter((unit) => unit?.name === UNIT);
   check(entries.length === 1, "target manifest must contain exactly one unit identity");
+  exactKeys(entries[0], ["name", "size", "sha256"], "target manifest unit");
   check(entries[0].name === UNIT && entries[0].size === TARGET_SIZE
     && entries[0].sha256 === TARGET_SHA256, "target unit metadata differs from the reviewed identity");
-  return [...names].sort();
 }
 
 function validateSourceConfig(config, text) {
@@ -410,161 +402,8 @@ function validateSourceConfig(config, text) {
     "source manifest retains quarantined identity text");
 }
 
-function numeric(value, context, fallback = undefined) {
-  if (value === undefined && fallback !== undefined) return fallback;
-  if (typeof value === "number" && Number.isFinite(value) && value >= 0) return value;
-  if (typeof value === "string" && /^\d+$/u.test(value)) return Number(value);
-  fail(`${context} is not a finite non-negative number`);
-}
-
-function expectedPercent(numerator, denominator) {
-  return denominator === 0 ? 0 : Math.fround(numerator * 100 / denominator);
-}
-
-function checkPercent(actual, expected, context) {
-  check(typeof actual === "number" && Number.isFinite(actual)
-    && Math.abs(actual - expected) <= PERCENT_DECIMAL_TOLERANCE,
-  `${context} differs from the derived float serialization`);
-}
-
-function validateUnitAccounting(unit) {
-  check(unit && typeof unit.name === "string" && unit.measures && Array.isArray(unit.sections),
-    "report unit accounting shape is invalid");
-  const functions = unit.functions ?? [];
-  check(Array.isArray(functions), `${unit.name} functions must be an array`);
-  let totalCode = 0, matchedCode = 0, matchedFunctions = 0, fuzzyNumerator = 0;
-  for (const fn of functions) {
-    check(fn && typeof fn.name === "string" && /^func_[0-9A-F]{8}$/u.test(fn.name)
-      && typeof fn.size === "string" && /^\d+$/u.test(fn.size)
-      && typeof fn.address === "string" && /^\d+$/u.test(fn.address)
-      && fn.metadata && Object.keys(fn.metadata).length === 0,
-    `${unit.name} contains invalid function accounting`);
-    const size = Number(fn.size);
-    const fuzzy = numeric(fn.fuzzy_match_percent, `${unit.name}.${fn.name}.fuzzy_match_percent`, 0);
-    check(fuzzy <= 100, `${unit.name}.${fn.name} fuzzy percent exceeds 100`);
-    totalCode += size;
-    fuzzyNumerator += size * fuzzy / 100;
-    if (fuzzy === 100) { matchedCode += size; matchedFunctions++; }
-  }
-  let totalData = 0;
-  const sectionNames = new Set();
-  for (const section of unit.sections) {
-    check(section && typeof section.name === "string" && !sectionNames.has(section.name),
-      `${unit.name} section identity is invalid or duplicated`);
-    sectionNames.add(section.name);
-    if (section.name !== ".text" && !section.name.startsWith(".text."))
-      totalData += numeric(section.size, `${unit.name}.${section.name}.size`, 0);
-  }
-  const measures = unit.measures;
-  check(numeric(measures.total_code, `${unit.name}.total_code`, 0) === totalCode
-    && numeric(measures.total_data, `${unit.name}.total_data`, 0) === totalData
-    && numeric(measures.total_functions, `${unit.name}.total_functions`, 0) === functions.length
-    && numeric(measures.matched_code, `${unit.name}.matched_code`, 0) === matchedCode
-    && numeric(measures.matched_functions, `${unit.name}.matched_functions`, 0) === matchedFunctions
-    && numeric(measures.total_units, `${unit.name}.total_units`, 1) === 1,
-  `${unit.name} measures differ from its sections/functions`);
-  checkPercent(numeric(measures.fuzzy_match_percent, `${unit.name}.fuzzy_match_percent`, 0),
-    expectedPercent(fuzzyNumerator, totalCode), `${unit.name} fuzzy percent`);
-  checkPercent(numeric(measures.matched_code_percent, `${unit.name}.matched_code_percent`, 0),
-    expectedPercent(matchedCode, totalCode), `${unit.name} matched-code percent`);
-  checkPercent(numeric(measures.matched_functions_percent, `${unit.name}.matched_functions_percent`, 0),
-    expectedPercent(matchedFunctions, functions.length), `${unit.name} matched-functions percent`);
-  exactKeys(unit.metadata, typeof unit.metadata?.source_path === "string"
-    ? ["complete", "source_path"] : ["complete"], `${unit.name} metadata`);
-  check(typeof unit.metadata.complete === "boolean", `${unit.name} completion flag is invalid`);
-  const sourcePath = unit.metadata.source_path;
-  if (unit.name === "main/code") check(sourcePath === "src/main", "main/code source path is invalid");
-  else {
-    const expectedSource = `src/${unit.name}`;
-    check((matchedFunctions > 0) === (sourcePath === expectedSource),
-      `${unit.name} source credit differs from exact matched functions`);
-  }
-  if (unit.metadata.complete) check(matchedCode === totalCode && matchedFunctions === functions.length,
-    `${unit.name} is complete without complete code credit`);
-  return { totalCode, totalData, totalFunctions: functions.length, matchedCode, matchedFunctions,
-    fuzzyNumerator, complete: unit.metadata.complete, creditedCro: unit.name.startsWith("cro/") && matchedFunctions > 0 };
-}
-
-function deriveReportAggregates(report) {
-  check(Array.isArray(report?.units) && report.units.length > 0, "report units are missing");
-  const result = {
-    totalCode: 0,
-    totalData: 0,
-    totalFunctions: 0,
-    matchedCode: 0,
-    matchedFunctions: 0,
-    totalUnits: report.units.length,
-    completeUnits: 0,
-    creditedCros: 0,
-    fuzzyNumerator: 0,
-  };
-  const names = new Set();
-  for (const unit of report.units) {
-    check(unit && typeof unit.name === "string" && !names.has(unit.name), "report unit identity is invalid or duplicated");
-    names.add(unit.name);
-    const accounting = validateUnitAccounting(unit);
-    result.totalCode += accounting.totalCode;
-    result.totalData += accounting.totalData;
-    result.totalFunctions += accounting.totalFunctions;
-    result.matchedCode += accounting.matchedCode;
-    result.matchedFunctions += accounting.matchedFunctions;
-    result.fuzzyNumerator += accounting.fuzzyNumerator;
-    if (accounting.complete) result.completeUnits++;
-    if (accounting.creditedCro) result.creditedCros++;
-  }
-  return result;
-}
-
-function validateGlobalReportMeasures(report) {
-  const derived = deriveReportAggregates(report);
-  exactKeys(report.measures, ["fuzzy_match_percent", "total_code", "matched_code", "matched_code_percent",
-    "total_data", "total_functions", "matched_functions", "matched_functions_percent", "total_units"],
-  "global report measures");
-  check(report.measures.total_code === String(derived.totalCode)
-    && report.measures.matched_code === String(derived.matchedCode)
-    && report.measures.total_data === String(derived.totalData)
-    && report.measures.total_functions === derived.totalFunctions
-    && report.measures.matched_functions === derived.matchedFunctions
-    && report.measures.total_units === derived.totalUnits,
-  "global report counts differ from complete unit sums");
-  checkPercent(report.measures.matched_code_percent,
-    expectedPercent(derived.matchedCode, derived.totalCode), "global matched-code percent");
-  checkPercent(report.measures.matched_functions_percent,
-    expectedPercent(derived.matchedFunctions, derived.totalFunctions), "global matched-functions percent");
-  checkPercent(report.measures.fuzzy_match_percent,
-    expectedPercent(derived.fuzzyNumerator, derived.totalCode), "global fuzzy-match percent");
-  return derived;
-}
-
-function numberWords(value) {
-  check(Number.isSafeInteger(value) && value >= 0 && value < 1000, "summary word count is out of range");
-  const small = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-    "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"];
-  const tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
-  if (value < 20) return small[value];
-  if (value < 100) return `${tens[Math.floor(value / 10)]}${value % 10 ? `-${small[value % 10]}` : ""}`;
-  return `${small[Math.floor(value / 100)]} hundred${value % 100 ? ` ${numberWords(value % 100)}` : ""}`;
-}
-
-function expectedSummary(derived) {
-  const format = (value) => value.toLocaleString("en-US");
-  const credited = numberWords(derived.creditedCros);
-  const complete = numberWords(derived.completeUnits);
-  const completion = derived.completeUnits === 0
-    ? "every unit remains explicitly incomplete."
-    : `${complete[0].toUpperCase()}${complete.slice(1)} ${derived.completeUnits === 1 ? "unit is" : "units are"} complete; `
-      + `${derived.completeUnits === derived.totalUnits ? "no units remain incomplete." : "all remaining units remain explicitly incomplete."}`;
-  return `The owned target is verified, all ${format(derived.totalUnits)} genuine link units are published with `
-    + `${format(derived.totalFunctions)} evidence-gated functions, and ${format(derived.matchedFunctions)} clean-room `
-    + `functions are byte-identical. ${credited[0].toUpperCase()}${credited.slice(1)} CRO units now contain independently `
-    + `authored exact matches; ${completion}`;
-}
-
-function validateReport(report, csvFunctions = CSV_FUNCTIONS, expectedNames) {
+function validateReport(report, csvFunctions = CSV_FUNCTIONS) {
   check(report?.version === 2 && Array.isArray(report.units), "report shape is invalid");
-  check(Array.isArray(expectedNames)
-    && JSON.stringify(report.units.map((unit) => unit?.name).sort()) === JSON.stringify(expectedNames),
-  "report unit names differ from authoritative main/code plus CRO manifest inventory");
   const entries = report.units.filter((unit) => unit?.name === UNIT);
   check(entries.length === 1, "report must contain exactly one unit identity");
   const unit = entries[0];
@@ -605,21 +444,6 @@ function validateReport(report, csvFunctions = CSV_FUNCTIONS, expectedNames) {
   check(rejected.length === 1 && rejected[0].address === REJECTED.reportAddress
     && rejected[0].size === String(REJECTED.size),
     "report does not retain the rejected identity solely as neutral accounting");
-  return validateGlobalReportMeasures(report);
-}
-
-function validateProject(project, report, derived = validateGlobalReportMeasures(report)) {
-  check(project?.version === "AS_EUR_REV2", "project target version is invalid");
-  exactKeys(project.progress, ["matchedCodePercent", "matchedFunctions", "totalFunctions", "completeUnits", "totalUnits"],
-    "project progress");
-  checkPercent(project.progress.matchedCodePercent, report.measures.matched_code_percent,
-    "project matched-code percent");
-  check(project.progress.matchedFunctions === derived.matchedFunctions
-    && project.progress.totalFunctions === derived.totalFunctions
-    && project.progress.completeUnits === derived.completeUnits
-    && project.progress.totalUnits === derived.totalUnits,
-  "project progress differs from the derived report aggregates");
-  check(project.summary === expectedSummary(derived), "project summary does not reflect derived report progress");
 }
 
 function validateRejectedIdentity(text) {
@@ -663,7 +487,6 @@ function validateTree(root = ROOT) {
   const manifestText = readRegular(root, "progress/units/AS_EUR_REV2.cro.json");
   const configText = readRegular(root, "config/cro-sources.json");
   const reportText = readRegular(root, "progress/reports/AS_EUR_REV2/report.json");
-  const projectText = readRegular(root, "progress/project.json");
   const quarantineText = readRegular(root, "docs/specs/cro/DllPoke3Select_quarantine.md");
   const contractScript = readRegular(root, "scripts/validate-cro-contract-05.mjs");
   const contractProse = readRegular(root, "docs/specs/cro/contract_05.md");
@@ -672,11 +495,10 @@ function validateTree(root = ROOT) {
   const partitionText = readRegular(root, PARTITION_PATH);
   const csvFunctions = validateCsv(csvText);
   validatePartition(partitionText, csvFunctions);
-  const expectedNames = validateTargetManifest(parseJson(manifestText, "target manifest"), manifestText);
+  validateTargetManifest(parseJson(manifestText, "target manifest"));
   validateSourceConfig(parseJson(configText, "source manifest"), configText);
   const report = parseJson(reportText, "public report");
-  const derived = validateReport(report, csvFunctions, expectedNames);
-  validateProject(parseJson(projectText, "project progress"), report, derived);
+  validateReport(report, csvFunctions);
   validateQuarantine(quarantineText);
   validateActiveContract(contractScript, contractProse);
   validatePackage(parseJson(packageText, "package manifest"));
@@ -684,26 +506,6 @@ function validateTree(root = ROOT) {
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
-}
-
-function synchronizeAggregateFixture(report, project) {
-  const derived = deriveReportAggregates(report);
-  report.measures.fuzzy_match_percent = expectedPercent(derived.fuzzyNumerator, derived.totalCode);
-  report.measures.total_code = String(derived.totalCode);
-  report.measures.matched_code = String(derived.matchedCode);
-  report.measures.matched_code_percent = expectedPercent(derived.matchedCode, derived.totalCode);
-  report.measures.total_data = String(derived.totalData);
-  report.measures.total_functions = derived.totalFunctions;
-  report.measures.matched_functions = derived.matchedFunctions;
-  report.measures.matched_functions_percent = expectedPercent(derived.matchedFunctions, derived.totalFunctions);
-  report.measures.total_units = derived.totalUnits;
-  project.progress.matchedCodePercent = report.measures.matched_code_percent;
-  project.progress.matchedFunctions = derived.matchedFunctions;
-  project.progress.totalFunctions = derived.totalFunctions;
-  project.progress.completeUnits = derived.completeUnits;
-  project.progress.totalUnits = derived.totalUnits;
-  project.summary = expectedSummary(derived);
-  return derived;
 }
 
 function runSelfTests() {
@@ -818,16 +620,21 @@ function runSelfTests() {
   mutatedCheck.scripts.check = mutatedCheck.scripts.check.replace(
     "npm run validate:cro-dll-number-input", "npm run validate:cro-dll-number-input-mutated");
   assert.throws(() => validatePackage(mutatedCheck), /NumberInput npm check prefix identity/u);
+  const mutatedPublicationGate = clone(packageManifest);
+  mutatedPublicationGate.scripts.check = mutatedPublicationGate.scripts.check.replace(
+    "scripts/validate-publication-integrity.mjs --self-test",
+    "scripts/validate-publication-integrity.mjs");
+  assert.throws(() => validatePackage(mutatedPublicationGate), /NumberInput npm check prefix identity/u);
 
   const manifestText = readRegular(ROOT, "progress/units/AS_EUR_REV2.cro.json");
   const manifest = parseJson(manifestText, "target manifest");
-  const expectedNames = validateTargetManifest(manifest, manifestText);
+  validateTargetManifest(manifest);
   for (const [field, value] of [["name", "cro/DllPoke3SelectMutated"], ["size", TARGET_SIZE + 1],
     ["sha256", `0${TARGET_SHA256.slice(1)}`]]) {
     const mutated = clone(manifest);
     const entry = mutated.units.find((unit) => unit.name === UNIT);
     entry[field] = value;
-    assert.throws(() => validateTargetManifest(mutated, JSON.stringify(mutated)));
+    assert.throws(() => validateTargetManifest(mutated));
   }
 
   const quarantine = readRegular(ROOT, "docs/specs/cro/DllPoke3Select_quarantine.md");
@@ -838,7 +645,6 @@ function runSelfTests() {
   }
 
   const report = parseJson(readRegular(ROOT, "progress/reports/AS_EUR_REV2/report.json"), "public report");
-  const project = parseJson(readRegular(ROOT, "progress/project.json"), "project progress");
   for (const mutate of [
     (value) => { value.units.find((unit) => unit.name === UNIT).name = `${UNIT}Mutated`; },
     (value) => { value.units.find((unit) => unit.name === UNIT).measures.total_functions = 24; },
@@ -851,69 +657,24 @@ function runSelfTests() {
       functions[0].size = String(Number(functions[0].size) + 4);
       functions[1].size = String(Number(functions[1].size) - 4);
     },
-    (value) => { value.measures.matched_functions += 1; },
   ]) {
     const mutated = clone(report);
     mutate(mutated);
-    assert.throws(() => validateReport(mutated, CSV_FUNCTIONS, expectedNames));
+    assert.throws(() => validateReport(mutated, CSV_FUNCTIONS));
   }
 
-  const extraUnit = clone(report);
-  const ghost = clone(extraUnit.units.find((unit) => unit.name.startsWith("cro/")
-    && numeric(unit.measures?.matched_functions, "ghost fixture", 0) === 0));
-  ghost.name = "cro/GhostInjected";
-  extraUnit.units.push(ghost);
-  const extraProject = clone(project);
-  synchronizeAggregateFixture(extraUnit, extraProject);
-  assert.throws(() => validateReport(extraUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
-  const missingUnit = clone(report);
-  missingUnit.units.pop();
-  assert.throws(() => validateReport(missingUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
-  const duplicateUnit = clone(report);
-  duplicateUnit.units[1].name = duplicateUnit.units[2].name;
-  assert.throws(() => validateReport(duplicateUnit, CSV_FUNCTIONS, expectedNames), /unit names differ/u);
-  const coordinatedCredit = clone(report);
-  const unrelatedCredit = coordinatedCredit.units.find((unit) => unit.name !== UNIT
-    && numeric(unit.measures?.matched_functions, "credit fixture", 0) > 0);
-  unrelatedCredit.measures.matched_functions += 1;
-  coordinatedCredit.measures.matched_functions += 1;
-  assert.throws(() => validateReport(coordinatedCredit, CSV_FUNCTIONS, expectedNames), /sections\/functions/u);
-
+  // Shared publication integrity belongs to the central gate. The focused gate
+  // deliberately accepts unrelated-unit changes while retaining exact owned-unit pins.
   const unrelatedReport = clone(report);
-  const unrelatedProject = clone(project);
-  const originalDerived = deriveReportAggregates(unrelatedReport);
-  const unrelated = unrelatedReport.units.find((unit) => unit.name === "cro/DllBackGround");
-  check(unrelated && typeof unrelated.metadata?.source_path === "string"
-    && numeric(unrelated.measures?.matched_functions, "fixture", 0) === 1
-    && unrelated.functions?.some((fn) => fn.fuzzy_match_percent === 100),
-  "positive aggregate fixture lacks the sole credited DllBackGround match");
-  const removed = unrelated.functions.find((fn) => fn.fuzzy_match_percent === 100);
-  const removedBytes = numeric(removed.size, "positive fixture function size");
-  delete removed.fuzzy_match_percent;
-  unrelated.measures.matched_code = String(numeric(unrelated.measures.matched_code,
-    "positive fixture matched code") - removedBytes);
-  unrelated.measures.matched_functions = numeric(unrelated.measures.matched_functions,
-    "positive fixture matched functions") - 1;
-  delete unrelated.metadata.source_path;
-  const unrelatedTotalCode = numeric(unrelated.measures.total_code, "positive fixture total code");
-  const unrelatedTotalFunctions = numeric(unrelated.measures.total_functions, "positive fixture total functions");
-  unrelated.measures.matched_code_percent = expectedPercent(Number(unrelated.measures.matched_code), unrelatedTotalCode);
-  unrelated.measures.matched_functions_percent = expectedPercent(unrelated.measures.matched_functions,
-    unrelatedTotalFunctions);
-  const fuzzyBytes = unrelated.functions.reduce((sum, fn) => sum
-    + numeric(fn.size, "positive fixture fuzzy size") * numeric(fn.fuzzy_match_percent,
-      "positive fixture fuzzy percent", 0) / 100, 0);
-  unrelated.measures.fuzzy_match_percent = expectedPercent(fuzzyBytes, unrelatedTotalCode);
-  const unrelatedDerived = synchronizeAggregateFixture(unrelatedReport, unrelatedProject);
-  assert.equal(unrelatedDerived.creditedCros, originalDerived.creditedCros - 1);
-  const derivedCreditedWords = numberWords(unrelatedDerived.creditedCros);
-  assert.match(unrelatedProject.summary,
-    new RegExp(`${derivedCreditedWords[0].toUpperCase()}${derivedCreditedWords.slice(1)} CRO units`, "u"));
-  assert.doesNotThrow(() => {
-    const checked = validateReport(unrelatedReport, CSV_FUNCTIONS, expectedNames);
-    validateProject(unrelatedProject, unrelatedReport, checked);
-    assert.deepEqual(checked, unrelatedDerived);
-  });
+  const bag = unrelatedReport.units.find((unit) => unit.name === "cro/DllBag");
+  const box = unrelatedReport.units.find((unit) => unit.name === "cro/DllBoxSearch");
+  check(bag && box, "positive unrelated-unit fixture is unavailable");
+  const bagIdentity = { name: bag.name, source_path: bag.metadata.source_path };
+  const boxIdentity = { name: box.name, source_path: box.metadata.source_path };
+  const bagBody = clone(bag), boxBody = clone(box);
+  Object.assign(bag, boxBody, bagIdentity, { metadata: { ...boxBody.metadata, source_path: bagIdentity.source_path } });
+  Object.assign(box, bagBody, boxIdentity, { metadata: { ...bagBody.metadata, source_path: boxIdentity.source_path } });
+  assert.doesNotThrow(() => validateReport(unrelatedReport, CSV_FUNCTIONS));
 }
 
 function main() {
