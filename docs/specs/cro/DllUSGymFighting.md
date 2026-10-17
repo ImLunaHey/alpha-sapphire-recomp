@@ -4,11 +4,21 @@
 
 - Target revision: Pokemon Alpha Sapphire `AS_EUR_REV2`.
 - Unit: `cro/DllUSGymFighting`.
-- Observation date: 2026-10-17.
-- This document records only the public inventory and high-level observable
-  status needed for independent implementation. It intentionally omits
-  disassembly, instruction schedules, exhaustive partitions, relocation
-  ledgers, and binary-derived data tables.
+- Status summary date: 2026-10-17.
+
+This is not new target analysis and uses no analysis tool. It is a status
+summary derived solely from these existing public repository files at commit
+`84008d1`:
+
+- `config/cro-sources.json`
+- `config/cro-contract-10-proposal.json`
+- `docs/specs/cro/contract_10.md`
+- `symbols/cro/DllUSGymFighting.csv`
+- `symbols/cro-partitions/DllUSGymFighting.json`
+- `src/cro/DllUSGymFighting/contract_10.S`
+
+It intentionally omits disassembly, instruction schedules, exhaustive
+partitions, relocation ledgers, and binary-derived data tables.
 
 ## Public accepted boundary
 
@@ -23,7 +33,8 @@ That contract owns no neighboring literals, padding, relocations, or data.
 
 ## High-level interface facts
 
-- The unit is an ARM EABI module for the repository's ARMv6K target.
+- The public source configuration uses ARM mode for the repository's ARMv6K
+  target.
 - The accepted function participates in the gym event update path and operates
   on caller-owned object state. Its exact ABI and byte validation are already
   enforced by the shared contract-10 source and validator.
@@ -33,10 +44,10 @@ That contract owns no neighboring literals, padding, relocations, or data.
 
 ## Completion blockers
 
-The unit is not complete. Most executable text, all module data, import/export
-linkage outside the accepted function, and relocation ownership remain
-unimplemented or unverified in the public clean-room inventory. Proprietary
-type-name and descriptor payloads are deliberately absent.
+The unit is not complete. The public inventory claims no executable text
+outside the accepted function and no module data, neighboring bytes, or
+relocations. Completion requires new approved behavioral specifications and
+independent implementations for any further code, data, or linkage.
 
 No claim of complete linkage, byte-identical data, or `metadata.complete=true`
 is supported by the current public evidence.
