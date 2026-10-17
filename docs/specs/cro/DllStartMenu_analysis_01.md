@@ -9,6 +9,11 @@ extracted table, asset, or private path.
 
 - Target revision: Pokémon Alpha Sapphire `AS_EUR_REV2`
 - Observation date: 2026-10-17
+- Observation tool/version: Node.js `v24.21.0`
+- Observation method: parse and cross-check the version-controlled public symbol
+  CSV and partition JSON with the generated public objdiff report. This method
+  supports structural accounting only; no gameplay or other black-box
+  behavioral observation was performed or is claimed.
 - Public baseline: commit `4a07fbcd399281cd0006d8cf3c439e6bc50ec2bb`
 - Public inputs: `symbols/cro/DllStartMenu.csv`,
   `symbols/cro-partitions/DllStartMenu.json`, and the current objdiff report
@@ -46,38 +51,23 @@ read-only relocation outputs, all represented as `R_ARM_ABS32`. These counts
 are structural accounting only; this document does not disclose their target
 identities, addends, or binary contents.
 
-## Externally observable behavior of `func_00000E44`
+## Behavioral evidence status
 
-The function processes one menu input event against a mutable menu-state
-object and returns a consumed/not-consumed result.
-
-- Two event classes request activation or cancellation through an optional
-  client callback. If no callback is installed, processing continues to the
-  directional-event checks.
-- A previous-selection event is consumed. When movement is possible, it
-  decrements the current selection, optionally notifies the client, refreshes
-  the visible slot states, and activates the new selection.
-- A next-selection event is consumed. Its upper bound depends on the current
-  menu mode. When movement is possible, it increments the selection,
-  optionally notifies the client, refreshes the visible slot states, and
-  activates the new selection.
-- Boundary directional events are consumed without changing the selection.
-- Unsupported events return the not-consumed result.
-
-This behavior may guide future independent black-box work, but it is not a
-compile-ready ABI contract. Target comparison may be used only as a blind
-pass/fail oracle; this specification does not authorize inspection or
-reconstruction of the target instruction sequence.
+No independently recorded behavioral observations support semantic claims for
+`func_00000E44`. Accordingly, this specification retains none. Future semantic
+work requires a separately documented lawful observation method, including its
+tool and version, before behavioral facts may be added. Target comparison may
+be used only as a blind pass/fail oracle; this specification does not authorize
+inspection or reconstruction of the target instruction sequence.
 
 ## Fresh implementation status
 
 A fresh implementation role with no access to the quarantined material could
-not author a justified candidate from this contract. Public evidence does not
-currently establish the event encoding, state layout, callback ABI,
-mode-dependent bounds, or identities and signatures of the collaborating menu
-services. Guessing those details would invent observable behavior rather than
-implement the specification. `func_00000E44` therefore remains unclaimed and
-unmatched pending independent evidence.
+not author a justified candidate from this structural contract. The permitted
+public evidence does not establish the function's semantics or ABI. Guessing
+those details would invent behavior rather than implement a specification.
+`func_00000E44` therefore remains unclaimed and unmatched pending independent
+evidence.
 
 ## Completion limits
 
