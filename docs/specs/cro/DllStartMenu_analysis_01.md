@@ -64,10 +64,20 @@ object and returns a consumed/not-consumed result.
 - Boundary directional events are consumed without changing the selection.
 - Unsupported events return the not-consumed result.
 
-This behavior is suitable for an independent semantic implementation. Target
-comparison may be used only as a blind pass/fail oracle; this specification
-does not authorize inspection or reconstruction of the target instruction
-sequence.
+This behavior may guide future independent black-box work, but it is not a
+compile-ready ABI contract. Target comparison may be used only as a blind
+pass/fail oracle; this specification does not authorize inspection or
+reconstruction of the target instruction sequence.
+
+## Fresh implementation status
+
+A fresh implementation role with no access to the quarantined material could
+not author a justified candidate from this contract. Public evidence does not
+currently establish the event encoding, state layout, callback ABI,
+mode-dependent bounds, or identities and signatures of the collaborating menu
+services. Guessing those details would invent observable behavior rather than
+implement the specification. `func_00000E44` therefore remains unclaimed and
+unmatched pending independent evidence.
 
 ## Completion limits
 
