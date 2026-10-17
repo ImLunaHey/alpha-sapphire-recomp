@@ -1,7 +1,8 @@
-import { existsSync, mkdirSync, readFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { generateObjdiffConfig } from "./generate-objdiff-config.mjs";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const config = JSON.parse(readFileSync(join(root, "progress", "project.json"), "utf8"));
@@ -13,10 +14,12 @@ if (!config.decompilationEnabled && !local) {
 }
 
 const objdiffConfig = join(root, "objdiff.json");
-if (!existsSync(objdiffConfig)) {
-  console.error("objdiff.json is missing. Generate it from the verified target/build layout first.");
-  process.exit(1);
-}
+const generatedObjdiffConfig = generateObjdiffConfig({
+  root,
+  version: config.version,
+  warn: (message) => console.error(`warning: ${message}`),
+});
+writeFileSync(objdiffConfig, `${JSON.stringify(generatedObjdiffConfig, null, 2)}\n`);
 
 const localCli = join(root, ".cache", "tools", "objdiff-cli");
 const executable = process.env.OBJDIFF_CLI || (existsSync(localCli) ? localCli : "objdiff-cli");

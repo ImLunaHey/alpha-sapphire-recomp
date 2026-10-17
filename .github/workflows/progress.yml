@@ -41,6 +41,12 @@ jobs:
       - name: Check repository boundary
         run: npm run check
 
+      - name: Test CRO unit configuration
+        run: |
+          node --check scripts/generate-objdiff-config.mjs
+          node --check scripts/test-generate-objdiff-config.mjs
+          node scripts/test-generate-objdiff-config.mjs
+
       - name: Prepare validated ByteMatch report
         run: npm run report
 
