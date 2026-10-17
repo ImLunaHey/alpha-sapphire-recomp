@@ -22,7 +22,7 @@ const CONTRACT = [
 ].map(([unit, name, address, size, semantics, sha256]) => ({
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
-const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting"]);
+const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
 const TENJI_VENEER_SOURCE = "src/cro/DllUSAreaTenji/import_veneers.S";
 const TENJI_VENEERS = [
   ["000", "004", "__cro_import_anon_m7c7374617469637c_s0_002fd48"],
@@ -203,10 +203,8 @@ function validateObjects(units, directory, readelf) {
       return match && match[3].includes("A") && Number.parseInt(match[2], 16) !== 0
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
-    const expectedClaims = unitName === "DllUSGymFire"
-      ? unit.functions
-      : unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name));
-    const expectedNames = expectedClaims.map((claim) => `.text.${claim.name}`);
+    const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
+      .map((claim) => `.text.${claim.name}`);
     if (unitName === "DllUSAreaTenji") expectedNames.push(".text.import_veneers");
     expectedNames.sort();
     const actualNames = allocated.map(([name]) => name).sort();
@@ -241,8 +239,6 @@ function validateObjects(units, directory, readelf) {
       const definedVeneers = symbols.split("\n").filter((line) => /\sdll_us_area_tenji_import_veneer_[0-9a-f]+$/u.test(line.trimEnd()));
       check(definedVeneers.length === TENJI_VENEERS.length && definedVeneers.every((line) => /\s0\s+NOTYPE\s+GLOBAL\s+DEFAULT\s+\d+\s/u.test(line)),
         "DllUSAreaTenji veneers must remain non-function symbols");
-    } else if (unitName === "DllUSGymFire") {
-      check(!relocations.includes(`.rel.text.${fn.name}`), `${fn.name} unexpectedly has relocations`);
     } else {
       check(/There are no relocations in this file\./u.test(relocations), `${unitName} unexpectedly has relocations`);
     }
