@@ -29,6 +29,7 @@ const NEUTRAL_HASHES = Object.freeze({
   blocker: "271d36087c63026660934702b659a317abf41abfcae344a843d70fef6f417ab7",
 });
 const QUARANTINE_CONFIG_HASH = "b5fed57b169260fc1525360989b8ac85ad14ad0f3e8222f691ccccfc7c828658";
+const QUARANTINE_REPORT_HASH = "4dec7b632d3d3b59f0fa954597f4987000b76e3fa9e9289dfa5f3e74cf2367f5";
 const NEUTRAL_MANIFEST_UNIT = Object.freeze({
   name: UNIT,
   size: 86016,
@@ -60,6 +61,13 @@ function number(value, label) {
 function unique(values, label) {
   check(values.every(value => typeof value === "string") && new Set(values).size === values.length,
     `${label} has missing or duplicate names`);
+}
+
+function canonical(value) {
+  if (Array.isArray(value)) return value.map(canonical);
+  if (object(value)) return Object.fromEntries(Object.keys(value).sort()
+    .map(key => [key, canonical(value[key])]));
+  return value;
 }
 
 function strictJson(text, label) {
@@ -259,6 +267,7 @@ function validate(state) {
   keys(unit.metadata, ["complete"], "unit metadata");
   check(unit.metadata.complete === false, "unit metadata.complete must be false");
   noCredit(unit);
+  keys(unit, ["name", "measures", "sections", "functions", "metadata"], "quarantined report unit");
   check(Array.isArray(unit.functions) && unit.functions.length === 44
     && Array.isArray(unit.sections) && unit.sections.length === 5, "neutral report inventory lost");
   unique(unit.functions.map(fn => fn.name), "unit functions");
@@ -296,6 +305,8 @@ function validate(state) {
   check(createHash("sha256").update(JSON.stringify(neutralReport)).digest("hex")
     === "76004a1ca284e6ed65f550d1e43ca5c6992afac1bfba45cc8831199da0c8f141",
   "neutral report fields changed");
+  check(createHash("sha256").update(JSON.stringify(canonical(unit))).digest("hex")
+    === QUARANTINE_REPORT_HASH, "quarantined report unit identity changed");
 
   const sums = { total_code: 0, total_data: 0, total_functions: 0,
     matched_code: 0, matched_data: 0, matched_functions: 0 };
@@ -409,6 +420,7 @@ function selfTest(state) {
   rejects("missing blocker", candidate => { candidate.blocker = ""; }, /blocker/);
   rejects("duplicate unit", candidate => { candidate.report.units.push(structuredClone(target(candidate))); }, /duplicate/);
   rejects("missing unit", candidate => { candidate.report.units = candidate.report.units.filter(unit => unit.name !== UNIT); }, /missing/);
+  rejects("unexpected publication field", candidate => { target(candidate).unexpected_publication_field = 0; }, /schema|identity/);
   rejects("missing inventory", candidate => { target(candidate).functions.pop(); }, /inventory/);
   rejects("changed neutral identity", candidate => { target(candidate).functions[0].address = "0"; }, /neutral report/);
   rejects("denominator change", candidate => { target(candidate).measures.total_code = "0"; }, /denominators/);
