@@ -505,6 +505,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-145.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-146.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"
@@ -587,4 +589,6 @@ node "$root/scripts/validate-cro-dll-battle-scalar-leaves-02.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-packed-selectors-03.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-record-ops-04.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-medium-leaves-05.mjs" --self-test
+node "$root/scripts/validate-cro-dll-battle-state-table-ops-06.mjs" \
+  --composite --object "$root/build/AS_EUR_REV2/base/cro-code/DllBattle.o"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

@@ -25968,6 +25968,7 @@ const supplementalIpcPaths = [
   "config/arm-runtime-helpers-143.json",
   "config/arm-runtime-helpers-144.json",
   "config/arm-runtime-helpers-145.json",
+  "config/arm-runtime-helpers-146.json",
   "config/thumb-leaf-helpers-27.json",
 ].map((path) => join(root, path));
 const supplementalIpcBodies = new Map();

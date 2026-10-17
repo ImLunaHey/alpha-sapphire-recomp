@@ -29,6 +29,7 @@ node "$root/scripts/validate-arm-runtime-helpers-142.mjs" --self-test
 node "$root/scripts/validate-arm-runtime-helpers-143.mjs" --self-test
 node "$root/scripts/validate-arm-runtime-helpers-144.mjs" --self-test
 node "$root/scripts/validate-arm-runtime-helpers-145.mjs" --self-test
+node "$root/scripts/validate-arm-runtime-helpers-146.mjs" --self-test
 node "$root/scripts/validate-arm-ipc-wrappers-108.mjs" --self-test
 node "$root/scripts/validate-arm-duplicate-templates-85.mjs" --self-test
 
@@ -273,6 +274,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-runtime-helpers-143.json" \
   "$root/config/arm-runtime-helpers-144.json" \
   "$root/config/arm-runtime-helpers-145.json" \
+  "$root/config/arm-runtime-helpers-146.json" \
   "$root/config/thumb-leaf-helpers-27.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
