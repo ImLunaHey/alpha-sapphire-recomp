@@ -21,10 +21,9 @@ assembly source were deliberately not opened and do not support this review.
 
 ## Public status
 
-The committed report records 23 accepted functions and 9,356 accepted code
-bytes for the unit. It credits one 68-byte function, reports 0.72680634% matched
-code, and sets `metadata.complete` to `false`. These are historical report
-facts, not independently observed behavior and not a whole-unit proof.
+The committed report previously awarded partial match credit to the unit while
+leaving it incomplete. That historical credit is repository accounting, not
+independently observed behavior or a whole-unit proof.
 
 ## Quarantine finding
 
@@ -36,28 +35,21 @@ tracked history therefore does not demonstrate the distinct analysis and
 implementation roles required by `docs/CLEAN_ROOM.md`.
 
 No unit-specific, independently authored behavioral specification is present
-under `docs/specs/cro/`. The allowed metadata establishes only identity,
-layout accounting, and historical match status; it does not establish inputs,
-outputs, side effects, error behavior, ABI semantics, or data ownership.
-Consequently, it is insufficient for an independent implementer to reproduce
-even the currently credited function without consulting target-derived aids.
+under `docs/specs/cro/`. The allowed metadata establishes only historical
+repository status; it does not establish inputs, outputs, side effects, error
+behavior, ABI semantics, or data ownership. Consequently, it is insufficient
+for an independent implementer to reproduce the credited work without
+consulting target-derived aids.
 
-Treat the existing 68-byte claim as provenance-quarantined. Remove the
+Treat the existing claim as provenance-quarantined. Remove the
 unsupported DllPoke3Select implementation source from the active build, remove
 its source-manifest claim, and regenerate the active report so that it awards
-no match credit for that source. Any validator entry that endorses the removed
-claim must also cease to treat it as accepted implementation. Preserve the old
-68-byte result only as a fact in immutable Git history and in this provenance
-record; do not preserve it as active report credit, present it as strict
-clean-room work, or use its implementation as evidence for new work. This
-review makes no finding that the bytes are incorrect; it finds that the
-committed provenance is insufficient for the requested clean-room
+no match credit for that source. Preserve the old result only as a fact in
+immutable Git history; do not preserve it as active report credit, present it
+as strict clean-room work, or use its implementation as evidence for new work.
+This review makes no finding that the historical result is incorrect; it finds
+that the committed provenance is insufficient for the requested clean-room
 classification.
-
-For rejection checks only, the quarantined historical identity is
-`func_00002694` at address `0x2694`, size 68, in ARM mode. These identity and
-boundary fields are accounting metadata, not behavioral or implementation
-evidence, and they do not authorize an active source claim.
 
 This document authorizes only removal of the quarantined claim and fail-closed
 verification that the claim remains absent; it authorizes no replacement
@@ -70,9 +62,8 @@ unit-specific specification from authorized externally observable behavior and
 document the target revision, observation method, tools and versions, and
 date. A distinct implementer who has not seen target internals or the existing
 implementation must work only from that specification. Exact-head validation
-must then prove the complete unit, including code, data, and relocation
-behavior, while retaining `metadata.complete=false` until whole-unit identity
-is established. Reintroducing any source or match credit requires that new
-analysis/specification/implementation chain and fresh deterministic proof; the
-quarantined source and its historical match result cannot be grandfathered
-back into the active baseline.
+must then prove the complete unit while it remains reported as incomplete
+until whole-unit identity is established. Reintroducing any source or match
+credit requires that new analysis/specification/implementation chain and fresh
+deterministic proof; the quarantined source and its historical match result
+cannot be grandfathered back into the active baseline.
