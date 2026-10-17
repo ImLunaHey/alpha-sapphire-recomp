@@ -240,13 +240,9 @@ function onlyUnit(document, name, label) {
 
 function checkSourceOwnership(root, config, claim) {
   for (const entry of config.units) {
-    if (entry === claim) continue;
     check(Array.isArray(entry?.sources), "invalid public source paths");
     for (const source of entry.sources) {
       pathParts(source?.path);
-      const path = resolve(root, source.path);
-      const unitPath = join(root, "src/cro/DllNumberInput");
-      check(path !== unitPath && !contained(unitPath, path), "public source ownership changed");
       // Reject aliases conservatively. Inspect only directory/file metadata;
       // never open or read source contents (including the preserved unit claim).
       withPinnedParent(root, source.path, (leaf, verify) => {
@@ -255,6 +251,12 @@ function checkSourceOwnership(root, config, claim) {
         verify();
         unchanged(before, lstatSync(leaf, STAT_OPTIONS));
       });
+      // The protected claim needs the same filesystem checks; only the
+      // cross-owner path comparison excludes its own source paths.
+      if (entry === claim) continue;
+      const path = resolve(root, source.path);
+      const unitPath = join(root, "src/cro/DllNumberInput");
+      check(path !== unitPath && !contained(unitPath, path), "public source ownership changed");
     }
   }
 }
@@ -345,14 +347,14 @@ function selfTest(originals) {
       mkdirSync(dirname(join(fixture, path)), { recursive: true });
       writeFileSync(join(fixture, path), originals[key]);
     }
-    // Synthetic unrelated source files support metadata-only ownership checks.
+    // Synthetic source files support metadata-only ownership checks, including
+    // the protected claim. Their contents supply no implementation evidence.
     // Do not copy, open, or read any repository source file.
     for (const unit of JSON.parse(originals.config).units) {
-      if (unit.name === "DllNumberInput") continue;
       for (const source of unit.sources) {
         const path = join(fixture, source.path);
         mkdirSync(dirname(path), { recursive: true });
-        writeFileSync(path, "synthetic unrelated source fixture\n");
+        writeFileSync(path, "synthetic source fixture; never read\n");
       }
     }
     validate(fixture);
@@ -524,6 +526,35 @@ function selfTest(originals) {
       rejected(() => readText(fixture, "source-alias"));
     } finally { rmSync(alias); }
     console.log("Review reproduction passed: source ownership aliases through leaf and parent symlinks rejected without reading sources.");
+
+    const fixtureConfig = JSON.parse(originals.config);
+    const protectedClaim = fixtureConfig.units.find(unit => unit.name === "DllNumberInput");
+    const unrelatedSource = fixtureConfig.units.find(unit => unit.name !== "DllNumberInput").sources[0];
+    for (const source of protectedClaim.sources) {
+      const leaf = join(fixture, source.path);
+      const savedLeaf = join(temporary, "protected-leaf");
+      renameSync(leaf, savedLeaf);
+      try {
+        symlinkSync(join(fixture, unrelatedSource.path), leaf);
+        rejected(() => validate(fixture));
+      } finally { rmSync(leaf); renameSync(savedLeaf, leaf); }
+
+      const parent = dirname(leaf);
+      const savedParent = join(temporary, "protected-parent");
+      renameSync(parent, savedParent);
+      try {
+        symlinkSync(savedParent, parent, "dir");
+        rejected(() => validate(fixture));
+      } finally { rmSync(parent); renameSync(savedParent, parent); }
+
+      // An unconfigured alias must still reject the protected leaf's nlink=2.
+      try {
+        linkSync(leaf, alias);
+        rejected(() => validate(fixture));
+      } finally { rmSync(alias); }
+    }
+    validate(fixture);
+    console.log("Review reproduction passed: protected claim leaf symlinks, parent symlinks, and hardlink aliases rejected with unchanged config and without reading sources.");
 
     for (const key of ["config", "partition", "manifest", "report"]) {
       const value = JSON.parse(originals[key]);
