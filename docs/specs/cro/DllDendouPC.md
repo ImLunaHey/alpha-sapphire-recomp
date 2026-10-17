@@ -4,7 +4,8 @@
 
 This verification-only handoff covers the genuine link unit
 `cro/DllDendouPC` for Pokemon Alpha Sapphire revision `AS_EUR_REV2`. The
-observations were recorded on 2026-10-17 at public baseline `20eb1de` with
+observations were recorded on 2026-10-17 and revalidated at public baseline
+`2b39def` with
 Node.js 24.21.0 and Git 2.53.0. The repository pins objdiff 3.8.2 as its
 authoritative comparison tool, but no private verification input was
 configured or inspected for this review.
