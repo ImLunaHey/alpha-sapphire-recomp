@@ -126,6 +126,7 @@
     "validate:cro-battle06": "node --check scripts/validate-cro-dll-battle-state-table-ops-06.mjs && node scripts/validate-cro-dll-battle-state-table-ops-06.mjs --self-test",
     "validate:cro-dll-bag": "node --check scripts/validate-cro-dll-bag.mjs && node scripts/validate-cro-dll-bag.mjs",
     "validate:cro-dll-commendation": "node --check scripts/validate-cro-dll-commendation.mjs && node scripts/validate-cro-dll-commendation.mjs",
+    "validate:cro-dll-dendou-demo": "node --check scripts/validate-cro-dll-dendou-demo.mjs && node scripts/validate-cro-dll-dendou-demo.mjs --report progress/reports/AS_EUR_REV2/report.json",
     "validate:thumb-leaf01": "node --check scripts/validate-thumb-leaf-helpers-01.mjs && node scripts/validate-thumb-leaf-helpers-01.mjs",
     "validate:thumb-leaf02": "node --check scripts/validate-thumb-leaf-helpers-02.mjs && node scripts/validate-thumb-leaf-helpers-02.mjs --self-test",
     "validate:thumb-leaf03": "node --check scripts/validate-thumb-leaf-helpers-03.mjs && node scripts/validate-thumb-leaf-helpers-03.mjs --self-test",
