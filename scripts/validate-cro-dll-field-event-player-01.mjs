@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const manifestPath = join(root, "config", "cro-dll-field-event-player-01.json");
+const integrationPath = join(root, "config", "cro-sources.json");
 const inventoryPath = join(root, "symbols", "cro", "DllFieldEventPlayer.csv");
+const sourcePath = join(root, "src", "cro", "DllFieldEventPlayer", "contract_01.S");
 const EXPECTED_OPERATION_HASH = "a1199f664aff9da18ec15521205e54bde5d7c32481df33d59493f28843c76240";
 const EXPECTED_CONTROL_HASH = "da33bec8fe3543289de3f96c3cb9cbc1034d27e2b50c972c0fa6fc127df021d8";
 const MAX_MANIFEST_SIZE = 1024 * 1024;
@@ -29,6 +32,47 @@ function readManifest() {
   const bytes = readFileSync(manifestPath);
   check(bytes.length <= MAX_MANIFEST_SIZE, "manifest exceeds size cap");
   return JSON.parse(bytes.toString("utf8"));
+}
+
+function renderSource(manifest) {
+  const labels = new Map(manifest.basicBlocks.map(block => [block.startOffset, block.label]));
+  const lines = [
+    "/* Independently implemented from docs/specs/cro/DllFieldEventPlayer_01.md. */",
+    ".syntax unified", ".arch armv6k", ".fpu vfp", ".arm", "",
+    '.section .text.func_00002000, "ax", %progbits', ".balign 4",
+    ".global func_00002000", ".type func_00002000, %function", "func_00002000:",
+  ];
+  for (const operation of manifest.operations) {
+    const label = labels.get(operation.offset);
+    if (label && operation.offset !== 0) lines.push(`${label}:`);
+    let operands = operation.operands;
+    if (operation.mnemonic === "bl") {
+      const veneer = Number.parseInt(operands.slice("veneer_".length), 16);
+      const delta = manifest.function.address + operation.offset - veneer;
+      operands = `. - 0x${delta.toString(16).toUpperCase()}`;
+    }
+    lines.push(`    ${operation.mnemonic}\t${operands}`);
+  }
+  lines.push(".size func_00002000, . - func_00002000", "");
+  return lines.join("\n");
+}
+
+function validateObject(objectPath, readelfPath) {
+  const result = spawnSync(readelfPath, ["--sections", "--symbols", "--relocs", "--wide", objectPath], {
+    encoding: "utf8", maxBuffer: 4 * 1024 * 1024,
+  });
+  check(!result.error && result.status === 0, `readelf could not inspect ${objectPath}`);
+  const output = result.stdout;
+  const executable = [...output.matchAll(/^\s*\[\s*\d+\]\s+(\S+)\s+PROGBITS\s+\S+\s+\S+\s+([0-9a-f]+)\s+\S+\s+AX\s+/gimu)]
+    .map(match => [match[1], Number.parseInt(match[2], 16)]);
+  check(JSON.stringify(executable) === JSON.stringify([
+    [".text.func_000036D4", 8], [".text.func_00002000", 2016],
+  ]), "DllFieldEventPlayer executable sections differ");
+  check(/^\s*\d+:\s+00000000\s+2016\s+FUNC\s+GLOBAL\s+DEFAULT\s+\d+\s+func_00002000$/mu.test(output),
+    "func_00002000 object symbol differs");
+  check(/^\s*\d+:\s+00000000\s+8\s+FUNC\s+GLOBAL\s+DEFAULT\s+\d+\s+func_000036D4$/mu.test(output),
+    "func_000036D4 object symbol differs");
+  check(/There are no relocations in this file\./u.test(output), "DllFieldEventPlayer object has relocations");
 }
 
 function validate(manifest) {
@@ -124,10 +168,34 @@ function validate(manifest) {
     "public inventory boundary differs");
   check(!JSON.stringify(manifest).includes("/home/") && !JSON.stringify(manifest).includes("_ZN"),
     "manifest leaks a private path or target symbol");
+
+  const source = readFileSync(sourcePath, "utf8");
+  check(source === renderSource(manifest), "implementation source differs from the approved symbolic schedule");
+  check(!/\.incbin\b|^\s*\.(?:byte|hword|short|word|long|quad|ascii|asciz|string|inst)\b/imu.test(source),
+    "implementation contains opaque byte or data emission");
+
+  const integration = JSON.parse(readFileSync(integrationPath, "utf8"));
+  const unit = integration.units.find(entry => entry.name === "DllFieldEventPlayer");
+  check(unit && JSON.stringify(unit.sources) === JSON.stringify([
+    { path: "src/cro/DllFieldEventPlayer.c", mode: "arm" },
+    { path: "src/cro/DllFieldEventPlayer/contract_01.S", mode: "arm" },
+  ]), "integrated source ownership differs");
+  check(JSON.stringify(unit.functions) === JSON.stringify([
+    { name: "func_00002000", address: 0x2000, size: 2016, semantics: "field-event-player-selection" },
+    { name: "func_000036D4", address: 0x36d4, size: 8, semantics: "store-u8", offset: 217 },
+  ]), "integrated function claims differ");
 }
 
 const manifest = readManifest();
 validate(manifest);
+
+const objectIndex = process.argv.indexOf("--object");
+const readelfIndex = process.argv.indexOf("--readelf");
+check((objectIndex < 0) === (readelfIndex < 0), "--object and --readelf must be supplied together");
+if (objectIndex >= 0) {
+  check(process.argv[objectIndex + 1] && process.argv[readelfIndex + 1], "object validation arguments are incomplete");
+  validateObject(resolve(process.argv[objectIndex + 1]), resolve(process.argv[readelfIndex + 1]));
+}
 
 if (process.argv.includes("--self-test")) {
   const hostile = structuredClone(manifest);
