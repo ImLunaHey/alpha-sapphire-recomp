@@ -11,6 +11,7 @@ readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
   exit 1
 }
 export CROSS_COMPILE="${compiler%gcc}"
+export PATH="$(dirname "$compiler"):$PATH"
 
 mapfile -d '' sources < <(
   find "$root/src" -type f \( -name '*.c' -o -name '*.S' \) -print0 | sort -z

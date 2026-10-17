@@ -26,6 +26,7 @@ jobs:
           compiler="$(find "$toolchain" -type f -name arm-none-eabi-gcc -print -quit)"
           test -x "$compiler"
           printf 'CROSS_COMPILE=%s\n' "${compiler%gcc}" >> "$GITHUB_ENV"
+          dirname "$compiler" >> "$GITHUB_PATH"
 
       - name: Build clean-room base objects
         run: npm run base:build
