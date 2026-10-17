@@ -7,11 +7,6 @@
       "functions": [{ "name": "func_0006B434", "address": 439348, "size": 20, "semantics": "contract-11-optional-callback-tailcall" }]
     },
     {
-      "name": "DllGts",
-      "sources": [{ "path": "src/cro/DllGts/contract_11.S", "mode": "arm" }],
-      "functions": [{ "name": "func_0000BED0", "address": 48848, "size": 60, "semantics": "contract-11-linked-list-transfer" }]
-    },
-    {
       "name": "DllKawaigari",
       "sources": [{ "path": "src/cro/DllKawaigari/contract_11.S", "mode": "arm" }],
       "functions": [{ "name": "func_00000C78", "address": 3192, "size": 12, "semantics": "contract-11-default-dispatch" }]

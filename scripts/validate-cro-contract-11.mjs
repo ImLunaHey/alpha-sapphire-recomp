@@ -9,11 +9,10 @@ import { fileURLToPath } from "node:url";
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-11-proposal.json");
-const QUARANTINED_SOURCE = "src/cro/DllPokeList/contract_11.S";
+const QUARANTINED_SOURCES = ["src/cro/DllGts/contract_11.S", "src/cro/DllPokeList/contract_11.S"];
 
 const CONTRACT = [
   ["DllField", "func_0006B434", 0x6B434, 20, "contract-11-optional-callback-tailcall", "2e8bd4505b9d5d4550ff480d46fa00ae685dcba2f1139ec60435004e9bab035e"],
-  ["DllGts", "func_0000BED0", 0xBED0, 60, "contract-11-linked-list-transfer", "b59ca3ef039222756d61c51c1e3ba34b47cfb7a40325b4aaacb88419a5cec2c2"],
   ["DllKawaigari", "func_00000C78", 0x0C78, 12, "contract-11-default-dispatch", "80a5309d8fdd2ca6200b70f54d70c29747b062094ceea48ed7f3c375e5067906"],
   ["DllSangoZukan", "func_0002A830", 0x2A830, 24, "contract-11-eight-byte-fill", "946797a2896ecb43e1dd3bf951dec82053555432d122aeeec462096328a0143c"],
   ["DllSkyTrip", "func_00008048", 0x8048, 60, "contract-11-vector-normalize", "5f2de655d01a22a8d1721260dd8dda4dafd1a39ecaec2deee716cdd99c5267b7"],
@@ -77,32 +76,36 @@ function validateAbsentPath(path, label, inspectSource = lstatSync) {
   }
   check(absent, `${label} remains in the working tree`);
 }
-function validateQuarantinedSource(inspectSource = lstatSync) {
-  validateAbsentPath(join(ROOT, QUARANTINED_SOURCE), QUARANTINED_SOURCE, inspectSource);
+function validateQuarantinedSources(inspectSource = lstatSync) {
+  for (const source of QUARANTINED_SOURCES) validateAbsentPath(join(ROOT, source), source, inspectSource);
 }
 function selfTestQuarantinedSource() {
-  let checkedPath, restoredRejected = false, lookupFailureRejected = false;
-  try {
-    validateQuarantinedSource((path) => { checkedPath = path; return { isSymbolicLink: () => true }; });
-  } catch (error) {
-    restoredRejected = error.message.includes(`${QUARANTINED_SOURCE} remains in the working tree`);
+  for (const source of QUARANTINED_SOURCES) {
+    let checkedPath, restoredRejected = false, lookupFailureRejected = false;
+    try {
+      validateAbsentPath(join(ROOT, source), source, (path) => { checkedPath = path; return { isSymbolicLink: () => true }; });
+    } catch (error) {
+      restoredRejected = error.message.includes(`${source} remains in the working tree`);
+    }
+    check(checkedPath === join(ROOT, source) && restoredRejected,
+      `${source} hostile self-test did not reject a restored entry`);
+    validateAbsentPath(join(ROOT, source), source,
+      () => { throw Object.assign(new Error("missing"), { code: "ENOENT" }); });
+    try {
+      validateAbsentPath(join(ROOT, source), source,
+        () => { throw Object.assign(new Error("denied"), { code: "EACCES" }); });
+    } catch (error) {
+      lookupFailureRejected = error.message.includes(`cannot inspect ${source}: denied`);
+    }
+    check(lookupFailureRejected, `${source} hostile self-test accepted an inspection failure`);
   }
-  check(checkedPath === join(ROOT, QUARANTINED_SOURCE) && restoredRejected,
-    "quarantined-source hostile self-test did not reject a restored entry");
-  validateQuarantinedSource(() => { throw Object.assign(new Error("missing"), { code: "ENOENT" }); });
-  try {
-    validateQuarantinedSource(() => { throw Object.assign(new Error("denied"), { code: "EACCES" }); });
-  } catch (error) {
-    lookupFailureRejected = error.message.includes(`cannot inspect ${QUARANTINED_SOURCE}: denied`);
-  }
-  check(lookupFailureRejected, "quarantined-source hostile self-test accepted an inspection failure");
   const fixture = mkdtempSync(join(ROOT, ".contract11-quarantine-"));
   try {
     const dangling = join(fixture, "contract_11.S");
     symlinkSync(join(fixture, "missing-target"), dangling);
     let danglingRejected = false;
-    try { validateAbsentPath(dangling, QUARANTINED_SOURCE); }
-    catch (error) { danglingRejected = error.message.includes(`${QUARANTINED_SOURCE} remains in the working tree`); }
+    try { validateAbsentPath(dangling, QUARANTINED_SOURCES[0]); }
+    catch (error) { danglingRejected = error.message.includes(`${QUARANTINED_SOURCES[0]} remains in the working tree`); }
     check(danglingRejected, "quarantined-source hostile self-test accepted a dangling symlink");
   } finally {
     rmSync(fixture, { recursive: true, force: true });
@@ -147,9 +150,9 @@ function validateProposal(proposal, existing) {
 
 function validatePublicContract(manifestPath) {
   const proposal = readManifest(PROPOSAL_PATH), existing = readManifest(CONFIG_PATH);
-  check(existing.units.every((unit) => unit.sources.every((source) => source.path !== QUARANTINED_SOURCE)),
-    `${QUARANTINED_SOURCE} remains registered`);
-  validateQuarantinedSource();
+  check(existing.units.every((unit) => unit.sources.every((source) => !QUARANTINED_SOURCES.includes(source.path))),
+    "a quarantined contract-11 source remains registered");
+  validateQuarantinedSources();
   validateProposal(proposal, existing);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
@@ -185,8 +188,8 @@ function validatePublicContract(manifestPath) {
       check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
-  check(CONTRACT.length === 6 && units.size === 6 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 196 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 49, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 5 && units.size === 5 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 136 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 34, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_11.md"),
     ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");

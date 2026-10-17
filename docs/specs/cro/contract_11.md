@@ -1,13 +1,13 @@
 # CRO contract 11
 
-Contract 11 adds exact, independently scoped ARM functions to the listed
-low-credit non-battle CRO units. It deliberately owns no data, literal pools,
+Contract 11 retains the remaining independently scoped ARM functions in its
+supported low-credit non-battle CRO units after the
+[DllGts quarantine](DllGts.md). It deliberately owns no data, literal pools,
 padding, or neighboring function bytes.
 
 | Unit | Function | Address | Size | Behavior |
 | --- | --- | ---: | ---: | --- |
 | `DllField` | `func_0006B434` | `0x6B434` | 20 | optional callback tail-call |
-| `DllGts` | `func_0000BED0` | `0x0BED0` | 60 | linked-list transfer |
 | `DllKawaigari` | `func_00000C78` | `0x00C78` | 12 | default dispatch |
 | `DllSangoZukan` | `func_0002A830` | `0x2A830` | 24 | eight-byte fill |
 | `DllSkyTrip` | `func_00008048` | `0x08048` | 60 | three-component vector normalization |
@@ -19,7 +19,7 @@ Each retained emitted section in the table was compared byte-for-byte with its a
 
 ## Validation and integration
 
-Compile the listed sources with the pinned ARM toolchain into a staging directory, then run:
+Compile the remaining supported sources with the pinned ARM toolchain into a staging directory, then run:
 
 ```sh
 node scripts/validate-cro-contract-11.mjs \

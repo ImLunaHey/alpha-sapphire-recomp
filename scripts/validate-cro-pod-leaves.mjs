@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { existsSync, lstatSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, statSync,
-  symlinkSync } from "node:fs";
+  symlinkSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -11,9 +11,10 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNITS = ["DllGift", "DllPokeList", "DllTradelist"];
+const QUARANTINED_UNITS = ["DllGift", "DllGts", "DllPokeList", "DllTradelist"];
 const QUARANTINED_PATHS = QUARANTINED_UNITS.flatMap((unit) =>
   [`src/cro/${unit}.c`, `src/cro/${unit}/pod_leaves.S`]);
+const DLL_GTS_PATHS = ["src/cro/DllGts.c", "src/cro/DllGts/pod_leaves.S"];
 const DLL_POKE_LIST_PATHS = ["src/cro/DllPokeList.c", "src/cro/DllPokeList/pod_leaves.S"];
 
 const SCHEDULES = new Map([
@@ -43,7 +44,6 @@ const EXPECTED = [
   ["DllField", "func_0009138C", "pod-copy-word-byte"],
   ["DllField", "func_000929A4", "pod-zero-two-words-halfword"],
   ["DllField", "func_000EA4C8", "pod-zero-two-words"],
-  ["DllGts", "func_0001C208", "pod-zero-two-words-halfword"],
   ["DllNumberInput", "func_00001968", "pod-zero-two-words-halfword"],
   ["DllPorocCase", "func_00007958", "pod-copy-word-halfword"],
   ["DllPorocCase", "func_00009530", "pod-copy-word-byte"],
@@ -82,8 +82,8 @@ function validateAbsentPath(path, label, inspectSource = lstatSync) {
 function validateQuarantinedPaths(inspectSource = lstatSync) {
   for (const path of QUARANTINED_PATHS) validateAbsentPath(resolve(ROOT, path), path, inspectSource);
 }
-function selfTestDllPokeListQuarantine() {
-  for (const path of DLL_POKE_LIST_PATHS) {
+function selfTestQuarantinePaths(paths, label) {
+  for (const path of paths) {
     let checkedPath, restoredRejected = false, lookupFailureRejected = false;
     try {
       validateAbsentPath(resolve(ROOT, path), path, (candidate) => {
@@ -105,9 +105,15 @@ function selfTestDllPokeListQuarantine() {
     }
     check(lookupFailureRejected, `${path} hostile self-test accepted an inspection failure`);
   }
-  const fixture = mkdtempSync(join(ROOT, ".pod-quarantine-"));
+  const fixture = mkdtempSync(join(ROOT, `.pod-${label}-quarantine-`));
   try {
-    for (const [index, path] of DLL_POKE_LIST_PATHS.entries()) {
+    for (const [index, path] of paths.entries()) {
+      const restored = join(fixture, `restored-${index}`);
+      writeFileSync(restored, "restored\n");
+      let restoredRejected = false;
+      try { validateAbsentPath(restored, path); }
+      catch (error) { restoredRejected = error.message.includes(`${path} remains in the working tree`); }
+      check(restoredRejected, `${path} hostile self-test accepted an ordinary restored file`);
       const dangling = join(fixture, `dangling-${index}`);
       symlinkSync(join(fixture, `missing-${index}`), dangling);
       let danglingRejected = false;
@@ -233,8 +239,8 @@ function validateContract() {
     totals.zeroes += schedule.filter((item) => item === "mov r1, #0").length;
     totals.returns += schedule.filter((item) => item === "bx lr").length;
   }
-  check(affected.size === 11 && totals.bytes === 436 && totals.instructions === 109 && totals.loads === 22 &&
-    totals.stores === 52 && totals.zeroes === 12 && totals.returns === 23, "aggregate POD contract totals are invalid");
+  check(affected.size === 10 && totals.bytes === 416 && totals.instructions === 104 && totals.loads === 22 &&
+    totals.stores === 49 && totals.zeroes === 11 && totals.returns === 22, "aggregate POD contract totals are invalid");
   return { config, functions, affected };
 }
 
@@ -294,10 +300,11 @@ function validateObjects(contract, directory, readelf, objdump) {
 
 try {
   const options = parseArguments(process.argv.slice(2));
-  selfTestDllPokeListQuarantine();
+  selfTestQuarantinePaths(DLL_GTS_PATHS, "DllGts");
+  selfTestQuarantinePaths(DLL_POKE_LIST_PATHS, "DllPokeList");
   const contract = validateContract();
   if (options.objectDirectory) validateObjects(contract, options.objectDirectory, options.readelf, options.objdump);
-  console.log(`Validated 23 ARM POD leaves in 11 CRO units (436 bytes, 109 instructions)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 22 ARM POD leaves in 10 CRO units (416 bytes, 104 instructions)${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The public report retains 4,241 exact functions and 415,812 code bytes after the DllPokeList provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
+  "summary": "The public report retains 4,237 exact functions and 415,576 code bytes after the DllGts provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.174904823303223,
-    "matchedFunctions": 4240,
+    "matchedCodePercent": 11.172538757324219,
+    "matchedFunctions": 4237,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllGts claims quarantined pending independent provenance",
+      "detail": "Unsupported DllGts claims are withdrawn while public inventories and denominators remain unchanged. DllGts remains blocked and incomplete; earlier activity entries describe historical states rather than current credit."
+    },
     {
       "date": "2026-10-17",
       "title": "DllPokeList provisional matches quarantined",
