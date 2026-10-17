@@ -1,0 +1,732 @@
+{
+  "schemaVersion": 1,
+  "target": "AS_EUR_REV2",
+  "unitCount": 145,
+  "units": [
+    {
+      "name": "cro/DllBackGround",
+      "size": 36864,
+      "sha256": "22f14fa807dd1c7abf856ed7681f2a136b6f838efb391e72326162c2d3962ea2"
+    },
+    {
+      "name": "cro/DllBag",
+      "size": 106496,
+      "sha256": "d7f95da927c3c439e017e70fb0e6d9608386575b8eda6ce4cafb62e0ec803f7b"
+    },
+    {
+      "name": "cro/DllBattle",
+      "size": 1089536,
+      "sha256": "0c6e2889079c1db64977784585f6549764f0faf686f59fc7692bdbc259f62bf7"
+    },
+    {
+      "name": "cro/DllBattleHouseConnect",
+      "size": 16384,
+      "sha256": "406b1424a821ee174ac4714a969db17ec057c9dff60add82a07b33ff8b7adcd7"
+    },
+    {
+      "name": "cro/DllBattleMatch",
+      "size": 172032,
+      "sha256": "871aa504f633e9e5161259e7ce24c6a7387d471e36acfebadc5d794a289c562f"
+    },
+    {
+      "name": "cro/DllBattlePartySelect",
+      "size": 16384,
+      "sha256": "73b5d5e5b43986037804cc3e6b4805cdabebabcef0be83099a2ca4afc2e86212"
+    },
+    {
+      "name": "cro/DllBattleVideoPlayer",
+      "size": 77824,
+      "sha256": "3ca80cd3d0bcd9fbed5fc4053e1d0880adfc308a6893ede971fcc401d3e92143"
+    },
+    {
+      "name": "cro/DllBattleVideoSave",
+      "size": 20480,
+      "sha256": "08bf996af6478a06483732c9fcc5b636faafb4d8039ed7a232989304f0a87079"
+    },
+    {
+      "name": "cro/DllBox",
+      "size": 180224,
+      "sha256": "b757dc1ff653ef5d2c65843d0f59610260fb4bd0063d40094f2b4b4af78a2eb3"
+    },
+    {
+      "name": "cro/DllBoxSearch",
+      "size": 36864,
+      "sha256": "e9747a27ee997698ba468bcd88e0074513b9ab7aa3b34a7174851c538d5571d4"
+    },
+    {
+      "name": "cro/DllColosseum",
+      "size": 36864,
+      "sha256": "4b4806817ea48edb54eaef2f6018cfe1efe279f49e1b3fe395a62a2bc6a86dd8"
+    },
+    {
+      "name": "cro/DllCommWait",
+      "size": 12288,
+      "sha256": "d964e920325faa6202635c366455ab9b15c32b132c5a48ebff29086f0c58dd72"
+    },
+    {
+      "name": "cro/DllCommendation",
+      "size": 16384,
+      "sha256": "1bbfb799eaeb3160455a73f71a4747b6ccb7b8f7b547663a4d7774f01c776982"
+    },
+    {
+      "name": "cro/DllConfig",
+      "size": 28672,
+      "sha256": "9ad15cf70f235b10989c71fcc1716ccc5be756b56ec37918ed08c418a0bb1ccb"
+    },
+    {
+      "name": "cro/DllContest",
+      "size": 106496,
+      "sha256": "516c12a4fb160a57c2f1936c5fc478ada6abce7c8606120a3b69ae9de60303bc"
+    },
+    {
+      "name": "cro/DllContestCommon",
+      "size": 12288,
+      "sha256": "1984e4e026e21b453173daa2ba6e4fa03db48b0062ed87c0af067165a9a16f40"
+    },
+    {
+      "name": "cro/DllContestOhirome",
+      "size": 24576,
+      "sha256": "0aed5dd2e7e039f392f573febd6054802e913b3641e7548e872edfa23c722eb7"
+    },
+    {
+      "name": "cro/DllContestPhoto",
+      "size": 24576,
+      "sha256": "30546e739c18360e02730d5dea56aebdc57f82861c47bcb2bf7d36b37ff64a53"
+    },
+    {
+      "name": "cro/DllContestPortrait",
+      "size": 12288,
+      "sha256": "46f1c56ffe247f358189e63e9d525014573a0893f4e8041530a63e91017c89c8"
+    },
+    {
+      "name": "cro/DllContestResult",
+      "size": 28672,
+      "sha256": "bbc087d6765d8c28757a973cf5419fbb54c3d85112f5aedfd00cdb51506f1df2"
+    },
+    {
+      "name": "cro/DllDebugPokeMake",
+      "size": 8192,
+      "sha256": "0f1810a3d31331485853b3b0c7941f50ce9eb7410eeda182f4ef24d99ebe8204"
+    },
+    {
+      "name": "cro/DllDebugProcLoop",
+      "size": 8192,
+      "sha256": "8df85443ad2c1ebeed4463aee5b156db1d85f089b8b92bc60d3e5dedf7b5d436"
+    },
+    {
+      "name": "cro/DllDendouDemo",
+      "size": 28672,
+      "sha256": "6a7156614029a53a8472b87c50077123545ff2419c3db1f7c14067a15426490f"
+    },
+    {
+      "name": "cro/DllDendouPC",
+      "size": 28672,
+      "sha256": "6466308e952b1ea2b0d9bd2201c0ed959c033428aa7cdd024beac312d3e5aa78"
+    },
+    {
+      "name": "cro/DllDialogCommon",
+      "size": 12288,
+      "sha256": "c6153574d71e284207c166f88f62455f37eb84d1dbecefa19937efe4684bb39d"
+    },
+    {
+      "name": "cro/DllEggDemo",
+      "size": 16384,
+      "sha256": "ad3e7941509f01f9c0b756b26e8773e70c4e01d2957cd175f57f210ee2ff7611"
+    },
+    {
+      "name": "cro/DllEshop",
+      "size": 24576,
+      "sha256": "b9477a7dd5754df90daa96e632de94ee0bfb1087b31d1b49fcbbe25353dee862"
+    },
+    {
+      "name": "cro/DllFatalErrorProc",
+      "size": 12288,
+      "sha256": "1b84cd656db953abe8d30259b8efcb2b5ece344a7c9f6e743b64f71a94c7da05"
+    },
+    {
+      "name": "cro/DllField",
+      "size": 1323008,
+      "sha256": "9ef39f553dfba33056f12f23051b8da1f667a5ba80c6f8f2af7a76db004bd925"
+    },
+    {
+      "name": "cro/DllFieldDebug",
+      "size": 8192,
+      "sha256": "91ccd845a207ed1e1ec091dfd0a97741d55032f1fcb8a6ee1ff4cdf4daf110d7"
+    },
+    {
+      "name": "cro/DllFieldDemo",
+      "size": 20480,
+      "sha256": "d17015d1a004fbcf269710270fc8de2bfc867882d5c7df5ca037a531ae284ed4"
+    },
+    {
+      "name": "cro/DllFieldEventContactEncount",
+      "size": 12288,
+      "sha256": "469f1224f517a369f8e9e92655bdd4648e4a296be4aec7fbd602c6c699d45661"
+    },
+    {
+      "name": "cro/DllFieldEventEntranceIn",
+      "size": 16384,
+      "sha256": "96813b4b15c289c28b0770ea108c98d90cac279f3da44f0359c964faeec57a89"
+    },
+    {
+      "name": "cro/DllFieldEventFishing",
+      "size": 16384,
+      "sha256": "fbb963d9b31d6ff168b1084e9c8dd212f9fb1c3108968efd3bbabb1c2e646160"
+    },
+    {
+      "name": "cro/DllFieldEventFlash",
+      "size": 12288,
+      "sha256": "8651efcc8bd880b2efa631f34d98a3913371d6c7f7aad49b042d7ef69e280bb5"
+    },
+    {
+      "name": "cro/DllFieldEventPlayer",
+      "size": 28672,
+      "sha256": "9b51dbc268f92031c55fbb2e3e5bea21d7c137c3f3d3f1a7b536b0385bf2cbd2"
+    },
+    {
+      "name": "cro/DllFieldEventPokeRideAction",
+      "size": 12288,
+      "sha256": "3aed5187d9e0133002d811989eb81b55bb6ee1c3ff4bda7ad8969dd1bdbf4e9c"
+    },
+    {
+      "name": "cro/DllFieldEventScreenEffect",
+      "size": 12288,
+      "sha256": "42c84743d8d0292d0f5c2a5ed3cf46716d1ac89d4caa521cc1d570a4ab001293"
+    },
+    {
+      "name": "cro/DllFieldEventSecretBaseMyBasePc",
+      "size": 40960,
+      "sha256": "26857a6836e55897c97695f496f40e88b949d8e74195b5091a124251ffa49349"
+    },
+    {
+      "name": "cro/DllFieldEventSecretBaseOthersBasePc",
+      "size": 16384,
+      "sha256": "866c7c18bae59bb7351473565f0aeed18c35f48640c800e43f89f803a107aaa6"
+    },
+    {
+      "name": "cro/DllFieldEventSkatePipe",
+      "size": 16384,
+      "sha256": "f3e4821db520afd3a5dd13c281a01a2d9cc70cd51d6dd37780c474f76a71f72f"
+    },
+    {
+      "name": "cro/DllFieldEventSlopeSlip",
+      "size": 12288,
+      "sha256": "6cd693313ec47dd8151fda2624300fcad9937e50ac5263990d010b501d3f93da"
+    },
+    {
+      "name": "cro/DllFieldEventTakinobori",
+      "size": 20480,
+      "sha256": "9dac1aaa2f15df4f1ab2dc52e140bd2fdf1a8f228bc5fec28c7c0db668062bff"
+    },
+    {
+      "name": "cro/DllFriendEntry",
+      "size": 20480,
+      "sha256": "85b69bd572b405c00e3a4bead24fd890e993c0b28e2f3bd157af374303861933"
+    },
+    {
+      "name": "cro/DllGameClearSave",
+      "size": 12288,
+      "sha256": "5acf69b28ff90a052f97940c8b85c2b00c9e9cd4b58aa8724d039a53102c5cd4"
+    },
+    {
+      "name": "cro/DllGameSync",
+      "size": 28672,
+      "sha256": "f50a4500ab2d69bd1263bcba21e7b52f01b1cbfdf247968ec11bd660d2a4ea1e"
+    },
+    {
+      "name": "cro/DllGift",
+      "size": 57344,
+      "sha256": "021485edea0da67fd49adae325ec2eda59942664bf4f6153c588eb7ab7447afd"
+    },
+    {
+      "name": "cro/DllGts",
+      "size": 163840,
+      "sha256": "d50364da81e3d62c5120f56cd97695220aed52ab5d5874b5f3287b2ec01cc83a"
+    },
+    {
+      "name": "cro/DllHeading",
+      "size": 102400,
+      "sha256": "ef11763da251545a4cd1b57acad71e41b2665f4369095ac804e129d564dd12ec"
+    },
+    {
+      "name": "cro/DllHologramMail",
+      "size": 86016,
+      "sha256": "df70175c2ccfb8a56cb61b93092d47787eac7dcdbabc06775ebd56a33819c30d"
+    },
+    {
+      "name": "cro/DllKawaigari",
+      "size": 1101824,
+      "sha256": "abbdf03b6dbfa36e9358708d62e7f6b707d360faadf007a8411ea9b7284ec096"
+    },
+    {
+      "name": "cro/DllKawaigariArrange",
+      "size": 45056,
+      "sha256": "d16899b548ad538d96c5ab889817e11f2f7106bbf116dfc0b98fdcd0acbd46e6"
+    },
+    {
+      "name": "cro/DllLangSelect",
+      "size": 16384,
+      "sha256": "a08dd6616b6aa2de369edb6c0e6e236beeb22e3397d7bbaf618955935385b912"
+    },
+    {
+      "name": "cro/DllLiveCup",
+      "size": 69632,
+      "sha256": "1da1c735db6043f00ddcd2459d073f9739c14763a559563cf1788a7c012a958f"
+    },
+    {
+      "name": "cro/DllNumberInput",
+      "size": 16384,
+      "sha256": "bdb609c76b5589a33dacb3c94a39b0c8356c54445c757b733ce0fd94bdabc692"
+    },
+    {
+      "name": "cro/DllNuts",
+      "size": 69632,
+      "sha256": "32d4ec0397dc83bf7aafb94c53769084fc98805607f368b1526a968db6a82658"
+    },
+    {
+      "name": "cro/DllPCMenu",
+      "size": 24576,
+      "sha256": "93a9b5f99cc9bcc53632e71f6073d79635035ce1a900f871a816b213dff4a8a8"
+    },
+    {
+      "name": "cro/DllPhotoSaver",
+      "size": 8192,
+      "sha256": "5355a3716507ba74bbc991d5225c95cfc077e8864938dd5614e5ef16d0aa5ab1"
+    },
+    {
+      "name": "cro/DllPhotoSaverSecretBase",
+      "size": 24576,
+      "sha256": "8c5da4f8e5e2e6464e5ea5d7c16bfc0756c414ec09e3dc419d2d9f683ffa7a83"
+    },
+    {
+      "name": "cro/DllPhotoViewer",
+      "size": 16384,
+      "sha256": "3c5f3ff7ce2749738458edd72f63648c64587abc0cd67a27fede1572176386f2"
+    },
+    {
+      "name": "cro/DllPoke3Select",
+      "size": 45056,
+      "sha256": "3e32bd9eaba44de96f06246ea9900c2ff7e8211ae55487d26b59bad98a94a3cb"
+    },
+    {
+      "name": "cro/DllPokeList",
+      "size": 94208,
+      "sha256": "190cf449dd309b3a608ea95cab9ff445b86a04dac0c0866787c84b976a501322"
+    },
+    {
+      "name": "cro/DllPokeViewer",
+      "size": 8192,
+      "sha256": "1b0ddb59d165b6808425214145786c224e0821922b434572adaa81b301838bb2"
+    },
+    {
+      "name": "cro/DllPorocCase",
+      "size": 90112,
+      "sha256": "f75d044131a7cd8337cbae0110646fb8e0fc1c5d24f7f0e0ae54f9a4c5c6e484"
+    },
+    {
+      "name": "cro/DllPssAssistPower",
+      "size": 28672,
+      "sha256": "070e8dd5bd31da10232e8d261d860c3089a3dcc609d59ce74ad1ed07e2ba5921"
+    },
+    {
+      "name": "cro/DllPssCharaMenu",
+      "size": 28672,
+      "sha256": "98ecbdb69bf6dbacce4279a1bb8b690154c27ce5b404e58d81be4c1903ac1e10"
+    },
+    {
+      "name": "cro/DllPssConfig",
+      "size": 16384,
+      "sha256": "5087cba7457321b21a373ce92a26852af3ccf94810c8836ad5162601419a3c32"
+    },
+    {
+      "name": "cro/DllPssFavorite",
+      "size": 20480,
+      "sha256": "1b6a276840d8faca5d9d93c42a803d5cf0a6f30a279c958efd84792619c7b9ab"
+    },
+    {
+      "name": "cro/DllPssIconSelect",
+      "size": 28672,
+      "sha256": "ee51cd3efb8f670d49e03ccb4eb6ef3aeac714a2f57ecf0e3c1a134d76acacb9"
+    },
+    {
+      "name": "cro/DllPssMainMenu",
+      "size": 20480,
+      "sha256": "8a662aa889ce13d70a382dd964ad5e6a19bad83580ed0b9e942b60ba5921fa31"
+    },
+    {
+      "name": "cro/DllPssMessageWindow",
+      "size": 16384,
+      "sha256": "03e03d683bd70388d45519f2951f6dfaf35876e539518615d84b63773d305036"
+    },
+    {
+      "name": "cro/DllPssPlaySelect",
+      "size": 16384,
+      "sha256": "ead71b1e053d665a0c6f476f53a4ca70a5fa6a1f24c1bea0d6e80d7b493b03ab"
+    },
+    {
+      "name": "cro/DllPssRuleSelect",
+      "size": 20480,
+      "sha256": "3498ad236c61e602210ff977920fbc4c60bfbe0ae655302154522393c63d72ea"
+    },
+    {
+      "name": "cro/DllPuzzle",
+      "size": 81920,
+      "sha256": "2ce415d52079cb39218fcbe27c551da1d709ea018e582a4667fa1580d9b4f342"
+    },
+    {
+      "name": "cro/DllRandomTrade",
+      "size": 32768,
+      "sha256": "5e34fbdb1ec871577c8c4692c7e1c17932c5f7ed911fd375e97118cb408d2855"
+    },
+    {
+      "name": "cro/DllReport",
+      "size": 28672,
+      "sha256": "ebc0f68177b8fb4106c56d31a47a9d390e407ee767b9a6c202f1a93e82f95d70"
+    },
+    {
+      "name": "cro/DllSangoIntro",
+      "size": 45056,
+      "sha256": "c67e53c551c9b3a09e2debb6e2ccb20f42fec10d3689e85ea848437cb01cabec"
+    },
+    {
+      "name": "cro/DllSangoStaffroll",
+      "size": 36864,
+      "sha256": "47c18dc25adcb541ce52cb939a424603290421988c7565bf175d849658bf49e2"
+    },
+    {
+      "name": "cro/DllSangoZukan",
+      "size": 233472,
+      "sha256": "04821098e359aa63b8d08752420ba0a1a8e80f67706087d08b7ae50f50135f91"
+    },
+    {
+      "name": "cro/DllSecretBaseQR",
+      "size": 32768,
+      "sha256": "a4199f70f78e91f816b43fad72cdd2cdbdf9c7ab033a1dbacdbc5dcae9e8eda2"
+    },
+    {
+      "name": "cro/DllSequence",
+      "size": 147456,
+      "sha256": "219d956e9929e5d84fd584c1be503e5e9d48fb96e8de5bc6afac655665215026"
+    },
+    {
+      "name": "cro/DllShinkaDemo",
+      "size": 28672,
+      "sha256": "ddbe3edd7a5fe6443f0dc05ef235383a723b905900c70fdec1e7a1cedd564540"
+    },
+    {
+      "name": "cro/DllSkyTrip",
+      "size": 73728,
+      "sha256": "e867a5b36ce35160874c35c563cf6a8d315239e7be7900b8f494261ea19b83df"
+    },
+    {
+      "name": "cro/DllSparring",
+      "size": 126976,
+      "sha256": "64551186d7ce69a0417eb86c0f00981aa98ae7dca52e784e57fb996ab8dd041a"
+    },
+    {
+      "name": "cro/DllSparringMenu",
+      "size": 36864,
+      "sha256": "4c8177a23201a5807b11416dcee72e7b680786e22a62146cd21831b69c045b36"
+    },
+    {
+      "name": "cro/DllStartMenu",
+      "size": 16384,
+      "sha256": "5f740fc8351ec7620b786a94ca20e8655236df064901aff19d9f72a67f41e3b2"
+    },
+    {
+      "name": "cro/DllStatus",
+      "size": 90112,
+      "sha256": "6b2384fb8156b471a20de05e2843b28e12e5cb981ed2e5df6c3da2670ec5ca3f"
+    },
+    {
+      "name": "cro/DllStrInput",
+      "size": 49152,
+      "sha256": "0a4a9c48d9e37fa2d07b34acb877b624b9fc7b966171bffcbb5dff6cdecfda27"
+    },
+    {
+      "name": "cro/DllSubScreenTutorial",
+      "size": 16384,
+      "sha256": "9994d3073ff7dc2d13fba6385f564077bce27613a83d51b6e23f32422f3f803c"
+    },
+    {
+      "name": "cro/DllTestAriizumi",
+      "size": 8192,
+      "sha256": "634103b425aa768f38279afd6bdc145f42459aea70144d6f56f5ef593003f058"
+    },
+    {
+      "name": "cro/DllTestHosaka",
+      "size": 8192,
+      "sha256": "ad0d4ca87977b38051b4a725df35997fbed3f6622180c28215308dd4f8f5473c"
+    },
+    {
+      "name": "cro/DllTestIchiraku",
+      "size": 8192,
+      "sha256": "cb146fcdcbb11d38d216c59a63d36c5ed69d5d0e4876f8e6fec58a8ef88d51ba"
+    },
+    {
+      "name": "cro/DllTestIkeda",
+      "size": 8192,
+      "sha256": "9923903e2a9fa9f860443fdd8bd5a211d7f6cea058308c1f9feb4717c549556f"
+    },
+    {
+      "name": "cro/DllTestIkuta",
+      "size": 8192,
+      "sha256": "df1917dc4fcb6b85aaec2c3b645d28840c3557fe1aeffbcc99e9ab68cf3c6dec"
+    },
+    {
+      "name": "cro/DllTestIshiguro",
+      "size": 8192,
+      "sha256": "35be4b370c58b45d6ef0e4e7a788236127b5d28333d2cc4193492d171ddad6b1"
+    },
+    {
+      "name": "cro/DllTestIto",
+      "size": 8192,
+      "sha256": "95f41d18ae1ff8c758130a5162aed61e5192acc23f1c598e2372e4089d76b49a"
+    },
+    {
+      "name": "cro/DllTestKawada",
+      "size": 8192,
+      "sha256": "45164e7738d6bbd5acba415bbf17ea378ca0ad9e0a274557d452a7e30929b574"
+    },
+    {
+      "name": "cro/DllTestKosaka",
+      "size": 8192,
+      "sha256": "4b65ce52d5833c95a95736eb01af8323e7993972767659e9594f5e0c34c98820"
+    },
+    {
+      "name": "cro/DllTestMori",
+      "size": 8192,
+      "sha256": "f367256c81b8ac1c841842343a1439af875b0fe1c6ab004d4c4b97088044485e"
+    },
+    {
+      "name": "cro/DllTestNCL",
+      "size": 8192,
+      "sha256": "3e22c21c2044a4dda1365dd5eeb32b7d56e6d8f0a2331ebeb6289f671342c68f"
+    },
+    {
+      "name": "cro/DllTestNagihashi",
+      "size": 8192,
+      "sha256": "c16934b4ba52666328bc69a9cc0b32c97eee660ffc88736ae4f6535026f1af84"
+    },
+    {
+      "name": "cro/DllTestNakahiro",
+      "size": 8192,
+      "sha256": "e4d542112edcf5b3662aff69edfc39ee0f3e0b7abcdd133ca9b690cde1b095cc"
+    },
+    {
+      "name": "cro/DllTestObata",
+      "size": 8192,
+      "sha256": "58e01ee672cebd39636284fee57137b618f01c378bcd2b8c45fac15157ce55b8"
+    },
+    {
+      "name": "cro/DllTestOhhira",
+      "size": 8192,
+      "sha256": "a37319891ab47ddbf56257d2835c74611f8670e56bfd4b6bfd1b6814e6e96b92"
+    },
+    {
+      "name": "cro/DllTestOhno",
+      "size": 8192,
+      "sha256": "b0a8b78861f0f086fcaf8b25e68d29b6b3147a99ff3b231f22abed8fc80a5371"
+    },
+    {
+      "name": "cro/DllTestOnoue",
+      "size": 8192,
+      "sha256": "12b0f19c5178cf753420d8141147a325c01850558055caabe663746d9e5354b7"
+    },
+    {
+      "name": "cro/DllTestPGL",
+      "size": 8192,
+      "sha256": "fb9e8cbfe4ccb8d3c223de909fb5576b2cf67af73598afa1296ebf8622faeeaa"
+    },
+    {
+      "name": "cro/DllTestSaita",
+      "size": 8192,
+      "sha256": "13270d0f0821eb9116d16fb64420c1754368732266b744ffad70b4049bc01c6b"
+    },
+    {
+      "name": "cro/DllTestSeqDemoView",
+      "size": 8192,
+      "sha256": "86f6874639a5162b7bc2b6db70c060d64db1826960d3ae9601fd3659c2de0c36"
+    },
+    {
+      "name": "cro/DllTestSogabe",
+      "size": 8192,
+      "sha256": "40f12b98683b51e6113d99acc96b25a74c3b911e2d0d8c4f78bc126c1f7cb516"
+    },
+    {
+      "name": "cro/DllTestSuzuki",
+      "size": 8192,
+      "sha256": "d6cf5166830de416b2b85a77bd3001a28224c248468bc9db1bded15905d3714b"
+    },
+    {
+      "name": "cro/DllTestTamada",
+      "size": 8192,
+      "sha256": "9e2170eab8c3b1c92f3847e6c8d1fb546febcbe473d8fd72cdf5a8f503989f54"
+    },
+    {
+      "name": "cro/DllTestTaya",
+      "size": 8192,
+      "sha256": "2cfafb04c8e81d0c3bf37218763ac165338cba18f361b40a3460191955cc2759"
+    },
+    {
+      "name": "cro/DllTestTomoya",
+      "size": 8192,
+      "sha256": "0f17e1fd7a44ece7548d37784f69757cfd047379e8aa1557f378973d437067c7"
+    },
+    {
+      "name": "cro/DllTitle",
+      "size": 143360,
+      "sha256": "da000d1bb5017c1938befadef0de05090e548c4451007f3be8a11d2a6136f0b3"
+    },
+    {
+      "name": "cro/DllTownmap",
+      "size": 81920,
+      "sha256": "123177f22f326d5c13508303200df26715a726ff4b51b25259074309b1418a5c"
+    },
+    {
+      "name": "cro/DllTradeDemo",
+      "size": 16384,
+      "sha256": "1bf78c0784bb28acec24b09cb5cfc8421afffea67154d3bbf2dd889b890630b8"
+    },
+    {
+      "name": "cro/DllTradelist",
+      "size": 69632,
+      "sha256": "b5683494c01652cf3ba63c0c71f5b5944de1e726c5598cda8f7ba15b3c33be79"
+    },
+    {
+      "name": "cro/DllTrainerCase",
+      "size": 28672,
+      "sha256": "cde56540886e4048e6450300425748d474e14ec7cc0d878e0d5256c3f3782878"
+    },
+    {
+      "name": "cro/DllTrainingAppManager",
+      "size": 12288,
+      "sha256": "2efd1771347678bb17047496c8480ae6695faa27f05803d6aa0ed0ff84ef7117"
+    },
+    {
+      "name": "cro/DllTrialDownload",
+      "size": 45056,
+      "sha256": "99d2acfaa53ba937ba8796963df46bb7eb643ab04bcd696cf444933879eb7ce2"
+    },
+    {
+      "name": "cro/DllTrialHouseResult",
+      "size": 20480,
+      "sha256": "983d592d6419b631ad2eecea37cf7a5207a59b2978430b4c82bfb4ab5ddc3a24"
+    },
+    {
+      "name": "cro/DllUSAreaBridge",
+      "size": 20480,
+      "sha256": "0eaf4d5f54abc45abbf83a827a23cb60d0336605c5ed643e17fb016943d120a1"
+    },
+    {
+      "name": "cro/DllUSAreaFriendShip",
+      "size": 28672,
+      "sha256": "a62ff35923c61efb23dc2aaa86b9afdc9e6c3083fdc504e58829ebf1a867bf44"
+    },
+    {
+      "name": "cro/DllUSAreaTenji",
+      "size": 12288,
+      "sha256": "0be4a02266fe066248f74ffc0de5ef0dbcea7b9d4c83efd64161cb9064e363c8"
+    },
+    {
+      "name": "cro/DllUSAreaWaterSurface",
+      "size": 12288,
+      "sha256": "a6ad4957347a3b2cf7c610c51e28f8fd2e0e5f19f9738f2bdec4d47820b2cebf"
+    },
+    {
+      "name": "cro/DllUSBigFourDragon",
+      "size": 12288,
+      "sha256": "a3260481f1c90f7a3cff8844ed172ff861d8e4f4cd7bceeff2ba0969bf11bde8"
+    },
+    {
+      "name": "cro/DllUSContestMuseum",
+      "size": 12288,
+      "sha256": "0aaf26b8b7f87862b15804c8324059005b73374cfbb009673b56cc47685769ba"
+    },
+    {
+      "name": "cro/DllUSContestVenue",
+      "size": 12288,
+      "sha256": "f54ba3f32e9ea7d71ceb6f0f8c7af50f387a6f75525cff2d26f4feb9c21b2d19"
+    },
+    {
+      "name": "cro/DllUSGymElec",
+      "size": 28672,
+      "sha256": "48d76306950fa916f1b8a3c538e0d6758b71a278cb08f20d4e0c869b8d903a49"
+    },
+    {
+      "name": "cro/DllUSGymEsper",
+      "size": 16384,
+      "sha256": "f889d3cf0614f249a98d9a49553f3aa462266b28032e3046c802edaddc99dc43"
+    },
+    {
+      "name": "cro/DllUSGymFighting",
+      "size": 12288,
+      "sha256": "eeb1f1f36caea3a79aa0fd458aae4360a08ca46c34fe099e8210a781706bae3a"
+    },
+    {
+      "name": "cro/DllUSGymFire",
+      "size": 16384,
+      "sha256": "583f1587e0a16a61ac49ba0e78e9cbc013202730ea0b14aa6dd23216bb3f26b8"
+    },
+    {
+      "name": "cro/DllUSGymFlight",
+      "size": 49152,
+      "sha256": "0e3f46e9c9559398857f5b32f03e5351441cac03203f8c64a004446a1185fa30"
+    },
+    {
+      "name": "cro/DllUSGymWater",
+      "size": 20480,
+      "sha256": "3c0248a5c081b01a1777da5824d59da6e3022b5bf75d4bae33e91d89ffa3a172"
+    },
+    {
+      "name": "cro/DllUSMirror",
+      "size": 12288,
+      "sha256": "4a566b7f46ef498fe772f04a82d43301642dde3240a5582024a5c5690ce84c7f"
+    },
+    {
+      "name": "cro/DllUSPassage",
+      "size": 20480,
+      "sha256": "64376f24f024c96cbe249746bc089d47b999cd6367918829912df7d582b1fdc0"
+    },
+    {
+      "name": "cro/DllUSPokecen",
+      "size": 12288,
+      "sha256": "1c5370996699a7b24a7e0630932f89a482bb4dfb030ac120a90ae6539a4a05c4"
+    },
+    {
+      "name": "cro/DllUSR113",
+      "size": 16384,
+      "sha256": "ce0bee9c34b7036240350932586cc863ccdb93113f105daf6c5e046737f285b2"
+    },
+    {
+      "name": "cro/DllUSSecretBase",
+      "size": 106496,
+      "sha256": "717d629e1ae6cc824c6edf266b1afde0cd3ef4a52d4529b4a1f6d077772d909f"
+    },
+    {
+      "name": "cro/DllUSShrine",
+      "size": 12288,
+      "sha256": "7a7b08913b884791dc2cffb7d64cd7d2991dc72acdca1fbdae4a86ca396900df"
+    },
+    {
+      "name": "cro/DllVSDemo",
+      "size": 24576,
+      "sha256": "2c79fcda78dba3e3998876cf85795120bfc2dd5d1f2312f2b44aba58df0a0f8a"
+    },
+    {
+      "name": "cro/DllWazaOboe",
+      "size": 45056,
+      "sha256": "6e53410e8f9f18e017169d6feea27abaceba34d757674a7e9ce1f967539a43df"
+    },
+    {
+      "name": "cro/DllWazaOmoidashi",
+      "size": 36864,
+      "sha256": "bec1e81f400bf95359c429c82f503eb8a6b456d1914c191d8c2e1587c197e645"
+    },
+    {
+      "name": "cro/DllZkUtil",
+      "size": 8192,
+      "sha256": "cf34c15bbaba6864afaa99e83cf9ca0e7d5b21b82f78aca6fa601504dfce53eb"
+    }
+  ]
+}

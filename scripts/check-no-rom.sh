@@ -10,7 +10,7 @@ bad=0
 for file in "${files[@]}"; do
   lower="${file,,}"
   case "$lower" in
-    *.3ds|*.3dsx|*.cia|*.cci|*.cxi|*.ncch|*.rom|*.romfs|*.exefs|*.code|baserom*|original/*|private/*|extracted/*)
+    *.3ds|*.3dsx|*.cia|*.cci|*.cxi|*.ncch|*.rom|*.romfs|*.exefs|*.code|*.cro|*.crs|*.crr|baserom*|original/*|private/*|extracted/*)
       printf 'blocked proprietary path: %s\n' "$file" >&2
       bad=1
       continue
