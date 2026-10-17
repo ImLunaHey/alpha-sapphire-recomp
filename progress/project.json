@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,257 clean-room functions are byte-identical. Ninety-three CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The public report retains authored exact-match credit after the DllHologramMail and DllPssMessageWindow provenance withdrawals. Their neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.203833,
-    "matchedFunctions": 4257,
+    "matchedCodePercent": 11.203618,
+    "matchedFunctions": 4256,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,257 routines across main/code and 93 CRO units match byte-for-byte",
+      "detail": "Authored routines across main/code and CRO units retain exact-match credit after the provenance withdrawals; every unit remains incomplete",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllPssMessageWindow provisional match withdrawn",
+      "detail": "Public evidence lacks unit-specific strict two-party provenance for DllPssMessageWindow. Its source, ownership claim, and provisional match credit are withdrawn. The neutral inventory remains, and the unit stays blocked and explicitly incomplete. No new implementation, full-link, or fresh target comparison is claimed."
+    },
     {
       "date": "2026-10-17",
       "title": "DllHologramMail provenance quarantine",
