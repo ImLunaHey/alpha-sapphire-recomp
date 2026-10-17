@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,263 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,261 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.21308,
-    "matchedFunctions": 4263,
+    "matchedCodePercent": 11.209854,
+    "matchedFunctions": 4261,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,263 routines across main/code and 96 CRO units match byte-for-byte",
+      "detail": "4,261 routines across main/code and 96 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,11 +36,6 @@
     }
   ],
   "activity": [
-    {
-      "date": "2026-10-17",
-      "title": "DllBattleVideoPlayer adds two exact tree recyclers",
-      "detail": "Two independently implemented DllBattleVideoPlayer functions add 120 byte-identical code bytes. The genuine report now contains 4,263 exact functions and 417,084 bytes. DllBattleVideoPlayer remains incomplete with 53 accepted functions, all data, and unclassified text still unmatched."
-    },
     {
       "date": "2026-10-17",
       "title": "DllBattleMatch adds nine exact functions",
