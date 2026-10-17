@@ -1,0 +1,25 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSGymElec
+# TextSize,00003FF8
+Location,Name,Namespace,Mode,Size,Segment
+000004F8,"func_000004F8","Global",$a,0000059C,".text"
+000013B4,"func_000013B4","Global",$a,0000016C,".text"
+00001524,"func_00001524","Global",$a,000001EC,".text"
+00001714,"func_00001714","Global",$a,000001B0,".text"
+00001FB0,"func_00001FB0","Global",$a,00000060,".text"
+00002014,"func_00002014","Global",$a,000000F8,".text"
+00002114,"func_00002114","Global",$a,00000070,".text"
+0000218C,"func_0000218C","Global",$a,00000068,".text"
+000021F4,"func_000021F4","Global",$a,00000078,".text"
+00002744,"func_00002744","Global",$a,0000013C,".text"
+000028A4,"func_000028A4","Global",$a,0000013C,".text"
+00002A04,"func_00002A04","Global",$a,000000E4,".text"
+00002B04,"func_00002B04","Global",$a,000000E4,".text"
+00002C04,"func_00002C04","Global",$a,00000150,".text"
+00002D58,"func_00002D58","Global",$a,000001B0,".text"
+00002F0C,"func_00002F0C","Global",$a,00000210,".text"
+00003120,"func_00003120","Global",$a,000002B0,".text"
+000033D4,"func_000033D4","Global",$a,00000268,".text"
+0000363C,"func_0000363C","Global",$a,00000338,".text"
+00003974,"func_00003974","Global",$a,00000134,".text"
+00003AA8,"func_00003AA8","Global",$a,000001A4,".text"

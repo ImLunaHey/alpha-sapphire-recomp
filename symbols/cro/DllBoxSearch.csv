@@ -1,0 +1,14 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllBoxSearch
+# TextSize,00005264
+Location,Name,Namespace,Mode,Size,Segment
+00000CB4,"func_00000CB4","Global",$a,0000010C,".text"
+00000DC0,"func_00000DC0","Global",$a,00000194,".text"
+00002A20,"func_00002A20","Global",$a,000001E8,".text"
+00002C0C,"func_00002C0C","Global",$a,00000034,".text"
+00002C44,"func_00002C44","Global",$a,00000378,".text"
+00002FCC,"func_00002FCC","Global",$a,00000334,".text"
+00003308,"func_00003308","Global",$a,000000D4,".text"
+00003738,"func_00003738","Global",$a,000001E4,".text"
+00003920,"func_00003920","Global",$a,000000F0,".text"
+00004BA0,"func_00004BA0","Global",$a,000000F8,".text"

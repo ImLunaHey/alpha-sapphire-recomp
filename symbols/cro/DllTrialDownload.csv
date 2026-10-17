@@ -1,0 +1,24 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllTrialDownload
+# TextSize,00007018
+Location,Name,Namespace,Mode,Size,Segment
+00002038,"func_00002038","Global",$a,000001D4,".text"
+00002524,"func_00002524","Global",$a,0000017C,".text"
+00003894,"func_00003894","Global",$a,000003B8,".text"
+00004344,"func_00004344","Global",$a,0000005C,".text"
+000043A0,"func_000043A0","Global",$a,0000025C,".text"
+00004600,"func_00004600","Global",$a,00000258,".text"
+00004864,"func_00004864","Global",$a,00000134,".text"
+00004998,"func_00004998","Global",$a,00000088,".text"
+00004A24,"func_00004A24","Global",$a,00000088,".text"
+00004AB0,"func_00004AB0","Global",$a,00000120,".text"
+00004BE0,"func_00004BE0","Global",$a,0000004C,".text"
+00004C2C,"func_00004C2C","Global",$a,000001B0,".text"
+00004DE4,"func_00004DE4","Global",$a,00000590,".text"
+0000537C,"func_0000537C","Global",$a,00000248,".text"
+00005890,"func_00005890","Global",$a,0000011C,".text"
+000059AC,"func_000059AC","Global",$a,00000198,".text"
+00005B4C,"func_00005B4C","Global",$a,00000158,".text"
+00005F14,"func_00005F14","Global",$a,0000010C,".text"
+000060E4,"func_000060E4","Global",$a,00000240,".text"
+00006F28,"func_00006F28","Global",$a,00000014,".text"

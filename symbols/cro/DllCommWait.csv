@@ -1,0 +1,7 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllCommWait
+# TextSize,00000D0C
+Location,Name,Namespace,Mode,Size,Segment
+00000334,"func_00000334","Global",$a,00000278,".text"
+00000808,"func_00000808","Global",$a,00000148,".text"
+00000A2C,"func_00000A2C","Global",$a,00000190,".text"

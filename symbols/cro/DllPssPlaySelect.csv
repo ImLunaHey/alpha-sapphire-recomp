@@ -1,0 +1,7 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPssPlaySelect
+# TextSize,00000F98
+Location,Name,Namespace,Mode,Size,Segment
+00000658,"func_00000658","Global",$a,000000AC,".text"
+000008A0,"func_000008A0","Global",$a,000001AC,".text"
+00000D8C,"func_00000D8C","Global",$a,00000008,".text"

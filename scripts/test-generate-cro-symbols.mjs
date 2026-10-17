@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdirSync, mkdtempSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import {
@@ -48,4 +48,21 @@ unlinkSync(join(generated, "DllExtra.csv"));
 publishArtifactSet(artifactSet, modules);
 compareArtifactSet(artifactSet, modules);
 assert.equal(readFileSync(join(publishedJson, "DllBeta.json"), "utf8"), "DllBeta partition\n");
+
+for (const module of modules) {
+  writeFileSync(join(generated, `${module}.csv`), `${module} replacement\n`);
+  writeFileSync(join(generatedJson, `${module}.json`), `${module} replacement partition\n`);
+}
+let cleanupAttempt = 0;
+assert.throws(() => publishArtifactSet(artifactSet, modules, {
+  remove: () => {
+    cleanupAttempt++;
+    throw new Error("simulated backup cleanup failure");
+  },
+}), /published CRO artifacts successfully.*could not remove/s);
+assert.equal(cleanupAttempt, artifactSet.length);
+assert.equal(readFileSync(join(published, "DllAlpha.csv"), "utf8"), "DllAlpha replacement\n");
+assert.equal(readFileSync(join(publishedJson, "DllBeta.json"), "utf8"), "DllBeta replacement partition\n");
+assert.ok(artifactSet.every((item) => existsSync(item.published)),
+  "cleanup failure must not roll back newly published artifacts");
 console.log("CRO symbol batch driver tests: ok");

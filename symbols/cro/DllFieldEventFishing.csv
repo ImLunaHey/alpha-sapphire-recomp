@@ -1,0 +1,14 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFieldEventFishing
+# TextSize,00001BFC
+Location,Name,Namespace,Mode,Size,Segment
+00000270,"func_00000270","Global",$a,000005CC,".text"
+0000083C,"func_0000083C","Global",$a,00000144,".text"
+0000098C,"func_0000098C","Global",$a,00000150,".text"
+00000AE8,"func_00000AE8","Global",$a,000000FC,".text"
+00000E7C,"func_00000E7C","Global",$a,000001B8,".text"
+00001058,"func_00001058","Global",$a,000000C0,".text"
+00001138,"func_00001138","Global",$a,000000E0,".text"
+00001220,"func_00001220","Global",$a,0000016C,".text"
+000013A0,"func_000013A0","Global",$a,00000294,".text"
+00001660,"func_00001660","Global",$a,00000114,".text"

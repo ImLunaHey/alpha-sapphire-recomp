@@ -1,0 +1,12 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllBattleVideoSave
+# TextSize,00001ED4
+Location,Name,Namespace,Mode,Size,Segment
+000002DC,"func_000002DC","Global",$a,000000EC,".text"
+0000069C,"func_0000069C","Global",$a,00000224,".text"
+00000BB8,"func_00000BB8","Global",$a,0000011C,".text"
+00000F90,"func_00000F90","Global",$a,000000E0,".text"
+00001080,"func_00001080","Global",$a,0000009C,".text"
+0000111C,"func_0000111C","Global",$a,00000164,".text"
+000015BC,"func_000015BC","Global",$a,00000120,".text"
+00001D60,"func_00001D60","Global",$a,00000008,".text"

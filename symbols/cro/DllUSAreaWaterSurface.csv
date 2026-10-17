@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSAreaWaterSurface
+# TextSize,00000A4C
+Location,Name,Namespace,Mode,Size,Segment
+00000570,"func_00000570","Global",$a,00000098,".text"
+00000610,"func_00000610","Global",$a,000000F8,".text"

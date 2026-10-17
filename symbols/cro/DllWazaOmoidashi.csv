@@ -1,0 +1,23 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllWazaOmoidashi
+# TextSize,00005970
+Location,Name,Namespace,Mode,Size,Segment
+00000690,"func_00000690","Global",$a,00000318,".text"
+00001C88,"func_00001C88","Global",$a,000001D8,".text"
+00001E80,"func_00001E80","Global",$a,00000124,".text"
+00001FAC,"func_00001FAC","Global",$a,0000012C,".text"
+00002450,"func_00002450","Global",$a,00000358,".text"
+000027DC,"func_000027DC","Global",$a,00000094,".text"
+00002878,"func_00002878","Global",$a,00000078,".text"
+00002ADC,"func_00002ADC","Global",$a,00000078,".text"
+00002CA4,"func_00002CA4","Global",$a,00000090,".text"
+000030D4,"func_000030D4","Global",$a,00000278,".text"
+00003484,"func_00003484","Global",$a,00000100,".text"
+000035F4,"func_000035F4","Global",$a,0000007C,".text"
+000038D0,"func_000038D0","Global",$a,00000180,".text"
+00003AC8,"func_00003AC8","Global",$a,000001CC,".text"
+000040F8,"func_000040F8","Global",$a,00000124,".text"
+00004224,"func_00004224","Global",$a,0000012C,".text"
+0000472C,"func_0000472C","Global",$a,00000354,".text"
+00004BCC,"func_00004BCC","Global",$a,00000534,".text"
+00005228,"func_00005228","Global",$a,00000008,".text"

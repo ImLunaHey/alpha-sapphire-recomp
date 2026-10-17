@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllBattlePartySelect
+# TextSize,00001734
+Location,Name,Namespace,Mode,Size,Segment
+0000038C,"func_0000038C","Global",$a,00000290,".text"
+0000109C,"func_0000109C","Global",$a,000001A8,".text"

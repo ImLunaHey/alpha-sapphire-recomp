@@ -1,0 +1,8 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllContestPhoto
+# TextSize,000023D4
+Location,Name,Namespace,Mode,Size,Segment
+00000650,"func_00000650","Global",$a,00000460,".text"
+00001454,"func_00001454","Global",$a,0000021C,".text"
+00001888,"func_00001888","Global",$a,00000310,".text"
+00002240,"func_00002240","Global",$a,00000008,".text"

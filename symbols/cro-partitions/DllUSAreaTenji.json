@@ -1,0 +1,42 @@
+{
+  "format": 1,
+  "module": "DllUSAreaTenji",
+  "textSize": 704,
+  "functions": [
+    {"name":"func_0000007C","address":124,"size":292,"mode":"arm"}
+  ],
+  "gaps": [
+    {"address":0,"size":4,"mode":"arm"},
+    {"address":8,"size":4,"mode":"arm"},
+    {"address":16,"size":4,"mode":"arm"},
+    {"address":24,"size":4,"mode":"arm"},
+    {"address":32,"size":4,"mode":"arm"},
+    {"address":40,"size":4,"mode":"arm"},
+    {"address":48,"size":4,"mode":"arm"},
+    {"address":56,"size":4,"mode":"arm"},
+    {"address":64,"size":60,"mode":"arm"},
+    {"address":420,"size":32,"mode":"arm"},
+    {"address":476,"size":8,"mode":"arm"},
+    {"address":528,"size":20,"mode":"arm"},
+    {"address":568,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":4,"size":4},
+    {"address":12,"size":4},
+    {"address":20,"size":4},
+    {"address":28,"size":4},
+    {"address":36,"size":4},
+    {"address":44,"size":4},
+    {"address":52,"size":4},
+    {"address":60,"size":4},
+    {"address":416,"size":4},
+    {"address":472,"size":4},
+    {"address":524,"size":4},
+    {"address":548,"size":20},
+    {"address":664,"size":40}
+  ],
+  "unknown": [
+    {"address":452,"size":20},
+    {"address":484,"size":40}
+  ]
+}

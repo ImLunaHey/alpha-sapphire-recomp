@@ -1,0 +1,16 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllShinkaDemo
+# TextSize,00003B48
+Location,Name,Namespace,Mode,Size,Segment
+00000A04,"func_00000A04","Global",$a,00000124,".text"
+00000CE8,"func_00000CE8","Global",$a,00000170,".text"
+00000ED8,"func_00000ED8","Global",$a,000001A0,".text"
+00001508,"func_00001508","Global",$a,00000100,".text"
+00001620,"func_00001620","Global",$a,0000020C,".text"
+00001E68,"func_00001E68","Global",$a,0000004C,".text"
+00001EB8,"func_00001EB8","Global",$a,000001EC,".text"
+000020A8,"func_000020A8","Global",$a,0000007C,".text"
+00002124,"func_00002124","Global",$a,000002F8,".text"
+00002424,"func_00002424","Global",$a,00000178,".text"
+000025B8,"func_000025B8","Global",$a,00000074,".text"
+000039D4,"func_000039D4","Global",$a,00000008,".text"

@@ -1,0 +1,18 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllTrainerCase
+# TextSize,00003E44
+Location,Name,Namespace,Mode,Size,Segment
+00000AF4,"func_00000AF4","Global",$a,0000031C,".text"
+000011CC,"func_000011CC","Global",$a,00000110,".text"
+00001A00,"func_00001A00","Global",$a,000000B0,".text"
+00001AB0,"func_00001AB0","Global",$a,000001C0,".text"
+00001C78,"func_00001C78","Global",$a,00000190,".text"
+00001E08,"func_00001E08","Global",$a,000000C8,".text"
+00001ED4,"func_00001ED4","Global",$a,00000094,".text"
+0000240C,"func_0000240C","Global",$a,000000D4,".text"
+000024F0,"func_000024F0","Global",$a,000000D4,".text"
+000025CC,"func_000025CC","Global",$a,00000204,".text"
+00002D80,"func_00002D80","Global",$a,00000324,".text"
+000030A8,"func_000030A8","Global",$a,0000026C,".text"
+00003318,"func_00003318","Global",$a,00000108,".text"
+00003420,"func_00003420","Global",$a,000001A4,".text"

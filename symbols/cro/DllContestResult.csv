@@ -1,0 +1,10 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllContestResult
+# TextSize,00003250
+Location,Name,Namespace,Mode,Size,Segment
+00000404,"func_00000404","Global",$a,000000E4,".text"
+000011E0,"func_000011E0","Global",$a,000004AC,".text"
+00001A10,"func_00001A10","Global",$a,00000058,".text"
+00001EA0,"func_00001EA0","Global",$a,000000C4,".text"
+00002F08,"func_00002F08","Global",$a,00000138,".text"
+00003058,"func_00003058","Global",$a,00000008,".text"

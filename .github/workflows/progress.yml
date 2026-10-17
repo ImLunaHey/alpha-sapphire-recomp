@@ -43,6 +43,13 @@ jobs:
 
       - name: Test CRO unit configuration
         run: |
+          node --check scripts/validate-public-cro-metadata.mjs
+          node --check scripts/test-public-cro-metadata.mjs
+          node scripts/test-public-cro-metadata.mjs
+          node scripts/validate-public-cro-metadata.mjs --require-complete
+          node --check scripts/prepare-bytematch-report.mjs
+          node --check scripts/test-prepare-bytematch-report.mjs
+          node scripts/test-prepare-bytematch-report.mjs
           node --check scripts/generate-cro-symbols.mjs
           node --check scripts/generate-objdiff-config.mjs
           node --check scripts/split-cro-target-object.mjs

@@ -4,14 +4,14 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,799 evidence-gated functions across two published link units are inventoried, and 3,814 clean-room functions are byte-identical. Another 144 genuine CRO link units are privately inventoried for integration.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 3,815 clean-room functions are byte-identical. Every CRO remains explicitly incomplete and earns zero match credit.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 17.19892,
-    "matchedFunctions": 3814,
-    "totalFunctions": 10799,
+    "matchedCodePercent": 10.617752,
+    "matchedFunctions": 3815,
+    "totalFunctions": 14840,
     "completeUnits": 0,
-    "totalUnits": 2
+    "totalUnits": 146
   },
   "milestones": [
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "All 145 CRO link units prepared for ByteMatch",
+      "detail": "Neutral evidence-gated inventories and empty clean-room base skeletons now expose every independently loadable CRO alongside main/code. The 145 CRO units remain incomplete and receive zero matched code, function, or data credit; a fifth exact tree-erase template raises main/code to 3,815 matched functions and 394,940 bytes."
+    },
     {
       "date": "2026-10-17",
       "title": "DllTitle published as the second ByteMatch unit",

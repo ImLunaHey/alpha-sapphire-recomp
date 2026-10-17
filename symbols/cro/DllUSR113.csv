@@ -1,0 +1,10 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSR113
+# TextSize,00001400
+Location,Name,Namespace,Mode,Size,Segment
+000004E0,"func_000004E0","Global",$a,000002B0,".text"
+00000C5C,"func_00000C5C","Global",$a,00000078,".text"
+00000CD4,"func_00000CD4","Global",$a,00000058,".text"
+00000E70,"func_00000E70","Global",$a,00000114,".text"
+00000F8C,"func_00000F8C","Global",$a,0000008C,".text"
+00001018,"func_00001018","Global",$a,00000098,".text"

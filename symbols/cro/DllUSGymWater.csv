@@ -1,0 +1,7 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSGymWater
+# TextSize,00002670
+Location,Name,Namespace,Mode,Size,Segment
+00001784,"func_00001784","Global",$a,000000F0,".text"
+00001878,"func_00001878","Global",$a,000002D4,".text"
+0000204C,"func_0000204C","Global",$a,00000140,".text"

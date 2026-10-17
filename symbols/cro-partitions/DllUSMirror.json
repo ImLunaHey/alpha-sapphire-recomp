@@ -1,0 +1,43 @@
+{
+  "format": 1,
+  "module": "DllUSMirror",
+  "textSize": 784,
+  "functions": [
+  ],
+  "gaps": [
+    {"address":0,"size":4,"mode":"arm"},
+    {"address":8,"size":4,"mode":"arm"},
+    {"address":16,"size":4,"mode":"arm"},
+    {"address":24,"size":4,"mode":"arm"},
+    {"address":32,"size":4,"mode":"arm"},
+    {"address":40,"size":4,"mode":"arm"},
+    {"address":48,"size":4,"mode":"arm"},
+    {"address":56,"size":4,"mode":"arm"},
+    {"address":64,"size":4,"mode":"arm"},
+    {"address":72,"size":48,"mode":"arm"},
+    {"address":132,"size":388,"mode":"arm"},
+    {"address":556,"size":8,"mode":"arm"},
+    {"address":608,"size":20,"mode":"arm"},
+    {"address":648,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":4,"size":4},
+    {"address":12,"size":4},
+    {"address":20,"size":4},
+    {"address":28,"size":4},
+    {"address":36,"size":4},
+    {"address":44,"size":4},
+    {"address":52,"size":4},
+    {"address":60,"size":4},
+    {"address":68,"size":4},
+    {"address":552,"size":4},
+    {"address":604,"size":4},
+    {"address":628,"size":20},
+    {"address":744,"size":40}
+  ],
+  "unknown": [
+    {"address":120,"size":12},
+    {"address":520,"size":32},
+    {"address":564,"size":40}
+  ]
+}

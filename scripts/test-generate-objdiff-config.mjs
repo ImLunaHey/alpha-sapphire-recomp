@@ -8,11 +8,11 @@ function align(value, amount) {
   return Math.ceil(value / amount) * amount;
 }
 
-function armObject(functionName, instruction = 0xe12fff1e) {
+function armObject(functionName, instruction = 0xe12fff1e, codeWithoutFunction = false) {
   const hasFunction = typeof functionName === "string" && functionName.length > 0;
   const sectionNames = Buffer.from("\0.text\0.symtab\0.strtab\0.shstrtab\0");
   const strings = Buffer.from(hasFunction ? `\0${functionName}\0` : "\0");
-  const textSize = hasFunction ? 4 : 0;
+  const textSize = hasFunction || codeWithoutFunction ? 4 : 0;
   const symbolSize = hasFunction ? 32 : 16;
   const textOffset = 52;
   const symbolOffset = align(textOffset + textSize, 4);
@@ -29,8 +29,8 @@ function armObject(functionName, instruction = 0xe12fff1e) {
   output.writeUInt16LE(40, 46);
   output.writeUInt16LE(5, 48);
   output.writeUInt16LE(4, 50);
+  if (textSize > 0) output.writeUInt32LE(instruction >>> 0, textOffset);
   if (hasFunction) {
-    output.writeUInt32LE(instruction >>> 0, textOffset);
     output.writeUInt32LE(1, symbolOffset + 16);
     output.writeUInt32LE(4, symbolOffset + 24);
     output[symbolOffset + 28] = 0x12;
@@ -122,8 +122,10 @@ writeFileSync(join(base, "DllField.o"), armObject("field_entry", 0xe3a00001));
 writeFileSync(join(target, "DllTitle.o"), armObject("title_entry"));
 writeFileSync(join(target, "DllBroken.o"), Buffer.from("not an ELF"));
 writeFileSync(join(base, "DllBroken.o"), armObject("broken_entry"));
-writeFileSync(join(target, "DllEmpty.o"), armObject("empty_target_entry"));
-writeFileSync(join(base, "DllEmpty.o"), armObject(undefined));
+// A genuine partition with no independently accepted boundaries must still
+// appear as a linker unit. It simply contributes no functions yet.
+writeFileSync(join(target, "DllEmpty.o"), armObject(undefined, 0xe12fff1e, true));
+writeFileSync(join(base, "DllEmpty.o"), armObject(undefined, 0xe3a00000, true));
 writeFileSync(join(target, "DllMismatch.o"), armObject("target_only_entry"));
 writeFileSync(join(base, "DllMismatch.o"), armObject("base_only_entry"));
 writeFileSync(join(target, "DllUnknown.o"), armObject("unknown_entry"));

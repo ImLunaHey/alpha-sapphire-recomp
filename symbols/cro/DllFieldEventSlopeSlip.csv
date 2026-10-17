@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFieldEventSlopeSlip
+# TextSize,00000A08
+Location,Name,Namespace,Mode,Size,Segment
+00000308,"func_00000308","Global",$a,00000158,".text"

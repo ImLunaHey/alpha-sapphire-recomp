@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllTrainingAppManager
+# TextSize,00000D58
+Location,Name,Namespace,Mode,Size,Segment
+00000BE4,"func_00000BE4","Global",$a,00000008,".text"

@@ -43,7 +43,16 @@ public class ExportCroFunctions extends GhidraScript {
         ReferenceIterator references = currentProgram.getReferenceManager().getReferencesTo(entry);
         while (references.hasNext()) {
             Reference reference = references.next();
-            if (reference.getReferenceType().isCall()) return true;
+            if (!reference.getReferenceType().isCall()) continue;
+            // Require the destination to be encoded in the source
+            // instruction itself. Analyzer-created references from resolved
+            // indirect calls are useful hints, but are not independent
+            // boundary evidence for a public inventory.
+            Instruction source = currentProgram.getListing().getInstructionAt(reference.getFromAddress());
+            if (source == null || source.getFlowType().isComputed()) continue;
+            for (Address destination : source.getFlows()) {
+                if (destination.equals(entry)) return true;
+            }
         }
         return false;
     }
@@ -51,7 +60,12 @@ public class ExportCroFunctions extends GhidraScript {
     private boolean hasTerminalInstruction(Function function) {
         Address end = function.getBody().getMaxAddress();
         Instruction instruction = currentProgram.getListing().getInstructionContaining(end);
-        return instruction != null && instruction.getMaxAddress().equals(end) && instruction.getFallThrough() == null;
+        // Ghidra may suppress fallthrough after a call when analysis marks the
+        // destination non-returning. A call is not independent boundary
+        // evidence, so leave those bodies unclassified unless the final
+        // instruction itself is a terminal control-flow operation.
+        return instruction != null && instruction.getMaxAddress().equals(end) &&
+            instruction.getFallThrough() == null && !instruction.getFlowType().isCall();
     }
 
     private String modeAt(Register tMode, Address address) {

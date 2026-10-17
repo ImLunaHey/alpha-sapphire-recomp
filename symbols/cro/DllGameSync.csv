@@ -1,0 +1,9 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllGameSync
+# TextSize,00003E68
+Location,Name,Namespace,Mode,Size,Segment
+00001C84,"func_00001C84","Global",$a,000001A0,".text"
+00002120,"func_00002120","Global",$a,00000094,".text"
+00003564,"func_00003564","Global",$a,0000014C,".text"
+00003714,"func_00003714","Global",$a,00000274,".text"
+00003AA4,"func_00003AA4","Global",$a,00000008,".text"

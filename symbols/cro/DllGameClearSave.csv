@@ -1,0 +1,7 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllGameClearSave
+# TextSize,00000D20
+Location,Name,Namespace,Mode,Size,Segment
+000006DC,"func_000006DC","Global",$a,000000BC,".text"
+00000840,"func_00000840","Global",$a,00000100,".text"
+00000944,"func_00000944","Global",$a,000000EC,".text"

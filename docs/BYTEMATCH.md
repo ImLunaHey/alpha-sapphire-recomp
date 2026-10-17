@@ -16,6 +16,13 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Executable units
 
+The checked-in report publishes all 146 known executable link boundaries:
+`main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
+units expose only validated neutral metadata and split-object structure. Their
+clean-room base skeletons contain no target payload, every CRO remains
+incomplete, and no CRO currently receives matched-code, matched-data, fuzzy,
+or completed-unit credit.
+
 `main/code` represents the single linked `.code` executable in ExeFS. It must
 not be split into arbitrary address ranges: the stripped image does not retain
 original object-file boundaries.
@@ -33,11 +40,14 @@ Run `node scripts/generate-objdiff-config.mjs` to regenerate the ignored
 `objdiff.json`. Local report generation does this automatically. A CRO is
 included only when it belongs to the validated 145-entry public CRO manifest
 and both paths are ignored regular ELF32 little-endian ARM relocatable objects.
-The target must contain nonempty executable code and a defined global function.
-The base may be a valid empty or entirely unmatched skeleton so a genuine unit
-can appear as not started; no placeholder function is synthesized. Malformed,
-unpaired, symlinked, unignored, or unknown objects are excluded with a warning.
-Units are sorted by module name.
+The target must contain nonempty executable code, but it need not contain an
+accepted function boundary. The base may be a valid empty or entirely
+unmatched skeleton so a genuine unit can appear as not started; no placeholder
+function is synthesized. Forty-four CROs currently have no independently
+accepted function boundaries and therefore report zero functions, while still
+appearing as genuine incomplete link units. Malformed, unpaired, symlinked,
+unignored, or unknown objects are excluded with a warning. Units are sorted by
+module name.
 
 Run `node scripts/test-generate-objdiff-config.mjs` for the ROM-free gating and
 ELF-parser regression suite.

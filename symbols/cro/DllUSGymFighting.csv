@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSGymFighting
+# TextSize,00000BEC
+Location,Name,Namespace,Mode,Size,Segment
+000006FC,"func_000006FC","Global",$a,00000098,".text"

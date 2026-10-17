@@ -100,7 +100,7 @@ export function compareArtifactSet(specifications, modules) {
   }
 }
 
-export function publishArtifactSet(specifications, modules) {
+export function publishArtifactSet(specifications, modules, { remove = (path) => rmSync(path, { recursive: true }) } = {}) {
   const transaction = `${process.pid}-${Date.now()}`;
   const prepared = specifications.map((specification) => {
     verifyExactFileSet(specification.generated, modules, specification.extension);
@@ -126,7 +126,6 @@ export function publishArtifactSet(specifications, modules) {
       renameSync(item.next, item.published);
       item.movedNew = true;
     }
-    for (const item of prepared) if (item.movedOld) rmSync(item.backup, { recursive: true });
   } catch (error) {
     for (const item of prepared.toReversed()) {
       if (item.movedNew && existsSync(item.published)) rmSync(item.published, { recursive: true });
@@ -134,6 +133,16 @@ export function publishArtifactSet(specifications, modules) {
       if (existsSync(item.next)) rmSync(item.next, { recursive: true });
     }
     throw error;
+  }
+  const cleanupErrors = [];
+  for (const item of prepared) {
+    if (!item.movedOld) continue;
+    try { remove(item.backup); }
+    catch (error) { cleanupErrors.push(error); }
+  }
+  if (cleanupErrors.length > 0) {
+    throw new AggregateError(cleanupErrors,
+      "published CRO artifacts successfully, but could not remove one or more previous artifact backups");
   }
 }
 
@@ -160,7 +169,7 @@ function parseArguments(argv) {
 
 function findHeadless(environment) {
   if (environment.GHIDRA_HEADLESS && existsSync(environment.GHIDRA_HEADLESS)) return environment.GHIDRA_HEADLESS;
-  const result = spawnSync("nix", ["build", "--no-link", "--print-out-paths", "nixpkgs#ghidra"], {
+  const result = spawnSync("nix", ["build", "--no-link", "--print-out-paths", ".#ghidra"], {
     cwd: ROOT, encoding: "utf8",
   });
   if (result.status !== 0) fail(`unable to resolve Ghidra: ${result.stderr.trim()}`);

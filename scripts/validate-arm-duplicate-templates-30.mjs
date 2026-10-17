@@ -13,15 +13,16 @@ function assert(condition, message) {
 }
 
 const templateName = "intrusive_colored_tree_range_erase";
-const expectedTemplate = { bodySize: 1900, instructionCount: 475, count: 4, internalLabels: 59, callOffset: 84 };
+const expectedTemplate = { bodySize: 1900, instructionCount: 475, count: 5, internalLabels: 59, callOffset: 84 };
 const expectedFunctions = [
   ["func_0055AB74", "func_0055B2E0"],
   ["func_0055B688", "func_0055BDF4"],
+  ["func_0055D8F8", "func_0055E1BC"],
   ["func_0055E69C", "func_0055EE08"],
   ["func_00560330", "func_00560A9C"],
 ];
 
-assert(manifest.version === 1 && manifest.mode === "arm" && manifest.expectedBodyBytes === 7600,
+assert(manifest.version === 1 && manifest.mode === "arm" && manifest.expectedBodyBytes === 9500,
   "invalid manifest header");
 assert(manifest.source === "src/main/arm_duplicate_templates_30.S", "unexpected source path");
 assert(JSON.stringify(manifest.templates) === JSON.stringify({ [templateName]: expectedTemplate }),
@@ -29,7 +30,7 @@ assert(JSON.stringify(manifest.templates) === JSON.stringify({ [templateName]: e
 assert(JSON.stringify(manifest.functions.map(({ name, helper }) => [name, helper])) === JSON.stringify(expectedFunctions) &&
   manifest.functions.every((entry) => Object.keys(entry).sort().join(",") === "helper,name,template" &&
     entry.template === templateName), "unexpected function order, template mapping, or helper identity");
-assert(manifest.functions.reduce((total, { template }) => total + manifest.templates[template].bodySize, 0) === 7600,
+assert(manifest.functions.reduce((total, { template }) => total + manifest.templates[template].bodySize, 0) === 9500,
   "body-byte total does not match manifest");
 assert(sources.sources.filter(({ path, mode }) => path === manifest.source && mode === "arm").length === 1,
   "source must occur once in config/sources.json in ARM mode");
@@ -120,4 +121,4 @@ for (const [name, helper] of expectedFunctions) {
   else reference = normalized;
 }
 
-console.log("Validated 4 ARM duplicate-template 30 functions (7,600 body bytes, 1,900 instructions, one audited helper relocation each, no data slots)");
+console.log("Validated 5 ARM duplicate-template 30 functions (9,500 body bytes, 2,375 instructions, one audited helper relocation each, no data slots)");

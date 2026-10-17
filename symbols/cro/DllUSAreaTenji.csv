@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSAreaTenji
+# TextSize,000002C0
+Location,Name,Namespace,Mode,Size,Segment
+0000007C,"func_0000007C","Global",$a,00000124,".text"

@@ -1,0 +1,25 @@
+{
+  "format": 1,
+  "module": "DllUSBigFourDragon",
+  "textSize": 328,
+  "functions": [
+  ],
+  "gaps": [
+    {"address":0,"size":8,"mode":"arm"},
+    {"address":12,"size":68,"mode":"arm"},
+    {"address":104,"size":4,"mode":"arm"},
+    {"address":152,"size":20,"mode":"arm"},
+    {"address":192,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":8,"size":4},
+    {"address":100,"size":4},
+    {"address":148,"size":4},
+    {"address":172,"size":20},
+    {"address":288,"size":40}
+  ],
+  "unknown": [
+    {"address":80,"size":20},
+    {"address":108,"size":40}
+  ]
+}

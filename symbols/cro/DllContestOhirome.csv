@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllContestOhirome
+# TextSize,00002A98
+Location,Name,Namespace,Mode,Size,Segment
+00000544,"func_00000544","Global",$a,0000014C,".text"
+00002898,"func_00002898","Global",$a,00000008,".text"

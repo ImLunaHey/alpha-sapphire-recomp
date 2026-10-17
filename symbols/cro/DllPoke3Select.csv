@@ -1,0 +1,27 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPoke3Select
+# TextSize,00005F68
+Location,Name,Namespace,Mode,Size,Segment
+000004F8,"func_000004F8","Global",$a,00000100,".text"
+00000B28,"func_00000B28","Global",$a,0000022C,".text"
+00000EE0,"func_00000EE0","Global",$a,00000184,".text"
+00001420,"func_00001420","Global",$a,00000290,".text"
+00001A70,"func_00001A70","Global",$a,000000F0,".text"
+00001B60,"func_00001B60","Global",$a,000002A4,".text"
+00001FB0,"func_00001FB0","Global",$a,00000240,".text"
+0000220C,"func_0000220C","Global",$a,000001A4,".text"
+000023D8,"func_000023D8","Global",$a,00000108,".text"
+000024E4,"func_000024E4","Global",$a,00000090,".text"
+000025A8,"func_000025A8","Global",$a,000000EC,".text"
+00002694,"func_00002694","Global",$a,00000044,".text"
+000026D8,"func_000026D8","Global",$a,00000084,".text"
+00002770,"func_00002770","Global",$a,00000140,".text"
+000028C0,"func_000028C0","Global",$a,000000F4,".text"
+000029CC,"func_000029CC","Global",$a,000002B4,".text"
+00002C8C,"func_00002C8C","Global",$a,0000008C,".text"
+00002E50,"func_00002E50","Global",$a,00000128,".text"
+00002F78,"func_00002F78","Global",$a,000002D0,".text"
+000034B4,"func_000034B4","Global",$a,00000180,".text"
+00003634,"func_00003634","Global",$a,00000268,".text"
+00003A1C,"func_00003A1C","Global",$a,00000208,".text"
+00003FAC,"func_00003FAC","Global",$a,0000032C,".text"

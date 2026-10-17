@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFieldEventPlayer
+# TextSize,00003868
+Location,Name,Namespace,Mode,Size,Segment
+00002000,"func_00002000","Global",$a,000007E0,".text"
+000036D4,"func_000036D4","Global",$a,00000008,".text"

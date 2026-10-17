@@ -1,0 +1,8 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPssMessageWindow
+# TextSize,00001C70
+Location,Name,Namespace,Mode,Size,Segment
+00000818,"func_00000818","Global",$a,00000150,".text"
+000009E4,"func_000009E4","Global",$a,00000150,".text"
+00001230,"func_00001230","Global",$a,00000164,".text"
+000019AC,"func_000019AC","Global",$a,00000008,".text"

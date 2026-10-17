@@ -1,0 +1,19 @@
+{
+  "format": 1,
+  "module": "DllZkUtil",
+  "textSize": 220,
+  "functions": [
+  ],
+  "gaps": [
+    {"address":0,"size":32,"mode":"arm"},
+    {"address":44,"size":20,"mode":"arm"},
+    {"address":84,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":32,"size":12},
+    {"address":64,"size":20},
+    {"address":180,"size":40}
+  ],
+  "unknown": [
+  ]
+}

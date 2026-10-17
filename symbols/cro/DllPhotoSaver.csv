@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPhotoSaver
+# TextSize,0000016C
+Location,Name,Namespace,Mode,Size,Segment
+00000000,"func_00000000","Global",$a,00000008,".text"

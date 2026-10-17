@@ -1,0 +1,17 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPssCharaMenu
+# TextSize,000037F8
+Location,Name,Namespace,Mode,Size,Segment
+000004F8,"func_000004F8","Global",$a,0000014C,".text"
+00000D2C,"func_00000D2C","Global",$a,000002C0,".text"
+00001188,"func_00001188","Global",$a,000000F0,".text"
+000012D0,"func_000012D0","Global",$a,00000388,".text"
+00001878,"func_00001878","Global",$a,00000124,".text"
+000019A4,"func_000019A4","Global",$a,0000005C,".text"
+00001B8C,"func_00001B8C","Global",$a,00000508,".text"
+00002098,"func_00002098","Global",$a,000000B4,".text"
+0000214C,"func_0000214C","Global",$a,00000084,".text"
+000021D0,"func_000021D0","Global",$a,00000068,".text"
+000022C8,"func_000022C8","Global",$a,000000FC,".text"
+000023C4,"func_000023C4","Global",$a,00000064,".text"
+00003654,"func_00003654","Global",$a,00000008,".text"

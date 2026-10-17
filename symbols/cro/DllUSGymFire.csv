@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSGymFire
+# TextSize,00001918
+Location,Name,Namespace,Mode,Size,Segment
+00000DCC,"func_00000DCC","Global",$a,000000E0,".text"

@@ -1,0 +1,9 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllEshop
+# TextSize,00002818
+Location,Name,Namespace,Mode,Size,Segment
+00001BD4,"func_00001BD4","Global",$a,00000114,".text"
+00001CE8,"func_00001CE8","Global",$a,00000164,".text"
+00001E54,"func_00001E54","Global",$a,000001E8,".text"
+000020FC,"func_000020FC","Global",$a,00000378,".text"
+000025A0,"func_000025A0","Global",$a,00000008,".text"

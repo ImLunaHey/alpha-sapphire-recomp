@@ -11,6 +11,7 @@
       packages.${system} = {
         toolchain = pkgs.gcc-arm-embedded;
         binutils = pkgs.lib.getBin pkgs.pkgsCross.arm-embedded.buildPackages.binutils;
+        ghidra = pkgs.ghidra;
       };
     };
 }

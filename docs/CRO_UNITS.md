@@ -31,3 +31,19 @@ bash scripts/check-no-rom.sh
 ```
 
 The inventory establishes real unit identity and boundaries. It does not claim that a module has been decomposed or linked; that status must come from its eventual objdiff result.
+
+## Publication status
+
+All 145 manifest-listed CROs are published in the tracked objdiff report.
+Together with `main/code`, they expose all 146 known executable link
+boundaries. The CROs currently contribute 4,400 independently accepted neutral
+function boundaries and 1,522,592 accepted function-body bytes to the report
+denominator. Forty-four CROs have no accepted function boundary yet; they are
+still published as genuine incomplete link units with zero functions, and no
+placeholder is synthesized.
+
+Publication is structural progress, not a decompilation claim. Every CRO uses
+a payload-free clean-room base skeleton, remains incomplete, and earns zero
+matched-code, matched-data, fuzzy, and completed-unit credit. Further work
+replaces those skeleton sections with reviewed clean-room source while keeping
+the validated module boundary and neutral partition intact.

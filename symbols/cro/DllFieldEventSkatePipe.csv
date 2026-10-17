@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFieldEventSkatePipe
+# TextSize,0000180C
+Location,Name,Namespace,Mode,Size,Segment
+000009EC,"func_000009EC","Global",$a,000000D8,".text"
+00000BD4,"func_00000BD4","Global",$a,00000058,".text"

@@ -1,0 +1,16 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllTrialHouseResult
+# TextSize,00002618
+Location,Name,Namespace,Mode,Size,Segment
+000009A8,"func_000009A8","Global",$a,00000168,".text"
+00000E9C,"func_00000E9C","Global",$a,00000148,".text"
+00001300,"func_00001300","Global",$a,000000F8,".text"
+000013F8,"func_000013F8","Global",$a,000002CC,".text"
+000017F8,"func_000017F8","Global",$a,000000BC,".text"
+000018B8,"func_000018B8","Global",$a,00000080,".text"
+0000193C,"func_0000193C","Global",$a,00000140,".text"
+00001A80,"func_00001A80","Global",$a,000001F4,".text"
+00001C78,"func_00001C78","Global",$a,00000118,".text"
+00001D9C,"func_00001D9C","Global",$a,00000294,".text"
+00002040,"func_00002040","Global",$a,000000F0,".text"
+00002130,"func_00002130","Global",$a,0000010C,".text"

@@ -209,7 +209,7 @@ four-byte `ldr.w pc, [pc]` veneer. Each veneer must have an undefined
 `R_ARM_ABS32` import slot exactly at entry plus four, wholly covered by a pool.
 Unknown or nonterminal one-instruction shapes are not accepted.
 
-## Not yet a progress unit
+## Publication gate and current status
 
 CRO exports identify entry points but do not provide function extents. The
 converter therefore emits exported text symbols with `STT_FUNC` and size zero.
@@ -218,11 +218,21 @@ Do not register a structural CRO object in `objdiff.json`, mark it complete, or
 turn its entire `.text` section into a pseudo-function.
 
 A CRO becomes a progress unit only after a separate, reviewable neutral
-inventory proves nonzero ARM/Thumb function boundaries and preserves every
-unclassified text gap as unmatched coverage. At that point a second stage may
-split the structural `.text` and remap its relocations into per-function target
-sections. Until that evidence exists, the structural object is a validated
-input to analysis, not a ByteMatch denominator.
+inventory and complete partition preserve every accepted function body and
+every unclassified text range as unmatched coverage. A header-only inventory
+with zero accepted functions is valid when the analysis cannot independently
+prove a boundary; the splitter must retain all text as gaps, pools, or unknown
+residue and must not synthesize a placeholder function. The second stage then
+splits the structural `.text` and remaps its relocations into the appropriate
+target sections.
+
+All 145 manifest-listed CROs have passed these publication gates and appear
+alongside `main/code`, producing a 146-unit report. They contain 4,400 accepted
+neutral functions in total; 44 CRO units currently contain zero accepted
+functions. Every CRO clean-room base remains a payload-free skeleton, every
+CRO is marked incomplete, and the CRO units earn no matched-code, matched-data,
+fuzzy, or completed-unit credit. Publishing their genuine link boundaries and
+neutral metadata does not claim that their code has been decompiled.
 
 ## Conservative function inventory
 

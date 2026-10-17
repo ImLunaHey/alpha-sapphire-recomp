@@ -1,0 +1,13 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllBackGround
+# TextSize,0000459C
+Location,Name,Namespace,Mode,Size,Segment
+000005AC,"func_000005AC","Global",$a,00000108,".text"
+0000153C,"func_0000153C","Global",$a,00000008,".text"
+00001544,"func_00001544","Global",$a,00000170,".text"
+0000173C,"func_0000173C","Global",$a,00000188,".text"
+00001AFC,"func_00001AFC","Global",$a,00000190,".text"
+00001F84,"func_00001F84","Global",$a,000000AC,".text"
+00002030,"func_00002030","Global",$a,000000F8,".text"
+000021F0,"func_000021F0","Global",$a,00000138,".text"
+000034F4,"func_000034F4","Global",$a,00000304,".text"

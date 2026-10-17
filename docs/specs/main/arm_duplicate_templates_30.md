@@ -18,8 +18,8 @@ Every function exact in the current report and every function named by a
 public manifest or specification through the current batch-29 worktree was
 excluded before grouping. The concurrently selected IPC batch-28 and runtime
 batch-29 functions were also excluded. This bounded batch contains one
-complete-body group: exactly four ARM-state functions, each 1,900 bytes,
-totaling 7,600 code bytes.
+complete-body group: exactly five ARM-state functions, each 1,900 bytes,
+totaling 9,500 code bytes.
 
 ## Intrusive colored-tree range erase with cached first node
 
@@ -27,6 +27,7 @@ These ARM-state functions are identical over their complete bodies:
 
 - `func_0055AB74`
 - `func_0055B688`
+- `func_0055D8F8`
 - `func_0055E69C`
 - `func_00560330`
 
@@ -61,13 +62,14 @@ and exact batch-11 recursive subtree recycler:
 | --- | --- |
 | `func_0055AB74` | `func_0055B2E0` |
 | `func_0055B688` | `func_0055BDF4` |
+| `func_0055D8F8` | `func_0055E1BC` |
 | `func_0055E69C` | `func_0055EE08` |
 | `func_00560330` | `func_00560A9C` |
 
 For each target layout the helper begins immediately after the 1,900-byte
 caller body. The implementation must emit a symbolic `bl` relocation to the
 listed identity; it must not replace that identity with a numeric
-displacement. The target-object normalizer may resolve only these four audited
+displacement. The target-object normalizer may resolve only these five audited
 symbolic relocations.
 
 ### Complete exact body schedule
@@ -616,16 +618,17 @@ must be uniquely scoped for every expansion.
 ### Probe and overlap audit
 
 The complete mnemonic schedule above was independently assembled in ARM mode
-with `-march=armv6k -mcpu=mpcore`. Its 1,900-byte body matched all four
+with `-march=armv6k -mcpu=mpcore`. Its 1,900-byte body matched all five
 selected target bodies byte-for-byte. The probe has no relocations because its
 temporary helper label was placed at the audited post-body location; repository
 source must instead preserve the symbolic helper identity.
 
-A second complete-body comparison established that all four target bodies are
-identical. None is exact in the current objdiff report, none appears in an
-existing public manifest or specification, and none overlaps the concurrently
-reserved IPC batch-28 or runtime batch-29 selections. The four helper bodies
-are already exact batch-11 functions and are not members of this batch.
+A second complete-body comparison established that all five target bodies are
+identical. Before this implementation, none was exact in the objdiff report or
+appeared in an existing public manifest or specification, and none overlapped
+the concurrently reserved IPC batch-28 or runtime batch-29 selections. All
+five are now exact. The five helper bodies are already exact batch-11 functions
+and are not members of this batch.
 
 ## Implementation contract and cautions
 
@@ -644,5 +647,5 @@ are already exact batch-11 functions and are not members of this batch.
 - Keep the helper call symbolic and restricted to the caller/helper pairs
   above. No literal pool or synthetic padding is permitted.
 - A validator should enforce the function set, ARM mode, exact size, absence
-  of literal/data slots, exactly one call at offset 84, and the four audited
+  of literal/data slots, exactly one call at offset 84, and the five audited
   helper identities.

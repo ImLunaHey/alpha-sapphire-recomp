@@ -1,0 +1,5 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllContestCommon
+# TextSize,00000368
+Location,Name,Namespace,Mode,Size,Segment
+00000030,"func_00000030","Global",$a,000001D8,".text"

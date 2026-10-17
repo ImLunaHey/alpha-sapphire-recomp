@@ -7618,17 +7618,18 @@ for (const entry of duplicateTemplates29Config.functions) {
 
 const duplicateTemplates30Config = JSON.parse(readFileSync(duplicateTemplates30Path, "utf8"));
 const duplicateTemplate30Definition = {
-  bodySize: 1900, instructionCount: 475, count: 4, internalLabels: 59, callOffset: 84,
+  bodySize: 1900, instructionCount: 475, count: 5, internalLabels: 59, callOffset: 84,
 };
 const duplicateTemplates30Expected = [
   ["func_0055AB74", "func_0055B2E0"],
   ["func_0055B688", "func_0055BDF4"],
+  ["func_0055D8F8", "func_0055E1BC"],
   ["func_0055E69C", "func_0055EE08"],
   ["func_00560330", "func_00560A9C"],
 ];
 if (duplicateTemplates30Config.version !== 1 || duplicateTemplates30Config.mode !== "arm" ||
     duplicateTemplates30Config.source !== "src/main/arm_duplicate_templates_30.S" ||
-    duplicateTemplates30Config.expectedBodyBytes !== 7600 ||
+    duplicateTemplates30Config.expectedBodyBytes !== 9500 ||
     JSON.stringify(duplicateTemplates30Config.templates) !== JSON.stringify({
       intrusive_colored_tree_range_erase: duplicateTemplate30Definition,
     }) || !Array.isArray(duplicateTemplates30Config.functions) ||

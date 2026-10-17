@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllPhotoViewer
+# TextSize,00001508
+Location,Name,Namespace,Mode,Size,Segment
+00000F20,"func_00000F20","Global",$a,00000254,".text"
+0000133C,"func_0000133C","Global",$a,00000008,".text"

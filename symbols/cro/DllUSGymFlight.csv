@@ -1,0 +1,13 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllUSGymFlight
+# TextSize,00002500
+Location,Name,Namespace,Mode,Size,Segment
+00000928,"func_00000928","Global",$a,00000124,".text"
+00000DAC,"func_00000DAC","Global",$a,000001D4,".text"
+00000FA4,"func_00000FA4","Global",$a,00000098,".text"
+000010C8,"func_000010C8","Global",$a,000001AC,".text"
+00001288,"func_00001288","Global",$a,00000418,".text"
+000016B8,"func_000016B8","Global",$a,000000E8,".text"
+000019D0,"func_000019D0","Global",$a,000000BC,".text"
+00001A94,"func_00001A94","Global",$a,00000144,".text"
+00001BD8,"func_00001BD8","Global",$a,00000254,".text"

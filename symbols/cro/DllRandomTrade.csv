@@ -1,0 +1,19 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllRandomTrade
+# TextSize,00004620
+Location,Name,Namespace,Mode,Size,Segment
+00000A7C,"func_00000A7C","Global",$a,000000F4,".text"
+00000FB0,"func_00000FB0","Global",$a,00000128,".text"
+000010DC,"func_000010DC","Global",$a,00000164,".text"
+00001240,"func_00001240","Global",$a,00000598,".text"
+00001924,"func_00001924","Global",$a,000000D8,".text"
+000019FC,"func_000019FC","Global",$a,00000094,".text"
+00001A90,"func_00001A90","Global",$a,000000EC,".text"
+000025CC,"func_000025CC","Global",$a,00000168,".text"
+00002734,"func_00002734","Global",$a,000001B0,".text"
+000028F8,"func_000028F8","Global",$a,00000120,".text"
+00002A18,"func_00002A18","Global",$a,00000108,".text"
+00002D00,"func_00002D00","Global",$a,00000168,".text"
+00002E84,"func_00002E84","Global",$a,00000320,".text"
+00004368,"func_00004368","Global",$a,00000114,".text"
+00004484,"func_00004484","Global",$a,00000008,".text"

@@ -1,0 +1,22 @@
+{
+  "format": 1,
+  "module": "DllContestPortrait",
+  "textSize": 320,
+  "functions": [
+  ],
+  "gaps": [
+    {"address":0,"size":76,"mode":"arm"},
+    {"address":148,"size":20,"mode":"arm"},
+    {"address":188,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":76,"size":4},
+    {"address":128,"size":4},
+    {"address":168,"size":20},
+    {"address":284,"size":36}
+  ],
+  "unknown": [
+    {"address":80,"size":48},
+    {"address":132,"size":16}
+  ]
+}

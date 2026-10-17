@@ -1,0 +1,13 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFriendEntry
+# TextSize,00002980
+Location,Name,Namespace,Mode,Size,Segment
+00000B10,"func_00000B10","Global",$a,00000298,".text"
+000015D8,"func_000015D8","Global",$a,00000144,".text"
+00001724,"func_00001724","Global",$a,0000010C,".text"
+000019DC,"func_000019DC","Global",$a,000000A0,".text"
+00001A8C,"func_00001A8C","Global",$a,000001EC,".text"
+00001CF0,"func_00001CF0","Global",$a,00000134,".text"
+00001EB0,"func_00001EB0","Global",$a,000001D4,".text"
+000023C4,"func_000023C4","Global",$a,0000024C,".text"
+0000264C,"func_0000264C","Global",$a,00000134,".text"

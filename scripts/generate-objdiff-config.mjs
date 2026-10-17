@@ -237,7 +237,11 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
       continue;
     }
     try {
-      const targetObject = inspectArmObject(target);
+      // A genuine link unit can have no independently accepted function
+      // boundaries yet. Its exact public partition still makes the unit
+      // useful and keeps the linker-level inventory complete; zero-function
+      // units remain incomplete and earn no code credit.
+      const targetObject = inspectArmObject(target, { requireFunctions: false });
       const baseObject = inspectArmObject(base, { requireCode: false, requireFunctions: false });
       units.push({
         name: `cro/${name}`,

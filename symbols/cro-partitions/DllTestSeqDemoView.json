@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "module": "DllTestSeqDemoView",
+  "textSize": 172,
+  "functions": [
+  ],
+  "gaps": [
+    {"address":0,"size":20,"mode":"arm"},
+    {"address":40,"size":96,"mode":"arm"}
+  ],
+  "pools": [
+    {"address":20,"size":20},
+    {"address":136,"size":36}
+  ],
+  "unknown": [
+  ]
+}

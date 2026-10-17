@@ -1,0 +1,21 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllDendouPC
+# TextSize,00003228
+Location,Name,Namespace,Mode,Size,Segment
+000008BC,"func_000008BC","Global",$a,00000240,".text"
+00000B04,"func_00000B04","Global",$a,00000124,".text"
+0000102C,"func_0000102C","Global",$a,000000E0,".text"
+0000110C,"func_0000110C","Global",$a,00000110,".text"
+00001220,"func_00001220","Global",$a,00000238,".text"
+00001458,"func_00001458","Global",$a,000001E4,".text"
+00001640,"func_00001640","Global",$a,00000200,".text"
+00001840,"func_00001840","Global",$a,000000AC,".text"
+000018EC,"func_000018EC","Global",$a,000000B8,".text"
+00001A60,"func_00001A60","Global",$a,000000DC,".text"
+00001B3C,"func_00001B3C","Global",$a,0000011C,".text"
+00001DE4,"func_00001DE4","Global",$a,000000FC,".text"
+0000265C,"func_0000265C","Global",$a,00000214,".text"
+00002894,"func_00002894","Global",$a,00000118,".text"
+000029AC,"func_000029AC","Global",$a,000000EC,".text"
+00002E54,"func_00002E54","Global",$a,0000010C,".text"
+00002F60,"func_00002F60","Global",$a,000000C8,".text"

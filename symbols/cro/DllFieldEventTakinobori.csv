@@ -1,0 +1,7 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllFieldEventTakinobori
+# TextSize,00002068
+Location,Name,Namespace,Mode,Size,Segment
+00001368,"func_00001368","Global",$a,00000074,".text"
+00001904,"func_00001904","Global",$a,000005D8,".text"
+00001EFC,"func_00001EFC","Global",$a,00000008,".text"

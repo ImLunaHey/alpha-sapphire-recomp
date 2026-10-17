@@ -1,0 +1,6 @@
+# Format,CRO_FUNCTIONS_V1
+# Module,cro/DllCommendation
+# TextSize,000011B8
+Location,Name,Namespace,Mode,Size,Segment
+00000774,"func_00000774","Global",$a,00000198,".text"
+00000964,"func_00000964","Global",$a,000002FC,".text"
