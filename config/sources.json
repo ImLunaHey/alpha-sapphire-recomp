@@ -1148,6 +1148,18 @@
     {
       "path": "src/main/thumb_leaf_helpers_18.S",
       "mode": "thumb"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_98.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_105.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/thumb_leaf_helpers_19.S",
+      "mode": "thumb"
     }
   ]
 }
