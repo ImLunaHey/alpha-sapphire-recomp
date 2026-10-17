@@ -113,19 +113,13 @@ function validatePublicContract() {
   const byUnit = new Map();
   for (const fn of CONTRACT) {
     const unit = config.units.find((entry) => entry.name === fn.unit);
-    const trainingSupplement = fn.unit === "DllTrainingAppManager";
-    const exactSources = trainingSupplement
-      ? unit?.sources.length === 2 &&
-        unit.sources[0].path === fn.source && unit.sources[0].mode === "arm" &&
-        unit.sources[1].path === "src/cro/DllTrainingAppManager/verified_leaves.S" && unit.sources[1].mode === "arm"
-      : unit?.sources.length === 1 && unit.sources[0].path === fn.source && unit.sources[0].mode === "arm";
-    check(unit && exactSources,
+    check(unit && unit.sources.length === 1 && unit.sources[0].path === fn.source && unit.sources[0].mode === "arm",
       `${fn.unit} does not have exact ARM source ownership`);
     const claim = unit.functions.find((entry) => entry.name === fn.name);
     check(claim && Object.keys(claim).sort().join(",") === "address,name,semantics,size" &&
       claim.address === fn.address && claim.size === fn.size && claim.semantics === fn.semantics,
     `${fn.name} config claim is not exact`);
-    check(unit.functions.length === (trainingSupplement ? 7 : CONTRACT.filter((entry) => entry.unit === fn.unit).length),
+    check(unit.functions.length === CONTRACT.filter((entry) => entry.unit === fn.unit).length,
       `${fn.unit} has an unexpected function claim`);
     byUnit.set(fn.unit, unit);
 
