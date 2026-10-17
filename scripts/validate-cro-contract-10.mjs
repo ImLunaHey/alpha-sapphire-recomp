@@ -22,7 +22,7 @@ const CONTRACT = [
 ].map(([unit, name, address, size, semantics, sha256]) => ({
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
-const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFire"]);
+const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
 
 function fail(message) { throw new Error(`CRO contract 10 validation: ${message}`); }
 function check(condition, message) { if (!condition) fail(message); }
@@ -101,10 +101,7 @@ function validateProposal(proposal, existing) {
     const overlap = oldUnit.functions.filter((entry) => entry.name === fn.name ||
       (entry.address < fn.address + fn.size && fn.address < entry.address + entry.size));
     check(owned.length <= 1 && (owned.length === 0 || owned[0].mode === "arm"), `${fn.unit} source ownership conflicts`);
-    if (owned.length === 0) {
-      check(fn.unit === "DllUSGymFighting" ? overlap.length === 1 : overlap.length === 0,
-        `${fn.name} overlaps an existing claim`);
-    }
+    if (owned.length === 0) check(overlap.length === 0, `${fn.name} overlaps an existing claim`);
     else check(overlap.length === 1 && overlap[0].name === fn.name && overlap[0].address === fn.address &&
       overlap[0].size === fn.size && overlap[0].semantics === fn.semantics, `${fn.name} integrated claim is not exact`);
   }
@@ -118,9 +115,7 @@ function validatePublicContract(manifestPath) {
   for (const fn of CONTRACT) {
     const unit = selected.units.find((entry) => entry.name === fn.unit);
     check(unit && Array.isArray(unit.sources) && Array.isArray(unit.functions), `${fn.unit} is absent from the selected manifest`);
-    const selectedSource = fn.unit === "DllUSGymFighting" && manifestPath === CONFIG_PATH
-      ? "src/cro/DllUSGymFighting/complete.S" : fn.source;
-    check(unit.sources.filter((entry) => entry.path === selectedSource && entry.mode === "arm").length === 1,
+    check(unit.sources.filter((entry) => entry.path === fn.source && entry.mode === "arm").length === 1,
       `${fn.unit} lacks one exact ARM source claim`);
     const claims = unit.functions.filter((entry) => entry.name === fn.name);
     check(claims.length === 1 && claims[0].address === fn.address && claims[0].size === fn.size &&
@@ -138,26 +133,22 @@ function validatePublicContract(manifestPath) {
     check(SINGLE_FUNCTION_UNITS.has(fn.unit) ? acceptedCount === 1 : acceptedCount > 1,
       `${fn.unit} public accepted-function inventory changed unexpectedly`);
 
-    const sourcePath = resolve(ROOT, selectedSource);
+    const sourcePath = resolve(ROOT, fn.source);
     check(inside(ROOT, sourcePath) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() && !lstatSync(sourcePath).isSymbolicLink(),
-      `${selectedSource} is not an owned regular file`);
+      `${fn.source} is not an owned regular file`);
     const sourceText = readFileSync(sourcePath, "utf8");
-    check(!/^\s*\.(?:byte|hword|short|word|long|inst)\b/imu.test(sourceText), `${selectedSource} contains encoded instructions`);
-    const complete = fn.unit === "DllUSGymFighting" && manifestPath === CONFIG_PATH;
-    check(complete || (sourceText.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === 1,
-      `${selectedSource} does not define the expected executable section`);
-    const fragments = complete
-      ? [`.section .text.DllUSGymFighting, "ax", %progbits`, `.global ${fn.name}`, `.type ${fn.name}, %function`, `.size ${fn.name}, . - ${fn.name}`]
-      : [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`, `.type ${fn.name}, %function`, `.size ${fn.name}, . - ${fn.name}`];
-    for (const fragment of fragments) {
-      check(sourceText.split(fragment).length === 2, `${selectedSource} lacks one exact ${fn.name} declaration`);
+    check(!/^\s*\.(?:byte|hword|short|word|long|inst)\b/imu.test(sourceText), `${fn.source} contains encoded data`);
+    check((sourceText.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === 1,
+      `${fn.source} does not define exactly one executable section`);
+    for (const fragment of [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`,
+      `.type ${fn.name}, %function`, `.size ${fn.name}, . - ${fn.name}`]) {
+      check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
   check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 2612 &&
     CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 653, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_10.md"),
-    ...CONTRACT.map((fn) => resolve(ROOT, fn.unit === "DllUSGymFighting" && manifestPath === CONFIG_PATH
-      ? "src/cro/DllUSGymFighting/complete.S" : fn.source))];
+    ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
   for (const path of ownedPaths) {
     const text = readFileSync(path, "utf8");
@@ -180,25 +171,23 @@ function validateObjects(units, directory, readelf) {
       return match && match[3].includes("A") && Number.parseInt(match[2], 16) !== 0
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
-    const complete = unitName === "DllUSGymFighting";
-    const expectedNames = complete ? [".bss.DllUSGymFighting", ".data.DllUSGymFighting", ".rodata.DllUSGymFighting", ".text.DllUSGymFighting"] : unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
+    const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
       .map((claim) => `.text.${claim.name}`).sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),
       `${unitName} has missing or extra allocated bytes`);
-    const fn = CONTRACT.find((entry) => entry.unit === unitName), section = complete ? ".text.DllUSGymFighting" : `.text.${fn.name}`;
+    const fn = CONTRACT.find((entry) => entry.unit === unitName), section = `.text.${fn.name}`;
     const sectionInfo = allocated.filter(([name]) => name === section);
-    check(sectionInfo.length === 1 && sectionInfo[0][1] === (complete ? 0xbec : fn.size) && sectionInfo[0][2].includes("X"),
+    check(sectionInfo.length === 1 && sectionInfo[0][1] === fn.size && sectionInfo[0][2].includes("X"),
       `${fn.name} section boundary or flags are invalid`);
     const symbols = run(readelf, ["--symbols", "--wide", object]);
     const symbolLines = symbols.split("\n").filter((line) => new RegExp(`\\s${fn.name}$`, "u").test(line.trimEnd()));
-    check(symbolLines.length === 1 && new RegExp(`^\\s*\\d+:\\s+${complete ? "000006fc" : "00000000"}\\s+${fn.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${fn.name}$`, "iu").test(symbolLines[0]),
+    check(symbolLines.length === 1 && new RegExp(`^\\s*\\d+:\\s+00000000\\s+${fn.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${fn.name}$`, "u").test(symbolLines[0]),
       `${fn.name} is not one exact global function symbol`);
-    const sectionData = sectionBytes(readelf, object, section);
-    const bytes = complete ? sectionData.subarray(fn.address, fn.address + fn.size) : sectionData;
+    const bytes = sectionBytes(readelf, object, section);
     check(bytes.length === fn.size && createHash("sha256").update(bytes).digest("hex") === fn.sha256,
       `${fn.name} instruction bytes do not match the contract`);
-    check(complete || /There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
+    check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
       `${unitName} unexpectedly has relocations`);
   }
 }
