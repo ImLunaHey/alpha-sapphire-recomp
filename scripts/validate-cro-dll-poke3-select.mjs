@@ -74,6 +74,22 @@ const PARTITION_CLASSIFICATIONS = Object.freeze({
   pools: Object.freeze({ count: 204, sha256: "2bdae5f9eaa35d47c507be9ddc74b0f845b429ee48e5ba0cc9bc456a8c6ab2a5" }),
   unknown: Object.freeze({ count: 1, sha256: "e490547caa5429ea5ae417d1b5677b38827b3005a6c1de3fb9aef6bf71a4dfbf" }),
 });
+const REQUIRED_PACKAGE_SCRIPTS = Object.freeze({
+  "validate:cro-dll-field-event-secret-base-others-base-pc":
+    "node --check scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs && node scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs --self-test",
+  "postvalidate:cro-dll-field-event-takinobori":
+    "npm run validate:cro-dll-field-event-secret-base-others-base-pc",
+  "postvalidate:cro-dll-field-event-secret-base-others-base-pc":
+    "npm run validate:cro-dll-field-event-screen-effect",
+  "validate:cro-dll-field-event-screen-effect":
+    "node --check scripts/validate-cro-dll-field-event-screen-effect.mjs && node scripts/validate-cro-dll-field-event-screen-effect.mjs --self-test",
+  "postvalidate:cro-dll-field-event-screen-effect":
+    "npm run validate:cro-dll-fatal-error-proc",
+  "validate:cro-dll-fatal-error-proc":
+    "node --check scripts/validate-cro-dll-fatal-error-proc.mjs && node scripts/validate-cro-dll-fatal-error-proc.mjs --self-test && node scripts/validate-cro-dll-fatal-error-proc.mjs",
+  "postvalidate:cro-dll-fatal-error-proc":
+    "npm run validate:cro-contract10",
+});
 const PERCENT_DECIMAL_TOLERANCE = 0.000005;
 const REPORT_FUNCTIONS = Object.freeze([
   ["func_000004F8", "12708", "256"],
@@ -542,11 +558,8 @@ function validatePackage(pkg) {
     "focused package script is missing or changed");
   check(pkg.scripts["check:clean"]?.includes("npm run validate:cro-dll-poke3-select"),
     "focused quarantine validation is not reachable from npm run check");
-  check(pkg.scripts["validate:cro-dll-field-event-secret-base-others-base-pc"]
-    === "node --check scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs && node scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs --self-test"
-    && pkg.scripts["postvalidate:cro-dll-field-event-takinobori"]
-    === "npm run validate:cro-dll-field-event-secret-base-others-base-pc",
-  "OthersBasePc focused npm gate is missing or changed");
+  for (const [name, command] of Object.entries(REQUIRED_PACKAGE_SCRIPTS))
+    check(pkg.scripts[name] === command, `${name} focused npm chain identity is missing or changed`);
 }
 
 function validateTree(root = ROOT) {
@@ -696,6 +709,13 @@ function runSelfTests() {
   }
   assert.throws(() => parseJson(partitionText.replace('"module": "DllPoke3Select"',
     '"module": "Mutated", "module": "DllPoke3Select"'), "duplicate partition"), /duplicate key module/u);
+
+  const packageManifest = parseJson(readRegular(ROOT, "package.json"), "package manifest");
+  for (const name of Object.keys(REQUIRED_PACKAGE_SCRIPTS)) {
+    const mutated = clone(packageManifest);
+    mutated.scripts[name] = `${mutated.scripts[name]} --identity-mutated`;
+    assert.throws(() => validatePackage(mutated), /npm chain identity/u);
+  }
 
   const manifest = parseJson(readRegular(ROOT, "progress/units/AS_EUR_REV2.cro.json"), "target manifest");
   for (const [field, value] of [["name", "cro/DllPoke3SelectMutated"], ["size", TARGET_SIZE + 1],
