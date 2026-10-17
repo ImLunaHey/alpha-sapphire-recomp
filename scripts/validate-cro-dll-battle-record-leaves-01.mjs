@@ -25,6 +25,14 @@ const BATCHES = {
     instructions: 183,
     label: "scalar leaves 02",
   },
+  "packed-selectors-03": {
+    manifest: "config/cro-dll-battle-packed-selectors-03.json",
+    source: "src/cro/DllBattle/packed_selectors_03.S",
+    functions: 13,
+    bytes: 820,
+    instructions: 205,
+    label: "packed selectors 03",
+  },
 };
 const BATCH = BATCHES[process.env.DLLBATTLE_BATCH ?? "record-leaves-01"];
 if (!BATCH) throw new Error("unknown DllBattle validator batch selector");
