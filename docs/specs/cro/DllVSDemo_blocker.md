@@ -76,8 +76,8 @@ The checked-in report records 1,096 accepted code bytes across six functions:
 64 matched bytes and one matched function, or 5.839416% code and 16.666668%
 functions. It records 2,300 data bytes without matched-data credit, marks the
 unit `complete: false`, and assigns source ownership to
-`src/cro/DllVSDemo`. The project aggregate records 416,136 of 3,719,620 code
-bytes and 4,251 of 14,840 functions matched across 146 published units.
+`src/cro/DllVSDemo`. Project-wide accounting remains authoritative in the
+machine-generated report and is intentionally not duplicated here.
 
 These figures preserve honest publication accounting, but they do not specify
 parameter or result types, valid inputs, object ownership or layout, lifecycle

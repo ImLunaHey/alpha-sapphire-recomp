@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The public report retains 4,249 exact functions and 415,920 code bytes after the DllTrainerCase administrative provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
+  "summary": "The published report retains independently reviewed clean-room matches after cumulative provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.181787490844727,
-    "matchedFunctions": 4249,
+    "matchedCodePercent": 11.181571960449219,
+    "matchedFunctions": 4248,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllShinkaDemo provenance quarantine",
+      "detail": "Unsupported source ownership and provisional publication credit are withdrawn without deriving replacement behavior. The permanent unit and neutral metadata remain published and explicitly incomplete; implementation is blocked pending an independently reviewed unit-specific handoff."
+    },
     {
       "date": "2026-10-18",
       "title": "DllUSPassage unsupported match quarantined",

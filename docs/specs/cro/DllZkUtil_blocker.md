@@ -46,9 +46,9 @@ data bytes, 16 zero-initialized bytes, and no read-only data bytes. The source
 registry contains no claim for this unit. The publication manifest contains
 the unit exactly once.
 
-At this baseline, the aggregate report records 416,068 of 3,719,620 matched
-code bytes and 4,250 of 14,840 matched functions. This audit changes none of
-those values and makes no ByteMatch, linkability, or completion claim.
+Project-wide accounting remains authoritative in the machine-generated report
+and is intentionally not duplicated here. This audit makes no ByteMatch,
+linkability, or completion claim.
 
 ## Stop condition and required handoff
 
