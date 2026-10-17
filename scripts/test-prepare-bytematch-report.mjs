@@ -1,7 +1,13 @@
 #!/usr/bin/env node
 
 import assert from "node:assert/strict";
-import { validateAndNormalizeReport } from "./prepare-bytematch-report.mjs";
+import {
+  cpSync, existsSync, linkSync, mkdirSync, mkdtempSync, readFileSync, rmSync, symlinkSync, writeFileSync,
+} from "node:fs";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { prepareReport, validateAndNormalizeReport } from "./prepare-bytematch-report.mjs";
 
 const csv = `# Format,CRO_FUNCTIONS_V1
 # Module,cro/DllEmpty
@@ -140,5 +146,89 @@ assert.throws(() => validateAndNormalizeReport(unconfiguredCredit), /credit diff
 const wrongInventory = fixture();
 wrongInventory.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000004,".text"\n`);
 assert.throws(() => validateAndNormalizeReport(wrongInventory), /function count differs/);
+
+const repositoryRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
+const temporary = mkdtempSync(join(tmpdir(), "prepare-bytematch-report-"));
+const externalVictim = `${temporary}-victim`;
+try {
+  for (const directory of ["config", "progress", "symbols", "src"])
+    cpSync(join(repositoryRoot, directory), join(temporary, directory), { recursive: true });
+  const base = join("build", "AS_EUR_REV2", "base");
+  mkdirSync(join(temporary, dirname(base)), { recursive: true });
+  cpSync(join(repositoryRoot, base), join(temporary, base), { recursive: true });
+  const paths = ["config/publication-units.json", "config/cro-sources.json",
+    "progress/units/AS_EUR_REV2.cro.json", "progress/reports/AS_EUR_REV2/report.json",
+    "progress/project.json"];
+  const originals = new Map(paths.map(path => [path, readFileSync(join(temporary, path))]));
+  const output = join(temporary, "build", "AS_EUR_REV2", "report.json");
+  const reset = () => {
+    for (const [path, contents] of originals) writeFileSync(join(temporary, path), contents);
+    rmSync(output, { force: true });
+  };
+  const json = path => JSON.parse(readFileSync(join(temporary, path), "utf8"));
+  const writeJson = (path, value) => writeFileSync(join(temporary, path), JSON.stringify(value));
+  const mutateReport = update => {
+    const path = "progress/reports/AS_EUR_REV2/report.json", report = json(path);
+    update(report); writeJson(path, report);
+  };
+  const rejectsArtifact = (label, mutate) => {
+    reset(); mutate();
+    assert.throws(() => prepareReport({ rootPath: temporary }), undefined, label);
+    assert.equal(existsSync(output), false, `${label} emitted an artifact`);
+  };
+
+  reset();
+  prepareReport({ rootPath: temporary });
+  assert.equal(existsSync(output), true, "valid direct report path did not emit an artifact");
+  reset();
+  prepareReport({ rootPath: temporary, afterValidation() {
+    mutateReport(report => report.units[0].functions[0].name = "func_00ABCDEF");
+  } });
+  const swappedArtifact = JSON.parse(readFileSync(output, "utf8"));
+  assert.equal(swappedArtifact.units[0].functions[0].name, "func_00100024",
+    "post-validation input swap escaped into the artifact");
+  assert.equal(json(paths[3]).units[0].functions[0].name, "func_00ABCDEF",
+    "post-validation input swap fixture did not execute");
+  rejectsArtifact("function identity", () => mutateReport(report =>
+    report.units[0].functions[0].name = "func_00ABCDEF"));
+  rejectsArtifact("function address", () => mutateReport(report =>
+    report.units[0].functions[0].address = "4"));
+  rejectsArtifact("function size", () => mutateReport(report =>
+    report.units[0].functions[0].size = "4"));
+  rejectsArtifact("function score", () => mutateReport(report =>
+    report.units[0].functions[0].fuzzy_match_percent = 100));
+  rejectsArtifact("replacement unit", () => mutateReport(report =>
+    report.units.find(unit => unit.name === "cro/DllBackGround").name = "cro/DllGhost"));
+  rejectsArtifact("coordinated ghost", () => {
+    const universe = json(paths[0]); universe.units[1] = "cro/DllGhost"; writeJson(paths[0], universe);
+    const manifest = json(paths[2]); manifest.units[0].name = "cro/DllGhost"; writeJson(paths[2], manifest);
+    const report = json(paths[3]);
+    report.units.find(unit => unit.name === "cro/DllBackGround").name = "cro/DllGhost";
+    writeJson(paths[3], report);
+    const config = json(paths[1]);
+    config.units.find(unit => unit.name === "DllBackGround").name = "DllGhost";
+    writeJson(paths[1], config);
+  });
+  rejectsArtifact("root aggregate", () => mutateReport(report => report.measures.matched_functions++));
+  rejectsArtifact("coordinated data", () => mutateReport(report => {
+    const unit = report.units.find(candidate => candidate.name === "cro/DllBackGround");
+    unit.sections.find(section => section.name === ".data").size = "999";
+    unit.measures.total_data = String(Number(unit.measures.total_data) + 999);
+    report.measures.total_data = String(Number(report.measures.total_data) + 999);
+  }));
+  rejectsArtifact("complete metadata", () => mutateReport(report => report.units[0].metadata.complete = true));
+  rejectsArtifact("source path", () => mutateReport(report => report.units[0].metadata.source_path = "src/fake"));
+  reset(); writeFileSync(externalVictim, "external victim"); symlinkSync(externalVictim, output);
+  assert.throws(() => prepareReport({ rootPath: temporary }), /unsafe existing report output/,
+    "output symlink alias was accepted");
+  assert.equal(readFileSync(externalVictim, "utf8"), "external victim", "output symlink overwrote its victim");
+  reset(); writeFileSync(externalVictim, "external victim"); linkSync(externalVictim, output);
+  assert.throws(() => prepareReport({ rootPath: temporary }), /unsafe existing report output/,
+    "output hardlink alias was accepted");
+  assert.equal(readFileSync(externalVictim, "utf8"), "external victim", "output hardlink overwrote its victim");
+} finally {
+  rmSync(temporary, { recursive: true, force: true });
+  rmSync(externalVictim, { force: true });
+}
 
 console.log("prepare-bytematch-report tests: ok");

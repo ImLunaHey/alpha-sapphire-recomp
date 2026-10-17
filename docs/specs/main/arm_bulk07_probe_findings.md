@@ -34,6 +34,28 @@ objects reached through nearby address constants. They were screened out: a
 portable behavior contract cannot identify those objects yet, and introducing
 their private addresses would violate the clean-room boundary.
 
+## Clean-room status and blockers
+
+This document is a negative analysis record, not an approved implementation
+handoff. None of the 136 routines is eligible for source integration or match
+credit from this record alone.
+
+The blockers are intentionally separated so later work cannot mistake a known
+behavior for sufficient implementation evidence:
+
+| Candidate class | Count | Current blocker | Evidence required before implementation |
+| --- | ---: | --- | --- |
+| Prior portable fixed-width C probes | 68 | Exact code generation was not reproduced | A separately reviewed, provenance-bearing behavior specification and a deterministic toolchain/source formulation that passes complete objdiff validation |
+| Argument-relative probes from this batch | 12 | Exact code generation was not reproduced | The same behavior and deterministic exact-match gates; size or semantic equivalence alone is insufficient |
+| Unnamed absolute-global routines | 56 | Public object identities and ownership boundaries are not established | An independently reviewed neutral identity/boundary specification that contains no private address, target word, extracted data, or relocation ledger |
+| **Total** | **136** | **No admissible implementation in this batch** | **A new approved handoff satisfying the applicable row above** |
+
+The counts are exhaustive for this bounded scan: `68 + 12 + 56 = 136`.
+Re-running source-shape experiments does not upgrade this record into an
+implementation specification. Analysis and implementation must remain assigned
+to distinct contributors, and any future handoff must identify its own analyst,
+provenance, review state, and exact acceptance test.
+
 The argument-relative probes covered these neutral behaviors:
 
 - a 32-bit field read followed by base-pointer addition;
