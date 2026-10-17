@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "unit": "DllContestCommon",
+  "source": "src/cro/DllContestCommon/module.S",
+  "sourceHash": "3bff37e9aea84c3a7b58aadaabf12e3c88b2a016d4d6f7a11a78e814aee05fb9",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "functions": [
+    { "name": "func_00000030", "address": 48, "size": 472, "semantics": "contest-resource-build" },
+    { "name": "func_0000020C", "address": 524, "size": 76, "semantics": "contest-control-initialize" },
+    { "name": "func_00000258", "address": 600, "size": 100, "semantics": "contest-resource-release" }
+  ],
+  "veneerAddresses": [0, 8, 16, 24, 32, 40],
+  "poolAddresses": [4, 12, 20, 28, 36, 44, 520],
+  "selectorValues": [5, 6, 7, 8, 9, 10],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "requireExactPublicBoundaries": true,
+    "requireUniqueOwnership": true,
+    "requireFailClosedControlResidue": true,
+    "expectedAuthoredRelocations": 7,
+    "maximumObjectSize": 1048576,
+    "maximumSectionCount": 256,
+    "maximumSymbolCount": 4096
+  }
+}

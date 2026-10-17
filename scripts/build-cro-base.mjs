@@ -134,9 +134,13 @@ function main() {
       // Keep only authored executable sections and their symbols. Empty GCC
       // bookkeeping sections can otherwise look like matching target data to
       // comparison tools even though no data was reconstructed.
-      run(tools.objcopy, ["--remove-section=.text", "--remove-section=.rodata", "--remove-section=.data",
-        "--remove-section=.bss", "--remove-section=.sdata", "--remove-section=.sbss",
-        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes", output]);
+      const removable = ["--remove-section=.text", "--remove-section=.bss", "--remove-section=.sdata", "--remove-section=.sbss",
+        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes"];
+      // DllContestCommon's neutral contract includes an exact selector table
+      // and one writable pointer.  Other partial units continue to discard
+      // compiler-created generic data so they cannot gain accidental credit.
+      if (unit.name !== "DllContestCommon") removable.push("--remove-section=.rodata", "--remove-section=.data");
+      run(tools.objcopy, [...removable, output]);
     }
     rmSync(join(stage, ".objects"), { recursive: true });
     if (existsSync(OUTPUT)) renameSync(OUTPUT, backup);
