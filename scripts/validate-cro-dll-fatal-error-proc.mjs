@@ -3,7 +3,7 @@
 // Infrastructure only. Contract: docs/specs/cro/DllFatalErrorProc_blocker.md
 // at dcdbc8c, plus tracked public metadata schemas. No target input is used.
 import { createHash } from "node:crypto";
-import { copyFileSync, lstatSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { closeSync, constants, copyFileSync, fstatSync, lstatSync, mkdtempSync, openSync, readFileSync, realpathSync, renameSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,7 +14,9 @@ const REPORT_UNIT = `cro/${UNIT}`;
 const TARGET = "AS_EUR_REV2";
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
 const DEFAULT_REPORT_PATH = join(ROOT, "progress", "reports", TARGET, "report.json");
+const BLOCKER_PATH = join(ROOT, "docs", "specs", "cro", `${UNIT}_blocker.md`);
 const REVIEWED_DIGESTS = Object.freeze({
+  blocker: "44feb7dea946e72981a7b6c3fcf04178d5b1c9829cf7394d4a1a9c023227aad6",
   inventory: "1d49800c032bc536639504c05e7e554df9371fb4d92d8e91ed9058e2a9368726",
   manifestUnit: "246dd67f9ed23373c33db01758463deec331e3f7bc463cba0aa2bfc7a18c4799",
   partition: "9eb4ce610f5b337cb4e719ea1adf8f82b56be9158f973721374f33ada68a7de9",
@@ -43,27 +45,65 @@ function inside(parent, candidate) {
   return path !== "" && path !== ".." && !path.startsWith(`..${sep}`) && !isAbsolute(path);
 }
 
+function fileIdentity(stat) {
+  return [stat.dev, stat.ino, stat.mode, stat.size, stat.mtimeNs, stat.ctimeNs];
+}
+
+function sameIdentity(left, right) {
+  const rightIdentity = fileIdentity(right);
+  return fileIdentity(left).every((value, index) => value === rightIdentity[index]);
+}
+
+function sameIdentityChain(left, right) {
+  return left.length === right.length && left.every((identity, index) =>
+    identity.every((value, field) => value === right[index][field]));
+}
+
 function ownedRegularFile(path, label) {
   check(path === resolve(path) && inside(ROOT, path), `${label} must use a canonical path inside the repository`);
   const segments = relative(ROOT, path).split(sep);
   let cursor = ROOT;
   let stat;
+  const identities = [fileIdentity(lstatSync(ROOT, { bigint: true }))];
   for (const [index, segment] of segments.entries()) {
     cursor = join(cursor, segment);
-    try { stat = lstatSync(cursor); } catch { fail(`${label} cannot be opened`); }
+    try { stat = lstatSync(cursor, { bigint: true }); } catch { fail(`${label} cannot be opened`); }
     check(!stat.isSymbolicLink(), `${label} and its repository parents must not be symlinks`);
     check(index === segments.length - 1 ? stat.isFile() : stat.isDirectory(),
       `${label} must be a regular file beneath regular repository directories`);
+    identities.push(fileIdentity(stat));
   }
   check(realpathSync(path) === path, `${label} path must resolve canonically inside the repository`);
-  return stat;
+  return { identities, stat };
 }
 
-function readText(path, label) {
-  const stat = ownedRegularFile(path, label);
-  check(stat.size > 0 && stat.size <= MAX_INPUT_SIZE, `${label} must be between 1 byte and 64 MiB`);
+function readText(path, label, hooks = {}) {
+  const before = ownedRegularFile(path, label);
+  check(before.stat.size > 0n && before.stat.size <= BigInt(MAX_INPUT_SIZE),
+    `${label} must be between 1 byte and 64 MiB`);
+  hooks.afterPrecheck?.();
+  let descriptor;
+  try { descriptor = openSync(path, constants.O_RDONLY | constants.O_NOFOLLOW); }
+  catch { fail(`${label} cannot be opened without following links`); }
   let text;
-  try { text = readFileSync(path, "utf8"); } catch { fail(`${label} cannot be read`); }
+  try {
+    const opened = fstatSync(descriptor, { bigint: true });
+    check(opened.isFile() && sameIdentity(before.stat, opened),
+      `${label} changed between path validation and descriptor open`);
+    hooks.afterOpen?.();
+    text = readFileSync(descriptor, "utf8");
+    hooks.afterRead?.();
+    const read = fstatSync(descriptor, { bigint: true });
+    check(sameIdentity(opened, read), `${label} changed while its descriptor was being read`);
+    const after = ownedRegularFile(path, label);
+    check(sameIdentity(read, after.stat) && sameIdentityChain(before.identities, after.identities),
+    `${label} or one of its repository parents changed during validation`);
+  } catch (error) {
+    if (error?.message?.startsWith(`CRO ${UNIT} validation:`)) throw error;
+    fail(`${label} cannot be read`);
+  } finally {
+    closeSync(descriptor);
+  }
   check(Buffer.byteLength(text) <= MAX_INPUT_SIZE, `${label} exceeds the 64 MiB input limit`);
   return text;
 }
@@ -137,6 +177,9 @@ function singleUnit(units, label) {
 }
 
 function validatePublicContract() {
+  const blocker = readText(BLOCKER_PATH, "clean-room blocker record");
+  checkReviewedDigest(blocker, REVIEWED_DIGESTS.blocker, "clean-room blocker record");
+
   const config = readJson(join(ROOT, "config", "cro-sources.json"), "CRO source config");
   exactKeys(config, ["schemaVersion", "units"], "CRO source config");
   check(config.schemaVersion === 1 && Array.isArray(config.units), "CRO source config must use schema 1");
@@ -249,7 +292,7 @@ function validateReport(path) {
 function expectFailure(action, pattern, label) {
   let message = "";
   try { action(); } catch (error) { message = error.message; }
-  check(pattern.test(message), `self-test ${label} did not fail closed`);
+  check(pattern.test(message), `self-test ${label} did not fail closed (${message || "no failure"})`);
 }
 
 function selfTest() {
@@ -279,6 +322,20 @@ function selfTest() {
     writeFileSync(duplicateJson, '{"outer":{"identity":1,"identity":2}}\n', "utf8");
     expectFailure(() => readJson(duplicateJson, "duplicate-key fixture"), /duplicate JSON key/u,
       "duplicate-key rejection");
+
+    const racePath = join(insideDirectory, "race.json");
+    const raceReplacement = join(insideDirectory, "race-replacement.json");
+    writeFileSync(racePath, '{"identity":"before"}\n', "utf8");
+    writeFileSync(raceReplacement, '{"identity":"after"}\n', "utf8");
+    expectFailure(() => readText(racePath, "path-swap fixture", {
+      afterOpen: () => renameSync(raceReplacement, racePath),
+    }), /changed (?:while .* was being read|during validation)/u,
+    "descriptor-pinned path-swap rejection");
+
+    const blocker = readText(BLOCKER_PATH, "clean-room blocker record");
+    expectFailure(() => checkReviewedDigest(`${blocker}\n`, REVIEWED_DIGESTS.blocker,
+      "clean-room blocker record"), /independently reviewed public identity/u,
+    "blocker record mutation rejection");
 
     const manifest = readJson(join(ROOT, "progress", "units", `${TARGET}.cro.json`), "public CRO manifest");
     const manifestUnit = structuredClone(singleUnit(manifest.units, "public CRO manifest"));
@@ -310,7 +367,7 @@ function selfTest() {
     rmSync(insideDirectory, { recursive: true, force: true });
     rmSync(outsideDirectory, { recursive: true, force: true });
   }
-  console.log(`Validated ${REPORT_UNIT} hostile path, duplicate-key, identity, and range fixtures.`);
+  console.log(`Validated ${REPORT_UNIT} hostile path, descriptor-race, duplicate-key, blocker, identity, and range fixtures.`);
 }
 
 try {

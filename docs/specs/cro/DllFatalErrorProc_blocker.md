@@ -38,6 +38,18 @@ records. Hostile fixtures cover external paths, symlinked files and parents,
 manifest drift, and coordinated identity/range mutations. These are metadata
 integrity checks only and do not add implementation or match credit.
 
+A final independent audit on 2026-10-17 of local validator revision
+`fb2edb8d3a12a799299f73d66b8b49fc86deb099`, based on public main revision
+`c1c12671a37662260a3fc3d4c545471a9a748dfc`, identified a
+time-of-check/time-of-use window between pathname validation and file reading,
+and noted that this blocker record itself lacked an exact identity check. The
+infrastructure role corrected the reader to open files with no-follow
+semantics, read through the resulting descriptor, and compare file and parent
+identities before opening and after reading. A deterministic path-swap fixture
+must fail, and the validator now pins this blocker record alongside the other
+reviewed public metadata. This hardening used Node.js 24.21.0, repository-owned
+public fixtures only, and did not inspect target or private inputs.
+
 ## Public structural accounting
 
 The public CSV contains zero accepted function records and declares a
