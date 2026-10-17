@@ -57,7 +57,6 @@ Location,Name,Namespace,Mode,Size,Segment
 000001A0,"func_000001A0","Global",$a,00000014,".text"
 00000690,"func_00000690","Global",$a,00000008,".text"
 00000DCC,"func_00000DCC","Global",$a,000000E0,".text"
-00000EEC,"func_00000EEC","Global",$a,00000010,".text"
 00000F08,"func_00000F08","Global",$a,00000008,".text"
 00000F10,"func_00000F10","Global",$a,00000008,".text"
 00000F18,"func_00000F18","Global",$a,00000008,".text"

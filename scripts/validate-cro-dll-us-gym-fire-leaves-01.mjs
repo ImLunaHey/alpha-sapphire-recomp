@@ -15,7 +15,6 @@ const VENEER_HASH = "0312bf80d0c3005ff824cbe7fd69fee6f24c7bf126b40d67c3e3a8cf642
 const LEAVES = [
   [0x01a0, 20, "gym-fire-record-clear", "0e7762faf1b7806b53935252031950abc21cfc29574c369042eff700f7cc2baa"],
   [0x0690, 8, "gym-fire-return-one", "007f34a6c3441b0240da53f253e513b959105da2d8803255e1856aa48f48db47"],
-  [0x0eec, 16, "gym-fire-base-destroy-and-release", "6df58c8c8111b2b3e7824fd55ef235ff8fbf9305b3db6aaf9d6375d3c9eb7f18"],
   [0x0f08, 8, "gym-fire-return-zero-0f08", "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877"],
   [0x0f10, 8, "gym-fire-return-zero-0f10", "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877"],
   [0x0f18, 8, "gym-fire-return-zero-0f18", "6dcd5e75586fe6683156c0d559d4827b73bd48d501fa5781a1c6099aacd7c877"],
@@ -68,8 +67,19 @@ function sectionBytes(readelf, object, section) {
   }
   return Buffer.from(groups.join(""), "hex");
 }
+function parseRelocations(readelf, object) {
+  const records = [];
+  let section = null;
+  for (const line of run(readelf, ["--relocs", "--wide", object]).split("\n")) {
+    const heading = /^Relocation section '(\S+)'/u.exec(line);
+    if (heading) { section = heading[1]; continue; }
+    const row = /^\s*([0-9a-f]{8})\s+[0-9a-f]+\s+(R_ARM_[A-Z0-9_]+)\s+[0-9a-f]{8}\s+(\S+)$/iu.exec(line);
+    if (row && section) records.push({ section, offset: Number.parseInt(row[1], 16), type: row[2], symbol: row[3] });
+  }
+  return records;
+}
 function validateRepository() {
-  check(CLAIMS.length === 59 && CLAIMS.reduce((sum, claim) => sum + claim.size, 0) === 284, "claim totals differ");
+  check(CLAIMS.length === 58 && CLAIMS.reduce((sum, claim) => sum + claim.size, 0) === 268, "claim totals differ");
   const sourcePath = resolve(ROOT, SOURCE);
   check(sourcePath.startsWith(`${ROOT}${sep}`) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() && !lstatSync(sourcePath).isSymbolicLink(),
     "owned source is not a regular in-tree file");
@@ -95,7 +105,7 @@ function validateRepository() {
     if (claim.veneer !== undefined) check(partition.pools.filter((entry) => entry.address === claim.address + 4 && entry.size === 4).length === 1,
       `${claim.name} adjacent import pool differs`);
   }
-  check(unit.functions.length === 60 && partition.functions.length === 60 && partition.gaps.length === 14 && partition.pools.length === 64 && partition.unknown.length === 3,
+  check(unit.functions.length === 59 && partition.functions.length === 59 && partition.gaps.length === 14 && partition.pools.length === 64 && partition.unknown.length === 3,
     "integrated unit or partition totals differ");
 }
 function parseAllocatedSections(readelf, object) {
@@ -127,13 +137,39 @@ function validateObject(readelf, object, target) {
       check(targetBody.length === claim.size && body.equals(targetBody), `${claim.name} is not byte-identical to the verification target`);
     }
   }
-  const relocations = run(readelf, ["--relocs", "--wide", object]);
-  const relocationRows = relocations.split("\n").filter((line) => /^\s*00000004\s+[0-9a-f]+\s+R_ARM_ABS32\s+/iu.test(line));
-  check(relocationRows.length === 52, "candidate does not contain exactly 52 veneer-slot relocations");
+  const relocations = parseRelocations(readelf, object);
+  check(relocations.length === 52, "candidate does not contain exactly 52 veneer-slot relocations");
+  const targetRelocations = target ? parseRelocations(readelf, target) : [];
+  const targetSymbols = new Set();
   for (let index = 0; index < 52; index++) {
-    const symbol = `dllusgymfire_import_${index.toString(16).toUpperCase().padStart(2, "0")}`;
-    check(relocationRows.filter((line) => line.endsWith(` ${symbol}`)).length === 1, `${symbol} relocation is missing or duplicated`);
+    const address = index * 8, poolAddress = address + 4;
+    const suffix = index.toString(16).toUpperCase().padStart(2, "0");
+    const symbol = `dllusgymfire_import_${suffix}`;
+    const candidateSection = `.rel.text.func_${address.toString(16).toUpperCase().padStart(8, "0")}`;
+    const candidate = relocations.filter((entry) => entry.section === candidateSection);
+    check(candidate.length === 1 && candidate[0].offset === 4 && candidate[0].type === "R_ARM_ABS32" && candidate[0].symbol === symbol,
+      `${symbol} candidate relocation offset, type, or symbol differs`);
+    const candidateBytes = sectionBytes(readelf, object, candidateSection.replace(".rel", ""));
+    check(candidateBytes.length === 8 && candidateBytes.readUInt32LE(4) === 0, `${symbol} candidate relocation addend differs`);
+    if (target) {
+      const poolHex = poolAddress.toString(16).padStart(8, "0");
+      const poolSection = `.pool.__cro_pool_${poolHex}`;
+      const expectedRelocationSection = `.rel${poolSection}`;
+      const normalized = targetRelocations.filter((entry) => entry.section === expectedRelocationSection);
+      check(normalized.length === 1 && normalized[0].offset === 0 && normalized[0].type === candidate[0].type,
+        `${symbol} target relocation offset or type differs`);
+      check(/^__cro_import_anon_[A-Za-z0-9_]+$/u.test(normalized[0].symbol) && !targetSymbols.has(normalized[0].symbol),
+        `${symbol} target import identity is malformed or reused`);
+      targetSymbols.add(normalized[0].symbol);
+      const targetPool = sectionBytes(readelf, target, poolSection);
+      check(targetPool.length === 4 && targetPool.readUInt32LE(0) === candidateBytes.readUInt32LE(4),
+        `${symbol} target relocation addend differs`);
+      check(poolAddress === address + candidate[0].offset,
+        `${symbol} normalized module relocation offset differs`);
+    }
   }
+  if (target) check(targetSymbols.size === 52,
+    "target import identities do not map one-to-one to the 52 accepted neutral symbols");
 }
 
 try {
@@ -144,7 +180,7 @@ try {
     check(existsSync(object) && lstatSync(object).isFile() && !lstatSync(object).isSymbolicLink(), "candidate object is missing");
     validateObject(options.readelf, object, options.target);
   }
-  console.log(`Validated DllUSGymFire leaves 01: 59 ARM functions, 284 instruction bytes, 52 neutral import-slot relocations${options.objectDirectory ? " and object" : ""}${options.target ? ", target-identical" : ""}.`);
+  console.log(`Validated DllUSGymFire leaves 01: 58 ARM functions, 268 instruction bytes, 52 neutral import-slot relocations${options.objectDirectory ? " and object" : ""}${options.target ? ", target-identical" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

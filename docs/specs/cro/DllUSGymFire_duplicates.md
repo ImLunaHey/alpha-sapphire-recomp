@@ -20,12 +20,10 @@ repository's target-aware validator.
 - `func_000001A0` uses the public three-word-clear leaf pattern: write zero at
   offsets 0, 4, and 8, then return.
 - `func_00000690` uses the public constant-return pattern with value one.
-- `func_00000EEC` uses the public call/restore/tail-transfer pattern. Its two
-  dependencies are the accepted neutral base-destruction and release veneers.
 - `func_00000F08`, `func_00000F10`, `func_00000F18`, and `func_00000F24` use
   the public zero-return leaf pattern.
 
-These mappings justify exactly 59 newly authored functions and 284 instruction
+These mappings justify exactly 58 newly authored functions and 268 instruction
 bytes. They do not justify adjacent pool contents, any other candidate entry,
 or any larger lifecycle/state-machine routine.
 
@@ -39,3 +37,7 @@ established.
 
 Further promotion requires a concise, independently reviewable specification
 that does not reproduce a binary-derived table.
+
+The previously attempted `func_00000EEC` mapping is excluded because the
+neutral identities and linkage needed to reproduce its two transfers were not
+independently specified.

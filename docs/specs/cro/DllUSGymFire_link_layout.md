@@ -3,7 +3,7 @@
 ## Public accounting
 
 The module's public text extent is 6,424 bytes. The current accepted source owns
-60 functions and 508 instruction bytes. The public partition deliberately keeps
+59 functions and 492 instruction bytes. The public partition deliberately keeps
 all other text as gaps, pools, or unknown ranges; it does not reinterpret those
 ranges merely to improve the score.
 
@@ -22,9 +22,10 @@ unknown bytes is claimed as matched by this implementation.
 
 The verified module contains 123 relocations: 93 associated with text and 30
 with read-only data. The authored veneer family intentionally contributes only
-52 neutral `R_ARM_ABS32` slots. Their placement and one-to-one identity are
-validated, but the proprietary external binding names and the remaining
-relocation schedule are not published or reconstructed here.
+52 neutral `R_ARM_ABS32` slots. Target-aware validation proves the logical
+module offset, type, zero addend, and one-to-one normalized ordinal identity for
+every slot. The proprietary external binding names and the remaining relocation
+schedule are not published or reconstructed here.
 
 ## Artifact boundary
 

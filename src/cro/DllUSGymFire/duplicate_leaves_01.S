@@ -100,13 +100,6 @@ GYM_FIRE_FUNCTION func_00000690
     bx lr
 GYM_FIRE_END func_00000690
 
-GYM_FIRE_FUNCTION func_00000EEC
-    push {r4, lr}
-    bl . - 0xDD0
-    pop {r4, lr}
-    b . - 0xDD0
-GYM_FIRE_END func_00000EEC
-
 GYM_FIRE_ZERO func_00000F08
 GYM_FIRE_ZERO func_00000F10
 GYM_FIRE_ZERO func_00000F18
