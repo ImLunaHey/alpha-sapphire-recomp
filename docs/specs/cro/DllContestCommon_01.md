@@ -248,22 +248,66 @@ interleaved with a five-word relocated jump table and a terminal literal pool,
 so the current fail-closed inventory keeps its executable fragments as gaps
 rather than representing a non-contiguous body as a conventional function.
 
+This is the standard 3DS CRO control interface publicly documented as
+`Result nnroControlObject(void *argument, uint32_t operation)`. Public platform
+documentation identifies operation 0 as the exception-information-node query,
+operations 1 and 2 as set/get of the loaded CRO-end pointer, and operations 3
+and 4 as queries for two initializer-list ranges. See
+[3dbrew: CRO0, nnroControlObject](https://www.3dbrew.org/wiki/CRO0#nnroControlObject).
+In this module the exception-information node is absent and both initializer
+lists are empty, explaining the null and equal begin/end results below.
+
 For supported selectors 0 through 4, its neutral behavior is:
 
 | Selector (`r1`) | Effect using `r0` |
 | ---: | --- |
-| 0 | write null to `*(uint32_t *)r0` |
-| 1 | store `r0` in the module-global pointer |
-| 2 | write the module-global pointer to `*(uint32_t *)r0` |
-| 3 | write the one-past-`.text` address to both words at `r0[0]` and `r0[1]` |
-| 4 | write the one-past-`.rodata` address to both words at `r0[0]` and `r0[1]` |
+| 0 | write the absent exception-information-node value (null) to `*(uint32_t *)r0` |
+| 1 | store the loader-supplied CRO-end pointer from `r0` in the module-global pointer |
+| 2 | write the saved CRO-end pointer to `*(uint32_t *)r0` |
+| 3 | report an empty first initializer list by writing one-past-`.text` to both output words |
+| 4 | report an empty second initializer list by writing one-past-`.rodata` to both output words |
 
 Selectors 0 through 4 return zero. The selector-1 operation and selector-2
-query expose the sole four-byte `.data` object. Selector values outside this
-range enter a 28-byte compiler/runtime residue containing three private
-non-relocated literal words; no stable semantic contract is claimed for that
-path. That path is a concrete remaining analysis blocker for a full clean-room
-implementation and must remain unmatched until independently understood.
+query expose the sole four-byte `.data` object. Any other selector executes a
+fixed diagnostic marker sequence and returns status `0xD8E12C21`.
+
+The exact non-contiguous schedule is:
+
+1. load the address of the writable CRO-end slot into `r2`, compare operation
+   `r1` unsigned with 5, then save `r4` and `lr` without disturbing the flags;
+2. if the operation is below 5, dispatch indirectly through the relocated
+   five-word table at `0x2D0`; otherwise branch to the diagnostic path;
+3. operation 0 loads the unrelocated null exception-node literal and joins the
+   operation-2 output store; operation 1 stores `r0` through `r2`; operation 2
+   loads through `r2` and writes to `*r0`;
+4. operation 3 writes the two independently relocated `.text + 0x368` values;
+   operation 4 writes the two independently relocated `.rodata + 0x18`
+   values. In both cases perform the first store, reload the second literal,
+   then perform the second store;
+5. every supported case joins a return sequence which sets `r0 = 0` and
+   restores `r4` and `pc` together; and
+6. the unsupported-operation path loads diagnostic marker `0x30000000`,
+   executes one explicit no-operation, loads marker `0x30000026`, writes
+   immediate zero to the CPSR control field, executes a second explicit
+   no-operation, loads status `0xD8E12C21`, and returns by restoring `r4` and
+   `pc` together.
+
+The two marker values are overwritten before return; they are part of the
+toolchain diagnostic sequence rather than game content. This classification
+is independently supported by the private structural audit: the same
+28-byte diagnostic instruction shape and final status occur in all 145
+AS_EUR_REV2 CRO modules. The two marker values above occur together in 143;
+the two modules with a different marker base preserve the same `0x26`
+difference, while the returned status remains identical. These are three
+scalar ABI/toolchain constants, not a copied string or table.
+
+The public function inventory is intentionally unchanged. Its schema requires
+one contiguous instruction-only body, while this exported function spans the
+20-byte gap at `0x2BC`, the `0x2D0` pool, the 96-byte gap at `0x2E4`, and the
+`0x344` pool. Calling either gap alone a complete function would be false.
+Unit-specific integration may own the two code fragments and two pools as one
+control-entry contract, but must not manufacture a contiguous `STT_FUNC`
+boundary or count a fragment as an additional matched function.
 
 ## Relocation contract
 
@@ -300,9 +344,10 @@ The split-object representation has these exact allocated section contracts:
 - a 36-byte allocatable pool at `0x344`, with relocations at pool offsets
   `0x00`, `0x08`, `0x0C`, `0x10`, and `0x14`. They target `.data + 0`, the
   pool's own section identity twice at one-past-pool addend `0x24`, and
-  `.rodata + 0x18` twice, respectively. Pool offset `0x04` is an unrelocated
-  zero word. The final three words remain private non-relocated literals and
-  are not reproduced in this specification.
+  `.rodata + 0x18` twice, respectively. Pool offset `0x04` is the unrelocated
+  null exception-node value. The final three words are, in order, diagnostic
+  marker `0x30000000`, diagnostic marker `0x30000026`, and unsupported-operation
+  status `0xD8E12C21`.
 
 Each pool section is `SHT_PROGBITS`, allocatable and non-executable, with
 byte alignment; each has one global `STT_OBJECT` symbol named from its public
@@ -381,8 +426,25 @@ public aliases rather than the target converter's private-string-derived
 undefined symbols. The `0x208` `.rodata` relocation and the five `0x2D0`
 jump-table relocations already have the required public targets and addends.
 Exact pool comparison therefore requires both the safe alias canonicalization
-above and eventual independently justified ownership of the blocked final
+above and independently justified ownership of the previously blocked final
 pool; fuzzy similarity must not be interpreted as partial completion.
+
+The final analysis audit supplies that independent justification for the
+`0x344` pool and its associated code fragments: public CRO lifecycle semantics
+account for the first six words, and the cross-module diagnostic invariant
+accounts for the last three scalar words. Therefore no semantic or provenance
+unknown remains in this unit's text, pools, `.rodata`, `.data`, relocations, or
+zero-sized `.bss`. The remaining work is implementation and exact link-object
+integration, including deterministic anonymous-import alias canonicalization;
+it is not an analysis blocker.
+
+After the third implementation round, the genuine report confirms all three
+accepted functions exact (648/648 code bytes), 100% text fuzzy similarity,
+and still only 28/112 matched data bytes (24-byte `.rodata` plus four-byte
+`.data`). Pool fuzzy similarity is 45.238094%, and `metadata.complete` remains
+false. Those measures are consistent with the authored object still omitting
+the 36-byte `0x344` control pool and with unresolved import-symbol alias
+identity; they do not contradict the now-complete neutral specification.
 
 ## Completion and validation requirements
 
