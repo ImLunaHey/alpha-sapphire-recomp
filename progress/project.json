@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,135 clean-room functions are byte-identical. Eighty CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,152 clean-room functions are byte-identical. Eighty-eight CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 10.869067,
-    "matchedFunctions": 4135,
+    "matchedCodePercent": 10.938429,
+    "matchedFunctions": 4152,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,135 routines across main/code and 80 CRO units match byte-for-byte",
+      "detail": "4,152 routines across main/code and 88 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "Eight more CRO units and nine main functions matched",
+      "detail": "Runtime batch 144 and IPC wrapper batch 108 add nine main/code functions and 836 bytes. Clean-room CRO contract 09 adds eight functions and 1,744 bytes across eight previously zero-credit units, bringing the genuine report to 4,152 exact functions and 406,868 bytes. Eighty-eight CRO units now receive authored code credit; CRO data remains entirely unmatched and every unit remains incomplete."
+    },
     {
       "date": "2026-10-17",
       "title": "Eight more CRO units and eleven main functions matched",

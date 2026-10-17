@@ -25937,6 +25937,7 @@ const supplementalIpcPaths = [
   "config/arm-ipc-wrappers-105.json",
   "config/arm-ipc-wrappers-106.json",
   "config/arm-ipc-wrappers-107.json",
+  "config/arm-ipc-wrappers-108.json",
   "config/arm-runtime-helpers-114.json",
   "config/arm-runtime-helpers-117.json",
   "config/arm-runtime-helpers-118.json",
@@ -25965,6 +25966,7 @@ const supplementalIpcPaths = [
   "config/arm-runtime-helpers-141.json",
   "config/arm-runtime-helpers-142.json",
   "config/arm-runtime-helpers-143.json",
+  "config/arm-runtime-helpers-144.json",
   "config/thumb-leaf-helpers-27.json",
 ].map((path) => join(root, path));
 const supplementalIpcBodies = new Map();

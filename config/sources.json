@@ -1392,6 +1392,14 @@
     {
       "path": "src/main/arm_runtime_helpers_143.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_144.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_ipc_wrappers_108.S",
+      "mode": "arm"
     }
   ]
 }

@@ -112,6 +112,20 @@ fractional.report.units[1].functions.push(
 );
 validateAndNormalizeReport(fractional);
 
+const shortenedFloat32 = structuredClone(fractional);
+shortenedFloat32.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000130,".text"\n00000130,"func_00000130","Global",$a,0000022C,".text"\n`);
+shortenedFloat32.report.units[1].measures.total_code = "860";
+shortenedFloat32.report.units[1].measures.matched_code = "304";
+shortenedFloat32.report.units[1].measures.matched_code_percent = 35.34884;
+shortenedFloat32.report.units[1].functions = [
+  { name: "func_00000000", size: "304", fuzzy_match_percent: 100, address: "0", metadata: {} },
+  { name: "func_00000130", size: "556", address: "304", metadata: {} },
+];
+shortenedFloat32.croClaims = new Map([["DllEmpty", new Map([
+  ["func_00000000", { address: 0, size: 304 }],
+])]]);
+validateAndNormalizeReport(shortenedFloat32);
+
 const impreciseFractional = structuredClone(fractional);
 impreciseFractional.report.units[1].measures.matched_code_percent = 33.333;
 assert.throws(() => validateAndNormalizeReport(impreciseFractional), /matched-code percentage differs/);

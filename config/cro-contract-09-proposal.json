@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllDendouPC",
+      "sources": [{ "path": "src/cro/DllDendouPC/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00001840", "address": 6208, "size": 172, "semantics": "contract-09-record-finalization" }]
+    },
+    {
+      "name": "DllDialogCommon",
+      "sources": [{ "path": "src/cro/DllDialogCommon/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000002C0", "address": 704, "size": 332, "semantics": "contract-09-dialog-state-update" }]
+    },
+    {
+      "name": "DllFieldEventFishing",
+      "sources": [{ "path": "src/cro/DllFieldEventFishing/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00001058", "address": 4184, "size": 192, "semantics": "contract-09-fishing-object-setup" }]
+    },
+    {
+      "name": "DllFieldEventPokeRideAction",
+      "sources": [{ "path": "src/cro/DllFieldEventPokeRideAction/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000494", "address": 1172, "size": 304, "semantics": "contract-09-ride-action-update" }]
+    },
+    {
+      "name": "DllGameClearSave",
+      "sources": [{ "path": "src/cro/DllGameClearSave/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000006DC", "address": 1756, "size": 188, "semantics": "contract-09-clear-save-dispatch" }]
+    },
+    {
+      "name": "DllLangSelect",
+      "sources": [{ "path": "src/cro/DllLangSelect/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000EB0", "address": 3760, "size": 168, "semantics": "contract-09-language-layout-update" }]
+    },
+    {
+      "name": "DllPssAssistPower",
+      "sources": [{ "path": "src/cro/DllPssAssistPower/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_0000081C", "address": 2076, "size": 240, "semantics": "contract-09-assist-power-lifecycle" }]
+    },
+    {
+      "name": "DllTrainerCase",
+      "sources": [{ "path": "src/cro/DllTrainerCase/contract_09.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00001ED4", "address": 7892, "size": 148, "semantics": "contract-09-trainer-case-mode-switch" }]
+    }
+  ]
+}

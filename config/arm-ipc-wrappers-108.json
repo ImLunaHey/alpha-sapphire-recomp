@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_108.S",
+  "sourceHash": "a74324b72d75fa3100f985cbbd120d2606d631b6d9b22d6fe3c224b7e2a5daaa",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 488,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 122,
+  "memoryOperationCount": 26,
+  "localBranchCount": 9,
+  "directTransferCount": 17,
+  "indirectCallCount": 2,
+  "directTailCount": 0,
+  "indirectTailCount": 0,
+  "returnCount": 2,
+  "supervisorCallCount": 2,
+  "expectedRelocationCount": 17,
+  "functions": [
+    { "name": "func_0012684C", "address": "0x0012684C", "size": 156, "ownedSize": 156, "nextGlobal": "func_001268FC", "nextGlobalOffset": 156, "bodyHash": "7ab999f249e3e2f0a8e4173b54dc72c53a27c41bdb1d3d0ac5a379c1f2c6056d", "instructionCount": 39, "memoryOperationCount": 6, "localBranchCount": 0, "directTransferCount": 4, "indirectCallCount": 0, "returnCount": 1, "supervisorCallCount": 1 },
+    { "name": "func_0042F9EC", "address": "0x0042F9EC", "size": 332, "ownedSize": 332, "nextGlobal": "func_0042FBB8", "nextGlobalOffset": 332, "bodyHash": "10851e9c082302ebbd0734ae30c4ddc5406875777f74f99e417e5b38b8941036", "instructionCount": 83, "memoryOperationCount": 20, "localBranchCount": 9, "directTransferCount": 13, "indirectCallCount": 2, "returnCount": 1, "supervisorCallCount": 1 }
+  ],
+  "localTransfers": [
+    { "function": "func_0042F9EC", "offset": 56, "targetOffset": 160 },
+    { "function": "func_0042F9EC", "offset": 88, "targetOffset": 184 },
+    { "function": "func_0042F9EC", "offset": 116, "targetOffset": 316 },
+    { "function": "func_0042F9EC", "offset": 156, "targetOffset": 316 },
+    { "function": "func_0042F9EC", "offset": 180, "targetOffset": 80 },
+    { "function": "func_0042F9EC", "offset": 244, "targetOffset": 280 },
+    { "function": "func_0042F9EC", "offset": 272, "targetOffset": 316 },
+    { "function": "func_0042F9EC", "offset": 276, "targetOffset": 120 },
+    { "function": "func_0042F9EC", "offset": 300, "targetOffset": 316 }
+  ],
+  "directTransfers": [
+    { "function": "func_0012684C", "offset": 32, "type": "R_ARM_CALL", "symbol": "func_001260B4", "targetAddress": "0x001260B4" },
+    { "function": "func_0012684C", "offset": 96, "type": "R_ARM_CALL", "symbol": "func_00126000", "targetAddress": "0x00126000" },
+    { "function": "func_0012684C", "offset": 120, "type": "R_ARM_CALL", "symbol": "func_00133D18", "targetAddress": "0x00133D18" },
+    { "function": "func_0012684C", "offset": 140, "type": "R_ARM_CALL", "symbol": "func_00126414", "targetAddress": "0x00126414" },
+    { "function": "func_0042F9EC", "offset": 24, "type": "R_ARM_CALL", "symbol": "func_001602B8", "targetAddress": "0x001602B8" },
+    { "function": "func_0042F9EC", "offset": 40, "type": "R_ARM_JUMP24", "symbol": "func_001603A0", "targetAddress": "0x001603A0" },
+    { "function": "func_0042F9EC", "offset": 68, "type": "R_ARM_CALL", "symbol": "func_00160380", "targetAddress": "0x00160380" },
+    { "function": "func_0042F9EC", "offset": 72, "type": "R_ARM_CALL", "symbol": "func_00145550", "targetAddress": "0x00145550" },
+    { "function": "func_0042F9EC", "offset": 104, "type": "R_ARM_CALL", "symbol": "func_001602B8", "targetAddress": "0x001602B8" },
+    { "function": "func_0042F9EC", "offset": 128, "type": "R_ARM_CALL", "symbol": "func_0010EB54", "targetAddress": "0x0010EB54" },
+    { "function": "func_0042F9EC", "offset": 168, "type": "R_ARM_CALL", "symbol": "func_00160380", "targetAddress": "0x00160380" },
+    { "function": "func_0042F9EC", "offset": 196, "type": "R_ARM_CALL", "symbol": "func_001602B8", "targetAddress": "0x001602B8" },
+    { "function": "func_0042F9EC", "offset": 208, "type": "R_ARM_CALL", "symbol": "func_00160380", "targetAddress": "0x00160380" },
+    { "function": "func_0042F9EC", "offset": 220, "type": "R_ARM_CALL", "symbol": "func_00145614", "targetAddress": "0x00145614" },
+    { "function": "func_0042F9EC", "offset": 260, "type": "R_ARM_CALL", "symbol": "func_001602B8", "targetAddress": "0x001602B8" },
+    { "function": "func_0042F9EC", "offset": 288, "type": "R_ARM_CALL", "symbol": "func_001602B8", "targetAddress": "0x001602B8" },
+    { "function": "func_0042F9EC", "offset": 320, "type": "R_ARM_CALL", "symbol": "func_00160380", "targetAddress": "0x00160380" }
+  ],
+  "indirectCalls": [
+    { "function": "func_0042F9EC", "offset": 152, "register": 3 },
+    { "function": "func_0042F9EC", "offset": 312, "register": 1 }
+  ],
+  "returns": [
+    { "function": "func_0012684C", "offset": 152, "kind": "pop-pc" },
+    { "function": "func_0042F9EC", "offset": 328, "kind": "pop-pc" }
+  ],
+  "supervisorCalls": [
+    { "function": "func_0012684C", "offset": 136, "number": 35, "condition": "ne" },
+    { "function": "func_0042F9EC", "offset": 32, "number": 25, "condition": "al" }
+  ],
+  "relocations": [
+    { "symbol": "func_001260B4", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_00126000", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_00133D18", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_00126414", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_001602B8", "type": "R_ARM_CALL", "siteCount": 5 },
+    { "symbol": "func_001603A0", "type": "R_ARM_JUMP24", "siteCount": 1 },
+    { "symbol": "func_00160380", "type": "R_ARM_CALL", "siteCount": 4 },
+    { "symbol": "func_00145550", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_0010EB54", "type": "R_ARM_CALL", "siteCount": 1 },
+    { "symbol": "func_00145614", "type": "R_ARM_CALL", "siteCount": 1 }
+  ],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "authoritativePrivateOffsetBase": "0x00100000",
+    "forbidForeignExecutablePayload": true,
+    "forbidPcRelativeDataAccesses": true,
+    "forbidIndirectTails": true,
+    "forbidAdjacentBytes": true,
+    "scanRecursiveSourceOwners": true,
+    "scanConfigOwnershipIntervals": true
+  }
+}

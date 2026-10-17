@@ -16,15 +16,15 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Current verified progress
 
-The 146 published units contain 4,135 exactly matched functions and 404,288
-matched code bytes, or 10.869067% overall. `main/code` contributes 3,954
-functions and 400,012 bytes. The CROs contribute 181 functions and 4,276 code
-bytes across 80 units; their matched-data total is zero. The other 65 CRO
+The 146 published units contain 4,152 exactly matched functions and 406,868
+matched code bytes, or 10.938429% overall. `main/code` contributes 3,963
+functions and 400,848 bytes. The CROs contribute 189 functions and 6,020 code
+bytes across 88 units; their matched-data total is zero. The other 57 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 19 functions and 1,776 code bytes. Main runtime
-batch 143 and duplicate-template batch 85 contribute 11 functions and 724
-bytes. CRO contract batch 08 contributes eight functions and 1,052 bytes
+The latest verified wave added 17 functions and 2,580 code bytes. Main runtime
+batch 144 and IPC wrapper batch 108 contribute nine functions and 836 bytes.
+CRO contract batch 09 contributes eight functions and 1,744 bytes
 across eight newly credited units.
 
 ## Executable units
@@ -32,8 +32,8 @@ across eight newly credited units.
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 80 CROs; all
-unclaimed code, all CRO data, and all 65 zero-credit CROs remain unmatched.
+Reviewed clean-room function sections now earn code credit in 88 CROs; all
+unclaimed code, all CRO data, and all 57 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must

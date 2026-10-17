@@ -16,7 +16,7 @@ const VACUOUS_ZERO_FUNCTION_PERCENTAGES = new Set([
   "matched_functions_percent",
   "complete_code_percent",
 ]);
-const PERCENT_TOLERANCE = 0.000001;
+const PERCENT_DECIMAL_TOLERANCE = 0.000005;
 
 function fail(message) {
   throw new Error(`ByteMatch report validation failed: ${message}`);
@@ -226,12 +226,12 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
     }
     const actualMatchedCodePercent = numeric(unit.measures?.matched_code_percent ?? 0,
       `${entry.name}.matched_code_percent`);
-    // objdiff computes percentages through a 32-bit float before JSON
-    // serialization, so compare against that representation rather than a
-    // separately decimal-rounded value.
+    // objdiff computes percentages through a 32-bit float, then serializes a
+    // shortened decimal. Allow at most half a unit at its observed sixth
+    // decimal place; materially different credit still fails closed.
     const expectedMatchedCodePercent = Math.fround(claimedBytes * 100 / codeBytes);
     if (claims.size > 0
-        && Math.abs(actualMatchedCodePercent - expectedMatchedCodePercent) > PERCENT_TOLERANCE) {
+        && Math.abs(actualMatchedCodePercent - expectedMatchedCodePercent) > PERCENT_DECIMAL_TOLERANCE) {
       fail(`${entry.name} matched-code percentage differs from its authored claims`);
     }
     if (zeroFunctionUnit) normalizeZeroFunctionCro(unit);
