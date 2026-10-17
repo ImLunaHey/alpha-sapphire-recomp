@@ -5,7 +5,7 @@
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
   "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 3,689 clean-room functions are byte-identical.",
-  "decompilationEnabled": false,
+  "decompilationEnabled": true,
   "progress": {
     "matchedCodePercent": 17.345432,
     "matchedFunctions": 3689,
@@ -31,8 +31,8 @@
     },
     {
       "label": "ByteMatch registration",
-      "detail": "After first genuine objdiff report",
-      "state": "waiting"
+      "detail": "Genuine objdiff report published by main-branch CI",
+      "state": "complete"
     }
   ],
   "activity": [

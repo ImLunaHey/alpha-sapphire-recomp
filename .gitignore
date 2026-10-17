@@ -23,6 +23,8 @@ extracted/
 build/
 out/
 reports/
+!progress/reports/
+!progress/reports/**
 objdiff.json
 .cache/
 

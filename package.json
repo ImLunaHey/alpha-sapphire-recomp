@@ -353,7 +353,8 @@
     "target:build": "bash scripts/build-target-object.sh",
     "target:validate": "node scripts/validate-symbols.mjs",
     "target:verify": "node scripts/verify-target.mjs",
-    "report": "node scripts/generate-report.mjs",
+    "report": "node scripts/prepare-bytematch-report.mjs",
+    "report:update": "node scripts/prepare-bytematch-report.mjs --update",
     "report:local": "npm run base:build && npm run target:build && node scripts/generate-report.mjs --local",
     "tools:install": "bash scripts/install-tools.sh",
     "tools:install-3ds": "bash scripts/install-3ds-tools.sh"

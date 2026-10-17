@@ -16,17 +16,19 @@ jobs:
       - name: Check out source
         uses: actions/checkout@v4
 
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Build clean-room base objects
+        run: npm run base:build
+
       - name: Check repository boundary
         run: npm run check
 
-      - name: Install pinned reporting tool
-        run: npm run tools:install
-
-      - name: Generate genuine objdiff report when enabled
+      - name: Prepare validated ByteMatch report
         run: npm run report
 
       - name: Upload ByteMatch report
-        if: ${{ hashFiles('build/AS_EUR_REV2/report.json') != '' }}
         uses: actions/upload-artifact@v4
         with:
           name: AS_EUR_REV2_report
