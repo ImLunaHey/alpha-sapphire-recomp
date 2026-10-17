@@ -435,6 +435,40 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-116.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-117.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-118.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-119.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-120.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-121.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-122.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-123.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-124.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-125.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-126.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-127.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-128.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-129.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-130.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-131.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-132.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-133.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"

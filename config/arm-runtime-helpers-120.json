@@ -1,0 +1,427 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_120.S",
+  "sourceHash": "cf911edc95bb95e61a8974707328d4ca0bd12c947a4bcc20042ef87140e91a82",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00100000",
+    "endExclusive": "0x00140000"
+  },
+  "totalBodySize": 112,
+  "totalAdjacentSize": 20,
+  "expectedInstructionCount": 28,
+  "memoryOperationCount": 14,
+  "localBranchCount": 2,
+  "directCallCount": 0,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 4,
+  "expectedRelocationCount": 5,
+  "functions": [
+    {
+      "name": "func_00111E70",
+      "size": 28,
+      "ownedSize": 32,
+      "nextGlobal": "func_00111EC0",
+      "nextGlobalOffset": 80,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r0, #0"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "beq",
+          "operands": ".Lsetter_return_120",
+          "targetOffset": 24
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, .Lsetter_root_120",
+          "symbol": "runtime_setter_root_120",
+          "targetOffset": 28
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r1, #72]"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r1]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r0, [r1, #1648]"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 4,
+          "targetOffset": 24
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_ABS32",
+          "symbol": "runtime_setter_root_120"
+        }
+      ]
+    },
+    {
+      "name": "func_0011911C",
+      "size": 28,
+      "ownedSize": 36,
+      "nextGlobal": "func_00119140",
+      "nextGlobalOffset": 36,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, .Ldescriptor_primary_120",
+          "symbol": "runtime_descriptor_primary_120",
+          "targetOffset": 28
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r1, #104"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r2, [r0]"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, .Ldescriptor_secondary_120",
+          "symbol": "runtime_descriptor_secondary_120",
+          "targetOffset": 32
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0, #8]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r2, [r0, #4]"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 28,
+          "kind": "R_ARM_ABS32",
+          "symbol": "runtime_descriptor_primary_120"
+        },
+        {
+          "offset": 32,
+          "kind": "R_ARM_ABS32",
+          "symbol": "runtime_descriptor_secondary_120"
+        }
+      ]
+    },
+    {
+      "name": "func_0012AC44",
+      "size": 32,
+      "ownedSize": 36,
+      "nextGlobal": "func_0012ADD4",
+      "nextGlobalOffset": 400,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r2, r1"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r1, r0"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r0, r2"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r0, r0"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r1, #28"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "ldrcc",
+          "operands": "r2, .Ltable_root_120",
+          "symbol": "runtime_table_root_120",
+          "targetOffset": 32
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "strcc",
+          "operands": "r0, [r2, r1, lsl #2]"
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 32,
+          "kind": "R_ARM_ABS32",
+          "symbol": "runtime_table_root_120"
+        }
+      ]
+    },
+    {
+      "name": "func_0012B594",
+      "size": 24,
+      "ownedSize": 28,
+      "nextGlobal": "func_0012B5B0",
+      "nextGlobalOffset": 28,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r0, #0"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "beq",
+          "operands": ".Lpair_return_120",
+          "targetOffset": 20
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, .Lpair_template_120",
+          "symbol": "runtime_pair_template_120",
+          "targetOffset": 24
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "ldm",
+          "operands": "r2, {r1, r2}"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "stm",
+          "operands": "r0, {r1, r2}"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [
+        {
+          "offset": 4,
+          "targetOffset": 20
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 24,
+          "kind": "R_ARM_ABS32",
+          "symbol": "runtime_pair_template_120"
+        }
+      ]
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00111E70",
+      "offset": 28,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_setter_root_120"
+    },
+    {
+      "function": "func_0011911C",
+      "offset": 28,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_descriptor_primary_120"
+    },
+    {
+      "function": "func_0011911C",
+      "offset": 32,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_descriptor_secondary_120"
+    },
+    {
+      "function": "func_0012AC44",
+      "offset": 32,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_table_root_120"
+    },
+    {
+      "function": "func_0012B594",
+      "offset": 24,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_pair_template_120"
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_setter_root_120": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_descriptor_primary_120": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_descriptor_secondary_120": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_table_root_120": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_pair_template_120": {
+      "kind": "opaque-word",
+      "addend": 0
+    }
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00111E70",
+      "offset": 8,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r1, .Lsetter_root_120",
+      "symbol": "runtime_setter_root_120",
+      "targetOffset": 28
+    },
+    {
+      "function": "func_0011911C",
+      "offset": 0,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r2, .Ldescriptor_primary_120",
+      "symbol": "runtime_descriptor_primary_120",
+      "targetOffset": 28
+    },
+    {
+      "function": "func_0011911C",
+      "offset": 12,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r2, .Ldescriptor_secondary_120",
+      "symbol": "runtime_descriptor_secondary_120",
+      "targetOffset": 32
+    },
+    {
+      "function": "func_0012AC44",
+      "offset": 20,
+      "width": 4,
+      "mnemonic": "ldrcc",
+      "operands": "r2, .Ltable_root_120",
+      "symbol": "runtime_table_root_120",
+      "targetOffset": 32
+    },
+    {
+      "function": "func_0012B594",
+      "offset": 8,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r2, .Lpair_template_120",
+      "symbol": "runtime_pair_template_120",
+      "targetOffset": 24
+    }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    {
+      "function": "func_00111E70",
+      "offset": 24,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_0011911C",
+      "offset": 24,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_0012AC44",
+      "offset": 28,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_0012B594",
+      "offset": 20,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "evidenceAudit": {
+    "uniqueInventoriedBodies": 4,
+    "externalDirectEntryReferences": 30,
+    "externalInteriorReferences": 0,
+    "externalAdjacentReferences": 0,
+    "conservativeInteriorPointerWords": 0
+  }
+}

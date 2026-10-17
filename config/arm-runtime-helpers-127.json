@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_127.S",
+  "sourceHash": "c1f139adb24842e240943fc88efb587c526d09aa39f8e19eb0f49d1a0a5ac9ff",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x002C0000",
+    "endExclusive": "0x00300000"
+  },
+  "totalBodySize": 464,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 116,
+  "memoryOperationCount": 57,
+  "localBranchCount": 0,
+  "directCallCount": 3,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 3,
+  "expectedRelocationCount": 3,
+  "functions": [
+    {
+      "name": "func_002C0C68",
+      "address": "0x002C0C68",
+      "size": 108,
+      "ownedSize": 108,
+      "nextGlobal": "func_002C0CD4",
+      "nextGlobalOffset": 108,
+      "directTransfers": [
+        { "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001950F8", "role": "initialize_output_prefix" }
+      ]
+    },
+    {
+      "name": "func_002E0130",
+      "address": "0x002E0130",
+      "size": 116,
+      "ownedSize": 116,
+      "nextGlobal": "func_002E01B0",
+      "nextGlobalOffset": 128,
+      "directTransfers": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001744C4", "role": "prepare_source_record" }
+      ]
+    },
+    {
+      "name": "func_002F30B0",
+      "address": "0x002F30B0",
+      "size": 240,
+      "ownedSize": 240,
+      "nextGlobal": "func_002F31A0",
+      "nextGlobalOffset": 240,
+      "directTransfers": [
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184020", "role": "initialize_aligned_storage" }
+      ]
+    }
+  ],
+  "pcRelativeDataAccesses": [],
+  "directTransfers": [
+    { "function": "func_002C0C68", "offset": 28, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001950F8" },
+    { "function": "func_002E0130", "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001744C4" },
+    { "function": "func_002F30B0", "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00184020" }
+  ],
+  "indirectTransfers": [],
+  "returns": [
+    { "function": "func_002C0C68", "offset": 104, "width": 4, "kind": "stack-return", "register": "pc" },
+    { "function": "func_002E0130", "offset": 112, "width": 4, "kind": "stack-return", "register": "pc" },
+    { "function": "func_002F30B0", "offset": 236, "width": 4, "kind": "stack-return", "register": "pc" }
+  ],
+  "relocations": [
+    { "function": "func_002C0C68", "offset": 28, "type": "R_ARM_CALL", "symbol": "func_001950F8", "addend": -8 },
+    { "function": "func_002E0130", "offset": 12, "type": "R_ARM_CALL", "symbol": "func_001744C4", "addend": -8 },
+    { "function": "func_002F30B0", "offset": 72, "type": "R_ARM_CALL", "symbol": "func_00184020", "addend": -8 }
+  ],
+  "symbolicIdentities": {
+    "func_001950F8": { "kind": "arm-code-entry", "address": "0x001950F8" },
+    "func_001744C4": { "kind": "arm-code-entry", "address": "0x001744C4" },
+    "func_00184020": { "kind": "arm-code-entry", "address": "0x00184020" }
+  }
+}

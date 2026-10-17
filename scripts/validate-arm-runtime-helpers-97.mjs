@@ -142,6 +142,9 @@ function collectStrings(v,out=new Set){if(typeof v==='string')out.add(v); else i
 function collectDeclaredReuses(config) {
   const reused=new Set;
   if(!config||typeof config!=='object'||Array.isArray(config)) return reused;
+  if(Array.isArray(config.functions))
+    for(const fn of config.functions)
+      if(fn&&typeof fn.nextGlobal==='string') reused.add(fn.nextGlobal);
   for(const [key,value] of Object.entries(config))
     if(/^reused[A-Z]/.test(key)&&Array.isArray(value))
       for(const identity of value) if(typeof identity==='string') reused.add(identity);

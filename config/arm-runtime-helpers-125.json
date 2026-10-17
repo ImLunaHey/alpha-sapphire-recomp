@@ -1,0 +1,536 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_125.S",
+  "sourceHash": "cd63dfaaa6a6518aa144ba66ade135b934c661b653dcbf5703a371a8f536c201",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00240000",
+    "endExclusive": "0x00280000"
+  },
+  "totalBodySize": 204,
+  "totalAdjacentSize": 12,
+  "expectedInstructionCount": 51,
+  "memoryOperationCount": 29,
+  "localBranchCount": 3,
+  "directCallCount": 0,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 3,
+  "expectedRelocationCount": 3,
+  "functions": [
+    {
+      "name": "func_0024FB80",
+      "size": 144,
+      "ownedSize": 148,
+      "nextGlobal": "func_0024FC14",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "push",
+          "operands": "{r4, r5}"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r0, #20]"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r5, #0"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r3, [r1]"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, .L125_traversal_root"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "ip, [r1, #356]"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r0, #20]"
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r3, r1"
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "mnemonic": "beq",
+          "operands": ".L125_done"
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [ip, #512]"
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r4, [r1, #4]"
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "mnemonic": "add",
+          "operands": "r4, r4, #2"
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r4, [r1, #4]"
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [ip, #512]"
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "mnemonic": "add",
+          "operands": "r4, r4, #2"
+        },
+        {
+          "offset": 60,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r4, [r1, #4]"
+        },
+        {
+          "offset": 64,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r3, #36]"
+        },
+        {
+          "offset": 68,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, [r1]"
+        },
+        {
+          "offset": 72,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r2, r1"
+        },
+        {
+          "offset": 76,
+          "width": 4,
+          "mnemonic": "ldrne",
+          "operands": "r2, [r2]"
+        },
+        {
+          "offset": 80,
+          "width": 4,
+          "mnemonic": "bne",
+          "operands": ".L125_inner"
+        },
+        {
+          "offset": 84,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [ip, #512]"
+        },
+        {
+          "offset": 88,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r4, #2"
+        },
+        {
+          "offset": 92,
+          "width": 4,
+          "mnemonic": "subhi",
+          "operands": "r2, r4, #2"
+        },
+        {
+          "offset": 96,
+          "width": 4,
+          "mnemonic": "strhi",
+          "operands": "r2, [r1, #4]"
+        },
+        {
+          "offset": 100,
+          "width": 4,
+          "mnemonic": "strls",
+          "operands": "r5, [r1, #4]"
+        },
+        {
+          "offset": 104,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [ip, #512]"
+        },
+        {
+          "offset": 108,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, [r1, #4]"
+        },
+        {
+          "offset": 112,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r2, #2"
+        },
+        {
+          "offset": 116,
+          "width": 4,
+          "mnemonic": "subhi",
+          "operands": "r2, r2, #2"
+        },
+        {
+          "offset": 120,
+          "width": 4,
+          "mnemonic": "strhi",
+          "operands": "r2, [r1, #4]"
+        },
+        {
+          "offset": 124,
+          "width": 4,
+          "mnemonic": "strls",
+          "operands": "r5, [r1, #4]"
+        },
+        {
+          "offset": 128,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r3, [r3]"
+        },
+        {
+          "offset": 132,
+          "width": 4,
+          "mnemonic": "b",
+          "operands": ".L125_outer"
+        },
+        {
+          "offset": 136,
+          "width": 4,
+          "mnemonic": "pop",
+          "operands": "{r4, r5}"
+        },
+        {
+          "offset": 140,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 144,
+          "symbol": "global_load_29",
+          "addend": 0
+        }
+      ],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        },
+        {
+          "name": "$d",
+          "offset": 144
+        }
+      ]
+    },
+    {
+      "name": "func_0026CFA8",
+      "size": 28,
+      "ownedSize": 32,
+      "nextGlobal": "func_0026CFC8",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, .L125_set_root"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, [r1, #336]"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r2, #0"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "streq",
+          "operands": "r0, [r1, #336]"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "moveq",
+          "operands": "r0, #1"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "movne",
+          "operands": "r0, #0"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 28,
+          "symbol": "global_load_29",
+          "addend": 0
+        }
+      ],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        },
+        {
+          "name": "$d",
+          "offset": 28
+        }
+      ]
+    },
+    {
+      "name": "func_0026CFC8",
+      "size": 32,
+      "ownedSize": 36,
+      "nextGlobal": "func_0026D504",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r0, .L125_clear_root"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, [r0, #336]"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r1, #0"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "movne",
+          "operands": "r1, #0"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "strne",
+          "operands": "r1, [r0, #336]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "movne",
+          "operands": "r0, #1"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "moveq",
+          "operands": "r0, #0"
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 32,
+          "symbol": "global_load_29",
+          "addend": 0
+        }
+      ],
+      "mappingSymbols": [
+        {
+          "name": "$a",
+          "offset": 0
+        },
+        {
+          "name": "$d",
+          "offset": 32
+        }
+      ]
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_0024FB80",
+      "offset": 16,
+      "targetOffset": 144,
+      "width": 4,
+      "symbol": "global_load_29"
+    },
+    {
+      "function": "func_0026CFA8",
+      "offset": 0,
+      "targetOffset": 28,
+      "width": 4,
+      "symbol": "global_load_29"
+    },
+    {
+      "function": "func_0026CFC8",
+      "offset": 0,
+      "targetOffset": 32,
+      "width": 4,
+      "symbol": "global_load_29"
+    }
+  ],
+  "directTransfers": [
+    {
+      "function": "func_0024FB80",
+      "offset": 32,
+      "targetOffset": 136,
+      "condition": "eq"
+    },
+    {
+      "function": "func_0024FB80",
+      "offset": 80,
+      "targetOffset": 72,
+      "condition": "ne"
+    },
+    {
+      "function": "func_0024FB80",
+      "offset": 132,
+      "targetOffset": 24,
+      "condition": "al"
+    }
+  ],
+  "returns": [
+    {
+      "function": "func_0024FB80",
+      "offset": 140,
+      "width": 4,
+      "register": "lr"
+    },
+    {
+      "function": "func_0026CFA8",
+      "offset": 24,
+      "width": 4,
+      "register": "lr"
+    },
+    {
+      "function": "func_0026CFC8",
+      "offset": 28,
+      "width": 4,
+      "register": "lr"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_0024FB80",
+      "offset": 144,
+      "type": "R_ARM_ABS32",
+      "symbol": "global_load_29",
+      "addend": 0
+    },
+    {
+      "function": "func_0026CFA8",
+      "offset": 28,
+      "type": "R_ARM_ABS32",
+      "symbol": "global_load_29",
+      "addend": 0
+    },
+    {
+      "function": "func_0026CFC8",
+      "offset": 32,
+      "type": "R_ARM_ABS32",
+      "symbol": "global_load_29",
+      "addend": 0
+    }
+  ],
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [
+    "global_load_29"
+  ],
+  "newSymbolicIdentities": [],
+  "aliases": [],
+  "secondaryEntries": [],
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "eabiVersion": 5,
+    "requiredFlags": "0x05000000",
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": [
+      "SHF_ALLOC",
+      "SHF_EXECINSTR"
+    ],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": "Per-function mappingSymbols; $a at zero, $d at body end.",
+    "definedFunctionSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_FUNC",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": "body-size"
+    }
+  },
+  "provenance": {
+    "revision": "AS_EUR_REV2",
+    "date": "2026-10-17",
+    "tool": "GNU Arm assembler/objdump 15.2.rel1 toolchain",
+    "process": "Clean-room-ready analysis and independent assembly in one agent; not a strict two-party clean-room claim."
+  }
+}

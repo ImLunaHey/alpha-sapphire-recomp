@@ -1,0 +1,196 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_131.S",
+  "sourceHash": "144ed7efd5330caa5f490ca4048a9c3b8625bf0ac46e3baaebf7a24b780e1741",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x003C0000",
+    "endExclusive": "0x00400000"
+  },
+  "totalBodySize": 48,
+  "totalAdjacentSize": 8,
+  "expectedInstructionCount": 12,
+  "memoryOperationCount": 5,
+  "localBranchCount": 0,
+  "directCallCount": 0,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 2,
+  "expectedRelocationCount": 2,
+  "functions": [
+    {
+      "name": "func_003CBD50",
+      "size": 24,
+      "ownedSize": 28,
+      "nextGlobal": "func_003CC434",
+      "nextGlobalOffset": 1764,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "cmp",
+          "operands": "r0, #85"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "ldrcc",
+          "operands": "r1, .L131_func_003CBD50_24",
+          "targetOffset": 24,
+          "symbol": "runtime_literal_131_1"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "addcc",
+          "operands": "r0, r0, r0, lsl #2"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "movcs",
+          "operands": "r0, #0"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "addcc",
+          "operands": "r0, r1, r0, lsl #2"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 24,
+          "symbol": "runtime_literal_131_1",
+          "kind": "R_ARM_ABS32"
+        }
+      ]
+    },
+    {
+      "name": "func_003DB99C",
+      "size": 24,
+      "ownedSize": 28,
+      "nextGlobal": "func_003DBE54",
+      "nextGlobalOffset": 1208,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, .L131_func_003DB99C_24",
+          "targetOffset": 24,
+          "symbol": "runtime_literal_131_2"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r1, #0"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0, #36]"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r2, [r0, #32]"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0, #40]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 24,
+          "symbol": "runtime_literal_131_2",
+          "kind": "R_ARM_ABS32"
+        }
+      ]
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_003CBD50",
+      "offset": 4,
+      "width": 4,
+      "mnemonic": "ldrcc",
+      "operands": "r1, .L131_func_003CBD50_24",
+      "targetOffset": 24,
+      "symbol": "runtime_literal_131_1"
+    },
+    {
+      "function": "func_003DB99C",
+      "offset": 0,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r2, .L131_func_003DB99C_24",
+      "targetOffset": 24,
+      "symbol": "runtime_literal_131_2"
+    }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    {
+      "function": "func_003CBD50",
+      "offset": 20,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_003DB99C",
+      "offset": 20,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_003CBD50",
+      "offset": 24,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_literal_131_1"
+    },
+    {
+      "function": "func_003DB99C",
+      "offset": 24,
+      "kind": "R_ARM_ABS32",
+      "symbol": "runtime_literal_131_2"
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_literal_131_1": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_literal_131_2": {
+      "kind": "opaque-word",
+      "addend": 0
+    }
+  }
+}

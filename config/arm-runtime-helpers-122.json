@@ -1,0 +1,432 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_122.S",
+  "sourceHash": "7165423b8233d937fc29d08ccb91b794822afcb34bb89f95e6b107a958ef5849",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 164,
+  "totalAdjacentSize": 24,
+  "expectedInstructionCount": 41,
+  "memoryOperationCount": 14,
+  "directTailCount": 0,
+  "indirectTransferCount": 1,
+  "returnCount": 3,
+  "expectedRelocationCount": 0,
+  "functions": [
+    {
+      "name": "func_0019B4A8",
+      "address": "0x0019B4A8",
+      "size": 44,
+      "ownedSize": 44,
+      "nextGlobal": "func_0019B4D8",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "description": "Save lr on the stack (predecrement four bytes)."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "description": "Set r3 to r1 with bit zero cleared, updating NZCV as ARM BICS immediate."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "description": "If nonzero, increment r1 by one without changing flags."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "description": "Set r3 to r1 shifted left two bits."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "description": "Subtract r3 from sp."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "description": "Pass sp in r1."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "description": "Save r3 on the stack (predecrement four bytes)."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "description": "Call the ARM/Thumb address in r2 with link."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "description": "Restore r3 with postincrement four bytes."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "description": "Add r3 to sp."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "description": "Return by restoring pc with postincrement four bytes."
+        }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0019BDE0",
+      "address": "0x0019BDE0",
+      "size": 60,
+      "ownedSize": 72,
+      "nextGlobal": "func_0019BE28",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "description": "Load the state word at r0 into r2."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "description": "Load multiplier from the local literal at offset 60 into r3."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "description": "Load increment from the local literal at offset 64 into r1."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "description": "Set r1 to the low 32 bits of r2 times r3 plus r1."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "description": "Load mask from the local literal at offset 68 into r3."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "description": "Store the updated state r1 at r0."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "description": "Set r2 to r3 AND (r1 logically shifted right sixteen bits)."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "description": "Set r0 to the leading-zero count of r2 (32 for zero)."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "description": "Set ip to r1 AND 0x80000000."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "description": "Set r2 to r2 logically shifted left by the register shift in r0."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "description": "Set r1 to 142 minus r0."
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "description": "Set r2 to ip plus (r2 logically shifted right eight bits)."
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "description": "Add r1 shifted left twenty-three bits to r2."
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "description": "Copy r2 bits into single-precision VFP register s0."
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "description": "Return through lr."
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 60,
+          "value": 214013,
+          "role": "LCG multiplier"
+        },
+        {
+          "offset": 64,
+          "value": 2531011,
+          "role": "LCG increment"
+        },
+        {
+          "offset": 68,
+          "value": 32767,
+          "role": "15-bit mask"
+        }
+      ]
+    },
+    {
+      "name": "func_0019BE28",
+      "address": "0x0019BE28",
+      "size": 60,
+      "ownedSize": 72,
+      "nextGlobal": "func_0019BE80",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "description": "Load the state word at r0 into r2."
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "description": "Load multiplier from the local literal at offset 60 into r3."
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "description": "Load increment from the local literal at offset 64 into r1."
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "description": "Set r1 to the low 32 bits of r2 times r3 plus r1."
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "description": "Load mask from the local literal at offset 68 into r3."
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "description": "Store the updated state r1 at r0."
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "description": "Set r2 to r3 AND (r1 logically shifted right sixteen bits)."
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "description": "Set r0 to the leading-zero count of r2 (32 for zero)."
+        },
+        {
+          "offset": 32,
+          "width": 4,
+          "description": "Set ip to r1 AND 0x80000000."
+        },
+        {
+          "offset": 36,
+          "width": 4,
+          "description": "Set r2 to r2 logically shifted left by the register shift in r0."
+        },
+        {
+          "offset": 40,
+          "width": 4,
+          "description": "Set r1 to 141 minus r0."
+        },
+        {
+          "offset": 44,
+          "width": 4,
+          "description": "Set r2 to ip plus (r2 logically shifted right eight bits)."
+        },
+        {
+          "offset": 48,
+          "width": 4,
+          "description": "Add r1 shifted left twenty-three bits to r2."
+        },
+        {
+          "offset": 52,
+          "width": 4,
+          "description": "Copy r2 bits into single-precision VFP register s0."
+        },
+        {
+          "offset": 56,
+          "width": 4,
+          "description": "Return through lr."
+        }
+      ],
+      "adjacentWords": [
+        {
+          "offset": 60,
+          "value": 214013,
+          "role": "LCG multiplier"
+        },
+        {
+          "offset": 64,
+          "value": 2531011,
+          "role": "LCG increment"
+        },
+        {
+          "offset": 68,
+          "value": 32767,
+          "role": "15-bit mask"
+        }
+      ]
+    }
+  ],
+  "identityClasses": {
+    "floating_prng_pair_122": {
+      "members": [
+        "func_0019BDE0",
+        "func_0019BE28"
+      ],
+      "parameters": [
+        "exponentAdjustment"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_0019BDE0",
+      "offset": 4,
+      "targetOffset": 60,
+      "width": 4
+    },
+    {
+      "function": "func_0019BDE0",
+      "offset": 8,
+      "targetOffset": 64,
+      "width": 4
+    },
+    {
+      "function": "func_0019BDE0",
+      "offset": 16,
+      "targetOffset": 68,
+      "width": 4
+    },
+    {
+      "function": "func_0019BE28",
+      "offset": 4,
+      "targetOffset": 60,
+      "width": 4
+    },
+    {
+      "function": "func_0019BE28",
+      "offset": 8,
+      "targetOffset": 64,
+      "width": 4
+    },
+    {
+      "function": "func_0019BE28",
+      "offset": 16,
+      "targetOffset": 68,
+      "width": 4
+    }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [
+    {
+      "function": "func_0019B4A8",
+      "offset": 28,
+      "width": 4,
+      "kind": "register-call",
+      "register": "r2",
+      "link": true,
+      "interworking": true
+    }
+  ],
+  "returns": [
+    {
+      "function": "func_0019B4A8",
+      "offset": 40,
+      "width": 4,
+      "kind": "stack-return",
+      "register": "pc"
+    },
+    {
+      "function": "func_0019BDE0",
+      "offset": 56,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_0019BE28",
+      "offset": 56,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "relocations": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [],
+    "secondaryEntries": [],
+    "armPrimaryEntries": [],
+    "thumbPrimaryEntries": []
+  },
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": [],
+  "aliases": [],
+  "duplicateBodyClasses": [],
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "eabiVersion": 5,
+    "requiredFlags": "0x05000000",
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": [
+      "SHF_ALLOC",
+      "SHF_EXECINSTR"
+    ],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": [
+      {
+        "name": "$a",
+        "offset": 0,
+        "binding": "STB_LOCAL",
+        "type": "STT_NOTYPE"
+      },
+      {
+        "name": "$d",
+        "offset": 60,
+        "functions": [
+          "func_0019BDE0",
+          "func_0019BE28"
+        ],
+        "binding": "STB_LOCAL",
+        "type": "STT_NOTYPE"
+      }
+    ],
+    "definedFunctionSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_FUNC",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": "body-size"
+    }
+  }
+}

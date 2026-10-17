@@ -25682,6 +25682,23 @@ const supplementalIpcPaths = [
   "config/arm-ipc-wrappers-106.json",
   "config/arm-ipc-wrappers-107.json",
   "config/arm-runtime-helpers-114.json",
+  "config/arm-runtime-helpers-117.json",
+  "config/arm-runtime-helpers-118.json",
+  "config/arm-runtime-helpers-119.json",
+  "config/arm-runtime-helpers-120.json",
+  "config/arm-runtime-helpers-121.json",
+  "config/arm-runtime-helpers-122.json",
+  "config/arm-runtime-helpers-123.json",
+  "config/arm-runtime-helpers-124.json",
+  "config/arm-runtime-helpers-125.json",
+  "config/arm-runtime-helpers-126.json",
+  "config/arm-runtime-helpers-127.json",
+  "config/arm-runtime-helpers-128.json",
+  "config/arm-runtime-helpers-129.json",
+  "config/arm-runtime-helpers-130.json",
+  "config/arm-runtime-helpers-131.json",
+  "config/arm-runtime-helpers-132.json",
+  "config/arm-runtime-helpers-133.json",
 ].map((path) => join(root, path));
 const supplementalIpcBodies = new Map();
 for (const configPath of supplementalIpcPaths) {
@@ -27977,7 +27994,7 @@ for (const entry of functions) {
     ...(entry.mode === "$t" ? [".thumb_func"] : []),
     `${entry.name}:`,
     ...instructions,
-    `.size ${entry.name}, .-${entry.name}`,
+    `.size ${entry.name}, ${supplementalIpc ? supplementalIpc.mapping.size : `.-${entry.name}`}`,
     ...(supplementalIpc?.tail ?? []),
     ...((duplicateTemplate72?.addressReferences ?? []).length > 0
       ? [`.Lduplicate_template72_post_body_${entry.name}:`]

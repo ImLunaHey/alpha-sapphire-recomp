@@ -1,0 +1,116 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_128.S",
+  "sourceHash": "bc487241925e82256cbdd570a179e4b10e96bcbadcf85a913b0191cff205a08f",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00300000",
+    "endExclusive": "0x00340000"
+  },
+  "totalBodySize": 620,
+  "totalAdjacentSize": 4,
+  "expectedInstructionCount": 155,
+  "memoryOperationCount": 27,
+  "localBranchCount": 20,
+  "directCallCount": 0,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 1,
+  "expectedRelocationCount": 1,
+  "functions": [
+    {
+      "name": "func_0030F0A8",
+      "size": 620,
+      "ownedSize": 624,
+      "nextGlobal": "func_0030F318",
+      "nextGlobalOffset": 624,
+      "adjacentWords": [
+        {
+          "offset": 620,
+          "symbol": "runtime_literal_128_1",
+          "kind": "R_ARM_ABS32"
+        }
+      ]
+    }
+  ],
+  "localTransfers": [
+    { "function": "func_0030F0A8", "offset": 56, "mnemonic": "bne", "targetOffset": 136 },
+    { "function": "func_0030F0A8", "offset": 84, "mnemonic": "beq", "targetOffset": 128 },
+    { "function": "func_0030F0A8", "offset": 124, "mnemonic": "bne", "targetOffset": 136 },
+    { "function": "func_0030F0A8", "offset": 144, "mnemonic": "bne", "targetOffset": 224 },
+    { "function": "func_0030F0A8", "offset": 172, "mnemonic": "beq", "targetOffset": 216 },
+    { "function": "func_0030F0A8", "offset": 212, "mnemonic": "bne", "targetOffset": 224 },
+    { "function": "func_0030F0A8", "offset": 232, "mnemonic": "beq", "targetOffset": 312 },
+    { "function": "func_0030F0A8", "offset": 260, "mnemonic": "beq", "targetOffset": 304 },
+    { "function": "func_0030F0A8", "offset": 300, "mnemonic": "bne", "targetOffset": 312 },
+    { "function": "func_0030F0A8", "offset": 320, "mnemonic": "bne", "targetOffset": 596 },
+    { "function": "func_0030F0A8", "offset": 352, "mnemonic": "bne", "targetOffset": 424 },
+    { "function": "func_0030F0A8", "offset": 376, "mnemonic": "beq", "targetOffset": 420 },
+    { "function": "func_0030F0A8", "offset": 416, "mnemonic": "bne", "targetOffset": 424 },
+    { "function": "func_0030F0A8", "offset": 428, "mnemonic": "bne", "targetOffset": 504 },
+    { "function": "func_0030F0A8", "offset": 456, "mnemonic": "beq", "targetOffset": 500 },
+    { "function": "func_0030F0A8", "offset": 496, "mnemonic": "bne", "targetOffset": 504 },
+    { "function": "func_0030F0A8", "offset": 508, "mnemonic": "bne", "targetOffset": 580 },
+    { "function": "func_0030F0A8", "offset": 536, "mnemonic": "beq", "targetOffset": 588 },
+    { "function": "func_0030F0A8", "offset": 576, "mnemonic": "beq", "targetOffset": 588 },
+    { "function": "func_0030F0A8", "offset": 584, "mnemonic": "beq", "targetOffset": 596 }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_0030F0A8",
+      "offset": 328,
+      "width": 4,
+      "mnemonic": "ldr",
+      "targetOffset": 620,
+      "symbol": "runtime_literal_128_1"
+    }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    {
+      "function": "func_0030F0A8",
+      "offset": 616,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_0030F0A8",
+      "offset": 620,
+      "symbol": "runtime_literal_128_1",
+      "kind": "R_ARM_ABS32"
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_literal_128_1": {
+      "kind": "opaque-word",
+      "addend": 0,
+      "reuse": "new"
+    }
+  },
+  "selectionAudit": {
+    "target": "AS_EUR_REV2",
+    "inventoryFunctions": 10440,
+    "rangeFunctions": 735,
+    "rangeUnmatchedAtSelection": 478,
+    "sourceUnowned": true,
+    "configuredIntervalOverlap": false,
+    "bodyOccurrences": 1,
+    "externalInteriorTargets": [],
+    "externalAdjacentTargets": [],
+    "externalPrimaryEntries": [
+      {
+        "from": "func_0030F318",
+        "offset": 76,
+        "target": "func_0030F0A8",
+        "targetOffset": 0,
+        "mode": "arm"
+      }
+    ]
+  }
+}

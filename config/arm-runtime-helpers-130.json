@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_130.S",
+  "sourceHash": "a14d669753d9995f4e6ee1a77b4bafc730777dfd35457f082a2716dd532a4efe",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00380000",
+    "endExclusive": "0x003C0000"
+  },
+  "totalBodySize": 60,
+  "totalAdjacentSize": 8,
+  "expectedInstructionCount": 15,
+  "memoryOperationCount": 9,
+  "localBranchCount": 0,
+  "directCallCount": 0,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 2,
+  "expectedRelocationCount": 2,
+  "functions": [
+    {
+      "name": "func_00381CBC",
+      "size": 32,
+      "ownedSize": 36,
+      "nextGlobal": "func_00381DA4",
+      "nextGlobalOffset": 232,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "add",
+          "operands": "r3, r0, #4"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r1, #0"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "mvn",
+          "operands": "r2, #0"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "stm",
+          "operands": "r3, {r1, r2}"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0, #12]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r1, .L130_func_00381CBC_32",
+          "targetOffset": 32,
+          "symbol": "runtime_literal_130_1"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0]"
+        },
+        {
+          "offset": 28,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 32,
+          "symbol": "runtime_literal_130_1",
+          "kind": "R_ARM_ABS32"
+        }
+      ]
+    },
+    {
+      "name": "func_003BAEFC",
+      "size": 28,
+      "ownedSize": 32,
+      "nextGlobal": "func_003BAF34",
+      "nextGlobalOffset": 56,
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "mnemonic": "ldr",
+          "operands": "r2, .L130_func_003BAEFC_28",
+          "targetOffset": 28,
+          "symbol": "runtime_literal_130_2"
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "mnemonic": "mov",
+          "operands": "r1, #0"
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0, #4]"
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "mnemonic": "str",
+          "operands": "r1, [r0]"
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "mnemonic": "strb",
+          "operands": "r1, [r2]"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "mnemonic": "strb",
+          "operands": "r1, [r0, #8]"
+        },
+        {
+          "offset": 24,
+          "width": 4,
+          "mnemonic": "bx",
+          "operands": "lr"
+        }
+      ],
+      "localTransfers": [],
+      "adjacentWords": [
+        {
+          "offset": 28,
+          "symbol": "runtime_literal_130_2",
+          "kind": "R_ARM_ABS32"
+        }
+      ]
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00381CBC",
+      "offset": 20,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r1, .L130_func_00381CBC_32",
+      "targetOffset": 32,
+      "symbol": "runtime_literal_130_1"
+    },
+    {
+      "function": "func_003BAEFC",
+      "offset": 0,
+      "width": 4,
+      "mnemonic": "ldr",
+      "operands": "r2, .L130_func_003BAEFC_28",
+      "targetOffset": 28,
+      "symbol": "runtime_literal_130_2"
+    }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    {
+      "function": "func_00381CBC",
+      "offset": 28,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    },
+    {
+      "function": "func_003BAEFC",
+      "offset": 24,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00381CBC",
+      "offset": 32,
+      "symbol": "runtime_literal_130_1",
+      "kind": "R_ARM_ABS32"
+    },
+    {
+      "function": "func_003BAEFC",
+      "offset": 28,
+      "symbol": "runtime_literal_130_2",
+      "kind": "R_ARM_ABS32"
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_literal_130_1": {
+      "kind": "opaque-word",
+      "addend": 0
+    },
+    "runtime_literal_130_2": {
+      "kind": "opaque-word",
+      "addend": 0
+    }
+  }
+}

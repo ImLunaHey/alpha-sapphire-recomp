@@ -1268,6 +1268,74 @@
     {
       "path": "src/main/arm_ipc_wrappers_107.S",
       "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_117.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_118.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_119.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_120.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_121.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_122.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_123.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_124.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_125.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_126.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_127.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_128.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_129.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_130.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_131.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_132.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_133.S",
+      "mode": "arm"
     }
   ]
 }

@@ -1,0 +1,204 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_123.S",
+  "sourceHash": "bb6b5675ca65b2cedd1865651ed2eccc6d3ec51d6e946647a026fe5cdc621de7",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 36,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 9,
+  "memoryOperationCount": 4,
+  "directTailCount": 0,
+  "indirectTransferCount": 2,
+  "returnCount": 1,
+  "expectedRelocationCount": 0,
+  "functions": [
+    {
+      "name": "func_001CF630",
+      "size": 24,
+      "ownedSize": 24,
+      "nextGlobal": "func_001CF648",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "kind": "compare-immediate",
+          "register": "r0",
+          "value": 0,
+          "updatesFlags": true
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "kind": "local-branch",
+          "condition": "eq",
+          "targetOffset": 20
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "kind": "word-load",
+          "destination": "r2",
+          "base": "r1",
+          "displacement": 4
+        },
+        {
+          "offset": 12,
+          "width": 4,
+          "kind": "word-load",
+          "destination": "r2",
+          "base": "r2",
+          "displacement": 20
+        },
+        {
+          "offset": 16,
+          "width": 4,
+          "kind": "indirect-tail",
+          "register": "r2"
+        },
+        {
+          "offset": 20,
+          "width": 4,
+          "kind": "return",
+          "register": "lr"
+        }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001CF648",
+      "size": 12,
+      "ownedSize": 12,
+      "nextGlobal": "func_001CF654",
+      "operations": [
+        {
+          "offset": 0,
+          "width": 4,
+          "kind": "word-load",
+          "destination": "r12",
+          "base": "r2",
+          "displacement": 4
+        },
+        {
+          "offset": 4,
+          "width": 4,
+          "kind": "word-load",
+          "destination": "r12",
+          "base": "r12",
+          "displacement": 12
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "kind": "indirect-tail",
+          "register": "r12"
+        }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "table_dispatch_123": {
+      "members": [
+        "func_001CF630",
+        "func_001CF648"
+      ],
+      "parameters": [
+        "guard",
+        "inputRegister",
+        "tableSlot",
+        "scratchRegister"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [],
+  "directTransfers": [],
+  "indirectTransfers": [
+    {
+      "function": "func_001CF630",
+      "offset": 16,
+      "width": 4,
+      "kind": "indirect-tail",
+      "register": "r2"
+    },
+    {
+      "function": "func_001CF648",
+      "offset": 8,
+      "width": 4,
+      "kind": "indirect-tail",
+      "register": "r12"
+    }
+  ],
+  "returns": [
+    {
+      "function": "func_001CF630",
+      "offset": 20,
+      "width": 4,
+      "kind": "register-return",
+      "register": "lr"
+    }
+  ],
+  "relocations": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [],
+    "secondaryEntries": [],
+    "armPrimaryEntries": [],
+    "thumbPrimaryEntries": []
+  },
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": [],
+  "aliases": [],
+  "duplicateBodyClasses": [],
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "eabiVersion": 5,
+    "requiredFlags": "0x05000000",
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": [
+      "SHF_ALLOC",
+      "SHF_EXECINSTR"
+    ],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": [
+      {
+        "name": "$a",
+        "offset": 0,
+        "binding": "STB_LOCAL",
+        "type": "STT_NOTYPE"
+      }
+    ],
+    "definedFunctionSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_FUNC",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": "body-size"
+    }
+  },
+  "localBranches": [
+    {
+      "function": "func_001CF630",
+      "offset": 4,
+      "targetOffset": 20,
+      "condition": "eq",
+      "width": 4
+    }
+  ]
+}

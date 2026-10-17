@@ -229,7 +229,24 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-wrappers-105.json" \
   "$root/config/arm-ipc-wrappers-106.json" \
   "$root/config/arm-ipc-wrappers-107.json" \
-  "$root/config/arm-runtime-helpers-114.json"
+  "$root/config/arm-runtime-helpers-114.json" \
+  "$root/config/arm-runtime-helpers-117.json" \
+  "$root/config/arm-runtime-helpers-118.json" \
+  "$root/config/arm-runtime-helpers-119.json" \
+  "$root/config/arm-runtime-helpers-120.json" \
+  "$root/config/arm-runtime-helpers-121.json" \
+  "$root/config/arm-runtime-helpers-122.json" \
+  "$root/config/arm-runtime-helpers-123.json" \
+  "$root/config/arm-runtime-helpers-124.json" \
+  "$root/config/arm-runtime-helpers-125.json" \
+  "$root/config/arm-runtime-helpers-126.json" \
+  "$root/config/arm-runtime-helpers-127.json" \
+  "$root/config/arm-runtime-helpers-128.json" \
+  "$root/config/arm-runtime-helpers-129.json" \
+  "$root/config/arm-runtime-helpers-130.json" \
+  "$root/config/arm-runtime-helpers-131.json" \
+  "$root/config/arm-runtime-helpers-132.json" \
+  "$root/config/arm-runtime-helpers-133.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-global-state-and-pointer-chases-11.mjs" \

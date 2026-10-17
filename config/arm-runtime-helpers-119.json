@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_119.S",
+  "sourceHash": "27ff1d957c3a31dbba00c76b734b7fe687966896d891b8903d43f73b1bfec0bd",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": { "start": "0x00480000", "endExclusive": "0x004C0000" },
+  "totalBodySize": 288,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 72,
+  "memoryOperationCount": 16,
+  "localBranchCount": 9,
+  "directCallCount": 5,
+  "directTailCount": 1,
+  "indirectTransferCount": 0,
+  "returnCount": 6,
+  "expectedRelocationCount": 6,
+  "functions": [
+    {
+      "name": "func_004A9DA4", "size": 20, "ownedSize": 20,
+      "nextGlobal": "func_004A9DB8", "nextGlobalOffset": 20,
+      "schedule": "mov r3,r1|mov r1,r0|mov r2,#112|mov r0,r3|b func_00300B28",
+      "localTransfers": [],
+      "directTransfers": [
+        { "offset": 16, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00300B28", "targetMode": "arm" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004A9DF4", "size": 44, "ownedSize": 44,
+      "nextGlobal": "func_004A9E20", "nextGlobalOffset": 44,
+      "schedule": "mov r3,r0|movs r0,r1|push {r4,lr}|beq +40|mov r2,#8|mov r1,r3|blx func_00100218|cmp r0,#0|moveq r0,#1|movne r0,#0|pop {r4,pc}",
+      "localTransfers": [ { "offset": 12, "mnemonic": "beq", "targetOffset": 40 } ],
+      "directTransfers": [
+        { "offset": 24, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00100218", "targetMode": "thumb" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004B22CC", "size": 112, "ownedSize": 112,
+      "nextGlobal": "func_004B233C", "nextGlobalOffset": 112,
+      "schedule": "push {r4,r5,r6,lr}|mov r5,r2|mov r4,r0|mov r2,#6|blx func_00100218|cmp r0,#0|bne +104|ldr r0,[r4,#24]|ldr r1,[r5,#12]|cmp r0,r1|bne +104|ldr r0,[r4,#16]|ldr r1,[r5,#4]|cmp r0,r1|bne +104|ldrb r0,[r4,#20]|ldrb r1,[r5,#8]|cmp r0,r1|bne +104|mov r2,#20|add r1,r5,#31|add r0,r4,#43|blx func_00100218|cmp r0,#0|movne r0,#1|pop {r4,r5,r6,pc}|mov r0,#2|pop {r4,r5,r6,pc}",
+      "localTransfers": [
+        { "offset": 24, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 40, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 56, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 72, "mnemonic": "bne", "targetOffset": 104 }
+      ],
+      "directTransfers": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00100218", "targetMode": "thumb" },
+        { "offset": 88, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00100218", "targetMode": "thumb" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004B233C", "size": 112, "ownedSize": 112,
+      "nextGlobal": "func_004B23AC", "nextGlobalOffset": 112,
+      "schedule": "push {r4,r5,r6,lr}|mov r4,r0|mov r5,r1|mov r2,#6|blx func_00100218|cmp r0,#0|bne +104|ldr r0,[r4,#24]|ldr r1,[r5,#24]|cmp r0,r1|bne +104|ldr r0,[r4,#16]|ldr r1,[r5,#16]|cmp r0,r1|bne +104|ldrb r0,[r4,#20]|ldrb r1,[r5,#20]|cmp r0,r1|bne +104|mov r2,#20|add r1,r5,#43|add r0,r4,#43|blx func_00100218|cmp r0,#0|movne r0,#1|pop {r4,r5,r6,pc}|mov r0,#2|pop {r4,r5,r6,pc}",
+      "localTransfers": [
+        { "offset": 24, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 40, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 56, "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 72, "mnemonic": "bne", "targetOffset": 104 }
+      ],
+      "directTransfers": [
+        { "offset": 16, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00100218", "targetMode": "thumb" },
+        { "offset": 88, "kind": "R_ARM_CALL", "mnemonic": "blx", "symbol": "func_00100218", "targetMode": "thumb" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "branchIdentityContract": {
+    "primaryEntries": ["func_00300B28", "func_00100218"],
+    "armPrimaryEntries": ["func_00300B28"],
+    "thumbPrimaryEntries": ["func_00100218"]
+  },
+  "relocations": [
+    { "function": "func_004A9DA4", "offset": 16, "kind": "R_ARM_JUMP24", "symbol": "func_00300B28" },
+    { "function": "func_004A9DF4", "offset": 24, "kind": "R_ARM_CALL", "symbol": "func_00100218" },
+    { "function": "func_004B22CC", "offset": 16, "kind": "R_ARM_CALL", "symbol": "func_00100218" },
+    { "function": "func_004B22CC", "offset": 88, "kind": "R_ARM_CALL", "symbol": "func_00100218" },
+    { "function": "func_004B233C", "offset": 16, "kind": "R_ARM_CALL", "symbol": "func_00100218" },
+    { "function": "func_004B233C", "offset": 88, "kind": "R_ARM_CALL", "symbol": "func_00100218" }
+  ]
+}

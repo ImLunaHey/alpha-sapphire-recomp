@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_117.S",
+  "sourceHash": "c4ef9fca50b5af169c050fbb1ba2374d73d0144413f1c6eb617271f46ba94851",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00400000",
+    "endExclusive": "0x00440000"
+  },
+  "totalBodySize": 400,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 100,
+  "memoryOperationCount": 21,
+  "localBranchCount": 16,
+  "directCallCount": 1,
+  "directTailCount": 5,
+  "indirectTransferCount": 0,
+  "returnCount": 6,
+  "expectedRelocationCount": 6,
+  "functions": [
+    {
+      "name": "func_004151E0",
+      "address": "0x004151E0",
+      "size": 128,
+      "ownedSize": 128,
+      "nextGlobal": "func_00415260",
+      "nextGlobalOffset": 128,
+      "transfers": [
+        { "offset": 12, "kind": "local", "mnemonic": "bpl", "targetOffset": 120 },
+        { "offset": 36, "kind": "local", "mnemonic": "bne", "targetOffset": 56 },
+        { "offset": 44, "kind": "local", "mnemonic": "blt", "targetOffset": 56 },
+        { "offset": 52, "kind": "local", "mnemonic": "ble", "targetOffset": 120 },
+        { "offset": 60, "kind": "local", "mnemonic": "bne", "targetOffset": 80 },
+        { "offset": 68, "kind": "local", "mnemonic": "blt", "targetOffset": 80 },
+        { "offset": 76, "kind": "local", "mnemonic": "ble", "targetOffset": 120 },
+        { "offset": 84, "kind": "local", "mnemonic": "bne", "targetOffset": 104 },
+        { "offset": 92, "kind": "local", "mnemonic": "blt", "targetOffset": 104 },
+        { "offset": 100, "kind": "local", "mnemonic": "ble", "targetOffset": 120 },
+        { "offset": 116, "kind": "R_ARM_JUMP24", "mnemonic": "blne", "symbol": "func_00124FB0" }
+      ]
+    },
+    {
+      "name": "func_0041E490",
+      "address": "0x0041E490",
+      "size": 52,
+      "ownedSize": 52,
+      "nextGlobal": "func_0041E4C4",
+      "nextGlobalOffset": 52,
+      "transfers": [
+        { "offset": 12, "kind": "local", "mnemonic": "beq", "targetOffset": 28 },
+        { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0036DF28" }
+      ]
+    },
+    {
+      "name": "func_0041E4C4",
+      "address": "0x0041E4C4",
+      "size": 60,
+      "ownedSize": 60,
+      "nextGlobal": "func_0041E534",
+      "nextGlobalOffset": 112,
+      "transfers": [
+        { "offset": 12, "kind": "local", "mnemonic": "beq", "targetOffset": 36 },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0036DF4C" }
+      ]
+    },
+    {
+      "name": "func_0041EDB4",
+      "address": "0x0041EDB4",
+      "size": 52,
+      "ownedSize": 52,
+      "nextGlobal": "func_0041EDE8",
+      "nextGlobalOffset": 52,
+      "transfers": [
+        { "offset": 12, "kind": "local", "mnemonic": "beq", "targetOffset": 28 },
+        { "offset": 24, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0036DF28" }
+      ]
+    },
+    {
+      "name": "func_0041EDE8",
+      "address": "0x0041EDE8",
+      "size": 60,
+      "ownedSize": 60,
+      "nextGlobal": "func_0041EE24",
+      "nextGlobalOffset": 60,
+      "transfers": [
+        { "offset": 12, "kind": "local", "mnemonic": "beq", "targetOffset": 36 },
+        { "offset": 32, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_0036DF4C" }
+      ]
+    },
+    {
+      "name": "func_00425F04",
+      "address": "0x00425F04",
+      "size": 48,
+      "ownedSize": 48,
+      "nextGlobal": "func_004260C4",
+      "nextGlobalOffset": 448,
+      "transfers": [
+        { "offset": 16, "kind": "local", "mnemonic": "beq", "targetOffset": 32 },
+        { "offset": 28, "kind": "local", "mnemonic": "beq", "targetOffset": 40 },
+        { "offset": 44, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00160BA8" }
+      ]
+    }
+  ]
+}
