@@ -7,7 +7,7 @@
 - Evidence: the externally supplied target object generated from the private
   verification input, the checked-in public CRO inventory and exact partition,
   and relocation-backed function-pointer references.
-- Tools: GNU `arm-none-eabi-objdump` 2.44 and GNU
+- Tools: Ghidra 11.3.2, GNU `arm-none-eabi-objdump` 2.44, and GNU
   `arm-none-eabi-readelf` 2.44. The checked-in inventory was produced by the
   repository's Ghidra-based CRO analysis pipeline.
 - Observation date: 2026-10-17.
@@ -85,6 +85,38 @@ six parameter writes and both configuration calls always occur.
   require relocations to one data object and one read-only object; the signed
   division reciprocal is an unrelocated literal.
 
+### Neutral dependency identities
+
+The direct calls target module-local import veneers. The following neutral
+labels and module-relative veneer entries are sufficient to express their
+identity and equality relationships without publishing the backing import
+names or external target addresses:
+
+| Neutral identity | Veneer entry | Call role |
+| --- | ---: | --- |
+| `guard_acquire` | `0x0248` | Attempts ownership of the process-global guard. |
+| `guard_complete` | `0x0250` | Completes guarded initialization. |
+| `register_setup` | `0x0258` | Receives the original arguments and fixed descriptor. |
+| `get_context` | `0x0148` | Returns the context used to locate helper input. |
+| `helper_construct` | `0x02E0` | Constructs the temporary stack helper. |
+| `helper_read` | `0x02E8` | Reads the helper scalar used for slot 5. |
+| `get_parameter_owner` | `0x0098` | Returns the first object's parameter owner. |
+| `write_parameter` | `0x02F0` | Performs each of the six parameter writes. |
+| `configure_object` | `0x02D0` | Performs both fixed configuration calls. |
+| `read_source_0` | `0x02F8` | Reads the value normalized modulo 100. |
+| `read_source_1` | `0x0300` | Reads the value for slot 1. |
+| `read_source_2` | `0x0308` | Reads the value for slot 2. |
+| `read_source_3` | `0x0310` | Reads the value for slot 3. |
+| `read_source_4` | `0x0318` | Reads the value for slot 4. |
+| `helper_destroy` | `0x0320` | Destroys the temporary stack helper. |
+
+Every listed endpoint is an existing low-text veneer outside the claimed
+function. An implementation can therefore branch to these neutral endpoints
+without embedding private import encodings. The two address literals used by
+the function are likewise expressible as identities: pool slot `0x1F78`
+relocates to data offset `0x0C`, while pool slot `0x1F7C` relocates to read-only
+offset `0x48`. The function does not own those pool words.
+
 ## Relocation-backed tail entry points
 
 The checked-in partition combines several genuine functions into gaps after
@@ -127,3 +159,14 @@ The authoritative public inventory still claims exactly two functions:
 `func_00002080`. This specification makes `func_00001D60` implementable from
 neutral facts and records evidence for splitting the tail gaps in a future
 deterministic inventory pass. It does not claim that the unit is complete.
+
+On 2026-10-17 the unit-only deterministic workflow was rerun with Ghidra
+11.3.2. It exported 2 functions, rejected 126 analyzer-created bodies as
+ambiguous, and produced 134 gaps, 136 pools, and 3 unknown ranges. Both the CSV
+and exact-partition JSON were byte-identical to the checked-in files, and the
+symbol and semantic validators passed. The tail candidates above are referenced
+from read-only data rather than by direct call instructions. The conservative
+exporter requires an external entry point or a non-computed direct call as
+independent boundary evidence, so it does not accept those data-referenced
+bodies. Publishing them now would require a manual inventory edit or a broader
+export-policy change; neither was performed.
