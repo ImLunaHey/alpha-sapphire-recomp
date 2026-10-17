@@ -88,46 +88,70 @@ function sameFileIdentity(left, right) {
 function sameFileSnapshot(left, right) {
   return sameFileIdentity(left, right)
     && left.mode === right.mode
+    && left.nlink === right.nlink
     && left.size === right.size
     && left.mtimeNs === right.mtimeNs
     && left.ctimeNs === right.ctimeNs;
 }
 
-function captureAncestorSnapshots(canonicalRoot, filePath, label) {
-  const paths = [canonicalRoot];
-  const parentRelative = relative(canonicalRoot, path.dirname(filePath));
-  if (parentRelative && parentRelative !== ".") {
-    let current = canonicalRoot;
-    for (const component of parentRelative.split(sep)) {
-      current = path.join(current, component);
-      paths.push(current);
-    }
-  }
-  return paths.map((ancestorPath) => {
-    let ancestorStat;
-    try {
-      ancestorStat = fs.lstatSync(ancestorPath, { bigint: true });
-    } catch (error) {
-      fail(`${label} ancestor cannot be inspected: ${error.message}`);
-    }
-    if (!ancestorStat.isDirectory() || ancestorStat.isSymbolicLink()) {
-      fail(`${label} ancestor is not a non-symlink directory`);
-    }
-    return { path: ancestorPath, stat: ancestorStat };
-  });
+function closeDescriptors(descriptors) {
+  for (let index = descriptors.length - 1; index >= 0; index--) fs.closeSync(descriptors[index]);
 }
 
-function assertAncestorSnapshots(expected, label) {
-  for (const ancestor of expected) {
-    let actual;
-    try {
-      actual = fs.lstatSync(ancestor.path, { bigint: true });
-    } catch (error) {
-      fail(`${label} ancestor changed during validation: ${error.message}`);
+function openDescriptorAnchored(filePath, canonicalRoot, label, beforeOpen) {
+  const directoryDescriptors = [];
+  const directorySnapshots = [];
+  const root = path.parse(filePath).root;
+  const directoryComponents = relative(root, path.dirname(filePath)).split(sep).filter(Boolean);
+  let walkedPath = root;
+  try {
+    let currentDescriptor = fs.openSync(
+      root,
+      fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW,
+    );
+    directoryDescriptors.push(currentDescriptor);
+    directorySnapshots.push({
+      descriptor: currentDescriptor,
+      owned: walkedPath === canonicalRoot || inside(canonicalRoot, walkedPath),
+      stat: fs.fstatSync(currentDescriptor, { bigint: true }),
+    });
+
+    for (const component of directoryComponents) {
+      const descriptorPath = `/proc/self/fd/${currentDescriptor}/${component}`;
+      currentDescriptor = fs.openSync(
+        descriptorPath,
+        fs.constants.O_RDONLY | fs.constants.O_DIRECTORY | fs.constants.O_NOFOLLOW,
+      );
+      directoryDescriptors.push(currentDescriptor);
+      walkedPath = path.join(walkedPath, component);
+      const directoryStat = fs.fstatSync(currentDescriptor, { bigint: true });
+      if (!directoryStat.isDirectory()) fail(`${label} descriptor traversal reached a non-directory ancestor`);
+      directorySnapshots.push({
+        descriptor: currentDescriptor,
+        owned: walkedPath === canonicalRoot || inside(canonicalRoot, walkedPath),
+        stat: directoryStat,
+      });
     }
-    if (!actual.isDirectory() || actual.isSymbolicLink() || !sameFileSnapshot(ancestor.stat, actual)) {
-      fail(`${label} ancestor snapshot changed during validation`);
-    }
+
+    beforeOpen?.();
+    const descriptor = fs.openSync(
+      `/proc/self/fd/${currentDescriptor}/${path.basename(filePath)}`,
+      fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW,
+    );
+    return { descriptor, directoryDescriptors, directorySnapshots };
+  } catch (error) {
+    closeDescriptors(directoryDescriptors);
+    throw error;
+  }
+}
+
+function assertDescriptorTraversalStable(directorySnapshots, label) {
+  for (const snapshot of directorySnapshots) {
+    const actual = fs.fstatSync(snapshot.descriptor, { bigint: true });
+    const stable = snapshot.owned
+      ? sameFileSnapshot(snapshot.stat, actual)
+      : sameFileIdentity(snapshot.stat, actual) && snapshot.stat.mode === actual.mode;
+    if (!actual.isDirectory() || !stable) fail(`${label} directory descriptor changed during validation`);
   }
 }
 
@@ -148,6 +172,7 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     fail(`${label} cannot be inspected: ${error.message}`);
   }
   if (!stat.isFile() || stat.isSymbolicLink()) fail(`${label} is not a non-symlink regular file`);
+  if (stat.nlink !== 1n) fail(`${label} must have exactly one hard link`);
   if (stat.size > BigInt(MAX_INPUT_SIZE)) fail(`${label} exceeds the 64 MiB input limit`);
 
   let canonicalPath;
@@ -158,33 +183,34 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
   }
   if (canonicalPath !== filePath) fail(`${label} path is not canonical`);
   if (!inside(canonicalRoot, canonicalPath)) fail(`${label} canonical path is outside ROOT`);
-  const ancestorSnapshots = captureAncestorSnapshots(canonicalRoot, filePath, label);
 
-  let descriptor;
+  let anchored;
   try {
-    testHooks?.beforeOpen?.();
-    descriptor = fs.openSync(filePath, fs.constants.O_RDONLY | fs.constants.O_NOFOLLOW);
+    anchored = openDescriptorAnchored(filePath, canonicalRoot, label, testHooks?.beforeOpen);
   } catch (error) {
-    fail(`${label} cannot be opened without following symlinks: ${error.message}`);
+    fail(`${label} cannot be opened through no-follow descriptor traversal: ${error.message}`);
   }
+  const { descriptor, directoryDescriptors, directorySnapshots } = anchored;
 
   try {
     const opened = fs.fstatSync(descriptor, { bigint: true });
     if (!opened.isFile()) fail(`${label} opened descriptor is not a regular file`);
+    if (opened.nlink !== 1n) fail(`${label} opened descriptor must have exactly one hard link`);
     if (opened.size > BigInt(MAX_INPUT_SIZE)) fail(`${label} exceeds the 64 MiB input limit`);
-    if (!sameFileIdentity(stat, opened)) fail(`${label} changed before it was opened`);
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    if (!sameFileSnapshot(stat, opened)) fail(`${label} changed before it was opened`);
+    assertDescriptorTraversalStable(directorySnapshots, label);
 
     testHooks?.afterOpen?.();
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
     const text = fs.readFileSync(descriptor, "utf8");
     testHooks?.afterRead?.();
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
 
     const afterRead = fs.fstatSync(descriptor, { bigint: true });
+    if (afterRead.nlink !== 1n) fail(`${label} gained a hard link while it was read`);
     if (!sameFileSnapshot(opened, afterRead)) fail(`${label} changed while it was read`);
     testHooks?.afterDescriptorCheck?.();
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
 
     let pathAfterRead;
     try {
@@ -195,6 +221,7 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     if (!pathAfterRead.isFile() || pathAfterRead.isSymbolicLink()) {
       fail(`${label} path changed to a non-regular file while it was read`);
     }
+    if (pathAfterRead.nlink !== 1n) fail(`${label} path must have exactly one hard link after reading`);
     if (!sameFileSnapshot(opened, pathAfterRead)) fail(`${label} path snapshot changed while it was read`);
 
     let canonicalPathAfterRead;
@@ -205,15 +232,17 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     }
     if (canonicalPathAfterRead !== filePath) fail(`${label} path stopped being canonical while it was read`);
     if (!inside(canonicalRoot, canonicalPathAfterRead)) fail(`${label} path escaped ROOT while it was read`);
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
     testHooks?.beforeFinalDescriptorCheck?.();
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
     const finalDescriptor = fs.fstatSync(descriptor, { bigint: true });
+    if (finalDescriptor.nlink !== 1n) fail(`${label} gained a hard link before validation completed`);
     if (!sameFileSnapshot(opened, finalDescriptor)) fail(`${label} changed before validation completed`);
-    assertAncestorSnapshots(ancestorSnapshots, label);
+    assertDescriptorTraversalStable(directorySnapshots, label);
     return text;
   } finally {
     fs.closeSync(descriptor);
+    closeDescriptors(directoryDescriptors);
   }
 }
 
@@ -523,7 +552,7 @@ function selfTest(baseline) {
           fs.writeFileSync(replacedPath, "replacement fixture\n", { flag: "wx" });
         },
       }),
-      /(?:changed while it was read|ancestor snapshot changed)/,
+      /(?:changed while it was read|directory descriptor changed)/,
     );
 
     const noFollowPath = path.join(canonicalRoot, "nofollow.txt");
@@ -538,7 +567,27 @@ function selfTest(baseline) {
           fs.symlinkSync(noFollowTargetPath, noFollowPath);
         },
       }),
-      /cannot be opened without following symlinks/,
+      /cannot be opened through no-follow descriptor traversal/,
+    );
+
+    const directHardlinkOriginalPath = path.join(canonicalRoot, "hardlink-original.txt");
+    const directHardlinkPath = path.join(canonicalRoot, "hardlink-direct.txt");
+    fs.writeFileSync(directHardlinkOriginalPath, "direct hardlink fixture\n", { flag: "wx" });
+    fs.linkSync(directHardlinkOriginalPath, directHardlinkPath);
+    assert.throws(
+      () => readOwnedText(directHardlinkPath, "direct hardlink fixture", canonicalRoot),
+      /exactly one hard link/,
+    );
+
+    const nestedHardlinkDirectory = path.join(canonicalRoot, "hardlink-ancestor");
+    const nestedHardlinkPath = path.join(nestedHardlinkDirectory, "input.txt");
+    const nestedHardlinkAliasPath = path.join(canonicalRoot, "hardlink-ancestor-alias.txt");
+    fs.mkdirSync(nestedHardlinkDirectory);
+    fs.writeFileSync(nestedHardlinkPath, "nested hardlink fixture\n", { flag: "wx" });
+    fs.linkSync(nestedHardlinkPath, nestedHardlinkAliasPath);
+    assert.throws(
+      () => readOwnedText(nestedHardlinkPath, "ancestor hardlink fixture", canonicalRoot),
+      /exactly one hard link/,
     );
 
     const ancestorRacePath = path.join(canonicalRoot, "ancestor-race");
@@ -563,7 +612,7 @@ function selfTest(baseline) {
           },
           afterRead: restoreAncestor,
         }),
-        /ancestor snapshot changed during validation/,
+        /directory descriptor changed during validation/,
       );
     } finally {
       restoreAncestor();
