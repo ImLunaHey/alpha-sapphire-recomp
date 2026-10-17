@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_89.S",
+  "sourceSha256": "add87794407b2386bfd1256b8c0085b5a10d8074bc5bebdbc9af2702af9c7a34",
+  "normalizedScheduleSha256": "6e89083902376e755a6f1b1897f452527382d404a4daaa87961d5b79914c5124",
+  "mode": "arm",
+  "totalBodySize": 156,
+  "totalAdjacentSize": 16,
+  "cumulativePoolSlots": 874,
+  "cumulativePoolClasses": 460,
+  "functions": [
+    {
+      "name": "func_0018067C", "section": ".text.func_0018067C", "size": 60,
+      "nextGlobal": "func_001806C0", "nextGlobalOffset": 68,
+      "branches": [],
+      "literals": [
+        { "offset": 60, "loadOffsets": [0], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 64, "loadOffsets": [4], "symbol": "service_zero_scalar_51" }
+      ]
+    },
+    {
+      "name": "func_001806E4", "section": ".text.func_001806E4", "size": 96,
+      "nextGlobal": "func_0018074C", "nextGlobalOffset": 104,
+      "branches": [],
+      "literals": [
+        { "offset": 96, "loadOffsets": [0], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 100, "loadOffsets": [4], "symbol": "service_zero_scalar_51" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [],
+    "thumbPrimaryEntries": []
+  }
+}

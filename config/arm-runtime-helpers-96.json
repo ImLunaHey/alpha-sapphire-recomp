@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_96.S",
+  "sourceSha256": "84462cd7af1d3b7452a82219de83e209d255b274e862b8dac4d00f560ace8f4f",
+  "mode": "arm",
+  "totalBodySize": 192,
+  "totalAdjacentSize": 0,
+  "instructionScheduleSha256": "ed3af746409cee0e8a1f16c1ebe0c05dadecfb8841d53d9891f1a03b0d4ec3cb",
+  "branchScheduleSha256": "c10dadd6cb664723a16b99fbd04ac8398791c2734e55d566e9a3d330a08e0431",
+  "returnScheduleSha256": "66c6700322abb4750ce919bc0851bada143a1de444425e2a43c2e1cb33a609cc",
+  "pcRelativeScheduleSha256": "f1d99ee4d9eddab2ee1bd4699474525a8af45771a46812941466cf6b913852a4",
+  "relocationScheduleSha256": "32a2cd247676a7a4192bc528ed74ab2fe8d3ae59a457529b64c5dd7cc18e4691",
+  "functions": [
+    {
+      "name": "func_00136740",
+      "size": 16,
+      "nextGlobal": "func_00136874",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00176610",
+      "size": 16,
+      "nextGlobal": "func_00176620",
+      "calls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00178A6C" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001D6C74",
+      "size": 16,
+      "nextGlobal": "func_001D6CD8",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_001F02C4",
+      "size": 16,
+      "nextGlobal": "func_001F02E0",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0038CD1C",
+      "size": 16,
+      "nextGlobal": "func_0038CD2C",
+      "calls": [
+        { "offset": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_003918E8" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_003A38A4",
+      "size": 16,
+      "nextGlobal": "func_003A4238",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0040ECC4",
+      "size": 16,
+      "nextGlobal": "func_0040ECE8",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00410BD0",
+      "size": 16,
+      "nextGlobal": "func_00410BFC",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0043D504",
+      "size": 16,
+      "nextGlobal": "func_0043D6E8",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014E348" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_00441C68",
+      "size": 16,
+      "nextGlobal": "func_00441DE4",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014E348" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0045BECC",
+      "size": 16,
+      "nextGlobal": "func_0045BFF8",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0014E348" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0052A420",
+      "size": 16,
+      "nextGlobal": "func_0052A540",
+      "calls": [
+        { "offset": 12, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00301FBC" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "call_bearing_runtime_prefixes_96": {
+      "members": [
+        "func_00136740",
+        "func_00176610",
+        "func_001D6C74",
+        "func_001F02C4",
+        "func_0038CD1C",
+        "func_003A38A4",
+        "func_0040ECC4",
+        "func_00410BD0",
+        "func_0043D504",
+        "func_00441C68",
+        "func_0045BECC",
+        "func_0052A420"
+      ],
+      "parameters": [
+        "controlFlowSchedule",
+        "callTarget",
+        "frameSetup",
+        "argumentMaterialization",
+        "returnSchedule"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00136740",
+      "offset": 0,
+      "mnemonic": "ldr",
+      "targetOffset": 64,
+      "symbol": "ipc_callback_table_65",
+      "ownership": "external-unowned-word"
+    }
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0014E348",
+      "func_00178A6C",
+      "func_00301FBC",
+      "func_003918E8"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_0014E348",
+      "func_00178A6C",
+      "func_00301FBC",
+      "func_003918E8"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0014E348",
+      "func_00178A6C",
+      "func_00301FBC",
+      "func_003918E8"
+    ],
+    "thumbPrimaryEntries": []
+  },
+  "reusedBranchIdentities": [
+    "func_0014E348",
+    "func_00178A6C",
+    "func_00301FBC"
+  ],
+  "newBranchIdentities": [
+    "func_003918E8"
+  ],
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [
+    "ipc_callback_table_65"
+  ],
+  "newSymbolicIdentities": [],
+  "symbolicSlots": {}
+}

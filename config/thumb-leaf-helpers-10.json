@@ -1,0 +1,3220 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_10.S",
+  "sourceSha256": "bef1e8cb95a1470c18e97fbe10fb3f472b92d89be9f6abe97c7bd87cb8c42ab5",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 3998,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 1907,
+  "wideInstructionCount": 92,
+  "localBranchCount": 310,
+  "memoryOperationCount": 576,
+  "returnCount": 25,
+  "indirectCallCount": 25,
+  "indirectTailCount": 0,
+  "directCallCount": 92,
+  "directCalls": [
+    {
+      "function": "func_00305526",
+      "offset": 20,
+      "mnemonic": "bl",
+      "symbol": "func_003054A4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 24,
+      "mnemonic": "bl",
+      "symbol": "func_003054C0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 34,
+      "mnemonic": "bl",
+      "symbol": "func_003048BE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 46,
+      "mnemonic": "bl",
+      "symbol": "func_003054A4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 90,
+      "mnemonic": "bl",
+      "symbol": "func_003048D0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 10,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 28,
+      "mnemonic": "blx",
+      "symbol": "func_002FEDF0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 62,
+      "mnemonic": "bl",
+      "symbol": "func_003011B0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 10,
+      "mnemonic": "bl",
+      "symbol": "func_001040CC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 24,
+      "mnemonic": "bl",
+      "symbol": "func_0030099C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 52,
+      "mnemonic": "bl",
+      "symbol": "func_00304754",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 86,
+      "mnemonic": "bl",
+      "symbol": "func_00304754",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 98,
+      "mnemonic": "bl",
+      "symbol": "func_003009F4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 110,
+      "mnemonic": "bl",
+      "symbol": "func_003036C0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 66,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 10,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_002FED84",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 60,
+      "mnemonic": "bl",
+      "symbol": "func_0010327C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 68,
+      "mnemonic": "bl",
+      "symbol": "func_003035D4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 78,
+      "mnemonic": "bl",
+      "symbol": "func_0030390C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_0030390C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 10,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 28,
+      "mnemonic": "blx",
+      "symbol": "func_002FEDF0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 62,
+      "mnemonic": "bl",
+      "symbol": "func_001031A8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102D02",
+      "offset": 22,
+      "mnemonic": "bl",
+      "symbol": "func_00102B04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_002FED38",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 74,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 100,
+      "mnemonic": "bl",
+      "symbol": "func_002FED38",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 132,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_00304CA6",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 38,
+      "mnemonic": "bl",
+      "symbol": "func_00304960",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 68,
+      "mnemonic": "bl",
+      "symbol": "func_00304CB0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 80,
+      "mnemonic": "bl",
+      "symbol": "func_0030490A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 90,
+      "mnemonic": "bl",
+      "symbol": "func_00304974",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 100,
+      "mnemonic": "bl",
+      "symbol": "func_00304974",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 120,
+      "mnemonic": "bl",
+      "symbol": "func_00304D24",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 130,
+      "mnemonic": "bl",
+      "symbol": "func_00304D60",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 4,
+      "mnemonic": "bl",
+      "symbol": "func_0030551C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 38,
+      "mnemonic": "bl",
+      "symbol": "func_003054CA",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 68,
+      "mnemonic": "bl",
+      "symbol": "func_00305526",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 80,
+      "mnemonic": "bl",
+      "symbol": "func_0030490A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 90,
+      "mnemonic": "bl",
+      "symbol": "func_00304974",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 100,
+      "mnemonic": "bl",
+      "symbol": "func_00304974",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 120,
+      "mnemonic": "bl",
+      "symbol": "func_00304D24",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 130,
+      "mnemonic": "bl",
+      "symbol": "func_00304D60",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100500",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100500",
+      "offset": 146,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003011B0",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003011B0",
+      "offset": 146,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 60,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 100,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 156,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 34,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBF8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 94,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE04",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 124,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBF8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 174,
+      "mnemonic": "bl",
+      "symbol": "func_002FEE30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 6,
+      "mnemonic": "blx",
+      "symbol": "func_00302334",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 18,
+      "mnemonic": "blx",
+      "symbol": "func_00302334",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 42,
+      "mnemonic": "bl",
+      "symbol": "func_00302FB6",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 52,
+      "mnemonic": "blx",
+      "symbol": "func_002FEDF0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 170,
+      "mnemonic": "bl",
+      "symbol": "func_00302FEE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 44,
+      "mnemonic": "bl",
+      "symbol": "func_00301D30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_0030291C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 172,
+      "mnemonic": "blx",
+      "symbol": "func_00300B28",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010123E",
+      "offset": 132,
+      "mnemonic": "bl",
+      "symbol": "func_002FFC3C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 48,
+      "mnemonic": "blx",
+      "symbol": "func_00300754",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 96,
+      "mnemonic": "blx",
+      "symbol": "func_002FF21C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 154,
+      "mnemonic": "blx",
+      "symbol": "func_002FF21C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 182,
+      "mnemonic": "blx",
+      "symbol": "func_002FF1EC",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 194,
+      "mnemonic": "blx",
+      "symbol": "func_002FF21C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 104,
+      "mnemonic": "blx",
+      "symbol": "func_002FFBE0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 146,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 182,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 104,
+      "mnemonic": "blx",
+      "symbol": "func_002FFBE0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 146,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 182,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 38,
+      "mnemonic": "bl",
+      "symbol": "func_00302452",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 86,
+      "mnemonic": "blx",
+      "symbol": "func_00300B28",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 134,
+      "mnemonic": "bl",
+      "symbol": "func_003023F0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 186,
+      "mnemonic": "bl",
+      "symbol": "func_0030242A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 26,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 78,
+      "mnemonic": "blx",
+      "symbol": "func_002FF034",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 86,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 94,
+      "mnemonic": "blx",
+      "symbol": "func_00300980",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_0030098C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 128,
+      "mnemonic": "bl",
+      "symbol": "func_0030099C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 156,
+      "mnemonic": "bl",
+      "symbol": "func_003009B0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 188,
+      "mnemonic": "bl",
+      "symbol": "func_003009B0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 202,
+      "mnemonic": "bl",
+      "symbol": "func_003009F4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 214,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00305526",
+      "offset": 20,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003054A4"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 24,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003054C0"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 34,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003048BE"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 46,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003054A4"
+    },
+    {
+      "function": "func_00305526",
+      "offset": 90,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003048D0"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 10,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDF0"
+    },
+    {
+      "function": "func_00102980",
+      "offset": 62,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003011B0"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 10,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_001040CC"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 24,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030099C"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 52,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304754"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 86,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304754"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 98,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003009F4"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 110,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003036C0"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 66,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE04"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE30"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 10,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED84"
+    },
+    {
+      "function": "func_00102FAC",
+      "offset": 60,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0010327C"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 68,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003035D4"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 78,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030390C"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030390C"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 10,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDF0"
+    },
+    {
+      "function": "func_00102F30",
+      "offset": 62,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_001031A8"
+    },
+    {
+      "function": "func_00102D02",
+      "offset": 22,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00102B04"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED38"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 74,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE04"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 100,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED38"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 132,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE30"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304CA6"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 38,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304960"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 68,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304CB0"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 80,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030490A"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 90,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304974"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 100,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304974"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 120,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304D24"
+    },
+    {
+      "function": "func_00104DBA",
+      "offset": 130,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304D60"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 4,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030551C"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 38,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003054CA"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 68,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00305526"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 80,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030490A"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 90,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304974"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 100,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304974"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 120,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304D24"
+    },
+    {
+      "function": "func_0010564A",
+      "offset": 130,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00304D60"
+    },
+    {
+      "function": "func_00100500",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_00100500",
+      "offset": 146,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_003011B0",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_003011B0",
+      "offset": 146,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 60,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE04"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 100,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE04"
+    },
+    {
+      "function": "func_002FF988",
+      "offset": 156,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE30"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 34,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBF8"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 94,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE04"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 124,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBF8"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 174,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEE30"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 6,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302334"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 18,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302334"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 42,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302FB6"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 52,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDF0"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 170,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302FEE"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 44,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D30"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030291C"
+    },
+    {
+      "function": "func_001034A0",
+      "offset": 172,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300B28"
+    },
+    {
+      "function": "func_0010123E",
+      "offset": 132,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFC3C"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 48,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300754"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 96,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF21C"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 154,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF21C"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 182,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF1EC"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 194,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF21C"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 104,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBE0"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 146,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_001031A8",
+      "offset": 182,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 104,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBE0"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 146,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_0010327C",
+      "offset": 182,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 38,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302452"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 86,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300B28"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 134,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003023F0"
+    },
+    {
+      "function": "func_001033C4",
+      "offset": 186,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030242A"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 26,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 78,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF034"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 86,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 94,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300980"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030098C"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 128,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030099C"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 156,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003009B0"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 188,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003009B0"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 202,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003009F4"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 214,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00104A50",
+      "offset": 16,
+      "mnemonic": "ldr",
+      "targetOffset": 120,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 18,
+      "mnemonic": "ldr",
+      "targetOffset": 124,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00104A50",
+      "offset": 94,
+      "mnemonic": "ldr",
+      "targetOffset": 120,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 26,
+      "mnemonic": "adr",
+      "targetOffset": 120,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 30,
+      "mnemonic": "adr",
+      "targetOffset": 124,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 38,
+      "mnemonic": "adr",
+      "targetOffset": 128,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF324",
+      "offset": 42,
+      "mnemonic": "adr",
+      "targetOffset": 132,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00303640",
+      "offset": 20,
+      "mnemonic": "ldr",
+      "targetOffset": 124,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 140,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001005A8",
+      "offset": 78,
+      "mnemonic": "ldr",
+      "targetOffset": 140,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 184,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001013A0",
+      "offset": 98,
+      "mnemonic": "ldr",
+      "targetOffset": 184,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 2,
+      "mnemonic": "adr",
+      "targetOffset": 188,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 16,
+      "mnemonic": "adr",
+      "targetOffset": 192,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103E3C",
+      "offset": 178,
+      "mnemonic": "ldr",
+      "targetOffset": 200,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 6,
+      "mnemonic": "ldr",
+      "targetOffset": 208,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 24,
+      "mnemonic": "ldr",
+      "targetOffset": 208,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 82,
+      "mnemonic": "ldr",
+      "targetOffset": 208,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FF118",
+      "offset": 112,
+      "mnemonic": "ldr",
+      "targetOffset": 208,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 120,
+      "mnemonic": "ldr",
+      "targetOffset": 224,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 122,
+      "mnemonic": "ldr",
+      "targetOffset": 228,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_002FFD48",
+      "offset": 198,
+      "mnemonic": "ldr",
+      "targetOffset": 224,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "indirectTail": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rn, #imm schedule entry uses the 16-bit three-operand immediate form and must not be canonicalized to the distinct two-operand form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb16-local-branch",
+      "rule": "Every function-local conditional or unconditional branch uses the recorded 16-bit .n form and exact local target."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    },
+    {
+      "form": "thumb-code-mapping",
+      "rule": "Every complete function body is continuously covered by Thumb code mapping beginning with $t at body offset zero and contains no interior $d mapping interval."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "indirectTail": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "a2e9a236ba240da9c0542681d690f14d750b90db118e01d81f5d330fa21302cd",
+    "localTransferSchedule": "0bffc3d38c1c7d6360c3f6d2acd79f72ee4a126d4db409045e5e27a369ee652a",
+    "returnTransferSchedule": "4c766e2bcb354c463e78be4605cce232139f276c738a31fabdc87d633259128e",
+    "indirectCallSchedule": "686924e17f0ceb83275486f812360a848be8274c37acfc58a14292cecf989c9a",
+    "indirectTailSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "directCallSchedule": "77086a9ac1dbb3044982132063a750478ea691cd34ddb9f7f4b687d2b95d183d"
+  },
+  "functions": [
+    {
+      "name": "func_00305526",
+      "size": 116,
+      "instructionCount": 53,
+      "wideInstructionOffsets": [
+        20,
+        24,
+        34,
+        46,
+        90
+      ],
+      "localBranchCount": 7,
+      "memoryOperationCount": 13,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 5,
+      "nextGlobal": "func_0030559A",
+      "nextGlobalOffset": 116,
+      "localTransfers": [
+        "1e:bge.n:+68",
+        "28:bne.n:+68",
+        "4a:beq.n:+62",
+        "4e:beq.n:+68",
+        "60:beq.n:+6c",
+        "6a:b.n:+64",
+        "72:b.n:+68"
+      ],
+      "returns": [
+        "66:pop:{r4, r5, pc}"
+      ],
+      "indirectCalls": [
+        "40:blx:r5"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 20,
+          "mnemonic": "bl",
+          "symbol": "func_003054A4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 24,
+          "mnemonic": "bl",
+          "symbol": "func_003054C0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 34,
+          "mnemonic": "bl",
+          "symbol": "func_003048BE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 46,
+          "mnemonic": "bl",
+          "symbol": "func_003054A4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 90,
+          "mnemonic": "bl",
+          "symbol": "func_003048D0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, lr}|movs r4, r0|movs r5, r0|ldr r0, [r0, #56]|ldr r1, [r4, #60]|sub sp, #84|adds r5, #44|str r0, [sp, #68]|movs r0, r5|str r1, [sp, #72]|bl func_003054A4|bl func_003054C0|cmp r0, #0|bge.n local:+68|add r0, sp, #68|bl func_003048BE|cmp r0, #0|bne.n local:+68|str r0, [sp, #76]|movs r0, r5|bl func_003054A4|add r5, sp, #76|str r5, [sp, #0]|ldr r5, [r0, #0]|add r1, sp, #68|ldr r5, [r5, #20]|add r2, sp, #4|add r3, sp, #68|blx r5|ldr r1, [sp, #76]|add r2, sp, #4|subs r5, r1, r2|cmp r0, #2|beq.n local:+62|cmp r0, #3|beq.n local:+68|movs r0, r4|movs r3, r5|movs r2, #1|adds r0, #48|add r1, sp, #4|bl func_003048D0|cmp r0, #0|beq.n local:+6c|movs r0, #0|add sp, #84|pop {r4, r5, pc}|movs r0, #1|b.n local:+64|ldr r0, [r4, #52]|adds r0, r0, r5|str r0, [r4, #52]|b.n local:+68"
+    },
+    {
+      "name": "func_00102980",
+      "size": 118,
+      "instructionCount": 56,
+      "wideInstructionOffsets": [
+        10,
+        28,
+        62
+      ],
+      "localBranchCount": 10,
+      "memoryOperationCount": 20,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_001029F6",
+      "nextGlobalOffset": 118,
+      "localTransfers": [
+        "1a:beq.n:+28",
+        "26:bne.n:+14",
+        "2a:beq.n:+32",
+        "2e:beq.n:+6a",
+        "46:beq.n:+52",
+        "4c:bne.n:+52",
+        "58:beq.n:+72",
+        "62:bpl.n:+72",
+        "70:b.n:+32",
+        "74:b.n:+66"
+      ],
+      "returns": [
+        "68:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 10,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 28,
+          "mnemonic": "blx",
+          "symbol": "func_002FEDF0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 62,
+          "mnemonic": "bl",
+          "symbol": "func_003011B0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #8|movs r7, r1|ldr r4, [sp, #8]|movs r6, #0|blx func_002FED78|str r0, [sp, #0]|ldr r0, [r0, #0]|str r0, [sp, #4]|ldrb r5, [r4, #0]|adds r4, r4, #1|cmp r5, #0|beq.n local:+28|blx func_002FEDF0|ldr r0, [r0, #0]|ldrb r0, [r0, r5]|lsls r0, r0, #31|bne.n local:+14|cmp r5, #43|beq.n local:+32|cmp r5, #45|beq.n local:+6a|subs r4, r4, #1|ldr r0, [sp, #0]|movs r1, #0|str r1, [r0, #0]|ldr r2, [sp, #16]|movs r1, r7|movs r0, r4|bl func_003011B0|movs r1, r0|cmp r7, #0|beq.n local:+52|ldr r0, [r7, #0]|cmp r0, r4|bne.n local:+52|ldr r0, [sp, #8]|str r0, [r7, #0]|ldr r0, [sp, #0]|ldr r0, [r0, #0]|cmp r0, #2|beq.n local:+72|ldr r0, [sp, #0]|ldr r2, [sp, #4]|str r2, [r0, #0]|lsls r0, r6, #21|bpl.n local:+72|negs r0, r1|add sp, #20|pop {r4, r5, r6, r7, pc}|movs r0, #1|lsls r0, r0, #10|orrs r6, r0|b.n local:+32|movs r0, r1|b.n local:+66"
+    },
+    {
+      "name": "func_00104A50",
+      "size": 120,
+      "instructionCount": 54,
+      "wideInstructionOffsets": [
+        10,
+        24,
+        52,
+        86,
+        98,
+        110
+      ],
+      "localBranchCount": 5,
+      "memoryOperationCount": 22,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 6,
+      "nextGlobal": "func_00104DBA",
+      "nextGlobalOffset": 874,
+      "localTransfers": [
+        "22:bcc.n:+26",
+        "2e:b.n:+40",
+        "48:bne.n:+30",
+        "4a:b.n:+5a",
+        "5c:bcc.n:+4c"
+      ],
+      "returns": [
+        "76:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 10,
+          "mnemonic": "bl",
+          "symbol": "func_001040CC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 24,
+          "mnemonic": "bl",
+          "symbol": "func_0030099C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 52,
+          "mnemonic": "bl",
+          "symbol": "func_00304754",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 86,
+          "mnemonic": "bl",
+          "symbol": "func_00304754",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 98,
+          "mnemonic": "bl",
+          "symbol": "func_003009F4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 110,
+          "mnemonic": "bl",
+          "symbol": "func_003036C0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r4, r5, r6, r7, lr}|movs r5, r0|sub sp, #28|movs r7, r1|mov r0, sp|bl func_001040CC|str r0, [sp, #16]|ldr r3, [pc, #100]|ldr r2, [pc, #104]|movs r1, r7|movs r0, #8|bl func_0030099C|str r0, [sp, #8]|ldr r4, [r5, #4]|cmp r4, r7|bcc.n local:+26|movs r4, r7|ldr r6, [r5, #0]|str r0, [sp, #12]|lsls r0, r4, #3|str r0, [sp, #20]|b.n local:+40|ldr r0, [sp, #12]|movs r1, r6|bl func_00304754|ldr r0, [sp, #12]|adds r6, #8|adds r0, #8|str r0, [sp, #12]|ldr r1, [r5, #0]|ldr r0, [sp, #20]|adds r0, r1, r0|cmp r0, r6|bne.n local:+30|b.n local:+5a|ldr r0, [sp, #8]|lsls r1, r4, #3|adds r0, r1, r0|ldr r1, [sp, #16]|adds r4, r4, #1|bl func_00304754|cmp r4, r7|bcc.n local:+4c|ldr r1, [pc, #24]|ldr r0, [r5, #0]|bl func_003009F4|str r7, [r5, #4]|ldr r4, [sp, #8]|add r0, sp, #4|str r4, [r5, #0]|bl func_003036C0|movs r0, r4|add sp, #28|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_002FF324",
+      "size": 120,
+      "instructionCount": 58,
+      "wideInstructionOffsets": [
+        66,
+        114
+      ],
+      "localBranchCount": 11,
+      "memoryOperationCount": 16,
+      "returnCount": 1,
+      "indirectCallCount": 2,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_002FF3AE",
+      "nextGlobalOffset": 138,
+      "localTransfers": [
+        "14:blt.n:+22",
+        "18:beq.n:+1e",
+        "1c:b.n:+2c",
+        "20:b.n:+2c",
+        "24:beq.n:+2a",
+        "28:b.n:+2c",
+        "3a:beq.n:+40",
+        "48:beq.n:+5e",
+        "5c:b.n:+6c",
+        "60:b.n:+58",
+        "6e:bcs.n:+62"
+      ],
+      "returns": [
+        "76:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "50:blx:r2",
+        "6a:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 66,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r4, r0|ldr r0, [r0, #0]|movs r7, r3|movs r3, #1|movs r1, r0|lsls r3, r3, #11|movs r6, #3|ands r0, r3|cmp r2, #7|blt.n local:+22|cmp r0, #0|beq.n local:+1e|add r5, pc, #92|b.n local:+2c|add r5, pc, #92|b.n local:+2c|cmp r0, #0|beq.n local:+2a|add r5, pc, #88|b.n local:+2c|add r5, pc, #88|movs r0, #16|bics r1, r0|str r1, [r4, #0]|ldr r0, [r4, #24]|subs r0, r0, #3|cmp r7, #0|str r0, [r4, #24]|beq.n local:+40|subs r0, r0, #1|str r0, [r4, #24]|movs r0, r4|bl func_002FEE04|cmp r7, #0|beq.n local:+5e|ldr r2, [r4, #4]|ldr r1, [r4, #8]|movs r0, r7|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|adds r0, r0, #3|str r0, [r4, #32]|b.n local:+6c|ldr r0, [r4, #32]|b.n local:+58|ldr r2, [r4, #4]|ldrb r0, [r5, #0]|ldr r1, [r4, #8]|adds r5, r5, #1|blx r2|subs r6, r6, #1|bcs.n local:+62|movs r0, r4|bl func_002FEE30|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00102FAC",
+      "size": 122,
+      "instructionCount": 58,
+      "wideInstructionOffsets": [
+        10,
+        30,
+        60
+      ],
+      "localBranchCount": 10,
+      "memoryOperationCount": 18,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_00103028",
+      "nextGlobalOffset": 124,
+      "localTransfers": [
+        "1a:beq.n:+26",
+        "24:bne.n:+14",
+        "28:beq.n:+30",
+        "2c:beq.n:+6e",
+        "44:beq.n:+50",
+        "4a:bne.n:+50",
+        "56:beq.n:+76",
+        "60:bpl.n:+76",
+        "74:b.n:+30",
+        "78:b.n:+6a"
+      ],
+      "returns": [
+        "6c:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 10,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_002FED84",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 60,
+          "mnemonic": "bl",
+          "symbol": "func_0010327C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #8|movs r7, r1|ldr r4, [sp, #8]|movs r6, #0|blx func_002FED78|str r0, [sp, #0]|ldr r0, [r0, #0]|str r0, [sp, #4]|ldrh r5, [r4, #0]|adds r4, r4, #2|cmp r5, #0|beq.n local:+26|movs r0, r5|bl func_002FED84|cmp r0, #0|bne.n local:+14|cmp r5, #43|beq.n local:+30|cmp r5, #45|beq.n local:+6e|subs r4, r4, #2|ldr r0, [sp, #0]|movs r1, #0|str r1, [r0, #0]|ldr r2, [sp, #16]|movs r1, r7|movs r0, r4|bl func_0010327C|movs r2, r0|cmp r7, #0|beq.n local:+50|ldr r0, [r7, #0]|cmp r0, r4|bne.n local:+50|ldr r0, [sp, #8]|str r0, [r7, #0]|ldr r0, [sp, #0]|ldr r0, [r0, #0]|cmp r0, #2|beq.n local:+76|ldr r0, [sp, #0]|ldr r3, [sp, #4]|str r3, [r0, #0]|lsls r0, r6, #21|bpl.n local:+76|movs r3, #0|negs r0, r2|sbcs r3, r1|movs r1, r3|add sp, #20|pop {r4, r5, r6, r7, pc}|movs r0, #1|lsls r0, r0, #10|orrs r6, r0|b.n local:+30|movs r0, r2|b.n local:+6a"
+    },
+    {
+      "name": "func_00303640",
+      "size": 122,
+      "instructionCount": 58,
+      "wideInstructionOffsets": [
+        68,
+        78,
+        114
+      ],
+      "localBranchCount": 5,
+      "memoryOperationCount": 26,
+      "returnCount": 1,
+      "indirectCallCount": 2,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_003036C0",
+      "nextGlobalOffset": 128,
+      "localTransfers": [
+        "c:bne.n:+30",
+        "12:bne.n:+1e",
+        "3a:bhi.n:+48",
+        "56:beq.n:+66",
+        "5e:bne.n:+66"
+      ],
+      "returns": [
+        "78:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "26:blx:r2",
+        "64:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 68,
+          "mnemonic": "bl",
+          "symbol": "func_003035D4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 78,
+          "mnemonic": "bl",
+          "symbol": "func_0030390C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_0030390C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r5, r0|movs r4, r1|ldr r0, [r1, #8]|movs r6, r2|lsls r0, r0, #31|bne.n local:+30|ldr r0, [r6, #0]|cmp r0, #0|bne.n local:+1e|ldr r1, [pc, #100]|ldr r0, [r1, #0]|adds r0, r0, #1|str r0, [r1, #0]|str r0, [r6, #0]|ldr r0, [r4, #0]|movs r1, r5|ldr r2, [r0, #8]|movs r0, r4|blx r2|ldr r0, [r4, #8]|movs r1, #1|orrs r0, r1|str r0, [r4, #8]|ldr r0, [r5, #0]|ldr r6, [r6, #0]|adds r0, #8|ldr r1, [r0, #4]|cmp r1, r6|bhi.n local:+48|movs r1, #0|str r1, [sp, #0]|adds r1, r6, #1|mov r2, sp|bl func_003035D4|ldr r0, [r5, #0]|movs r1, r6|adds r0, #8|bl func_0030390C|ldr r0, [r0, #0]|cmp r0, #0|beq.n local:+66|ldr r1, [r0, #12]|subs r1, r1, #1|str r1, [r0, #12]|bne.n local:+66|ldr r1, [r0, #0]|ldr r1, [r1, #4]|blx r1|ldr r0, [r4, #12]|movs r1, r6|adds r0, r0, #1|str r0, [r4, #12]|ldr r0, [r5, #0]|adds r0, #8|bl func_0030390C|str r4, [r0, #0]|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00102F30",
+      "size": 124,
+      "instructionCount": 59,
+      "wideInstructionOffsets": [
+        10,
+        28,
+        62
+      ],
+      "localBranchCount": 10,
+      "memoryOperationCount": 20,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_00102FAC",
+      "nextGlobalOffset": 124,
+      "localTransfers": [
+        "1a:beq.n:+28",
+        "26:bne.n:+14",
+        "2a:beq.n:+32",
+        "2e:beq.n:+70",
+        "46:beq.n:+52",
+        "4c:bne.n:+52",
+        "58:beq.n:+78",
+        "62:bpl.n:+78",
+        "76:b.n:+32",
+        "7a:b.n:+6c"
+      ],
+      "returns": [
+        "6e:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 10,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 28,
+          "mnemonic": "blx",
+          "symbol": "func_002FEDF0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 62,
+          "mnemonic": "bl",
+          "symbol": "func_001031A8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #8|movs r7, r1|ldr r4, [sp, #8]|movs r6, #0|blx func_002FED78|str r0, [sp, #0]|ldr r0, [r0, #0]|str r0, [sp, #4]|ldrb r5, [r4, #0]|adds r4, r4, #1|cmp r5, #0|beq.n local:+28|blx func_002FEDF0|ldr r0, [r0, #0]|ldrb r0, [r0, r5]|lsls r0, r0, #31|bne.n local:+14|cmp r5, #43|beq.n local:+32|cmp r5, #45|beq.n local:+70|subs r4, r4, #1|ldr r0, [sp, #0]|movs r1, #0|str r1, [r0, #0]|ldr r2, [sp, #16]|movs r1, r7|movs r0, r4|bl func_001031A8|movs r2, r0|cmp r7, #0|beq.n local:+52|ldr r0, [r7, #0]|cmp r0, r4|bne.n local:+52|ldr r0, [sp, #8]|str r0, [r7, #0]|ldr r0, [sp, #0]|ldr r0, [r0, #0]|cmp r0, #2|beq.n local:+78|ldr r0, [sp, #0]|ldr r3, [sp, #4]|str r3, [r0, #0]|lsls r0, r6, #21|bpl.n local:+78|movs r3, #0|negs r0, r2|sbcs r3, r1|movs r1, r3|add sp, #20|pop {r4, r5, r6, r7, pc}|movs r0, #1|lsls r0, r0, #10|orrs r6, r0|b.n local:+32|movs r0, r2|b.n local:+6c"
+    },
+    {
+      "name": "func_00102D02",
+      "size": 136,
+      "instructionCount": 67,
+      "wideInstructionOffsets": [
+        22
+      ],
+      "localBranchCount": 17,
+      "memoryOperationCount": 14,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00102D8A",
+      "nextGlobalOffset": 136,
+      "localTransfers": [
+        "a:beq.n:+84",
+        "e:beq.n:+84",
+        "12:bls.n:+1a",
+        "24:b.n:+7e",
+        "2a:b.n:+2e",
+        "30:bcc.n:+3e",
+        "3c:bgt.n:+2c",
+        "46:beq.n:+60",
+        "4a:b.n:+7a",
+        "50:b.n:+56",
+        "5a:bcs.n:+52",
+        "62:bcs.n:+7e",
+        "64:b.n:+4c",
+        "6a:b.n:+70",
+        "74:bcs.n:+6c",
+        "7c:bcc.n:+66",
+        "82:bcc.n:+26"
+      ],
+      "returns": [
+        "86:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "38:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 22,
+          "mnemonic": "bl",
+          "symbol": "func_00102B04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r7, r0|movs r6, r1|movs r4, r2|sub sp, #4|beq.n local:+84|cmp r6, #0|beq.n local:+84|cmp r6, #10|bls.n local:+1a|ldr r3, [sp, #16]|bl func_00102B04|subs r6, r6, #1|movs r5, r7|muls r6, r4|adds r0, r6, r5|str r0, [sp, #0]|b.n local:+7e|movs r6, r5|adds r5, r5, r4|b.n local:+2e|subs r6, r6, r4|cmp r6, r7|bcc.n local:+3e|ldr r2, [sp, #16]|movs r1, r5|movs r0, r6|blx r2|cmp r0, #0|bgt.n local:+2c|movs r0, r4|orrs r0, r5|adds r1, r6, r4|lsls r0, r0, #30|beq.n local:+60|movs r0, #0|b.n local:+7a|adds r2, r5, r0|ldr r3, [r2, #0]|b.n local:+56|ldr r6, [r2, #0]|str r6, [r2, r4]|subs r2, r2, r4|cmp r2, r1|bcs.n local:+52|adds r0, r0, #4|str r3, [r2, r4]|cmp r0, r4|bcs.n local:+7e|b.n local:+4c|adds r2, r5, r0|ldrb r3, [r2, #0]|b.n local:+70|ldrb r6, [r2, #0]|strb r6, [r2, r4]|subs r2, r2, r4|cmp r2, r1|bcs.n local:+6c|adds r0, r0, #1|strb r3, [r2, r4]|cmp r0, r4|bcc.n local:+66|ldr r0, [sp, #0]|cmp r5, r0|bcc.n local:+26|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_001005A8",
+      "size": 140,
+      "instructionCount": 66,
+      "wideInstructionOffsets": [
+        30,
+        74,
+        100,
+        132
+      ],
+      "localBranchCount": 9,
+      "memoryOperationCount": 23,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 4,
+      "nextGlobal": "func_00100638",
+      "nextGlobalOffset": 144,
+      "localTransfers": [
+        "16:b.n:+2a",
+        "24:bne.n:+28",
+        "2e:bpl.n:+36",
+        "34:ble.n:+42",
+        "3a:blt.n:+18",
+        "40:bne.n:+18",
+        "5c:b.n:+7e",
+        "6a:bne.n:+7c",
+        "80:blt.n:+5e"
+      ],
+      "returns": [
+        "8a:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "74:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_002FED38",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 74,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 100,
+          "mnemonic": "bl",
+          "symbol": "func_002FED38",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 132,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|movs r4, r0|movs r7, r1|ldr r1, [pc, #132]|sub sp, #16|add r1, pc|movs r6, #0|ldmia r1, {r0, r1}|movs r5, r6|str r0, [sp, #0]|str r1, [sp, #4]|b.n local:+2a|ldrb r1, [r7, r5]|mov r2, sp|add r0, sp, #8|bl func_002FED38|cmp r0, #1|bne.n local:+28|adds r6, r6, #1|adds r5, r5, #1|ldr r0, [r4, #0]|lsls r0, r0, #26|bpl.n local:+36|ldr r0, [r4, #28]|cmp r0, r6|ble.n local:+42|ldr r0, [sp, #24]|cmp r5, r0|blt.n local:+18|ldrb r0, [r7, r5]|cmp r0, #0|bne.n local:+18|ldr r0, [r4, #24]|subs r0, r0, r6|str r0, [r4, #24]|movs r0, r4|bl func_002FEE04|ldr r1, [pc, #60]|add r1, pc|subs r1, #70|movs r6, #0|ldmia r1, {r0, r1}|str r0, [sp, #0]|str r1, [sp, #4]|b.n local:+7e|ldrb r1, [r7, r6]|mov r2, sp|add r0, sp, #8|bl func_002FED38|cmp r0, #1|bne.n local:+7c|mov r0, sp|ldr r2, [r4, #4]|ldrh r0, [r0, #8]|ldr r1, [r4, #8]|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|adds r6, r6, #1|cmp r6, r5|blt.n local:+5e|movs r0, r4|bl func_002FEE30|add sp, #28|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00104DBA",
+      "size": 148,
+      "instructionCount": 66,
+      "wideInstructionOffsets": [
+        4,
+        38,
+        68,
+        80,
+        90,
+        100,
+        120,
+        130
+      ],
+      "localBranchCount": 8,
+      "memoryOperationCount": 15,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 8,
+      "nextGlobal": "func_001054F4",
+      "nextGlobalOffset": 1850,
+      "localTransfers": [
+        "a:beq.n:+30",
+        "16:beq.n:+34",
+        "2c:beq.n:+34",
+        "40:beq.n:+4c",
+        "4a:beq.n:+30",
+        "7e:bne.n:+8a",
+        "88:beq.n:+30",
+        "92:b.n:+30"
+      ],
+      "returns": [
+        "32:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "20:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_00304CA6",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 38,
+          "mnemonic": "bl",
+          "symbol": "func_00304960",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 68,
+          "mnemonic": "bl",
+          "symbol": "func_00304CB0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 80,
+          "mnemonic": "bl",
+          "symbol": "func_0030490A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 90,
+          "mnemonic": "bl",
+          "symbol": "func_00304974",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 100,
+          "mnemonic": "bl",
+          "symbol": "func_00304974",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 120,
+          "mnemonic": "bl",
+          "symbol": "func_00304D24",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 130,
+          "mnemonic": "bl",
+          "symbol": "func_00304D60",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, lr}|movs r4, r0|bl func_00304CA6|cmp r0, #0|beq.n local:+30|ldr r1, [r4, #36]|ldr r0, [r4, #32]|movs r6, #0|mvns r6, r6|cmp r1, r0|beq.n local:+34|ldr r0, [r4, #0]|movs r1, r6|ldr r2, [r0, #40]|movs r0, r4|blx r2|movs r1, r0|movs r0, r4|bl func_00304960|cmp r0, #0|beq.n local:+34|movs r0, #0|add sp, #16|pop {r4, r5, r6, pc}|ldr r0, [r4, #16]|movs r5, r4|lsls r0, r0, #30|lsrs r0, r0, #31|adds r5, #48|cmp r0, #0|beq.n local:+4c|movs r0, r4|bl func_00304CB0|cmp r0, #0|beq.n local:+30|movs r1, r6|mov r0, sp|bl func_0030490A|movs r1, r0|movs r0, r4|adds r0, #64|bl func_00304974|movs r1, r0|movs r0, r4|adds r0, #52|bl func_00304974|movs r0, #0|str r0, [r4, #20]|str r0, [r4, #24]|str r0, [r4, #28]|str r0, [r4, #36]|str r0, [r4, #32]|str r0, [r4, #40]|movs r0, r5|bl func_00304D24|cmp r0, #0|bne.n local:+8a|movs r0, r5|bl func_00304D60|cmp r0, #0|beq.n local:+30|movs r0, #0|str r0, [sp, #12]|str r0, [r5, #0]|movs r0, r4|b.n local:+30"
+    },
+    {
+      "name": "func_0010564A",
+      "size": 148,
+      "instructionCount": 66,
+      "wideInstructionOffsets": [
+        4,
+        38,
+        68,
+        80,
+        90,
+        100,
+        120,
+        130
+      ],
+      "localBranchCount": 8,
+      "memoryOperationCount": 15,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 8,
+      "nextGlobal": "func_00105DA4",
+      "nextGlobalOffset": 1882,
+      "localTransfers": [
+        "a:beq.n:+30",
+        "16:beq.n:+34",
+        "2c:beq.n:+34",
+        "40:beq.n:+4c",
+        "4a:beq.n:+30",
+        "7e:bne.n:+8a",
+        "88:beq.n:+30",
+        "92:b.n:+30"
+      ],
+      "returns": [
+        "32:pop:{r4, r5, r6, pc}"
+      ],
+      "indirectCalls": [
+        "20:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 4,
+          "mnemonic": "bl",
+          "symbol": "func_0030551C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 38,
+          "mnemonic": "bl",
+          "symbol": "func_003054CA",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 68,
+          "mnemonic": "bl",
+          "symbol": "func_00305526",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 80,
+          "mnemonic": "bl",
+          "symbol": "func_0030490A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 90,
+          "mnemonic": "bl",
+          "symbol": "func_00304974",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 100,
+          "mnemonic": "bl",
+          "symbol": "func_00304974",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 120,
+          "mnemonic": "bl",
+          "symbol": "func_00304D24",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 130,
+          "mnemonic": "bl",
+          "symbol": "func_00304D60",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, lr}|movs r4, r0|bl func_0030551C|cmp r0, #0|beq.n local:+30|ldr r1, [r4, #36]|ldr r0, [r4, #32]|movs r6, #0|mvns r6, r6|cmp r1, r0|beq.n local:+34|ldr r0, [r4, #0]|movs r1, r6|ldr r2, [r0, #40]|movs r0, r4|blx r2|movs r1, r0|movs r0, r4|bl func_003054CA|cmp r0, #0|beq.n local:+34|movs r0, #0|add sp, #16|pop {r4, r5, r6, pc}|ldr r0, [r4, #16]|movs r5, r4|lsls r0, r0, #30|lsrs r0, r0, #31|adds r5, #48|cmp r0, #0|beq.n local:+4c|movs r0, r4|bl func_00305526|cmp r0, #0|beq.n local:+30|movs r1, r6|mov r0, sp|bl func_0030490A|movs r1, r0|movs r0, r4|adds r0, #64|bl func_00304974|movs r1, r0|movs r0, r4|adds r0, #52|bl func_00304974|movs r0, #0|str r0, [r4, #20]|str r0, [r4, #24]|str r0, [r4, #28]|str r0, [r4, #36]|str r0, [r4, #32]|str r0, [r4, #40]|movs r0, r5|bl func_00304D24|cmp r0, #0|bne.n local:+8a|movs r0, r5|bl func_00304D60|cmp r0, #0|beq.n local:+30|movs r0, #0|str r0, [sp, #12]|str r0, [r5, #0]|movs r0, r4|b.n local:+30"
+    },
+    {
+      "name": "func_00100500",
+      "size": 168,
+      "instructionCount": 82,
+      "wideInstructionOffsets": [
+        114,
+        146
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 18,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_001005A8",
+      "nextGlobalOffset": 168,
+      "localTransfers": [
+        "12:beq.n:+1a",
+        "16:beq.n:+44",
+        "18:b.n:+46",
+        "22:beq.n:+2e",
+        "26:beq.n:+2e",
+        "2a:beq.n:+40",
+        "2c:b.n:+46",
+        "30:beq.n:+36",
+        "34:bne.n:+46",
+        "3e:b.n:+46",
+        "42:b.n:+46",
+        "4a:b.n:+70",
+        "66:bcc.n:+6c",
+        "78:bge.n:+4c",
+        "7e:beq.n:+8c",
+        "82:beq.n:+88",
+        "86:b.n:+8a",
+        "90:beq.n:+a0",
+        "a6:b.n:+9c"
+      ],
+      "returns": [
+        "9e:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 146,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #8|movs r7, #0|ldr r4, [sp, #8]|movs r5, r2|ldrh r0, [r4, #0]|adds r4, r4, #2|str r7, [sp, #4]|cmp r0, #48|beq.n local:+1a|cmp r5, #0|beq.n local:+44|b.n local:+46|ldrh r0, [r4, #0]|movs r7, #1|adds r4, r4, #2|cmp r0, #120|beq.n local:+2e|cmp r0, #88|beq.n local:+2e|cmp r5, #0|beq.n local:+40|b.n local:+46|cmp r5, #0|beq.n local:+36|cmp r5, #16|bne.n local:+46|ldrh r0, [r4, #0]|movs r7, #0|movs r5, #16|adds r4, r4, #2|b.n local:+46|movs r5, #8|b.n local:+46|movs r5, #10|movs r6, #0|str r6, [sp, #0]|b.n local:+70|ldr r1, [sp, #0]|movs r7, #1|muls r1, r5|adds r0, r1, r0|movs r1, r5|lsrs r2, r0, #16|muls r1, r6|lsls r0, r0, #16|lsrs r0, r0, #16|str r0, [sp, #0]|adds r6, r1, r2|lsls r0, r7, #16|cmp r6, r0|bcc.n local:+6c|movs r0, #1|str r0, [sp, #4]|ldrh r0, [r4, #0]|adds r4, r4, #2|movs r1, r5|bl func_002FEDD0|cmp r0, #0|bge.n local:+4c|ldr r0, [sp, #12]|cmp r0, #0|beq.n local:+8c|cmp r7, #0|beq.n local:+88|subs r4, r4, #2|b.n local:+8a|ldr r4, [sp, #8]|str r4, [r0, #0]|ldr r0, [sp, #4]|cmp r0, #0|beq.n local:+a0|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|subs r0, r1, #3|add sp, #20|pop {r4, r5, r6, r7, pc}|ldr r1, [sp, #0]|lsls r0, r6, #16|orrs r0, r1|b.n local:+9c"
+    },
+    {
+      "name": "func_003011B0",
+      "size": 168,
+      "instructionCount": 82,
+      "wideInstructionOffsets": [
+        114,
+        146
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 18,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00301D1C",
+      "nextGlobalOffset": 2924,
+      "localTransfers": [
+        "12:beq.n:+1a",
+        "16:beq.n:+44",
+        "18:b.n:+46",
+        "22:beq.n:+2e",
+        "26:beq.n:+2e",
+        "2a:beq.n:+40",
+        "2c:b.n:+46",
+        "30:beq.n:+36",
+        "34:bne.n:+46",
+        "3e:b.n:+46",
+        "42:b.n:+46",
+        "4a:b.n:+70",
+        "66:bcc.n:+6c",
+        "78:bge.n:+4c",
+        "7e:beq.n:+8c",
+        "82:beq.n:+88",
+        "86:b.n:+8a",
+        "90:beq.n:+a0",
+        "a6:b.n:+9c"
+      ],
+      "returns": [
+        "9e:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 146,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #8|movs r7, #0|ldr r4, [sp, #8]|movs r5, r2|ldrb r0, [r4, #0]|adds r4, r4, #1|str r7, [sp, #4]|cmp r0, #48|beq.n local:+1a|cmp r5, #0|beq.n local:+44|b.n local:+46|ldrb r0, [r4, #0]|movs r7, #1|adds r4, r4, #1|cmp r0, #120|beq.n local:+2e|cmp r0, #88|beq.n local:+2e|cmp r5, #0|beq.n local:+40|b.n local:+46|cmp r5, #0|beq.n local:+36|cmp r5, #16|bne.n local:+46|ldrb r0, [r4, #0]|movs r7, #0|movs r5, #16|adds r4, r4, #1|b.n local:+46|movs r5, #8|b.n local:+46|movs r5, #10|movs r6, #0|str r6, [sp, #0]|b.n local:+70|ldr r1, [sp, #0]|movs r7, #1|muls r1, r5|adds r0, r1, r0|movs r1, r5|lsrs r2, r0, #16|muls r1, r6|lsls r0, r0, #16|lsrs r0, r0, #16|str r0, [sp, #0]|adds r6, r1, r2|lsls r0, r7, #16|cmp r6, r0|bcc.n local:+6c|movs r0, #1|str r0, [sp, #4]|ldrb r0, [r4, #0]|adds r4, r4, #1|movs r1, r5|bl func_002FEDD0|cmp r0, #0|bge.n local:+4c|ldr r0, [sp, #12]|cmp r0, #0|beq.n local:+8c|cmp r7, #0|beq.n local:+88|subs r4, r4, #1|b.n local:+8a|ldr r4, [sp, #8]|str r4, [r0, #0]|ldr r0, [sp, #4]|cmp r0, #0|beq.n local:+a0|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|subs r0, r1, #3|add sp, #20|pop {r4, r5, r6, r7, pc}|ldr r1, [sp, #0]|lsls r0, r6, #16|orrs r0, r1|b.n local:+9c"
+    },
+    {
+      "name": "func_002FF988",
+      "size": 176,
+      "instructionCount": 85,
+      "wideInstructionOffsets": [
+        60,
+        100,
+        156
+      ],
+      "localBranchCount": 14,
+      "memoryOperationCount": 29,
+      "returnCount": 1,
+      "indirectCallCount": 3,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_002FFA44",
+      "nextGlobalOffset": 188,
+      "localTransfers": [
+        "10:bpl.n:+1c",
+        "1a:b.n:+1e",
+        "20:ble.n:+26",
+        "24:b.n:+28",
+        "38:bmi.n:+40",
+        "42:b.n:+56",
+        "5a:blt.n:+44",
+        "60:bpl.n:+78",
+        "68:b.n:+78",
+        "7e:bgt.n:+6a",
+        "80:b.n:+92",
+        "98:bgt.n:+82",
+        "a4:bpl.n:+ac",
+        "ae:b.n:+a8"
+      ],
+      "returns": [
+        "aa:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "4c:blx:r2",
+        "70:blx:r2",
+        "8a:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 60,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 100,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 156,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r4, r0|sub sp, #4|adds r0, #36|movs r5, r1|str r0, [sp, #0]|ldr r1, [r4, #0]|lsls r0, r1, #26|bpl.n local:+1c|movs r2, #16|ldr r0, [r4, #28]|bics r1, r2|str r1, [r4, #0]|b.n local:+1e|movs r0, #1|cmp r0, r5|ble.n local:+26|subs r7, r0, r5|b.n local:+28|movs r7, #0|ldr r0, [sp, #16]|ldr r1, [r4, #24]|adds r2, r7, r5|adds r0, r2, r0|subs r0, r1, r0|str r0, [r4, #24]|ldr r0, [r4, #0]|lsls r0, r0, #27|bmi.n local:+40|movs r0, r4|bl func_002FEE04|movs r6, #0|b.n local:+56|ldr r0, [sp, #12]|ldr r2, [r4, #4]|ldr r1, [r4, #8]|ldrb r0, [r0, r6]|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|adds r6, r6, #1|str r0, [r4, #32]|ldr r0, [sp, #16]|cmp r6, r0|blt.n local:+44|ldr r0, [r4, #0]|lsls r0, r0, #27|bpl.n local:+78|movs r0, r4|bl func_002FEE04|b.n local:+78|ldr r2, [r4, #4]|ldr r1, [r4, #8]|movs r0, #48|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|movs r0, r7|subs r7, r7, #1|cmp r0, #0|bgt.n local:+6a|b.n local:+92|ldr r0, [sp, #0]|ldr r2, [r4, #4]|ldr r1, [r4, #8]|ldrb r0, [r0, r5]|blx r2|ldr r0, [r4, #32]|adds r0, r0, #1|str r0, [r4, #32]|movs r0, r5|subs r5, r5, #1|cmp r0, #0|bgt.n local:+82|movs r0, r4|bl func_002FEE30|ldr r0, [r4, #0]|lsls r0, r0, #24|bpl.n local:+ac|movs r0, #2|add sp, #20|pop {r4, r5, r6, r7, pc}|movs r0, #1|b.n local:+a8"
+    },
+    {
+      "name": "func_001013A0",
+      "size": 182,
+      "instructionCount": 87,
+      "wideInstructionOffsets": [
+        34,
+        94,
+        124,
+        174
+      ],
+      "localBranchCount": 13,
+      "memoryOperationCount": 31,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 4,
+      "nextGlobal": "func_0010145C",
+      "nextGlobalOffset": 188,
+      "localTransfers": [
+        "16:b.n:+3c",
+        "28:beq.n:+3a",
+        "2e:bpl.n:+38",
+        "36:bhi.n:+56",
+        "40:bpl.n:+48",
+        "46:ble.n:+56",
+        "4a:blt.n:+18",
+        "54:bne.n:+18",
+        "70:b.n:+a0",
+        "84:beq.n:+9c",
+        "88:b.n:+96",
+        "9a:bcc.n:+8a",
+        "a4:blt.n:+72"
+      ],
+      "returns": [
+        "b4:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "92:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 34,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBF8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 94,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE04",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 124,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBF8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 174,
+          "mnemonic": "bl",
+          "symbol": "func_002FEE30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|movs r4, r0|movs r5, r2|ldr r1, [pc, #176]|sub sp, #24|add r1, pc|movs r7, #0|ldmia r1, {r0, r1}|movs r6, r7|str r0, [sp, #0]|str r1, [sp, #4]|b.n local:+3c|ldr r0, [sp, #28]|mov r2, sp|lsls r1, r6, #1|ldrh r1, [r0, r1]|add r0, sp, #8|bl func_002FFBF8|adds r1, r0, #1|beq.n local:+3a|ldr r1, [r4, #0]|lsls r1, r1, #26|bpl.n local:+38|ldr r2, [r4, #28]|adds r1, r7, r0|cmp r1, r2|bhi.n local:+56|adds r7, r7, r0|adds r6, r6, #1|ldr r0, [r4, #0]|lsls r0, r0, #26|bpl.n local:+48|ldr r0, [r4, #28]|cmp r0, r7|ble.n local:+56|cmp r6, r5|blt.n local:+18|ldr r0, [sp, #28]|lsls r1, r6, #1|ldrh r0, [r0, r1]|cmp r0, #0|bne.n local:+18|ldr r0, [r4, #24]|subs r0, r0, r7|str r0, [r4, #24]|movs r0, r4|bl func_002FEE04|ldr r1, [pc, #84]|add r1, pc|subs r1, #90|ldmia r1, {r0, r1}|str r0, [sp, #0]|movs r0, #0|str r1, [sp, #4]|b.n local:+a0|lsls r1, r0, #1|mov r2, sp|ldr r0, [sp, #28]|ldrh r1, [r0, r1]|add r0, sp, #8|bl func_002FFBF8|str r0, [sp, #20]|adds r0, r0, #1|beq.n local:+9c|movs r5, #0|b.n local:+96|ldr r2, [r4, #4]|add r0, sp, #8|ldr r1, [r4, #8]|ldrb r0, [r0, r5]|blx r2|adds r5, r5, #1|ldr r0, [sp, #20]|cmp r5, r0|bcc.n local:+8a|ldr r0, [sp, #16]|adds r0, r0, #1|cmp r0, r6|str r0, [sp, #16]|blt.n local:+72|ldr r0, [r4, #32]|adds r0, r0, r7|str r0, [r4, #32]|movs r0, r4|bl func_002FEE30|add sp, #36|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00103E3C",
+      "size": 186,
+      "instructionCount": 87,
+      "wideInstructionOffsets": [
+        6,
+        18,
+        30,
+        42,
+        52,
+        170
+      ],
+      "localBranchCount": 14,
+      "memoryOperationCount": 7,
+      "returnCount": 2,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 6,
+      "nextGlobal": "func_00103F08",
+      "nextGlobalOffset": 204,
+      "localTransfers": [
+        "c:beq.n:+b2",
+        "18:beq.n:+b2",
+        "44:beq.n:+48",
+        "4c:beq.n:+52",
+        "56:beq.n:+5c",
+        "60:beq.n:+66",
+        "6a:beq.n:+6e",
+        "72:beq.n:+78",
+        "7a:beq.n:+b6",
+        "80:beq.n:+84",
+        "88:beq.n:+8e",
+        "96:beq.n:+9c",
+        "a6:bne.n:+3a",
+        "b8:b.n:+7e"
+      ],
+      "returns": [
+        "b0:pop:{r1, r2, r3, r4, r5, r6, r7, pc}",
+        "b4:pop:{r1, r2, r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 6,
+          "mnemonic": "blx",
+          "symbol": "func_00302334",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 18,
+          "mnemonic": "blx",
+          "symbol": "func_00302334",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 42,
+          "mnemonic": "bl",
+          "symbol": "func_00302FB6",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 52,
+          "mnemonic": "blx",
+          "symbol": "func_002FEDF0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 170,
+          "mnemonic": "bl",
+          "symbol": "func_00302FEE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r1, r2, r3, r4, r5, r6, r7, lr}|add r1, pc, #184|movs r4, r0|blx func_00302334|cmp r0, #0|beq.n local:+b2|movs r0, r4|add r1, pc, #172|blx func_00302334|cmp r0, #0|beq.n local:+b2|movs r0, #1|lsls r0, r0, #9|bl func_002FF094|movs r7, r0|movs r2, #2|movs r1, r4|mov r0, sp|bl func_00302FB6|movs r4, #0|movs r6, #16|movs r5, #64|blx func_002FEDF0|movs r3, r0|ldr r0, [r3, #0]|movs r1, #0|ldrb r0, [r0, r4]|lsls r2, r0, #31|lsrs r2, r2, #31|beq.n local:+48|movs r1, #1|movs r2, #62|tst r0, r2|beq.n local:+52|movs r2, #2|orrs r1, r2|movs r2, r0|tst r2, r5|beq.n local:+5c|movs r2, #4|orrs r1, r2|movs r2, r0|tst r2, r6|beq.n local:+66|movs r2, #8|orrs r1, r2|movs r2, #8|tst r0, r2|beq.n local:+6e|orrs r1, r6|movs r2, #152|tst r0, r2|beq.n local:+78|movs r2, #32|orrs r1, r2|cmp r0, #32|beq.n local:+b6|movs r2, #0|cmp r2, #0|beq.n local:+84|orrs r1, r5|movs r2, #2|tst r0, r2|beq.n local:+8e|movs r2, #128|orrs r1, r2|lsls r2, r0, #2|eors r2, r0|movs r0, #128|tst r2, r0|beq.n local:+9c|lsls r0, r0, #1|orrs r1, r0|lsls r0, r4, #1|adds r4, r4, #1|strh r1, [r7, r0]|subs r0, r4, #7|subs r0, #249|bne.n local:+3a|mov r0, sp|bl func_00302FEE|movs r0, r7|pop {r1, r2, r3, r4, r5, r6, r7, pc}|ldr r0, [pc, #20]|pop {r1, r2, r3, r4, r5, r6, r7, pc}|movs r2, #1|b.n local:+7e"
+    },
+    {
+      "name": "func_001034A0",
+      "size": 200,
+      "instructionCount": 97,
+      "wideInstructionOffsets": [
+        44,
+        114,
+        172
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 33,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_00103568",
+      "nextGlobalOffset": 200,
+      "localTransfers": [
+        "e:beq.n:+58",
+        "14:b.n:+9a",
+        "18:bgt.n:+9e",
+        "1e:bge.n:+5e",
+        "24:beq.n:+5e",
+        "32:beq.n:+38",
+        "36:b.n:+94",
+        "3e:beq.n:+44",
+        "42:b.n:+56",
+        "52:bmi.n:+58",
+        "60:bge.n:+6c",
+        "82:beq.n:+94",
+        "88:blt.n:+98",
+        "92:b.n:+c0",
+        "96:b.n:+5a",
+        "9c:b.n:+c0",
+        "a2:ble.n:+a6",
+        "c2:bgt.n:+16",
+        "c6:b.n:+58"
+      ],
+      "returns": [
+        "5c:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 44,
+          "mnemonic": "bl",
+          "symbol": "func_00301D30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_0030291C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 172,
+          "mnemonic": "blx",
+          "symbol": "func_00300B28",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #12|movs r4, r3|ldr r5, [sp, #20]|str r0, [sp, #0]|muls r5, r1|cmp r1, #0|beq.n local:+58|ldr r7, [r4, #8]|movs r0, #0|b.n local:+9a|cmp r7, #0|bgt.n local:+9e|ldr r0, [r4, #28]|cmp r0, r5|bge.n local:+5e|ldr r1, [sp, #4]|cmp r1, #0|beq.n local:+5e|ldr r0, [sp, #0]|movs r2, r4|movs r1, r5|bl func_00301D30|cmp r0, #0|beq.n local:+38|str r7, [r4, #8]|b.n local:+94|ldr r0, [r4, #12]|lsls r1, r0, #21|lsrs r1, r1, #30|beq.n local:+44|movs r0, #0|b.n local:+56|ldr r2, [r4, #16]|ldr r1, [r4, #4]|subs r1, r1, r2|ldr r2, [r4, #28]|subs r1, r2, r1|lsls r0, r0, #15|str r1, [r4, #8]|bmi.n local:+58|negs r0, r1|str r0, [r4, #8]|ldr r0, [sp, #20]|add sp, #28|pop {r4, r5, r6, r7, pc}|cmp r0, r5|bge.n local:+6c|ldr r0, [r4, #12]|movs r1, #1|lsls r1, r1, #23|orrs r0, r1|str r0, [r4, #12]|ldr r0, [sp, #0]|movs r1, r4|ldrb r0, [r0, #0]|bl func_0030291C|ldr r2, [r4, #12]|movs r1, #1|lsls r1, r1, #23|bics r2, r1|adds r1, r0, #1|str r2, [r4, #12]|beq.n local:+94|ldr r7, [r4, #8]|cmp r0, #0|blt.n local:+98|ldr r0, [sp, #0]|adds r0, r0, #1|subs r5, r5, #1|str r0, [sp, #0]|b.n local:+c0|movs r0, #0|b.n local:+5a|movs r0, #1|str r0, [sp, #4]|b.n local:+c0|movs r6, r7|cmp r7, r5|ble.n local:+a6|movs r6, r5|ldr r0, [r4, #4]|ldr r1, [sp, #0]|movs r2, r6|blx func_00300B28|ldr r0, [r4, #4]|subs r7, r7, r6|adds r0, r0, r6|str r0, [r4, #4]|ldr r0, [sp, #0]|adds r0, r0, r6|subs r5, r5, r6|str r0, [sp, #0]|cmp r5, #0|bgt.n local:+16|str r7, [r4, #8]|b.n local:+58"
+    },
+    {
+      "name": "func_0010123E",
+      "size": 204,
+      "instructionCount": 101,
+      "wideInstructionOffsets": [
+        132
+      ],
+      "localBranchCount": 21,
+      "memoryOperationCount": 41,
+      "returnCount": 1,
+      "indirectCallCount": 6,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_0010130A",
+      "nextGlobalOffset": 204,
+      "localTransfers": [
+        "1e:beq.n:+2c",
+        "20:b.n:+36",
+        "34:bne.n:+22",
+        "3a:beq.n:+44",
+        "40:beq.n:+4c",
+        "42:b.n:+6e",
+        "54:b.n:+6e",
+        "5a:bne.n:+62",
+        "70:ble.n:+9e",
+        "76:beq.n:+9e",
+        "7c:beq.n:+8e",
+        "8a:bne.n:+56",
+        "8c:b.n:+9e",
+        "92:bne.n:+56",
+        "9c:beq.n:+56",
+        "ae:bne.n:+b2",
+        "b6:ble.n:+c2",
+        "bc:beq.n:+c8",
+        "c0:beq.n:+c8",
+        "c6:b.n:+48",
+        "ca:b.n:+48"
+      ],
+      "returns": [
+        "4a:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "14:blx:r1",
+        "28:blx:r1",
+        "30:blx:r1",
+        "6a:blx:r1",
+        "98:blx:r1",
+        "a2:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 132,
+          "mnemonic": "bl",
+          "symbol": "func_002FFC3C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #12|movs r4, r2|movs r6, #0|ldr r0, [r2, #4]|movs r5, r6|str r0, [sp, #4]|ldr r1, [r2, #24]|ldr r7, [r2, #8]|ldr r0, [sp, #16]|blx r1|str r0, [sp, #0]|ldr r1, [sp, #56]|ldr r0, [sp, #24]|orrs r0, r1|beq.n local:+2c|b.n local:+36|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|str r0, [sp, #0]|ldr r1, [r4, #32]|ldr r0, [sp, #0]|blx r1|cmp r0, #0|bne.n local:+22|ldr r0, [sp, #0]|adds r0, r0, #1|beq.n local:+44|ldr r0, [sp, #4]|lsls r0, r0, #31|beq.n local:+4c|b.n local:+6e|movs r0, #0|mvns r0, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r6, [r0, #0]|b.n local:+6e|ldr r0, [sp, #4]|lsls r0, r0, #31|bne.n local:+62|ldr r0, [sp, #0]|strh r0, [r6, #0]|adds r6, r6, #2|ldr r1, [r4, #24]|subs r7, r7, #1|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|str r0, [sp, #0]|cmp r7, #0|ble.n local:+9e|ldr r0, [sp, #0]|adds r0, r0, #1|beq.n local:+9e|ldr r0, [sp, #24]|cmp r0, #0|beq.n local:+8e|ldr r3, [sp, #0]|ldr r2, [sp, #52]|ldr r1, [sp, #48]|bl func_002FFC3C|cmp r0, #0|bne.n local:+56|b.n local:+9e|ldr r0, [sp, #56]|cmp r0, #0|bne.n local:+56|ldr r1, [r4, #32]|ldr r0, [sp, #0]|blx r1|cmp r0, #0|beq.n local:+56|ldr r1, [r4, #28]|ldr r0, [sp, #16]|blx r1|ldr r0, [sp, #4]|ldr r1, [sp, #56]|lsls r0, r0, #31|lsrs r0, r0, #31|orrs r0, r1|bne.n local:+b2|strh r0, [r6, #0]|ldr r0, [r4, #8]|cmp r0, r7|ble.n local:+c2|ldr r0, [sp, #56]|cmp r0, #0|beq.n local:+c8|cmp r7, #0|beq.n local:+c8|movs r0, #1|mvns r0, r0|b.n local:+48|movs r0, r5|b.n local:+48"
+    },
+    {
+      "name": "func_002FF118",
+      "size": 206,
+      "instructionCount": 98,
+      "wideInstructionOffsets": [
+        48,
+        96,
+        154,
+        182,
+        194
+      ],
+      "localBranchCount": 11,
+      "memoryOperationCount": 24,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 5,
+      "nextGlobal": "func_002FF1EC",
+      "nextGlobalOffset": 212,
+      "localTransfers": [
+        "3c:bpl.n:+44",
+        "42:b.n:+46",
+        "4a:b.n:+6c",
+        "4e:beq.n:+68",
+        "6e:bne.n:+4c",
+        "76:b.n:+a6",
+        "7a:beq.n:+a2",
+        "8e:bne.n:+94",
+        "a8:bne.n:+78",
+        "ae:beq.n:+bc",
+        "ba:b.n:+c6"
+      ],
+      "returns": [
+        "cc:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 48,
+          "mnemonic": "blx",
+          "symbol": "func_00300754",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 96,
+          "mnemonic": "blx",
+          "symbol": "func_002FF21C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 154,
+          "mnemonic": "blx",
+          "symbol": "func_002FF21C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 182,
+          "mnemonic": "blx",
+          "symbol": "func_002FF1EC",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 194,
+          "mnemonic": "blx",
+          "symbol": "func_002FF21C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|movs r6, r2|sub sp, #40|ldr r0, [pc, #200]|add r0, pc|mov r4, sp|movs r3, r0|adds r3, #124|ldr r0, [r0, #124]|ldr r2, [r3, #4]|ldr r3, [r3, #8]|stmia r4!, {r0, r2, r3}|ldr r3, [pc, #180]|add r3, pc|adds r3, #110|adds r3, #8|add r4, sp, #12|ldmia r3, {r0, r2, r3}|stmia r4!, {r0, r2, r3}|movs r0, #55|lsls r0, r0, #7|adds r0, r1, r0|movs r1, #55|adds r0, #27|blx func_00300754|movs r5, r0|subs r5, #128|movs r4, r1|subs r4, #27|bpl.n local:+44|negs r4, r4|movs r0, #1|b.n local:+46|movs r0, #0|movs r7, #0|str r0, [sp, #36]|b.n local:+6c|lsls r0, r4, #31|beq.n local:+68|movs r0, #12|ldr r1, [pc, #124]|muls r0, r7|add r1, pc|subs r1, #78|adds r1, r0, r1|mov r0, sp|movs r2, r6|blx func_002FF21C|mov r3, sp|stmia r3!, {r0, r1, r2}|asrs r4, r4, #1|adds r7, r7, #1|cmp r4, #0|bne.n local:+4c|ldr r7, [pc, #92]|add r7, pc|subs r7, #46|b.n local:+a6|lsls r0, r5, #31|beq.n local:+a2|lsls r0, r4, #4|adds r0, r0, r7|movs r1, r0|ldmia r1, {r1, r2, r3}|str r1, [sp, #24]|str r3, [sp, #32]|str r2, [sp, #28]|ldr r0, [r0, #12]|cmn r0, r6|bne.n local:+94|adds r0, r3, r6|str r0, [sp, #32]|movs r2, r6|add r1, sp, #24|add r0, sp, #12|blx func_002FF21C|add r3, sp, #12|stmia r3!, {r0, r1, r2}|asrs r5, r5, #1|adds r4, r4, #1|cmp r5, #0|bne.n local:+78|ldr r0, [sp, #36]|cmp r0, #0|beq.n local:+bc|mov r1, sp|movs r2, r6|add r0, sp, #12|blx func_002FF1EC|b.n local:+c6|movs r2, r6|mov r1, sp|add r0, sp, #12|blx func_002FF21C|ldr r3, [sp, #40]|stmia r3!, {r0, r1, r2}|add sp, #52|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_001031A8",
+      "size": 212,
+      "instructionCount": 103,
+      "wideInstructionOffsets": [
+        104,
+        146,
+        182
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 27,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_0010327C",
+      "nextGlobalOffset": 212,
+      "localTransfers": [
+        "14:beq.n:+1c",
+        "18:beq.n:+4a",
+        "1a:b.n:+4c",
+        "26:beq.n:+32",
+        "2a:beq.n:+32",
+        "2e:beq.n:+46",
+        "30:b.n:+4c",
+        "34:beq.n:+3a",
+        "38:bne.n:+4c",
+        "44:b.n:+4c",
+        "48:b.n:+4c",
+        "52:b.n:+90",
+        "86:bcc.n:+8c",
+        "98:bge.n:+54",
+        "9e:beq.n:+b0",
+        "a4:beq.n:+aa",
+        "a8:b.n:+ac",
+        "b4:beq.n:+c6",
+        "d2:b.n:+c2"
+      ],
+      "returns": [
+        "c4:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 104,
+          "mnemonic": "blx",
+          "symbol": "func_002FFBE0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 146,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 182,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #16|movs r1, #0|ldr r4, [sp, #16]|movs r5, r2|ldrb r0, [r4, #0]|adds r4, r4, #1|str r1, [sp, #4]|cmp r0, #48|str r1, [sp, #8]|beq.n local:+1c|cmp r5, #0|beq.n local:+4a|b.n local:+4c|movs r0, #1|str r0, [sp, #4]|ldrb r0, [r4, #0]|adds r4, r4, #1|cmp r0, #120|beq.n local:+32|cmp r0, #88|beq.n local:+32|cmp r5, #0|beq.n local:+46|b.n local:+4c|cmp r5, #0|beq.n local:+3a|cmp r5, #16|bne.n local:+4c|movs r0, #0|str r0, [sp, #4]|ldrb r0, [r4, #0]|movs r5, #16|adds r4, r4, #1|b.n local:+4c|movs r5, #8|b.n local:+4c|movs r5, #10|movs r7, #0|movs r6, r7|str r7, [sp, #0]|b.n local:+90|movs r1, #1|str r1, [sp, #4]|ldr r1, [sp, #0]|movs r3, r6|muls r1, r5|adds r2, r1, r0|str r2, [sp, #0]|movs r0, r5|asrs r1, r5, #31|movs r2, r7|blx func_002FFBE0|ldr r2, [sp, #0]|movs r3, #0|lsrs r2, r2, #16|adds r7, r0, r2|ldr r2, [sp, #0]|adcs r1, r3|movs r6, r1|lsls r0, r2, #16|lsrs r0, r0, #16|str r0, [sp, #0]|movs r0, #1|lsls r0, r0, #16|cmp r1, r0|bcc.n local:+8c|movs r0, #1|str r0, [sp, #8]|ldrb r0, [r4, #0]|adds r4, r4, #1|movs r1, r5|bl func_002FEDD0|cmp r0, #0|bge.n local:+54|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+b0|ldr r0, [sp, #4]|cmp r0, #0|beq.n local:+aa|subs r4, r4, #1|b.n local:+ac|ldr r4, [sp, #16]|ldr r0, [sp, #20]|str r4, [r0, #0]|ldr r0, [sp, #8]|cmp r0, #0|beq.n local:+c6|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|subs r0, r1, #3|movs r1, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|ldr r2, [sp, #0]|lsrs r0, r7, #16|lsls r1, r6, #16|orrs r1, r0|lsls r0, r7, #16|orrs r0, r2|b.n local:+c2"
+    },
+    {
+      "name": "func_0010327C",
+      "size": 212,
+      "instructionCount": 103,
+      "wideInstructionOffsets": [
+        104,
+        146,
+        182
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 27,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 3,
+      "nextGlobal": "func_00103350",
+      "nextGlobalOffset": 212,
+      "localTransfers": [
+        "14:beq.n:+1c",
+        "18:beq.n:+4a",
+        "1a:b.n:+4c",
+        "26:beq.n:+32",
+        "2a:beq.n:+32",
+        "2e:beq.n:+46",
+        "30:b.n:+4c",
+        "34:beq.n:+3a",
+        "38:bne.n:+4c",
+        "44:b.n:+4c",
+        "48:b.n:+4c",
+        "52:b.n:+90",
+        "86:bcc.n:+8c",
+        "98:bge.n:+54",
+        "9e:beq.n:+b0",
+        "a4:beq.n:+aa",
+        "a8:b.n:+ac",
+        "b4:beq.n:+c6",
+        "d2:b.n:+c2"
+      ],
+      "returns": [
+        "c4:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 104,
+          "mnemonic": "blx",
+          "symbol": "func_002FFBE0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 146,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 182,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|sub sp, #16|movs r1, #0|ldr r4, [sp, #16]|movs r5, r2|ldrh r0, [r4, #0]|adds r4, r4, #2|str r1, [sp, #4]|cmp r0, #48|str r1, [sp, #8]|beq.n local:+1c|cmp r5, #0|beq.n local:+4a|b.n local:+4c|movs r0, #1|str r0, [sp, #4]|ldrh r0, [r4, #0]|adds r4, r4, #2|cmp r0, #120|beq.n local:+32|cmp r0, #88|beq.n local:+32|cmp r5, #0|beq.n local:+46|b.n local:+4c|cmp r5, #0|beq.n local:+3a|cmp r5, #16|bne.n local:+4c|movs r0, #0|str r0, [sp, #4]|ldrh r0, [r4, #0]|movs r5, #16|adds r4, r4, #2|b.n local:+4c|movs r5, #8|b.n local:+4c|movs r5, #10|movs r7, #0|movs r6, r7|str r7, [sp, #0]|b.n local:+90|movs r1, #1|str r1, [sp, #4]|ldr r1, [sp, #0]|movs r3, r6|muls r1, r5|adds r2, r1, r0|str r2, [sp, #0]|movs r0, r5|asrs r1, r5, #31|movs r2, r7|blx func_002FFBE0|ldr r2, [sp, #0]|movs r3, #0|lsrs r2, r2, #16|adds r7, r0, r2|ldr r2, [sp, #0]|adcs r1, r3|movs r6, r1|lsls r0, r2, #16|lsrs r0, r0, #16|str r0, [sp, #0]|movs r0, #1|lsls r0, r0, #16|cmp r1, r0|bcc.n local:+8c|movs r0, #1|str r0, [sp, #8]|ldrh r0, [r4, #0]|adds r4, r4, #2|movs r1, r5|bl func_002FEDD0|cmp r0, #0|bge.n local:+54|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+b0|ldr r0, [sp, #4]|cmp r0, #0|beq.n local:+aa|subs r4, r4, #2|b.n local:+ac|ldr r4, [sp, #16]|ldr r0, [sp, #20]|str r4, [r0, #0]|ldr r0, [sp, #8]|cmp r0, #0|beq.n local:+c6|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|subs r0, r1, #3|movs r1, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|ldr r2, [sp, #0]|lsrs r0, r7, #16|lsls r1, r6, #16|orrs r1, r0|lsls r0, r7, #16|orrs r0, r2|b.n local:+c2"
+    },
+    {
+      "name": "func_001033C4",
+      "size": 220,
+      "instructionCount": 106,
+      "wideInstructionOffsets": [
+        38,
+        86,
+        134,
+        186
+      ],
+      "localBranchCount": 11,
+      "memoryOperationCount": 43,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 4,
+      "nextGlobal": "func_001034A0",
+      "nextGlobalOffset": 220,
+      "localTransfers": [
+        "10:bgt.n:+42",
+        "1c:bcs.n:+24",
+        "32:beq.n:+6e",
+        "36:beq.n:+d8",
+        "4c:bcs.n:+50",
+        "70:bpl.n:+76",
+        "74:b.n:+80",
+        "8c:ble.n:+b8",
+        "b6:b.n:+42",
+        "d6:b.n:+42",
+        "da:b.n:+6a"
+      ],
+      "returns": [
+        "6c:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 38,
+          "mnemonic": "bl",
+          "symbol": "func_00302452",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 86,
+          "mnemonic": "blx",
+          "symbol": "func_00300B28",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 134,
+          "mnemonic": "bl",
+          "symbol": "func_003023F0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 186,
+          "mnemonic": "bl",
+          "symbol": "func_0030242A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r4, r5, r6, r7, lr}|movs r5, r0|sub sp, #8|movs r0, #0|str r0, [sp, #0]|ldr r7, [r2, #0]|movs r4, r2|cmp r7, #0|bgt.n local:+42|ldr r1, [r4, #28]|ldr r0, [sp, #12]|movs r6, #1|lsls r6, r6, #23|cmp r1, r0|bcs.n local:+24|ldr r0, [r4, #12]|orrs r0, r6|str r0, [r4, #12]|movs r0, r2|bl func_00302452|ldr r1, [r4, #12]|bics r1, r6|adds r2, r0, #2|str r1, [r4, #12]|beq.n local:+6e|adds r1, r0, #1|beq.n local:+d8|ldr r7, [r4, #0]|strb r0, [r5, #0]|adds r5, r5, #1|movs r0, #1|str r0, [sp, #0]|ldr r1, [sp, #0]|ldr r0, [sp, #12]|movs r6, r7|subs r0, r0, r1|cmp r0, r6|bcs.n local:+50|movs r6, r0|ldr r1, [r4, #4]|movs r2, r6|movs r0, r5|blx func_00300B28|ldr r1, [r4, #4]|subs r0, r7, r6|adds r1, r1, r6|str r1, [r4, #4]|ldr r1, [sp, #0]|str r0, [r4, #0]|adds r1, r1, r6|movs r0, r1|add sp, #20|pop {r4, r5, r6, r7, pc}|lsls r0, r1, #26|bpl.n local:+76|ldr r6, [r4, #40]|b.n local:+80|ldr r1, [r4, #24]|ldr r0, [r4, #4]|adds r0, r0, r1|ldr r1, [r4, #16]|subs r6, r0, r1|ldr r1, [sp, #12]|movs r2, r4|movs r0, r5|bl func_003023F0|cmp r0, #0|ble.n local:+b8|adds r5, r5, r0|str r0, [sp, #0]|adds r0, r6, r0|subs r0, r0, #1|str r0, [r4, #24]|movs r0, r5|subs r0, #32|ldr r1, [r4, #16]|ldrb r0, [r0, #31]|movs r7, #0|strb r0, [r1, #0]|ldr r0, [r4, #16]|movs r1, #1|adds r0, r0, #1|str r0, [r4, #44]|str r0, [r4, #4]|ldr r0, [r4, #12]|lsls r1, r1, #17|orrs r0, r1|str r0, [r4, #12]|b.n local:+42|movs r0, r4|bl func_0030242A|str r6, [r4, #24]|ldr r0, [r4, #16]|str r0, [r4, #4]|str r0, [r4, #44]|ldr r1, [r4, #12]|movs r0, #1|lsls r0, r0, #17|bics r1, r0|str r1, [r4, #12]|ldr r0, [r4, #28]|negs r0, r0|str r0, [r4, #8]|b.n local:+42|movs r0, #0|b.n local:+6a"
+    },
+    {
+      "name": "func_002FFD48",
+      "size": 224,
+      "instructionCount": 102,
+      "wideInstructionOffsets": [
+        26,
+        78,
+        86,
+        94,
+        114,
+        128,
+        156,
+        188,
+        202,
+        214
+      ],
+      "localBranchCount": 10,
+      "memoryOperationCount": 38,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 10,
+      "nextGlobal": "func_002FFE30",
+      "nextGlobalOffset": 232,
+      "localTransfers": [
+        "16:beq.n:+20",
+        "1e:b.n:+22",
+        "26:b.n:+34",
+        "36:bne.n:+28",
+        "4c:beq.n:+64",
+        "8a:bcc.n:+8e",
+        "96:b.n:+a8",
+        "b0:bne.n:+98",
+        "b2:b.n:+c0",
+        "c4:bcc.n:+b4"
+      ],
+      "returns": [
+        "de:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 26,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 78,
+          "mnemonic": "blx",
+          "symbol": "func_002FF034",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 86,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 94,
+          "mnemonic": "blx",
+          "symbol": "func_00300980",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_0030098C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 128,
+          "mnemonic": "bl",
+          "symbol": "func_0030099C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 156,
+          "mnemonic": "bl",
+          "symbol": "func_003009B0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 188,
+          "mnemonic": "bl",
+          "symbol": "func_003009B0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 202,
+          "mnemonic": "bl",
+          "symbol": "func_003009F4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 214,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #28|movs r4, r2|movs r7, r0|movs r0, #0|movs r5, r7|adds r5, #8|movs r6, r0|str r0, [r7, #0]|cmp r2, #0|str r0, [r7, #4]|beq.n local:+20|lsls r0, r4, #2|bl func_002FF094|b.n local:+22|movs r0, #0|str r4, [r5, #4]|str r0, [r5, #0]|b.n local:+34|movs r0, r4|ldr r1, [r5, #0]|subs r4, r4, #1|lsls r0, r0, #2|subs r0, r0, #4|str r6, [r1, r0]|cmp r4, #0|bne.n local:+28|movs r0, #0|str r0, [r5, #8]|str r0, [r5, #12]|str r0, [r5, #16]|ldr r0, [sp, #40]|str r0, [r5, #20]|ldr r0, [sp, #32]|movs r4, r5|subs r4, #8|cmp r0, #0|beq.n local:+64|blx func_002FF034|adds r5, r0, #1|movs r0, r5|bl func_002FF094|ldr r1, [sp, #32]|movs r2, r5|blx func_00300980|str r0, [r4, #24]|movs r0, #6|str r0, [sp, #0]|add r0, sp, #20|nop @ (mov r8, r8)|nop @ (mov r8, r8)|movs r1, r0|add r0, sp, #8|bl func_0030098C|str r0, [sp, #12]|ldr r3, [pc, #100]|ldr r2, [pc, #104]|ldr r1, [sp, #0]|movs r0, #4|bl func_0030099C|ldr r5, [r4, #4]|movs r7, r0|cmp r5, #6|bcc.n local:+8e|ldr r5, [sp, #0]|ldr r6, [r4, #0]|lsls r0, r5, #2|str r7, [sp, #4]|str r0, [sp, #16]|b.n local:+a8|ldr r0, [sp, #4]|movs r1, r6|bl func_003009B0|ldr r0, [sp, #4]|adds r6, r6, #4|adds r0, r0, #4|str r0, [sp, #4]|ldr r1, [r4, #0]|ldr r0, [sp, #16]|adds r0, r1, r0|cmp r0, r6|bne.n local:+98|b.n local:+c0|lsls r0, r5, #2|ldr r1, [sp, #12]|adds r0, r0, r7|adds r5, r5, #1|bl func_003009B0|ldr r0, [sp, #0]|cmp r5, r0|bcc.n local:+b4|ldr r1, [pc, #24]|ldr r0, [r4, #0]|bl func_003009F4|ldr r0, [sp, #0]|str r7, [r4, #0]|str r0, [r4, #4]|add r0, sp, #8|bl func_002FF86C|movs r0, r4|add sp, #44|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00100F5E",
+      "size": 226,
+      "instructionCount": 113,
+      "wideInstructionOffsets": [],
+      "localBranchCount": 21,
+      "memoryOperationCount": 38,
+      "returnCount": 1,
+      "indirectCallCount": 6,
+      "indirectTailCount": 0,
+      "directCallCount": 0,
+      "nextGlobal": "func_00101040",
+      "nextGlobalOffset": 226,
+      "localTransfers": [
+        "20:beq.n:+2e",
+        "22:b.n:+38",
+        "36:bne.n:+24",
+        "3a:beq.n:+44",
+        "40:beq.n:+4c",
+        "42:b.n:+70",
+        "54:b.n:+70",
+        "5a:bne.n:+60",
+        "74:ble.n:+b0",
+        "78:beq.n:+b0",
+        "7e:beq.n:+a0",
+        "9c:bne.n:+56",
+        "9e:b.n:+b0",
+        "a4:bne.n:+56",
+        "ae:beq.n:+56",
+        "c0:bne.n:+c4",
+        "ca:ble.n:+d8",
+        "d0:beq.n:+de",
+        "d6:beq.n:+de",
+        "dc:b.n:+48",
+        "e0:b.n:+48"
+      ],
+      "returns": [
+        "4a:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "16:blx:r1",
+        "2a:blx:r1",
+        "32:blx:r1",
+        "6c:blx:r1",
+        "aa:blx:r1",
+        "b4:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #12|movs r4, r2|movs r7, #0|ldr r0, [r2, #4]|movs r6, r7|str r0, [sp, #4]|ldr r0, [r2, #8]|str r0, [sp, #0]|ldr r1, [r2, #24]|ldr r0, [sp, #16]|blx r1|movs r5, r0|ldr r1, [sp, #48]|ldr r0, [sp, #24]|orrs r0, r1|beq.n local:+2e|b.n local:+38|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r6, r6, #1|blx r1|movs r5, r0|ldr r1, [r4, #32]|movs r0, r5|blx r1|cmp r0, #0|bne.n local:+24|adds r0, r5, #1|beq.n local:+44|ldr r0, [sp, #4]|lsls r0, r0, #31|beq.n local:+4c|b.n local:+70|movs r0, #0|mvns r0, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r7, [r0, #0]|b.n local:+70|ldr r0, [sp, #4]|lsls r0, r0, #31|bne.n local:+60|strb r5, [r7, #0]|adds r7, r7, #1|ldr r0, [sp, #0]|subs r0, r0, #1|str r0, [sp, #0]|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r6, r6, #1|blx r1|movs r5, r0|ldr r0, [sp, #0]|cmp r0, #0|ble.n local:+b0|adds r0, r5, #1|beq.n local:+b0|ldr r0, [sp, #24]|cmp r0, #0|beq.n local:+a0|asrs r0, r5, #31|lsrs r0, r0, #27|adds r0, r0, r5|asrs r1, r0, #5|lsrs r0, r0, #5|lsls r2, r1, #2|ldr r1, [sp, #24]|lsls r0, r0, #5|adds r1, r2, r1|subs r2, r5, r0|ldr r1, [r1, #0]|movs r0, #1|lsls r0, r2|tst r1, r0|bne.n local:+56|b.n local:+b0|ldr r0, [sp, #48]|cmp r0, #0|bne.n local:+56|ldr r1, [r4, #32]|movs r0, r5|blx r1|cmp r0, #0|beq.n local:+56|ldr r1, [r4, #28]|ldr r0, [sp, #16]|blx r1|ldr r0, [sp, #4]|ldr r1, [sp, #48]|lsls r0, r0, #31|lsrs r0, r0, #31|orrs r0, r1|bne.n local:+c4|strb r0, [r7, #0]|ldr r1, [r4, #8]|ldr r0, [sp, #0]|cmp r1, r0|ble.n local:+d8|ldr r0, [sp, #48]|cmp r0, #0|beq.n local:+de|ldr r0, [sp, #0]|cmp r0, #0|beq.n local:+de|movs r0, #1|mvns r0, r0|b.n local:+48|movs r0, r6|b.n local:+48"
+    }
+  ]
+}
