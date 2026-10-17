@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,261 routines across main/code and 96 CRO units match byte-for-byte",
+      "detail": "4,260 routines across main/code and 95 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
