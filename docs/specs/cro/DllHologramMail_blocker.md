@@ -4,6 +4,14 @@ Analysis-only provenance audit dated **2026-10-17**, for `AS_EUR_REV2`, unit
 `cro/DllHologramMail`, at public base
 `d7a0c7eeff0bc6c4752e29ed2b9ff315d01b8bea`.
 
+Re-evaluated after the central publication-integrity gate landed at exact base
+`3a94a87193fc163cce30c4ef40d571db579cbf3b`. That gate now owns repository-wide
+input traversal, canonical inventory binding, evidence-object binding, aggregate
+derivation, and coordinated hostile-publication rejection. None of those checks
+supplies the missing unit-specific behavioral provenance. The focused validator
+therefore retains only this unit's quarantine, source/ownership absence, zero
+credit/completion, reviewed blocker identity, and check-chain reachability.
+
 The independent analysis supplied for this corrective task found insufficient
 provenance. The source, source-configuration claim, and match credit originated
 in `7b14dec...`. The shared batch document lacked independent observations,
@@ -39,6 +47,7 @@ paths are:
 - `docs/specs/cro/store_leaves_02.md`
 - `docs/specs/cro/DllHologramMail_blocker.md`
 - `config/cro-sources.json`
+- `config/publication-units.json`
 - `progress/units/AS_EUR_REV2.cro.json`
 - `symbols/cro/DllHologramMail.csv`
 - `symbols/cro-partitions/DllHologramMail.json`
@@ -51,9 +60,7 @@ paths are:
 - `package.json`
 - `scripts/validate-cro-store-leaves.mjs`
 - `scripts/validate-cro-dll-hologram-mail.mjs`
-- `scripts/prepare-bytematch-report.mjs`
-- `scripts/test-prepare-bytematch-report.mjs`
-- `scripts/validate-public-cro-metadata.mjs`
+- `scripts/validate-publication-integrity.mjs`
 
 `src/cro/DllHologramMail.c` is a deletion-only path; its contents were not
 read for this correction. No environment secrets, private inputs, ignored
