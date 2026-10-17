@@ -4,8 +4,9 @@ This batch applies a reviewed byte-store leaf contract to its supported CRO
 units. Each accepted leaf stores a byte-valued argument in its designated
 object field and returns. DllPhotoSaver was credited previously; the remaining
 supported leaves belong to the current wave. The quarantined `DllGift`,
-`DllHologramMail`, `DllPssFavorite`, `DllPssMessageWindow`, and
-`DllShinkaDemo` claims are excluded and must remain absent.
+`DllHologramMail`, `DllPssCharaMenu`, `DllPssFavorite`,
+`DllPssMessageWindow`, and `DllShinkaDemo` claims are excluded and must remain
+absent.
 
 Validation requires a distinct clean-room C source for each unit, exact source
 semantics, disjoint source ownership, the accepted inventory boundary, and an
@@ -34,3 +35,8 @@ DllShinkaDemo is also withdrawn because the public repository lacks admissible
 unit-specific evidence for its claim. Its neutral metadata and incomplete
 status remain, but this shared document supplies no behavioral contract; see
 [the clean-room blocker](DllShinkaDemo_blocker.md).
+
+DllPssCharaMenu is likewise withdrawn because the public repository does not
+contain admissible unit-specific evidence for its claim. Its neutral metadata
+and incomplete status remain, but this shared document supplies no behavioral
+contract; see [the clean-room blocker](DllPssCharaMenu_blocker.md).
