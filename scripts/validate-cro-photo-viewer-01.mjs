@@ -109,6 +109,20 @@ function validateAnalysisHandoff() {
   ]) check(required.test(spec.replace(/\s+/gu, " ")), `analysis handoff lacks required evidence: ${required}`);
   check(!spec.includes("/home/") && !spec.includes("ROM_PATH=") && !spec.includes("DECOMP_PRIVATE="),
     "analysis handoff contains a private path or environment assignment");
+
+  const links = readFileSync(join(ROOT, "docs", "specs", "cro", `${UNIT}_analysis_02.md`), "utf8");
+  const normalizedLinks = links.replace(/\s+/gu, " ");
+  for (const required of [
+    /reproduced the authorized root checkout's existing structural and split target objects exactly/u,
+    /zero relocation records for both `\.text\.func_00000F20` \(596 bytes\) and `\.text\.func_0000133C` \(8 bytes\)/u,
+    /retains external call relocations cannot obtain an exact function match/u,
+    /all 17 anonymous import-slot bindings/u,
+    /comparison blocker and unresolved behavioral\/helper\/resource contracts remain/u,
+  ]) check(required.test(normalizedLinks), `link-boundary handoff lacks required evidence: ${required}`);
+  const imports = links.match(/`__cro_import_anon_m[0-9a-f]+_s0_[0-9a-f]{7}`/gu) ?? [];
+  check(new Set(imports).size === 17, "link-boundary handoff does not contain exactly 17 neutral import identities");
+  check(!links.includes("/home/") && !links.includes("ROM_PATH=") && !links.includes("DECOMP_PRIVATE="),
+    "link-boundary handoff contains a private path or environment assignment");
 }
 
 function validatePublishedState() {
