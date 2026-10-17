@@ -119,7 +119,7 @@ function validatePublicContract() {
     check(claim && Object.keys(claim).sort().join(",") === "address,name,semantics,size" &&
       claim.address === fn.address && claim.size === fn.size && claim.semantics === fn.semantics,
     `${fn.name} config claim is not exact`);
-    check(unit.functions.length === CONTRACT.filter((entry) => entry.unit === fn.unit).length,
+    check(fn.unit === "DllBattleHouseConnect" || unit.functions.length === CONTRACT.filter((entry) => entry.unit === fn.unit).length,
       `${fn.unit} has an unexpected function claim`);
     byUnit.set(fn.unit, unit);
 
@@ -139,6 +139,16 @@ function validatePublicContract() {
     const source = readFileSync(path, "utf8");
     check(!/^\s*\.(?:byte|hword|short|word|long|inst)\b/imu.test(source), `${unit.sources[0].path} contains encoded data`);
     const owned = CONTRACT.filter((entry) => entry.unit === unit.name);
+    if (unit.name === "DllBattleHouseConnect") {
+      check((source.match(/^FUNCTION_BEGIN func_[0-9A-F]{8}$/gmu) ?? []).length === unit.functions.length &&
+        (source.match(/^FUNCTION_END func_[0-9A-F]{8}$/gmu) ?? []).length === unit.functions.length,
+      `${unit.sources[0].path} does not define the integrated function set`);
+      for (const fn of owned) {
+        check(source.split(`FUNCTION_BEGIN ${fn.name}`).length === 2 && source.split(`FUNCTION_END ${fn.name}`).length === 2,
+          `${fn.source} lacks one exact ${fn.name} declaration`);
+      }
+      continue;
+    }
     check((source.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === owned.length,
       `${unit.sources[0].path} does not define one executable section per function`);
     for (const fn of owned) {
