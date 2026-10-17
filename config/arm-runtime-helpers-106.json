@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_106.S",
+  "sourceHash": "7b26241addc30ca0bfa7bc3a07b66f47c8e3e9764a98c94dc331bfefe8f1d0bf",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 232,
+  "totalAdjacentSize": 20,
+  "expectedInstructionCount": 58,
+  "memoryOperationCount": 43,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 5,
+  "expectedRelocationCount": 5,
+  "functions": [
+    {
+      "name": "func_00114B50",
+      "size": 56,
+      "ownedSize": 60,
+      "nextGlobal": "func_00114B8C",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "constant-move", "destination": "r1", "value": 0, "updatesFlags": false },
+        { "offset": 4, "width": 4, "kind": "pc-relative-word-load", "destination": "r12", "targetOffset": 56, "symbol": "runtime_record_descriptor_106_a" },
+        { "offset": 8, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 40 },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r12", "base": "r0", "displacement": 0 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 44 },
+        { "offset": 24, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 49 },
+        { "offset": 28, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 50 },
+        { "offset": 32, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 48 },
+        { "offset": 36, "width": 4, "kind": "register-move", "destination": "r2", "source": "r1", "updatesFlags": false },
+        { "offset": 40, "width": 4, "kind": "register-move", "destination": "r3", "source": "r1", "updatesFlags": false },
+        { "offset": 44, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 51 },
+        { "offset": 48, "width": 4, "kind": "doubleword-store", "sourceRegisters": ["r2", "r3"], "base": "r0", "displacement": 56, "writeback": false },
+        { "offset": 52, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 56, "kind": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_a" }
+      ]
+    },
+    {
+      "name": "func_00114B8C",
+      "size": 44,
+      "ownedSize": 48,
+      "nextGlobal": "func_00114BBC",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r2", "targetOffset": 44, "symbol": "runtime_record_descriptor_106_b" },
+        { "offset": 4, "width": 4, "kind": "constant-move", "destination": "r1", "value": 0, "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 72 },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r2", "base": "r0", "displacement": 0 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 76 },
+        { "offset": 24, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 92 },
+        { "offset": 28, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 81 },
+        { "offset": 32, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 80 },
+        { "offset": 36, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 82 },
+        { "offset": 40, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 44, "kind": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_b" }
+      ]
+    },
+    {
+      "name": "func_0014A214",
+      "size": 48,
+      "ownedSize": 52,
+      "nextGlobal": "func_0014A248",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r1", "targetOffset": 48, "symbol": "duplicate_template_23_type_func_0032ADB0" },
+        { "offset": 4, "width": 4, "kind": "constant-move", "destination": "r2", "value": 0, "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "multiword-store", "sourceRegisters": ["r1", "r2"], "base": "r0", "addressing": "increment-after", "writeback": false },
+        { "offset": 12, "width": 4, "kind": "immediate-add", "destination": "r1", "source": "r0", "value": 272, "updatesFlags": false },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r2", "base": "r0", "displacement": 8 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r2", "base": "r0", "displacement": 272 },
+        { "offset": 24, "width": 4, "kind": "constant-not", "destination": "r3", "value": 0, "result": -1, "updatesFlags": false },
+        { "offset": 28, "width": 4, "kind": "doubleword-store", "sourceRegisters": ["r2", "r3"], "base": "r1", "displacement": 4, "writeback": false },
+        { "offset": 32, "width": 4, "kind": "constant-move", "destination": "r1", "value": 47, "updatesFlags": false },
+        { "offset": 36, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 12 },
+        { "offset": 40, "width": 4, "kind": "byte-store", "source": "r2", "base": "r0", "displacement": 13 },
+        { "offset": 44, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 48, "kind": "R_ARM_ABS32", "symbol": "duplicate_template_23_type_func_0032ADB0" }
+      ]
+    },
+    {
+      "name": "func_0014FBA4",
+      "size": 36,
+      "ownedSize": 40,
+      "nextGlobal": "func_0014FBCC",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r2", "targetOffset": 36, "symbol": "runtime_record_descriptor_106_d" },
+        { "offset": 4, "width": 4, "kind": "constant-move", "destination": "r1", "value": 0, "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-store", "source": "r2", "base": "r0", "displacement": 0 },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 8 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 12 },
+        { "offset": 24, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 12 },
+        { "offset": 28, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 13 },
+        { "offset": 32, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 36, "kind": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_d" }
+      ]
+    },
+    {
+      "name": "func_00174D9C",
+      "size": 48,
+      "ownedSize": 52,
+      "nextGlobal": "func_00174DD0",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r2", "targetOffset": 48, "symbol": "runtime_record_descriptor_106_e" },
+        { "offset": 4, "width": 4, "kind": "constant-move", "destination": "r1", "value": 0, "updatesFlags": false },
+        { "offset": 8, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 4 },
+        { "offset": 12, "width": 4, "kind": "word-store", "source": "r2", "base": "r0", "displacement": 0 },
+        { "offset": 16, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 8 },
+        { "offset": 20, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 12 },
+        { "offset": 24, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 16 },
+        { "offset": 28, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 20 },
+        { "offset": 32, "width": 4, "kind": "byte-store", "source": "r1", "base": "r0", "displacement": 24 },
+        { "offset": 36, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 28 },
+        { "offset": 40, "width": 4, "kind": "word-store", "source": "r1", "base": "r0", "displacement": 32 },
+        { "offset": 44, "width": 4, "kind": "return", "register": "lr" }
+      ],
+      "adjacentWords": [
+        { "offset": 48, "kind": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_e" }
+      ]
+    }
+  ],
+  "identityClasses": {
+    "literal_backed_record_initializers_106": {
+      "members": [
+        "func_00114B50",
+        "func_00114B8C",
+        "func_0014A214",
+        "func_0014FBA4",
+        "func_00174D9C"
+      ],
+      "parameters": [
+        "literalIdentity",
+        "temporaryRegister",
+        "zeroInitializationSchedule",
+        "constantInitializationSchedule",
+        "recordLayout"
+      ]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    { "function": "func_00114B50", "offset": 4, "width": 4, "targetOffset": 56, "symbol": "runtime_record_descriptor_106_a", "ownership": "owned-adjacent-word" },
+    { "function": "func_00114B8C", "offset": 0, "width": 4, "targetOffset": 44, "symbol": "runtime_record_descriptor_106_b", "ownership": "owned-adjacent-word" },
+    { "function": "func_0014A214", "offset": 0, "width": 4, "targetOffset": 48, "symbol": "duplicate_template_23_type_func_0032ADB0", "ownership": "owned-adjacent-word" },
+    { "function": "func_0014FBA4", "offset": 0, "width": 4, "targetOffset": 36, "symbol": "runtime_record_descriptor_106_d", "ownership": "owned-adjacent-word" },
+    { "function": "func_00174D9C", "offset": 0, "width": 4, "targetOffset": 48, "symbol": "runtime_record_descriptor_106_e", "ownership": "owned-adjacent-word" }
+  ],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    { "function": "func_00114B50", "offset": 52, "width": 4, "kind": "register-return", "register": "lr" },
+    { "function": "func_00114B8C", "offset": 40, "width": 4, "kind": "register-return", "register": "lr" },
+    { "function": "func_0014A214", "offset": 44, "width": 4, "kind": "register-return", "register": "lr" },
+    { "function": "func_0014FBA4", "offset": 32, "width": 4, "kind": "register-return", "register": "lr" },
+    { "function": "func_00174D9C", "offset": 44, "width": 4, "kind": "register-return", "register": "lr" }
+  ],
+  "relocations": [
+    { "function": "func_00114B50", "offset": 56, "type": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_a", "addend": 0 },
+    { "function": "func_00114B8C", "offset": 44, "type": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_b", "addend": 0 },
+    { "function": "func_0014A214", "offset": 48, "type": "R_ARM_ABS32", "symbol": "duplicate_template_23_type_func_0032ADB0", "addend": 0 },
+    { "function": "func_0014FBA4", "offset": 36, "type": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_d", "addend": 0 },
+    { "function": "func_00174D9C", "offset": 48, "type": "R_ARM_ABS32", "symbol": "runtime_record_descriptor_106_e", "addend": 0 }
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [],
+    "secondaryEntries": [],
+    "armPrimaryEntries": [],
+    "thumbPrimaryEntries": []
+  },
+  "symbolicIdentities": {
+    "runtime_record_descriptor_106_a": { "minimumSlotAlignment": 4, "segmentClass": "read-only-data", "equality": "singleton-distinct-from-all-established-identities", "usage": "record-layout-descriptor" },
+    "runtime_record_descriptor_106_b": { "minimumSlotAlignment": 8, "segmentClass": "read-only-data", "equality": "singleton-distinct-from-all-established-identities", "usage": "record-layout-descriptor" },
+    "runtime_record_descriptor_106_d": { "minimumSlotAlignment": 4, "segmentClass": "read-only-data", "equality": "singleton-distinct-from-all-established-identities", "usage": "record-layout-descriptor" },
+    "runtime_record_descriptor_106_e": { "minimumSlotAlignment": 4, "segmentClass": "read-only-data", "equality": "singleton-distinct-from-all-established-identities", "usage": "record-layout-descriptor" }
+  },
+  "reusedSymbolicIdentities": [
+    "duplicate_template_23_type_func_0032ADB0"
+  ],
+  "newSymbolicIdentities": [
+    "runtime_record_descriptor_106_a",
+    "runtime_record_descriptor_106_b",
+    "runtime_record_descriptor_106_d",
+    "runtime_record_descriptor_106_e"
+  ],
+  "aliases": [],
+  "duplicateBodyClasses": [],
+  "elfContract": {
+    "class": "ELF32",
+    "endianness": "little",
+    "type": "ET_REL",
+    "machine": "EM_ARM",
+    "eabiVersion": 5,
+    "requiredFlags": "0x05000000",
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "canonicalNullSymbol": true,
+    "ownedSectionType": "SHT_PROGBITS",
+    "ownedSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+    "ownedSectionAlignment": 4,
+    "oneSectionSymbolPerOwnedSection": true,
+    "mappingSymbols": [
+      { "name": "$a", "offset": 0, "binding": "STB_LOCAL", "type": "STT_NOTYPE" },
+      { "name": "$d", "offset": "body-size", "binding": "STB_LOCAL", "type": "STT_NOTYPE" }
+    ],
+    "definedFunctionSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_FUNC",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": "body-size"
+    },
+    "undefinedRelocationSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_NOTYPE",
+      "visibility": "STV_DEFAULT",
+      "other": 0,
+      "value": 0,
+      "size": 0,
+      "sectionIndex": "SHN_UNDEF"
+    }
+  }
+}
