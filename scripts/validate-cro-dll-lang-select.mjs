@@ -141,6 +141,7 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
 
     const afterRead = fs.fstatSync(descriptor, { bigint: true });
     if (!sameFileSnapshot(opened, afterRead)) fail(`${label} changed while it was read`);
+    testHooks?.afterDescriptorCheck?.();
 
     let pathAfterRead;
     try {
@@ -151,7 +152,7 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     if (!pathAfterRead.isFile() || pathAfterRead.isSymbolicLink()) {
       fail(`${label} path changed to a non-regular file while it was read`);
     }
-    if (!sameFileIdentity(opened, pathAfterRead)) fail(`${label} path identity changed while it was read`);
+    if (!sameFileSnapshot(opened, pathAfterRead)) fail(`${label} path snapshot changed while it was read`);
 
     let canonicalPathAfterRead;
     try {
@@ -161,6 +162,9 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     }
     if (canonicalPathAfterRead !== filePath) fail(`${label} path stopped being canonical while it was read`);
     if (!inside(canonicalRoot, canonicalPathAfterRead)) fail(`${label} path escaped ROOT while it was read`);
+    testHooks?.beforeFinalDescriptorCheck?.();
+    const finalDescriptor = fs.fstatSync(descriptor, { bigint: true });
+    if (!sameFileSnapshot(opened, finalDescriptor)) fail(`${label} changed before validation completed`);
     return text;
   } finally {
     fs.closeSync(descriptor);
@@ -443,6 +447,24 @@ function selfTest(baseline) {
         afterRead: () => fs.appendFileSync(mutablePath, "raced\n"),
       }),
       /changed while it was read/,
+    );
+
+    const boundaryPath = path.join(canonicalRoot, "boundary.txt");
+    fs.writeFileSync(boundaryPath, "boundary one\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(boundaryPath, "snapshot boundary fixture", canonicalRoot, {
+        afterDescriptorCheck: () => fs.writeFileSync(boundaryPath, "boundary two\n"),
+      }),
+      /path snapshot changed while it was read/,
+    );
+
+    const finalBoundaryPath = path.join(canonicalRoot, "final-boundary.txt");
+    fs.writeFileSync(finalBoundaryPath, "final one\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(finalBoundaryPath, "final descriptor fixture", canonicalRoot, {
+        beforeFinalDescriptorCheck: () => fs.writeFileSync(finalBoundaryPath, "final two\n"),
+      }),
+      /changed before validation completed/,
     );
 
     const replacedPath = path.join(canonicalRoot, "replaced.txt");
