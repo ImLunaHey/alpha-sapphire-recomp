@@ -7,8 +7,12 @@ a behavioral specification or approval to implement.
 ## Scope and provenance
 
 - Review date: 2026-10-17.
-- Audited public baseline: `33de800b35f2fbe34e799f97bc36a109023d88a2`,
-  the current `main` revision after rebasing this contribution.
+- Audited public-evidence baseline:
+  `33de800b35f2fbe34e799f97bc36a109023d88a2`, the immutable `main` revision
+  reviewed for this analysis.
+- Integration/publication base:
+  `fdccc1a07e8aa1360c7c1ec7a15852ebab00049a`, the current `main` revision
+  onto which this contribution was rebased for publication.
 - Target revision: Pokemon Alpha Sapphire `AS_EUR_REV2` (Europe, revision 2),
   as declared in [repository provenance](../../PROVENANCE.md). The target was
   not independently inspected or executed.
