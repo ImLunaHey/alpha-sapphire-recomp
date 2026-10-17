@@ -3,9 +3,7 @@
   "module": "DllContestCommon",
   "textSize": 872,
   "functions": [
-    {"name":"func_00000030","address":48,"size":472,"mode":"arm"},
-    {"name":"func_0000020C","address":524,"size":76,"mode":"arm"},
-    {"name":"func_00000258","address":600,"size":100,"mode":"arm"}
+    {"name":"func_00000030","address":48,"size":472,"mode":"arm"}
   ],
   "gaps": [
     {"address":0,"size":4,"mode":"arm"},
@@ -14,7 +12,7 @@
     {"address":24,"size":4,"mode":"arm"},
     {"address":32,"size":4,"mode":"arm"},
     {"address":40,"size":4,"mode":"arm"},
-    {"address":700,"size":20,"mode":"arm"},
+    {"address":524,"size":196,"mode":"arm"},
     {"address":740,"size":96,"mode":"arm"}
   ],
   "pools": [

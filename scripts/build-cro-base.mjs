@@ -9,17 +9,14 @@ import {
   renameSync,
   rmSync,
   statSync,
-  writeFileSync,
 } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
-import { canonicalizeDllContestCommonBaseElf } from "./split-cro-target-object.mjs";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG = join(ROOT, "config", "cro-sources.json");
 const OUTPUT = join(ROOT, "build", "AS_EUR_REV2", "base", "cro-code");
-const DLL_CONTEST_COMMON_INVENTORY = join(ROOT, "symbols", "cro-partitions", "DllContestCommon.json");
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
 
@@ -134,21 +131,12 @@ function main() {
       }
       const output = join(stage, `${unit.name}.o`);
       run(tools.linker, ["-r", "-o", output, ...objects]);
-      if (unit.name === "DllContestCommon") {
-        const canonical = canonicalizeDllContestCommonBaseElf(readFileSync(output),
-          readFileSync(DLL_CONTEST_COMMON_INVENTORY));
-        writeFileSync(output, canonical, { flag: "w", mode: 0o600 });
-        continue;
-      }
       // Keep only authored executable sections and their symbols. Empty GCC
       // bookkeeping sections can otherwise look like matching target data to
       // comparison tools even though no data was reconstructed.
-      const removable = ["--remove-section=.text", "--remove-section=.bss", "--remove-section=.sdata", "--remove-section=.sbss",
-        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes"];
-      // Partial units discard compiler-created generic data so they cannot
-      // gain accidental comparison credit.
-      removable.push("--remove-section=.rodata", "--remove-section=.data");
-      run(tools.objcopy, [...removable, output]);
+      run(tools.objcopy, ["--remove-section=.text", "--remove-section=.rodata", "--remove-section=.data",
+        "--remove-section=.bss", "--remove-section=.sdata", "--remove-section=.sbss",
+        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes", output]);
     }
     rmSync(join(stage, ".objects"), { recursive: true });
     if (existsSync(OUTPUT)) renameSync(OUTPUT, backup);
