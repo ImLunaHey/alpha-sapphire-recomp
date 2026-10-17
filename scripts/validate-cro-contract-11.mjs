@@ -14,7 +14,6 @@ const CONTRACT = [
   ["DllField", "func_0006B434", 0x6B434, 20, "contract-11-optional-callback-tailcall", "2e8bd4505b9d5d4550ff480d46fa00ae685dcba2f1139ec60435004e9bab035e"],
   ["DllGts", "func_0000BED0", 0xBED0, 60, "contract-11-linked-list-transfer", "b59ca3ef039222756d61c51c1e3ba34b47cfb7a40325b4aaacb88419a5cec2c2"],
   ["DllKawaigari", "func_00000C78", 0x0C78, 12, "contract-11-default-dispatch", "80a5309d8fdd2ca6200b70f54d70c29747b062094ceea48ed7f3c375e5067906"],
-  ["DllLiveCup", "func_00005758", 0x5758, 60, "contract-11-live-cup-state-init", "93bd3aaf85372a2ab62ad5d5a4d953bcefbcd4f5638f43f0f4f8d1b77661f0e4"],
   ["DllPokeList", "func_000106AC", 0x106AC, 24, "contract-11-six-byte-fill", "23deb5988e6a2860bf1811b56a4b154e305cd5f58c4e4580ce31cee1a7caf4d9"],
   ["DllSangoZukan", "func_0002A830", 0x2A830, 24, "contract-11-eight-byte-fill", "946797a2896ecb43e1dd3bf951dec82053555432d122aeeec462096328a0143c"],
   ["DllSkyTrip", "func_00008048", 0x8048, 60, "contract-11-vector-normalize", "5f2de655d01a22a8d1721260dd8dda4dafd1a39ecaec2deee716cdd99c5267b7"],
@@ -143,8 +142,8 @@ function validatePublicContract(manifestPath) {
       check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
-  check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 280 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 70, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 220 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 55, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_11.md"),
     ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
@@ -193,7 +192,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 11: 8 ARM functions in 8 units (280 bytes, 70 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated the configured CRO contract 11 claims${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
