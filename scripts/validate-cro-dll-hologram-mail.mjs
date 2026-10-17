@@ -5,6 +5,7 @@ import { closeSync, constants, fstatSync, lstatSync, openSync, readFileSync,
   readdirSync, realpathSync, linkSync, mkdtempSync, mkdirSync, renameSync, writeFileSync,
   symlinkSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { spawnSync } from "node:child_process";
 import { tmpdir } from "node:os";
 import { dirname, isAbsolute, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -30,6 +31,8 @@ const NEUTRAL_HASHES = Object.freeze({
 });
 const QUARANTINE_CONFIG_HASH = "b5fed57b169260fc1525360989b8ac85ad14ad0f3e8222f691ccccfc7c828658";
 const QUARANTINE_REPORT_HASH = "4dec7b632d3d3b59f0fa954597f4987000b76e3fa9e9289dfa5f3e74cf2367f5";
+const MANIFEST_IDENTITY_HASH = "63d9fa129138a4b4f8988dd34d1cdc0745ba5570853a57364fad86e536d89a2d";
+const REPORT_NEUTRAL_INVENTORY_HASH = "ca28a60465dd1a78f18f96c22e8813e1335dcd1ded373b566874ffedf381a1d2";
 const NEUTRAL_MANIFEST_UNIT = Object.freeze({
   name: UNIT,
   size: 86016,
@@ -112,12 +115,9 @@ function safePath(path) {
 function checkedPathState(root, path, directory = false) {
   safePath(path);
   const absoluteRoot = resolve(root);
-  // Check every ancestor as well as every relative component before any read.
-  const chain = [];
-  for (let cursor = absoluteRoot;; cursor = dirname(cursor)) {
-    chain.unshift(cursor);
-    if (dirname(cursor) === cursor) break;
-  }
+  // The trusted repository root and every descendant ancestor of the leaf are retained.
+  // System directories above the repository are outside the published input boundary.
+  const chain = [absoluteRoot];
   let cursor = absoluteRoot;
   for (const part of path.split("/")) { cursor = join(cursor, part); chain.push(cursor); }
   const snapshots = [];
@@ -157,9 +157,11 @@ function sameFile(left, right) {
 function stableRead(root, path, directory, reader, hooks = {}) {
   const initial = checkedPathState(root, path, directory);
   const expected = initial.absolute;
-  check(Number.isInteger(constants.O_NOFOLLOW) && (!directory || Number.isInteger(constants.O_DIRECTORY)),
-    "platform lacks no-follow descriptor support");
-  const flags = constants.O_RDONLY | constants.O_NOFOLLOW | (directory ? constants.O_DIRECTORY : 0);
+  check(Number.isInteger(constants.O_NOFOLLOW) && Number.isInteger(constants.O_NONBLOCK)
+    && (!directory || Number.isInteger(constants.O_DIRECTORY)),
+  "platform lacks no-follow/nonblocking descriptor support");
+  const flags = constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK
+    | (directory ? constants.O_DIRECTORY : 0);
   let descriptor;
   try {
     if (hooks.beforeOpen) hooks.beforeOpen();
@@ -202,16 +204,40 @@ function readStableDirectory(root, path, hooks) {
   return stableRead(root, path, true, (_descriptor, descriptorPath) => readdirSync(descriptorPath), hooks);
 }
 
+function readMetadataDirectory(root, path, extension) {
+  const names = readStableDirectory(root, path).sort();
+  unique(names, `${path} entries`);
+  check(names.length === 145 && names.every(name =>
+    new RegExp(`^Dll[A-Za-z0-9_]+\\${extension}$`).test(name)),
+  `${path} must contain the complete canonical metadata set`);
+  return new Map(names.map(name => [name.slice(0, -extension.length),
+    readStableFile(root, `${path}/${name}`)]));
+}
+
 function readState(root) {
   const raw = {};
-  for (const [key, path] of Object.entries(PATHS)) raw[key] = readStableFile(root, path);
+  for (const [key, path] of Object.entries(PATHS)) {
+    if (key !== "csv" && key !== "partition") raw[key] = readStableFile(root, path);
+  }
+  const csvFiles = readMetadataDirectory(root, "symbols/cro", ".csv");
+  const partitionFiles = readMetadataDirectory(root, "symbols/cro-partitions", ".json");
+  raw.csv = csvFiles.get(STEM);
+  raw.partition = partitionFiles.get(STEM);
   for (const [key, expected] of Object.entries(NEUTRAL_HASHES)) {
     check(createHash("sha256").update(raw[key]).digest("hex") === expected,
       `${key} neutral inventory changed`);
   }
-  const state = { csv: raw.csv, partitionText: raw.partition, blocker: raw.blocker };
+  const state = { csv: raw.csv, partitionText: raw.partition, blocker: raw.blocker,
+    csvFiles, partitionFiles, partitions: new Map() };
   for (const key of ["report", "project", "config", "manifest", "partition"])
     state[key] = strictJson(raw[key], PATHS[key]);
+  for (const [stem, text] of partitionFiles)
+    state.partitions.set(stem, strictJson(text, `symbols/cro-partitions/${stem}.json`));
+  state.sourcePaths = new Set();
+  for (const entry of state.config.units ?? []) for (const source of entry.sources ?? []) {
+    checkedPath(root, source.path);
+    state.sourcePaths.add(source.path);
+  }
   state.sourceEntries = readStableDirectory(root, "src/cro");
   return state;
 }
@@ -272,8 +298,25 @@ function validate(state) {
       && unit.sources.length > 0 && Array.isArray(unit.functions) && unit.functions.length > 0,
     "invalid config ownership schema");
     for (const source of unit.sources) {
+      keys(source, ["path", "mode"], "config source");
       safePath(source.path);
-      check(source.path.startsWith("src/cro/"), "unsafe config source path");
+      check(source.path === `src/cro/${unit.name}.c`
+        || source.path.startsWith(`src/cro/${unit.name}/`), "unsafe config source path");
+      check(source.mode === "arm" || source.mode === "thumb", "invalid config source mode");
+      check(state.sourcePaths.has(source.path), "config source claim is not a canonical existing path");
+      const topLevel = source.path.slice("src/cro/".length).split("/")[0];
+      check(state.sourceEntries.includes(topLevel), "config source claim is missing");
+    }
+    unique(unit.functions.map(fn => fn.name), "config functions");
+    for (const fn of unit.functions) {
+      check(object(fn) && ["address", "name", "offset", "semantics", "size"].every(key =>
+        key === "offset" || Object.hasOwn(fn, key)), "invalid config function claim");
+      check(Object.keys(fn).every(key => ["address", "name", "offset", "semantics", "size"].includes(key)),
+        "invalid config function claim");
+      number(fn.address, "claim address");
+      number(fn.size, "claim size");
+      check(typeof fn.name === "string" && typeof fn.semantics === "string" && fn.semantics.length > 0,
+        "invalid config function claim");
     }
   }
 
@@ -281,11 +324,13 @@ function validate(state) {
   unique(report.units.map(unit => unit.name), "report units");
   check(Array.isArray(manifest.units), "invalid neutral manifest");
   unique(manifest.units.map(unit => unit.name), "manifest units");
+  check(createHash("sha256").update(JSON.stringify(canonical(manifest))).digest("hex")
+    === MANIFEST_IDENTITY_HASH, "canonical manifest identity changed");
   const manifestUnit = manifest.units.find(entry => entry.name === UNIT);
   check(Object.entries(NEUTRAL_MANIFEST_UNIT).every(([key, value]) => manifestUnit?.[key] === value),
     "quarantined manifest entry changed");
-  validatePublicCroMetadata({ manifest, csvFiles: new Map([[STEM, state.csv]]),
-    partitionFiles: new Map([[STEM, state.partitionText]]) });
+  validatePublicCroMetadata({ manifest, csvFiles: state.csvFiles,
+    partitionFiles: state.partitionFiles, requireComplete: true });
   const names = ["main/code", ...manifest.units.map(unit => unit.name)].sort();
   check(JSON.stringify(report.units.map(unit => unit.name).sort())
     === JSON.stringify(names), "missing or unexpected report unit");
@@ -337,23 +382,54 @@ function validate(state) {
   check(createHash("sha256").update(JSON.stringify(canonical(unit))).digest("hex")
     === QUARANTINE_REPORT_HASH, "quarantined report unit identity changed");
 
+  const neutralInventory = report.units.map(entry => ({
+    name: entry.name,
+    sections: (entry.sections ?? []).map(({ name, size, metadata }) => ({ name, size, metadata })),
+    functions: (entry.functions ?? []).map(({ name, size, address, metadata }) =>
+      ({ name, size, address, metadata })),
+  }));
+  check(createHash("sha256").update(JSON.stringify(neutralInventory)).digest("hex")
+    === REPORT_NEUTRAL_INVENTORY_HASH, "canonical report neutral inventory changed");
+
   const sums = { total_code: 0, total_data: 0, total_functions: 0,
     matched_code: 0, matched_data: 0, matched_functions: 0 };
   let fuzzyBytes = 0, completedUnits = 0;
   const claims = new Map(config.units.map(entry => [entry.name, entry]));
   for (const entry of report.units) {
-    check(object(entry.measures) && (entry.functions === undefined || Array.isArray(entry.functions)),
-      "invalid aggregate unit");
+    check(object(entry) && Object.keys(entry).every(key =>
+      ["name", "measures", "sections", "functions", "metadata"].includes(key))
+      && ["name", "measures", "sections", "metadata"].every(key => Object.hasOwn(entry, key))
+      && object(entry.measures) && Array.isArray(entry.sections)
+      && (entry.functions === undefined || Array.isArray(entry.functions)), "invalid aggregate unit");
     check(typeof entry.metadata?.complete === "boolean", "invalid unit completion status");
-    if (entry.metadata.complete) completedUnits++;
     const functions = entry.functions ?? [];
+    const sections = entry.sections;
+    unique(functions.map(fn => fn.name), `${entry.name} functions`);
+    unique(sections.map(section => section.name), `${entry.name} sections`);
+    for (const section of sections) {
+      check(object(section) && Object.keys(section).every(key =>
+        ["name", "size", "fuzzy_match_percent", "metadata"].includes(key))
+        && typeof section.name === "string", "invalid report section schema");
+      keys(section.metadata, [], "section metadata");
+      if (Object.hasOwn(section, "size")) number(section.size, "section size");
+      if (Object.hasOwn(section, "fuzzy_match_percent")) {
+        const fuzzy = number(section.fuzzy_match_percent, "section fuzzy percentage");
+        check(fuzzy <= 100, "invalid section fuzzy percentage");
+      }
+    }
     for (const key of Object.keys(sums)) sums[key] += number(entry.measures[key] ?? 0, key);
     check(number(entry.measures.total_functions ?? 0, "function denominator") === functions.length,
       "unit function denominator differs from inventory");
     let bytes = 0, exactFunctions = 0, exactBytes = 0;
     for (const fn of functions) {
+      check(object(fn) && Object.keys(fn).every(key =>
+        ["name", "size", "address", "fuzzy_match_percent", "metadata"].includes(key))
+        && ["name", "size", "address", "metadata"].every(key => Object.hasOwn(fn, key)),
+      "invalid report function schema");
+      keys(fn.metadata, [], "function metadata");
       const size = number(fn.size, "function size"), fuzzy = number(fn.fuzzy_match_percent ?? 0, "fuzzy percentage");
       check(fuzzy <= 100, "invalid fuzzy percentage");
+      number(fn.address, "function address");
       bytes += size; fuzzyBytes += size * fuzzy / 100;
       if (fuzzy === 100) { exactFunctions++; exactBytes += size; }
     }
@@ -361,13 +437,67 @@ function validate(state) {
       && exactFunctions === number(entry.measures.matched_functions ?? 0, "matched functions")
       && exactBytes === number(entry.measures.matched_code ?? 0, "matched code"),
     "aggregate unit credit differs from function inventory");
+    const totalCode = number(entry.measures.total_code ?? 0, "code denominator");
+    check(number(entry.measures.total_units ?? 0, "unit denominator") === 1
+      && number(entry.measures.matched_data ?? 0, "matched data") === 0
+      && number(entry.measures.matched_code_percent ?? 0, "matched code percentage")
+        === (totalCode === 0 ? 0 : percent(exactBytes, totalCode))
+      && number(entry.measures.matched_functions_percent ?? 0, "matched function percentage")
+        === (functions.length === 0 ? 0 : percent(exactFunctions, functions.length)),
+    "unit measures differ from function evidence");
+    if (entry.metadata.complete) {
+      check(exactFunctions === functions.length && exactBytes === totalCode,
+        "unit completion lacks whole-unit proof");
+      completedUnits++;
+    }
     if (!entry.name.startsWith("cro/")) continue;
+    const stem = entry.name.slice(4), partitionEntry = state.partitions.get(stem);
+    check(partitionEntry !== undefined, "report unit lacks canonical partition inventory");
+    const claim = claims.get(stem);
+    keys(entry.metadata, claim ? ["complete", "source_path"] : ["complete"], "unit metadata");
+    if (claim) check(entry.metadata.source_path === `src/cro/${stem}`,
+      "report source_path differs from config ownership");
+    check(functions.length === partitionEntry.functions.length,
+      "report function inventory differs from canonical partition");
+    const textSection = sections.find(section => section.name === ".text");
+    const poolSection = sections.find(section => section.name === ".pool");
+    check(sections.map(section => section.name).join(",") === ".bss,.data,.pool,.rodata,.text"
+      && textSection !== undefined && poolSection !== undefined, "report section inventory is not canonical");
+    const expectedText = [...partitionEntry.functions, ...partitionEntry.gaps]
+      .reduce((sum, range) => sum + number(range.size, "partition range size"), 0);
+    const expectedPool = partitionEntry.pools.reduce((sum, range) =>
+      sum + Math.ceil(number(range.size, "partition pool size") / 4) * 4, 0);
+    check(number(textSection.size, "text section size") === expectedText
+      && number(poolSection.size, "pool section size") === expectedPool,
+    "report section sizes differ from canonical partition");
+    let expectedAddress = expectedText - totalCode;
+    for (let index = 0; index < functions.length; index++) {
+      const fn = functions[index], neutral = partitionEntry.functions[index];
+      check(fn.name === neutral.name && number(fn.size, "function size") === neutral.size
+        && number(fn.address, "function address") === expectedAddress,
+      "report function identity differs from canonical partition");
+      expectedAddress += neutral.size;
+    }
+    const totalData = sections.filter(section => section.name !== ".text")
+      .reduce((sum, section) => sum + number(section.size ?? 0, "data section size"), 0);
+    check(number(entry.measures.total_data ?? 0, "data denominator") === totalData,
+      "unit data denominator differs from section inventory");
     const count = number(entry.measures.matched_functions ?? 0, "CRO matched functions");
     const matched = number(entry.measures.matched_code ?? 0, "CRO matched bytes");
-    const claim = claims.get(entry.name.slice(4));
-    check(count === (claim?.functions.length ?? 0)
+    const neutralByName = new Map(partitionEntry.functions.map(fn => [fn.name, fn]));
+    for (const fn of claim?.functions ?? []) {
+      const neutral = neutralByName.get(fn.name);
+      check(neutral && number(fn.address, "claim address") === neutral.address
+        && number(fn.size, "claim size") === neutral.size,
+      "config claim differs from canonical partition function");
+      if (Object.hasOwn(fn, "offset")) number(fn.offset, "claim source offset");
+    }
+    const exactNames = functions.filter(fn => fn.fuzzy_match_percent === 100).map(fn => fn.name).sort();
+    const claimedNames = (claim?.functions ?? []).map(fn => fn.name).sort();
+    check(JSON.stringify(exactNames) === JSON.stringify(claimedNames)
+      && count === claimedNames.length
       && matched === (claim?.functions.reduce((sum, fn) => sum + number(fn.size, "claim size"), 0) ?? 0),
-    "CRO aggregate differs from public ownership claims");
+    "CRO function evidence differs from public ownership claims");
   }
   for (const [key, expected] of Object.entries(sums)) {
     check(number(report.measures[key] ?? 0, `report ${key}`) === expected,
@@ -397,6 +527,7 @@ function selfTest(state) {
     assert.throws(() => validate(candidate), pattern, label); rejected++;
   }
   const target = candidate => candidate.report.units.find(unit => unit.name === UNIT);
+  const reportUnit = (candidate, name) => candidate.report.units.find(unit => unit.name === `cro/${name}`);
   function updateProgress(candidate, entry) {
     const exact = (entry.functions ?? []).filter(fn => fn.fuzzy_match_percent === 100);
     entry.measures.matched_functions = exact.length;
@@ -456,6 +587,40 @@ function selfTest(state) {
   rejects("aggregate mismatch", candidate => { candidate.project.progress.matchedFunctions++; }, /totals differ/);
   rejects("report aggregate mismatch", candidate => { candidate.report.measures.matched_code = "1"; }, /aggregate/);
   rejects("completed-unit count mismatch", candidate => { candidate.project.progress.completeUnits++; }, /totals differ/);
+  rejects("unrelated function identity and address replacement", candidate => {
+    const fn = reportUnit(candidate, "DllBackGround").functions[0];
+    fn.name = "unsupported_function_identity";
+    fn.address = "999999999";
+  }, /neutral inventory|function identity/);
+  rejects("unproved unrelated completion with coordinated project count", candidate => {
+    reportUnit(candidate, "DllBackGround").metadata.complete = true;
+    candidate.project.progress.completeUnits++;
+  }, /whole-unit proof/);
+  rejects("invented unrelated matched data with coordinated root", candidate => {
+    reportUnit(candidate, "DllBackGround").measures.matched_data = 1;
+    candidate.report.measures.matched_data = 1;
+  }, /matched data|measures/);
+  rejects("corrupt unrelated section and coordinated data totals", candidate => {
+    const entry = reportUnit(candidate, "DllBackGround");
+    entry.sections.find(section => section.name === ".rodata").size = "9781";
+    entry.measures.total_data = "10773";
+    candidate.report.measures.total_data = "2121693";
+  }, /neutral inventory|data denominator/);
+  rejects("coordinated claimed config manifest and report ghost", candidate => {
+    const original = "DllBackGround", ghost = "DllGhostClaim";
+    candidate.config.units.find(entry => entry.name === original).name = ghost;
+    candidate.manifest.units.find(entry => entry.name === `cro/${original}`).name = `cro/${ghost}`;
+    const entry = reportUnit(candidate, original);
+    entry.name = `cro/${ghost}`;
+    entry.metadata.source_path = `src/cro/${ghost}`;
+  }, /manifest identity|metadata|canonical|config source|unsafe/);
+  rejects("coordinated unclaimed manifest and report ghost", candidate => {
+    const claimed = new Set(candidate.config.units.map(entry => entry.name));
+    const original = candidate.manifest.units.find(entry => !claimed.has(entry.name.slice(4))).name.slice(4);
+    const ghost = "DllGhostUnclaimed";
+    candidate.manifest.units.find(entry => entry.name === `cro/${original}`).name = `cro/${ghost}`;
+    reportUnit(candidate, original).name = `cro/${ghost}`;
+  }, /manifest identity|canonical/);
   rejects("credit reassigned to an unowned CRO with consistent global totals", candidate => {
     const claimed = new Set(candidate.config.units.map(entry => `cro/${entry.name}`));
     const receiver = candidate.report.units.find(entry => entry.name.startsWith("cro/")
@@ -463,16 +628,16 @@ function selfTest(state) {
     check(receiver !== undefined, "synthetic reassignment receiver is missing");
     receiver.functions[0].fuzzy_match_percent = 100;
     updateProgress(candidate, receiver);
-  }, /CRO aggregate differs/);
+  }, /CRO function evidence differs|ownership claims/);
   rejects("quarantined manifest size", candidate => {
     candidate.manifest.units.find(unit => unit.name === UNIT).size++;
-  }, /quarantined manifest entry/);
+  }, /canonical manifest identity|quarantined manifest entry/);
   rejects("quarantined manifest hash", candidate => {
     candidate.manifest.units.find(unit => unit.name === UNIT).sha256 = "0".repeat(64);
-  }, /quarantined manifest entry/);
+  }, /canonical manifest identity|quarantined manifest entry/);
   rejects("quarantined manifest name", candidate => {
     candidate.manifest.units.find(unit => unit.name === UNIT).name = `${UNIT}Renamed`;
-  }, /quarantined manifest entry/);
+  }, /canonical manifest identity|quarantined manifest entry/);
   for (const text of ['{"a":0,"a":1}', '{"a":0,"\\u0061":1}', '{"nested":{"x":1,"x":2}}',
     '{"a":', '{"a":1e999}']) {
     assert.throws(() => strictJson(text, "synthetic"), /duplicate|malformed|non-finite/); rejected++;
@@ -488,7 +653,16 @@ function selfTest(state) {
         : key === "blocker" ? state.blocker : JSON.stringify(state[key]);
       writeFileSync(join(fixture, path), content);
     }
+    for (const [stem, content] of state.csvFiles)
+      writeFileSync(join(fixture, "symbols/cro", `${stem}.csv`), content);
+    for (const [stem, content] of state.partitionFiles)
+      writeFileSync(join(fixture, "symbols/cro-partitions", `${stem}.json`), content);
     mkdirSync(join(fixture, "src/cro"), { recursive: true });
+    for (const source of state.config.units.flatMap(entry => entry.sources)) {
+      const path = join(fixture, source.path);
+      mkdirSync(dirname(path), { recursive: true });
+      writeFileSync(path, "/* synthetic name fixture */\n");
+    }
     writeFileSync(join(fixture, PATHS.manifest), `${JSON.stringify(state.manifest, null, "\t")}\n`);
     assert.doesNotThrow(() => validate(readState(fixture)), "harmless manifest formatting"); accepted++;
     const manifest = structuredClone(state.manifest);
@@ -496,7 +670,8 @@ function selfTest(state) {
     unrelated.size += 4096;
     unrelated.sha256 = "0".repeat(64);
     writeFileSync(join(fixture, PATHS.manifest), JSON.stringify(manifest));
-    assert.doesNotThrow(() => validate(readState(fixture)), "unrelated manifest record change"); accepted++;
+    assert.throws(() => validate(readState(fixture)), /manifest identity/,
+      "unrelated canonical manifest record change"); rejected++;
     mkdirSync(join(temporary, "public"));
     writeFileSync(join(temporary, "public", "fixture.json"), "{}");
     symlinkSync("fixture.json", join(temporary, "public", "linked.json"));
@@ -535,6 +710,13 @@ function selfTest(state) {
       mkdirSync(preOpenDirectory);
       linkSync(join(heldPreOpenDirectory, "fixture.json"), join(preOpenDirectory, "fixture.json"));
     } }), /ancestor identity|hardlinked|leaf identity/); rejected++;
+    const fifoRace = join(temporary, "public", "fifo-race.json");
+    writeFileSync(fifoRace, "{}");
+    assert.throws(() => readStableFile(temporary, "public/fifo-race.json", { beforeOpen: () => {
+      rmSync(fifoRace);
+      const result = spawnSync("mkfifo", [fifoRace], { encoding: "utf8" });
+      assert.equal(result.status, 0, result.stderr || "mkfifo failed");
+    } }), /unsafe file type|leaf identity|canonical identity/); rejected++;
   } finally { rmSync(temporary, { recursive: true, force: true }); }
   console.log(`Passed ${accepted + rejected} synthetic quarantine tests (${accepted} acceptance, ${rejected} rejection).`);
 }
