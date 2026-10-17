@@ -93,6 +93,44 @@ function sameFileSnapshot(left, right) {
     && left.ctimeNs === right.ctimeNs;
 }
 
+function captureAncestorSnapshots(canonicalRoot, filePath, label) {
+  const paths = [canonicalRoot];
+  const parentRelative = relative(canonicalRoot, path.dirname(filePath));
+  if (parentRelative && parentRelative !== ".") {
+    let current = canonicalRoot;
+    for (const component of parentRelative.split(sep)) {
+      current = path.join(current, component);
+      paths.push(current);
+    }
+  }
+  return paths.map((ancestorPath) => {
+    let ancestorStat;
+    try {
+      ancestorStat = fs.lstatSync(ancestorPath, { bigint: true });
+    } catch (error) {
+      fail(`${label} ancestor cannot be inspected: ${error.message}`);
+    }
+    if (!ancestorStat.isDirectory() || ancestorStat.isSymbolicLink()) {
+      fail(`${label} ancestor is not a non-symlink directory`);
+    }
+    return { path: ancestorPath, stat: ancestorStat };
+  });
+}
+
+function assertAncestorSnapshots(expected, label) {
+  for (const ancestor of expected) {
+    let actual;
+    try {
+      actual = fs.lstatSync(ancestor.path, { bigint: true });
+    } catch (error) {
+      fail(`${label} ancestor changed during validation: ${error.message}`);
+    }
+    if (!actual.isDirectory() || actual.isSymbolicLink() || !sameFileSnapshot(ancestor.stat, actual)) {
+      fail(`${label} ancestor snapshot changed during validation`);
+    }
+  }
+}
+
 export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = undefined) {
   let canonicalRoot;
   try {
@@ -120,6 +158,7 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
   }
   if (canonicalPath !== filePath) fail(`${label} path is not canonical`);
   if (!inside(canonicalRoot, canonicalPath)) fail(`${label} canonical path is outside ROOT`);
+  const ancestorSnapshots = captureAncestorSnapshots(canonicalRoot, filePath, label);
 
   let descriptor;
   try {
@@ -134,14 +173,18 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     if (!opened.isFile()) fail(`${label} opened descriptor is not a regular file`);
     if (opened.size > BigInt(MAX_INPUT_SIZE)) fail(`${label} exceeds the 64 MiB input limit`);
     if (!sameFileIdentity(stat, opened)) fail(`${label} changed before it was opened`);
+    assertAncestorSnapshots(ancestorSnapshots, label);
 
     testHooks?.afterOpen?.();
+    assertAncestorSnapshots(ancestorSnapshots, label);
     const text = fs.readFileSync(descriptor, "utf8");
     testHooks?.afterRead?.();
+    assertAncestorSnapshots(ancestorSnapshots, label);
 
     const afterRead = fs.fstatSync(descriptor, { bigint: true });
     if (!sameFileSnapshot(opened, afterRead)) fail(`${label} changed while it was read`);
     testHooks?.afterDescriptorCheck?.();
+    assertAncestorSnapshots(ancestorSnapshots, label);
 
     let pathAfterRead;
     try {
@@ -162,9 +205,12 @@ export function readOwnedText(filePath, label, ownedRoot = ROOT, testHooks = und
     }
     if (canonicalPathAfterRead !== filePath) fail(`${label} path stopped being canonical while it was read`);
     if (!inside(canonicalRoot, canonicalPathAfterRead)) fail(`${label} path escaped ROOT while it was read`);
+    assertAncestorSnapshots(ancestorSnapshots, label);
     testHooks?.beforeFinalDescriptorCheck?.();
+    assertAncestorSnapshots(ancestorSnapshots, label);
     const finalDescriptor = fs.fstatSync(descriptor, { bigint: true });
     if (!sameFileSnapshot(opened, finalDescriptor)) fail(`${label} changed before validation completed`);
+    assertAncestorSnapshots(ancestorSnapshots, label);
     return text;
   } finally {
     fs.closeSync(descriptor);
@@ -477,7 +523,7 @@ function selfTest(baseline) {
           fs.writeFileSync(replacedPath, "replacement fixture\n", { flag: "wx" });
         },
       }),
-      /changed while it was read/,
+      /(?:changed while it was read|ancestor snapshot changed)/,
     );
 
     const noFollowPath = path.join(canonicalRoot, "nofollow.txt");
@@ -494,6 +540,34 @@ function selfTest(baseline) {
       }),
       /cannot be opened without following symlinks/,
     );
+
+    const ancestorRacePath = path.join(canonicalRoot, "ancestor-race");
+    const ancestorRaceMovedPath = path.join(canonicalRoot, "ancestor-race-original");
+    const ancestorRaceFilePath = path.join(ancestorRacePath, "input.txt");
+    fs.mkdirSync(ancestorRacePath);
+    fs.writeFileSync(ancestorRaceFilePath, "stable ancestor fixture\n", { flag: "wx" });
+    let ancestorWasSwapped = false;
+    const restoreAncestor = () => {
+      if (!ancestorWasSwapped) return;
+      fs.unlinkSync(ancestorRacePath);
+      fs.renameSync(ancestorRaceMovedPath, ancestorRacePath);
+      ancestorWasSwapped = false;
+    };
+    try {
+      assert.throws(
+        () => readOwnedText(ancestorRaceFilePath, "ancestor race fixture", canonicalRoot, {
+          beforeOpen: () => {
+            fs.renameSync(ancestorRacePath, ancestorRaceMovedPath);
+            fs.symlinkSync(ancestorRaceMovedPath, ancestorRacePath, "dir");
+            ancestorWasSwapped = true;
+          },
+          afterRead: restoreAncestor,
+        }),
+        /ancestor snapshot changed during validation/,
+      );
+    } finally {
+      restoreAncestor();
+    }
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
