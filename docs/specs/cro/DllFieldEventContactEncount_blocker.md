@@ -19,16 +19,15 @@ It did not perform target-aware behavioral analysis or add an implementation.
 ## Public structural observations
 
 The committed symbol inventory and partition contain no accepted functions.
-The partition classifies the 1,600-byte text extent as 1,328 bytes of ARM
-gaps, 232 bytes of pools, and 40 bytes of unknown material. These ranges are
-aggregate structural accounting, not callable boundaries or a behavioral
-contract.
+The partition classifies the complete text extent only as gaps, pools, and
+unknown material. Those classifications are structural accounting, not
+callable boundaries or a behavioral contract.
 
 The tracked source registry has no entry for this unit. The sanitized public
 report correspondingly records no function or code match credit, no source
-path, 328 bytes of unmatched data, and `metadata.complete: false`. The
-inventory, source registry, and report therefore agree on the unit's current
-unimplemented status.
+path, no matched data, and `metadata.complete: false`. The inventory, source
+registry, and report therefore agree on the unit's current unimplemented
+status.
 
 ## Stop condition
 
@@ -45,7 +44,7 @@ implementation contributor must then work only from that contract.
 
 Whole-unit publication additionally requires deterministic proof covering all
 code, data, relocation behavior, layout, and unknown residue, followed by the
-aggregate publication gates. The external verification input is not configured
-in this checkout, so focused object comparison and complete-object identity
-proof are unavailable here. Preserve the absent source claim and
+aggregate publication gates. The focused target and base comparison objects
+are absent in this checkout, so focused object comparison and complete-object
+identity proof are unavailable here. Preserve the absent source claim and
 `metadata.complete: false` until those requirements pass.
