@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "unit": "DllBattle",
+  "source": "src/cro/DllBattle/record_ops_04.S",
+  "sourceHash": "ec21510338c4ae5ca3e1a24750cbd68c958078038a3667d411a65b4e2affc6e4",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 884,
+  "expectedInstructionCount": 221,
+  "expectedRelocationCount": 0,
+  "functions": [
+    { "name": "func_0001E234", "address": 123444, "size": 32, "instructionCount": 8, "semantics": "nonzero-counter-increment", "bodyHash": "49214f9d8e84397b7c99c36f11f0e49a7ca97783943d7e503bc9b19c7ee87f15" },
+    { "name": "func_0004FD4C", "address": 326988, "size": 40, "instructionCount": 10, "semantics": "bounded-byte-table-read", "bodyHash": "abf1ca719415122a90718322923b388d6fcae45158b09115becf7c23346f182b" },
+    { "name": "func_000599A4", "address": 367012, "size": 96, "instructionCount": 24, "semantics": "list-record-lookup-a", "bodyHash": "8483ece78aa718f411f4aebeed5f82551016d810943d6a886980f1eb1f39e9c8" },
+    { "name": "func_0005DAD4", "address": 383700, "size": 96, "instructionCount": 24, "semantics": "list-record-lookup-b", "bodyHash": "b4a751fe37d0e80307826dcfd8b13c214ff9728026ac969da71a18edba9ff256" },
+    { "name": "func_0005DE8C", "address": 384652, "size": 72, "instructionCount": 18, "semantics": "six-record-state-update", "bodyHash": "1a4e43a49c4d4d191975dfe6fe6916965c661d21fad4a0777c20c61221a8bb37" },
+    { "name": "func_0005F23C", "address": 389692, "size": 52, "instructionCount": 13, "semantics": "paired-record-swap", "bodyHash": "89dbfa42eec9d586e7da48876214dfef72faf566d27951d2b706b0d7376f3512" },
+    { "name": "func_00062F40", "address": 405312, "size": 60, "instructionCount": 15, "semantics": "optional-record-copy", "bodyHash": "fab8f799bbc4a324cb55d67efa70f2fdf700b6b207218ca05520575c7337c60c" },
+    { "name": "func_0006F094", "address": 454804, "size": 80, "instructionCount": 20, "semantics": "fixed-record-zero", "bodyHash": "fc9188928ca351faf39aae89d8fae407eee72eccf264754a8432d17a81569b8b" },
+    { "name": "func_00070AB0", "address": 461488, "size": 48, "instructionCount": 12, "semantics": "packed-word-normalize", "bodyHash": "367a9e077b0317da5c11bc7f1839723ab91261834ece8b1c7feee7a207bcb054" },
+    { "name": "func_00075C14", "address": 482324, "size": 92, "instructionCount": 23, "semantics": "indexed-record-reset", "bodyHash": "5c9f363db9942eeccc2361109d0d57a9ca2dbe4cb58e8a36a0289899170b35c0" },
+    { "name": "func_00075C70", "address": 482416, "size": 84, "instructionCount": 21, "semantics": "bounded-record-clear", "bodyHash": "944af369ac927e9f9e9d77aa5d8325ef583b4e9698a4c28e0988b89b5fed144b" },
+    { "name": "func_0007A000", "address": 499712, "size": 76, "instructionCount": 19, "semantics": "packed-record-initialize", "bodyHash": "d76714dea55d518d529c2c6a57c93bad02fd1d5b97f784b1c097e2f8e057b740" },
+    { "name": "func_000AAF60", "address": 700256, "size": 56, "instructionCount": 14, "semantics": "conditional-record-state-read", "bodyHash": "7eb6717ecdf9cc67b5de2501287504216b4487f36e81ab89a7efe547d258166b" }
+  ],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "requireExactPublicBoundaries": true,
+    "requireUniqueOwnership": true,
+    "forbidForeignExecutablePayload": true,
+    "forbidAllocatedData": true,
+    "forbidRelocations": true,
+    "forbidUndefinedGlobals": true,
+    "maximumObjectSize": 67108864,
+    "maximumSectionCount": 16384,
+    "maximumSymbolCount": 1000000
+  }
+}
