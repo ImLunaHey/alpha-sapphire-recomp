@@ -287,10 +287,15 @@ The exact non-contiguous schedule is:
 5. every supported case joins a return sequence which sets `r0 = 0` and
    restores `r4` and `pc` together; and
 6. the unsupported-operation path loads diagnostic marker `0x30000000`,
-   executes one explicit no-operation, loads marker `0x30000026`, writes
-   immediate zero to the CPSR control field, executes a second explicit
-   no-operation, loads status `0xD8E12C21`, and returns by restoring `r4` and
-   `pc` together.
+   executes one legacy data-processing no-operation, loads marker
+   `0x30000026`, executes one architectural hint-space no-operation, executes
+   a second legacy data-processing no-operation, loads status `0xD8E12C21`,
+   and returns by restoring `r4` and `pc` together. The two legacy
+   no-operations are exactly unconditional `MOV r0, r0` with the S bit clear
+   and no shift. The intervening instruction is exactly the unconditional ARM
+   architectural `NOP` hint with hint immediate zero; it is not an MSR of any
+   CPSR field. Relative to the `0x2E4` fragment those three instructions begin
+   at `+0x48`, `+0x50`, and `+0x54`, respectively.
 
 The two marker values are overwritten before return; they are part of the
 toolchain diagnostic sequence rather than game content. This classification
@@ -383,6 +388,60 @@ these public aliases. Applying the same canonicalization to the ignored target
 is preferable to embedding the converter's private-string-derived spellings
 in source or configuration.
 
+### Canonical split-ELF serialization
+
+The final structural comparison found that target and authored canonical ELF
+files are both 4,848 bytes and already agree in every ELF-header byte, section
+header, section name/order, symbol-table entry/order, string-table byte,
+padding byte, and all but two relocation records. These serialization facts
+must be retained while correcting the remaining records.
+
+The canonical ELF header is ELF32 little-endian, System V, `ET_REL`, ARM,
+EABI5, with a 52-byte ELF header, no program-header table, a 40-byte section
+header size, 37 section headers at file offset `0xD28`, and section-name-table
+index 36. The section order is exact:
+
+1. null; the six alternating `0x000..0x02C` gap/pool pairs;
+2. `func_00000030`, pool `0x208`, `func_0000020C`, `func_00000258`;
+3. gap `0x2BC`, pool `0x2D0`, gap `0x2E4`, pool `0x344`, `.rodata`, `.data`,
+   the zero-sized `PROGBITS` `.bss`, and `.cro.module`;
+4. nine `REL` sections in source-pool order for pools `0x004`, `0x00C`,
+   `0x014`, `0x01C`, `0x024`, `0x02C`, `0x208`, `0x2D0`, and `0x344`; then
+5. `.symtab`, `.strtab`, and `.shstrtab`.
+
+The allocated section offsets, sizes, flags, and alignments are exactly those
+implied by the text partition and data contracts above: executable gaps and
+functions are four-byte aligned; pools are byte aligned; `.rodata`, `.data`,
+and `.bss` are four-byte aligned; and only `.data`/`.bss` are writable. The
+relocation sections have four-byte alignment, eight-byte entries, link to
+section 34 (`.symtab`), and identify their corresponding pool section through
+`sh_info`. Their records are ordered by ascending offset. There are three
+zero padding bytes before the first relocation section and one zero padding
+byte before the section-header table; target and authored padding already
+agree.
+
+The 65-entry symbol order is also exact. Entry 0 is null; entries 1 through 24
+are local `STT_SECTION` symbols for sections 1 through 24; and entries 25
+through 46 are the zero-valued local ARM mapping symbols, one per nonempty
+allocated code/pool/rodata/data section in section order (`$a` for executable
+sections and `$d` otherwise). The symbol table's first-global index is 47.
+Globals 47 through 58 are, in order, pool objects `0x004`, `0x00C`, `0x014`,
+`0x01C`, `0x024`, `0x02C`; `func_00000030`; pool object `0x208`;
+`func_0000020C`; `func_00000258`; pool object `0x2D0`; and pool object
+`0x344`. Globals 59 through 64 are the six undefined import aliases in veneer
+order. Pool objects use `STT_OBJECT` and their complete pool size; functions
+use `STT_FUNC` and their accepted body size. All symbols have default
+visibility and value zero within their defining section.
+
+The two remaining relocation discrepancies have one precise rule. In
+`.rel.pool.__cro_pool_00000344`, the records at pool offsets `+0x08` and
+`+0x0C` must reference global `STT_OBJECT` symbol
+`__cro_pool_00000344` (canonical symbol entry 58), **not** the local
+`STT_SECTION` symbol for section 20. Their relocation type remains
+`R_ARM_ABS32`, and their in-place addend remains the one-past-pool value
+`0x24`. Both symbols denote the same section address at link time, but the ELF
+symbol identity is part of byte identity. No other relocation metadata differs.
+
 ## Authored-object comparison evidence
 
 The first authored comparison reported 66.611115% fuzzy code similarity, zero
@@ -445,6 +504,19 @@ and still only 28/112 matched data bytes (24-byte `.rodata` plus four-byte
 false. Those measures are consistent with the authored object still omitting
 the 36-byte `0x344` control pool and with unresolved import-symbol alias
 identity; they do not contradict the now-complete neutral specification.
+
+After implementation of the full control entry and pool, the genuine report
+confirms 648/648 accepted-function bytes, 112/112 data bytes, and 100% fuzzy
+similarity for every section, while `metadata.complete` remains false. A
+bytewise audit of the equal-length 4,848-byte canonical ELFs found exactly
+nine differing bytes in five contiguous runs: seven bytes belong to the three
+diagnostic no-operation encodings at fragment-relative offsets `+0x48`,
+`+0x50`, and `+0x54`; the other two bytes are the symbol-index fields of the
+two pool-self relocations described above. There is no residual discrepancy
+in headers, section layout, symbol order or metadata, either string table,
+other relocations, or padding. Thus the remaining mismatch is fully accounted
+for by the exact neutral encoding and symbol-identity rules in this spec; it
+is not an analysis blocker.
 
 ## Completion and validation requirements
 
