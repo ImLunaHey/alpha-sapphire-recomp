@@ -402,10 +402,15 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
     "node --check scripts/validate-cro-dll-lang-select.mjs && node scripts/validate-cro-dll-lang-select.mjs --self-test",
     "focused npm validator is missing or not fail-closed",
   );
+  assert.equal(
+    scripts?.["prevalidate:cro-dll-number-input"],
+    "npm run validate:cro-dll-lang-select",
+    "DllLangSelect-to-NumberInput validation link is missing or changed",
+  );
   assert.match(
     scripts?.check ?? "",
-    /(?:^|&&\s*)npm run validate:cro-dll-lang-select(?:\s*&&|$)/,
-    "focused DllLangSelect validator must be directly reachable from npm run check",
+    /(?:^|&&\s*)npm run validate:cro-dll-number-input(?:\s*&&|$)/,
+    "NumberInput validator must remain directly reachable from npm run check",
   );
 }
 
@@ -465,6 +470,9 @@ function selfTest(baseline) {
   }, /inventory identity/);
   expectFailure(baseline, (state) => { state.reportUnits = {}; }, /units array/);
   expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
+  expectFailure(baseline, (state) => {
+    delete state.scripts["prevalidate:cro-dll-number-input"];
+  }, /validation link/);
 
   assert.throws(
     () => rejectDuplicateJsonKeys('{"units":[],"units":[1]}', "config fixture"),
