@@ -81,4 +81,3 @@ three bytes at `0x99..0x9B` are a non-string sentinel. Until an independently
 derived, legally permissible source supplies those four names, the unit must
 remain `metadata.complete: false`, even if all 3,416 code bytes and the other
 151 rodata/data bytes match.
-

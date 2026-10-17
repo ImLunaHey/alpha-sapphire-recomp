@@ -117,4 +117,3 @@ by `func_00000CA8`.
 `func_00000BF4` populates two parameter blocks at offsets `0x00` and `0x28` as
 specified in `functions.md`. All BSS bytes are thereby accounted for; the
 unwritten first 12 bytes of block 1 deliberately remain zero.
-

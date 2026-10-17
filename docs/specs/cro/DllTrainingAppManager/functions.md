@@ -223,4 +223,3 @@ The switch-table continuation offsets, relative to `0xCD0`, are
 `0x00, 0x08, 0x10, 0x1C, 0x2C`. The two earlier diagnostic literals are
 `0x30000000` and `0x30000026`; their values are overwritten before return but
 are required for byte identity.
-
