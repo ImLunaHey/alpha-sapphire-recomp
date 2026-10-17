@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "unit": "DllBattle",
+  "source": "src/cro/DllBattle/medium_leaves_05.S",
+  "sourceHash": "4cdcd88ff34d2a7b0e667cedd8b40a3b8e341cceab2d120e6db47b79c08ce0d2",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 488,
+  "expectedInstructionCount": 122,
+  "expectedRelocationCount": 0,
+  "functions": [
+    { "name": "func_000596B4", "address": 366260, "size": 160, "instructionCount": 40, "semantics": "normalized-vector-delta", "bodyHash": "179b3344a1cfc2bdba150291e693b3a1d84aa8bdd1720c5402808806c8e21929" },
+    { "name": "func_00071AF8", "address": 465656, "size": 104, "instructionCount": 26, "semantics": "paired-record-search", "bodyHash": "e7c4407ae114757d2560e0a923d891e79b992573a92e38995b526b7a82e1c60b" },
+    { "name": "func_00075D50", "address": 482640, "size": 124, "instructionCount": 31, "semantics": "bounded-halfword-membership", "bodyHash": "a68e8f14889188361fad7c533fce406b88ad818791e89283fb2669c777905705" },
+    { "name": "func_0007C854", "address": 510036, "size": 100, "instructionCount": 25, "semantics": "bounded-kind-field-update", "bodyHash": "18687efee888846b4fc4279e380eaabe6980bbb2c5b26cc6c8e321f48d1bca18" }
+  ],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "requireExactPublicBoundaries": true,
+    "requireUniqueOwnership": true,
+    "forbidForeignExecutablePayload": true,
+    "forbidAllocatedData": true,
+    "forbidRelocations": true,
+    "forbidUndefinedGlobals": true,
+    "maximumObjectSize": 67108864,
+    "maximumSectionCount": 16384,
+    "maximumSymbolCount": 1000000
+  }
+}
