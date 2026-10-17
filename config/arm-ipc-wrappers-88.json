@@ -1,0 +1,153 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_88.S",
+  "sourceSha256": "8c18622b775980a8b065beef87ff281f204f468ebcbce082984100865671ee59",
+  "normalizedScheduleSha256": "c3480b7012ccbc72aa885ab885135b205d04c79045ab9fd9376279321a5588ab",
+  "mode": "arm",
+  "totalBodySize": 756,
+  "totalAdjacentSize": 92,
+  "cumulativePoolSlots": 870,
+  "cumulativePoolClasses": 460,
+  "functions": [
+    {
+      "name": "func_001801CC", "section": ".text.func_001801CC", "size": 248,
+      "nextGlobal": "func_001803E0", "nextGlobalOffset": 532,
+      "branches": [
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188548" },
+        { "offset": 104, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188644" },
+        { "offset": 116, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001824D4" },
+        { "offset": 132, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188728" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188644" },
+        { "offset": 200, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188644" },
+        { "offset": 212, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001824D4" },
+        { "offset": 228, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188728" }
+      ],
+      "literals": [
+        { "offset": 248, "loadOffsets": [52], "symbol": "service_record_domain_88" },
+        { "offset": 252, "loadOffsets": [68], "symbol": "service_record_attribute_88" },
+        { "offset": 256, "loadOffsets": [152], "symbol": "service_record_fallback_domain_88" }
+      ]
+    },
+    {
+      "name": "func_001803E0", "section": ".text.func_001803E0", "size": 40,
+      "nextGlobal": "func_0018043C", "nextGlobalOffset": 92,
+      "branches": [],
+      "literals": [
+        { "offset": 40, "loadOffsets": [0], "symbol": "service_zero_scalar_51" },
+        { "offset": 44, "loadOffsets": [4], "symbol": "service_state_initial_limit_88" }
+      ]
+    },
+    {
+      "name": "func_0018043C", "section": ".text.func_0018043C", "size": 124,
+      "nextGlobal": "func_001804D4", "nextGlobalOffset": 152,
+      "branches": [],
+      "literals": [
+        { "offset": 124, "loadOffsets": [8], "symbol": "service_curve_lower_threshold_88" },
+        { "offset": 128, "loadOffsets": [0], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 132, "loadOffsets": [4], "symbol": "service_zero_scalar_51" },
+        { "offset": 136, "loadOffsets": [64], "symbol": "service_curve_upper_threshold_88" },
+        { "offset": 140, "loadOffsets": [88], "symbol": "service_curve_lower_threshold_88" },
+        { "offset": 144, "loadOffsets": [92], "symbol": "service_curve_index_scale_88" },
+        { "offset": 148, "loadOffsets": [84], "symbol": "service_curve_halfword_table_88" }
+      ]
+    },
+    {
+      "name": "func_001804D4", "section": ".text.func_001804D4", "size": 272,
+      "nextGlobal": "func_00180600", "nextGlobalOffset": 300,
+      "branches": [],
+      "literals": [
+        { "offset": 272, "loadOffsets": [0], "symbol": "service_exponent_period_limit_88" },
+        { "offset": 276, "loadOffsets": [4], "symbol": "service_exponent_signed_reciprocal_88" },
+        { "offset": 280, "loadOffsets": [100], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 284, "loadOffsets": [136], "symbol": "ipc_upper_clamp_74" },
+        { "offset": 288, "loadOffsets": [176], "symbol": "arm_duplicate_templates_17_scale_b" },
+        { "offset": 292, "loadOffsets": [228], "symbol": "service_exponent_coarse_table_88" },
+        { "offset": 296, "loadOffsets": [252], "symbol": "service_exponent_fine_table_88" }
+      ]
+    },
+    {
+      "name": "func_00180600", "section": ".text.func_00180600", "size": 72,
+      "nextGlobal": "func_00180658", "nextGlobalOffset": 88,
+      "branches": [],
+      "literals": [
+        { "offset": 72, "loadOffsets": [0], "symbol": "service_angle_upper_limit_88" },
+        { "offset": 76, "loadOffsets": [4], "symbol": "service_angle_lower_limit_88" },
+        { "offset": 80, "loadOffsets": [36], "symbol": "service_angle_index_scale_88" },
+        { "offset": 84, "loadOffsets": [40], "symbol": "service_angle_lookup_table_88" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_record_domain_88",
+    "service_record_attribute_88",
+    "service_record_fallback_domain_88",
+    "service_zero_scalar_51",
+    "service_state_initial_limit_88",
+    "service_curve_lower_threshold_88",
+    "ipc_unit_scalar_54",
+    "service_curve_upper_threshold_88",
+    "service_curve_index_scale_88",
+    "service_curve_halfword_table_88",
+    "service_exponent_period_limit_88",
+    "service_exponent_signed_reciprocal_88",
+    "ipc_upper_clamp_74",
+    "arm_duplicate_templates_17_scale_b",
+    "service_exponent_coarse_table_88",
+    "service_exponent_fine_table_88",
+    "service_angle_upper_limit_88",
+    "service_angle_lower_limit_88",
+    "service_angle_index_scale_88",
+    "service_angle_lookup_table_88"
+  ],
+  "reusedLiteralIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54",
+    "ipc_upper_clamp_74",
+    "arm_duplicate_templates_17_scale_b"
+  ],
+  "newLiteralIdentities": [
+    "service_record_domain_88",
+    "service_record_attribute_88",
+    "service_record_fallback_domain_88",
+    "service_state_initial_limit_88",
+    "service_curve_lower_threshold_88",
+    "service_curve_upper_threshold_88",
+    "service_curve_index_scale_88",
+    "service_curve_halfword_table_88",
+    "service_exponent_period_limit_88",
+    "service_exponent_signed_reciprocal_88",
+    "service_exponent_coarse_table_88",
+    "service_exponent_fine_table_88",
+    "service_angle_upper_limit_88",
+    "service_angle_lower_limit_88",
+    "service_angle_index_scale_88",
+    "service_angle_lookup_table_88"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00188548",
+      "func_00188644",
+      "func_001824D4",
+      "func_00188728"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "func_00188548",
+      "func_00188644",
+      "func_001824D4",
+      "func_00188728"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_00188548",
+      "func_00188644",
+      "func_001824D4",
+      "func_00188728"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}
