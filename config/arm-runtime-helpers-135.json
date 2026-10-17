@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_135.S",
+  "sourceHash": "46cfec254e6d1ae2e8f4649ff89576b5fbefdd45128cd6eb5693e7a7755b001b",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": { "start": "0x00550000", "endExclusive": "0x00560000" },
+  "totalBodySize": 88,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 22,
+  "memoryOperationCount": 8,
+  "localBranchCount": 1,
+  "directCallCount": 3,
+  "directTailCount": 0,
+  "indirectTransferCount": 0,
+  "returnCount": 2,
+  "expectedRelocationCount": 3,
+  "functions": [
+    {
+      "name": "func_005543FC",
+      "address": "0x005543FC",
+      "size": 88,
+      "ownedSize": 88,
+      "nextGlobal": "func_00554454",
+      "nextGlobalOffset": 88,
+      "schedule": "cmp r1,#0|bxeq lr|push {r4,r5,r6,r7,r8,lr}|mov r6,r0|mov r4,r1|mov r0,r6|ldr r1,[r4,#12]|bl func_005543FC|ldr r1,[r6,#4]|mov r5,r4|add r7,r4,#16|ldr r4,[r4,#8]|str r1,[r5,#12]|ldr r0,[r7,#8]|bl func_00160F9C|mov r0,r7|nop|bl func_001862FC|cmp r4,#0|str r5,[r6,#4]|bne +20|pop {r4,r5,r6,r7,r8,pc}",
+      "localTransfers": [
+        { "offset": 80, "width": 4, "mnemonic": "bne", "targetOffset": 20 }
+      ],
+      "directTransfers": [
+        { "offset": 28, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_005543FC", "targetMode": "arm", "role": "recurse_child" },
+        { "offset": 56, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00160F9C", "targetMode": "arm", "role": "release_payload" },
+        { "offset": 68, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001862FC", "targetMode": "arm", "role": "destroy_node_storage" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "branchIdentityContract": {
+    "primaryEntries": ["func_005543FC", "func_00160F9C", "func_001862FC"],
+    "armPrimaryEntries": ["func_005543FC", "func_00160F9C", "func_001862FC"],
+    "thumbPrimaryEntries": []
+  },
+  "relocations": [
+    { "function": "func_005543FC", "offset": 28, "kind": "R_ARM_CALL", "symbol": "func_005543FC" },
+    { "function": "func_005543FC", "offset": 56, "kind": "R_ARM_CALL", "symbol": "func_00160F9C" },
+    { "function": "func_005543FC", "offset": 68, "kind": "R_ARM_CALL", "symbol": "func_001862FC" }
+  ]
+}

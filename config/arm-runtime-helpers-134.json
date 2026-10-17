@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_134.S",
+  "sourceHash": "d7944cbef6c63d0724973eb657b038ab4870d5a3c39e39178292741216c8e743",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x00540000",
+    "endExclusive": "0x00550000"
+  },
+  "totalBodySize": 420,
+  "totalAdjacentSize": 8,
+  "expectedInstructionCount": 105,
+  "memoryOperationCount": 33,
+  "localBranchCount": 10,
+  "directCallCount": 1,
+  "indirectCallCount": 4,
+  "directTailCount": 0,
+  "indirectTailCount": 0,
+  "returnCount": 5,
+  "expectedRelocationCount": 1,
+  "functions": [
+    {
+      "name": "func_005409C0",
+      "address": "0x005409C0",
+      "size": 116,
+      "ownedSize": 120,
+      "nextGlobal": "func_00540A38",
+      "nextGlobalOffset": 120,
+      "bodyHash": "764cb698415a8f20f859194f9f0b06f255dc52855a0eee6edc0769dd11036c99",
+      "instructionCount": 29,
+      "memoryOperationCount": 8,
+      "localBranchCount": 3,
+      "indirectCallCount": 1,
+      "returnCount": 1,
+      "words": [3800043524,3912056848,3901816838,3785375744,3852415068,3762421761,3780247553,3770687635,3785367744,3762433984,2181169153,2476736512,3800039425,3800178689,3780247552,3657433090,3800039426,3780247552,3405774844,3850637320,3851681792,3813670912,324075520,167772162,3851427840,3851558924,3778019122,3785359364,3904733200,715827883],
+      "adjacentWords": [{ "offset": 116, "value": 715827883, "role": "signed divide-by-six multiplier" }]
+    },
+    {
+      "name": "func_00540A38",
+      "address": "0x00540A38",
+      "size": 116,
+      "ownedSize": 120,
+      "nextGlobal": "func_00540AB0",
+      "nextGlobalOffset": 120,
+      "bodyHash": "2c0d80bbc5419ec4ab3b7179b0d06a09c23b95b6c9ac35b50706347e72ae8fdf",
+      "instructionCount": 29,
+      "memoryOperationCount": 8,
+      "localBranchCount": 3,
+      "indirectCallCount": 1,
+      "returnCount": 1,
+      "words": [3800043524,3912056848,3901816838,3785375744,3852415068,3762421761,3780247553,3770687635,3785368000,3762433984,2181169153,2476736512,3800039425,3800178689,3780247552,3657433090,3800039426,3780247552,3405774844,3850637320,3851681792,3813670912,324075520,167772162,3851427840,3851558924,3778019122,3785359364,3904733200,715827883],
+      "adjacentWords": [{ "offset": 116, "value": 715827883, "role": "signed divide-by-six multiplier" }]
+    },
+    {
+      "name": "func_00540AB0",
+      "address": "0x00540AB0",
+      "size": 112,
+      "ownedSize": 112,
+      "nextGlobal": "func_00540B20",
+      "nextGlobalOffset": 112,
+      "bodyHash": "e381fc8b84329b64e50cd44c63b5938564d3af0aceea6b01f3a9ce5f863775d4",
+      "instructionCount": 28,
+      "memoryOperationCount": 8,
+      "localBranchCount": 3,
+      "indirectCallCount": 1,
+      "returnCount": 1,
+      "words": [3912056848,3785375744,3800305668,3851419656,3901816838,3818926081,3780116481,3762429953,2174750082,3766690370,2174750624,2476736512,3800039425,3780247552,3657433090,3800039426,3780247552,3405774844,3850637320,3851681792,3813670912,324075520,167772162,3851427840,3851558924,3778019122,3785359364,3904733200],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0054F918",
+      "address": "0x0054F918",
+      "size": 76,
+      "ownedSize": 76,
+      "nextGlobal": "func_0054F964",
+      "nextGlobalOffset": 76,
+      "bodyHash": "ff31ab214f6cf2983c9b60bdd9fc519b5c04198b3ea1703c26f3a51bd54892b3",
+      "instructionCount": 19,
+      "memoryOperationCount": 9,
+      "localBranchCount": 1,
+      "directCallCount": 1,
+      "indirectCallCount": 1,
+      "returnCount": 2,
+      "words": [3813736448,19922718,3912056944,3785379840,3785375745,3785359365,3851685900,3959422974,3851747332,3851706376,3850633228,3851685904,3800301584,3851489280,3778019121,3850715140,3786424326,452984818,3904733296],
+      "adjacentWords": [],
+      "directTransfers": [{ "offset": 28, "mnemonic": "bl", "symbol": "func_0054F918", "kind": "R_ARM_CALL" }]
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    { "function": "func_005409C0", "offset": 16, "targetOffset": 116 },
+    { "function": "func_00540A38", "offset": 16, "targetOffset": 116 }
+  ],
+  "relocations": [
+    { "function": "func_0054F918", "offset": 28, "kind": "R_ARM_CALL", "symbol": "func_0054F918", "addend": -8 }
+  ],
+  "symbolicIdentities": [],
+  "aliases": [],
+  "elfContract": "One ARM executable section per function; scalar adjacent words use $d mapping; exactly one self-call R_ARM_CALL relocation."
+}

@@ -246,7 +246,10 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-runtime-helpers-130.json" \
   "$root/config/arm-runtime-helpers-131.json" \
   "$root/config/arm-runtime-helpers-132.json" \
-  "$root/config/arm-runtime-helpers-133.json"
+  "$root/config/arm-runtime-helpers-133.json" \
+  "$root/config/arm-runtime-helpers-134.json" \
+  "$root/config/arm-runtime-helpers-135.json" \
+  "$root/config/arm-runtime-helpers-136.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-global-state-and-pointer-chases-11.mjs" \

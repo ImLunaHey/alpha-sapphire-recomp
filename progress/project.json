@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, 10,440 evidence-gated functions are inventoried, and 3,807 clean-room functions are byte-identical.",
+  "summary": "The owned target is verified, 10,440 evidence-gated main-code functions are inventoried, and 3,814 clean-room functions are byte-identical. Another 145 genuine CRO link units are privately inventoried for integration.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 17.856668,
-    "matchedFunctions": 3807,
+    "matchedCodePercent": 17.889622,
+    "matchedFunctions": 3814,
     "totalFunctions": 10440,
     "completeUnits": 0,
     "totalUnits": 1
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "Wave28 matched and 145 CRO units discovered",
+      "detail": "Seven ARM functions added 724 byte-identical executable bytes, raising the genuine report to 3,814 functions and 393,040 bytes. A bounded private RomFS audit also identified exactly 145 independent Dll*.cro link modules for future ByteMatch units; no module bytes enter Git."
+    },
     {
       "date": "2026-10-17",
       "title": "Wave27 parallel ARM batches matched",
