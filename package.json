@@ -130,7 +130,7 @@
     "validate:cro-dll-dendou-demo": "node --check scripts/validate-cro-dll-dendou-demo.mjs && node scripts/validate-cro-dll-dendou-demo.mjs --report progress/reports/AS_EUR_REV2/report.json",
     "validate:cro-dll-dendou-pc": "node --check scripts/validate-cro-dll-dendou-pc.mjs && node scripts/validate-cro-dll-dendou-pc.mjs",
     "validate:cro-dll-egg-demo": "node --check scripts/validate-cro-dll-egg-demo.mjs && node scripts/validate-cro-dll-egg-demo.mjs",
-    "validate:cro-dll-fatal-error-proc": "node --check scripts/validate-cro-dll-fatal-error-proc.mjs && node scripts/validate-cro-dll-fatal-error-proc.mjs",
+    "validate:cro-dll-fatal-error-proc": "node --check scripts/validate-cro-dll-fatal-error-proc.mjs && node scripts/validate-cro-dll-fatal-error-proc.mjs --self-test && node scripts/validate-cro-dll-fatal-error-proc.mjs",
     "validate:cro-dll-field-event-screen-effect": "node --check scripts/validate-cro-dll-field-event-screen-effect.mjs && node scripts/validate-cro-dll-field-event-screen-effect.mjs --self-test",
     "validate:cro-dll-field-event-takinobori": "node --check scripts/validate-cro-dll-field-event-takinobori.mjs && node scripts/validate-cro-dll-field-event-takinobori.mjs",
     "validate:cro-dll-field-event-secret-base-others-base-pc": "node --check scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs && node scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs --self-test",

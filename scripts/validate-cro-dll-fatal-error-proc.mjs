@@ -2,8 +2,10 @@
 
 // Infrastructure only. Contract: docs/specs/cro/DllFatalErrorProc_blocker.md
 // at dcdbc8c, plus tracked public metadata schemas. No target input is used.
-import { lstatSync, readFileSync, realpathSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { createHash } from "node:crypto";
+import { copyFileSync, lstatSync, mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = realpathSync(fileURLToPath(new URL("..", import.meta.url)));
@@ -12,6 +14,12 @@ const REPORT_UNIT = `cro/${UNIT}`;
 const TARGET = "AS_EUR_REV2";
 const MAX_INPUT_SIZE = 64 * 1024 * 1024;
 const DEFAULT_REPORT_PATH = join(ROOT, "progress", "reports", TARGET, "report.json");
+const REVIEWED_DIGESTS = Object.freeze({
+  inventory: "1d49800c032bc536639504c05e7e554df9371fb4d92d8e91ed9058e2a9368726",
+  manifestUnit: "246dd67f9ed23373c33db01758463deec331e3f7bc463cba0aa2bfc7a18c4799",
+  partition: "9eb4ce610f5b337cb4e719ea1adf8f82b56be9158f973721374f33ada68a7de9",
+  reportUnit: "e0d984f9140fd19b69e2ac62e52898a6dd40e0655e484f7782772a8e65c3c455",
+});
 
 function fail(message) {
   throw new Error(`CRO ${UNIT} validation: ${message}`);
@@ -30,15 +38,51 @@ function exactKeys(value, expected, label) {
     JSON.stringify([...expected].sort()), `${label} fields must be exactly ${expected.join(", ")}`);
 }
 
-function readText(path, label) {
+function inside(parent, candidate) {
+  const path = relative(parent, candidate);
+  return path !== "" && path !== ".." && !path.startsWith(`..${sep}`) && !isAbsolute(path);
+}
+
+function ownedRegularFile(path, label) {
+  check(path === resolve(path) && inside(ROOT, path), `${label} must use a canonical path inside the repository`);
+  const segments = relative(ROOT, path).split(sep);
+  let cursor = ROOT;
   let stat;
-  try { stat = lstatSync(path); } catch { fail(`${label} cannot be opened`); }
-  check(stat.isFile() && !stat.isSymbolicLink(), `${label} must be a regular file, not a symlink`);
+  for (const [index, segment] of segments.entries()) {
+    cursor = join(cursor, segment);
+    try { stat = lstatSync(cursor); } catch { fail(`${label} cannot be opened`); }
+    check(!stat.isSymbolicLink(), `${label} and its repository parents must not be symlinks`);
+    check(index === segments.length - 1 ? stat.isFile() : stat.isDirectory(),
+      `${label} must be a regular file beneath regular repository directories`);
+  }
+  check(realpathSync(path) === path, `${label} path must resolve canonically inside the repository`);
+  return stat;
+}
+
+function readText(path, label) {
+  const stat = ownedRegularFile(path, label);
   check(stat.size > 0 && stat.size <= MAX_INPUT_SIZE, `${label} must be between 1 byte and 64 MiB`);
   let text;
   try { text = readFileSync(path, "utf8"); } catch { fail(`${label} cannot be read`); }
   check(Buffer.byteLength(text) <= MAX_INPUT_SIZE, `${label} exceeds the 64 MiB input limit`);
   return text;
+}
+
+function canonicalJson(value) {
+  if (Array.isArray(value)) return value.map(canonicalJson);
+  if (isObject(value)) {
+    return Object.fromEntries(Object.keys(value).sort().map((key) => [key, canonicalJson(value[key])]));
+  }
+  return value;
+}
+
+function digest(value) {
+  const input = typeof value === "string" ? value : JSON.stringify(canonicalJson(value));
+  return createHash("sha256").update(input).digest("hex");
+}
+
+function checkReviewedDigest(value, expected, label) {
+  check(digest(value) === expected, `${label} differs from the independently reviewed public identity`);
 }
 
 function rejectDuplicateJsonKeys(text, label) {
@@ -102,7 +146,9 @@ function validatePublicContract() {
       `${REPORT_UNIT} must remain without a source-registry claim`);
   }
 
-  const lines = readText(join(ROOT, "symbols", "cro", `${UNIT}.csv`), "public inventory").split(/\r?\n/u);
+  const inventory = readText(join(ROOT, "symbols", "cro", `${UNIT}.csv`), "public inventory");
+  checkReviewedDigest(inventory, REVIEWED_DIGESTS.inventory, "public inventory");
+  const lines = inventory.split(/\r?\n/u);
   if (lines.at(-1) === "") lines.pop();
   check(lines[0] === "# Format,CRO_FUNCTIONS_V1" && lines[1] === `# Module,${REPORT_UNIT}` &&
     lines[2] === "# TextSize,000006F0" && lines[3] === "Location,Name,Namespace,Mode,Size,Segment",
@@ -110,6 +156,7 @@ function validatePublicContract() {
   check(lines.length === 4, "public inventory must contain zero accepted functions and no extra rows");
 
   const partition = readJson(join(ROOT, "symbols", "cro-partitions", `${UNIT}.json`), "public partition");
+  checkReviewedDigest(partition, REVIEWED_DIGESTS.partition, "public partition ranges");
   exactKeys(partition, ["format", "functions", "gaps", "module", "pools", "textSize", "unknown"], "partition");
   check(partition.format === 1 && partition.module === UNIT && partition.textSize === 1776,
     "partition identity, format, or 1776-byte text extent changed");
@@ -154,6 +201,7 @@ function validatePublicContract() {
   "public CRO manifest identity or unit count is invalid");
   const unit = singleUnit(manifest.units, "public CRO manifest");
   exactKeys(unit, ["name", "size", "sha256"], "manifest unit");
+  checkReviewedDigest(unit, REVIEWED_DIGESTS.manifestUnit, "manifest unit");
   check(unit.size === 12288 && typeof unit.sha256 === "string" && /^[0-9a-f]{64}$/u.test(unit.sha256),
     "manifest unit size or public identity schema changed");
 }
@@ -166,6 +214,7 @@ function validateReport(path) {
   // Objdiff omits the empty function list and zero integer counters here.
   // Exact schemas also reject source_path, credit fields, and unexpected claims.
   exactKeys(unit, ["name", "measures", "sections", "metadata"], "report unit");
+  checkReviewedDigest(unit, REVIEWED_DIGESTS.reportUnit, "report unit");
   exactKeys(unit.metadata, ["complete"], "report unit metadata");
   check(unit.metadata.complete === false, "report unit must retain complete: false");
   const expectedMeasures = {
@@ -197,12 +246,84 @@ function validateReport(path) {
   }
 }
 
+function expectFailure(action, pattern, label) {
+  let message = "";
+  try { action(); } catch (error) { message = error.message; }
+  check(pattern.test(message), `self-test ${label} did not fail closed`);
+}
+
+function selfTest() {
+  const insideDirectory = mkdtempSync(join(ROOT, ".dll-fatal-error-proc-selftest-"));
+  const outsideDirectory = mkdtempSync(join(tmpdir(), "dll-fatal-error-proc-selftest-"));
+  try {
+    const ownedReport = join(insideDirectory, "report.json");
+    copyFileSync(DEFAULT_REPORT_PATH, ownedReport);
+    validateReport(ownedReport);
+
+    const externalReport = join(outsideDirectory, "report.json");
+    copyFileSync(DEFAULT_REPORT_PATH, externalReport);
+    expectFailure(() => validateReport(externalReport), /canonical path inside the repository/u,
+      "external report rejection");
+
+    const reportSymlink = join(insideDirectory, "report-link.json");
+    symlinkSync(DEFAULT_REPORT_PATH, reportSymlink);
+    expectFailure(() => validateReport(reportSymlink), /must not be symlinks/u,
+      "report symlink rejection");
+
+    const parentSymlink = join(insideDirectory, "report-parent");
+    symlinkSync(join(ROOT, "progress", "reports", TARGET), parentSymlink, "dir");
+    expectFailure(() => validateReport(join(parentSymlink, "report.json")), /must not be symlinks/u,
+      "symlink parent rejection");
+
+    const duplicateJson = join(insideDirectory, "duplicate.json");
+    writeFileSync(duplicateJson, '{"outer":{"identity":1,"identity":2}}\n', "utf8");
+    expectFailure(() => readJson(duplicateJson, "duplicate-key fixture"), /duplicate JSON key/u,
+      "duplicate-key rejection");
+
+    const manifest = readJson(join(ROOT, "progress", "units", `${TARGET}.cro.json`), "public CRO manifest");
+    const manifestUnit = structuredClone(singleUnit(manifest.units, "public CRO manifest"));
+    manifestUnit.sha256 = `${manifestUnit.sha256[0] === "0" ? "1" : "0"}${manifestUnit.sha256.slice(1)}`;
+    expectFailure(() => checkReviewedDigest(manifestUnit, REVIEWED_DIGESTS.manifestUnit, "manifest unit"),
+      /independently reviewed public identity/u, "manifest mutation rejection");
+
+    const partition = structuredClone(readJson(
+      join(ROOT, "symbols", "cro-partitions", `${UNIT}.json`), "public partition"));
+    const gapIndex = partition.gaps.findIndex((gap) =>
+      partition.pools.some((pool) => pool.size === gap.size));
+    check(gapIndex >= 0, "self-test needs equal-size public gap and pool ranges");
+    const poolIndex = partition.pools.findIndex((pool) => pool.size === partition.gaps[gapIndex].size);
+    [partition.gaps[gapIndex].address, partition.pools[poolIndex].address] =
+      [partition.pools[poolIndex].address, partition.gaps[gapIndex].address];
+    partition.gaps.sort((left, right) => left.address - right.address);
+    partition.pools.sort((left, right) => left.address - right.address);
+
+    const report = readJson(DEFAULT_REPORT_PATH, "objdiff report");
+    const reportUnit = structuredClone(singleUnit(report.units, "objdiff report"));
+    [reportUnit.sections[0], reportUnit.sections[1]] = [reportUnit.sections[1], reportUnit.sections[0]];
+    expectFailure(() => check(
+      digest(manifestUnit) === REVIEWED_DIGESTS.manifestUnit &&
+      digest(partition) === REVIEWED_DIGESTS.partition &&
+      digest(reportUnit) === REVIEWED_DIGESTS.reportUnit,
+      "coordinated public identity and range mutation was accepted"),
+    /coordinated public identity and range mutation/u, "coordinated identity/range mutation rejection");
+  } finally {
+    rmSync(insideDirectory, { recursive: true, force: true });
+    rmSync(outsideDirectory, { recursive: true, force: true });
+  }
+  console.log(`Validated ${REPORT_UNIT} hostile path, duplicate-key, identity, and range fixtures.`);
+}
+
 try {
-  const reportPath = reportPathFromArguments(process.argv.slice(2));
-  validatePublicContract();
-  validateReport(reportPath);
-  console.log(`Validated ${REPORT_UNIT}: 0 accepted functions, 87 ranges covering 1776 text bytes; ` +
-    "zero credit, no source claim, completion remains false.");
+  const argv = process.argv.slice(2);
+  if (argv.length === 1 && argv[0] === "--self-test") {
+    selfTest();
+  } else {
+    const reportPath = reportPathFromArguments(argv);
+    validatePublicContract();
+    validateReport(reportPath);
+    console.log(`Validated ${REPORT_UNIT}: 0 accepted functions, 87 ranges covering 1776 text bytes; ` +
+      "zero credit, no source claim, completion remains false.");
+  }
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

@@ -25,6 +25,19 @@ This document contains no target bytes or hashes, disassembly, instruction
 schedule, target-derived relocation or symbol ledger, proprietary string or
 asset, ROM or container data, or private artifact path.
 
+An independent verification-role review on 2026-10-17, against public
+revision `f6034fcbd092eb50ddea804a68bcaa50d0aef772`, found that the first
+validator accepted an arbitrary external report and proved only aggregate
+partition accounting. The infrastructure implementation role reproduced
+those failures using Node.js 24.21.0 and Git 2.53.0, without consulting a
+target binary or private artifact. The corrected method requires every input
+and parent directory to be canonical, non-symlink repository-owned paths;
+retains duplicate-key rejection; and pins deterministic review digests of the
+public inventory and the unit-specific manifest, partition, and report
+records. Hostile fixtures cover external paths, symlinked files and parents,
+manifest drift, and coordinated identity/range mutations. These are metadata
+integrity checks only and do not add implementation or match credit.
+
 ## Public structural accounting
 
 The public CSV contains zero accepted function records and declares a
