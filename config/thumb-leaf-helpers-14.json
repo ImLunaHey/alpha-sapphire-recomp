@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_14.S",
+  "sourceHash": "6e10b61b3acb577fe1a4ea22b38149e606a0b570bb0ce12711d2ec2e4f6955ac",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 158,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 73,
+  "wideInstructionCount": 6,
+  "legacyNopCount": 0,
+  "localBranchCount": 17,
+  "memoryOperationCount": 15,
+  "returnCount": 4,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 6,
+  "directCalls": [
+    { "function": "func_003026AC", "offset": 20, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" },
+    { "function": "func_003026AC", "offset": 72, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" },
+    { "function": "func_003026AC", "offset": 80, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" },
+    { "function": "func_003026AC", "offset": 88, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" },
+    { "function": "func_003026AC", "offset": 96, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" },
+    { "function": "func_003026AC", "offset": 104, "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" }
+  ],
+  "relocations": [
+    { "function": "func_003026AC", "offset": 20, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" },
+    { "function": "func_003026AC", "offset": 72, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" },
+    { "function": "func_003026AC", "offset": 80, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" },
+    { "function": "func_003026AC", "offset": 88, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" },
+    { "function": "func_003026AC", "offset": 96, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" },
+    { "function": "func_003026AC", "offset": 104, "type": "R_ARM_THM_CALL", "symbol": "func_002FF7EC" }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_003026AC",
+      "offset": 128,
+      "kind": "address",
+      "targetOffset": 408,
+      "targetIdentity": "opaque_cross_interval_00302844",
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-cross-interval",
+      "relocation": null,
+      "crossedGlobalEntries": [
+        { "symbol": "func_0030274A", "offset": 158 },
+        { "symbol": "func_003027AE", "offset": 258 }
+      ],
+      "containingIntervalNextGlobal": { "symbol": "func_003028B8", "offset": 524 }
+    }
+  ],
+  "duplicateBodyClasses": [],
+  "semanticEncoding": {
+    "instructionRows": "ordered objects with explicit byte offset and width",
+    "registers": "architectural register roles are named in operands",
+    "immediates": "unsigned numeric values in operands",
+    "localTransfers": "transfer rows use kind, condition, and destinationOffset",
+    "directCalls": "transfer rows use kind, destinationSymbol, destinationState, stateSwitch, and relocation",
+    "pcRelativeAddress": "address rows use targetOffset and targetIdentity without disclosing target contents"
+  },
+  "encodingConstraints": [
+    {
+      "form": "threeOperandImmediate3",
+      "rule": "Three-operand flag-setting additions use the 16-bit immediate-three-bit form recorded by the semantic row."
+    },
+    {
+      "form": "twoOperandImmediate8",
+      "rule": "Two-operand flag-setting additions and subtractions use the 16-bit immediate-eight-bit form recorded by the semantic row."
+    },
+    {
+      "form": "localConditional/localUnconditional",
+      "rule": "Function-local transfers use the recorded 16-bit form, condition, and exact destination offset."
+    },
+    {
+      "form": "directImmediate",
+      "rule": "Every direct call is four bytes at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; destination state and state switching are normative."
+    },
+    {
+      "form": "pcRelativeImmediate8",
+      "rule": "The address-forming row is a 16-bit PC-relative immediate form using the word-aligned PC base, target offset, entry modulo-four requirement, and opaque identity recorded by the row; it has no relocation and does not transfer ownership of target bytes."
+    },
+    {
+      "form": "thumbCodeMapping",
+      "rule": "The complete function body is continuously covered by Thumb code mapping from body offset zero and contains no interior data mapping interval."
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_003026AC",
+      "size": 158,
+      "instructionCount": 73,
+      "legacyNopOffsets": [],
+      "localBranchCount": 17,
+      "memoryOperationCount": 15,
+      "returnCount": 4,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 6,
+      "nextGlobal": "func_0030274A",
+      "nextGlobalOffset": 158,
+      "semantics": [
+        { "offset": 0, "width": 2, "operation": "stackSave", "form": "registerList", "operands": { "registers": ["r4", "r5", "r6", "lr"] } },
+        { "offset": 2, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r6", "source": "r0", "setFlags": true } },
+        { "offset": 4, "width": 2, "operation": "negate", "form": "lowRegister", "operands": { "destination": "r2", "source": "r1", "setFlags": true } },
+        { "offset": 6, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r1", "setFlags": true } },
+        { "offset": 8, "width": 2, "operation": "bitClear", "form": "lowRegister", "operands": { "destination": "r0", "mask": "r2", "setFlags": true } },
+        { "offset": 10, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 44 } },
+        { "offset": 12, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r0", "value": 42, "setFlags": true } },
+        { "offset": 14, "width": 2, "operation": "add", "form": "threeOperandImmediate3", "operands": { "destination": "r4", "left": "r6", "rightImmediate": 1, "setFlags": true } },
+        { "offset": 16, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r5", "value": 0, "setFlags": true } },
+        { "offset": 18, "width": 2, "operation": "store", "form": "immediateOffset", "operands": { "width": "byte", "source": "r0", "base": "r6", "offset": 0 } },
+        { "offset": 20, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 24, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r3", "source": "r0", "setFlags": true } },
+        { "offset": 26, "width": 2, "operation": "logicalShiftLeft", "form": "immediate5", "operands": { "destination": "r1", "source": "r5", "amount": 2, "setFlags": true } },
+        { "offset": 28, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r0", "value": 0, "setFlags": true } },
+        { "offset": 30, "width": 2, "operation": "load", "form": "registerOffset", "operands": { "width": "word", "destination": "r2", "base": "r3", "index": "r1" } },
+        { "offset": 32, "width": 2, "operation": "logicalShiftRight", "form": "immediate5", "operands": { "destination": "r1", "source": "r2", "amount": 28, "setFlags": true } },
+        { "offset": 34, "width": 2, "operation": "logicalShiftLeft", "form": "immediate5", "operands": { "destination": "r2", "source": "r2", "amount": 4, "setFlags": true } },
+        { "offset": 36, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 9 } },
+        { "offset": 38, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "unsignedLowerOrSame", "destinationOffset": 132 } },
+        { "offset": 40, "width": 2, "operation": "add", "form": "twoOperandImmediate8", "operands": { "destination": "r1", "left": "r1", "rightImmediate": 87, "setFlags": true } },
+        { "offset": 42, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 134 } },
+        { "offset": 44, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 4 } },
+        { "offset": 46, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 88 } },
+        { "offset": 48, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "signedGreater", "destinationOffset": 60 } },
+        { "offset": 50, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 1 } },
+        { "offset": 52, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 72 } },
+        { "offset": 54, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 2 } },
+        { "offset": 56, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "notEqual", "destinationOffset": 68 } },
+        { "offset": 58, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 80 } },
+        { "offset": 60, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 8 } },
+        { "offset": 62, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 96 } },
+        { "offset": 64, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r1", "rightImmediate": 16 } },
+        { "offset": 66, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 104 } },
+        { "offset": 68, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r0", "value": 0, "setFlags": true } },
+        { "offset": 70, "width": 2, "operation": "transfer", "form": "stackRestore", "operands": { "kind": "return", "restoredRegisters": ["r4", "r5", "r6"] } },
+        { "offset": 72, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 76, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r0", "offset": 0 } },
+        { "offset": 78, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 110 } },
+        { "offset": 80, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 84, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r0", "offset": 4 } },
+        { "offset": 86, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 110 } },
+        { "offset": 88, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 92, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r0", "offset": 8 } },
+        { "offset": 94, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 110 } },
+        { "offset": 96, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 100, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r0", "offset": 12 } },
+        { "offset": 102, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 110 } },
+        { "offset": 104, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_002FF7EC", "destinationState": "arm", "stateSwitch": true, "relocation": "R_ARM_THM_CALL" } },
+        { "offset": 108, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r0", "offset": 16 } },
+        { "offset": 110, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r0", "rightImmediate": 0 } },
+        { "offset": 112, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 128 } },
+        { "offset": 114, "width": 2, "operation": "logicalShiftRight", "form": "immediate5", "operands": { "destination": "r0", "source": "r0", "amount": 2, "setFlags": true } },
+        { "offset": 116, "width": 2, "operation": "logicalShiftLeft", "form": "immediate5", "operands": { "destination": "r0", "source": "r0", "amount": 2, "setFlags": true } },
+        { "offset": 118, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r1", "source": "r0", "setFlags": true } },
+        { "offset": 120, "width": 2, "operation": "subtract", "form": "twoOperandImmediate8", "operands": { "destination": "r1", "left": "r1", "rightImmediate": 64, "setFlags": true } },
+        { "offset": 122, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r1", "base": "r1", "offset": 60 } },
+        { "offset": 124, "width": 2, "operation": "add", "form": "lowRegister", "operands": { "destination": "r0", "left": "r1", "right": "r0", "setFlags": true } },
+        { "offset": 126, "width": 2, "operation": "transfer", "form": "stackRestore", "operands": { "kind": "return", "restoredRegisters": ["r4", "r5", "r6"] } },
+        { "offset": 128, "width": 2, "operation": "address", "form": "pcRelativeImmediate8", "operands": { "destination": "r0", "targetOffset": 408, "targetIdentity": "opaque_cross_interval_00302844", "requiredEntryModulo4": 0, "relocation": null } },
+        { "offset": 130, "width": 2, "operation": "transfer", "form": "stackRestore", "operands": { "kind": "return", "restoredRegisters": ["r4", "r5", "r6"] } },
+        { "offset": 132, "width": 2, "operation": "add", "form": "twoOperandImmediate8", "operands": { "destination": "r1", "left": "r1", "rightImmediate": 48, "setFlags": true } },
+        { "offset": 134, "width": 2, "operation": "store", "form": "immediateOffset", "operands": { "width": "byte", "source": "r1", "base": "r4", "offset": 0 } },
+        { "offset": 136, "width": 2, "operation": "add", "form": "threeOperandImmediate3", "operands": { "destination": "r4", "left": "r4", "rightImmediate": 1, "setFlags": true } },
+        { "offset": 138, "width": 2, "operation": "add", "form": "threeOperandImmediate3", "operands": { "destination": "r0", "left": "r0", "rightImmediate": 1, "setFlags": true } },
+        { "offset": 140, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r0", "rightImmediate": 8 } },
+        { "offset": 142, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "signedLess", "destinationOffset": 32 } },
+        { "offset": 144, "width": 2, "operation": "add", "form": "threeOperandImmediate3", "operands": { "destination": "r5", "left": "r5", "rightImmediate": 1, "setFlags": true } },
+        { "offset": 146, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r5", "rightImmediate": 5 } },
+        { "offset": 148, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "signedLess", "destinationOffset": 26 } },
+        { "offset": 150, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r0", "value": 0, "setFlags": true } },
+        { "offset": 152, "width": 2, "operation": "store", "form": "immediateOffset", "operands": { "width": "byte", "source": "r0", "base": "r4", "offset": 0 } },
+        { "offset": 154, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r6", "setFlags": true } },
+        { "offset": 156, "width": 2, "operation": "transfer", "form": "stackRestore", "operands": { "kind": "return", "restoredRegisters": ["r4", "r5", "r6"] } }
+      ]
+    }
+  ]
+}

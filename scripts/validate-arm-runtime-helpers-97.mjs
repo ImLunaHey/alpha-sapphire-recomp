@@ -139,9 +139,17 @@ function validateObjects(config, files) {
 }
 
 function collectStrings(v,out=new Set){if(typeof v==='string')out.add(v); else if(Array.isArray(v))for(const x of v)collectStrings(x,out); else if(v&&typeof v==='object')for(const x of Object.values(v))collectStrings(x,out); return out;}
+function collectDeclaredReuses(config) {
+  const reused=new Set;
+  if(!config||typeof config!=='object'||Array.isArray(config)) return reused;
+  for(const [key,value] of Object.entries(config))
+    if(/^reused[A-Z]/.test(key)&&Array.isArray(value))
+      for(const identity of value) if(typeof identity==='string') reused.add(identity);
+  return reused;
+}
 function auditConfigCollisions(config, dir) {
   const protectedNames=new Set([...config.functions.map(x=>x.name),...config.newBranchIdentities,...config.newSymbolicIdentities]);
-  for(const ent of fs.readdirSync(dir,{withFileTypes:true})) { const p=path.join(dir,ent.name); if(ent.isDirectory()) auditConfigCollisions(config,p); else if(ent.isFile()&&p.endsWith('.json')&&path.resolve(p)!==path.resolve(CONFIG_PATH)){const st=fs.statSync(p); check(st.size<=LIMIT.file,`${p}: oversized config`); let j; try{j=JSON.parse(fs.readFileSync(p,'utf8'));}catch{continue;} for(const x of collectStrings(j)) check(!protectedNames.has(x),`identity collision in ${p}: ${x}`);}}
+  for(const ent of fs.readdirSync(dir,{withFileTypes:true})) { const p=path.join(dir,ent.name); if(ent.isDirectory()) auditConfigCollisions(config,p); else if(ent.isFile()&&p.endsWith('.json')&&path.resolve(p)!==path.resolve(CONFIG_PATH)){const st=fs.statSync(p); check(st.size<=LIMIT.file,`${p}: oversized config`); let j; try{j=JSON.parse(fs.readFileSync(p,'utf8'));}catch{continue;} const declaredReuses=collectDeclaredReuses(j); for(const x of collectStrings(j)) check(!protectedNames.has(x)||declaredReuses.has(x),`identity collision in ${p}: ${x}`);}}
 }
 
 function selfTest(config, source) {
