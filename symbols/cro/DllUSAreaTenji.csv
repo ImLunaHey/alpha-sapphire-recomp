@@ -2,4 +2,12 @@
 # Module,cro/DllUSAreaTenji
 # TextSize,000002C0
 Location,Name,Namespace,Mode,Size,Segment
+00000000,"func_00000000","Global",$a,00000004,".text"
+00000008,"func_00000008","Global",$a,00000004,".text"
+00000010,"func_00000010","Global",$a,00000004,".text"
+00000018,"func_00000018","Global",$a,00000004,".text"
+00000020,"func_00000020","Global",$a,00000004,".text"
+00000028,"func_00000028","Global",$a,00000004,".text"
+00000030,"func_00000030","Global",$a,00000004,".text"
+00000038,"func_00000038","Global",$a,00000004,".text"
 0000007C,"func_0000007C","Global",$a,00000124,".text"

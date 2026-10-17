@@ -3,17 +3,17 @@
   "module": "DllUSAreaTenji",
   "textSize": 704,
   "functions": [
+    {"name":"func_00000000","address":0,"size":4,"mode":"arm"},
+    {"name":"func_00000008","address":8,"size":4,"mode":"arm"},
+    {"name":"func_00000010","address":16,"size":4,"mode":"arm"},
+    {"name":"func_00000018","address":24,"size":4,"mode":"arm"},
+    {"name":"func_00000020","address":32,"size":4,"mode":"arm"},
+    {"name":"func_00000028","address":40,"size":4,"mode":"arm"},
+    {"name":"func_00000030","address":48,"size":4,"mode":"arm"},
+    {"name":"func_00000038","address":56,"size":4,"mode":"arm"},
     {"name":"func_0000007C","address":124,"size":292,"mode":"arm"}
   ],
   "gaps": [
-    {"address":0,"size":4,"mode":"arm"},
-    {"address":8,"size":4,"mode":"arm"},
-    {"address":16,"size":4,"mode":"arm"},
-    {"address":24,"size":4,"mode":"arm"},
-    {"address":32,"size":4,"mode":"arm"},
-    {"address":40,"size":4,"mode":"arm"},
-    {"address":48,"size":4,"mode":"arm"},
-    {"address":56,"size":4,"mode":"arm"},
     {"address":64,"size":60,"mode":"arm"},
     {"address":420,"size":32,"mode":"arm"},
     {"address":476,"size":8,"mode":"arm"},
@@ -31,12 +31,12 @@
     {"address":60,"size":4},
     {"address":416,"size":4},
     {"address":472,"size":4},
-    {"address":524,"size":4},
+    {"address":516,"size":12},
     {"address":548,"size":20},
     {"address":664,"size":40}
   ],
   "unknown": [
     {"address":452,"size":20},
-    {"address":484,"size":40}
+    {"address":484,"size":32}
   ]
 }
