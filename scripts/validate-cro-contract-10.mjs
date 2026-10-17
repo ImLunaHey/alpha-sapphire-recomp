@@ -22,8 +22,7 @@ const CONTRACT = [
 ].map(([unit, name, address, size, semantics, sha256]) => ({
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
-const SINGLE_FUNCTION_UNITS = new Set(["DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
-const SLOPE_POOLS = [".pool.__cro_pool_0000094c", ".pool.__cro_pool_00000954"];
+const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
 
 function fail(message) { throw new Error(`CRO contract 10 validation: ${message}`); }
 function check(condition, message) { if (!condition) fail(message); }
@@ -172,10 +171,8 @@ function validateObjects(units, directory, readelf) {
       return match && match[3].includes("A") && Number.parseInt(match[2], 16) !== 0
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
-    const expectedNames = [
-      ...unit.functions.map((claim) => `.text.${claim.name}`),
-      ...(unitName === "DllFieldEventSlopeSlip" ? SLOPE_POOLS : []),
-    ].sort();
+    const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
+      .map((claim) => `.text.${claim.name}`).sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),
       `${unitName} has missing or extra allocated bytes`);
@@ -190,9 +187,8 @@ function validateObjects(units, directory, readelf) {
     const bytes = sectionBytes(readelf, object, section);
     check(bytes.length === fn.size && createHash("sha256").update(bytes).digest("hex") === fn.sha256,
       `${fn.name} instruction bytes do not match the contract`);
-    const relocations = run(readelf, ["--relocs", "--wide", object]);
-    check(!new RegExp(`Relocation section '.rel\\.text\\.${fn.name}'`, "u").test(relocations),
-      `${fn.name} unexpectedly has relocations`);
+    check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
+      `${unitName} unexpectedly has relocations`);
   }
 }
 

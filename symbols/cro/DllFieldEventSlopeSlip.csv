@@ -2,17 +2,4 @@
 # Module,cro/DllFieldEventSlopeSlip
 # TextSize,00000A08
 Location,Name,Namespace,Mode,Size,Segment
-000000D0,"func_000000D0","Global",$a,00000040,".text"
-00000110,"func_00000110","Global",$a,00000008,".text"
-000002C8,"func_000002C8","Global",$a,00000010,".text"
-000002D8,"func_000002D8","Global",$a,00000004,".text"
-000002DC,"func_000002DC","Global",$a,0000002C,".text"
 00000308,"func_00000308","Global",$a,00000158,".text"
-00000464,"func_00000464","Global",$a,00000008,".text"
-000006BC,"func_000006BC","Global",$a,00000010,".text"
-000006CC,"func_000006CC","Global",$a,00000004,".text"
-000006D0,"func_000006D0","Global",$a,00000040,".text"
-00000710,"func_00000710","Global",$a,00000008,".text"
-00000918,"func_00000918","Global",$a,00000010,".text"
-00000928,"func_00000928","Global",$a,00000004,".text"
-0000092C,"func_0000092C","Global",$a,00000020,".text"
