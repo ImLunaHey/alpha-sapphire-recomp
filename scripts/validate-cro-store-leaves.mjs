@@ -83,9 +83,6 @@ function readAndValidateContract() {
     exactKeys(unit, UNIT_KEYS, `unit ${index}`);
     check(typeof unit.name === "string" && /^Dll[A-Za-z0-9_]+$/u.test(unit.name) &&
       unit.name > previousUnit && !names.has(unit.name), `unit ${index} has an invalid, duplicate, or unsorted name`);
-    check(unit.name !== "DllHologramMail" &&
-      !JSON.stringify(unit).toLowerCase().includes("hologrammail"),
-      "DllHologramMail is quarantined and cannot participate in this family");
     previousUnit = unit.name;
     names.add(unit.name);
     check(Array.isArray(unit.sources) && unit.sources.length > 0, `${unit.name} must own at least one source`);

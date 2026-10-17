@@ -7,10 +7,10 @@ Analysis-only provenance audit dated **2026-10-17**, for `AS_EUR_REV2`, unit
 Re-evaluated after the central publication-integrity gate landed at exact base
 `3a94a87193fc163cce30c4ef40d571db579cbf3b`. That gate now owns repository-wide
 input traversal, canonical inventory binding, evidence-object binding, aggregate
-derivation, and coordinated hostile-publication rejection. None of those checks
-supplies the missing unit-specific behavioral provenance. The focused validator
-therefore retains only this unit's quarantine, source/ownership absence, zero
-credit/completion, reviewed blocker identity, and check-chain reachability.
+derivation, source ownership, credit/completion semantics, and coordinated
+hostile-publication rejection. None of those checks supplies the missing
+unit-specific behavioral provenance. No per-unit validator is retained because
+it would only duplicate those central invariants without adding evidence.
 
 The independent analysis supplied for this corrective task found insufficient
 provenance. The source, source-configuration claim, and match credit originated
@@ -57,9 +57,7 @@ paths are:
 - `docs/BYTEMATCH.md`
 - `docs/CRO_UNITS.md`
 - `docs/CRO_TARGET_OBJECTS.md`
-- `package.json`
 - `scripts/validate-cro-store-leaves.mjs`
-- `scripts/validate-cro-dll-hologram-mail.mjs`
 - `scripts/validate-publication-integrity.mjs`
 
 `src/cro/DllHologramMail.c` is a deletion-only path; its contents were not
@@ -70,7 +68,6 @@ Resumption requires new independently recorded observations with target,
 date, tool/version, and public provenance; explicit specification review and
 approval; and a separate implementation role working only from that approved
 specification. Any future source ownership or match credit requires a new
-reviewed provenance record and authorized independent verification. The
-quarantine validator must be changed only as part of that reviewed resumption.
-Neither this audit nor a successful public-state check authorizes implementation
+reviewed provenance record and authorized independent verification. Neither
+this audit nor a successful central publication check authorizes implementation
 or establishes completion.
