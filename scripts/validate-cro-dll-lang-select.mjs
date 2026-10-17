@@ -334,7 +334,112 @@ function validatePartition(partition, inventoryFunctions) {
   assert.equal(partition.unknown?.length, 4, "DllLangSelect partition unknown entries changed");
 }
 
-export function validateState({ blocker, source, sourceEntries, manifest, inventory, partition, reportUnits, scripts }) {
+function reportDecimal(value, label, optional = false) {
+  if (optional && value === undefined) return 0n;
+  assert.equal(typeof value, "string", `${label} must be a decimal string`);
+  assert.match(value, /^(?:0|[1-9][0-9]*)$/u, `${label} must be a canonical decimal string`);
+  return BigInt(value);
+}
+
+function reportInteger(value, label, optional = false) {
+  if (optional && value === undefined) return 0;
+  assert.ok(Number.isSafeInteger(value) && value >= 0, `${label} must be a non-negative safe integer`);
+  return value;
+}
+
+function reportPercentage(value, label, optional = false) {
+  if (optional && value === undefined) return 0;
+  assert.ok(typeof value === "number" && Number.isFinite(value) && value >= 0 && value <= 100,
+    `${label} must be a finite percentage`);
+  return value;
+}
+
+function assertReportAggregate(report, manifest) {
+  assert.deepEqual(Object.keys(report ?? {}).sort(), ["measures", "units", "version"],
+    "published report schema changed");
+  assert.equal(report.version, 2, "published report version changed");
+  assert.ok(Array.isArray(report.units), "published report must contain a units array");
+  assert.ok(report.measures && typeof report.measures === "object" && !Array.isArray(report.measures),
+    "published report must contain aggregate measures");
+  assert.deepEqual(Object.keys(report.measures).sort(), [
+    "fuzzy_match_percent",
+    "matched_code",
+    "matched_code_percent",
+    "matched_functions",
+    "matched_functions_percent",
+    "total_code",
+    "total_data",
+    "total_functions",
+    "total_units",
+  ], "published report aggregate schema changed");
+
+  const manifestNames = manifest.units.map((entry) => entry?.name);
+  assert.ok(manifestNames.every((name) => typeof name === "string"), "manifest unit names must be strings");
+  assert.equal(new Set(manifestNames).size, manifestNames.length, "manifest unit names must be unique");
+  const expectedNames = ["main/code", ...manifestNames].sort();
+  const reportNames = report.units.map((entry) => entry?.name);
+  assert.ok(reportNames.every((name) => typeof name === "string"), "report unit names must be strings");
+  assert.equal(new Set(reportNames).size, reportNames.length, "report unit names must be unique");
+  assert.deepEqual([...reportNames].sort(), expectedNames,
+    "report unit names must exactly match main/code plus the manifest");
+
+  let totalCode = 0n;
+  let matchedCode = 0n;
+  let totalData = 0n;
+  let totalFunctions = 0;
+  let matchedFunctions = 0;
+  let totalUnits = 0;
+  let fuzzyWeightedCode = 0;
+  for (const unit of report.units) {
+    assert.ok(unit?.measures && typeof unit.measures === "object" && !Array.isArray(unit.measures),
+      `${unit?.name ?? "unnamed report unit"} must contain measures`);
+    const code = reportDecimal(unit.measures.total_code, `${unit.name}.measures.total_code`, true);
+    totalCode += code;
+    matchedCode += reportDecimal(unit.measures.matched_code, `${unit.name}.measures.matched_code`, true);
+    totalData += reportDecimal(unit.measures.total_data, `${unit.name}.measures.total_data`, true);
+    totalFunctions += reportInteger(unit.measures.total_functions,
+      `${unit.name}.measures.total_functions`, true);
+    matchedFunctions += reportInteger(unit.measures.matched_functions,
+      `${unit.name}.measures.matched_functions`, true);
+    totalUnits += reportInteger(unit.measures.total_units, `${unit.name}.measures.total_units`);
+    fuzzyWeightedCode += reportPercentage(unit.measures.fuzzy_match_percent,
+      `${unit.name}.measures.fuzzy_match_percent`, true) * Number(code);
+  }
+
+  const aggregate = report.measures;
+  assert.equal(reportDecimal(aggregate.total_code, "report.measures.total_code"), totalCode,
+    "report aggregate total_code does not equal its units");
+  assert.equal(reportDecimal(aggregate.matched_code, "report.measures.matched_code"), matchedCode,
+    "report aggregate matched_code does not equal its units");
+  assert.equal(reportDecimal(aggregate.total_data, "report.measures.total_data"), totalData,
+    "report aggregate total_data does not equal its units");
+  assert.equal(reportInteger(aggregate.total_functions, "report.measures.total_functions"), totalFunctions,
+    "report aggregate total_functions does not equal its units");
+  assert.equal(reportInteger(aggregate.matched_functions, "report.measures.matched_functions"), matchedFunctions,
+    "report aggregate matched_functions does not equal its units");
+  assert.equal(reportInteger(aggregate.total_units, "report.measures.total_units"), totalUnits,
+    "report aggregate total_units does not equal its units");
+  assert.equal(totalUnits, report.units.length, "report unit totals do not equal the unit array length");
+
+  const percentageTolerance = 0.0000005;
+  const expectedMatchedCodePercent = totalCode === 0n ? 0
+    : Math.fround(Number(matchedCode) * 100 / Number(totalCode));
+  const expectedMatchedFunctionsPercent = totalFunctions === 0 ? 0
+    : Math.fround(matchedFunctions * 100 / totalFunctions);
+  const expectedFuzzyPercent = totalCode === 0n ? 0
+    : Math.fround(fuzzyWeightedCode / Number(totalCode));
+  for (const [key, expected] of [
+    ["matched_code_percent", expectedMatchedCodePercent],
+    ["matched_functions_percent", expectedMatchedFunctionsPercent],
+    ["fuzzy_match_percent", expectedFuzzyPercent],
+  ]) {
+    const actual = reportPercentage(aggregate[key], `report.measures.${key}`);
+    assert.ok(Math.abs(actual - expected) <= percentageTolerance,
+      `report aggregate ${key} does not equal its units`);
+  }
+}
+
+export function validateState({ blocker, source, sourceEntries, manifest, inventory, partition, report, scripts }) {
   assert.equal(typeof blocker, "string", "blocker document must be readable text");
   assert.equal(
     sha256(blocker),
@@ -370,6 +475,7 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
   assert.equal(manifest?.target, "AS_EUR_REV2", "CRO manifest target changed");
   assert.equal(manifest?.unitCount, 145, "CRO manifest unit count changed");
   assert.ok(Array.isArray(manifest?.units), "CRO manifest must contain a units array");
+  assert.equal(manifest.units.length, manifest.unitCount, "CRO manifest unit count is inconsistent");
   const manifestMatches = manifest.units.filter((entry) => entry?.name === "cro/DllLangSelect");
   assert.equal(manifestMatches.length, 1, "manifest must contain exactly one cro/DllLangSelect entry");
   assert.deepEqual(manifestMatches[0], expectedManifestEntry, "reviewed DllLangSelect manifest entry changed");
@@ -377,8 +483,8 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
   const inventoryFunctions = parseInventory(inventory);
   validatePartition(partition, inventoryFunctions);
 
-  assert.ok(Array.isArray(reportUnits), "published report must contain a units array");
-  const reportMatches = reportUnits.filter((entry) => entry?.name === "cro/DllLangSelect");
+  assertReportAggregate(report, manifest);
+  const reportMatches = report.units.filter((entry) => entry?.name === "cro/DllLangSelect");
   assert.equal(reportMatches.length, 1, "report must contain exactly one cro/DllLangSelect unit");
   const reportUnit = reportMatches[0];
   assert.equal(
@@ -431,15 +537,15 @@ function selfTest(baseline) {
     /blocker content digest/,
   );
   expectFailure(baseline, (state) => {
-    state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect").metadata.complete = true;
+    state.report.units.find((entry) => entry?.name === "cro/DllLangSelect").metadata.complete = true;
   }, /report-unit identity/);
   expectFailure(baseline, (state) => {
-    state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect").measures.matched_code = "169";
-  }, /report-unit identity/);
+    state.report.units.find((entry) => entry?.name === "cro/DllLangSelect").measures.matched_code = "169";
+  }, /aggregate matched_code/);
   expectFailure(
     baseline,
     (state) => {
-      const reportUnit = state.reportUnits.find((entry) => entry?.name === "cro/DllLangSelect");
+      const reportUnit = state.report.units.find((entry) => entry?.name === "cro/DllLangSelect");
       const oldMatch = reportUnit.functions.find((entry) => entry.name === "func_00000EB0");
       const reassignedMatch = reportUnit.functions.find((entry) => entry.name === "func_000002B8");
       delete oldMatch.fuzzy_match_percent;
@@ -468,7 +574,31 @@ function selfTest(baseline) {
     state.inventory = state.inventory.replace("000002B8", "000002BC");
     state.partition.functions.find((entry) => entry.name === "func_000002B8").address += 4;
   }, /inventory identity/);
-  expectFailure(baseline, (state) => { state.reportUnits = {}; }, /units array/);
+  expectFailure(baseline, (state) => { state.report.units = {}; }, /units array/);
+  expectFailure(baseline, (state) => {
+    state.report.units.push({ name: "cro/GhostUnit", measures: { total_units: 1 } });
+  }, /exactly match/);
+  expectFailure(baseline, (state) => {
+    state.report.units = state.report.units.filter((entry) => entry.name !== "cro/DllLangSelect");
+  }, /exactly match/);
+  expectFailure(baseline, (state) => {
+    state.report.units.push(clone(state.report.units[0]));
+  }, /unit names must be unique/);
+  for (const [key, mutate] of [
+    ["total_code", (value) => String(BigInt(value) + 1n)],
+    ["matched_code", (value) => String(BigInt(value) + 1n)],
+    ["total_data", (value) => String(BigInt(value) + 1n)],
+    ["total_functions", (value) => value + 1],
+    ["matched_functions", (value) => value + 1],
+    ["total_units", (value) => value + 1],
+    ["matched_code_percent", (value) => value + 1],
+    ["matched_functions_percent", (value) => value + 1],
+    ["fuzzy_match_percent", (value) => value + 1],
+  ]) {
+    expectFailure(baseline, (state) => {
+      state.report.measures[key] = mutate(state.report.measures[key]);
+    }, new RegExp(`aggregate ${key}`));
+  }
   expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
   expectFailure(baseline, (state) => {
     delete state.scripts["prevalidate:cro-dll-number-input"];
@@ -603,28 +733,32 @@ function selfTest(baseline) {
     const ancestorRaceFilePath = path.join(ancestorRacePath, "input.txt");
     fs.mkdirSync(ancestorRacePath);
     fs.writeFileSync(ancestorRaceFilePath, "stable ancestor fixture\n", { flag: "wx" });
-    let ancestorWasSwapped = false;
-    const restoreAncestor = () => {
-      if (!ancestorWasSwapped) return;
-      fs.unlinkSync(ancestorRacePath);
-      fs.renameSync(ancestorRaceMovedPath, ancestorRacePath);
-      ancestorWasSwapped = false;
-    };
-    try {
-      assert.throws(
-        () => readOwnedText(ancestorRaceFilePath, "ancestor race fixture", canonicalRoot, {
-          beforeOpen: () => {
-            fs.renameSync(ancestorRacePath, ancestorRaceMovedPath);
-            fs.symlinkSync(ancestorRaceMovedPath, ancestorRacePath, "dir");
-            ancestorWasSwapped = true;
-          },
-          afterRead: restoreAncestor,
-        }),
-        /directory descriptor changed during validation/,
-      );
-    } finally {
-      restoreAncestor();
-    }
+    assert.throws(
+      () => readOwnedText(ancestorRaceFilePath, "ancestor swap-and-restore fixture", canonicalRoot, {
+        afterRead: () => {
+          fs.renameSync(ancestorRacePath, ancestorRaceMovedPath);
+          fs.symlinkSync(ancestorRaceMovedPath, ancestorRacePath, "dir");
+          fs.unlinkSync(ancestorRacePath);
+          fs.renameSync(ancestorRaceMovedPath, ancestorRacePath);
+        },
+      }),
+      /directory descriptor changed during validation/,
+    );
+
+    const leafRacePath = path.join(canonicalRoot, "leaf-race.txt");
+    const leafRaceMovedPath = path.join(canonicalRoot, "leaf-race-original.txt");
+    fs.writeFileSync(leafRacePath, "stable leaf fixture\n", { flag: "wx" });
+    assert.throws(
+      () => readOwnedText(leafRacePath, "leaf swap-and-restore fixture", canonicalRoot, {
+        afterRead: () => {
+          fs.renameSync(leafRacePath, leafRaceMovedPath);
+          fs.symlinkSync(leafRaceMovedPath, leafRacePath);
+          fs.unlinkSync(leafRacePath);
+          fs.renameSync(leafRaceMovedPath, leafRacePath);
+        },
+      }),
+      /(?:directory descriptor changed|changed while it was read)/,
+    );
   } finally {
     fs.rmSync(temporaryRoot, { recursive: true, force: true });
   }
@@ -646,7 +780,7 @@ const actualState = {
   manifest,
   inventory,
   partition,
-  reportUnits: report.units,
+  report,
   scripts: packageJson.scripts,
 };
 if (process.argv.includes("--self-test")) selfTest(actualState);
