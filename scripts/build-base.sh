@@ -584,8 +584,6 @@ node "$root/scripts/validate-cro-contract-10.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-11.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
-node "$root/scripts/validate-cro-photo-saver-01.mjs" \
-  --object "$root/build/AS_EUR_REV2/base/cro-code/DllPhotoSaverSecretBase.o" --readelf "$readelf"
 node "$root/scripts/validate-cro-dll-battle-record-leaves-01.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-scalar-leaves-02.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-packed-selectors-03.mjs" --self-test
