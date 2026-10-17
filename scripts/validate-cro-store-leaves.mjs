@@ -124,7 +124,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 51, `expected 51 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 50, `expected 50 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -172,7 +172,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 51 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 50 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

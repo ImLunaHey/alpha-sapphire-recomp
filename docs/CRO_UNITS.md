@@ -43,9 +43,9 @@ still published as genuine incomplete link units with zero functions, and no
 placeholder is synthesized.
 
 Publication is structural progress, not a decompilation claim. DllPhotoSaver
-provided the first reviewed clean-room CRO function. The current verified
-snapshot credits 274 exact functions and 13,808 code bytes across 96 CRO units:
-52 byte-store leaves (including DllPhotoSaver), 29 POD leaves across 14 units,
+provided the first reviewed clean-room CRO function. The current credited
+snapshot credits 279 exact functions and 15,016 code bytes across 93 CRO units:
+50 byte-store leaves (including DllPhotoSaver), 29 POD leaves across 14 units,
 45 DllBattle leaf accessors, and 21 DllField leaf accessors. These groups may
 share a unit, so their unit counts are not additive. A further eight POD and
 numeric helper functions contribute 460 bytes across seven previously
@@ -58,7 +58,9 @@ across eight more previously zero-credit modules. Five DllBattle batches add
 10 adds eight exact functions and 2,612 bytes across eight more previously
 zero-credit modules. Contract 11 adds eight exact functions and 280 bytes across
 eight already-credited modules, and DllBattle batch 06 adds eleven exact
-functions and 1,700 bytes. The other 49
+functions and 1,700 bytes. DllBattleMatch adds nine functions and 1,432 bytes.
+DllHologramMail source and credit are withdrawn for insufficient provenance;
+its neutral inventory remains and it stays blocked and incomplete. The other 52
 CROs receive zero credit, and matched CRO
 data remains zero. Unclaimed code and all data stay unmatched. Every CRO
 remains incomplete and no CRO earns completed-unit credit. Further work

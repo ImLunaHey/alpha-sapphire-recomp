@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,258 clean-room functions are byte-identical. Ninety-four CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,257 clean-room functions are byte-identical. Ninety-three CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.204048,
-    "matchedFunctions": 4258,
+    "matchedCodePercent": 11.203833,
+    "matchedFunctions": 4257,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,258 routines across main/code and 94 CRO units match byte-for-byte",
+      "detail": "4,257 routines across main/code and 93 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllHologramMail provenance quarantine",
+      "detail": "Insufficient independent provenance requires withdrawal of the source, ownership claim, and one function / eight bytes of match credit under CLEAN_ROOM. The neutral inventory remains and no behavioral contract is approved. The unit stays blocked and incomplete. Current totals are 4,257 matched functions and 416,740 matched code bytes (11.203833%); 93 CRO units receive credit for 279 functions and 15,016 bytes. Earlier activity values are historical, not current credit."
+    },
     {
       "date": "2026-10-17",
       "title": "DllGift provisional matches quarantined",
