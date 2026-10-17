@@ -30,11 +30,6 @@
       "name": "DllPssAssistPower",
       "sources": [{ "path": "src/cro/DllPssAssistPower/contract_09.S", "mode": "arm" }],
       "functions": [{ "name": "func_0000081C", "address": 2076, "size": 240, "semantics": "contract-09-assist-power-lifecycle" }]
-    },
-    {
-      "name": "DllTrainerCase",
-      "sources": [{ "path": "src/cro/DllTrainerCase/contract_09.S", "mode": "arm" }],
-      "functions": [{ "name": "func_00001ED4", "address": 7892, "size": 148, "semantics": "contract-09-trainer-case-mode-switch" }]
     }
   ]
 }

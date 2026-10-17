@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report retains independently reviewed clean-room matches after provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
+  "summary": "The public report retains 4,249 exact functions and 415,920 code bytes after the DllTrainerCase administrative provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.185766220092773,
-    "matchedFunctions": 4250,
+    "matchedCodePercent": 11.181787490844727,
+    "matchedFunctions": 4249,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146

@@ -1,6 +1,6 @@
 # CRO contract 09
 
-Contract 09 adds one exact ARM function to each of seven genuine CRO units that had no prior source credit. The proposal owns 1,556 code bytes (389 instructions) and intentionally owns no data, literal pools, padding, or neighboring function bytes.
+Contract 09 retains one exact ARM function in each of six genuine CRO units that had no prior source credit. The proposal owns 1,408 code bytes (352 instructions) and intentionally owns no data, literal pools, padding, or neighboring function bytes.
 
 | Unit | Function | Address | Size | Role |
 | --- | --- | ---: | ---: | --- |
@@ -10,7 +10,6 @@ Contract 09 adds one exact ARM function to each of seven genuine CRO units that 
 | `DllFieldEventPokeRideAction` | `func_00000494` | `0x0494` | 304 | ride-action update |
 | `DllLangSelect` | `func_00000EB0` | `0x0EB0` | 168 | language-layout update |
 | `DllPssAssistPower` | `func_0000081C` | `0x081C` | 240 | assist-power lifecycle |
-| `DllTrainerCase` | `func_00001ED4` | `0x1ED4` | 148 | trainer-case mode switch |
 
 The names, addresses, sizes, ARM mode, and section ownership come from the repository's public neutral CSV inventories. Each assembly function uses readable mnemonics; no encoded instruction or data directive is used. Calls outside an owned boundary and references to unowned neighboring literals use fixed PC-relative encodings without creating relocations or importing those bytes.
 
@@ -18,7 +17,7 @@ Every emitted function section was compared byte-for-byte with its corresponding
 
 ## Validation before integration
 
-Compile the seven `contract_09.S` files into a staging directory with the repository's pinned ARM toolchain. Then run:
+Compile the six `contract_09.S` files into a staging directory with the repository's pinned ARM toolchain. Then run:
 
 ```sh
 node scripts/validate-cro-contract-09.mjs \
@@ -35,8 +34,8 @@ node scripts/validate-cro-contract-09.mjs --manifest config/cro-contract-09-prop
 
 ## Integration
 
-Merge each proposal unit into the alphabetically sorted `units` array in `config/cro-sources.json`. Each new unit receives its one `sources` entry and one `functions` entry unchanged. Register the validator in the normal CRO validation flow and add the seven source paths to the CRO object build input. After integration, the validator's default manifest is `config/cro-sources.json`.
+Merge each proposal unit into the alphabetically sorted `units` array in `config/cro-sources.json`. Each new unit receives its one `sources` entry and one `functions` entry unchanged. Register the validator in the normal CRO validation flow and add the six source paths to the CRO object build input. After integration, the validator's default manifest is `config/cro-sources.json`.
 
-The proposal file remains the machine-readable ownership record. It must not be used to imply full linking: all seven units retain unclaimed functions, and their data remains unmatched.
+The proposal file remains the machine-readable ownership record. It must not be used to imply full linking: all six units retain unclaimed functions, and their data remains unmatched.
 
 `DllGameClearSave` is excluded from this contract. Its former assembly body encoded a target-derived instruction schedule without a distinct-role, independently implementable behavioral specification. The source and ownership claim are quarantined; see `DllGameClearSave_blocker.md`.
