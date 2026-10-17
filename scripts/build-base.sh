@@ -10,6 +10,7 @@ readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
   printf '%s\n' 'GNU Arm compiler tools were not found.' >&2
   exit 1
 }
+export CROSS_COMPILE="${compiler%gcc}"
 
 mapfile -d '' sources < <(
   find "$root/src" -type f \( -name '*.c' -o -name '*.S' \) -print0 | sort -z
