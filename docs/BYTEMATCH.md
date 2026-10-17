@@ -20,26 +20,25 @@ verification.
 
 ## Current credited progress
 
-The 146 published units contain 4,257 exactly matched functions and 416,740
-matched code bytes, or 11.203833% overall. `main/code` contributes 3,978
-functions and 401,724 bytes. The CROs contribute 279 functions and 15,016 code
-bytes across 93 units; their matched-data total is zero. The other 52 CRO
-units currently receive no credit. All units remain incomplete.
+The tracked report credits only reviewed clean-room implementations backed by
+the repository's publication evidence. CRO data remains unmatched, and every
+published unit remains incomplete.
 
-The 2026-10-17 provenance quarantine withdraws the DllHologramMail source,
-ownership claim, and one function / eight bytes of credit under CLEAN_ROOM.
-Its neutral inventory and denominators remain. No behavioral contract is
-approved; the unit stays blocked and incomplete. See the
-[analysis-only provenance audit](specs/cro/DllHologramMail_blocker.md).
+The current provenance quarantine withdraws the DllHologramMail and
+DllPssMessageWindow sources, ownership claims, and associated credit under
+CLEAN_ROOM. Their neutral inventories remain. No behavioral contract is
+approved for either unit; both stay blocked and incomplete. See the
+[DllHologramMail audit](specs/cro/DllHologramMail_blocker.md) and the
+[DllPssMessageWindow blocker](specs/cro/DllPssMessageWindow_blocker.md).
 
 ## Executable units
 
-The checked-in report publishes all 146 known executable link boundaries:
-`main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
+The checked-in report publishes every known executable link boundary:
+`main/code` and every manifest-listed `cro/DllName` module. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 93 CROs; all
-unclaimed code, all CRO data, and all 52 zero-credit CROs remain unmatched.
-Every unit remains incomplete and no CRO receives completed-unit credit.
+Reviewed clean-room function sections earn code credit where supported; all
+unclaimed code and CRO data remain unmatched. Every unit remains incomplete
+and no CRO receives completed-unit credit.
 
 Each authored unit publishes objdiff `metadata.source_path`: `main/code` points
 to `src/main`, and an authored CRO points to `src/cro/DllName`. ByteMatch can

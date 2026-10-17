@@ -1,20 +1,25 @@
 # CRO byte-store leaves 02
 
-This batch applies one reviewed ARM leaf contract to 50 CRO units. Each
-function stores its byte-valued second argument at offset 217 from the base
-pointer and returns. Every leaf is eight bytes, has its own accepted public
-boundary, and contains no relocation. DllPhotoSaver was credited previously;
-the current wave adds the other 49 functions and 392 code bytes, bringing the
-family to 50 functions and 400 bytes. The quarantined `DllGift` and
-`DllHologramMail` claims are excluded and must remain absent.
+This batch applies a reviewed byte-store leaf contract to its supported CRO
+units. Each accepted leaf stores a byte-valued argument in its designated
+object field and returns. DllPhotoSaver was credited previously; the remaining
+supported leaves belong to the current wave. The quarantined `DllGift`,
+`DllHologramMail`, and `DllPssMessageWindow` claims are excluded and must remain
+absent.
 
 Validation requires a distinct clean-room C source for each unit, exact source
-semantics, disjoint source ownership, the accepted inventory boundary, and one
-correctly sized executable section per claim. Unclaimed CRO code and all CRO
-data remain unmatched, and no participating unit is complete.
+semantics, disjoint source ownership, the accepted inventory boundary, and an
+appropriate executable section per claim. Unclaimed CRO code and all CRO data
+remain unmatched, and no participating unit is complete.
 
 DllHologramMail is withdrawn from this family under CLEAN_ROOM because its
 independent provenance is insufficient. Its source, ownership claim, and match
 credit are removed; neutral inventory remains. This shared document supplies
 no approved behavioral contract for that unit. It stays blocked and incomplete;
 see [the analysis-only provenance audit](DllHologramMail_blocker.md).
+
+DllPssMessageWindow is also withdrawn from this family under CLEAN_ROOM because
+its independent provenance is insufficient. Its source, ownership claim, and
+match credit are removed; neutral inventory remains. This shared document
+supplies no approved behavioral contract for that unit. It stays blocked and
+incomplete; see [the provenance blocker](DllPssMessageWindow_blocker.md).
