@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-import { existsSync, readFileSync, realpathSync, statSync } from "node:fs";
-import { join, resolve } from "node:path";
+import { existsSync, lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
@@ -34,8 +34,15 @@ function exactKeys(value, expected, label) {
     Object.keys(value).sort().join(",") === expected, `${label} has an invalid schema`);
 }
 
+function inside(parent, candidate) {
+  const path = relative(parent, candidate);
+  return path !== "" && path !== ".." && !path.startsWith(`..${sep}`) && !isAbsolute(path);
+}
+
 function readText(path, label) {
-  check(existsSync(path) && statSync(path).isFile(), `${label} is not a regular file`);
+  check(inside(ROOT, path) && existsSync(path) && lstatSync(path).isFile() &&
+    !lstatSync(path).isSymbolicLink() && realpathSync(path) === path,
+  `${label} is not an owned regular file`);
   check(statSync(path).size <= MAX_INPUT_SIZE, `${label} exceeds the 64 MiB input limit`);
   return readFileSync(path, "utf8");
 }

@@ -5,7 +5,7 @@
 This verification-only handoff covers `cro/DllFieldEventTakinobori` for
 Pokémon Alpha Sapphire revision `AS_EUR_REV2`. The observations were recorded
 on 2026-10-17 with Git 2.53.0, Node.js v24.21.0, and GNU Bash 5.3.9 from public
-repository revision `bc81ca8c9019acd0873318be5e27caa4130cfb88`.
+repository revision `1b476f38c4360d3a183cb046dd2ebe06b9f80bbd`.
 
 The method parsed the committed CRO manifest, neutral function inventory,
 complete-text partition, source registry, existing source, shared public leaf
