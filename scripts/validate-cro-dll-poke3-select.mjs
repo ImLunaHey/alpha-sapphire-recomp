@@ -75,6 +75,8 @@ const PARTITION_CLASSIFICATIONS = Object.freeze({
   unknown: Object.freeze({ count: 1, sha256: "e490547caa5429ea5ae417d1b5677b38827b3005a6c1de3fb9aef6bf71a4dfbf" }),
 });
 const REQUIRED_PACKAGE_SCRIPTS = Object.freeze({
+  "validate:cro-dll-number-input":
+    "node --check scripts/validate-cro-dll-number-input.mjs && node scripts/validate-cro-dll-number-input.mjs --self-test",
   "validate:cro-dll-field-event-secret-base-others-base-pc":
     "node --check scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs && node scripts/validate-cro-dll-field-event-secret-base-others-base-pc.mjs --self-test",
   "postvalidate:cro-dll-field-event-takinobori":
@@ -90,6 +92,7 @@ const REQUIRED_PACKAGE_SCRIPTS = Object.freeze({
   "postvalidate:cro-dll-fatal-error-proc":
     "npm run validate:cro-contract10",
 });
+const REQUIRED_CHECK_PREFIX = "npm run validate:cro-dll-number-input && npm run check:clean && ";
 const PERCENT_DECIMAL_TOLERANCE = 0.000005;
 const REPORT_FUNCTIONS = Object.freeze([
   ["func_000004F8", "12708", "256"],
@@ -558,6 +561,8 @@ function validatePackage(pkg) {
     "focused package script is missing or changed");
   check(pkg.scripts["check:clean"]?.includes("npm run validate:cro-dll-poke3-select"),
     "focused quarantine validation is not reachable from npm run check");
+  check(pkg.scripts.check?.startsWith(REQUIRED_CHECK_PREFIX),
+    "NumberInput npm check prefix identity is missing or changed");
   for (const [name, command] of Object.entries(REQUIRED_PACKAGE_SCRIPTS))
     check(pkg.scripts[name] === command, `${name} focused npm chain identity is missing or changed`);
 }
@@ -716,6 +721,10 @@ function runSelfTests() {
     mutated.scripts[name] = `${mutated.scripts[name]} --identity-mutated`;
     assert.throws(() => validatePackage(mutated), /npm chain identity/u);
   }
+  const mutatedCheck = clone(packageManifest);
+  mutatedCheck.scripts.check = mutatedCheck.scripts.check.replace(
+    "npm run validate:cro-dll-number-input", "npm run validate:cro-dll-number-input-mutated");
+  assert.throws(() => validatePackage(mutatedCheck), /NumberInput npm check prefix identity/u);
 
   const manifest = parseJson(readRegular(ROOT, "progress/units/AS_EUR_REV2.cro.json"), "target manifest");
   for (const [field, value] of [["name", "cro/DllPoke3SelectMutated"], ["size", TARGET_SIZE + 1],
