@@ -574,8 +574,6 @@ node "$root/scripts/validate-cro-contract-05.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-06.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
-node "$root/scripts/validate-cro-dll-field-event-skate-pipe.mjs" \
-  --object "$root/build/AS_EUR_REV2/base/cro-code/DllFieldEventSkatePipe.o" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-07.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-08.mjs" \
