@@ -4,7 +4,8 @@
 
 This specification covers `cro/DllUSGymFire` for `AS_EUR_REV2`. Analysis began
 from repository revision `4a07fbcd399281cd0006d8cf3c439e6bc50ec2bb` and was
-corrected and revalidated on 2026-10-17 after rebasing onto current `main`.
+corrected and revalidated on 2026-10-17 after rebasing onto `main` revision
+`ce08a012a889eb661a51be380108066d5c31b7f0`.
 Analysis used the repository's public metadata and validators plus a privately
 held verification input located through the ignored root `.env.local`. No ROM,
 target object, extracted asset, Nintendo SDK material, private path, or
