@@ -76,6 +76,10 @@ const PARTITION_CLASSIFICATIONS = Object.freeze({
   unknown: Object.freeze({ count: 1, sha256: "e490547caa5429ea5ae417d1b5677b38827b3005a6c1de3fb9aef6bf71a4dfbf" }),
 });
 const REQUIRED_PACKAGE_SCRIPTS = Object.freeze({
+  "prevalidate:cro-dll-number-input":
+    "npm run validate:cro-dll-lang-select",
+  "validate:cro-dll-lang-select":
+    "node --check scripts/validate-cro-dll-lang-select.mjs && node scripts/validate-cro-dll-lang-select.mjs --self-test",
   "validate:cro-dll-number-input":
     "node --check scripts/validate-cro-dll-number-input.mjs && node scripts/validate-cro-dll-number-input.mjs --self-test",
   "validate:cro-dll-field-event-secret-base-others-base-pc":
