@@ -184,4 +184,3 @@ remain `complete: false` after this function is implemented.
 - Classification: neutral analysis/specification. No leaked source,
   proprietary SDK header, authored target symbol, or implementation source was
   consulted or copied into this document.
-
