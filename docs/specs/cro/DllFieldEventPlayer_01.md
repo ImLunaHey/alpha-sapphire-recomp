@@ -62,7 +62,9 @@ implementable as `base[217] = value`.
 - Interface model: a five-argument routine returning a Boolean-sized integer.
   The first four arguments arrive in `r0` through `r3`; the fifth is the first
   stack argument under AAPCS. For this specification they are called `state`,
-  `subject`, `direction`, `event`, and `context` respectively.
+  `subject`, `direction`, `event`, and `context` respectively. Register and
+  stack placement follows Arm's public
+  [AAPCS32 parameter-passing standard](https://github.com/ARM-software/abi-aa/blob/main/aapcs32/aapcs32.rst).
 - Linkage: the function uses opaque collaborators. There are no relocation
   outputs or literal/data words inside the accepted body.
 
