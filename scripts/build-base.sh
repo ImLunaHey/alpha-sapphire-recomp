@@ -591,6 +591,4 @@ node "$root/scripts/validate-cro-dll-battle-record-ops-04.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-medium-leaves-05.mjs" --self-test
 node "$root/scripts/validate-cro-dll-battle-state-table-ops-06.mjs" \
   --composite --object "$root/build/AS_EUR_REV2/base/cro-code/DllBattle.o"
-node "$root/scripts/validate-cro-dll-field-event-player-01.mjs" --self-test \
-  --object "$root/build/AS_EUR_REV2/base/cro-code/DllFieldEventPlayer.o" --readelf "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

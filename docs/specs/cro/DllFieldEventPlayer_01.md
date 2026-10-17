@@ -15,8 +15,7 @@
 
 The authoritative public identities are the two ARM functions in
 `symbols/cro/DllFieldEventPlayer.csv`. Addresses below are offsets in the CRO
-`.text` segment. Opaque calls are identified only by their neutral veneer
-offset so that an implementer does not need private symbol information.
+`.text` segment.
 
 ## Link-unit accounting
 
@@ -31,28 +30,15 @@ The structural unit has these segment sizes:
 
 The public text partition is exhaustive: 2 accepted functions occupy 2,024
 bytes, 113 executable gaps occupy 11,580 bytes, 105 pools occupy 708 bytes,
-and 9 fail-closed unknown ranges occupy 128 bytes. The unknown ranges are
-`0x02B8+0x14`, `0x066C+0x0C`, `0x096C+0x0C`, `0x0C38+0x0C`,
-`0x0D04+0x0C`, `0x105C+0x08`, `0x1128+0x18`, `0x27FC+0x10`, and
-`0x3498+0x0C`. Their classification must not be guessed during
-implementation.
+and 9 fail-closed unknown ranges occupy 128 bytes. Their classification must
+not be guessed during implementation.
 
 There are 285 `R_ARM_ABS32` loader relocations: 117 import relocations and 168
 internal relocations. By output segment, `.text` owns 145 relocations and
-`.rodata` owns 140; `.data` owns none. The text relocations are completely
-contained in the published pools. The first 696 text bytes are 87 canonical
-four-byte import veneers alternating with their four-byte relocation words.
-Two additional text import relocation words occur in later pools. These
-veneer/gap and pool bytes are link infrastructure, not owned by either
-accepted function.
-
-The read-only segment contains fourteen repeated 32-byte polymorphic dispatch
-records. Each has six internal text references and one internal read-only-data
-reference. A separate group of fourteen linkage records contributes 28 import
-references and fourteen read-only-data self-references. The remaining
-read-only payload has not been semantically reconstructed and must remain
-unmatched. This describes only record shape and relocation ownership; no
-target values or strings are part of this specification.
+`.rodata` owns 140; `.data` owns none. Text relocations are contained in the
+published pools, which are link infrastructure rather than accepted function
+bodies. The read-only and writable payloads have not been reconstructed and
+must remain unmatched.
 
 The current report's 13,604-byte `.text` measure is the sum of accepted
 function and executable-gap bytes. Its separate 708-byte `.pool` measure and
@@ -72,31 +58,13 @@ implementable as `base[217] = value`.
 
 ## `func_00002000`
 
-- Boundary: `0x2000..0x27E0` (2,016 bytes, 504 ARM instructions).
+- Boundary: `0x2000..0x27E0` (2,016 bytes, ARM).
 - Interface model: a five-argument routine returning a Boolean-sized integer.
   The first four arguments arrive in `r0` through `r3`; the fifth is the first
   stack argument under AAPCS. For this specification they are called `state`,
   `subject`, `direction`, `event`, and `context` respectively.
-- Linkage: 54 direct calls through 30 distinct neutral local/import veneers.
-  There are no relocation outputs or literal/data words inside the function.
-  Its seven-word literal pool begins at `0x27E0` and is outside the boundary.
-- Stack: the routine reserves 744 bytes in total, including saved registers.
-  It constructs nine opaque 56-byte temporaries with the same initializer,
-  using `context`, `context + 124`, and disjoint local storage.
-
-The complete implementable neutral schedule is
-`config/cro-dll-field-event-player-01.json`. It records all 504 ordered ARM
-operations as mnemonic/operand facts without instruction encodings, all 90
-basic blocks and their successor offsets, every stack-slot role, all 54 call
-sites and 30 abstract veneer contracts, and the seven post-body pool identities
-and relocation addends. The schedule hashes are
-`a1199f664aff9da18ec15521205e54bde5d7c32481df33d59493f28843c76240`
-for operations and
-`da33bec8fe3543289de3f96c3cb9cbc1034d27e2b50c972c0fa6fc127df021d8`
-for control flow. `scripts/validate-cro-dll-field-event-player-01.mjs` pins
-these facts fail-closed and cross-checks the public boundary. The manifest
-contains no raw opcode, target byte, private symbol, or copied data-table
-payload.
+- Linkage: the function uses opaque collaborators. There are no relocation
+  outputs or literal/data words inside the accepted body.
 
 ### Observable contract
 
@@ -135,32 +103,13 @@ payload.
    the early event/context rejection, invalid selection state if fail-fast
    returns, or exhaustion of both candidates.
 
-### Additional exact observations
-
-- The descriptor destination comprises eight consecutive words followed by
-  two more words and a final word at offset 40, for 44 bytes total.
-- State writes made by this routine are confined to offsets 184, 185, 186,
-  196 through 240, and 296 through 299. Opaque callees may have additional
-  effects through their pointer arguments.
-- The routine checks one early normalized event value against 4103. On equality
-  it performs two context-dependent Boolean queries and returns 0 only when
-  the second predicate is false.
-- The four-lane loops are unsigned-count loops with exactly four iterations;
-  lane selectors and statuses are byte-sized.
-- Floating-point data is moved and copied, but no target floating constants or
-  descriptor contents are required by this behavioral contract.
-
 ## Remaining boundaries and completion status
 
-Private structural observation shows additional relocation-backed entry
-points in the executable gaps, including fourteen dispatch families and two
-module-control entries after `func_000036D4`. They are not accepted public
-functions: several bodies embed relocated jump tables or literal pools, and
-the conservative exporter/gate cannot represent such bodies as one owned
-function without placing relocation words inside a function. Other short
-entry candidates lack a presently accepted, entry-rooted extent. Their bytes
-therefore remain gaps, pools, or unknown residue exactly as the authoritative
-partition requires.
+Structural observation shows additional relocation-backed entry points in the
+executable gaps. They are not accepted public functions: several bodies mix
+code with relocated pools, and other candidates lack a presently accepted,
+entry-rooted extent. Their bytes therefore remain gaps, pools, or unknown
+residue exactly as the authoritative partition requires.
 
 This is a concrete completion blocker, not permission to turn gaps into a
 pseudo-function. Completing the unit requires a reviewed representation for
