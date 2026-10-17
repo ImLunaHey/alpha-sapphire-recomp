@@ -1,0 +1,423 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_12.S",
+  "sourceSha256": "221074eff8b2cf0f82baff9aa621189f3eab4578fafc32b09db5911124d3fad5",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 902,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 444,
+  "wideInstructionCount": 7,
+  "legacyNopCount": 0,
+  "localBranchCount": 117,
+  "memoryOperationCount": 101,
+  "returnCount": 1,
+  "indirectCallCount": 21,
+  "indirectTailCount": 0,
+  "directCallCount": 7,
+  "directCalls": [
+    {
+      "function": "func_00101934",
+      "offset": 438,
+      "mnemonic": "blx",
+      "symbol": "func_00300750",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 580,
+      "mnemonic": "bl",
+      "symbol": "func_00100CD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 596,
+      "mnemonic": "bl",
+      "symbol": "func_00100E14",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 760,
+      "mnemonic": "bl",
+      "symbol": "func_0010123E",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 826,
+      "mnemonic": "bl",
+      "symbol": "func_00101040",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 840,
+      "mnemonic": "bl",
+      "symbol": "func_00100F5E",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 854,
+      "mnemonic": "bl",
+      "symbol": "func_0010115A",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00101934",
+      "offset": 438,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300750"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 580,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00100CD0"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 596,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00100E14"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 760,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0010123E"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 826,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00101040"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 840,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00100F5E"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 854,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0010115A"
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00101934",
+      "offset": 188,
+      "mnemonic": "ldr",
+      "targetOffset": 904,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 200,
+      "mnemonic": "ldr",
+      "targetOffset": 908,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00101934",
+      "offset": 532,
+      "mnemonic": "ldr",
+      "targetOffset": 912,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "indirectTail": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rn, #imm schedule entry uses the 16-bit three-operand immediate form and must not be canonicalized to the distinct two-operand form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb16-local-branch",
+      "rule": "Every function-local conditional or unconditional branch uses the recorded 16-bit .n form and exact local target."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    },
+    {
+      "form": "thumb16-pc-relative",
+      "rule": "Every recorded PC-relative ldr retains its exact Thumb16 immediate form and uses the word-aligned PC base at the required entry modulo-four placement; its destination remains unowned."
+    },
+    {
+      "form": "thumb-code-mapping",
+      "rule": "Every complete function body is continuously covered by Thumb code mapping beginning with $t at body offset zero and contains no interior $d mapping interval."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "indirectTail": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "f1005021444e2546f9a2d0d8263c24ba6ce20811657befae0c97512740d3a391",
+    "localTransferSchedule": "ebeff65c61d36a51bbef5ee60bc9e6ef63ee54ddacc63ea61a2e7f905deb37f9",
+    "returnTransferSchedule": "47f857baab06fb68355ef2bafab5ca3aaf06a8b382c8d563154f6813a9c9036f",
+    "indirectCallSchedule": "a13f7db9477fcf9729ec3ae250881db619fce5ec7b3ab026498be6d102b25f62",
+    "indirectTailSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "directCallSchedule": "1ae95d8b47ba4de8cefffdfefbad3875a9c80ee9f67e3c66f822a4b755987734"
+  },
+  "functions": [
+    {
+      "name": "func_00101934",
+      "size": 902,
+      "instructionCount": 444,
+      "wideInstructionOffsets": [
+        438,
+        580,
+        596,
+        760,
+        826,
+        840,
+        854
+      ],
+      "legacyNopOffsets": [],
+      "localBranchCount": 117,
+      "memoryOperationCount": 101,
+      "returnCount": 1,
+      "indirectCallCount": 21,
+      "indirectTailCount": 0,
+      "directCallCount": 7,
+      "nextGlobal": "func_00101CC8",
+      "nextGlobalOffset": 916,
+      "localTransfers": [
+        "20:beq.n:+80",
+        "24:beq.n:+82",
+        "2c:beq.n:+60",
+        "3c:bne.n:+2e",
+        "46:b.n:+4a",
+        "56:bne.n:+48",
+        "5e:b.n:+16",
+        "6a:bne.n:+70",
+        "6e:b.n:+16",
+        "78:bne.n:+80",
+        "7e:beq.n:+170",
+        "80:b.n:+370",
+        "90:bne.n:+ac",
+        "9c:b.n:+ac",
+        "a6:bmi.n:+80",
+        "ba:bcs.n:+c4",
+        "c0:bgt.n:+80",
+        "c2:b.n:+9e",
+        "c6:bmi.n:+ca",
+        "cc:beq.n:+e4",
+        "d0:beq.n:+f4",
+        "d4:beq.n:+120",
+        "d8:beq.n:+138",
+        "dc:beq.n:+f8",
+        "e0:beq.n:+f8",
+        "e2:b.n:+100",
+        "ee:beq.n:+138",
+        "f2:b.n:+12e",
+        "106:beq.n:+1ac",
+        "108:bgt.n:+158",
+        "10c:beq.n:+182",
+        "10e:bgt.n:+146",
+        "112:beq.n:+1ac",
+        "114:bgt.n:+13c",
+        "118:beq.n:+184",
+        "11c:bne.n:+80",
+        "11e:b.n:+1ac",
+        "12a:beq.n:+132",
+        "130:b.n:+100",
+        "136:b.n:+f6",
+        "13a:b.n:+f6",
+        "13e:beq.n:+1ac",
+        "142:bne.n:+80",
+        "144:b.n:+1ac",
+        "148:beq.n:+22c",
+        "14c:beq.n:+1ac",
+        "150:beq.n:+22c",
+        "154:bne.n:+80",
+        "156:b.n:+21e",
+        "15a:beq.n:+1fc",
+        "15c:bgt.n:+172",
+        "160:beq.n:+1ac",
+        "164:beq.n:+1ac",
+        "168:beq.n:+1bc",
+        "16c:bne.n:+80",
+        "16e:b.n:+1d4",
+        "170:b.n:+368",
+        "174:beq.n:+214",
+        "178:beq.n:+25a",
+        "17c:beq.n:+21e",
+        "180:bne.n:+11c",
+        "182:b.n:+22e",
+        "18e:bne.n:+192",
+        "190:b.n:+6c",
+        "19a:bne.n:+19e",
+        "19c:b.n:+7a",
+        "19e:b.n:+370",
+        "1a4:b.n:+23e",
+        "1aa:b.n:+24e",
+        "1ba:b.n:+35a",
+        "1c6:bpl.n:+1ce",
+        "1cc:b.n:+23e",
+        "1d2:b.n:+24e",
+        "1de:bpl.n:+1e4",
+        "1e2:b.n:+16",
+        "1e6:bpl.n:+1ec",
+        "1ea:b.n:+16",
+        "1ee:bpl.n:+1f8",
+        "1f6:b.n:+16",
+        "1fa:b.n:+16",
+        "206:bpl.n:+20e",
+        "20c:b.n:+23e",
+        "212:b.n:+24e",
+        "21c:b.n:+24a",
+        "228:bpl.n:+1a6",
+        "22a:b.n:+1a0",
+        "22c:b.n:+25a",
+        "238:bpl.n:+24a",
+        "248:b.n:+35a",
+        "258:b.n:+35a",
+        "268:beq.n:+270",
+        "26c:beq.n:+27e",
+        "26e:b.n:+2d8",
+        "272:bmi.n:+278",
+        "27c:b.n:+2d8",
+        "288:bne.n:+296",
+        "29a:beq.n:+2fe",
+        "2a4:beq.n:+370",
+        "2aa:beq.n:+30e",
+        "2bc:bne.n:+2a2",
+        "2c2:beq.n:+2d6",
+        "2d4:blt.n:+2c8",
+        "2de:beq.n:+32e",
+        "2ee:bge.n:+34e",
+        "2fc:b.n:+35a",
+        "30a:blt.n:+302",
+        "30c:b.n:+2a2",
+        "32c:b.n:+2b2",
+        "330:bpl.n:+340",
+        "33e:b.n:+35a",
+        "34c:b.n:+35a",
+        "35c:bge.n:+374",
+        "360:bne.n:+370",
+        "366:beq.n:+370",
+        "372:b.n:+36c",
+        "376:bne.n:+37e",
+        "384:b.n:+16"
+      ],
+      "returns": [
+        "36e:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1c:blx:r2",
+        "28:blx:r1",
+        "34:blx:r2",
+        "38:blx:r1",
+        "44:blx:r2",
+        "4e:blx:r1",
+        "52:blx:r1",
+        "5c:blx:r1",
+        "64:blx:r1",
+        "74:blx:r1",
+        "8c:blx:r2",
+        "98:blx:r2",
+        "b2:blx:r2",
+        "ea:blx:r2",
+        "fe:blx:r2",
+        "126:blx:r2",
+        "188:blx:r1",
+        "196:blx:r1",
+        "284:blx:r2",
+        "294:blx:r2",
+        "2b8:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 438,
+          "mnemonic": "blx",
+          "symbol": "func_00300750",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 580,
+          "mnemonic": "bl",
+          "symbol": "func_00100CD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 596,
+          "mnemonic": "bl",
+          "symbol": "func_00100E14",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 760,
+          "mnemonic": "bl",
+          "symbol": "func_0010123E",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 826,
+          "mnemonic": "bl",
+          "symbol": "func_00101040",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 840,
+          "mnemonic": "bl",
+          "symbol": "func_00100F5E",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 854,
+          "mnemonic": "bl",
+          "symbol": "func_0010115A",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r4, r5, r6, r7, lr}|sub sp, #60|movs r0, #0|str r0, [sp, #48]|movs r0, #1|str r0, [sp, #56]|movs r4, r1|movs r6, #0|movs r0, r1|adds r0, #12|str r0, [sp, #12]|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|movs r5, r0|beq.n local:+80|cmp r5, #37|beq.n local:+82|ldr r1, [r4, #32]|blx r1|cmp r0, #0|beq.n local:+60|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|ldr r1, [r4, #32]|blx r1|cmp r0, #0|bne.n local:+2e|ldr r2, [r4, #20]|subs r1, r0, #1|ldr r0, [sp, #12]|blx r2|b.n local:+4a|adds r6, r6, #1|ldr r1, [r4, #24]|ldr r0, [sp, #60]|blx r1|ldr r1, [r4, #32]|blx r1|cmp r0, #0|bne.n local:+48|ldr r1, [r4, #28]|ldr r0, [sp, #60]|blx r1|b.n local:+16|ldr r1, [r4, #24]|ldr r0, [sp, #60]|blx r1|movs r7, r0|cmp r0, r5|bne.n local:+70|adds r6, r6, #1|b.n local:+16|ldr r1, [r4, #28]|ldr r0, [sp, #60]|blx r1|adds r7, r7, #1|bne.n local:+80|ldr r0, [sp, #48]|cmp r0, #0|beq.n local:+170|b.n local:+370|ldr r2, [r4, #20]|movs r7, #0|movs r5, r7|ldr r0, [sp, #12]|movs r1, r7|blx r2|cmp r0, #42|bne.n local:+ac|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|movs r5, #1|b.n local:+ac|movs r1, #10|muls r7, r1|adds r7, r7, r0|subs r7, #48|bmi.n local:+80|movs r0, #16|orrs r5, r0|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|movs r1, r0|subs r1, #48|cmp r1, #10|bcs.n local:+c4|ldr r1, [pc, #712]|cmp r7, r1|bgt.n local:+80|b.n local:+9e|lsls r1, r5, #27|bmi.n local:+ca|ldr r7, [pc, #704]|cmp r0, #108|beq.n local:+e4|cmp r0, #76|beq.n local:+f4|cmp r0, #104|beq.n local:+120|cmp r0, #106|beq.n local:+138|cmp r0, #116|beq.n local:+f8|cmp r0, #122|beq.n local:+f8|b.n local:+100|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|cmp r0, #108|beq.n local:+138|movs r1, #4|b.n local:+12e|movs r0, #32|orrs r5, r0|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|str r7, [r4, #8]|cmp r0, #101|str r5, [r4, #4]|beq.n local:+1ac|bgt.n local:+158|cmp r0, #88|beq.n local:+182|bgt.n local:+146|cmp r0, #69|beq.n local:+1ac|bgt.n local:+13c|cmp r0, #37|beq.n local:+184|cmp r0, #65|bne.n local:+80|b.n local:+1ac|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|cmp r0, #104|beq.n local:+132|movs r1, #8|orrs r5, r1|b.n local:+100|movs r0, #1|lsls r0, r0, #11|b.n local:+f6|movs r0, #2|b.n local:+f6|cmp r0, #70|beq.n local:+1ac|cmp r0, #71|bne.n local:+80|b.n local:+1ac|cmp r0, #91|beq.n local:+22c|cmp r0, #97|beq.n local:+1ac|cmp r0, #99|beq.n local:+22c|cmp r0, #100|bne.n local:+80|b.n local:+21e|cmp r0, #111|beq.n local:+1fc|bgt.n local:+172|cmp r0, #102|beq.n local:+1ac|cmp r0, #103|beq.n local:+1ac|cmp r0, #105|beq.n local:+1bc|cmp r0, #110|bne.n local:+80|b.n local:+1d4|b.n local:+368|cmp r0, #112|beq.n local:+214|cmp r0, #115|beq.n local:+25a|cmp r0, #117|beq.n local:+21e|cmp r0, #120|bne.n local:+11c|b.n local:+22e|ldr r1, [r4, #24]|ldr r0, [sp, #60]|blx r1|movs r5, r0|cmp r0, #37|bne.n local:+192|b.n local:+6c|ldr r1, [r4, #28]|ldr r0, [sp, #60]|blx r1|adds r5, r5, #1|bne.n local:+19e|b.n local:+7a|b.n local:+370|movs r3, r4|movs r2, #10|b.n local:+23e|movs r3, r4|movs r2, #10|b.n local:+24e|movs r0, #1|mov r2, sp|ldr r1, [sp, #60]|movs r3, r4|mvns r0, r0|blx func_00300750|b.n local:+35a|movs r0, r5|movs r1, #64|orrs r0, r1|str r0, [r4, #4]|lsls r0, r5, #30|bpl.n local:+1ce|movs r3, r4|movs r2, #0|b.n local:+23e|movs r3, r4|movs r2, #0|b.n local:+24e|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r0, [r0, #0]|lsls r1, r5, #20|bpl.n local:+1e4|strb r6, [r0, #0]|b.n local:+16|lsls r1, r5, #28|bpl.n local:+1ec|strh r6, [r0, #0]|b.n local:+16|lsls r1, r5, #30|bpl.n local:+1f8|asrs r1, r6, #31|str r6, [r0, #0]|str r1, [r0, #4]|b.n local:+16|str r6, [r0, #0]|b.n local:+16|movs r0, r5|movs r1, #64|orrs r0, r1|str r0, [r4, #4]|lsls r0, r5, #30|bpl.n local:+20e|movs r3, r4|movs r2, #8|b.n local:+23e|movs r3, r4|movs r2, #8|b.n local:+24e|ldr r1, [pc, #376]|movs r0, r5|ands r0, r1|str r0, [r4, #4]|b.n local:+24a|movs r0, r5|movs r1, #64|orrs r0, r1|str r0, [r4, #4]|lsls r0, r5, #30|bpl.n local:+1a6|b.n local:+1a0|b.n local:+25a|movs r0, r5|movs r1, #64|orrs r0, r1|str r0, [r4, #4]|lsls r0, r5, #30|bpl.n local:+24a|movs r3, r4|movs r2, #16|movs r0, #1|ldr r1, [sp, #60]|mvns r0, r0|bl func_00100CD0|b.n local:+35a|movs r3, r4|movs r2, #16|movs r0, #1|ldr r1, [sp, #60]|mvns r0, r0|bl func_00100E14|b.n local:+35a|movs r1, #0|movs r3, r1|cmp r0, #99|str r1, [sp, #4]|str r1, [sp, #0]|str r1, [sp, #8]|str r1, [sp, #52]|beq.n local:+270|cmp r0, #91|beq.n local:+27e|b.n local:+2d8|lsls r0, r5, #27|bmi.n local:+278|movs r0, #1|str r0, [r4, #8]|movs r0, #1|str r0, [sp, #0]|b.n local:+2d8|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|cmp r0, #94|bne.n local:+296|movs r0, #1|str r0, [sp, #4]|ldr r2, [r4, #20]|movs r1, r0|ldr r0, [sp, #12]|blx r2|ldr r1, [r4, #16]|cmp r1, #0|beq.n local:+2fe|ldr r1, [r4, #12]|subs r1, r1, #2|str r1, [sp, #52]|cmp r0, #0|beq.n local:+370|ldr r1, [r4, #16]|cmp r1, #0|beq.n local:+30e|ldr r0, [sp, #8]|adds r0, r0, #1|str r0, [sp, #8]|ldr r2, [r4, #20]|ldr r0, [sp, #12]|movs r1, #1|blx r2|cmp r0, #93|bne.n local:+2a2|ldr r0, [sp, #4]|cmp r0, #0|beq.n local:+2d6|movs r0, #0|add r3, sp, #16|lsls r1, r0, #2|adds r0, r0, #1|ldr r2, [r3, r1]|mvns r2, r2|cmp r0, #8|str r2, [r3, r1]|blt.n local:+2c8|add r3, sp, #16|ldr r0, [r4, #16]|cmp r0, #0|ldr r0, [r4, #4]|beq.n local:+32e|lsls r0, r0, #29|cmp r0, #0|ldr r2, [sp, #8]|ldr r0, [sp, #0]|ldr r3, [sp, #52]|str r2, [sp, #0]|str r0, [sp, #8]|bge.n local:+34e|movs r0, #1|ldr r1, [sp, #60]|movs r2, r4|mvns r0, r0|bl func_0010123E|b.n local:+35a|movs r3, #0|add r2, sp, #16|lsls r7, r1, #2|adds r1, r1, #1|cmp r1, #8|str r3, [r2, r7]|blt.n local:+302|b.n local:+2a2|asrs r1, r0, #31|lsrs r1, r1, #27|adds r1, r1, r0|asrs r2, r1, #5|lsrs r1, r1, #5|lsls r3, r2, #2|add r2, sp, #16|adds r2, r3, r2|lsls r1, r1, #5|subs r1, r0, r1|ldr r3, [r2, #0]|movs r0, #1|lsls r0, r1|orrs r3, r0|str r3, [r2, #0]|b.n local:+2b2|lsls r0, r0, #29|bpl.n local:+340|movs r0, #1|ldr r1, [sp, #60]|movs r2, r4|mvns r0, r0|bl func_00101040|b.n local:+35a|movs r0, #1|ldr r1, [sp, #60]|movs r2, r4|mvns r0, r0|bl func_00100F5E|b.n local:+35a|movs r0, #1|ldr r1, [sp, #60]|movs r2, r4|mvns r0, r0|bl func_0010115A|cmp r0, #0|bge.n local:+374|adds r0, r0, #1|bne.n local:+370|ldr r0, [sp, #56]|cmp r0, #0|beq.n local:+370|movs r0, #0|mvns r0, r0|add sp, #68|pop {r4, r5, r6, r7, pc}|ldr r0, [sp, #48]|b.n local:+36c|lsls r1, r5, #31|bne.n local:+37e|ldr r1, [sp, #48]|adds r1, r1, #1|str r1, [sp, #48]|adds r6, r6, r0|movs r0, #0|str r0, [sp, #56]|b.n local:+16"
+    }
+  ]
+}

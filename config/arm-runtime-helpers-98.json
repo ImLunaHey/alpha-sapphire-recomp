@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_98.S",
+  "sourceSha256": "7d457e9d5c0bbd5ac9a5a1dc13ba3c685289b2dd7e26ac85d22a5067697235de",
+  "mode": "arm",
+  "totalBodySize": 112,
+  "totalAdjacentSize": 0,
+  "instructionScheduleSha256": "c89563e118c0d0e51870dec97cbff2b7593405f1f372a4c58b92414e607bb7a2",
+  "branchScheduleSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "returnScheduleSha256": "487c135bc3dfcecd4b04fd414e1881706db7798ed0e48add60c420aca13e2515",
+  "indirectTransferScheduleSha256": "95e2b2c17a62c71250e4c7ef9c01c493c94f6df70e5f693793aac4f8cf0d9dea",
+  "pcRelativeScheduleSha256": "cc3b1e584a87e774ec02a4a0faf217e3901cef9530456b38250f4cdc73f36f4d",
+  "relocationScheduleSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "functions": [
+    {
+      "name": "func_001D0078", "size": 16, "nextGlobal": "func_001D0090",
+      "calls": [], "indirectTransfers": [], "adjacentWords": []
+    },
+    {
+      "name": "func_0034ACD4", "size": 16, "nextGlobal": "func_0034ACF0",
+      "calls": [],
+      "indirectTransfers": [
+        { "offset": 12, "mnemonic": "bx", "register": "r1", "kind": "tail" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_0034B0B0", "size": 16, "nextGlobal": "func_0034B0C0",
+      "calls": [],
+      "indirectTransfers": [
+        { "offset": 12, "mnemonic": "bx", "register": "r2", "kind": "tail" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_003A6524", "size": 16, "nextGlobal": "func_003A6544",
+      "calls": [],
+      "indirectTransfers": [
+        { "offset": 12, "mnemonic": "bx", "register": "r3", "kind": "tail" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_003AB314", "size": 16, "nextGlobal": "func_003AB324",
+      "calls": [], "indirectTransfers": [], "adjacentWords": []
+    },
+    {
+      "name": "func_004C51EC", "size": 16, "nextGlobal": "func_004C520C",
+      "calls": [],
+      "indirectTransfers": [
+        { "offset": 12, "mnemonic": "bx", "register": "r1", "kind": "tail" }
+      ],
+      "adjacentWords": []
+    },
+    {
+      "name": "func_004C520C", "size": 16, "nextGlobal": "func_004C568C",
+      "calls": [],
+      "indirectTransfers": [
+        { "offset": 12, "mnemonic": "bx", "register": "r1", "kind": "tail" }
+      ],
+      "adjacentWords": []
+    }
+  ],
+  "identityClasses": {
+    "indirect_dispatch_runtime_helpers_98": {
+      "members": [
+        "func_0034ACD4", "func_0034B0B0", "func_003A6524",
+        "func_004C51EC", "func_004C520C"
+      ],
+      "parameters": [
+        "objectAccessSchedule",
+        "dispatchSlot",
+        "transferRegister",
+        "argumentMaterialization"
+      ]
+    },
+    "inline_fallback_pointer_leaf_98": {
+      "members": ["func_001D0078"],
+      "parameters": ["nullPolarity", "fieldOffset", "fallbackIdentity"]
+    },
+    "duplicate_nullable_field_leaf_98": {
+      "members": ["func_003AB314"],
+      "parameters": ["pointerFieldOffset", "resultFieldOffset", "duplicateOf"]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_001D0078", "offset": 8, "mnemonic": "addeq", "targetOffset": 16,
+      "symbol": "runtime_inline_fallback_payload_98", "ownership": "external-unowned-payload"
+    }
+  ],
+  "bodyIdentityRelations": [
+    {
+      "function": "func_003AB314",
+      "relation": "exact-body-duplicate",
+      "canonical": "func_001233C4"
+    }
+  ],
+  "symbolicIdentities": {
+    "runtime_inline_fallback_payload_98": {
+      "minimumAlignment": 4,
+      "equality": "singleton-distinct",
+      "usage": "inline-fallback-address"
+    }
+  },
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": ["runtime_inline_fallback_payload_98"],
+  "symbolicSlots": {}
+}

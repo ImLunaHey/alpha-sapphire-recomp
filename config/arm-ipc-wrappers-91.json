@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_91.S",
+  "sourceSha256": "a5bb6a09dd98c635eb0b7d482c168f0db716c325eba190de02f000ec79e326d4",
+  "normalizedScheduleSha256": "daa52c9b7dd3803bebec835f0c812b839c0e84fe5f4c5e44e3ed1985e0dca3e6",
+  "mode": "arm",
+  "totalBodySize": 576,
+  "totalAdjacentSize": 16,
+  "cumulativePoolSlots": 881,
+  "cumulativePoolClasses": 461,
+  "functions": [
+    {
+      "name": "func_00180968", "section": ".text.func_00180968", "size": 60,
+      "nextGlobal": "func_001809A4", "nextGlobalOffset": 60,
+      "branches": [
+        { "offset": 20, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017A8A8" },
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00188308" },
+        { "offset": 52, "kind": "R_ARM_JUMP24", "mnemonic": "b", "symbol": "func_00188324" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_001809A4", "section": ".text.func_001809A4", "size": 108,
+      "nextGlobal": "func_00180A18", "nextGlobalOffset": 116,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00182C60" },
+        { "offset": 64, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DEC" },
+        { "offset": 96, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00182C60" }
+      ],
+      "literals": [
+        { "offset": 108, "loadOffsets": [16], "symbol": "service_zero_scalar_51" },
+        { "offset": 112, "loadOffsets": [24], "symbol": "service_stride_reciprocal_91" }
+      ]
+    },
+    {
+      "name": "func_00180A18", "section": ".text.func_00180A18", "size": 204,
+      "nextGlobal": "func_00180AE8", "nextGlobalOffset": 208,
+      "branches": [
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DEC" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00182C60" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_index_secondary_91" },
+        { "offset": 120, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001867D0" },
+        { "offset": 144, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001868EC" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00186860" }
+      ],
+      "literals": [
+        { "offset": 204, "loadOffsets": [76], "symbol": "ipc_unit_scalar_54" }
+      ]
+    },
+    {
+      "name": "func_00180AE8", "section": ".text.func_00180AE8", "size": 204,
+      "nextGlobal": "func_00180C80", "nextGlobalOffset": 408,
+      "branches": [
+        { "offset": 72, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DEC" },
+        { "offset": 92, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00182C60" },
+        { "offset": 108, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_index_secondary_91" },
+        { "offset": 120, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00186A54" },
+        { "offset": 144, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_peer_secondary_91" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00186AAC" }
+      ],
+      "literals": [
+        { "offset": 204, "loadOffsets": [76], "symbol": "ipc_unit_scalar_54" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_zero_scalar_51",
+    "service_stride_reciprocal_91",
+    "ipc_unit_scalar_54"
+  ],
+  "reusedLiteralIdentities": [
+    "service_zero_scalar_51",
+    "ipc_unit_scalar_54"
+  ],
+  "newLiteralIdentities": [
+    "service_stride_reciprocal_91"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0017A8A8",
+      "func_00188308",
+      "func_00188324",
+      "func_00182C60",
+      "func_00187DEC",
+      "func_001867D0",
+      "func_001868EC",
+      "func_00186860",
+      "func_00186A54",
+      "func_00186AAC"
+    ],
+    "secondaryEntries": [
+      "service_index_secondary_91",
+      "service_peer_secondary_91"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "service_index_secondary_91",
+        "owner": "func_00187078",
+        "ownerOffset": 92,
+        "nextGlobal": "func_001870E4",
+        "bytesBeforeNextGlobal": 16
+      },
+      {
+        "symbol": "service_peer_secondary_91",
+        "owner": "func_00186AAC",
+        "ownerOffset": 140,
+        "nextGlobal": "func_00186EB8",
+        "bytesBeforeNextGlobal": 896
+      }
+    ],
+    "sharedClasses": [
+      {
+        "symbol": "func_00182C60",
+        "sites": [
+          { "function": "func_001809A4", "offset": 48 },
+          { "function": "func_001809A4", "offset": 96 },
+          { "function": "func_00180A18", "offset": 92 },
+          { "function": "func_00180AE8", "offset": 92 }
+        ]
+      },
+      {
+        "symbol": "func_00187DEC",
+        "sites": [
+          { "function": "func_001809A4", "offset": 64 },
+          { "function": "func_00180A18", "offset": 72 },
+          { "function": "func_00180AE8", "offset": 72 }
+        ]
+      },
+      {
+        "symbol": "service_index_secondary_91",
+        "sites": [
+          { "function": "func_00180A18", "offset": 108 },
+          { "function": "func_00180AE8", "offset": 108 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_0017A8A8",
+      "func_00188308",
+      "func_00188324",
+      "func_001867D0",
+      "func_001868EC",
+      "func_00186860",
+      "func_00186A54",
+      "service_peer_secondary_91",
+      "func_00186AAC"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0017A8A8",
+      "func_00188308",
+      "func_00188324",
+      "func_00182C60",
+      "func_00187DEC",
+      "func_001867D0",
+      "func_001868EC",
+      "func_00186860",
+      "func_00186A54",
+      "func_00186AAC"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}

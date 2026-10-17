@@ -314,6 +314,7 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-ipc-wrappers-88.mjs" --object "$output"
 node "$root/scripts/validate-arm-ipc-wrappers-89.mjs" "$output"
 node "$root/scripts/validate-arm-ipc-wrappers-90.mjs" "$output"
+node "$root/scripts/validate-arm-ipc-wrappers-91.mjs" --object "$output"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" "$output" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" "$output"
 node "$root/scripts/validate-arm-runtime-helpers-70.mjs" "$output"
@@ -357,6 +358,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-97.mjs" --audit-configs "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-98.mjs" "$output"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"
@@ -378,4 +381,6 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-10.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-11.mjs" "$output"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-thumb-leaf-helpers-12.mjs" "$output"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"
