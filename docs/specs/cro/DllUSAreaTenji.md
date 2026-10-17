@@ -40,6 +40,13 @@ with addend zero.
 The implementation uses readable assembly and symbolic imports. It must not
 encode target instruction words or copy neighboring target bytes.
 
+The earlier veneer source was quarantined in commit `bb63849`. The replacement
+was authored in a no-history implementation role that read only
+`docs/CLEAN_ROOM.md` and the 54-line version of this contract, with no access to
+the earlier implementation, repository history, target material, reports, or
+validators. Target verification was restricted to a separate blind pass/fail
+role; it supplied no implementation details.
+
 ## Completion status
 
 The only accepted public function remains `func_0000007C` at `0x07C`, size

@@ -23,6 +23,17 @@ const CONTRACT = [
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
 const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
+const TENJI_VENEER_SOURCE = "src/cro/DllUSAreaTenji/import_veneers.S";
+const TENJI_VENEERS = [
+  ["000", "004", "__cro_import_anon_m7c7374617469637c_s0_002fd48"],
+  ["008", "00c", "__cro_import_anon_m446c6c4669656c64_s0_0087014"],
+  ["010", "014", "__cro_import_anon_m7c7374617469637c_s0_02dc63c"],
+  ["018", "01c", "__cro_import_anon_m446c6c4669656c64_s0_00d8e40"],
+  ["020", "024", "__cro_import_anon_m446c6c4669656c64_s0_0015d34"],
+  ["028", "02c", "__cro_import_anon_m446c6c4669656c64_s0_00d8eb0"],
+  ["030", "034", "__cro_import_anon_m446c6c4669656c64_s0_00158d4"],
+  ["038", "03c", "__cro_import_anon_m7c7374617469637c_s0_01ff8c0"],
+];
 
 function fail(message) { throw new Error(`CRO contract 10 validation: ${message}`); }
 function check(condition, message) { if (!condition) fail(message); }
@@ -145,10 +156,31 @@ function validatePublicContract(manifestPath) {
       check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
+  if (manifestPath === CONFIG_PATH) {
+    const tenji = units.get("DllUSAreaTenji");
+    check(tenji.sources.length === 2 && tenji.sources[1]?.path === TENJI_VENEER_SOURCE && tenji.sources[1]?.mode === "arm",
+      "DllUSAreaTenji lacks the independent veneer source");
+    const sourcePath = join(ROOT, TENJI_VENEER_SOURCE);
+    check(existsSync(sourcePath) && lstatSync(sourcePath).isFile() && !lstatSync(sourcePath).isSymbolicLink(),
+      `${TENJI_VENEER_SOURCE} is not an owned regular file`);
+    const sourceText = readFileSync(sourcePath, "utf8");
+    check((sourceText.match(/^\.section \.text\.import_veneers, "ax", %progbits$/gmu) ?? []).length === 1,
+      `${TENJI_VENEER_SOURCE} lacks its one executable section`);
+    check(!/^\s*\.(?:byte|hword|short|long|inst)\b/imu.test(sourceText), `${TENJI_VENEER_SOURCE} contains encoded instructions`);
+    check(!/^\s*\.type\s+dll_us_area_tenji_import_veneer_/mu.test(sourceText),
+      `${TENJI_VENEER_SOURCE} claims accepted function metadata`);
+    for (const [code, pool, imported] of TENJI_VENEERS) {
+      for (const fragment of [`.global dll_us_area_tenji_import_veneer_${code}`,
+        `dll_us_area_tenji_import_veneer_${code}:`, "    ldr pc, [pc, #-4]", `.Lpool_${pool}:`, `    .word ${imported}`]) {
+        check(sourceText.split(fragment).length === (fragment === "    ldr pc, [pc, #-4]" ? 9 : 2),
+          `${TENJI_VENEER_SOURCE} lacks the canonical ${code}/${pool} veneer contract`);
+      }
+    }
+  }
   check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 2612 &&
     CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 653, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_10.md"),
-    ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
+    resolve(ROOT, TENJI_VENEER_SOURCE), ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
   for (const path of ownedPaths) {
     const text = readFileSync(path, "utf8");
@@ -172,7 +204,9 @@ function validateObjects(units, directory, readelf) {
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
     const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
-      .map((claim) => `.text.${claim.name}`).sort();
+      .map((claim) => `.text.${claim.name}`);
+    if (unitName === "DllUSAreaTenji") expectedNames.push(".text.import_veneers");
+    expectedNames.sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),
       `${unitName} has missing or extra allocated bytes`);
@@ -187,8 +221,27 @@ function validateObjects(units, directory, readelf) {
     const bytes = sectionBytes(readelf, object, section);
     check(bytes.length === fn.size && createHash("sha256").update(bytes).digest("hex") === fn.sha256,
       `${fn.name} instruction bytes do not match the contract`);
-    check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
-      `${unitName} unexpectedly has relocations`);
+    const relocations = run(readelf, ["--relocs", "--wide", object]);
+    if (unitName === "DllUSAreaTenji") {
+      const veneerSection = allocated.find(([name]) => name === ".text.import_veneers");
+      check(veneerSection?.[1] === 64 && veneerSection[2].includes("X"), "DllUSAreaTenji veneer section boundary or flags are invalid");
+      const veneerBytes = sectionBytes(readelf, object, ".text.import_veneers");
+      check(veneerBytes.length === 64, "DllUSAreaTenji veneer bytes have an invalid size");
+      for (const [index, [code, , imported]] of TENJI_VENEERS.entries()) {
+        const offset = index * 8;
+        check(veneerBytes.readUInt32LE(offset) === 0xe51ff004 && veneerBytes.readUInt32LE(offset + 4) === 0,
+          `DllUSAreaTenji veneer ${code} is not canonical readable ARM with a zero relocation addend`);
+        const relocation = new RegExp(`^${(offset + 4).toString(16).padStart(8, "0")}\\s+[0-9a-f]+02\\s+R_ARM_ABS32\\s+00000000\\s+${imported}$`, "imu");
+        check(relocation.test(relocations), `DllUSAreaTenji veneer ${code} lacks its exact neutral import relocation`);
+      }
+      check((relocations.match(/R_ARM_ABS32/gu) ?? []).length === TENJI_VENEERS.length,
+        "DllUSAreaTenji has an unexpected veneer relocation count");
+      const definedVeneers = symbols.split("\n").filter((line) => /\sdll_us_area_tenji_import_veneer_[0-9a-f]+$/u.test(line.trimEnd()));
+      check(definedVeneers.length === TENJI_VENEERS.length && definedVeneers.every((line) => /\s0\s+NOTYPE\s+GLOBAL\s+DEFAULT\s+\d+\s/u.test(line)),
+        "DllUSAreaTenji veneers must remain non-function symbols");
+    } else {
+      check(/There are no relocations in this file\./u.test(relocations), `${unitName} unexpectedly has relocations`);
+    }
   }
 }
 
@@ -196,7 +249,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 10: 8 ARM functions in 8 units (2,612 bytes, 653 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 10: 8 accepted ARM functions in 8 units (2,612 bytes, 653 instructions), plus 8 unaccepted DllUSAreaTenji veneers with 8 neutral relocations${options.objectDirectory ? ", and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
