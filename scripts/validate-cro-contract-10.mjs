@@ -22,7 +22,7 @@ const CONTRACT = [
 ].map(([unit, name, address, size, semantics, sha256]) => ({
   unit, name, address, size, semantics, sha256, source: `src/cro/${unit}/contract_10.S`,
 }));
-const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSGymFighting", "DllUSGymFire"]);
+const SINGLE_FUNCTION_UNITS = new Set(["DllFieldEventSlopeSlip", "DllUSAreaTenji", "DllUSGymFighting", "DllUSGymFire"]);
 const TENJI_VENEERS = [
   ["func_00000000", 0x00, "00000004", "__cro_import_anon_m7c7374617469637c_s0_002fd48"],
   ["func_00000008", 0x08, "0000000c", "__cro_import_anon_m446c6c4669656c64_s0_0087014"],
@@ -95,20 +95,16 @@ function sectionBytes(readelf, object, section) {
 
 function validateTenjiPublic(existing, sourceText) {
   const unit = existing.units.find((entry) => entry.name === "DllUSAreaTenji");
-  check(unit && unit.functions.length === TENJI_VENEERS.length + 1,
-    "DllUSAreaTenji must claim exactly the accepted nine functions");
+  check(unit && unit.functions.length === 1 && unit.functions[0].name === "func_0000007C",
+    "DllUSAreaTenji must retain its one accepted function claim");
   const inventory = readFileSync(join(ROOT, "symbols/cro/DllUSAreaTenji.csv"), "utf8").split(/\r?\n/u);
   const partition = JSON.parse(readFileSync(join(ROOT, "symbols/cro-partitions/DllUSAreaTenji.json"), "utf8"));
-  check(partition.functions.length === TENJI_VENEERS.length + 1 && partition.pools.length === 13 &&
+  check(partition.functions.length === 1 && partition.pools.length === 13 &&
     partition.unknown.length === 2, "DllUSAreaTenji public partition shape differs from the accepted specification");
   for (const veneer of TENJI_VENEERS) {
-    const claims = unit.functions.filter((entry) => entry.name === veneer.name);
-    check(claims.length === 1 && claims[0].address === veneer.address && claims[0].size === 4 &&
-      claims[0].semantics === "import-veneer", `${veneer.name} integrated claim is not exact`);
-    const boundary = `${veneer.address.toString(16).toUpperCase().padStart(8, "0")},"${veneer.name}","Global",$a,00000004,".text"`;
-    check(inventory.filter((line) => line === boundary).length === 1 &&
-      partition.functions.some((entry) => entry.name === veneer.name && entry.address === veneer.address &&
-        entry.size === 4 && entry.mode === "arm"), `${veneer.name} public boundary differs`);
+    check(!inventory.some((line) => line.includes(`"${veneer.name}"`)) &&
+      partition.gaps.some((entry) => entry.address === veneer.address && entry.size === 4 && entry.mode === "arm"),
+    `${veneer.name} must remain an unaccepted public gap`);
     check(partition.pools.some((entry) => entry.address === veneer.address + 4 && entry.size === 4),
       `${veneer.name} public pool boundary differs`);
     const invocation = `import_veneer ${veneer.name.slice(5)}, ${veneer.pool}, ${veneer.importName}`;
@@ -186,7 +182,7 @@ function validatePublicContract(manifestPath) {
       check((sourceText.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === 1,
         `${fn.source} does not define exactly one executable section`);
     } else {
-      check(sourceText.split('.section .text.func_\\address, "ax", %progbits').length === 2,
+      check(sourceText.split('.section .text.tenji_import_\\address, "ax", %progbits').length === 2,
         `${fn.source} lacks the veneer executable-section template`);
     }
     for (const fragment of [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`,
@@ -221,7 +217,7 @@ function validateObjects(units, directory, readelf) {
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
     const expectedNames = unitName === "DllUSAreaTenji"
-      ? [...TENJI_VENEERS.flatMap((veneer) => [`.text.${veneer.name}`, `.pool.__cro_pool_${veneer.pool}`]),
+      ? [...TENJI_VENEERS.flatMap((veneer) => [`.text.tenji_import_${veneer.name.slice(5)}`, `.pool.__cro_pool_${veneer.pool}`]),
         ".text.func_0000007C"].sort()
       : unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
         .map((claim) => `.text.${claim.name}`).sort();
@@ -245,11 +241,12 @@ function validateObjects(units, directory, readelf) {
       continue;
     }
     for (const veneer of TENJI_VENEERS) {
-      const codeSection = allocated.find(([name]) => name === `.text.${veneer.name}`);
+      const symbolName = `tenji_import_${veneer.name.slice(5)}`;
+      const codeSection = allocated.find(([name]) => name === `.text.${symbolName}`);
       const poolSection = allocated.find(([name]) => name === `.pool.__cro_pool_${veneer.pool}`);
       check(codeSection?.[1] === 4 && codeSection[2].includes("X") && poolSection?.[1] === 4 &&
         !poolSection[2].includes("X"), `${veneer.name} code/pool section contract differs`);
-      check(sectionBytes(readelf, object, `.text.${veneer.name}`).equals(Buffer.from("04f01fe5", "hex")),
+      check(sectionBytes(readelf, object, `.text.${symbolName}`).equals(Buffer.from("04f01fe5", "hex")),
         `${veneer.name} is not the accepted ARM import veneer`);
       check(sectionBytes(readelf, object, `.pool.__cro_pool_${veneer.pool}`).equals(Buffer.alloc(4)),
         `${veneer.name} pool addend is not zero`);
@@ -257,9 +254,9 @@ function validateObjects(units, directory, readelf) {
       check(relocations.split(header).length === 2 &&
         new RegExp(`^00000000\\s+[0-9a-f]+02\\s+R_ARM_ABS32\\s+00000000\\s+${veneer.importName}$`, "imu").test(relocations),
       `${veneer.name} lacks its one exact import relocation`);
-      const symbolLines = symbols.split("\n").filter((line) => new RegExp(`\\s${veneer.name}$`, "u").test(line.trimEnd()));
-      check(symbolLines.length === 1 && /^\s*\d+:\s+00000000\s+4\s+FUNC\s+GLOBAL\s+DEFAULT\s+\d+\s+func_[0-9A-F]{8}$/u.test(symbolLines[0]),
-        `${veneer.name} function symbol differs`);
+      const symbolLines = symbols.split("\n").filter((line) => new RegExp(`\\s${symbolName}$`, "u").test(line.trimEnd()));
+      check(symbolLines.length === 1 && /^\s*\d+:\s+00000000\s+0\s+NOTYPE\s+GLOBAL\s+DEFAULT\s+\d+\s+tenji_import_[0-9A-F]{8}$/u.test(symbolLines[0]),
+        `${veneer.name} neutral symbol differs`);
     }
     check((relocations.match(/R_ARM_ABS32/gmu) ?? []).length === TENJI_VENEERS.length,
       "DllUSAreaTenji has missing or extra relocations");
@@ -270,7 +267,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 10: 8 original ARM functions plus 8 DllUSAreaTenji import veneers${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 10: 8 accepted ARM functions plus 8 unaccepted DllUSAreaTenji import veneers${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

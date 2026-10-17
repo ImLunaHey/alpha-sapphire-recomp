@@ -4,13 +4,11 @@
 .arm
 
 .macro import_veneer address, pool_address, import
-.section .text.func_\address, "ax", %progbits
+.section .text.tenji_import_\address, "ax", %progbits
 .balign 4
-.global func_\address
-.type func_\address, %function
-func_\address:
+.global tenji_import_\address
+tenji_import_\address:
     ldr pc, [pc, #-4]
-.size func_\address, . - func_\address
 
 .section .pool.__cro_pool_\pool_address, "a", %progbits
 .balign 4
