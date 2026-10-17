@@ -191,9 +191,12 @@ function validateObjects(units, directory, readelf) {
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
     const fn = CONTRACT.find((entry) => entry.unit === unitName);
-    check(allocated.length === 1 && allocated[0][0] === `.text.${fn.name}`,
-      `${unitName} has missing or adjacent allocated bytes`);
-    check(allocated[0][1] === fn.size && allocated[0][2].includes("X"), `${fn.name} section boundary or flags are invalid`);
+    const expectedAllocated = unitName === "DllFieldEventSkatePipe"
+      ? [[`.text.${fn.name}`, fn.size, "AX"], [".text.func_000009EC", 216, "AX"],
+        [".pool.__cro_pool_00000ac4", 4, "A"]]
+      : [[`.text.${fn.name}`, fn.size, "AX"]];
+    check(JSON.stringify(allocated) === JSON.stringify(expectedAllocated),
+      `${unitName} has missing or unexpected allocated bytes`);
     const symbols = run(readelf, ["--symbols", "--wide", object]);
     const symbolLines = symbols.split("\n").filter((line) => new RegExp(`\\s${fn.name}$`, "u").test(line.trimEnd()));
     check(symbolLines.length === 1 && new RegExp(`^\\s*\\d+:\\s+00000000\\s+${fn.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${fn.name}$`, "u").test(symbolLines[0]),
