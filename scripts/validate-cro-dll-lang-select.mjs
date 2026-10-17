@@ -389,7 +389,7 @@ function assertReportAggregate(report, manifest) {
   let totalFunctions = 0;
   let matchedFunctions = 0;
   let totalUnits = 0;
-  let fuzzyWeightedCode = 0;
+  let fuzzyMatchedBytes = 0;
   for (const unit of report.units) {
     assert.ok(unit?.measures && typeof unit.measures === "object" && !Array.isArray(unit.measures),
       `${unit?.name ?? "unnamed report unit"} must contain measures`);
@@ -402,8 +402,19 @@ function assertReportAggregate(report, manifest) {
     matchedFunctions += reportInteger(unit.measures.matched_functions,
       `${unit.name}.measures.matched_functions`, true);
     totalUnits += reportInteger(unit.measures.total_units, `${unit.name}.measures.total_units`);
-    fuzzyWeightedCode += reportPercentage(unit.measures.fuzzy_match_percent,
-      `${unit.name}.measures.fuzzy_match_percent`, true) * Number(code);
+    const functions = unit.functions ?? [];
+    assert.ok(Array.isArray(functions), `${unit.name}.functions must be an array when present`);
+    let functionCode = 0n;
+    for (const fn of functions) {
+      assert.ok(fn && typeof fn === "object" && !Array.isArray(fn),
+        `${unit.name} function entries must be objects`);
+      const size = reportDecimal(fn.size, `${unit.name}.${fn.name ?? "unnamed"}.size`);
+      const fuzzy = reportPercentage(fn.fuzzy_match_percent,
+        `${unit.name}.${fn.name ?? "unnamed"}.fuzzy_match_percent`, true);
+      functionCode += size;
+      fuzzyMatchedBytes += Number(size) * fuzzy / 100;
+    }
+    assert.equal(functionCode, code, `${unit.name}.measures.total_code does not equal its functions`);
   }
 
   const aggregate = report.measures;
@@ -427,7 +438,7 @@ function assertReportAggregate(report, manifest) {
   const expectedMatchedFunctionsPercent = totalFunctions === 0 ? 0
     : Math.fround(matchedFunctions * 100 / totalFunctions);
   const expectedFuzzyPercent = totalCode === 0n ? 0
-    : Math.fround(fuzzyWeightedCode / Number(totalCode));
+    : Math.fround(Math.fround(fuzzyMatchedBytes / Number(totalCode)) * 100);
   for (const [key, expected] of [
     ["matched_code_percent", expectedMatchedCodePercent],
     ["matched_functions_percent", expectedMatchedFunctionsPercent],
@@ -551,7 +562,7 @@ function selfTest(baseline) {
       delete oldMatch.fuzzy_match_percent;
       reassignedMatch.fuzzy_match_percent = 100;
     },
-    /report-unit identity/,
+    /(?:report-unit identity|aggregate fuzzy_match_percent)/,
   );
   expectFailure(baseline, (state) => {
     state.sourceEntries.find((entry) => entry?.name === "DllLangSelect")
@@ -599,6 +610,19 @@ function selfTest(baseline) {
       state.report.measures[key] = mutate(state.report.measures[key]);
     }, new RegExp(`aggregate ${key}`));
   }
+  expectFailure(baseline, (state) => {
+    const unit = state.report.units.find((entry) => entry.name === "main/code");
+    unit.measures.fuzzy_match_percent += 0.000001;
+    state.report.measures.fuzzy_match_percent += 0.000001;
+  }, /aggregate fuzzy_match_percent/);
+  expectFailure(baseline, (state) => {
+    const unit = state.report.units.find((entry) => entry.name === "main/code");
+    unit.functions[0].size = String(Number(unit.functions[0].size) + 1);
+  }, /total_code does not equal its functions/);
+  expectFailure(baseline, (state) => {
+    const unit = state.report.units.find((entry) => entry.name === "main/code");
+    unit.functions[0].fuzzy_match_percent = 101;
+  }, /finite percentage/);
   expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
   expectFailure(baseline, (state) => {
     delete state.scripts["prevalidate:cro-dll-number-input"];
