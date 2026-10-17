@@ -13,37 +13,7 @@
   observed from the external verification input. It is not an implementation
   and does not reproduce target instructions, strings, or data tables.
 
-The authoritative public identities are the two ARM functions in
-`symbols/cro/DllFieldEventPlayer.csv`. Addresses below are offsets in the CRO
-`.text` segment.
-
-## Link-unit accounting
-
-The structural unit has these segment sizes:
-
-| Segment | Bytes | Notes |
-| --- | ---: | --- |
-| `.text` | 14,440 | exact public partition coverage |
-| `.rodata` | 1,112 | allocated, unmatched |
-| `.data` | 8 | allocated writable, unmatched |
-| `.bss` | 428 | zero-initialized, unmatched |
-
-The public text partition is exhaustive: 2 accepted functions occupy 2,024
-bytes, 113 executable gaps occupy 11,580 bytes, 105 pools occupy 708 bytes,
-and 9 fail-closed unknown ranges occupy 128 bytes. Their classification must
-not be guessed during implementation.
-
-There are 285 `R_ARM_ABS32` loader relocations: 117 import relocations and 168
-internal relocations. By output segment, `.text` owns 145 relocations and
-`.rodata` owns 140; `.data` owns none. Text relocations are contained in the
-published pools, which are link infrastructure rather than accepted function
-bodies. The read-only and writable payloads have not been reconstructed and
-must remain unmatched.
-
-The current report's 13,604-byte `.text` measure is the sum of accepted
-function and executable-gap bytes. Its separate 708-byte `.pool` measure and
-the 128 fail-closed bytes together reconcile exactly to the structural 14,440
-text bytes. No residue is silently omitted from the partition.
+Addresses below are offsets in the module's executable segment.
 
 ## `func_000036D4`
 
@@ -74,28 +44,15 @@ The routine selects a directional event candidate using the supplied state,
 subject, direction, event, and context. It returns 1 when a candidate is
 committed and 0 when the request is rejected or no candidate is available.
 
-A successful call updates the state's selected mode, candidate index and group,
-copies a 44-byte candidate descriptor, stores a derived scalar, and may submit
-a four-byte command record through the subject. These effects are confined to
-state offsets 184 through 186, 196 through 240, and 296 through 299; opaque
-collaborators may have additional effects through their own arguments. The
-descriptor contents and collaborator interfaces are not part of this
-specification and must not be inferred or copied from the target.
+A successful call updates the state's selection fields, copies a candidate
+descriptor, stores a derived scalar, and may submit a command through the
+subject. The descriptor contents and collaborator interfaces are not part of
+this specification and must not be inferred or copied from the target.
 
 ## Remaining boundaries and completion status
 
-Structural observation shows additional relocation-backed entry points in the
-executable gaps. They are not accepted public functions: several bodies mix
-code with relocated pools, and other candidates lack a presently accepted,
-entry-rooted extent. Their bytes therefore remain gaps, pools, or unknown
-residue exactly as the authoritative partition requires.
-
-This is a concrete completion blocker, not permission to turn gaps into a
-pseudo-function. Completing the unit requires a reviewed representation for
-those mixed code/pool bodies, neutral contracts for every newly accepted
-boundary, independent implementations, all 1,120 initialized `.rodata` and
-`.data` bytes, all 708 pool bytes, 428 BSS bytes, and their 285 relocations;
-removal of all nine unknown ranges;
-and passage of the repository complete-unit gate. Until then
-`metadata.complete` must remain false even if both currently accepted
-functions match.
+`func_00002000` remains unimplemented because the observable contract does not
+identify the opaque collaborator interfaces or candidate data needed for an
+independent implementation. Those details must not be guessed. The unit also
+contains unimplemented executable and data material, so `metadata.complete`
+must remain false.
