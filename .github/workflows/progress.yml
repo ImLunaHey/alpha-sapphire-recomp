@@ -22,11 +22,18 @@ jobs:
       - name: Select pinned ARM toolchain
         shell: bash
         run: |
-          toolchain="$(nix build --no-link --print-out-paths nixpkgs#gcc-arm-embedded)"
-          compiler="$(find "$toolchain" -type f -name arm-none-eabi-gcc -print -quit)"
-          test -x "$compiler"
+          toolchain="$(nix build --no-link --print-out-paths .#toolchain)"
+          binutils="$(nix build --no-link --print-out-paths .#binutils)"
+          compiler="$toolchain/bin/arm-none-eabi-gcc"
+          bin="$binutils/bin"
+          test -x "$compiler" && test -x "$bin/arm-none-eabi-as"
           printf 'CROSS_COMPILE=%s\n' "${compiler%gcc}" >> "$GITHUB_ENV"
-          dirname "$compiler" >> "$GITHUB_PATH"
+          printf 'ARM_AS=%s\n' "$bin/arm-none-eabi-as" >> "$GITHUB_ENV"
+          printf 'ARM_OBJDUMP=%s\n' "$bin/arm-none-eabi-objdump" >> "$GITHUB_ENV"
+          printf 'ARM_READELF=%s\n' "$bin/arm-none-eabi-readelf" >> "$GITHUB_ENV"
+          printf 'ARM_LD=%s\n' "$bin/arm-none-eabi-ld" >> "$GITHUB_ENV"
+          printf 'ARM_NONE_EABI_BIN=%s\n' "$bin" >> "$GITHUB_ENV"
+          printf '%s\n' "$bin" "$(dirname "$compiler")" >> "$GITHUB_PATH"
 
       - name: Build clean-room base objects
         run: npm run base:build

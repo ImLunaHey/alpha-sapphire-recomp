@@ -2,16 +2,22 @@
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel)"
-toolchain="$(nix build --no-link --print-out-paths nixpkgs#gcc-arm-embedded)"
-compiler="$(find "$toolchain" -type f -name arm-none-eabi-gcc -print -quit)"
-linker="$(find "$toolchain" -type f -name arm-none-eabi-ld -print -quit)"
-readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
+toolchain="$(nix build --no-link --print-out-paths "$root#toolchain")"
+binutils="$(nix build --no-link --print-out-paths "$root#binutils")"
+compiler="$toolchain/bin/arm-none-eabi-gcc"
+linker="$binutils/bin/arm-none-eabi-ld"
+readelf="$binutils/bin/arm-none-eabi-readelf"
 [[ -x "$compiler" && -x "$linker" && -x "$readelf" ]] || {
   printf '%s\n' 'GNU Arm compiler tools were not found.' >&2
   exit 1
 }
 export CROSS_COMPILE="${compiler%gcc}"
-export PATH="$(dirname "$compiler"):$PATH"
+export ARM_AS="$(dirname "$linker")/arm-none-eabi-as"
+export ARM_OBJDUMP="$(dirname "$linker")/arm-none-eabi-objdump"
+export ARM_READELF="$readelf"
+export ARM_LD="$linker"
+export ARM_NONE_EABI_BIN="$(dirname "$linker")"
+export PATH="$ARM_NONE_EABI_BIN:$(dirname "$compiler"):$PATH"
 
 mapfile -d '' sources < <(
   find "$root/src" -type f \( -name '*.c' -o -name '*.S' \) -print0 | sort -z
