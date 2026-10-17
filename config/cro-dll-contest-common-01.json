@@ -2,24 +2,25 @@
   "schemaVersion": 1,
   "unit": "DllContestCommon",
   "source": "src/cro/DllContestCommon/module.S",
-  "sourceHash": "3bff37e9aea84c3a7b58aadaabf12e3c88b2a016d4d6f7a11a78e814aee05fb9",
+  "sourceHash": "62cf859f28b52b581f72e048da366505e6f5c145d6ed2d026fab9350f3d03b2a",
   "architecture": "ARMv6K",
   "mode": "arm",
   "minimumAlignment": 4,
   "functions": [
-    { "name": "func_00000030", "address": 48, "size": 472, "semantics": "contest-resource-build" },
-    { "name": "func_0000020C", "address": 524, "size": 76, "semantics": "contest-control-initialize" },
-    { "name": "func_00000258", "address": 600, "size": 100, "semantics": "contest-resource-release" }
+    { "name": "func_00000030", "address": 48, "size": 472, "instructionCount": 118, "semantics": "contest-resource-build", "bodyHash": "e5c63299b0ddabc12abbe087475b1ff3ef428e34484b700830c24dff76161c13" },
+    { "name": "func_0000020C", "address": 524, "size": 76, "instructionCount": 19, "semantics": "contest-control-initialize", "bodyHash": "19c2c6342c9f36f9960cfadb0f4fb2210deb76abf61073d24fbccc6b5984df4a" },
+    { "name": "func_00000258", "address": 600, "size": 100, "instructionCount": 25, "semantics": "contest-resource-release", "bodyHash": "d974dcd17310d09bc6dbaf24eff8ce1ee3c7bdf6715a4007d805397259e1e931" }
   ],
   "veneerAddresses": [0, 8, 16, 24, 32, 40],
   "poolAddresses": [4, 12, 20, 28, 36, 44, 520],
+  "jumpTablePoolAddress": 720,
   "selectorValues": [5, 6, 7, 8, 9, 10],
   "validation": {
     "targetRevision": "AS_EUR_REV2",
     "requireExactPublicBoundaries": true,
     "requireUniqueOwnership": true,
     "requireFailClosedControlResidue": true,
-    "expectedAuthoredRelocations": 7,
+    "expectedAuthoredRelocations": 12,
     "maximumObjectSize": 1048576,
     "maximumSectionCount": 256,
     "maximumSymbolCount": 4096

@@ -35,7 +35,7 @@ function stringAt(bytes, offset, label) {
 function readManifest() {
   const manifest = JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8"));
   exactKeys(manifest,
-    "architecture,functions,minimumAlignment,mode,poolAddresses,schemaVersion,selectorValues,source,sourceHash,unit,validation,veneerAddresses",
+    "architecture,functions,jumpTablePoolAddress,minimumAlignment,mode,poolAddresses,schemaVersion,selectorValues,source,sourceHash,unit,validation,veneerAddresses",
     "manifest");
   check(manifest.schemaVersion === 1 && manifest.unit === "DllContestCommon" && manifest.architecture === "ARMv6K" &&
     manifest.mode === "arm" && manifest.minimumAlignment === 4 && manifest.source === "src/cro/DllContestCommon/module.S",
@@ -43,16 +43,19 @@ function readManifest() {
   check(/^[0-9a-f]{64}$/u.test(manifest.sourceHash), "source hash is invalid");
   check(JSON.stringify(manifest.veneerAddresses) === JSON.stringify([0, 8, 16, 24, 32, 40]) &&
     JSON.stringify(manifest.poolAddresses) === JSON.stringify([4, 12, 20, 28, 36, 44, 520]) &&
+    manifest.jumpTablePoolAddress === 720 &&
     JSON.stringify(manifest.selectorValues) === JSON.stringify([5, 6, 7, 8, 9, 10]), "structural constants differ");
-  const expectedFunctions = [["func_00000030", 48, 472, "contest-resource-build"],
-    ["func_0000020C", 524, 76, "contest-control-initialize"],
-    ["func_00000258", 600, 100, "contest-resource-release"]];
-  check(JSON.stringify(manifest.functions.map((fn) => [fn.name, fn.address, fn.size, fn.semantics])) === JSON.stringify(expectedFunctions),
+  const expectedFunctions = [["func_00000030", 48, 472, 118, "contest-resource-build"],
+    ["func_0000020C", 524, 76, 19, "contest-control-initialize"],
+    ["func_00000258", 600, 100, 25, "contest-resource-release"]];
+  check(manifest.functions.every((fn) => Object.keys(fn).sort().join(",") ===
+    "address,bodyHash,instructionCount,name,semantics,size" && /^[0-9a-f]{64}$/u.test(fn.bodyHash)) &&
+    JSON.stringify(manifest.functions.map((fn) => [fn.name, fn.address, fn.size, fn.instructionCount, fn.semantics])) === JSON.stringify(expectedFunctions),
     "function claims differ");
   exactKeys(manifest.validation,
     "expectedAuthoredRelocations,maximumObjectSize,maximumSectionCount,maximumSymbolCount,requireExactPublicBoundaries,requireFailClosedControlResidue,requireUniqueOwnership,targetRevision",
     "validation policy");
-  check(manifest.validation.targetRevision === "AS_EUR_REV2" && manifest.validation.expectedAuthoredRelocations === 7 &&
+  check(manifest.validation.targetRevision === "AS_EUR_REV2" && manifest.validation.expectedAuthoredRelocations === 12 &&
     manifest.validation.requireExactPublicBoundaries === true && manifest.validation.requireFailClosedControlResidue === true &&
     manifest.validation.requireUniqueOwnership === true && manifest.validation.maximumObjectSize === 1048576 &&
     manifest.validation.maximumSectionCount === 256 && manifest.validation.maximumSymbolCount === 4096,
@@ -67,7 +70,7 @@ function validateRepository(manifest) {
   check(!/(?:ROM_PATH|DECOMP_PRIVATE|\.incbin|\/home\/|\/mnt\/|target\/cro-split)/u.test(text),
     "source contains a private-artifact reference");
   check(text.includes("selector >= 5 path has no semantic contract") &&
-    !text.includes(".text.__cro_gap_000002bc") && !text.includes(".text.__cro_gap_000002e4"),
+    !text.includes(".text.__cro_gap_000002bc") && !text.includes(".pool.__cro_pool_00000344"),
   "blocked module-control residue is not fail-closed");
 
   const inventory = fs.readFileSync(INVENTORY_PATH, "utf8").split(/\r?\n/u);
@@ -84,7 +87,8 @@ function validateRepository(manifest) {
   const integrated = JSON.parse(fs.readFileSync(INTEGRATED_PATH, "utf8"));
   const owners = integrated.units.filter((unit) => unit.sources?.some(({ path: sourcePath }) => sourcePath === manifest.source));
   check(owners.length === 1 && owners[0].name === manifest.unit, "source ownership is missing or ambiguous");
-  check(JSON.stringify(owners[0].functions) === JSON.stringify(manifest.functions), "integrated function claims differ");
+  const claims = manifest.functions.map(({ name, address, size, semantics }) => ({ name, address, size, semantics }));
+  check(JSON.stringify(owners[0].functions) === JSON.stringify(claims), "integrated function claims differ");
 }
 
 function parseElf(input, manifest) {
@@ -144,7 +148,9 @@ function validateObject(input, manifest) {
   };
   for (const fn of manifest.functions) {
     const body = section(`.text.${fn.name}`);
-    check(body.type === 1 && body.flags === 6 && body.align === 4 && body.size === fn.size, `${fn.name} section metadata differs`);
+    check(body.type === 1 && body.flags === 6 && body.align === 4 && body.size === fn.size && fn.instructionCount * 4 === fn.size,
+      `${fn.name} section metadata differs`);
+    check(hash(sectionBytes(elf, body)) === fn.bodyHash, `${fn.name} exact instruction schedule differs`);
     const symbols = elf.symbols.filter(({ name }) => name === fn.name);
     check(symbols.length === 1 && symbols[0].bind === 1 && symbols[0].type === 2 && symbols[0].shndx === body.index &&
       symbols[0].value === 0 && symbols[0].size === fn.size, `${fn.name} symbol metadata differs`);
@@ -158,6 +164,10 @@ function validateObject(input, manifest) {
   for (const address of manifest.poolAddresses) {
     const name = `.pool.__cro_pool_${address.toString(16).padStart(8, "0")}`, pool = section(name);
     check(pool.type === 1 && pool.flags === 2 && pool.size === 4, `${name} metadata differs`);
+    const identity = `__cro_pool_${address.toString(16).padStart(8, "0")}`;
+    check(elf.symbols.filter((symbol) => symbol.name === identity && symbol.bind === 1 && symbol.type === 1 &&
+      symbol.shndx === pool.index && symbol.value === 0 && symbol.size === pool.size).length === 1,
+    `${name} object identity differs`);
     const rels = elf.relocations.filter(({ output }) => output.index === pool.index);
     check(rels.length === 1 && rels[0].offset === 0 && rels[0].type === 2, `${name} lacks one R_ARM_ABS32 relocation`);
   }
@@ -168,14 +178,27 @@ function validateObject(input, manifest) {
   const selectorRelocation = elf.relocations.find(({ output }) => output.name === ".pool.__cro_pool_00000208");
   check(selectorRelocation?.symbol?.type === 3 && elf.sections[selectorRelocation.symbol.shndx]?.name === ".rodata",
     "selector-table relocation target differs");
+  const jumpName = `.pool.__cro_pool_${manifest.jumpTablePoolAddress.toString(16).padStart(8, "0")}`;
+  const jumpPool = section(jumpName), jumpRelocations = elf.relocations.filter(({ output }) => output.index === jumpPool.index);
+  check(jumpPool.type === 1 && jumpPool.flags === 2 && jumpPool.align === 1 && jumpPool.size === 20,
+    "control jump-table pool metadata differs");
+  check(elf.symbols.filter((symbol) => symbol.name === "__cro_pool_000002d0" && symbol.bind === 1 && symbol.type === 1 &&
+    symbol.shndx === jumpPool.index && symbol.value === 0 && symbol.size === 20).length === 1,
+  "control jump-table object identity differs");
+  const gap = section(".text.__cro_gap_000002e4");
+  check(gap.type === 1 && gap.flags === 6 && gap.align === 4 && gap.size === 0, "control gap identity must remain payload-free");
+  const jumpAddends = [0, 8, 0x10, 0x1c, 0x2c];
+  check(jumpRelocations.length === 5 && jumpRelocations.every((relocation, index) =>
+    relocation.offset === index * 4 && relocation.type === 2 && relocation.symbol?.type === 3 &&
+    relocation.symbol.shndx === gap.index && sectionBytes(elf, jumpPool).readUInt32LE(index * 4) === jumpAddends[index]),
+  "control jump-table relocation equality class or addends differ");
   const rodata = section(".rodata"), data = section(".data");
   check(rodata.type === 1 && rodata.flags === 2 && rodata.align === 4 && rodata.size === 24, ".rodata metadata differs");
   check([...Array(6).keys()].every((index) => sectionBytes(elf, rodata).readUInt32LE(index * 4) === index + 5),
     "selector values differ");
   check(data.type === 1 && data.flags === 3 && data.align === 4 && data.size === 4 && sectionBytes(elf, data).readUInt32LE(0) === 0,
     "module-global data differs");
-  check(!elf.sections.some(({ name }) => name === ".text.__cro_gap_000002bc" || name === ".text.__cro_gap_000002e4" ||
-    name === ".pool.__cro_pool_000002d0" || name === ".pool.__cro_pool_00000344"),
+  check(!elf.sections.some(({ name }) => name === ".text.__cro_gap_000002bc" || name === ".pool.__cro_pool_00000344"),
   "blocked module-control fragments were claimed");
   return elf;
 }
@@ -203,6 +226,10 @@ function selfTest(manifest) {
       "veneer mutation");
     reject((bytes, elf) => { const rodata = elf.sections.find(({ name }) => name === ".rodata"); bytes[rodata.offset] ^= 1; },
       "selector mutation");
+    reject((bytes, elf) => { const jump = elf.sections.find(({ name }) => name === ".pool.__cro_pool_000002d0"); bytes[jump.offset + 4] ^= 1; },
+      "jump-table addend mutation");
+    reject((bytes, elf) => { const body = elf.sections.find(({ name }) => name === ".text.func_00000030"); bytes[body.offset + 8] ^= 1; },
+      "function schedule mutation");
     reject((bytes, elf) => { const body = elf.sections.find(({ name }) => name === ".text.func_00000258"); bytes.writeUInt32LE(96, body.header + 20); },
       "function truncation");
   } finally {
@@ -225,7 +252,7 @@ try {
   validateRepository(manifest);
   if (options.selfTest) selfTest(manifest);
   if (options.object) validateObject(fs.readFileSync(options.object), manifest);
-  console.log(`Validated 3 DllContestCommon functions, 6 import veneers, selector data, and fail-closed control residue${options.selfTest ? " with hostile fixtures" : ""}.`);
+  console.log(`Validated 3 exact DllContestCommon instruction schedules, 6 import veneers, 1 control jump table, selector data, and fail-closed control residue${options.selfTest ? " with hostile fixtures" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
