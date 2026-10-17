@@ -1,8 +1,68 @@
-# DllField record update 01
+# DllField record update 01 — Blocked
 
-## Approval and provenance
+## Verification outcome and quarantine
 
-- Status: ANALYSIS-approved behavioral specification for a fresh implementer.
+- Status: **BLOCKED**; failed exact-match implementation quarantined.
+- Role: independent **VERIFICATION/quarantine**, scoped to `cro/DllField`.
+- Target revision: `AS_EUR_REV2`; verification record date: 2026-10-17.
+- Analysis baseline: `70e1ebe`. Implementation commits `a93455b` and
+  `92117b4` were reversed without rewriting history in quarantine commit
+  `e6e821563cd4823d7e104ec7b004d2a3e2a8ed72`.
+
+The supplied independent authoritative verification passed target identity,
+two deterministic full base builds (594 files identical), genuine report
+generation (146 units and 14,840 functions), public behavioral validation
+(4,352 cases and 14 rejection fixtures), `npm run check`, and ten
+publication/report regression suites. These are the prior verification
+results supplied with this quarantine assignment, not checks rerun here.
+
+The candidate was not 100% exact. The genuine report remained at 4,261 exact
+functions and 416,964 matched code bytes globally; `DllField` retained 28
+exact functions and 464 matched code bytes with `complete: false`.
+Publication gates correctly rejected claimed ownership of 29 functions and
+488 code bytes against report credit of 28 functions and 464 code bytes.
+
+Behavioral equivalence and the 24-byte body size were insufficient to prove
+exactness. Matching would require target-derived scheduling or unjustified
+accesses beyond the neutral contract, so clean-room implementation stops
+here. No source, ownership configuration, or report credit is retained for
+this candidate. The implementation and its validator were removed, and
+`config/cro-sources.json` was restored exactly to the analysis-only state at
+`70e1ebe`. Existing report credit is unchanged. Reopening requires an
+independent behavioral specification that justifies any additional accesses
+without prescribing target-derived scheduling, followed by independent
+implementation and authoritative verification.
+
+This quarantine used only repository metadata, public documentation, and
+the supplied aggregate verification outcome. No target material was
+inspected. Safe local tool versions: Node.js 24.21.0, npm 11.19.0,
+Git 2.53.0, ripgrep 15.2.0, and GNU Bash 5.3.9.
+
+Exact safe quarantine commands, run from the repository root:
+
+```sh
+node --version
+npm --version
+git --version
+rg --version | head -n 1
+bash --version | head -n 1
+git revert -n 92117b4 a93455b
+git diff --cached --stat
+git diff --exit-code --cached 70e1ebe -- config/cro-sources.json
+test ! -e src/cro/DllField/record_update_01.c && test ! -e scripts/validate-cro-dll-field-record-update-01.py
+git diff --cached --check
+npm run check:clean
+git mv docs/specs/cro/DllField_record_update_01.md docs/specs/cro/DllField_record_update_01_blocker.md
+npm run check:clean
+```
+
+`npm run check:clean` passed before each quarantine/documentation commit.
+The original neutral analysis below is retained as historical evidence; its
+behavioral approval does not authorize resuming this blocked implementation.
+
+## Historical analysis approval and provenance
+
+- Historical status: ANALYSIS-approved behavioral specification.
   Approval covers only the contract and preconditions below; it does not
   certify an implementation, an independent review, or a new exact match.
 - Role: ANALYSIS, research sub-agent assignment; documentation only. A distinct
