@@ -120,3 +120,17 @@ expansion of the neutral function inventory and text partition, plus lawful
 behavioral specifications for all initialized data and relocation-bearing
 structures. Opaque target comparison can prove a finished reconstruction; it
 cannot supply the missing clean-room specification.
+
+## Independent implementation outcome
+
+On 2026-10-17, a fresh implementation role that had not seen any target
+instruction layout authored one original implementation from this behavioral
+specification alone. It passed the ROM-free source and object checks but failed
+one opaque exact-match comparison. The comparison disclosed only pass or fail;
+no mismatch percentage, bytes, instructions, or control-flow details were
+examined. The candidate was discarded without target-guided revision.
+
+Consequently `func_000009EC` remains unmatched. Achieving a byte-identical
+implementation is blocked unless a lawful source-level constraint—such as a
+public compiler provenance or independently observable behavioral requirement—
+narrows code generation without revealing the target instruction layout.
