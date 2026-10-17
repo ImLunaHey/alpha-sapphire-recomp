@@ -8,7 +8,27 @@ import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const MANIFEST_PATH = path.join(ROOT, "config/cro-dll-battle-record-leaves-01.json");
+const BATCHES = {
+  "record-leaves-01": {
+    manifest: "config/cro-dll-battle-record-leaves-01.json",
+    source: "src/cro/DllBattle/record_leaves_01.S",
+    functions: 9,
+    bytes: 272,
+    instructions: 68,
+    label: "record leaves 01",
+  },
+  "scalar-leaves-02": {
+    manifest: "config/cro-dll-battle-scalar-leaves-02.json",
+    source: "src/cro/DllBattle/scalar_leaves_02.S",
+    functions: 19,
+    bytes: 732,
+    instructions: 183,
+    label: "scalar leaves 02",
+  },
+};
+const BATCH = BATCHES[process.env.DLLBATTLE_BATCH ?? "record-leaves-01"];
+if (!BATCH) throw new Error("unknown DllBattle validator batch selector");
+const MANIFEST_PATH = path.join(ROOT, BATCH.manifest);
 const INVENTORY_PATH = path.join(ROOT, "symbols/cro/DllBattle.csv");
 const INTEGRATED_PATH = path.join(ROOT, "config/cro-sources.json");
 const LIMITS = { file: 64 * 1024 * 1024, exec: 16 * 1024 * 1024, sections: 16384, symbols: 1000000, relocations: 1000000 };
@@ -40,7 +60,7 @@ function readManifest() {
     "manifest");
   check(manifest.schemaVersion === 1 && manifest.unit === "DllBattle" && manifest.architecture === "ARMv6K" &&
     manifest.mode === "arm" && manifest.minimumAlignment === 4, "manifest identity differs");
-  check(Array.isArray(manifest.functions) && manifest.functions.length === 9, "manifest must contain nine functions");
+  check(Array.isArray(manifest.functions) && manifest.functions.length === BATCH.functions, `manifest must contain ${BATCH.functions} functions`);
   let previous = -1, total = 0, instructions = 0;
   const names = new Set();
   for (const [index, fn] of manifest.functions.entries()) {
@@ -52,7 +72,7 @@ function readManifest() {
     check(/^[0-9a-f]{64}$/u.test(fn.bodyHash) && /^[a-z0-9-]+$/u.test(fn.semantics), `${fn.name} metadata is invalid`);
     previous = fn.address; total += fn.size; instructions += fn.instructionCount; names.add(fn.name);
   }
-  check(total === manifest.totalBodySize && total === 272 && instructions === manifest.expectedInstructionCount && instructions === 68 &&
+  check(total === manifest.totalBodySize && total === BATCH.bytes && instructions === manifest.expectedInstructionCount && instructions === BATCH.instructions &&
     manifest.expectedRelocationCount === 0, "aggregate manifest totals differ");
   exactKeys(manifest.validation,
     "forbidAllocatedData,forbidForeignExecutablePayload,forbidRelocations,forbidUndefinedGlobals,maximumObjectSize,maximumSectionCount,maximumSymbolCount,requireExactPublicBoundaries,requireUniqueOwnership,targetRevision",
@@ -66,7 +86,7 @@ function readManifest() {
 
 function validateRepository(manifest) {
   const sourcePath = path.resolve(ROOT, manifest.source);
-  check(manifest.source === "src/cro/DllBattle/record_leaves_01.S" && sourcePath.startsWith(`${ROOT}${path.sep}`), "source path escapes its unit");
+  check(manifest.source === BATCH.source && sourcePath.startsWith(`${ROOT}${path.sep}`), "source path escapes its unit");
   const source = fs.readFileSync(sourcePath);
   check(hash(source) === manifest.sourceHash, "source hash differs from the pinned manifest");
   const text = source.toString("utf8");
@@ -226,11 +246,12 @@ function selfTest(manifest) {
     expectReject(() => validateObject(valid.subarray(0, valid.length - 1), manifest), "truncated section table");
     expectReject(() => validateObject(Buffer.alloc(LIMITS.file + 1), manifest), "oversize input");
     expectReject(() => validateObject(mutate((bytes, elf) => { bytes.writeUInt16LE(LIMITS.sections + 1, 48); }), manifest), "section-count cap");
-    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === ".text.func_0001E140"); bytes[section.offset] ^= 1; }), manifest), "instruction mutation");
-    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === ".text.func_0001E140"); bytes.writeUInt32LE(section.size + 4, section.header + 20); }), manifest), "section growth");
+    const firstName = manifest.functions[0].name;
+    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === `.text.${firstName}`); bytes[section.offset] ^= 1; }), manifest), "instruction mutation");
+    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === `.text.${firstName}`); bytes.writeUInt32LE(section.size + 4, section.header + 20); }), manifest), "section growth");
     expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === ".note.GNU-stack"); bytes.writeUInt32LE(2, section.header + 8); bytes.writeUInt32LE(1, section.header + 20); }), manifest), "allocated foreign data");
-    expectReject(() => validateObject(mutate((bytes, elf) => { const symbol = elf.symbols.find(({ name }) => name === "func_0001E140"); bytes.writeUInt16LE(0, symbol.cursor + 14); }), manifest), "undefined global");
-    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === ".text.func_0001E140"); bytes.writeUInt32LE(9, section.header + 4); bytes.writeUInt32LE(8, section.header + 36); }), manifest), "unexpected relocation section");
+    expectReject(() => validateObject(mutate((bytes, elf) => { const symbol = elf.symbols.find(({ name }) => name === firstName); bytes.writeUInt16LE(0, symbol.cursor + 14); }), manifest), "undefined global");
+    expectReject(() => validateObject(mutate((bytes, elf) => { const section = elf.sections.find(({ name }) => name === `.text.${firstName}`); bytes.writeUInt32LE(9, section.header + 4); bytes.writeUInt32LE(8, section.header + 36); }), manifest), "unexpected relocation section");
     const duplicate = structuredClone(JSON.parse(fs.readFileSync(MANIFEST_PATH, "utf8")));
     duplicate.functions[1].address = duplicate.functions[0].address;
     expectReject(() => {
@@ -264,7 +285,7 @@ try {
     if (options.target) validateTarget(object, fs.readFileSync(options.target), manifest);
     else validateObject(object, manifest);
   }
-  console.log(`Validated 9 DllBattle record leaves (272/272 bytes, 68 instructions)${options.target ? " against the authoritative target" : ""}${options.selfTest ? " with hostile fixtures" : ""}.`);
+  console.log(`Validated ${BATCH.functions} DllBattle ${BATCH.label} (${BATCH.bytes}/${BATCH.bytes} bytes, ${BATCH.instructions} instructions)${options.target ? " against the authoritative target" : ""}${options.selfTest ? " with hostile fixtures" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
