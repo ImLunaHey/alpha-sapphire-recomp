@@ -21,11 +21,6 @@ const CONTRACT = [
     0xE1510000, 0xD0400001, 0xE5C2003C, 0xE592000C, 0xE590002C, 0xE5900000,
     0xE5C2003F, 0xE12FFF1E,
   ]],
-  ["DllPoke3Select", "func_00002694", 0x2694, "contract-05-poke3-select", [
-    0xEC910A03, 0xE3A0C000, 0xED800A01, 0xEDC00A02, 0xED801A03, 0xEC910A03,
-    0xED800A07, 0xEDC00A08, 0xED801A09, 0xEC920A03, 0xED800A04, 0xEDC00A05,
-    0xED801A06, 0xE580302C, 0xE580C028, 0xE5C0C030, 0xE12FFF1E,
-  ]],
   ["DllSparring", "func_0000CE58", 0xCE58, "contract-05-sparring-write", [
     0xE92D01F0, 0xE0811181, 0xE3A06010, 0xE5905000, 0xE59DC014, 0xEE003A10,
     0xE0858101, 0xE3A04004, 0xE5C8C000, 0xE086C101, 0xE5906000, 0xE0844101,
@@ -148,8 +143,8 @@ function validatePublicContract() {
       }
     }
   }
-  check(CONTRACT.length === 8 && byUnit.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 460 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 115, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 7 && byUnit.size === 6 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 392 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 98, "aggregate contract totals are invalid");
   return byUnit;
 }
 
@@ -192,7 +187,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract();
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 05: 8 ARM functions in 7 units (460 bytes, 115 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 05: 7 ARM functions in 6 units (392 bytes, 98 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
