@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_92.S",
+  "sourceSha256": "9d736edcb8d32b72b9b355b1af5d5ca014bb83c9181e5ec945311e618616e314",
+  "normalizedScheduleSha256": "76355b6ca8d079ae55d06299d2c562dbe38e3fc2e7368d3bef9d8f712ced6195",
+  "mode": "arm",
+  "totalBodySize": 556,
+  "totalAdjacentSize": 20,
+  "cumulativePoolSlots": 886,
+  "cumulativePoolClasses": 463,
+  "functions": [
+    {
+      "name": "func_00180C80", "section": ".text.func_00180C80", "size": 152,
+      "nextGlobal": "func_00180D20", "nextGlobalOffset": 160,
+      "branches": [
+        { "offset": 48, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00187DEC" },
+        { "offset": 68, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00182C60" },
+        { "offset": 84, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_index_secondary_91" },
+        { "offset": 120, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_record_acquire_secondary_92" },
+        { "offset": 136, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017A8E8" }
+      ],
+      "literals": [
+        { "offset": 152, "loadOffsets": [52], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 156, "loadOffsets": [108], "symbol": "service_record_key_92" }
+      ]
+    },
+    {
+      "name": "func_00180D20", "section": ".text.func_00180D20", "size": 72,
+      "nextGlobal": "func_00180D68", "nextGlobalOffset": 72,
+      "branches": [
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017541C" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_subobject_init_secondary_92" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00180D68", "section": ".text.func_00180D68", "size": 188,
+      "nextGlobal": "func_00180E24", "nextGlobalOffset": 188,
+      "branches": [
+        { "offset": 52, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017541C" },
+        { "offset": 60, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018CCF4" },
+        { "offset": 140, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001882A4" },
+        { "offset": 152, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_001882F8" },
+        { "offset": 164, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017541C" },
+        { "offset": 176, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_subobject_init_secondary_92" }
+      ],
+      "literals": []
+    },
+    {
+      "name": "func_00180E3C", "section": ".text.func_00180E3C", "size": 144,
+      "nextGlobal": "func_00180ED8", "nextGlobalOffset": 156,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_00145D10" },
+        { "offset": 132, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0017048C" }
+      ],
+      "literals": [
+        { "offset": 144, "loadOffsets": [8], "symbol": "service_object_dispatch_92" },
+        { "offset": 148, "loadOffsets": [52], "symbol": "ipc_unit_scalar_54" },
+        { "offset": 152, "loadOffsets": [64], "symbol": "service_zero_scalar_51" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "ipc_unit_scalar_54",
+    "service_record_key_92",
+    "service_object_dispatch_92",
+    "service_zero_scalar_51"
+  ],
+  "reusedLiteralIdentities": [
+    "ipc_unit_scalar_54",
+    "service_zero_scalar_51"
+  ],
+  "newLiteralIdentities": [
+    "service_record_key_92",
+    "service_object_dispatch_92"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_00187DEC",
+      "func_00182C60",
+      "func_0017A8E8",
+      "func_0017541C",
+      "func_0018CCF4",
+      "func_001882A4",
+      "func_001882F8",
+      "func_00145D10",
+      "func_0017048C"
+    ],
+    "secondaryEntries": [
+      "service_index_secondary_91",
+      "service_record_acquire_secondary_92",
+      "service_subobject_init_secondary_92"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "service_index_secondary_91",
+        "owner": "func_00187078",
+        "ownerOffset": 92,
+        "nextGlobal": "func_001870E4",
+        "bytesBeforeNextGlobal": 16
+      },
+      {
+        "symbol": "service_record_acquire_secondary_92",
+        "owner": "func_00179DD0",
+        "ownerOffset": 12,
+        "nextGlobal": "func_00179E88",
+        "bytesBeforeNextGlobal": 172
+      },
+      {
+        "symbol": "service_subobject_init_secondary_92",
+        "owner": "func_0017A8A8",
+        "ownerOffset": 44,
+        "nextGlobal": "func_0017A8E8",
+        "bytesBeforeNextGlobal": 20
+      }
+    ],
+    "sharedClasses": [
+      {
+        "symbol": "func_0017541C",
+        "sites": [
+          { "function": "func_00180D20", "offset": 52 },
+          { "function": "func_00180D68", "offset": 52 },
+          { "function": "func_00180D68", "offset": 164 }
+        ]
+      },
+      {
+        "symbol": "service_subobject_init_secondary_92",
+        "sites": [
+          { "function": "func_00180D20", "offset": 60 },
+          { "function": "func_00180D68", "offset": 176 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_00187DEC",
+      "func_00182C60",
+      "service_index_secondary_91",
+      "service_record_acquire_secondary_92",
+      "func_0017A8E8",
+      "func_0018CCF4",
+      "func_001882A4",
+      "func_001882F8",
+      "func_00145D10",
+      "func_0017048C"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_00187DEC",
+      "func_00182C60",
+      "func_0017A8E8",
+      "func_0017541C",
+      "func_0018CCF4",
+      "func_001882A4",
+      "func_001882F8",
+      "func_00145D10",
+      "func_0017048C"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}

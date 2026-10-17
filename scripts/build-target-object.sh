@@ -106,6 +106,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-ipc-wrappers-89.json" \
   "$root/config/arm-ipc-wrappers-90.json" \
   "$root/config/arm-ipc-wrappers-91.json" \
+  "$root/config/arm-ipc-wrappers-92.json" \
   "$root/config/arm-duplicate-templates-19.json" \
   "$root/config/arm-duplicate-templates-21.json" \
   "$root/config/arm-duplicate-templates-22.json" \
@@ -189,6 +190,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/arm-runtime-helpers-96.json" \
   "$root/config/arm-runtime-helpers-97.json" \
   "$root/config/arm-runtime-helpers-98.json" \
+  "$root/config/arm-runtime-helpers-99.json" \
   "$root/config/thumb-leaf-helpers-03.json" \
   "$root/config/thumb-leaf-helpers-04.json" \
   "$root/config/thumb-leaf-helpers-05.json" \
@@ -199,6 +201,7 @@ node "$root/scripts/generate-target-object.mjs" \
   "$root/config/thumb-leaf-helpers-10.json" \
   "$root/config/thumb-leaf-helpers-11.json" \
   "$root/config/thumb-leaf-helpers-12.json" \
+  "$root/config/thumb-leaf-helpers-13.json" \
   "$root/config/target-literal-identities/AS_EUR_REV2.json" \
   "$root/config/targets/AS_EUR_REV2.json"
 node "$root/scripts/validate-arm-adjacent-global-loads-09.mjs" \
@@ -601,6 +604,8 @@ node "$root/scripts/validate-arm-ipc-wrappers-90.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-ipc-wrappers-91.mjs" --object \
   "$root/build/AS_EUR_REV2/target/code.o"
+node "$root/scripts/validate-arm-ipc-wrappers-92.mjs" --object \
+  "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-68.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
 node "$root/scripts/validate-arm-runtime-helpers-69.mjs" \
@@ -666,6 +671,9 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-98.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-99.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --self-test
@@ -697,6 +705,9 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   "$root/build/AS_EUR_REV2/target/code.o"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-12.mjs" \
+  "$root/build/AS_EUR_REV2/target/code.o"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-thumb-leaf-helpers-13.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o"
 node "$root/scripts/validate-arm-runtime-helpers-42.mjs" \
   "$root/build/AS_EUR_REV2/target/code.o" "$readelf"
