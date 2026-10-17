@@ -1,27 +1,37 @@
-# DllFieldEventSlopeSlip clean-room status
+# DllFieldEventSlopeSlip corrective provenance record
 
-## Scope and permitted facts
+## Observation provenance
 
-This unit is the AS_EUR_REV2 `cro/DllFieldEventSlopeSlip` module. The checked-in
-public symbol and partition manifests are the authoritative structural metadata.
-The existing contract source implements the single function already claimed by
-the public source manifest.
+- Observation date: 2026-10-17.
+- Public repository revision observed: `00a1046476528c03404541a55fc6a48a17770851`.
+- Role: analysis-only documentation correction; no implementation was authored.
+- Tool: Node.js v24.21.0 running the repository's
+  `scripts/prepare-bytematch-report.mjs` at the revision above.
+- Method: validate the checked-in public report against the checked-in public
+  source manifest and CSV inventories, then compare the unit's public manifest,
+  partition, and report entries for consistency.
+- Private-target statement: this corrective observation did not access a ROM,
+  CRO binary, extracted asset, private target object, target disassembly, or
+  Nintendo SDK material. The removed specifications were not used as evidence.
 
-At an observable level, the module participates in the field-event behavior for
-an actor slipping on a slope. Its interface belongs to the field-event lifecycle
-and interacts with the surrounding engine through external services. These facts
-do not specify internal routines, operation order, data layout, constants, or
-control-flow topology.
+## Public inputs
 
-## Clean-room status
+- `config/cro-sources.json`
+- `symbols/cro/DllFieldEventSlopeSlip.csv`
+- `symbols/cro-partitions/DllFieldEventSlopeSlip.json`
+- `progress/reports/AS_EUR_REV2/report.json`
 
-No additional implementation claim is made here. Earlier analysis for this unit
-contained exhaustive target-derived details and is not a permitted clean-room
-specification. That analysis, its derived source, and its dedicated validator
-have been removed from the current tree. They must not be used as implementation
-input.
+## Verified public facts
 
-Further work requires a fresh implementation role with no exposure to the
-removed material, working only from independently obtained observable behavior
-and blind pass/fail validation. Until then, all functions other than the existing
-public claim remain unmatched and the unit remains incomplete.
+The public CSV and source manifest contain one function claim,
+`func_00000308`, with size 344 bytes. The public report records that function as
+a 344-byte exact code match and records `metadata.complete` as `false`. The
+public partition retains one 40-byte unknown range. The report lists 460 total
+data bytes; this record makes no data-match or fully-linked claim.
+
+## Additive quarantine status
+
+The current tree removes the two prohibited exhaustive specifications together
+with their derived source and dedicated validator. Their unit-specific inventory
+and build integration changes are also absent from the current tree. Git history
+was not rewritten. This revision makes no new implementation claim.
