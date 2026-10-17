@@ -507,6 +507,17 @@ export function buildCroTargetElf(parsed) {
     segmentSections.set(segment.index, section);
   }
 
+  const moduleMarker = {
+    name: ".cro.module",
+    type: SHT_PROGBITS,
+    flags: 0,
+    align: 1,
+    data: Buffer.from(`${parsed.moduleName}\0`, "utf8"),
+    size: Buffer.byteLength(`${parsed.moduleName}\0`, "utf8"),
+  };
+  moduleMarker.index = sections.length;
+  sections.push(moduleMarker);
+
   const relocationSections = [];
   for (const [segmentIndex, entries] of parsed.relocations) {
     if (!entries.length) continue;

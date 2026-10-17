@@ -73,7 +73,7 @@ function rehash(buffer) {
   return buffer;
 }
 
-function makeCro() {
+export function makeCro() {
   const codeOffset = 0x140;
   const moduleOffset = 0x1c0;
   let cursor = moduleOffset;
@@ -257,6 +257,8 @@ function selfTest() {
     const section = elf.byName.get(name);
     assert.deepEqual([section.type, section.flags, section.size, section.align], [type, flags, size, 4]);
   }
+  const marker = elf.byName.get(".cro.module");
+  assert.equal(first.elf.subarray(marker.offset, marker.offset + marker.size).toString("utf8"), "TestCro\0");
   assert.equal(elf.relocations.length, 5);
   assert.ok(elf.relocations.every((entry) => entry.type === 2));
   assert.deepEqual(elf.relocations.map((entry) => [entry.section, entry.offset]), [
