@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 // Public quarantine accounting only. Never reads source contents or build inputs.
-import { lstatSync, readFileSync, readdirSync, mkdtempSync, mkdirSync,
-  writeFileSync, symlinkSync, rmSync } from "node:fs";
+import { closeSync, constants, fstatSync, lstatSync, openSync, readFileSync,
+  readdirSync, realpathSync, mkdtempSync, mkdirSync, renameSync, writeFileSync,
+  symlinkSync, rmSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { dirname, isAbsolute, join, resolve } from "node:path";
@@ -122,9 +123,51 @@ function checkedPath(root, path, directory = false) {
   return cursor;
 }
 
+function sameFile(left, right) {
+  return left.dev === right.dev && left.ino === right.ino && left.mode === right.mode
+    && left.size === right.size && left.mtimeNs === right.mtimeNs && left.ctimeNs === right.ctimeNs;
+}
+
+function stableRead(root, path, directory, reader, afterOpen) {
+  const expected = checkedPath(root, path, directory);
+  check(Number.isInteger(constants.O_NOFOLLOW) && (!directory || Number.isInteger(constants.O_DIRECTORY)),
+    "platform lacks no-follow descriptor support");
+  const flags = constants.O_RDONLY | constants.O_NOFOLLOW | (directory ? constants.O_DIRECTORY : 0);
+  let descriptor;
+  try {
+    descriptor = openSync(expected, flags);
+    const before = fstatSync(descriptor, { bigint: true });
+    check(directory ? before.isDirectory() : before.isFile(), "descriptor has an unsafe file type");
+    if (!directory) check(before.size > 0n && before.size <= 32n * 1024n * 1024n,
+      "public input size is invalid");
+    const descriptorPath = `/proc/self/fd/${descriptor}`;
+    check(realpathSync(descriptorPath) === expected, "public input canonical identity changed");
+    if (afterOpen) afterOpen();
+    const result = reader(descriptor, descriptorPath);
+    const after = fstatSync(descriptor, { bigint: true });
+    check(sameFile(before, after), "public input changed while being read");
+    check(realpathSync(descriptorPath) === expected, "public input canonical identity changed");
+    check(checkedPath(root, path, directory) === expected, "public input path changed while being read");
+    const current = lstatSync(expected, { bigint: true });
+    check(current.dev === after.dev && current.ino === after.ino,
+      "public input path was reassigned while being read");
+    return result;
+  } finally {
+    if (descriptor !== undefined) closeSync(descriptor);
+  }
+}
+
+function readStableFile(root, path, afterOpen) {
+  return stableRead(root, path, false, descriptor => readFileSync(descriptor, "utf8"), afterOpen);
+}
+
+function readStableDirectory(root, path, afterOpen) {
+  return stableRead(root, path, true, (_descriptor, descriptorPath) => readdirSync(descriptorPath), afterOpen);
+}
+
 function readState(root) {
   const raw = {};
-  for (const [key, path] of Object.entries(PATHS)) raw[key] = readFileSync(checkedPath(root, path), "utf8");
+  for (const [key, path] of Object.entries(PATHS)) raw[key] = readStableFile(root, path);
   for (const [key, expected] of Object.entries(NEUTRAL_HASHES)) {
     check(createHash("sha256").update(raw[key]).digest("hex") === expected,
       `${key} neutral inventory changed`);
@@ -132,7 +175,7 @@ function readState(root) {
   const state = { csv: raw.csv, partitionText: raw.partition, blocker: raw.blocker };
   for (const key of ["report", "project", "config", "manifest", "partition"])
     state[key] = strictJson(raw[key], PATHS[key]);
-  state.sourceEntries = readdirSync(checkedPath(root, "src/cro", true));
+  state.sourceEntries = readStableDirectory(root, "src/cro");
   return state;
 }
 
@@ -422,8 +465,23 @@ function selfTest(state) {
       "public//fixture.json", "public/./fixture.json", "public\\fixture.json", "public/%2e%2e/fixture.json"]) {
       assert.throws(() => checkedPath(temporary, path), /symlink|unsafe/); rejected++;
     }
-    assert.equal(readFileSync(checkedPath(temporary, "public/fixture.json"), "utf8"), "{}");
+    assert.equal(readStableFile(temporary, "public/fixture.json"), "{}");
     accepted++;
+    const directRace = join(temporary, "public", "direct-race.json");
+    const directOriginal = join(temporary, "public", "direct-race-original.json");
+    writeFileSync(directRace, "{}");
+    assert.throws(() => readStableFile(temporary, "public/direct-race.json", () => {
+      renameSync(directRace, directOriginal);
+      symlinkSync("fixture.json", directRace);
+    }), /canonical identity|symlink|changed|reassigned/); rejected++;
+    rmSync(directRace); renameSync(directOriginal, directRace);
+    const racedDirectory = join(temporary, "raced-directory");
+    const heldDirectory = join(temporary, "held-directory");
+    mkdirSync(racedDirectory); writeFileSync(join(racedDirectory, "fixture.json"), "{}");
+    assert.throws(() => readStableFile(temporary, "raced-directory/fixture.json", () => {
+      renameSync(racedDirectory, heldDirectory);
+      symlinkSync("public", racedDirectory);
+    }), /canonical identity|symlink|changed|reassigned/); rejected++;
   } finally { rmSync(temporary, { recursive: true, force: true }); }
   console.log(`Passed ${accepted + rejected} synthetic quarantine tests (${accepted} acceptance, ${rejected} rejection).`);
 }
