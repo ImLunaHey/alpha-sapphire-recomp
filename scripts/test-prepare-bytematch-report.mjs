@@ -37,6 +37,7 @@ function fixture() {
           name: "main/code",
           measures: { total_code: "4", matched_code: "4", total_functions: 1, matched_functions: 1 },
           functions: [{ name: "func_00000000", size: "4", address: "0", metadata: {} }],
+          metadata: { complete: false, source_path: "src/main" },
         },
         {
           name: "cro/DllEmpty",
@@ -97,6 +98,7 @@ authored.report.units[1].functions = [
 authored.croClaims = new Map([["DllEmpty", new Map([
   ["func_00000000", { address: 0, size: 4 }],
 ])]]);
+authored.report.units[1].metadata.source_path = "src/cro/DllEmpty";
 validateAndNormalizeReport(authored);
 
 const fractional = structuredClone(authored);
@@ -132,6 +134,7 @@ assert.throws(() => validateAndNormalizeReport(impreciseFractional), /matched-co
 
 const unconfiguredCredit = structuredClone(authored);
 unconfiguredCredit.croClaims = new Map();
+delete unconfiguredCredit.report.units[1].metadata.source_path;
 assert.throws(() => validateAndNormalizeReport(unconfiguredCredit), /credit differs/);
 
 const wrongInventory = fixture();

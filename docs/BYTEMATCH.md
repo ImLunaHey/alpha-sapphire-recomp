@@ -16,16 +16,16 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Current verified progress
 
-The 146 published units contain 4,224 exactly matched functions and 413,016
-matched code bytes, or 11.103715% overall. `main/code` contributes 3,969
-functions and 401,188 bytes. The CROs contribute 255 functions and 11,828 code
+The 146 published units contain 4,252 exactly matched functions and 415,532
+matched code bytes, or 11.171356% overall. `main/code` contributes 3,978
+functions and 401,724 bytes. The CROs contribute 274 functions and 13,808 code
 bytes across 96 units; their matched-data total is zero. The other 49 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 72 functions and 6,148 code bytes. Main runtime
-batch 145 contributes six functions and 340 bytes. Five DllBattle batches add
-58 functions and 3,196 bytes, while CRO contract batch 10 contributes eight
-functions and 2,612 bytes across eight newly credited units.
+The latest verified wave added 28 functions and 2,516 code bytes. Main runtime
+batch 146 contributes nine functions and 536 bytes. DllBattle batch 06 adds
+11 functions and 1,700 bytes, while CRO contract batch 11 contributes eight
+functions and 280 bytes across eight already-credited units.
 
 ## Executable units
 
@@ -35,6 +35,12 @@ units expose only validated neutral metadata and split-object structure.
 Reviewed clean-room function sections now earn code credit in 96 CROs; all
 unclaimed code, all CRO data, and all 49 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
+
+Each authored unit publishes objdiff `metadata.source_path`: `main/code` points
+to `src/main`, and an authored CRO points to `src/cro/DllName`. ByteMatch can
+therefore show the repository source directory and locate selected functions.
+Unstarted CRO skeletons omit `source_path` until independently authored source
+exists, rather than pointing at unrelated or nonexistent code.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must
 not be split into arbitrary address ranges: the stripped image does not retain

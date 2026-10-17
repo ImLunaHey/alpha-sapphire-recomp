@@ -31136,7 +31136,7 @@ const config = {
       name: "main/code",
       target_path: relative(root, objectPath),
       ...(existsSync(baseObjectPath) ? { base_path: relative(root, baseObjectPath) } : {}),
-      metadata: { complete: false }
+      metadata: { complete: false, source_path: "src/main" }
     }
   ]
 };

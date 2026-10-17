@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,224 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,252 clean-room functions are byte-identical. Ninety-six CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.103715,
-    "matchedFunctions": 4224,
+    "matchedCodePercent": 11.171356,
+    "matchedFunctions": 4252,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "4,224 routines across main/code and 96 CRO units match byte-for-byte",
+      "detail": "4,252 routines across main/code and 96 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "Runtime, DllBattle, and CRO contract wave adds 28 exact functions",
+      "detail": "Runtime batch 146 adds nine main/code functions and 536 bytes, DllBattle batch 06 adds eleven functions and 1,700 bytes, and CRO contract 11 adds eight functions and 280 bytes across eight already-credited units. The genuine report now contains 4,252 exact functions and 415,532 bytes. Authored unit source directories are also published through objdiff source_path metadata for ByteMatch source browsing. Ninety-six CRO units receive authored code credit; CRO data remains entirely unmatched and every unit remains incomplete."
+    },
     {
       "date": "2026-10-17",
       "title": "Parallel main and CRO wave adds 72 exact functions",

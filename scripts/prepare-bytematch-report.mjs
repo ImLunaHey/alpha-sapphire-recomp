@@ -153,6 +153,10 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
   if (JSON.stringify(actualNames) !== JSON.stringify(wantedNames)) {
     fail("report unit names do not exactly match main/code plus the CRO manifest");
   }
+  if (JSON.stringify(byName.get("main/code").metadata) !==
+      JSON.stringify({ complete: false, source_path: "src/main" })) {
+    fail("main/code must publish its src/main source directory");
+  }
 
   const functions = units.flatMap((unit) => unit.functions ?? []);
   if (functions.length !== expected.totalFunctions
@@ -168,8 +172,12 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
   for (const entry of manifest.units) {
     const stem = CRO_UNIT_PATTERN.exec(entry.name)[1], unit = byName.get(entry.name);
     if (!csvFiles.has(stem)) fail(`${entry.name} has no public CSV inventory`);
-    if (JSON.stringify(unit.metadata) !== JSON.stringify({ complete: false })) {
-      fail(`${entry.name} must remain explicitly incomplete`);
+    const expectedMetadata = {
+      complete: false,
+      ...(croClaims.has(stem) ? { source_path: `src/cro/${stem}` } : {}),
+    };
+    if (JSON.stringify(unit.metadata) !== JSON.stringify(expectedMetadata)) {
+      fail(`${entry.name} must remain explicitly incomplete and publish only an authored source path`);
     }
     const csvFunctions = parseCroCsvFunctions(csvFiles.get(stem), stem);
     const reportFunctions = unit.functions ?? [];

@@ -15,21 +15,17 @@
 .size \name, . - \name
 .endm
 
-.macro REQUIRE_OBJECT owner, live
-    mov \owner, r0
+BEGIN func_004E8E58
+    push {r4, lr}
+    mov r4, r0
     ldr r0, [r0]
     cmp r0, #0
-    bne \live
+    bne .L146_8E58_live
     mov r2, #0
     mov r1, r2
     mov r0, r2
     bl func_0011EF4C
-\live:
-.endm
-
-BEGIN func_004E8E58
-    push {r4, lr}
-    REQUIRE_OBJECT r4, .L146_8E58_live
+.L146_8E58_live:
     ldr r0, [r4]
     ldrb r0, [r0, #342]
     pop {r4, pc}
@@ -174,7 +170,15 @@ END func_004E91F4
 
 BEGIN func_004E9234
     push {r4, lr}
-    REQUIRE_OBJECT r4, .L146_9234_live
+    mov r4, r0
+    ldr r0, [r0]
+    cmp r0, #0
+    bne .L146_9234_live
+    mov r2, #0
+    mov r1, r2
+    mov r0, r2
+    bl func_0011EF4C
+.L146_9234_live:
     ldr r0, [r4]
     ldrb r0, [r0, #343]
     and r0, r0, #1

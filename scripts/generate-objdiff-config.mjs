@@ -257,7 +257,7 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
     name: "main/code",
     target_path: `build/${version}/target/code.o`,
     base_path: `build/${version}/base/code.o`,
-    metadata: { complete: false },
+    metadata: { complete: false, source_path: "src/main" },
   }];
 
   for (const name of names) {
@@ -302,8 +302,11 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
         // Whole-file identity is intentionally stricter than objdiff's code-only
         // score. Anything less remains incomplete until a stronger attestation
         // mechanism is introduced.
-        metadata: { complete: targetObject.buffer.equals(baseObject.buffer) &&
-          !targetObject.hasUnknown && !baseObject.hasUnknown },
+        metadata: {
+          complete: targetObject.buffer.equals(baseObject.buffer) &&
+            !targetObject.hasUnknown && !baseObject.hasUnknown,
+          ...(authored ? { source_path: `src/cro/${name}` } : {}),
+        },
       });
     } catch (error) {
       warn(`${name}: excluded: ${error.message}`);
