@@ -446,4 +446,3 @@ accounting task.
   adjacent literal pools, plus other module gaps/data/relocations, remain
   separately unowned. Consequently `metadata.complete` must remain false until
   the complete-unit gate accounts for all of them.
-
