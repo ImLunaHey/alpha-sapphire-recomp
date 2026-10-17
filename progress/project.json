@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The public report retains authored exact-match credit after the DllHologramMail and DllPssMessageWindow provenance withdrawals. Their neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
+  "summary": "The published report retains independently reviewed clean-room matches after provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.203618,
-    "matchedFunctions": 4256,
+    "matchedCodePercent": 11.202004432678223,
+    "matchedFunctions": 4255,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "Authored routines across main/code and CRO units retain exact-match credit after the provenance withdrawals; every unit remains incomplete",
+      "detail": "Independently reviewed routines across main/code and CRO units retain exact-match credit; every unit remains incomplete",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllLiveCup unsupported initializer quarantined",
+      "detail": "An unsupported DllLiveCup initializer claim was withdrawn because it lacked a unit-specific independently reviewable behavioral handoff. Existing independently reviewed work remains published, the unit remains incomplete, and the shared publication-integrity gate enforces the revised accounting."
+    },
     {
       "date": "2026-10-17",
       "title": "DllPssMessageWindow provisional match withdrawn",
