@@ -10,6 +10,22 @@ permissions:
   contents: read
 
 jobs:
+  pull-request-title:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    env:
+      PR_TITLE: ${{ github.event.pull_request.title }}
+    steps:
+      - name: Require a scoped Conventional Commit title
+        shell: bash
+        run: |
+          pattern='^(build|chore|ci|docs|feat|fix|perf|refactor|revert|style|test)\([a-z0-9][a-z0-9._/-]*\)!?: .+'
+          if ! grep -Eq "$pattern" <<< "$PR_TITLE"; then
+            echo "Pull request title must use scoped Conventional Commit syntax."
+            echo "Example: feat(cro): match DllExample leaf routines"
+            exit 1
+          fi
+
   report:
     runs-on: ubuntu-latest
     steps:
