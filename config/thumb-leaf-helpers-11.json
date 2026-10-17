@@ -1,0 +1,2871 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/thumb_leaf_helpers_11.S",
+  "sourceSha256": "a8886cecb37fd262602d1376141f6b2df74a88ad81853d15b1da93a50ec38517",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 4482,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 2159,
+  "wideInstructionCount": 82,
+  "localBranchCount": 364,
+  "memoryOperationCount": 629,
+  "returnCount": 18,
+  "indirectCallCount": 35,
+  "indirectTailCount": 0,
+  "directCallCount": 82,
+  "directCalls": [
+    {
+      "function": "func_0010115A",
+      "offset": 108,
+      "mnemonic": "bl",
+      "symbol": "func_002FFBF8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010115A",
+      "offset": 154,
+      "mnemonic": "bl",
+      "symbol": "func_002FFC3C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 18,
+      "mnemonic": "blx",
+      "symbol": "func_00302274",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 46,
+      "mnemonic": "bl",
+      "symbol": "func_0030227C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 56,
+      "mnemonic": "blx",
+      "symbol": "func_003022C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 72,
+      "mnemonic": "bl",
+      "symbol": "func_00301D1C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 60,
+      "mnemonic": "bl",
+      "symbol": "func_003035D4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 84,
+      "mnemonic": "bl",
+      "symbol": "func_00300ABC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 114,
+      "mnemonic": "bl",
+      "symbol": "func_003035D4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 208,
+      "mnemonic": "bl",
+      "symbol": "func_0030361C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 218,
+      "mnemonic": "bl",
+      "symbol": "func_00303640",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 234,
+      "mnemonic": "bl",
+      "symbol": "func_003036C0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 244,
+      "mnemonic": "bl",
+      "symbol": "func_00303640",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00101040",
+      "offset": 100,
+      "mnemonic": "bl",
+      "symbol": "func_002FED38",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 44,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 62,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 92,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 118,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 140,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 176,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 194,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 224,
+      "mnemonic": "bl",
+      "symbol": "func_002FF094",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 250,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 272,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 10,
+      "mnemonic": "bl",
+      "symbol": "func_00103E3C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 22,
+      "mnemonic": "bl",
+      "symbol": "func_00303954",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 50,
+      "mnemonic": "bl",
+      "symbol": "func_00302FB6",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 66,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 84,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 130,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 152,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 188,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 206,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 252,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 274,
+      "mnemonic": "bl",
+      "symbol": "func_00303304",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 302,
+      "mnemonic": "bl",
+      "symbol": "func_00302FEE",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100CD0",
+      "offset": 210,
+      "mnemonic": "blx",
+      "symbol": "func_002FFBE0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100CD0",
+      "offset": 244,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 30,
+      "mnemonic": "bl",
+      "symbol": "func_00100BCC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 50,
+      "mnemonic": "bl",
+      "symbol": "func_00100B8C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 118,
+      "mnemonic": "bl",
+      "symbol": "func_002FF7F8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 126,
+      "mnemonic": "bl",
+      "symbol": "func_002FF830",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 136,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 158,
+      "mnemonic": "bl",
+      "symbol": "func_002FF7F8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 166,
+      "mnemonic": "bl",
+      "symbol": "func_002FF878",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 200,
+      "mnemonic": "blx",
+      "symbol": "func_002FF10C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 206,
+      "mnemonic": "blx",
+      "symbol": "func_002FF10C",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 212,
+      "mnemonic": "bl",
+      "symbol": "func_002FF89C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 216,
+      "mnemonic": "blx",
+      "symbol": "func_002FF8C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 222,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 256,
+      "mnemonic": "bl",
+      "symbol": "func_002FF7F8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 280,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 302,
+      "mnemonic": "bl",
+      "symbol": "func_002FEFDC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 310,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 322,
+      "mnemonic": "bl",
+      "symbol": "func_002FF86C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00100E14",
+      "offset": 228,
+      "mnemonic": "bl",
+      "symbol": "func_002FEDD0",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 54,
+      "mnemonic": "bl",
+      "symbol": "func_00300ABC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 106,
+      "mnemonic": "bl",
+      "symbol": "func_00300ABC",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 220,
+      "mnemonic": "bl",
+      "symbol": "func_002FFB14",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 238,
+      "mnemonic": "bl",
+      "symbol": "func_002FFAF4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 256,
+      "mnemonic": "bl",
+      "symbol": "func_002FFAF4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 282,
+      "mnemonic": "bl",
+      "symbol": "func_002FFAF4",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 288,
+      "mnemonic": "bl",
+      "symbol": "func_00300A00",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 300,
+      "mnemonic": "bl",
+      "symbol": "func_00300A00",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 326,
+      "mnemonic": "bl",
+      "symbol": "func_00301026",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 342,
+      "mnemonic": "bl",
+      "symbol": "func_00301026",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 28,
+      "mnemonic": "bl",
+      "symbol": "func_00301DC8",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 44,
+      "mnemonic": "bl",
+      "symbol": "func_00301D1C",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 90,
+      "mnemonic": "blx",
+      "symbol": "func_003022C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 160,
+      "mnemonic": "blx",
+      "symbol": "func_00302274",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 184,
+      "mnemonic": "blx",
+      "symbol": "func_002FECF8",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 224,
+      "mnemonic": "blx",
+      "symbol": "func_002FECF8",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 290,
+      "mnemonic": "bl",
+      "symbol": "func_00301D30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 426,
+      "mnemonic": "bl",
+      "symbol": "func_00301D30",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 114,
+      "mnemonic": "blx",
+      "symbol": "func_002FFBE0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 136,
+      "mnemonic": "blx",
+      "symbol": "func_002FF110",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 240,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 270,
+      "mnemonic": "bl",
+      "symbol": "func_002FF118",
+      "targetMode": "thumb",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 424,
+      "mnemonic": "blx",
+      "symbol": "func_001955C0",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 430,
+      "mnemonic": "blx",
+      "symbol": "func_00195590",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 468,
+      "mnemonic": "blx",
+      "symbol": "func_002FED78",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    },
+    {
+      "function": "func_00102B04",
+      "offset": 390,
+      "mnemonic": "blx",
+      "symbol": "func_0015EC10",
+      "targetMode": "arm",
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_0010115A",
+      "offset": 108,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBF8"
+    },
+    {
+      "function": "func_0010115A",
+      "offset": 154,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFC3C"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 18,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302274"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 46,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030227C"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 56,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003022C0"
+    },
+    {
+      "function": "func_00301E0C",
+      "offset": 72,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D1C"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 60,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003035D4"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 84,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300ABC"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003035D4"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 208,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0030361C"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 218,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303640"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 234,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003036C0"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 244,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303640"
+    },
+    {
+      "function": "func_00101040",
+      "offset": 100,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED38"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 44,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 62,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 92,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 118,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 140,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 176,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 194,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 224,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF094"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 250,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 272,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 10,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00103E3C"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 22,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303954"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 50,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302FB6"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 66,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 84,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 130,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 152,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 188,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 206,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 252,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 274,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00303304"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 302,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302FEE"
+    },
+    {
+      "function": "func_00100CD0",
+      "offset": 210,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBE0"
+    },
+    {
+      "function": "func_00100CD0",
+      "offset": 244,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 30,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00100BCC"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 50,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00100B8C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 118,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF7F8"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 126,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF830"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 136,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 158,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF7F8"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 166,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF878"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 200,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF10C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 206,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF10C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 212,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF89C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 216,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF8C0"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 222,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 256,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF7F8"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 280,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 302,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEFDC"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 310,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 322,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF86C"
+    },
+    {
+      "function": "func_00100E14",
+      "offset": 228,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FEDD0"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 54,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300ABC"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 106,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300ABC"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 220,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFB14"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 238,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFAF4"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 256,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFAF4"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 282,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFAF4"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 288,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300A00"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 300,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00300A00"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 326,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301026"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 342,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301026"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 28,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301DC8"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 44,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D1C"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 90,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_003022C0"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 160,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00302274"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 184,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FECF8"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 224,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FECF8"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 290,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D30"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 426,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00301D30"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 114,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FFBE0"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 136,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF110"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 240,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 270,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FF118"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 424,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_001955C0"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 430,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_00195590"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 468,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_002FED78"
+    },
+    {
+      "function": "func_00102B04",
+      "offset": 390,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "func_0015EC10"
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    {
+      "function": "func_00301E0C",
+      "offset": 226,
+      "mnemonic": "ldr",
+      "targetOffset": 240,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 22,
+      "mnemonic": "ldr",
+      "targetOffset": 256,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 136,
+      "mnemonic": "adr",
+      "targetOffset": 260,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_003034CC",
+      "offset": 172,
+      "mnemonic": "adr",
+      "targetOffset": 260,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 12,
+      "mnemonic": "ldr",
+      "targetOffset": 300,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00303954",
+      "offset": 26,
+      "mnemonic": "ldr",
+      "targetOffset": 304,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 26,
+      "mnemonic": "ldr",
+      "targetOffset": 312,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00103F08",
+      "offset": 34,
+      "mnemonic": "ldr",
+      "targetOffset": 316,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 4,
+      "mnemonic": "ldr",
+      "targetOffset": 332,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 12,
+      "mnemonic": "adr",
+      "targetOffset": 336,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 40,
+      "mnemonic": "ldr",
+      "targetOffset": 332,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 48,
+      "mnemonic": "adr",
+      "targetOffset": 348,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 68,
+      "mnemonic": "ldr",
+      "targetOffset": 352,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 94,
+      "mnemonic": "ldr",
+      "targetOffset": 356,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 114,
+      "mnemonic": "adr",
+      "targetOffset": 360,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 140,
+      "mnemonic": "ldr",
+      "targetOffset": 364,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 144,
+      "mnemonic": "ldr",
+      "targetOffset": 352,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 240,
+      "mnemonic": "ldr",
+      "targetOffset": 352,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_001007BC",
+      "offset": 252,
+      "mnemonic": "adr",
+      "targetOffset": 344,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 50,
+      "mnemonic": "adr",
+      "targetOffset": 372,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 52,
+      "mnemonic": "adr",
+      "targetOffset": 372,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 102,
+      "mnemonic": "adr",
+      "targetOffset": 372,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 104,
+      "mnemonic": "adr",
+      "targetOffset": 372,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_00102590",
+      "offset": 304,
+      "mnemonic": "ldr",
+      "targetOffset": 376,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 32,
+      "mnemonic": "ldr",
+      "targetOffset": 492,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0030291C",
+      "offset": 264,
+      "mnemonic": "ldr",
+      "targetOffset": 496,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 194,
+      "mnemonic": "ldr",
+      "targetOffset": 1196,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 220,
+      "mnemonic": "ldr",
+      "targetOffset": 1200,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 282,
+      "mnemonic": "ldr",
+      "targetOffset": 1204,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 294,
+      "mnemonic": "ldr",
+      "targetOffset": 1204,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 450,
+      "mnemonic": "ldr",
+      "targetOffset": 1208,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    },
+    {
+      "function": "func_0010145C",
+      "offset": 484,
+      "mnemonic": "ldr",
+      "targetOffset": 1212,
+      "requiredEntryModulo4": 0,
+      "ownership": "unowned-post-body"
+    }
+  ],
+  "duplicateBodyClasses": [],
+  "scheduleEncoding": {
+    "instructionDelimiter": "|",
+    "instructionOffset": "cumulative encoded width; offsets in control schedules are lowercase hexadecimal",
+    "localTransfer": "hexOffset:mnemonic:+hexTarget",
+    "returnTransfer": "hexOffset:mnemonic:operand",
+    "indirectCall": "hexOffset:mnemonic:register",
+    "indirectTail": "hexOffset:mnemonic:register",
+    "directCall": "offset/mnemonic/symbol/targetMode/relocation object"
+  },
+  "encodingConstraints": [
+    {
+      "form": "thumb16-add-sub-immediate3",
+      "rule": "Every three-operand adds/subs Rd, Rn, #imm schedule entry uses the 16-bit three-operand immediate form and must not be canonicalized to the distinct two-operand form."
+    },
+    {
+      "form": "thumb16-add-sub-immediate8",
+      "rule": "Every two-operand adds/subs Rd, #imm schedule entry uses the 16-bit two-operand immediate form."
+    },
+    {
+      "form": "thumb16-local-branch",
+      "rule": "Every function-local conditional or unconditional branch uses the recorded 16-bit .n form and exact local target."
+    },
+    {
+      "form": "thumb32-direct-call",
+      "rule": "Every direct call is the sole 32-bit instruction at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded symbol; bl versus blx is normative."
+    },
+    {
+      "form": "thumb-code-mapping",
+      "rule": "Every complete function body is continuously covered by Thumb code mapping beginning with $t at body offset zero and contains no interior $d mapping interval."
+    }
+  ],
+  "canonicalRecordFormat": {
+    "instruction": "function:hexOffset:mnemonic:operands",
+    "localTransfer": "function:hexOffset:mnemonic:local:+hexTarget",
+    "returnTransfer": "function:hexOffset:mnemonic:operand",
+    "indirectCall": "function:hexOffset:mnemonic:operand",
+    "indirectTail": "function:hexOffset:mnemonic:operand",
+    "directCall": "function:hexOffset:mnemonic:symbol:targetMode:relocation"
+  },
+  "canonicalHashes": {
+    "algorithm": "sha256",
+    "lineTermination": "LF",
+    "instructionSchedule": "08dbc8255c9d1c3192f9fe6b5d55f9369852d7fbb3c76e09500c33547c67a47a",
+    "localTransferSchedule": "8025e56ff8c599dcaeaba019691e0aec205242e2d133ee63b14ac684acd4eb01",
+    "returnTransferSchedule": "df75d8bccabf5c2174325a6da4c22219982d6bd8cfdd3119b04bccbb5645d59e",
+    "indirectCallSchedule": "77457eb605946ed0e7f1b0d7d46c8783ee2c82602c28b11c8830192b3677a498",
+    "indirectTailSchedule": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "directCallSchedule": "ea713478cd71e718e3bb8f9dab3ac0c7cccc4315f5b8cb6d3fa40d312dd13fe8"
+  },
+  "functions": [
+    {
+      "name": "func_0010115A",
+      "size": 228,
+      "instructionCount": 112,
+      "wideInstructionOffsets": [
+        108,
+        154
+      ],
+      "localBranchCount": 22,
+      "memoryOperationCount": 39,
+      "returnCount": 1,
+      "indirectCallCount": 6,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_0010123E",
+      "nextGlobalOffset": 228,
+      "localTransfers": [
+        "26:beq.n:+34",
+        "28:b.n:+3e",
+        "3c:bne.n:+2a",
+        "40:beq.n:+4a",
+        "46:beq.n:+52",
+        "48:b.n:+86",
+        "5c:b.n:+86",
+        "62:bne.n:+7a",
+        "72:beq.n:+da",
+        "88:ble.n:+b4",
+        "8c:beq.n:+b4",
+        "92:beq.n:+a4",
+        "a0:bne.n:+5e",
+        "a2:b.n:+b4",
+        "a8:bne.n:+5e",
+        "b2:beq.n:+5e",
+        "c4:bne.n:+ca",
+        "ce:ble.n:+da",
+        "d4:beq.n:+e0",
+        "d8:beq.n:+e0",
+        "de:b.n:+4e",
+        "e2:b.n:+4e"
+      ],
+      "returns": [
+        "50:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1c:blx:r1",
+        "30:blx:r1",
+        "38:blx:r1",
+        "82:blx:r1",
+        "ae:blx:r1",
+        "b8:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 108,
+          "mnemonic": "bl",
+          "symbol": "func_002FFBF8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 154,
+          "mnemonic": "bl",
+          "symbol": "func_002FFC3C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #20|movs r0, #0|movs r4, r2|str r0, [sp, #0]|ldr r0, [r2, #4]|str r0, [sp, #4]|ldr r6, [r2, #8]|movs r0, #0|str r0, [sp, #8]|str r0, [sp, #12]|ldr r1, [r2, #24]|movs r5, r0|ldr r0, [sp, #24]|blx r1|movs r7, r0|ldr r1, [sp, #64]|ldr r0, [sp, #32]|orrs r0, r1|beq.n local:+34|b.n local:+3e|ldr r1, [r4, #24]|ldr r0, [sp, #24]|adds r5, r5, #1|blx r1|movs r7, r0|ldr r1, [r4, #32]|movs r0, r7|blx r1|cmp r0, #0|bne.n local:+2a|adds r0, r7, #1|beq.n local:+4a|ldr r0, [sp, #4]|lsls r0, r0, #31|beq.n local:+52|b.n local:+86|movs r0, #0|mvns r0, r0|add sp, #36|pop {r4, r5, r6, r7, pc}|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r0, [r0, #0]|str r0, [sp, #0]|b.n local:+86|ldr r0, [sp, #4]|lsls r0, r0, #31|bne.n local:+7a|lsls r1, r7, #16|ldr r0, [sp, #0]|lsrs r1, r1, #16|add r2, sp, #8|bl func_002FFBF8|adds r1, r0, #1|beq.n local:+da|ldr r1, [sp, #0]|adds r0, r1, r0|str r0, [sp, #0]|ldr r1, [r4, #24]|subs r6, r6, #1|ldr r0, [sp, #24]|adds r5, r5, #1|blx r1|movs r7, r0|cmp r6, #0|ble.n local:+b4|adds r0, r7, #1|beq.n local:+b4|ldr r0, [sp, #32]|cmp r0, #0|beq.n local:+a4|ldr r2, [sp, #60]|ldr r1, [sp, #56]|movs r3, r7|bl func_002FFC3C|cmp r0, #0|bne.n local:+5e|b.n local:+b4|ldr r0, [sp, #64]|cmp r0, #0|bne.n local:+5e|ldr r1, [r4, #32]|movs r0, r7|blx r1|cmp r0, #0|beq.n local:+5e|ldr r1, [r4, #28]|ldr r0, [sp, #24]|blx r1|ldr r0, [sp, #4]|ldr r1, [sp, #64]|lsls r0, r0, #31|lsrs r0, r0, #31|orrs r0, r1|bne.n local:+ca|ldr r1, [sp, #0]|strb r0, [r1, #0]|ldr r0, [r4, #8]|cmp r0, r6|ble.n local:+da|ldr r0, [sp, #64]|cmp r0, #0|beq.n local:+e0|cmp r6, #0|beq.n local:+e0|movs r0, #1|mvns r0, r0|b.n local:+4e|movs r0, r5|b.n local:+4e"
+    },
+    {
+      "name": "func_00301E0C",
+      "size": 240,
+      "instructionCount": 116,
+      "wideInstructionOffsets": [
+        18,
+        46,
+        56,
+        72
+      ],
+      "localBranchCount": 23,
+      "memoryOperationCount": 29,
+      "returnCount": 3,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 4,
+      "nextGlobal": "func_00301F00",
+      "nextGlobalOffset": 244,
+      "localTransfers": [
+        "e:beq.n:+72",
+        "18:bne.n:+72",
+        "20:beq.n:+6e",
+        "24:beq.n:+2c",
+        "28:bne.n:+72",
+        "2a:b.n:+36",
+        "34:b.n:+6e",
+        "44:bge.n:+50",
+        "52:bpl.n:+6c",
+        "5a:bhi.n:+5e",
+        "68:ble.n:+6c",
+        "70:bge.n:+76",
+        "7e:bcs.n:+8e",
+        "84:bpl.n:+8e",
+        "92:bgt.n:+b8",
+        "98:bls.n:+9e",
+        "9c:b.n:+a0",
+        "a8:ble.n:+b8",
+        "ac:bls.n:+b2",
+        "b0:b.n:+b4",
+        "b6:bne.n:+c6",
+        "c4:b.n:+e2",
+        "d0:bls.n:+d4"
+      ],
+      "returns": [
+        "4e:pop:{r3, r4, r5, r6, r7, pc}",
+        "74:pop:{r3, r4, r5, r6, r7, pc}",
+        "ee:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 18,
+          "mnemonic": "blx",
+          "symbol": "func_00302274",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 46,
+          "mnemonic": "bl",
+          "symbol": "func_0030227C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 56,
+          "mnemonic": "blx",
+          "symbol": "func_003022C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 72,
+          "mnemonic": "bl",
+          "symbol": "func_00301D1C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r4, r0|ldr r7, [r0, #20]|ldr r0, [r0, #12]|movs r5, r1|movs r6, r2|lsls r0, r0, #30|beq.n local:+72|movs r0, r7|blx func_00302274|cmp r0, #0|bne.n local:+72|movs r2, r6|movs r6, #16|cmp r2, #0|beq.n local:+6e|cmp r2, #1|beq.n local:+2c|cmp r2, #2|bne.n local:+72|b.n local:+36|movs r0, r4|bl func_0030227C|adds r5, r0, r5|b.n local:+6e|movs r0, r7|blx func_003022C0|ldr r1, [r4, #12]|orrs r1, r6|cmp r0, #0|str r1, [r4, #12]|bge.n local:+50|movs r0, r4|bl func_00301D1C|movs r0, #1|pop {r3, r4, r5, r6, r7, pc}|lsls r1, r1, #15|bpl.n local:+6c|ldr r2, [r4, #4]|ldr r1, [r4, #44]|cmp r1, r2|bhi.n local:+5e|movs r1, r2|ldr r2, [r4, #24]|adds r1, r1, r2|ldr r2, [r4, #16]|subs r1, r1, r2|cmp r1, r0|ble.n local:+6c|movs r0, r1|adds r5, r5, r0|cmp r5, #0|bge.n local:+76|movs r0, #2|pop {r3, r4, r5, r6, r7, pc}|ldr r1, [r4, #44]|ldr r0, [r4, #4]|ldr r2, [r4, #12]|cmp r1, r0|bcs.n local:+8e|lsls r1, r2, #14|str r0, [r4, #44]|bpl.n local:+8e|movs r1, #1|lsls r1, r1, #17|bics r2, r1|orrs r2, r6|ldr r6, [r4, #24]|cmp r6, r5|bgt.n local:+b8|ldr r1, [r4, #44]|cmp r1, r0|bls.n local:+9e|movs r3, r1|b.n local:+a0|movs r3, r0|adds r7, r3, r6|ldr r3, [r4, #16]|subs r7, r7, r3|cmp r7, r5|ble.n local:+b8|cmp r1, r0|bls.n local:+b2|movs r7, r1|b.n local:+b4|movs r7, r0|cmp r7, r3|bne.n local:+c6|movs r0, #32|orrs r2, r0|movs r0, #0|str r0, [r4, #8]|str r5, [r4, #40]|str r0, [r4, #0]|b.n local:+e2|subs r5, r5, r6|ldr r6, [r4, #28]|subs r6, r5, r6|cmp r1, r0|str r6, [r4, #8]|bls.n local:+d4|movs r0, r1|subs r0, r0, r3|subs r0, r5, r0|str r0, [r4, #0]|adds r0, r3, r5|str r0, [r4, #4]|movs r0, #32|bics r2, r0|ldr r0, [pc, #12]|ands r2, r0|movs r0, #0|str r2, [r4, #12]|adds r4, #64|strb r0, [r4, #4]|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_003034CC",
+      "size": 254,
+      "instructionCount": 120,
+      "wideInstructionOffsets": [
+        60,
+        84,
+        114,
+        208,
+        218,
+        234,
+        244
+      ],
+      "localBranchCount": 19,
+      "memoryOperationCount": 33,
+      "returnCount": 1,
+      "indirectCallCount": 1,
+      "indirectTailCount": 0,
+      "directCallCount": 7,
+      "nextGlobal": "func_003035D4",
+      "nextGlobalOffset": 264,
+      "localTransfers": [
+        "e:beq.n:+14",
+        "12:b.n:+22",
+        "1a:beq.n:+20",
+        "1e:b.n:+22",
+        "24:beq.n:+4c",
+        "2e:bhi.n:+40",
+        "4a:bne.n:+ee",
+        "50:bne.n:+58",
+        "5a:beq.n:+82",
+        "64:bhi.n:+76",
+        "80:bne.n:+ee",
+        "8c:beq.n:+b0",
+        "98:beq.n:+a4",
+        "a2:b.n:+b8",
+        "aa:bcc.n:+94",
+        "ae:b.n:+b8",
+        "b4:beq.n:+b8",
+        "c4:beq.n:+ee",
+        "ca:beq.n:+ee"
+      ],
+      "returns": [
+        "fc:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "be:blx:r3"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 60,
+          "mnemonic": "bl",
+          "symbol": "func_003035D4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 84,
+          "mnemonic": "bl",
+          "symbol": "func_00300ABC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 114,
+          "mnemonic": "bl",
+          "symbol": "func_003035D4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 208,
+          "mnemonic": "bl",
+          "symbol": "func_0030361C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 218,
+          "mnemonic": "bl",
+          "symbol": "func_00303640",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 234,
+          "mnemonic": "bl",
+          "symbol": "func_003036C0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 244,
+          "mnemonic": "bl",
+          "symbol": "func_00303640",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #4|movs r6, r0|movs r5, r3|ldr r0, [r0, #0]|ldr r1, [r0, #20]|tst r1, r5|beq.n local:+14|movs r4, #0|b.n local:+22|ldr r1, [r0, #16]|ldr r0, [pc, #232]|tst r1, r5|beq.n local:+20|ldr r4, [r0, #12]|b.n local:+22|ldr r4, [r0, #8]|cmp r4, #0|beq.n local:+4c|ldr r0, [sp, #8]|ldr r7, [r0, #0]|ldr r0, [r4, #12]|cmp r0, r7|bhi.n local:+40|movs r0, #0|str r0, [sp, #0]|movs r0, r4|adds r1, r7, #1|adds r0, #8|mov r2, sp|bl func_003035D4|ldr r0, [r4, #8]|lsls r1, r7, #2|adds r0, r0, r1|ldr r7, [r0, #0]|cmp r7, #0|bne.n local:+ee|ldr r0, [sp, #12]|cmp r0, #0|bne.n local:+58|movs r0, #4|bl func_00300ABC|cmp r4, #0|beq.n local:+82|ldr r0, [sp, #8]|ldr r7, [r0, #0]|ldr r0, [r4, #12]|cmp r0, r7|bhi.n local:+76|movs r0, #0|str r0, [sp, #0]|movs r0, r4|adds r1, r7, #1|adds r0, #8|mov r2, sp|bl func_003035D4|ldr r0, [r4, #8]|lsls r1, r7, #2|adds r0, r0, r1|ldr r7, [r0, #0]|cmp r7, #0|bne.n local:+ee|ldr r2, [r6, #0]|movs r3, #0|ldr r0, [r2, #20]|add r1, pc, #120|tst r0, r5|beq.n local:+b0|movs r3, #2|movs r1, #16|movs r0, #0|movs r7, r5|tst r7, r1|beq.n local:+a4|ldr r1, [r2, #0]|lsls r0, r0, #2|adds r0, r1, r0|ldr r1, [r0, #0]|b.n local:+b8|adds r0, r0, #1|lsls r1, r1, #1|cmp r0, #6|bcc.n local:+94|add r1, pc, #84|b.n local:+b8|ldr r0, [r2, #16]|tst r0, r5|beq.n local:+b8|movs r3, #1|movs r2, #0|movs r0, r3|ldr r3, [sp, #40]|blx r3|movs r7, r0|cmp r4, #0|beq.n local:+ee|ldr r0, [r6, #0]|cmp r0, r4|beq.n local:+ee|movs r1, r4|mov r0, sp|bl func_0030361C|ldr r2, [sp, #8]|movs r1, r7|mov r0, sp|bl func_00303640|movs r0, #0|str r0, [sp, #0]|ldr r0, [r4, #28]|subs r0, r0, #1|str r0, [r4, #28]|mov r0, sp|bl func_003036C0|ldr r2, [sp, #8]|movs r1, r7|movs r0, r6|bl func_00303640|movs r0, r7|add sp, #20|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00101040",
+      "size": 282,
+      "instructionCount": 140,
+      "wideInstructionOffsets": [
+        100
+      ],
+      "localBranchCount": 27,
+      "memoryOperationCount": 47,
+      "returnCount": 1,
+      "indirectCallCount": 7,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_0010115A",
+      "nextGlobalOffset": 282,
+      "localTransfers": [
+        "26:beq.n:+34",
+        "28:b.n:+3e",
+        "3c:bne.n:+2a",
+        "40:beq.n:+4a",
+        "46:beq.n:+52",
+        "48:b.n:+a2",
+        "5a:b.n:+a2",
+        "6a:beq.n:+7c",
+        "6e:beq.n:+84",
+        "78:beq.n:+8a",
+        "7a:b.n:+92",
+        "82:b.n:+110",
+        "88:b.n:+98",
+        "a6:ble.n:+e2",
+        "aa:beq.n:+e2",
+        "b0:beq.n:+d2",
+        "ce:bne.n:+5c",
+        "d0:b.n:+e2",
+        "d6:bne.n:+5c",
+        "e0:beq.n:+5c",
+        "ec:bne.n:+110",
+        "f8:bne.n:+fc",
+        "102:ble.n:+110",
+        "108:beq.n:+116",
+        "10e:beq.n:+116",
+        "114:b.n:+4e",
+        "118:b.n:+4e"
+      ],
+      "returns": [
+        "50:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1c:blx:r1",
+        "30:blx:r1",
+        "38:blx:r1",
+        "80:blx:r1",
+        "9e:blx:r1",
+        "dc:blx:r1",
+        "e6:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 100,
+          "mnemonic": "bl",
+          "symbol": "func_002FED38",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #28|movs r7, #0|movs r4, r2|ldr r0, [r2, #4]|movs r6, r7|str r0, [sp, #4]|ldr r0, [r2, #8]|str r7, [sp, #8]|str r7, [sp, #12]|str r7, [sp, #16]|str r0, [sp, #0]|ldr r1, [r2, #24]|ldr r0, [sp, #32]|blx r1|movs r5, r0|ldr r1, [sp, #64]|ldr r0, [sp, #40]|orrs r0, r1|beq.n local:+34|b.n local:+3e|ldr r1, [r4, #24]|ldr r0, [sp, #32]|adds r6, r6, #1|blx r1|movs r5, r0|ldr r1, [r4, #32]|movs r0, r5|blx r1|cmp r0, #0|bne.n local:+2a|adds r0, r5, #1|beq.n local:+4a|ldr r0, [sp, #4]|lsls r0, r0, #31|beq.n local:+52|b.n local:+a2|movs r0, #0|mvns r0, r0|add sp, #44|pop {r4, r5, r6, r7, pc}|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r7, [r0, #0]|b.n local:+a2|lsls r1, r5, #24|add r2, sp, #12|lsrs r1, r1, #24|add r0, sp, #20|bl func_002FED38|adds r1, r0, #1|beq.n local:+7c|adds r0, r0, #2|beq.n local:+84|movs r0, #0|str r0, [sp, #8]|ldr r0, [sp, #4]|lsls r0, r0, #31|beq.n local:+8a|b.n local:+92|ldr r1, [r4, #28]|ldr r0, [sp, #32]|blx r1|b.n local:+110|movs r0, #1|str r0, [sp, #8]|b.n local:+98|mov r0, sp|ldrh r0, [r0, #20]|strh r0, [r7, #0]|adds r7, r7, #2|ldr r0, [sp, #0]|subs r0, r0, #1|str r0, [sp, #0]|ldr r1, [r4, #24]|ldr r0, [sp, #32]|adds r6, r6, #1|blx r1|movs r5, r0|ldr r0, [sp, #0]|cmp r0, #0|ble.n local:+e2|adds r0, r5, #1|beq.n local:+e2|ldr r0, [sp, #40]|cmp r0, #0|beq.n local:+d2|asrs r0, r5, #31|lsrs r0, r0, #27|adds r0, r0, r5|asrs r1, r0, #5|lsrs r0, r0, #5|lsls r2, r1, #2|ldr r1, [sp, #40]|lsls r0, r0, #5|adds r1, r2, r1|subs r2, r5, r0|ldr r1, [r1, #0]|movs r0, #1|lsls r0, r2|tst r1, r0|bne.n local:+5c|b.n local:+e2|ldr r0, [sp, #64]|cmp r0, #0|bne.n local:+5c|ldr r1, [r4, #32]|movs r0, r5|blx r1|cmp r0, #0|beq.n local:+5c|ldr r1, [r4, #28]|ldr r0, [sp, #32]|blx r1|ldr r0, [sp, #8]|cmp r0, #0|bne.n local:+110|ldr r0, [sp, #4]|ldr r1, [sp, #64]|lsls r0, r0, #31|lsrs r0, r0, #31|orrs r0, r1|bne.n local:+fc|strh r0, [r7, #0]|ldr r1, [r4, #8]|ldr r0, [sp, #0]|cmp r1, r0|ble.n local:+110|ldr r0, [sp, #64]|cmp r0, #0|beq.n local:+116|ldr r0, [sp, #0]|cmp r0, #0|beq.n local:+116|movs r0, #1|mvns r0, r0|b.n local:+4e|movs r0, r6|b.n local:+4e"
+    },
+    {
+      "name": "func_00303954",
+      "size": 300,
+      "instructionCount": 140,
+      "wideInstructionOffsets": [
+        44,
+        62,
+        92,
+        118,
+        140,
+        176,
+        194,
+        224,
+        250,
+        272
+      ],
+      "localBranchCount": 25,
+      "memoryOperationCount": 24,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 10,
+      "nextGlobal": "func_00303A88",
+      "nextGlobalOffset": 308,
+      "localTransfers": [
+        "18:bne.n:+20",
+        "32:bne.n:+48",
+        "34:b.n:+4e",
+        "44:bne.n:+54",
+        "4a:bhi.n:+36",
+        "4c:b.n:+54",
+        "52:bcc.n:+24",
+        "64:b.n:+a0",
+        "6c:bhi.n:+98",
+        "7c:beq.n:+98",
+        "92:beq.n:+98",
+        "96:b.n:+9a",
+        "a2:bls.n:+66",
+        "b6:bne.n:+cc",
+        "b8:b.n:+d2",
+        "c8:bne.n:+d8",
+        "ce:bhi.n:+ba",
+        "d0:b.n:+d8",
+        "d6:bcc.n:+a8",
+        "e8:b.n:+124",
+        "f0:bhi.n:+11c",
+        "100:beq.n:+11c",
+        "116:beq.n:+11c",
+        "11a:b.n:+11e",
+        "126:bls.n:+ea"
+      ],
+      "returns": [
+        "12a:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 44,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 62,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 92,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 118,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 140,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 176,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 194,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 224,
+          "mnemonic": "bl",
+          "symbol": "func_002FF094",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 250,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 272,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r4, r0|movs r0, #32|str r0, [r4, #4]|movs r0, #0|str r3, [r4, #12]|ldr r3, [pc, #284]|str r0, [r4, #8]|str r3, [r4, #0]|str r1, [r4, #20]|cmp r1, #0|strb r2, [r4, #24]|bne.n local:+20|ldr r1, [pc, #276]|str r1, [r4, #20]|strb r0, [r4, #24]|movs r5, #0|movs r6, #255|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r4|bl func_00303304|cmp r0, #0|bne.n local:+48|b.n local:+4e|lsls r2, r6, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r4|bl func_00303304|cmp r0, #0|bne.n local:+54|subs r6, r6, #1|cmp r6, r5|bhi.n local:+36|b.n local:+54|adds r5, r5, #1|cmp r5, r6|bcc.n local:+24|subs r0, r6, r5|str r6, [r4, #32]|adds r0, r0, #1|str r5, [r4, #28]|bl func_002FF094|movs r7, r0|str r0, [r4, #44]|b.n local:+a0|movs r0, r5|subs r0, #97|cmp r0, #25|bhi.n local:+98|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r4|bl func_00303304|cmp r0, #0|beq.n local:+98|movs r0, r5|subs r0, #32|lsls r2, r0, #24|str r0, [sp, #0]|lsrs r2, r2, #24|movs r1, #8|movs r0, r4|bl func_00303304|cmp r0, #0|beq.n local:+98|ldr r0, [sp, #0]|b.n local:+9a|movs r0, r5|strb r0, [r7, #0]|adds r7, r7, #1|adds r5, r5, #1|cmp r5, r6|bls.n local:+66|movs r5, #0|movs r6, #255|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r4|bl func_00303304|cmp r0, #0|bne.n local:+cc|b.n local:+d2|lsls r2, r6, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r4|bl func_00303304|cmp r0, #0|bne.n local:+d8|subs r6, r6, #1|cmp r6, r5|bhi.n local:+ba|b.n local:+d8|adds r5, r5, #1|cmp r5, r6|bcc.n local:+a8|subs r0, r6, r5|str r6, [r4, #40]|adds r0, r0, #1|str r5, [r4, #36]|bl func_002FF094|movs r7, r0|str r0, [r4, #48]|b.n local:+124|movs r0, r5|subs r0, #65|cmp r0, #25|bhi.n local:+11c|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r4|bl func_00303304|cmp r0, #0|beq.n local:+11c|movs r0, r5|adds r0, #32|lsls r2, r0, #24|str r0, [sp, #0]|lsrs r2, r2, #24|movs r1, #16|movs r0, r4|bl func_00303304|cmp r0, #0|beq.n local:+11c|ldr r0, [sp, #0]|b.n local:+11e|movs r0, r5|strb r0, [r7, #0]|adds r7, r7, #1|adds r5, r5, #1|cmp r5, r6|bls.n local:+ea|movs r0, r4|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00103F08",
+      "size": 310,
+      "instructionCount": 143,
+      "wideInstructionOffsets": [
+        10,
+        22,
+        50,
+        66,
+        84,
+        130,
+        152,
+        188,
+        206,
+        252,
+        274,
+        302
+      ],
+      "localBranchCount": 26,
+      "memoryOperationCount": 19,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 12,
+      "nextGlobal": "func_0010405C",
+      "nextGlobalOffset": 340,
+      "localTransfers": [
+        "26:beq.n:+11e",
+        "48:bne.n:+5e",
+        "4a:b.n:+64",
+        "5a:bne.n:+6a",
+        "60:bhi.n:+4c",
+        "62:b.n:+6a",
+        "68:bcc.n:+3a",
+        "70:b.n:+ac",
+        "78:bhi.n:+a4",
+        "88:beq.n:+a4",
+        "9e:beq.n:+a4",
+        "a2:b.n:+a6",
+        "ae:bls.n:+72",
+        "c2:bne.n:+d8",
+        "c4:b.n:+de",
+        "d4:bne.n:+e4",
+        "da:bhi.n:+c6",
+        "dc:b.n:+e4",
+        "e2:bcc.n:+b4",
+        "ea:b.n:+128",
+        "f2:bhi.n:+120",
+        "102:beq.n:+120",
+        "118:beq.n:+120",
+        "11c:b.n:+122",
+        "11e:b.n:+132",
+        "12a:bls.n:+ec"
+      ],
+      "returns": [
+        "134:pop:{r1, r2, r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 10,
+          "mnemonic": "bl",
+          "symbol": "func_00103E3C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 22,
+          "mnemonic": "bl",
+          "symbol": "func_00303954",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 50,
+          "mnemonic": "bl",
+          "symbol": "func_00302FB6",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 66,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 84,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 130,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 152,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 188,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 206,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 252,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 274,
+          "mnemonic": "bl",
+          "symbol": "func_00303304",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 302,
+          "mnemonic": "bl",
+          "symbol": "func_00302FEE",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r1, r2, r3, r4, r5, r6, r7, lr}|movs r5, r2|movs r6, r0|movs r4, r1|movs r0, r1|bl func_00103E3C|movs r1, r0|movs r3, r5|movs r2, #0|movs r0, r6|bl func_00303954|ldr r1, [pc, #284]|str r1, [r0, #0]|movs r6, r0|ldr r0, [r0, #20]|ldr r1, [pc, #280]|cmp r0, r1|beq.n local:+11e|movs r0, #1|strb r0, [r6, #24]|movs r2, #2|movs r1, r4|mov r0, sp|bl func_00302FB6|movs r4, #0|movs r5, #255|lsls r2, r4, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r6|bl func_00303304|cmp r0, #0|bne.n local:+5e|b.n local:+64|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r6|bl func_00303304|cmp r0, #0|bne.n local:+6a|subs r5, r5, #1|cmp r5, r4|bhi.n local:+4c|b.n local:+6a|adds r4, r4, #1|cmp r4, r5|bcc.n local:+3a|str r5, [r6, #32]|str r4, [r6, #28]|ldr r7, [r6, #44]|b.n local:+ac|movs r0, r4|subs r0, #97|cmp r0, #25|bhi.n local:+a4|lsls r2, r4, #24|lsrs r2, r2, #24|movs r1, #16|movs r0, r6|bl func_00303304|cmp r0, #0|beq.n local:+a4|movs r0, r4|subs r0, #32|lsls r2, r0, #24|str r0, [sp, #8]|lsrs r2, r2, #24|movs r1, #8|movs r0, r6|bl func_00303304|cmp r0, #0|beq.n local:+a4|ldr r0, [sp, #8]|b.n local:+a6|movs r0, r4|strb r0, [r7, #0]|adds r7, r7, #1|adds r4, r4, #1|cmp r4, r5|bls.n local:+72|movs r4, #0|movs r5, #255|lsls r2, r4, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r6|bl func_00303304|cmp r0, #0|bne.n local:+d8|b.n local:+de|lsls r2, r5, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r6|bl func_00303304|cmp r0, #0|bne.n local:+e4|subs r5, r5, #1|cmp r5, r4|bhi.n local:+c6|b.n local:+e4|adds r4, r4, #1|cmp r4, r5|bcc.n local:+b4|str r5, [r6, #40]|str r4, [r6, #36]|ldr r7, [r6, #48]|b.n local:+128|movs r0, r4|subs r0, #65|cmp r0, #25|bhi.n local:+120|lsls r2, r4, #24|lsrs r2, r2, #24|movs r1, #8|movs r0, r6|bl func_00303304|cmp r0, #0|beq.n local:+120|movs r0, r4|adds r0, #32|lsls r2, r0, #24|str r0, [sp, #8]|lsrs r2, r2, #24|movs r1, #16|movs r0, r6|bl func_00303304|cmp r0, #0|beq.n local:+120|ldr r0, [sp, #8]|b.n local:+122|b.n local:+132|movs r0, r4|strb r0, [r7, #0]|adds r7, r7, #1|adds r4, r4, #1|cmp r4, r5|bls.n local:+ec|mov r0, sp|bl func_00302FEE|movs r0, r6|pop {r1, r2, r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_00100CD0",
+      "size": 324,
+      "instructionCount": 160,
+      "wideInstructionOffsets": [
+        210,
+        244
+      ],
+      "localBranchCount": 31,
+      "memoryOperationCount": 52,
+      "returnCount": 1,
+      "indirectCallCount": 7,
+      "indirectTailCount": 0,
+      "directCallCount": 2,
+      "nextGlobal": "func_00100E14",
+      "nextGlobalOffset": 324,
+      "localTransfers": [
+        "24:bne.n:+14",
+        "2a:beq.n:+46",
+        "34:ble.n:+6a",
+        "38:bpl.n:+64",
+        "3e:beq.n:+54",
+        "42:bne.n:+64",
+        "44:b.n:+4e",
+        "62:ble.n:+6a",
+        "68:beq.n:+72",
+        "6e:beq.n:+bc",
+        "70:b.n:+ec",
+        "86:ble.n:+90",
+        "8a:beq.n:+98",
+        "8e:beq.n:+98",
+        "94:beq.n:+b8",
+        "96:b.n:+ec",
+        "9c:beq.n:+a2",
+        "a0:bne.n:+ec",
+        "b6:b.n:+be",
+        "ba:b.n:+be",
+        "c0:b.n:+ec",
+        "ee:ble.n:+fe",
+        "fc:bge.n:+c2",
+        "106:bmi.n:+10e",
+        "10c:b.n:+4a",
+        "110:bne.n:+132",
+        "114:bpl.n:+136",
+        "11a:bpl.n:+126",
+        "124:b.n:+128",
+        "134:b.n:+4a",
+        "142:b.n:+130"
+      ],
+      "returns": [
+        "4c:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "1a:blx:r1",
+        "20:blx:r1",
+        "5a:blx:r1",
+        "80:blx:r1",
+        "b0:blx:r1",
+        "e8:blx:r1",
+        "102:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 210,
+          "mnemonic": "blx",
+          "symbol": "func_002FFBE0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 244,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r5, #0|movs r4, r3|mvns r5, r5|sub sp, #12|movs r0, #0|str r0, [sp, #0]|str r0, [sp, #4]|ldr r7, [r3, #8]|ldr r6, [r3, #4]|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|str r0, [sp, #8]|ldr r1, [r4, #32]|blx r1|cmp r0, #0|bne.n local:+14|ldr r0, [sp, #8]|adds r0, r0, #1|beq.n local:+46|movs r0, #3|lsls r0, r0, #9|bics r6, r0|cmp r7, #0|ble.n local:+6a|lsls r0, r6, #25|bpl.n local:+64|ldr r0, [sp, #8]|cmp r0, #43|beq.n local:+54|cmp r0, #45|bne.n local:+64|b.n local:+4e|movs r0, #0|mvns r0, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|movs r0, #1|lsls r0, r0, #10|orrs r6, r0|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|subs r7, r7, #1|cmp r7, #0|str r0, [sp, #8]|ble.n local:+6a|ldr r0, [sp, #8]|cmp r0, #48|beq.n local:+72|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+bc|b.n local:+ec|movs r0, #1|ldr r1, [r4, #24]|lsls r0, r0, #9|orrs r6, r0|subs r7, r7, #1|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|cmp r7, #0|str r0, [sp, #8]|ble.n local:+90|cmp r0, #120|beq.n local:+98|cmp r0, #88|beq.n local:+98|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+b8|b.n local:+ec|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+a2|cmp r0, #16|bne.n local:+ec|movs r0, #1|ldr r1, [r4, #24]|lsls r0, r0, #9|bics r6, r0|subs r7, r7, #1|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|str r0, [sp, #8]|movs r0, #16|b.n local:+be|movs r0, #8|b.n local:+be|movs r0, #10|str r0, [sp, #20]|b.n local:+ec|ldr r2, [sp, #20]|movs r0, #1|ldr r1, [sp, #4]|lsls r0, r0, #9|orrs r6, r0|ldr r0, [sp, #0]|subs r7, r7, #1|asrs r3, r2, #31|blx func_002FFBE0|ldr r2, [sp, #8]|asrs r3, r2, #31|adds r0, r0, r2|adcs r1, r3|str r1, [sp, #4]|str r0, [sp, #0]|ldr r1, [r4, #24]|ldr r0, [sp, #16]|adds r5, r5, #1|blx r1|str r0, [sp, #8]|cmp r7, #0|ble.n local:+fe|ldr r1, [sp, #20]|ldr r0, [sp, #8]|bl func_002FEDD0|cmp r0, #0|str r0, [sp, #8]|bge.n local:+c2|ldr r1, [r4, #28]|ldr r0, [sp, #16]|blx r1|lsls r0, r6, #22|bmi.n local:+10e|movs r0, #1|mvns r0, r0|b.n local:+4a|lsls r0, r6, #31|bne.n local:+132|lsls r0, r6, #25|bpl.n local:+136|ldr r1, [sp, #0]|lsls r0, r6, #21|bpl.n local:+126|ldr r0, [sp, #4]|movs r2, #0|negs r1, r1|sbcs r2, r0|b.n local:+128|ldr r2, [sp, #4]|ldr r0, [r4, #0]|adds r3, r0, #4|str r3, [r4, #0]|ldr r0, [r0, #0]|stmia r0!, {r1, r2}|movs r0, r5|b.n local:+4a|ldr r0, [r4, #0]|adds r1, r0, #4|str r1, [r4, #0]|ldr r0, [r0, #0]|ldr r2, [sp, #4]|ldr r1, [sp, #0]|b.n local:+130"
+    },
+    {
+      "name": "func_001007BC",
+      "size": 330,
+      "instructionCount": 148,
+      "wideInstructionOffsets": [
+        30,
+        50,
+        118,
+        126,
+        136,
+        158,
+        166,
+        200,
+        206,
+        212,
+        216,
+        222,
+        256,
+        280,
+        302,
+        310,
+        322
+      ],
+      "localBranchCount": 11,
+      "memoryOperationCount": 44,
+      "returnCount": 1,
+      "indirectCallCount": 2,
+      "indirectTailCount": 0,
+      "directCallCount": 17,
+      "nextGlobal": "func_0010092C",
+      "nextGlobalOffset": 368,
+      "localTransfers": [
+        "a:bne.n:+e4",
+        "14:bne.n:+1a",
+        "24:beq.n:+44",
+        "38:bne.n:+40",
+        "3e:bgt.n:+44",
+        "50:beq.n:+90",
+        "bc:beq.n:+dc",
+        "c4:bne.n:+dc",
+        "e8:beq.n:+13c",
+        "126:beq.n:+140",
+        "148:b.n:+13c"
+      ],
+      "returns": [
+        "13e:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "b4:blx:r3",
+        "114:blx:r6"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 30,
+          "mnemonic": "bl",
+          "symbol": "func_00100BCC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 50,
+          "mnemonic": "bl",
+          "symbol": "func_00100B8C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 118,
+          "mnemonic": "bl",
+          "symbol": "func_002FF7F8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 126,
+          "mnemonic": "bl",
+          "symbol": "func_002FF830",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 136,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 158,
+          "mnemonic": "bl",
+          "symbol": "func_002FF7F8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 166,
+          "mnemonic": "bl",
+          "symbol": "func_002FF878",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 200,
+          "mnemonic": "blx",
+          "symbol": "func_002FF10C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 206,
+          "mnemonic": "blx",
+          "symbol": "func_002FF10C",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 212,
+          "mnemonic": "bl",
+          "symbol": "func_002FF89C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 216,
+          "mnemonic": "blx",
+          "symbol": "func_002FF8C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 222,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 256,
+          "mnemonic": "bl",
+          "symbol": "func_002FF7F8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 280,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 302,
+          "mnemonic": "bl",
+          "symbol": "func_002FEFDC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 310,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 322,
+          "mnemonic": "bl",
+          "symbol": "func_002FF86C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #44|ldr r6, [pc, #324]|ldr r0, [r6, #0]|cmp r0, #0|bne.n local:+e4|add r0, pc, #320|movs r0, #0|nop @ (mov r8, r8)|movs r5, r0|bne.n local:+1a|movs r5, r6|adds r5, #12|movs r0, r5|movs r1, #58|bl func_00100BCC|cmp r0, #0|beq.n local:+44|movs r1, #0|ldr r2, [pc, #288]|strb r1, [r0, #0]|adds r0, r0, #1|adds r2, r2, #4|add r1, pc, #296|bl func_00100B8C|cmp r0, #1|bne.n local:+40|ldr r0, [r6, #4]|cmp r0, #0|bgt.n local:+44|movs r0, #1|str r0, [r6, #4]|ldr r1, [pc, #280]|movs r0, #20|str r1, [sp, #20]|movs r0, r1|nop @ (mov r8, r8)|movs r7, r0|beq.n local:+90|movs r1, #1|lsls r1, r1, #9|str r1, [r0, #4]|movs r1, #0|str r1, [r0, #8]|str r1, [r0, #12]|ldr r1, [pc, #260]|movs r0, r7|adds r0, #16|str r1, [r7, #0]|str r0, [sp, #24]|movs r4, r7|add r0, sp, #36|nop @ (mov r8, r8)|nop @ (mov r8, r8)|movs r2, r0|add r1, pc, #244|add r0, sp, #16|bl func_002FF7F8|movs r1, r0|ldr r0, [sp, #24]|bl func_002FF830|movs r4, r0|subs r4, #16|add r0, sp, #16|bl func_002FF86C|ldr r0, [pc, #220]|str r0, [r4, #0]|ldr r4, [pc, #204]|add r0, sp, #32|nop @ (mov r8, r8)|nop @ (mov r8, r8)|movs r2, r0|movs r1, r5|add r0, sp, #4|bl func_002FF7F8|movs r7, r0|mov r0, sp|bl func_002FF878|movs r2, r0|ldr r0, [r4, #0]|movs r1, r7|ldr r3, [r0, #12]|movs r0, r4|blx r3|str r0, [r6, #8]|ldr r4, [sp, #0]|cmp r4, #0|beq.n local:+dc|ldr r0, [r4, #28]|subs r0, r0, #1|str r0, [r4, #28]|bne.n local:+dc|ldr r0, [r4, #24]|blx func_002FF10C|ldr r0, [r4, #8]|blx func_002FF10C|movs r0, r4|bl func_002FF89C|blx func_002FF8C0|add r0, sp, #4|bl func_002FF86C|str r5, [r6, #0]|ldr r4, [r6, #8]|adds r0, r4, #1|beq.n local:+13c|add r0, sp, #8|str r0, [sp, #16]|ldr r7, [r6, #4]|ldr r5, [pc, #108]|ldr r6, [sp, #52]|add r0, sp, #28|nop @ (mov r8, r8)|nop @ (mov r8, r8)|movs r2, r0|add r1, pc, #88|add r0, sp, #12|bl func_002FF7F8|str r6, [sp, #0]|str r0, [sp, #4]|ldr r0, [r5, #0]|movs r3, r7|ldr r6, [r0, #16]|movs r2, r4|ldr r0, [sp, #16]|movs r1, r5|blx r6|add r0, sp, #12|bl func_002FF86C|ldr r2, [sp, #8]|movs r0, r2|subs r0, #12|ldr r0, [r0, #8]|cmp r0, #0|beq.n local:+140|ldr r3, [sp, #56]|ldr r1, [sp, #48]|ldr r0, [sp, #44]|bl func_002FEFDC|movs r4, r0|add r0, sp, #8|bl func_002FF86C|movs r0, r4|add sp, #60|pop {r4, r5, r6, r7, pc}|add r0, sp, #8|bl func_002FF86C|movs r0, #0|b.n local:+13c"
+    },
+    {
+      "name": "func_00100E14",
+      "size": 330,
+      "instructionCount": 164,
+      "wideInstructionOffsets": [
+        228
+      ],
+      "localBranchCount": 38,
+      "memoryOperationCount": 50,
+      "returnCount": 1,
+      "indirectCallCount": 7,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00100F5E",
+      "nextGlobalOffset": 330,
+      "localTransfers": [
+        "22:bne.n:+12",
+        "28:beq.n:+44",
+        "32:ble.n:+68",
+        "36:bpl.n:+62",
+        "3c:beq.n:+52",
+        "40:bne.n:+62",
+        "42:b.n:+4c",
+        "60:ble.n:+68",
+        "66:beq.n:+70",
+        "6c:beq.n:+ba",
+        "6e:b.n:+dc",
+        "84:ble.n:+8e",
+        "88:beq.n:+96",
+        "8c:beq.n:+96",
+        "92:beq.n:+b6",
+        "94:b.n:+dc",
+        "9a:beq.n:+a0",
+        "9e:bne.n:+dc",
+        "b4:b.n:+bc",
+        "b8:b.n:+bc",
+        "be:b.n:+dc",
+        "de:ble.n:+ec",
+        "ea:bge.n:+c0",
+        "f4:bmi.n:+fc",
+        "fa:b.n:+48",
+        "fe:bne.n:+146",
+        "102:bpl.n:+128",
+        "108:bpl.n:+10c",
+        "116:bpl.n:+11c",
+        "11a:b.n:+146",
+        "11e:bpl.n:+124",
+        "122:b.n:+146",
+        "126:b.n:+146",
+        "132:bpl.n:+13a",
+        "138:b.n:+146",
+        "13e:bpl.n:+144",
+        "142:b.n:+146",
+        "148:b.n:+48"
+      ],
+      "returns": [
+        "4a:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "18:blx:r1",
+        "1e:blx:r1",
+        "58:blx:r1",
+        "7e:blx:r1",
+        "ae:blx:r1",
+        "d8:blx:r1",
+        "f0:blx:r1"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 228,
+          "mnemonic": "bl",
+          "symbol": "func_002FEDD0",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r7, #0|movs r5, r3|mvns r7, r7|sub sp, #12|ldr r4, [r3, #4]|movs r0, #0|str r0, [sp, #4]|ldr r6, [r3, #8]|ldr r1, [r5, #24]|ldr r0, [sp, #16]|adds r7, r7, #1|blx r1|str r0, [sp, #0]|ldr r1, [r5, #32]|blx r1|cmp r0, #0|bne.n local:+12|ldr r0, [sp, #0]|adds r0, r0, #1|beq.n local:+44|movs r0, #3|lsls r0, r0, #9|bics r4, r0|cmp r6, #0|ble.n local:+68|lsls r0, r4, #25|bpl.n local:+62|ldr r0, [sp, #0]|cmp r0, #43|beq.n local:+52|cmp r0, #45|bne.n local:+62|b.n local:+4c|movs r0, #0|mvns r0, r0|add sp, #28|pop {r4, r5, r6, r7, pc}|movs r0, #1|lsls r0, r0, #10|orrs r4, r0|ldr r1, [r5, #24]|ldr r0, [sp, #16]|adds r7, r7, #1|blx r1|subs r6, r6, #1|cmp r6, #0|str r0, [sp, #0]|ble.n local:+68|ldr r0, [sp, #0]|cmp r0, #48|beq.n local:+70|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+ba|b.n local:+dc|movs r0, #1|ldr r1, [r5, #24]|lsls r0, r0, #9|orrs r4, r0|subs r6, r6, #1|ldr r0, [sp, #16]|adds r7, r7, #1|blx r1|cmp r6, #0|str r0, [sp, #0]|ble.n local:+8e|cmp r0, #120|beq.n local:+96|cmp r0, #88|beq.n local:+96|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+b6|b.n local:+dc|ldr r0, [sp, #20]|cmp r0, #0|beq.n local:+a0|cmp r0, #16|bne.n local:+dc|movs r0, #1|ldr r1, [r5, #24]|lsls r0, r0, #9|bics r4, r0|subs r6, r6, #1|ldr r0, [sp, #16]|adds r7, r7, #1|blx r1|str r0, [sp, #0]|movs r0, #16|b.n local:+bc|movs r0, #8|b.n local:+bc|movs r0, #10|str r0, [sp, #20]|b.n local:+dc|movs r1, #1|ldr r2, [sp, #20]|lsls r1, r1, #9|orrs r4, r1|ldr r1, [sp, #4]|subs r6, r6, #1|muls r1, r2|adds r0, r1, r0|str r0, [sp, #4]|ldr r1, [r5, #24]|ldr r0, [sp, #16]|adds r7, r7, #1|blx r1|str r0, [sp, #0]|cmp r6, #0|ble.n local:+ec|ldr r1, [sp, #20]|ldr r0, [sp, #0]|bl func_002FEDD0|cmp r0, #0|bge.n local:+c0|ldr r1, [r5, #28]|ldr r0, [sp, #16]|blx r1|lsls r0, r4, #22|bmi.n local:+fc|movs r0, #1|mvns r0, r0|b.n local:+48|lsls r0, r4, #31|bne.n local:+146|lsls r0, r4, #25|bpl.n local:+128|lsls r0, r4, #21|ldr r0, [sp, #4]|bpl.n local:+10c|negs r0, r0|ldr r1, [r5, #0]|adds r2, r1, #4|str r2, [r5, #0]|ldr r1, [r1, #0]|lsls r2, r4, #20|bpl.n local:+11c|strb r0, [r1, #0]|b.n local:+146|lsls r2, r4, #28|bpl.n local:+124|strh r0, [r1, #0]|b.n local:+146|str r0, [r1, #0]|b.n local:+146|ldr r0, [r5, #0]|adds r1, r0, #4|str r1, [r5, #0]|ldr r0, [r0, #0]|lsls r1, r4, #20|bpl.n local:+13a|ldr r1, [sp, #4]|strb r1, [r0, #0]|b.n local:+146|lsls r1, r4, #28|ldr r1, [sp, #4]|bpl.n local:+144|strh r1, [r0, #0]|b.n local:+146|str r1, [r0, #0]|movs r0, r7|b.n local:+48"
+    },
+    {
+      "name": "func_00102590",
+      "size": 372,
+      "instructionCount": 176,
+      "wideInstructionOffsets": [
+        54,
+        106,
+        220,
+        238,
+        256,
+        282,
+        288,
+        300,
+        326,
+        342
+      ],
+      "localBranchCount": 24,
+      "memoryOperationCount": 48,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 10,
+      "nextGlobal": "func_00102724",
+      "nextGlobalOffset": 404,
+      "localTransfers": [
+        "12:bcc.n:+1a",
+        "18:bls.n:+3a",
+        "1c:bls.n:+22",
+        "20:b.n:+24",
+        "26:bcs.n:+2c",
+        "2a:b.n:+2e",
+        "46:bcs.n:+4a",
+        "52:bcs.n:+56",
+        "60:bls.n:+6e",
+        "7e:beq.n:+12a",
+        "9a:bhi.n:+b4",
+        "a2:bcc.n:+b4",
+        "a6:beq.n:+136",
+        "aa:bhi.n:+136",
+        "b2:bls.n:+136",
+        "c2:bls.n:+c6",
+        "d2:bcc.n:+d6",
+        "e4:beq.n:+f2",
+        "f4:beq.n:+104",
+        "108:beq.n:+11e",
+        "128:b.n:+16c",
+        "134:b.n:+16c",
+        "13a:beq.n:+14a",
+        "14c:beq.n:+15a"
+      ],
+      "returns": [
+        "172:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 54,
+          "mnemonic": "bl",
+          "symbol": "func_00300ABC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 106,
+          "mnemonic": "bl",
+          "symbol": "func_00300ABC",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 220,
+          "mnemonic": "bl",
+          "symbol": "func_002FFB14",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 238,
+          "mnemonic": "bl",
+          "symbol": "func_002FFAF4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 256,
+          "mnemonic": "bl",
+          "symbol": "func_002FFAF4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 282,
+          "mnemonic": "bl",
+          "symbol": "func_002FFAF4",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 288,
+          "mnemonic": "bl",
+          "symbol": "func_00300A00",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 300,
+          "mnemonic": "bl",
+          "symbol": "func_00300A00",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 326,
+          "mnemonic": "bl",
+          "symbol": "func_00301026",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 342,
+          "mnemonic": "bl",
+          "symbol": "func_00301026",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|sub sp, #20|movs r4, r1|movs r5, r0|ldr r0, [r0, #0]|ldr r6, [sp, #56]|subs r0, #12|ldr r0, [r0, #8]|cmp r0, r4|bcc.n local:+1a|ldr r1, [sp, #60]|cmp r1, r6|bls.n local:+3a|cmp r0, r6|bls.n local:+22|movs r1, r0|b.n local:+24|movs r1, r6|cmp r0, r4|bcs.n local:+2c|movs r3, r4|b.n local:+2e|ldr r3, [sp, #60]|str r1, [sp, #0]|movs r0, #9|add r2, pc, #320|add r1, pc, #316|bl func_00300ABC|ldr r0, [r5, #0]|ldr r1, [sp, #28]|subs r0, #12|ldr r0, [r0, #8]|subs r7, r0, r4|cmp r1, r7|bcs.n local:+4a|movs r7, r1|ldr r1, [sp, #60]|subs r6, r6, r1|ldr r1, [sp, #64]|cmp r1, r6|bcs.n local:+56|movs r6, r1|subs r3, r0, r7|movs r0, #14|mvns r0, r0|subs r0, r0, r6|cmp r3, r0|bls.n local:+6e|str r0, [sp, #0]|movs r0, #8|add r2, pc, #268|add r1, pc, #264|bl func_00300ABC|ldr r0, [r5, #0]|movs r1, r0|subs r1, #12|mov lr, r1|ldr r1, [r1, #8]|mov ip, r1|subs r1, r1, r7|adds r7, r1, r6|beq.n local:+12a|subs r1, r1, r4|str r1, [sp, #8]|ldr r2, [sp, #28]|mov r1, lr|ldr r1, [r1, #0]|adds r2, r4, r2|str r2, [sp, #12]|ldr r3, [sp, #32]|ldr r2, [sp, #60]|adds r1, r1, #1|adds r2, r3, r2|cmp r1, #1|str r2, [sp, #16]|bhi.n local:+b4|mov r1, lr|ldr r1, [r1, #4]|cmp r1, r7|bcc.n local:+b4|cmp r3, #0|beq.n local:+136|cmp r0, r3|bhi.n local:+136|mov r1, ip|adds r2, r0, r1|cmp r2, r3|bls.n local:+136|mov r0, ip|lsrs r1, r0, #1|adds r1, r1, r0|lsrs r2, r0, #3|adds r1, r1, r2|adds r0, #128|cmp r0, r1|bls.n local:+c6|movs r1, r0|str r1, [sp, #0]|ldr r2, [sp, #0]|mov r1, sp|cmp r2, r7|add r0, sp, #4|str r7, [sp, #4]|bcc.n local:+d6|movs r0, r1|ldr r1, [r0, #0]|movs r2, r7|movs r0, r5|bl func_002FFB14|movs r7, r0|cmp r4, #0|beq.n local:+f2|movs r0, r7|ldr r1, [r5, #0]|adds r0, #12|movs r2, r4|bl func_002FFAF4|cmp r6, #0|beq.n local:+104|movs r0, r7|adds r0, #12|ldr r1, [sp, #16]|adds r0, r0, r4|movs r2, r6|bl func_002FFAF4|ldr r0, [sp, #8]|cmp r0, #0|beq.n local:+11e|ldr r2, [r5, #0]|ldr r1, [sp, #12]|movs r0, r7|adds r0, #12|adds r0, r0, r4|adds r1, r2, r1|ldr r2, [sp, #8]|adds r0, r0, r6|bl func_002FFAF4|movs r0, r5|bl func_00300A00|adds r7, #12|str r7, [r5, #0]|b.n local:+16c|movs r0, r5|bl func_00300A00|ldr r0, [pc, #68]|str r0, [r5, #0]|b.n local:+16c|ldr r1, [sp, #8]|cmp r1, #0|beq.n local:+14a|ldr r1, [sp, #12]|adds r2, r4, r6|adds r1, r0, r1|adds r0, r0, r2|ldr r2, [sp, #8]|bl func_00301026|cmp r6, #0|beq.n local:+15a|ldr r0, [r5, #0]|ldr r1, [sp, #16]|adds r0, r0, r4|movs r2, r6|bl func_00301026|ldr r0, [r5, #0]|mov r2, sp|subs r0, #12|str r7, [r0, #8]|ldr r0, [r5, #0]|adds r1, r7, r0|movs r0, #0|strb r0, [r2, #0]|strb r0, [r1, #0]|ldr r0, [r5, #0]|add sp, #36|adds r0, r0, r4|pop {r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_0030291C",
+      "size": 492,
+      "instructionCount": 238,
+      "wideInstructionOffsets": [
+        28,
+        44,
+        90,
+        160,
+        184,
+        224,
+        290,
+        426
+      ],
+      "localBranchCount": 38,
+      "memoryOperationCount": 84,
+      "returnCount": 4,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 8,
+      "nextGlobal": "func_00302B8C",
+      "nextGlobalOffset": 624,
+      "localTransfers": [
+        "18:bpl.n:+20",
+        "28:beq.n:+32",
+        "30:b.n:+1b2",
+        "3e:bne.n:+60",
+        "42:bpl.n:+52",
+        "4a:bhi.n:+4e",
+        "50:b.n:+60",
+        "6a:bge.n:+8a",
+        "70:bmi.n:+8a",
+        "88:b.n:+1e8",
+        "9c:bne.n:+106",
+        "ac:beq.n:+de",
+        "b4:beq.n:+cc",
+        "c0:beq.n:+cc",
+        "ca:b.n:+102",
+        "dc:b.n:+fe",
+        "e8:beq.n:+cc",
+        "f8:bne.n:+102",
+        "10e:bpl.n:+150",
+        "116:bhi.n:+11a",
+        "11c:beq.n:+12a",
+        "128:bne.n:+1b2",
+        "12e:bpl.n:+13a",
+        "138:b.n:+1e2",
+        "152:bpl.n:+158",
+        "156:b.n:+16c",
+        "168:beq.n:+178",
+        "172:bls.n:+17c",
+        "176:b.n:+17e",
+        "17a:b.n:+16c",
+        "184:bmi.n:+190",
+        "18a:ble.n:+190",
+        "18e:beq.n:+1ce",
+        "192:bhi.n:+196",
+        "1a2:ble.n:+1b8",
+        "1b0:beq.n:+1b8",
+        "1ba:beq.n:+1ce",
+        "1d2:bpl.n:+1e8"
+      ],
+      "returns": [
+        "14e:pop:{r3, r4, r5, r6, r7, pc}",
+        "1b6:pop:{r3, r4, r5, r6, r7, pc}",
+        "1e6:pop:{r3, r4, r5, r6, r7, pc}",
+        "1ea:pop:{r3, r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 28,
+          "mnemonic": "bl",
+          "symbol": "func_00301DC8",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 44,
+          "mnemonic": "bl",
+          "symbol": "func_00301D1C",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 90,
+          "mnemonic": "blx",
+          "symbol": "func_003022C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 160,
+          "mnemonic": "blx",
+          "symbol": "func_00302274",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 184,
+          "mnemonic": "blx",
+          "symbol": "func_002FECF8",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 224,
+          "mnemonic": "blx",
+          "symbol": "func_002FECF8",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 290,
+          "mnemonic": "bl",
+          "symbol": "func_00301D30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 426,
+          "mnemonic": "bl",
+          "symbol": "func_00301D30",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r3, r4, r5, r6, r7, lr}|movs r5, r0|ldr r0, [r1, #12]|movs r4, r1|movs r1, #5|lsls r1, r1, #19|bics r0, r1|movs r1, #1|lsls r1, r1, #22|orrs r0, r1|str r0, [r4, #12]|lsls r0, r0, #26|bpl.n local:+20|movs r0, r4|bl func_00301DC8|ldr r1, [pc, #456]|ldr r0, [r4, #12]|ands r1, r0|cmp r1, #2|beq.n local:+32|movs r0, r4|bl func_00301D1C|b.n local:+1b2|movs r1, #5|movs r2, #1|lsls r1, r1, #13|ands r1, r0|lsls r2, r2, #15|cmp r1, r2|bne.n local:+60|lsls r0, r0, #15|bpl.n local:+52|ldr r1, [r4, #4]|ldr r0, [r4, #44]|cmp r0, r1|bhi.n local:+4e|movs r0, r1|str r0, [r4, #4]|b.n local:+60|ldr r0, [r4, #16]|str r0, [r4, #44]|str r0, [r4, #4]|ldr r0, [r4, #20]|blx func_003022C0|str r0, [r4, #24]|ldr r1, [r4, #8]|lsls r6, r5, #24|movs r2, #0|lsrs r6, r6, #24|cmp r1, #0|bge.n local:+8a|ldr r0, [r4, #12]|lsls r3, r0, #22|bmi.n local:+8a|mvns r1, r1|str r1, [r4, #8]|movs r1, #9|str r2, [r4, #0]|lsls r1, r1, #13|orrs r0, r1|str r0, [r4, #12]|ldr r0, [r4, #4]|adds r1, r0, #1|str r1, [r4, #4]|strb r6, [r0, #0]|b.n local:+1e8|ldr r0, [r4, #12]|movs r1, #1|lsls r1, r1, #13|orrs r0, r1|str r0, [r4, #12]|movs r0, #0|str r0, [r4, #0]|ldr r0, [r4, #16]|cmp r0, #0|bne.n local:+106|ldr r0, [r4, #20]|blx func_00302274|movs r5, r4|adds r5, #36|movs r7, #1|cmp r0, #0|beq.n local:+de|ldr r0, [r4, #12]|lsls r0, r0, #22|lsrs r0, r0, #30|beq.n local:+cc|ldr r0, [r4, #28]|blx func_002FECF8|cmp r0, #0|str r0, [r4, #16]|beq.n local:+cc|ldr r1, [r4, #12]|lsls r0, r7, #11|orrs r1, r0|str r1, [r4, #12]|b.n local:+102|str r7, [r4, #28]|str r5, [r4, #16]|ldr r0, [r4, #12]|movs r1, #3|lsls r1, r1, #8|bics r0, r1|movs r1, #1|lsls r1, r1, #10|b.n local:+fe|ldr r0, [r4, #28]|blx func_002FECF8|cmp r0, #0|str r0, [r4, #16]|beq.n local:+cc|ldr r0, [r4, #12]|movs r1, #1|lsls r1, r1, #11|orrs r0, r1|str r0, [r4, #12]|lsls r1, r0, #22|lsrs r1, r1, #30|bne.n local:+102|movs r1, #255|adds r1, #1|orrs r0, r1|str r0, [r4, #12]|ldr r0, [r4, #16]|str r0, [r4, #4]|ldr r2, [r4, #12]|ldr r7, [pc, #228]|ldr r5, [r4, #16]|lsls r0, r2, #23|bpl.n local:+150|ldr r1, [r4, #4]|ldr r0, [r4, #44]|cmp r0, r1|bhi.n local:+11a|movs r0, r1|subs r1, r0, r5|beq.n local:+12a|movs r2, r4|movs r0, r5|bl func_00301D30|cmp r0, #0|bne.n local:+1b2|ldr r0, [r4, #12]|lsls r1, r0, #8|bpl.n local:+13a|str r5, [r4, #44]|movs r0, #0|str r5, [r4, #4]|str r0, [r4, #8]|b.n local:+1e2|adds r1, r5, #1|str r1, [r4, #44]|str r1, [r4, #4]|ldr r1, [r4, #28]|orrs r0, r7|subs r1, r1, #1|str r1, [r4, #8]|str r0, [r4, #12]|movs r0, r6|strb r6, [r5, #0]|pop {r3, r4, r5, r6, r7, pc}|lsls r0, r2, #8|bpl.n local:+158|ands r2, r7|b.n local:+16c|ldr r0, [r4, #4]|adds r1, r0, #1|str r1, [r4, #4]|strb r6, [r0, #0]|ldr r0, [r4, #12]|orrs r0, r7|cmp r6, #10|str r0, [r4, #12]|beq.n local:+178|movs r2, #0|ldr r1, [r4, #44]|ldr r0, [r4, #4]|cmp r1, r0|bls.n local:+17c|movs r3, r1|b.n local:+17e|movs r2, #1|b.n local:+16c|movs r3, r0|ldr r7, [r4, #12]|subs r3, r3, r5|lsls r7, r7, #21|bmi.n local:+190|ldr r7, [r4, #28]|cmp r7, r3|ble.n local:+190|cmp r2, #0|beq.n local:+1ce|cmp r1, r0|bhi.n local:+196|movs r1, r0|subs r7, r1, r0|movs r0, #0|str r5, [r4, #44]|str r5, [r4, #4]|cmp r3, #0|str r0, [r4, #8]|ble.n local:+1b8|movs r2, r4|movs r1, r3|movs r0, r5|bl func_00301D30|cmp r0, #0|beq.n local:+1b8|movs r0, #0|mvns r0, r0|pop {r3, r4, r5, r6, r7, pc}|cmp r7, #0|beq.n local:+1ce|ldr r0, [r4, #24]|str r5, [r4, #44]|str r5, [r4, #4]|subs r0, r0, r7|str r0, [r4, #24]|ldr r0, [r4, #12]|movs r1, #16|orrs r0, r1|str r0, [r4, #12]|ldr r0, [r4, #12]|lsls r0, r0, #8|bpl.n local:+1e8|ldr r1, [r4, #4]|ldr r0, [r4, #24]|str r5, [r4, #44]|subs r1, r1, r5|adds r0, r0, r1|str r5, [r4, #4]|str r0, [r4, #24]|movs r0, #1|mvns r0, r0|pop {r3, r4, r5, r6, r7, pc}|movs r0, r6|pop {r3, r4, r5, r6, r7, pc}"
+    },
+    {
+      "name": "func_0010145C",
+      "size": 510,
+      "instructionCount": 248,
+      "wideInstructionOffsets": [
+        114,
+        136,
+        240,
+        270,
+        424,
+        430,
+        468
+      ],
+      "localBranchCount": 37,
+      "memoryOperationCount": 70,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 7,
+      "nextGlobal": "func_00101934",
+      "nextGlobalOffset": 1240,
+      "localTransfers": [
+        "a:beq.n:+18",
+        "10:beq.n:+1c",
+        "16:b.n:+2a",
+        "1a:b.n:+3a",
+        "1e:b.n:+14",
+        "30:bne.n:+20",
+        "34:beq.n:+3c",
+        "48:beq.n:+4e",
+        "4c:bne.n:+7c",
+        "56:beq.n:+5e",
+        "5c:b.n:+7c",
+        "60:b.n:+5a",
+        "82:bne.n:+62",
+        "90:beq.n:+98",
+        "a0:ble.n:+a8",
+        "b2:bne.n:+c2",
+        "c6:bge.n:+d4",
+        "d2:b.n:+f0",
+        "da:ble.n:+fa",
+        "f8:b.n:+be",
+        "fc:bge.n:+104",
+        "102:b.n:+106",
+        "108:bge.n:+10c",
+        "124:bne.n:+130",
+        "136:bne.n:+146",
+        "14c:bne.n:+15c",
+        "162:bne.n:+172",
+        "178:bne.n:+188",
+        "18e:bne.n:+19a",
+        "1a6:ble.n:+1ae",
+        "1ac:b.n:+1b2",
+        "1ba:beq.n:+1c2",
+        "1ca:beq.n:+1d4",
+        "1d2:bne.n:+1f8",
+        "1e2:bne.n:+1f8",
+        "1f6:b.n:+be",
+        "1fc:b.n:+be"
+      ],
+      "returns": [
+        "c0:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 114,
+          "mnemonic": "blx",
+          "symbol": "func_002FFBE0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 136,
+          "mnemonic": "blx",
+          "symbol": "func_002FF110",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 240,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 270,
+          "mnemonic": "bl",
+          "symbol": "func_002FF118",
+          "targetMode": "thumb",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 424,
+          "mnemonic": "blx",
+          "symbol": "func_001955C0",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 430,
+          "mnemonic": "blx",
+          "symbol": "func_00195590",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        },
+        {
+          "offset": 468,
+          "mnemonic": "blx",
+          "symbol": "func_002FED78",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r6, r0|sub sp, #44|ldrb r0, [r1, #0]|cmp r0, #255|beq.n local:+18|adds r1, r1, #1|cmp r0, #45|beq.n local:+1c|movs r3, #0|movs r0, #0|b.n local:+2a|movs r0, #0|b.n local:+3a|movs r3, #1|b.n local:+14|ldr r2, [sp, #0]|movs r4, #10|adds r1, r1, #1|muls r2, r4|adds r0, r0, r2|str r0, [sp, #0]|ldrb r0, [r1, #0]|cmp r0, #255|bne.n local:+20|cmp r3, #0|beq.n local:+3c|ldr r0, [sp, #0]|negs r0, r0|str r0, [sp, #0]|movs r5, #0|str r5, [sp, #12]|ldr r0, [sp, #52]|movs r4, r5|ldrb r0, [r0, #0]|cmp r0, #45|beq.n local:+4e|cmp r0, #43|bne.n local:+7c|ldr r1, [sp, #52]|adds r1, r1, #1|cmp r0, #45|str r1, [sp, #52]|beq.n local:+5e|movs r0, #0|str r0, [sp, #12]|b.n local:+7c|movs r0, #1|b.n local:+5a|adds r0, r0, #1|movs r2, #0|str r2, [sp, #4]|str r0, [sp, #52]|movs r0, r5|movs r1, r4|movs r2, #10|movs r3, #0|blx func_002FFBE0|ldr r4, [sp, #4]|adds r5, r7, r0|adcs r4, r1|ldr r0, [sp, #52]|ldrb r7, [r0, #0]|cmp r7, #255|bne.n local:+62|movs r1, #0|movs r0, r1|blx func_002FF110|ldr r1, [sp, #12]|cmp r1, #0|beq.n local:+98|lsls r1, r0, #2|adds r0, r0, r1|lsrs r0, r0, #1|lsls r0, r0, #8|lsrs r0, r0, #30|cmp r0, #1|str r0, [sp, #16]|ble.n local:+a8|movs r0, #0|mvns r0, r0|str r0, [sp, #16]|ldr r1, [sp, #56]|ldr r0, [sp, #0]|adds r7, r0, r1|movs r0, r5|orrs r0, r4|bne.n local:+c2|ldr r0, [sp, #12]|lsls r0, r0, #31|str r0, [r6, #4]|movs r0, #0|str r0, [r6, #0]|add sp, #60|pop {r4, r5, r6, r7, pc}|ldr r0, [pc, #1000]|cmp r7, r0|bge.n local:+d4|ldr r0, [sp, #12]|lsls r0, r0, #31|str r0, [r6, #4]|movs r0, #0|str r0, [r6, #0]|b.n local:+f0|movs r0, #255|adds r0, #245|cmp r7, r0|ble.n local:+fa|ldr r0, [pc, #976]|add r0, pc|ldr r1, [r0, #0]|ldr r0, [r0, #4]|str r1, [r6, #0]|str r0, [r6, #4]|ldr r1, [sp, #12]|lsls r1, r1, #31|orrs r0, r1|str r0, [r6, #4]|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|b.n local:+be|subs r1, r7, #0|bge.n local:+104|ldr r0, [sp, #16]|negs r2, r0|b.n local:+106|ldr r2, [sp, #16]|cmp r1, #0|bge.n local:+10c|negs r1, r7|add r0, sp, #32|bl func_002FF118|add r0, sp, #32|add r3, sp, #20|ldmia r0, {r0, r1, r2}|stmia r3!, {r0, r1, r2}|ldr r0, [pc, #920]|str r0, [sp, #0]|movs r0, #0|movs r1, r0|orrs r1, r4|bne.n local:+130|ldr r1, [pc, #908]|movs r4, r5|movs r5, r0|subs r1, #32|str r1, [sp, #0]|lsrs r1, r4, #16|lsls r1, r1, #16|orrs r1, r0|bne.n local:+146|lsrs r1, r5, #16|lsls r4, r4, #16|orrs r4, r1|ldr r1, [sp, #0]|lsls r5, r5, #16|subs r1, #16|str r1, [sp, #0]|lsrs r1, r4, #24|lsls r1, r1, #24|orrs r1, r0|bne.n local:+15c|lsrs r1, r5, #24|lsls r4, r4, #8|orrs r4, r1|ldr r1, [sp, #0]|lsls r5, r5, #8|subs r1, #8|str r1, [sp, #0]|lsrs r1, r4, #28|lsls r1, r1, #28|orrs r1, r0|bne.n local:+172|lsrs r1, r5, #28|lsls r4, r4, #4|orrs r4, r1|ldr r1, [sp, #0]|lsls r5, r5, #4|subs r1, r1, #4|str r1, [sp, #0]|lsrs r1, r4, #30|lsls r1, r1, #30|orrs r1, r0|bne.n local:+188|lsrs r1, r5, #30|lsls r4, r4, #2|orrs r4, r1|ldr r1, [sp, #0]|lsls r5, r5, #2|subs r1, r1, #2|str r1, [sp, #0]|lsrs r1, r4, #31|lsls r1, r1, #31|orrs r0, r1|bne.n local:+19a|ldr r0, [sp, #0]|adds r5, r5, r5|adcs r4, r4|subs r0, r0, #1|str r0, [sp, #0]|mov r0, sp|ldr r2, [sp, #16]|cmp r7, #0|add r1, sp, #20|str r5, [sp, #8]|str r4, [sp, #4]|ble.n local:+1ae|blx func_001955C0|b.n local:+1b2|blx func_00195590|movs r4, r0|ldr r0, [sp, #12]|movs r5, r1|cmp r0, #0|beq.n local:+1c2|movs r0, #1|lsls r0, r0, #31|eors r4, r0|ldr r7, [pc, #756]|lsls r0, r4, #1|lsrs r0, r0, #1|orrs r0, r5|beq.n local:+1d4|lsls r0, r4, #1|lsrs r0, r0, #21|cmp r0, r7|bne.n local:+1f8|blx func_002FED78|movs r1, #2|str r1, [r0, #0]|lsls r0, r4, #1|lsrs r0, r0, #21|cmp r0, r7|bne.n local:+1f8|ldr r0, [pc, #724]|add r0, pc|ldr r1, [r0, #0]|ldr r0, [r0, #4]|str r1, [r6, #0]|lsrs r1, r4, #31|lsls r1, r1, #31|orrs r0, r1|str r0, [r6, #4]|b.n local:+be|str r5, [r6, #0]|str r4, [r6, #4]|b.n local:+be"
+    },
+    {
+      "name": "func_00102B04",
+      "size": 510,
+      "instructionCount": 254,
+      "wideInstructionOffsets": [
+        390
+      ],
+      "localBranchCount": 43,
+      "memoryOperationCount": 90,
+      "returnCount": 1,
+      "indirectCallCount": 5,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00102D02",
+      "nextGlobalOffset": 510,
+      "localTransfers": [
+        "32:bne.n:+36",
+        "42:ble.n:+62",
+        "4c:beq.n:+118",
+        "5c:bne.n:+4e",
+        "6c:ble.n:+b6",
+        "78:ble.n:+98",
+        "82:beq.n:+126",
+        "92:bne.n:+84",
+        "a0:beq.n:+134",
+        "b0:bne.n:+a2",
+        "c0:beq.n:+142",
+        "d0:bne.n:+c2",
+        "e4:blt.n:+d8",
+        "f2:bgt.n:+e6",
+        "f6:bls.n:+15e",
+        "100:beq.n:+150",
+        "110:bne.n:+102",
+        "116:b.n:+d8",
+        "122:bne.n:+118",
+        "124:b.n:+5e",
+        "130:bne.n:+126",
+        "132:b.n:+94",
+        "13e:bne.n:+134",
+        "140:b.n:+b2",
+        "14c:bne.n:+142",
+        "14e:b.n:+d2",
+        "15a:bne.n:+150",
+        "15c:b.n:+112",
+        "166:beq.n:+1ae",
+        "17e:bne.n:+168",
+        "194:ble.n:+1ce",
+        "198:ble.n:+1c6",
+        "1ac:b.n:+1ea",
+        "1c2:bne.n:+1ae",
+        "1c4:b.n:+180",
+        "1c8:ble.n:+1f2",
+        "1cc:b.n:+28",
+        "1d0:ble.n:+1e6",
+        "1e4:b.n:+1ca",
+        "1e8:ble.n:+1f2",
+        "1f0:b.n:+28",
+        "1f6:beq.n:+1fa",
+        "1f8:b.n:+10"
+      ],
+      "returns": [
+        "1fc:pop:{r4, r5, r6, r7, pc}"
+      ],
+      "indirectCalls": [
+        "3e:blx:r2",
+        "68:blx:r2",
+        "74:blx:r2",
+        "e0:blx:r2",
+        "ee:blx:r2"
+      ],
+      "indirectTails": [],
+      "directCalls": [
+        {
+          "offset": 390,
+          "mnemonic": "blx",
+          "symbol": "func_0015EC10",
+          "targetMode": "arm",
+          "relocation": "R_ARM_THM_CALL"
+        }
+      ],
+      "schedule": "push {r0, r1, r2, r3, r4, r5, r6, r7, lr}|movs r4, r1|sub sp, #268|movs r6, r2|movs r1, #1|str r1, [sp, #260]|str r4, [sp, #128]|str r0, [sp, #0]|mov r2, sp|ldr r0, [sp, #260]|subs r1, r0, #1|str r1, [sp, #260]|lsls r1, r0, #2|subs r1, r1, #4|lsls r0, r0, #2|ldr r5, [r2, r1]|subs r0, r0, #4|add r1, sp, #128|ldr r0, [r1, r0]|str r0, [sp, #264]|asrs r0, r0, #1|ldr r1, [sp, #264]|muls r0, r6|adds r4, r5, r0|lsls r1, r1, #31|bne.n local:+36|subs r0, r0, r6|ldr r2, [sp, #280]|adds r7, r4, r0|movs r1, r4|movs r0, r5|blx r2|cmp r0, #0|ble.n local:+62|movs r0, r6|movs r1, r0|orrs r1, r5|lsls r1, r1, #30|beq.n local:+118|ldrb r2, [r4, #0]|ldrb r1, [r5, #0]|strb r2, [r5, #0]|strb r1, [r4, #0]|adds r5, r5, #1|adds r4, r4, #1|subs r0, r0, #1|bne.n local:+4e|subs r5, r5, r6|subs r4, r4, r6|ldr r2, [sp, #280]|movs r1, r7|movs r0, r4|blx r2|cmp r0, #0|ble.n local:+b6|ldr r2, [sp, #280]|movs r1, r7|movs r0, r5|blx r2|cmp r0, #0|ble.n local:+98|movs r0, r6|movs r1, r0|orrs r1, r5|lsls r1, r1, #30|beq.n local:+126|ldrb r2, [r7, #0]|ldrb r1, [r5, #0]|strb r2, [r5, #0]|strb r1, [r7, #0]|adds r5, r5, #1|adds r7, r7, #1|subs r0, r0, #1|bne.n local:+84|subs r5, r5, r6|subs r7, r7, r6|movs r0, r6|movs r1, r0|orrs r1, r4|lsls r1, r1, #30|beq.n local:+134|ldrb r2, [r7, #0]|ldrb r1, [r4, #0]|strb r2, [r4, #0]|strb r1, [r7, #0]|adds r4, r4, #1|adds r7, r7, #1|subs r0, r0, #1|bne.n local:+a2|subs r4, r4, r6|subs r7, r7, r6|movs r1, r6|movs r2, r1|orrs r2, r4|subs r0, r7, r6|lsls r2, r2, #30|beq.n local:+142|ldrb r3, [r0, #0]|ldrb r2, [r4, #0]|strb r3, [r4, #0]|strb r2, [r0, #0]|adds r4, r4, #1|adds r0, r0, #1|subs r1, r1, #1|bne.n local:+c2|subs r7, r0, r6|movs r4, r5|str r7, [sp, #256]|ldr r2, [sp, #280]|adds r4, r4, r6|ldr r1, [sp, #256]|movs r0, r4|blx r2|cmp r0, #0|blt.n local:+d8|ldr r2, [sp, #280]|subs r7, r7, r6|ldr r1, [sp, #256]|movs r0, r7|blx r2|cmp r0, #0|bgt.n local:+e6|cmp r7, r4|bls.n local:+15e|movs r0, r6|movs r1, r0|orrs r1, r4|lsls r1, r1, #30|beq.n local:+150|ldrb r2, [r7, #0]|ldrb r1, [r4, #0]|strb r2, [r4, #0]|strb r1, [r7, #0]|adds r4, r4, #1|adds r7, r7, #1|subs r0, r0, #1|bne.n local:+102|subs r4, r4, r6|subs r7, r7, r6|b.n local:+d8|ldr r2, [r4, #0]|ldr r1, [r5, #0]|subs r0, r0, #4|stmia r5!, {r2}|stmia r4!, {r1}|bne.n local:+118|b.n local:+5e|ldr r2, [r7, #0]|ldr r1, [r5, #0]|subs r0, r0, #4|stmia r5!, {r2}|stmia r7!, {r1}|bne.n local:+126|b.n local:+94|ldr r2, [r7, #0]|ldr r1, [r4, #0]|subs r0, r0, #4|stmia r4!, {r2}|stmia r7!, {r1}|bne.n local:+134|b.n local:+b2|ldr r3, [r0, #0]|ldr r2, [r4, #0]|subs r1, r1, #4|stmia r4!, {r3}|stmia r0!, {r2}|bne.n local:+142|b.n local:+d2|ldr r2, [r7, #0]|ldr r1, [r4, #0]|subs r0, r0, #4|stmia r4!, {r2}|stmia r7!, {r1}|bne.n local:+150|b.n local:+112|movs r0, r6|movs r1, r0|orrs r1, r4|lsls r1, r1, #30|beq.n local:+1ae|ldr r2, [sp, #256]|ldrb r1, [r4, #0]|ldrb r2, [r2, #0]|strb r2, [r4, #0]|ldr r2, [sp, #256]|adds r4, r4, #1|strb r1, [r2, #0]|ldr r1, [sp, #256]|adds r1, r1, #1|subs r0, r0, #1|str r1, [sp, #256]|bne.n local:+168|subs r4, r4, r6|subs r0, r4, r5|movs r1, r6|blx func_0015EC10|ldr r1, [sp, #264]|subs r0, r0, #1|subs r1, r1, r0|subs r1, r1, #1|cmp r0, r1|ble.n local:+1ce|cmp r1, #10|ble.n local:+1c6|mov r3, sp|ldr r2, [sp, #260]|lsls r2, r2, #2|str r5, [r3, r2]|add r3, sp, #128|str r0, [r3, r2]|ldr r0, [sp, #260]|adds r0, r0, #1|str r0, [sp, #260]|b.n local:+1ea|ldr r2, [sp, #256]|ldr r1, [r4, #0]|ldr r2, [r2, #0]|stmia r4!, {r2}|ldr r2, [sp, #256]|str r1, [r2, #0]|ldr r1, [sp, #256]|adds r1, r1, #4|subs r0, r0, #4|str r1, [sp, #256]|bne.n local:+1ae|b.n local:+180|cmp r0, #10|ble.n local:+1f2|str r0, [sp, #264]|b.n local:+28|cmp r0, #10|ble.n local:+1e6|mov r3, sp|ldr r2, [sp, #260]|lsls r2, r2, #2|str r4, [r3, r2]|add r3, sp, #128|str r1, [r3, r2]|ldr r1, [sp, #260]|adds r1, r1, #1|str r1, [sp, #260]|b.n local:+1ca|cmp r1, #10|ble.n local:+1f2|str r1, [sp, #264]|ldr r0, [sp, #264]|movs r5, r4|b.n local:+28|ldr r0, [sp, #260]|cmp r0, #0|beq.n local:+1fa|b.n local:+10|add sp, #284|pop {r4, r5, r6, r7, pc}"
+    }
+  ]
+}

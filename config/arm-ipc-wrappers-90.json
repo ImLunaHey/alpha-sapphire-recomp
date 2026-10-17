@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_90.S",
+  "sourceSha256": "722c34ca0723741e510c155d1012bdd987e479be3cb619e726fe028d972d6104",
+  "normalizedScheduleSha256": "df36366b0d78387b99b64c88944124d22a745b0b7bed2fb58aef75ea9395d069",
+  "mode": "arm",
+  "totalBodySize": 304,
+  "totalAdjacentSize": 12,
+  "cumulativePoolSlots": 877,
+  "cumulativePoolClasses": 460,
+  "functions": [
+    {
+      "name": "func_00180770", "section": ".text.func_00180770", "size": 196,
+      "nextGlobal": "func_00180838", "nextGlobalOffset": 200,
+      "branches": [
+        { "offset": 156, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "service_state_apply_secondary_90" },
+        { "offset": 168, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_0018C714" }
+      ],
+      "literals": [
+        { "offset": 196, "loadOffsets": [8], "symbol": "service_zero_scalar_51" }
+      ]
+    },
+    {
+      "name": "func_0018085C", "section": ".text.func_0018085C", "size": 56,
+      "nextGlobal": "func_00180898", "nextGlobalOffset": 60,
+      "branches": [],
+      "literals": [
+        { "offset": 56, "loadOffsets": [0], "symbol": "service_zero_scalar_51" }
+      ]
+    },
+    {
+      "name": "func_00180898", "section": ".text.func_00180898", "size": 52,
+      "nextGlobal": "func_001808D0", "nextGlobalOffset": 56,
+      "branches": [],
+      "literals": [
+        { "offset": 52, "loadOffsets": [0], "symbol": "service_zero_scalar_51" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_zero_scalar_51"
+  ],
+  "reusedLiteralIdentities": [
+    "service_zero_scalar_51"
+  ],
+  "newLiteralIdentities": [],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0018C714"
+    ],
+    "secondaryEntries": [
+      "service_state_apply_secondary_90"
+    ],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "service_state_apply_secondary_90",
+        "owner": "func_001878A8",
+        "ownerOffset": 108,
+        "nextGlobal": "func_00187C24",
+        "bytesBeforeNextGlobal": 784
+      }
+    ],
+    "sharedClasses": [],
+    "singletonClasses": [
+      "service_state_apply_secondary_90",
+      "func_0018C714"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0018C714"
+    ],
+    "thumbPrimaryEntries": []
+  }
+}
