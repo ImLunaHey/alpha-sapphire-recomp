@@ -16,24 +16,24 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Current verified progress
 
-The 146 published units contain 4,084 exactly matched functions and 400,884
-matched code bytes, or 10.777553% overall. `main/code` contributes 3,929
-functions and 398,408 bytes. The CROs contribute 155 functions and 2,476 code
-bytes across 64 units; their matched-data total is zero. The other 81 CRO
+The 146 published units contain 4,116 exactly matched functions and 402,512
+matched code bytes, or 10.821321% overall. `main/code` contributes 3,943
+functions and 399,288 bytes. The CROs contribute 173 functions and 3,224 code
+bytes across 72 units; their matched-data total is zero. The other 73 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 42 functions and 1,812 code bytes. Main batch
-139 contributes 18 functions and 712 bytes, while main batch 140 contributes
-16 functions and 640 bytes. CRO contract batch 05 contributes eight functions
-and 460 bytes across seven newly credited units.
+The latest verified wave added 32 functions and 1,628 code bytes. Main batches
+141 and 142 contribute 14 functions and 880 bytes. CRO contract batches 06
+and 07 contribute 18 functions and 748 bytes across ten modules, including
+eight newly credited units.
 
 ## Executable units
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 64 CROs; all
-unclaimed code, all CRO data, and all 81 zero-credit CROs remain unmatched.
+Reviewed clean-room function sections now earn code credit in 72 CROs; all
+unclaimed code, all CRO data, and all 73 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must

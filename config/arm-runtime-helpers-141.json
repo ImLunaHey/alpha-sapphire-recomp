@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_141.S",
+  "sourceHash": "27261f2b16c083693e7c0c27311f1d4ec9c2624f37791c80ae7cea6126ba503b",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x004D851C",
+    "endExclusive": "0x004D8820"
+  },
+  "totalBodySize": 224,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 56,
+  "memoryOperationCount": 21,
+  "localBranchCount": 1,
+  "directCallCount": 7,
+  "indirectCallCount": 0,
+  "directTailCount": 0,
+  "indirectTailCount": 0,
+  "returnCount": 7,
+  "expectedRelocationCount": 7,
+  "functions": [
+    { "name": "func_004D851C", "address": "0x004D851C", "size": 32, "ownedSize": 32, "nextGlobal": "func_004D86AC", "nextGlobalOffset": 400, "bodyHash": "82dd8dcd31af42fa009cd89ae06b203eb75fe1a327d20df9b3909948a8fb7aee", "instructionCount": 8, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3788505782,3813670922,60817409,329252864,3904733200] },
+    { "name": "func_004D86C8", "address": "0x004D86C8", "size": 28, "ownedSize": 28, "nextGlobal": "func_004D86E4", "nextGlobalOffset": 28, "bodyHash": "9f398814ef3628018d873ff5c8c7e15666a115432cef4326af9e7a1aa5e943ff", "instructionCount": 7, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3851419688,3791653378,3785361056,3904733200] },
+    { "name": "func_004D86E4", "address": "0x004D86E4", "size": 24, "ownedSize": 24, "nextGlobal": "func_004D86FC", "nextGlobalOffset": 24, "bodyHash": "77493b43f15ce86fbb943c2e73bd9f732d14f0888cbca5974fbb119cd4b59b6b", "instructionCount": 6, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3788505532,3821013823,3904733200] },
+    { "name": "func_004D8710", "address": "0x004D8710", "size": 28, "ownedSize": 28, "nextGlobal": "func_004D8734", "nextGlobalOffset": 28, "bodyHash": "58927871ca0161a8f4306bd7c9072a818cc1d6f35a8d106b5dffa03d1105e33c", "instructionCount": 7, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3788505534,3791650880,3785360160,3904733200] },
+    { "name": "func_004D8748", "address": "0x004D8748", "size": 28, "ownedSize": 28, "nextGlobal": "func_004D8764", "nextGlobalOffset": 28, "bodyHash": "83599fe8deeebf7900fcc9c82f195b8a32dec0ad1aba11abfdef438bf0eb4028", "instructionCount": 7, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3788505532,3821013823,3800039425,3904733200] },
+    { "name": "func_004D8764", "address": "0x004D8764", "size": 28, "ownedSize": 28, "nextGlobal": "func_004D8780", "nextGlobalOffset": 28, "bodyHash": "47cfdf1f3cf450d4a159a6a9d2b23f60d5f1886f7703867e710ddf256046cb7a", "instructionCount": 7, "memoryOperationCount": 3, "words": [3818917888,3912056848,3959422974,3788505776,3791653633,3785360672,3904733200] },
+    { "name": "func_004D87E8", "address": "0x004D87E8", "size": 56, "ownedSize": 56, "nextGlobal": "func_004D8860", "nextGlobalOffset": 120, "bodyHash": "3104c321076f8258030ff9258f94934a0102a092d0ed62f5dd6fab7bac374677", "instructionCount": 14, "memoryOperationCount": 3, "words": [3912056944,3813736450,3785379840,3785375745,973078531,3818921984,3785363458,3785359362,3785359360,3785363460,3785359365,3959422974,3788505528,3904733296] }
+  ],
+  "localTransfers": [
+    { "function": "func_004D87E8", "offset": 16, "targetOffset": 36 }
+  ],
+  "directTransfers": [
+    { "function": "func_004D851C", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D86C8", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D86E4", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D8710", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D8748", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D8764", "offset": 8, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" },
+    { "function": "func_004D87E8", "offset": 44, "width": 4, "kind": "R_ARM_CALL", "mnemonic": "bl", "symbol": "func_004D83F4" }
+  ],
+  "relocations": [
+    { "symbol": "func_004D83F4", "type": "R_ARM_CALL", "siteCount": 7 }
+  ],
+  "symbolicIdentities": {
+    "func_004D83F4": "shared two-way indexed record selector"
+  },
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "authoritativePrivateOffsetBase": "0x00100000",
+    "requireUniqueBodies": true,
+    "forbidForeignExecutablePayload": true,
+    "forbidPcRelativeDataAccesses": true,
+    "forbidIndirectTransfers": true,
+    "forbidAdjacentBytes": true,
+    "scanRecursiveSourceOwners": true,
+    "scanConfigOwnershipIntervals": true
+  }
+}

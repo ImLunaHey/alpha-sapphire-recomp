@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllKawaigari",
+      "source": { "path": "src/cro/DllKawaigari/contract_07.S", "mode": "arm" },
+      "functions": [
+        { "name": "func_000039EC", "address": 14828, "size": 16, "semantics": "contract-07-pointer-init" },
+        { "name": "func_000137C4", "address": 79812, "size": 12, "semantics": "contract-07-fixed-size" },
+        { "name": "func_00021EBC", "address": 138940, "size": 12, "semantics": "contract-07-zero-halfword-normalize" },
+        { "name": "func_0002335C", "address": 144220, "size": 16, "semantics": "contract-07-sign-size" }
+      ]
+    },
+    {
+      "name": "DllSangoZukan",
+      "source": { "path": "src/cro/DllSangoZukan/contract_07.S", "mode": "arm" },
+      "functions": [
+        { "name": "func_00001788", "address": 6024, "size": 20, "semantics": "contract-07-key-equality" },
+        { "name": "func_00011AE0", "address": 72416, "size": 16, "semantics": "contract-07-default-selection" },
+        { "name": "func_00015D40", "address": 89408, "size": 12, "semantics": "contract-07-indexed-load" },
+        { "name": "func_00018CB8", "address": 101560, "size": 12, "semantics": "contract-07-pointer-chase" },
+        { "name": "func_0002A718", "address": 173848, "size": 20, "semantics": "contract-07-null-test" },
+        { "name": "func_0002A72C", "address": 173868, "size": 20, "semantics": "contract-07-state-test" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllBoxSearch",
+      "sources": [{ "path": "src/cro/DllBoxSearch/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00002C0C", "address": 11276, "size": 52, "semantics": "contract-06-box-search-dispatch" }]
+    },
+    {
+      "name": "DllDendouDemo",
+      "sources": [{ "path": "src/cro/DllDendouDemo/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000022D4", "address": 8916, "size": 40, "semantics": "contract-06-float-vector-fill" }]
+    },
+    {
+      "name": "DllFieldEventSkatePipe",
+      "sources": [{ "path": "src/cro/DllFieldEventSkatePipe/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000BD4", "address": 3028, "size": 88, "semantics": "contract-06-skate-pipe-dispatch" }]
+    },
+    {
+      "name": "DllHeading",
+      "sources": [{ "path": "src/cro/DllHeading/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_0000545C", "address": 21596, "size": 68, "semantics": "contract-06-heading-dispatch" }]
+    },
+    {
+      "name": "DllStatus",
+      "sources": [{ "path": "src/cro/DllStatus/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00007898", "address": 30872, "size": 96, "semantics": "contract-06-status-pair-store" }]
+    },
+    {
+      "name": "DllUSGymElec",
+      "sources": [{ "path": "src/cro/DllUSGymElec/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00001FB0", "address": 8112, "size": 96, "semantics": "contract-06-gym-object-state" }]
+    },
+    {
+      "name": "DllUSR113",
+      "sources": [{ "path": "src/cro/DllUSR113/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000CD4", "address": 3284, "size": 88, "semantics": "contract-06-indexed-buffer-read" }]
+    },
+    {
+      "name": "DllVSDemo",
+      "sources": [{ "path": "src/cro/DllVSDemo/contract_06.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000018A8", "address": 6312, "size": 64, "semantics": "contract-06-vs-demo-placement" }]
+    }
+  ]
+}
