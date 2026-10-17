@@ -72,7 +72,7 @@ The imported-operation call shapes are:
 | Alias | Arguments | Result/use |
 | --- | --- | --- |
 | `import_0` | `(120, owner)` | returns the transient builder pointer |
-| `import_1` | `(builder, owner_method_0x34(owner), 242, 1)` | initializes a non-null builder |
+| `import_1` | `(allocation, owner_method_0x34(owner), 242, 1)` | initializes a non-null allocation and returns the builder used thereafter |
 | `import_2` | `(builder, selector)` | returns a selector-specific descriptor |
 | `import_3` | `(owner_method_0x34(owner), descriptor)` | returns an owned resource pointer |
 | `import_4` | `(builder, selector, resource)` | associates the resource with the builder selector |
@@ -83,11 +83,12 @@ The imported-operation call shapes are:
 Precondition: `r0` points to a writable control object whose owner field is
 valid. Under the normal contract, `import_0` succeeds.
 
-1. Allocate a 120-byte transient builder using `import_0(120, self->owner)`
-   and store it at offset `0x04`.
+1. Obtain a 120-byte allocation using `import_0(120, self->owner)`.
 2. If it is non-null, initialize it with `import_1`, passing constant 242 and
    flag 1. The second argument is obtained by invoking the owner's method-table
-   entry at offset `0x34`.
+   entry at offset `0x34`. Store the **return value of `import_1`**, not the
+   original allocation, at offset `0x04`. On the null path, skip both indirect
+   owner dispatch and `import_1`, and store the null `import_0` result there.
 3. For selectors 0, 1, 2, and 3, in ascending order:
    - obtain `descriptor = import_2(builder, selector)`;
    - invoke the owner method at offset `0x34` again;
@@ -101,9 +102,110 @@ valid. Under the normal contract, `import_0` succeeds.
 5. If the builder is non-null, invoke its method-table entry at offset `0x04`,
    then write zero to the builder field at `0x04`.
 
-On the successful path the routine leaves `r0 == 0`. Allocation failure is not
-a safe alternate contract: subsequent imported operations still receive the
-null builder.
+The routine leaves `r0 == 0` on both the successful and null-builder paths.
+Allocation failure is not otherwise a safe alternate contract: subsequent
+imported operations still receive the null builder.
+
+## Exact accepted-function code-shape contract
+
+This section refines the behavioral contract with neutral code-generation
+facts observed during comparison of the first authored object with the private
+split target. They are required because equivalent register allocation and
+instruction scheduling do not match this unit.
+
+All three accepted bodies consist exclusively of 32-bit ARM instructions,
+have no body relocation, and use direct `BL` calls for calls to accepted local
+functions or the six veneer addresses. Method-table calls use `BLX r1`.
+
+### `func_00000030`
+
+The body contains 118 instructions. Its frame shape and persistent register
+roles are exact:
+
+- save `r4`, `r5`, `r6`, `r7`, and `lr` in one operation;
+- copy `self` from `r0` to `r5` before allocating 28 stack bytes;
+- use `r4` first for the allocation, then for unrolled descriptor/resource
+  values, and finally as the six-entry loop index;
+- use `r6` for the loop descriptor and resource;
+- use `r7` as an invariant copy of `sp`; and
+- do not save or use `r8`.
+
+The initial call sequence is exact. Load `self->owner` into `r1`, put 120 in
+`r0`, and directly call `import_0`. Copy its result to `r4` with a flag-setting
+move and branch on equality to the common builder-store point. Only the
+non-null path invokes `owner->method[0x34 / 4]`, then calls `import_1` with
+`r0 = r4`, the indirect result in `r1`, `r2 = 242`, and `r3 = 1`. At the common
+point set `r1 = 0`, store the current `r0` at `self + 0x04`, and immediately
+call `import_2` without reloading `r0`. Thus the first descriptor call receives
+the stored builder (the `import_1` result on success), not necessarily the
+original allocation.
+
+Selectors 0, 1, and 3 are unrolled and use `r4` for both descriptor and
+resource. For each, call `import_2`, call the owner method with the owner in
+`r0`, pass its result in `r0` and the descriptor in `r1` to `import_3`, reload
+the builder from offset `0x04`, pass `(builder, selector, resource)` to
+`import_4`, and only then store the resource in the control object.
+
+Selector 2 deliberately uses a different schedule: after `import_3`, store
+the resource from `r0` at offset `0x10` before `import_4`; load the builder into
+`r3`, copy the resource to `r2`, set `r1 = 2`, copy `r3` to `r0`, and call
+`import_4`. No callee-saved register preserves that resource across this call.
+
+The selector-table copy uses the full 28-byte frame while copying 24 bytes.
+Load the table address into `r4`, copy its first five words together into
+`r0`, `r1`, `r2`, `r3`, and `ip`, load the sixth separately into `r4`, store
+that sixth word at `sp + 20`, then store the first five words together at
+`sp + 0`. Set `r7 = sp` before the copy and set the loop index `r4 = 0` after
+the copy.
+
+Each loop iteration has this exact form:
+
+1. reload the builder from `self + 0x04` and selector from
+   `[r7 + r4 * 4]`, then call `import_2`;
+2. preserve the descriptor in `r6`, perform the owner-method call, pass the
+   descriptor in `r1`, call `import_3`, and preserve its result in `r6`;
+3. reload both builder and selector, pass the resource in `r2`, and call
+   `import_4`;
+4. compute `self + r4 * 4` in `r0`, increment `r4`, compare it unsigned with
+   6, store `r6` at computed-base `+ 0x18` **after the compare**, then branch
+   back on carry-clear.
+
+After the loop, reload the builder from offset `0x04`, compare it with zero,
+and skip cleanup if null. Otherwise load its method table and entry at offset
+`0x04`, call it with the builder already in `r0`, then set `r0 = 0` and clear
+the builder field. Restore the 28-byte frame and the exact saved-register set.
+The null skip also returns zero because the compared builder remains in `r0`.
+
+### `func_0000020C`
+
+The body contains 19 instructions and saves only `r4` and `lr`; `r4` holds
+`self`. Use `r0` as the zero register. The stores occur in this exact order:
+
+1. clear `+0x04`;
+2. store incoming `r1` at `+0x00`;
+3. clear `+0x08`;
+4. clear `+0x18`, `+0x1C`, `+0x20`, `+0x24`, `+0x28`, and `+0x2C`;
+5. clear `+0x0C`, `+0x10`, and `+0x14`.
+
+Then copy `r4` to `r0`, directly call `func_00000030`, copy `r4` to `r0`
+again, and return by restoring `r4` and `pc` together.
+
+### `func_00000258`
+
+The body contains 25 instructions. Save exactly `r4`, `r5`, `r6`, and `lr`,
+and keep `self` in `r5`. Load the first resource through the incoming `r0`
+before establishing the zero register. After the first `import_5` call, set
+`r6 = 0`, clear offset `0x08`, then release and clear offsets `0x0C`, `0x10`,
+and `0x14` in order. Set the loop index `r4 = 0` between the fourth call and
+the clear of `0x14`.
+
+The six-entry loop must be index-based, not pointer/count-based. Compute
+`self + r4 * 4`, load its word at `+0x18`, and call `import_5`; increment `r4`,
+compare it unsigned with 6, copy `self` to `r0`, write zero to offset `0x14`
+again, and branch back on carry-clear. The copy to `r0` and repeated clear are
+inside every iteration and occur after the compare. Restore `r4`, `r5`, `r6`,
+and `pc` together, with no padding or trailing instruction. This makes the
+final `r0` value equal to `self` while leaving offsets `0x18..0x2C` unchanged.
 
 ## `func_0000020C`: control-object initialization
 
@@ -172,6 +274,61 @@ addends, symbol classes, section sizes/alignments, the 24-byte selector table,
 the four-byte writable global, and all remaining pool words exactly. It must
 also retain the module's imported-symbol identities as the repository's CRO
 link tooling represents them.
+
+The split-object representation has these exact allocated section contracts:
+
+- six four-byte executable veneer sections at `0x000`, `0x008`, `0x010`,
+  `0x018`, `0x020`, and `0x028`, each followed in address order by a distinct
+  four-byte allocatable pool section at `0x004`, `0x00C`, `0x014`, `0x01C`,
+  `0x024`, or `0x02C`;
+- a four-byte allocatable pool at `0x208` targeting the `.rodata` section
+  symbol with addend zero;
+- a 20-byte allocatable pool at `0x2D0` containing five relocations to the
+  same `0x2E4` gap-section identity, with section-relative addends `0`, `8`,
+  `0x10`, `0x1C`, and `0x2C`;
+- a 36-byte allocatable pool at `0x344`, with relocations at pool offsets
+  `0x00`, `0x08`, `0x0C`, `0x10`, and `0x14`. They target `.data + 0`, the
+  pool's own section identity twice at one-past-pool addend `0x24`, and
+  `.rodata + 0x18` twice, respectively. Pool offset `0x04` is an unrelocated
+  zero word. The final three words remain private non-relocated literals and
+  are not reproduced in this specification.
+
+Each pool section is `SHT_PROGBITS`, allocatable and non-executable, with
+byte alignment; each has one global `STT_OBJECT` symbol named from its public
+`__cro_pool_<address>` identity and sized to the complete pool. `.rodata` is a
+24-byte, four-byte-aligned allocatable section; `.data` is a four-byte,
+four-byte-aligned writable allocatable section; the structural `.bss` is empty.
+
+The six veneer relocations form six distinct undefined-global equality
+classes in veneer order. A public implementation may call them `import_0`
+through `import_5`, but the final comparison object must deterministically map
+those aliases one-to-one to the target converter's neutral anonymous-import
+identities. They must not collapse into one symbol or be reordered. No copied
+binary string is needed to express this equality contract.
+
+## Authored-object comparison evidence
+
+The first authored comparison reported 66.611115% fuzzy code similarity, zero
+of three exact functions, and 28 of 112 data bytes. The 28 matching data bytes
+are exactly the complete 24-byte `.rodata` and four-byte `.data` payloads; no
+pool relocation was yet an exact data match.
+
+At equal word offsets, the authored and target accepted bodies matched as
+follows (this records only equality locations, not target bytes):
+
+| Function | Equal words | Total words | Equal half-open ranges |
+| --- | ---: | ---: | --- |
+| `func_00000030` | 11 | 118 | `0x10..0x18`, `0x168..0x16C`, `0x174..0x180`, `0x184..0x188`, `0x198..0x19C`, `0x1C0..0x1CC` |
+| `func_0000020C` | 6 | 19 | `0x00..0x08`, `0x3C..0x4C` |
+| `func_00000258` | 4 | 25 | `0x1C..0x20`, `0x28..0x2C`, `0x34..0x38`, `0x48..0x4C` |
+
+The differences are explained by the code-shape requirements above: the
+authored builder routine used a six-register save, a 24-byte frame, retained
+the original allocation instead of the initializer return, and used different
+unrolled/loop schedules; the initializer cleared fields in linear order; and
+the release routine used a pointer/count loop plus an extra saved register and
+trailing word. These are implementation discrepancies, not alternate target
+behaviors.
 
 ## Completion and validation requirements
 
