@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_15.S",
+  "sourceHash": "5b63305b27568b6c687f1d812599fbf5044636a0e0223d944fd86a8bf3d605b6",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 14,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 6,
+  "wideInstructionCount": 1,
+  "legacyNopCount": 0,
+  "localBranchCount": 0,
+  "memoryOperationCount": 2,
+  "returnCount": 1,
+  "indirectCallCount": 0,
+  "indirectTailCount": 0,
+  "directCallCount": 1,
+  "directCalls": [
+    {
+      "function": "func_00303EC8",
+      "offset": 8,
+      "kind": "call",
+      "destinationSymbol": "thumb_secondary_00303E38",
+      "destinationState": "thumb",
+      "stateSwitch": false,
+      "relocation": "R_ARM_THM_CALL"
+    }
+  ],
+  "relocations": [
+    {
+      "function": "func_00303EC8",
+      "offset": 8,
+      "type": "R_ARM_THM_CALL",
+      "symbol": "thumb_secondary_00303E38"
+    }
+  ],
+  "externalEntryIdentities": [
+    {
+      "symbol": "thumb_secondary_00303E38",
+      "kind": "secondary-entry",
+      "state": "thumb",
+      "targetOffset": -144,
+      "ownership": "external-unowned",
+      "precedingGlobal": {
+        "symbol": "func_00303D9C",
+        "offset": -300,
+        "bodySize": 152,
+        "bodyEndOffset": -148
+      },
+      "followingGlobal": {
+        "symbol": "func_00303EC8",
+        "offset": 0
+      }
+    }
+  ],
+  "pcRelativeDataAccesses": [],
+  "duplicateBodyClasses": [],
+  "semanticEncoding": {
+    "instructionRows": "ordered objects with explicit byte offset and width",
+    "registers": "architectural register roles are named in operands",
+    "immediates": "unsigned numeric values in operands",
+    "directCalls": "transfer rows use kind, destinationSymbol, destinationState, stateSwitch, and relocation",
+    "externalIdentities": "secondary destinations use a neutral symbol and signed entry-relative target offset without transferring ownership"
+  },
+  "encodingConstraints": [
+    {
+      "form": "immediate5",
+      "rule": "The zero-distance logical shift remains the 16-bit immediate-five-bit flag-setting form; it is not interchangeable with a copy form."
+    },
+    {
+      "form": "immediate8",
+      "rule": "The immediate constant remains the 16-bit immediate-eight-bit flag-setting form."
+    },
+    {
+      "form": "highRegister",
+      "rule": "The stack-pointer copy remains the 16-bit high-register copy form and does not set flags."
+    },
+    {
+      "form": "directImmediate",
+      "rule": "The direct call is four bytes at its recorded offset and carries exactly one R_ARM_THM_CALL relocation to the recorded external Thumb secondary identity."
+    },
+    {
+      "form": "thumbCodeMapping",
+      "rule": "The complete function body is continuously covered by Thumb code mapping from body offset zero and contains no interior data mapping interval."
+    }
+  ],
+  "functions": [
+    {
+      "name": "func_00303EC8",
+      "size": 14,
+      "instructionCount": 6,
+      "legacyNopOffsets": [],
+      "localBranchCount": 0,
+      "memoryOperationCount": 2,
+      "returnCount": 1,
+      "indirectCallCount": 0,
+      "indirectTailCount": 0,
+      "directCallCount": 1,
+      "nextGlobal": "func_00303ED8",
+      "nextGlobalOffset": 16,
+      "semantics": [
+        {
+          "offset": 0,
+          "width": 2,
+          "operation": "stackSave",
+          "form": "registerList",
+          "operands": {
+            "registers": ["r2", "r3", "r4", "lr"]
+          }
+        },
+        {
+          "offset": 2,
+          "width": 2,
+          "operation": "logicalShiftLeft",
+          "form": "immediate5",
+          "operands": {
+            "destination": "r1",
+            "source": "r0",
+            "amount": 0,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 4,
+          "width": 2,
+          "operation": "constant",
+          "form": "immediate8",
+          "operands": {
+            "destination": "r2",
+            "value": 0,
+            "setFlags": true
+          }
+        },
+        {
+          "offset": 6,
+          "width": 2,
+          "operation": "copy",
+          "form": "highRegister",
+          "operands": {
+            "destination": "r0",
+            "source": "sp",
+            "setFlags": false
+          }
+        },
+        {
+          "offset": 8,
+          "width": 4,
+          "operation": "transfer",
+          "form": "directImmediate",
+          "operands": {
+            "kind": "call",
+            "destinationSymbol": "thumb_secondary_00303E38",
+            "destinationState": "thumb",
+            "stateSwitch": false,
+            "relocation": "R_ARM_THM_CALL"
+          }
+        },
+        {
+          "offset": 12,
+          "width": 2,
+          "operation": "transfer",
+          "form": "stackRestore",
+          "operands": {
+            "kind": "return",
+            "restoredRegisters": ["r2", "r3", "r4"]
+          }
+        }
+      ]
+    }
+  ]
+}

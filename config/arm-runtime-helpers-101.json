@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_101.S",
+  "sourceHash": "1f46f249531554b9c00b67c3e3a5ff649938250f7e262d16fd731a7c065fa9e5",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "totalBodySize": 60,
+  "totalAdjacentSize": 20,
+  "expectedInstructionCount": 15,
+  "memoryOperationCount": 10,
+  "directTailCount": 2,
+  "indirectTransferCount": 3,
+  "returnCount": 0,
+  "expectedRelocationCount": 7,
+  "functions": [
+    {
+      "name": "func_001D1DC8",
+      "size": 12,
+      "ownedSize": 16,
+      "nextGlobal": "func_001D1DD8",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r1", "targetOffset": 12, "symbol": "runtime_indirect_dispatch_root_101" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r1", "base": "r1", "displacement": 12 },
+        { "offset": 8, "width": 4, "kind": "indirect-tail-branch", "register": "r1" }
+      ],
+      "adjacentWords": [
+        { "offset": 12, "kind": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_root_101" }
+      ]
+    },
+    {
+      "name": "func_001D1EEC",
+      "size": 12,
+      "ownedSize": 16,
+      "nextGlobal": "func_001D1EFC",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r3", "targetOffset": 12, "symbol": "runtime_indirect_dispatch_root_101" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r3", "base": "r3", "displacement": 8 },
+        { "offset": 8, "width": 4, "kind": "indirect-tail-branch", "register": "r3" }
+      ],
+      "adjacentWords": [
+        { "offset": 12, "kind": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_root_101" }
+      ]
+    },
+    {
+      "name": "func_001D4248",
+      "size": 12,
+      "ownedSize": 16,
+      "nextGlobal": "func_001D4258",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r1", "targetOffset": 12, "symbol": "runtime_indirect_dispatch_slot_101" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r1", "base": "r1", "displacement": 0 },
+        { "offset": 8, "width": 4, "kind": "indirect-tail-branch", "register": "r1" }
+      ],
+      "adjacentWords": [
+        { "offset": 12, "kind": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_slot_101" }
+      ]
+    },
+    {
+      "name": "func_00416324",
+      "size": 12,
+      "ownedSize": 16,
+      "nextGlobal": "func_00416394",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 12, "symbol": "runtime_dispatch_object_root_101" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 0 },
+        { "offset": 8, "width": 4, "kind": "direct-tail-branch", "symbol": "func_004E60D8", "relocation": "R_ARM_JUMP24" }
+      ],
+      "adjacentWords": [
+        { "offset": 12, "kind": "R_ARM_ABS32", "symbol": "runtime_dispatch_object_root_101" }
+      ]
+    },
+    {
+      "name": "func_0044F520",
+      "size": 12,
+      "ownedSize": 16,
+      "nextGlobal": "func_0044F6A4",
+      "operations": [
+        { "offset": 0, "width": 4, "kind": "pc-relative-word-load", "destination": "r0", "targetOffset": 12, "symbol": "runtime_dispatch_root_97" },
+        { "offset": 4, "width": 4, "kind": "word-load", "destination": "r0", "base": "r0", "displacement": 16 },
+        { "offset": 8, "width": 4, "kind": "direct-tail-branch", "symbol": "func_0010D1DC", "relocation": "R_ARM_JUMP24" }
+      ],
+      "adjacentWords": [
+        { "offset": 12, "kind": "R_ARM_ABS32", "symbol": "runtime_dispatch_root_97" }
+      ]
+    }
+  ],
+  "identityClasses": {
+    "literal_backed_transfer_helpers_101": {
+      "members": [
+        "func_001D1DC8",
+        "func_001D1EEC",
+        "func_001D4248",
+        "func_00416324",
+        "func_0044F520"
+      ],
+      "parameters": [
+        "literalIdentity",
+        "workingRegister",
+        "dereferenceDisplacement",
+        "transferKind",
+        "transferIdentity"
+      ]
+    },
+    "shared_indirect_dispatch_root_101": {
+      "members": ["func_001D1DC8", "func_001D1EEC"],
+      "varyingParameter": "dereferenceDisplacement",
+      "dereferenceDisplacements": [12, 8]
+    }
+  },
+  "pcRelativeDataAccesses": [
+    { "function": "func_001D1DC8", "offset": 0, "width": 4, "targetOffset": 12, "symbol": "runtime_indirect_dispatch_root_101", "ownership": "owned-adjacent-word" },
+    { "function": "func_001D1EEC", "offset": 0, "width": 4, "targetOffset": 12, "symbol": "runtime_indirect_dispatch_root_101", "ownership": "owned-adjacent-word" },
+    { "function": "func_001D4248", "offset": 0, "width": 4, "targetOffset": 12, "symbol": "runtime_indirect_dispatch_slot_101", "ownership": "owned-adjacent-word" },
+    { "function": "func_00416324", "offset": 0, "width": 4, "targetOffset": 12, "symbol": "runtime_dispatch_object_root_101", "ownership": "owned-adjacent-word" },
+    { "function": "func_0044F520", "offset": 0, "width": 4, "targetOffset": 12, "symbol": "runtime_dispatch_root_97", "ownership": "owned-adjacent-word" }
+  ],
+  "directTransfers": [
+    { "function": "func_00416324", "offset": 8, "width": 4, "kind": "R_ARM_JUMP24", "symbol": "func_004E60D8" },
+    { "function": "func_0044F520", "offset": 8, "width": 4, "kind": "R_ARM_JUMP24", "symbol": "func_0010D1DC" }
+  ],
+  "indirectTransfers": [
+    { "function": "func_001D1DC8", "offset": 8, "width": 4, "kind": "register-tail-branch", "register": "r1" },
+    { "function": "func_001D1EEC", "offset": 8, "width": 4, "kind": "register-tail-branch", "register": "r3" },
+    { "function": "func_001D4248", "offset": 8, "width": 4, "kind": "register-tail-branch", "register": "r1" }
+  ],
+  "relocations": [
+    { "function": "func_001D1DC8", "offset": 12, "type": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_root_101" },
+    { "function": "func_001D1EEC", "offset": 12, "type": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_root_101" },
+    { "function": "func_001D4248", "offset": 12, "type": "R_ARM_ABS32", "symbol": "runtime_indirect_dispatch_slot_101" },
+    { "function": "func_00416324", "offset": 8, "type": "R_ARM_JUMP24", "symbol": "func_004E60D8" },
+    { "function": "func_00416324", "offset": 12, "type": "R_ARM_ABS32", "symbol": "runtime_dispatch_object_root_101" },
+    { "function": "func_0044F520", "offset": 8, "type": "R_ARM_JUMP24", "symbol": "func_0010D1DC" },
+    { "function": "func_0044F520", "offset": 12, "type": "R_ARM_ABS32", "symbol": "runtime_dispatch_root_97" }
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "primaryEntries": ["func_0010D1DC", "func_004E60D8"],
+    "secondaryEntries": []
+  },
+  "symbolicIdentities": {
+    "runtime_indirect_dispatch_root_101": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "shared-by-two-distinct-from-all-established-identities",
+      "usage": "indirect-dispatch-table-root"
+    },
+    "runtime_indirect_dispatch_slot_101": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "singleton-distinct-from-all-established-identities",
+      "usage": "indirect-dispatch-slot-root"
+    },
+    "runtime_dispatch_object_root_101": {
+      "minimumSlotAlignment": 4,
+      "segmentClass": "initialized-data",
+      "equality": "singleton-distinct-from-all-established-identities",
+      "usage": "dispatch-object-root"
+    }
+  },
+  "establishedEquivalentIdentities": [
+    {
+      "canonical": "runtime_dispatch_root_97",
+      "legacy": "global_load_11",
+      "usage": "reuse-canonical-runtime-identity"
+    }
+  ],
+  "reusedSymbolicIdentities": ["runtime_dispatch_root_97"],
+  "newSymbolicIdentities": [
+    "runtime_indirect_dispatch_root_101",
+    "runtime_indirect_dispatch_slot_101",
+    "runtime_dispatch_object_root_101"
+  ],
+  "aliases": [],
+  "duplicateBodyClasses": []
+}

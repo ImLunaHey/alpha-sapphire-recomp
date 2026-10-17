@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_94.S",
+  "sourceHash": "2758855600930c169c71d865467df566e1271b6885da54b51787ea455e41c4ac",
+  "mode": "arm",
+  "totalBodySize": 708,
+  "totalAdjacentSize": 24,
+  "cumulativePoolSlots": 892,
+  "cumulativePoolClasses": 469,
+  "functions": [
+    {
+      "name": "func_00181890",
+      "section": ".text.func_00181890",
+      "size": 216,
+      "nextGlobal": "func_0018196C",
+      "nextGlobalOffset": 220,
+      "branches": [
+        { "offset": 192, "kind": "R_ARM_CALL", "transfer": "linked", "symbol": "func_00174DD0" },
+        { "offset": 204, "kind": "R_ARM_CALL", "transfer": "linked", "symbol": "func_0018C888" }
+      ],
+      "indirectCalls": [],
+      "returnOffsets": [16, 212],
+      "literals": [
+        { "offset": 216, "loadOffsets": [32], "symbol": "service_request_sequence_94" }
+      ]
+    },
+    {
+      "name": "func_00181FD4",
+      "section": ".text.func_00181FD4",
+      "size": 260,
+      "nextGlobal": "func_001820E4",
+      "nextGlobalOffset": 272,
+      "branches": [
+        { "offset": 40, "kind": "R_ARM_CALL", "transfer": "linked-state-exchange", "symbol": "func_00302F52" },
+        { "offset": 100, "kind": "R_ARM_CALL", "transfer": "linked-state-exchange", "symbol": "func_00302F52" },
+        { "offset": 204, "kind": "R_ARM_CALL", "transfer": "linked-state-exchange", "symbol": "func_00302F52" }
+      ],
+      "indirectCalls": [
+        { "offset": 180, "sourceRegister": "r3", "stateExchange": true }
+      ],
+      "returnOffsets": [256],
+      "literals": [
+        { "offset": 260, "loadOffsets": [12, 96, 132, 200, 236], "symbol": "service_callback_registry_guard_94" },
+        { "offset": 264, "loadOffsets": [16, 140, 244], "symbol": "service_callback_registry_sentinel_94" },
+        { "offset": 268, "loadOffsets": [76, 116, 220], "symbol": "service_callback_registry_anchor_94" }
+      ]
+    },
+    {
+      "name": "func_001821A0",
+      "section": ".text.func_001821A0",
+      "size": 232,
+      "nextGlobal": "func_00182290",
+      "nextGlobalOffset": 240,
+      "branches": [
+        { "offset": 160, "kind": "R_ARM_CALL", "transfer": "linked", "symbol": "func_0016DFE8" },
+        { "offset": 220, "kind": "R_ARM_CALL", "transfer": "linked", "symbol": "func_0016DFE8" }
+      ],
+      "indirectCalls": [],
+      "returnOffsets": [168, 228],
+      "literals": [
+        { "offset": 232, "loadOffsets": [12], "symbol": "service_geometry_defaults_94" },
+        { "offset": 236, "loadOffsets": [16], "symbol": "service_packed_coordinate_bias_94" }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_request_sequence_94",
+    "service_callback_registry_guard_94",
+    "service_callback_registry_sentinel_94",
+    "service_callback_registry_anchor_94",
+    "service_geometry_defaults_94",
+    "service_packed_coordinate_bias_94"
+  ],
+  "reusedLiteralIdentities": [],
+  "newLiteralIdentities": [
+    "service_request_sequence_94",
+    "service_callback_registry_guard_94",
+    "service_callback_registry_sentinel_94",
+    "service_callback_registry_anchor_94",
+    "service_geometry_defaults_94",
+    "service_packed_coordinate_bias_94"
+  ],
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 2,
+    "primaryEntries": [
+      "func_00174DD0",
+      "func_0018C888",
+      "func_00302F52",
+      "func_0016DFE8"
+    ],
+    "secondaryEntries": [],
+    "secondaryEntryRelations": [],
+    "sharedClasses": [
+      {
+        "symbol": "func_00302F52",
+        "sites": [
+          { "function": "func_00181FD4", "offset": 40 },
+          { "function": "func_00181FD4", "offset": 100 },
+          { "function": "func_00181FD4", "offset": 204 }
+        ]
+      },
+      {
+        "symbol": "func_0016DFE8",
+        "sites": [
+          { "function": "func_001821A0", "offset": 160 },
+          { "function": "func_001821A0", "offset": 220 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_00174DD0",
+      "func_0018C888"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_00174DD0",
+      "func_0018C888",
+      "func_0016DFE8"
+    ],
+    "thumbPrimaryEntries": [
+      "func_00302F52"
+    ]
+  },
+  "selectionNotes": {
+    "skippedEarlierUnmatched": [
+      {
+        "name": "func_00180F24",
+        "size": 1356,
+        "reason": "large multi-loop scheduler/dispatcher outside the bounded wrapper cohort"
+      }
+    ],
+    "nextUnselectedSuitable": "func_00183E28"
+  }
+}
