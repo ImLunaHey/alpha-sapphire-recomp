@@ -100,3 +100,30 @@ unclassified text gap as unmatched coverage. At that point a second stage may
 split the structural `.text` and remap its relocations into per-function target
 sections. Until that evidence exists, the structural object is a validated
 input to analysis, not a ByteMatch denominator.
+
+## Conservative function inventory
+
+Run Ghidra 12.0.2 headlessly over one ignored converted target object with:
+
+```sh
+bash scripts/analyze-cro-target.sh DllTitle
+```
+
+The resulting `symbols/cro/DllTitle.csv` contains only the public unit name,
+`.text` size, section-relative synthetic function names, ARM/Thumb mode, and
+body sizes. Original export names, strings, bytes, imports, and private paths
+are not emitted. A body is accepted only with known instruction mode, one
+contiguous entry-rooted range, call or exported-entry evidence, an in-range
+terminal instruction, and mode-correct alignment. Unknown text gaps remain
+unowned.
+
+The exporter address-sorts its output and rejects internal overlap. The
+independent validator checks the public 145-unit manifest, exact deterministic
+format, neutral naming, nonempty bodies, strict ordering, nonoverlap,
+alignment, and bounds against the converted ELF `.text` section:
+
+```sh
+node scripts/validate-cro-symbols.mjs --self-test
+node scripts/validate-cro-symbols.mjs symbols/cro/DllTitle.csv \
+  build/AS_EUR_REV2/target/cro/DllTitle.o
+```
