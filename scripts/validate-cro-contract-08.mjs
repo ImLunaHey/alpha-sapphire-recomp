@@ -199,14 +199,8 @@ function validatePublicContract(manifestPath) {
     const lines = readFileSync(inventory, "utf8").split(/\r?\n/u);
     check(lines.filter((line) => line === row).length === 1 && lines.filter((line) => line.includes(`"${fn.name}"`)).length === 1,
       `${fn.name} lacks one exact global ARM inventory boundary`);
-    const inventoryCount = lines.filter((line) => /^[0-9A-F]{8},/u.test(line)).length;
-    if (fn.unit === "DllUSAreaWaterSurface") {
-      const partition = JSON.parse(readFileSync(join(ROOT, "symbols", "cro-partitions", "DllUSAreaWaterSurface.json"), "utf8"));
-      check(inventoryCount === unit.functions.length && Array.isArray(partition.gaps) && partition.gaps.length > 0 &&
-        Array.isArray(partition.unknown) && partition.unknown.length > 0, `${fn.unit} unresolved remainder is not explicit`);
-    } else {
-      check(inventoryCount > unit.functions.length, `${fn.unit} would incorrectly appear function-complete`);
-    }
+    check(lines.filter((line) => /^[0-9A-F]{8},/u.test(line)).length > unit.functions.length,
+      `${fn.unit} would incorrectly appear function-complete`);
 
     const sourcePath = resolve(ROOT, fn.source);
     check(inside(ROOT, sourcePath) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() && !lstatSync(sourcePath).isSymbolicLink(),
