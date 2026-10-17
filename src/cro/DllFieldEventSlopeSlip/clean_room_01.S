@@ -10,6 +10,70 @@
  * assigning private identities to the imports.
  */
 
+.section .text.func_000000D0, "ax", %progbits
+.balign 4
+.global func_000000D0
+.type func_000000D0, %function
+func_000000D0:
+    push {r4, r5, r6, lr}
+    mov r4, r0
+    str r1, [r0, #0x18]
+    mov r5, r2
+    mov r0, r1
+    bl . - 0xE4
+    str r0, [r4, #0x28]
+    ldr r0, [r0, #0x0C]
+    str r0, [r4, #0x1C]
+    strb r5, [r4, #0x24]
+    bl . - 0xF0
+    bl . - 0xEC
+    cmp r0, #0
+    movne r0, #1
+    strb r0, [r4, #0x30]
+    pop {r4, r5, r6, pc}
+.size func_000000D0, . - func_000000D0
+
+.section .text.func_000002DC, "ax", %progbits
+.balign 4
+.global func_000002DC
+.type func_000002DC, %function
+func_000002DC:
+    push {r4, r5, r6, lr}
+    mov r4, r0
+    str r1, [r0, #0x18]
+    mov r5, r2
+    mov r0, r1
+    bl . - 0x2F0
+    str r0, [r4, #0x28]
+    ldr r0, [r0, #0x0C]
+    str r0, [r4, #0x1C]
+    strb r5, [r4, #0x24]
+    pop {r4, r5, r6, pc}
+.size func_000002DC, . - func_000002DC
+
+.section .text.func_000006D0, "ax", %progbits
+.balign 4
+.global func_000006D0
+.type func_000006D0, %function
+func_000006D0:
+    push {r4, r5, r6, lr}
+    mov r4, r0
+    str r1, [r0, #0x1C]
+    mov r5, r2
+    mov r0, r1
+    bl . - 0x6E4
+    str r0, [r4, #0x2C]
+    ldr r0, [r0, #0x0C]
+    str r0, [r4, #0x20]
+    strb r5, [r4, #0x28]
+    bl . - 0x6F0
+    bl . - 0x6EC
+    cmp r0, #0
+    movne r0, #1
+    strb r0, [r4, #0x34]
+    pop {r4, r5, r6, pc}
+.size func_000006D0, . - func_000006D0
+
 .macro RETURN_TRUE name
 .section .text.\name, "ax", %progbits
 .balign 4

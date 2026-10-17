@@ -12,12 +12,15 @@ const CONFIG = join(ROOT, "config/cro-sources.json");
 const INVENTORY = join(ROOT, "symbols/cro/DllFieldEventSlopeSlip.csv");
 const STORAGE = "slope_slip_config";
 const FUNCTIONS = [
+  ["func_000000D0", 0x00d0, 64, "family-a-constructor", "9ee7417f9d69d41667a54f74b84ae971d26f5b74dba604e7bc585de4675e77a0"],
   ["func_00000110", 0x0110, 8, "constant-true-predicate", "007f34a6c3441b0240da53f253e513b959105da2d8803255e1856aa48f48db47"],
   ["func_000002C8", 0x02c8, 16, "cleanup-wrapper", "67a53f7e116adb2d7804b04f85f83db72c39ded8018aed8c83ef3c8b63db9393"],
   ["func_000002D8", 0x02d8, 4, "cleanup-tail", "95e42043d67d169026448754274f2f66e41e160067d92c50b7fa32bab6537902"],
+  ["func_000002DC", 0x02dc, 44, "family-b-constructor", "f605307ded830ed4419e354ce5fb97dac9f56d447d86d177b15065d01a43dec7"],
   ["func_00000464", 0x0464, 8, "constant-true-predicate", "007f34a6c3441b0240da53f253e513b959105da2d8803255e1856aa48f48db47"],
   ["func_000006BC", 0x06bc, 16, "cleanup-wrapper", "4594b152d4e668ddf3746606a1d44f18997aa608255373443b1a1c3677a2e760"],
   ["func_000006CC", 0x06cc, 4, "cleanup-tail", "f12b17257eb64a2259176fc6a16b448d9c62177e48c93a33ceccda0c9a46c644"],
+  ["func_000006D0", 0x06d0, 64, "family-c-constructor", "085ba1259f8462696ad303379ec691e364966c4e9091cdb894d25bbcd2233bfd"],
   ["func_00000710", 0x0710, 8, "constant-true-predicate", "007f34a6c3441b0240da53f253e513b959105da2d8803255e1856aa48f48db47"],
   ["func_00000918", 0x0918, 16, "cleanup-wrapper", "13a36ee374073b327f7785d1b215150d467a6b8d6a2b41238513ca080e4c3eaf"],
   ["func_00000928", 0x0928, 4, "cleanup-tail", "c01ecdad1f4f2975bb8d894554d11b3d67c7078a56ffd370c9877b09d1482755"],
@@ -82,7 +85,7 @@ function parseArguments(argv) {
 }
 
 function validateRepository() {
-  check(FUNCTIONS.length === 10 && FUNCTIONS.reduce((sum, fn) => sum + fn.size, 0) === 116,
+  check(FUNCTIONS.length === 13 && FUNCTIONS.reduce((sum, fn) => sum + fn.size, 0) === 288,
     "pinned function aggregate differs");
   check(POOLS.length === 2 && POOLS.reduce((sum, pool) => sum + pool.size, 0) === 12 &&
     FUNCTIONS.every((fn) => /^[0-9a-f]{64}$/u.test(fn.sha256)) && /^[0-9a-f]{64}$/u.test(POOLS[0].sha256) && POOLS[1].sha256 === null,
@@ -97,7 +100,7 @@ function validateRepository() {
   check(!/^\s*\.(?:byte|hword|short|long|quad|ascii|asciz|string|inst)\b/imu.test(text),
     "source contains opaque encoded data or a string");
   for (const fn of FUNCTIONS) {
-    if (fn.name === "func_0000092C") {
+    if (["func_000000D0", "func_000002DC", "func_000006D0", "func_0000092C"].includes(fn.name)) {
       for (const fragment of [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`,
         `.type ${fn.name}, %function`, `.size ${fn.name}, . - ${fn.name}`]) {
         check(text.includes(fragment), `${fn.name} source declaration is absent`);
@@ -214,7 +217,7 @@ try {
     numericPool.writeFloatLE(1.0, 4);
     check(hash(numericPool) === POOLS[0].sha256, "numeric pool hash invariant failed");
   }
-  console.log(`Validated DllFieldEventSlopeSlip clean-room 01: 10 ARM functions (116 bytes), two numeric/storage pools (12 bytes), one exact storage relocation${options.object ? ", and object" : ""}.`);
+  console.log(`Validated DllFieldEventSlopeSlip clean-room: 13 ARM functions (288 bytes), two numeric/storage pools (12 bytes), one exact storage relocation${options.object ? ", and object" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
