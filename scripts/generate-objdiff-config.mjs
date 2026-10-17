@@ -199,6 +199,43 @@ function loadCroAllowlist(root, version) {
   return names;
 }
 
+function loadAuthoredCroClaims(root) {
+  const path = join(root, "config", "cro-sources.json");
+  if (!existsSync(path)) return new Map();
+  let config;
+  try {
+    config = JSON.parse(readFileSync(path, "utf8"));
+  } catch (error) {
+    fail(`cannot read ${relative(root, path)}: ${error.message}`);
+  }
+  if (config?.schemaVersion !== 1 || !Array.isArray(config.units) ||
+      Object.keys(config).sort().join(",") !== "schemaVersion,units") {
+    fail(`${relative(root, path)} has an invalid schema`);
+  }
+  const claims = new Map();
+  let previous = "";
+  for (const unit of config.units) {
+    if (!unit || typeof unit !== "object" || Array.isArray(unit) ||
+        Object.keys(unit).sort().join(",") !== "functions,name,sources" ||
+        typeof unit.name !== "string" || !/^Dll[A-Za-z0-9_]+$/.test(unit.name) ||
+        unit.name <= previous || !Array.isArray(unit.functions) || unit.functions.length === 0 ||
+        !Array.isArray(unit.sources) || unit.sources.length === 0) {
+      fail(`${relative(root, path)} contains an invalid, duplicate, or unsorted unit`);
+    }
+    previous = unit.name;
+    const functions = new Set();
+    for (const entry of unit.functions) {
+      if (!entry || typeof entry !== "object" || typeof entry.name !== "string" ||
+          !/^func_[0-9A-F]{8}$/.test(entry.name) || functions.has(entry.name)) {
+        fail(`${relative(root, path)} contains an invalid or duplicate function claim`);
+      }
+      functions.add(entry.name);
+    }
+    claims.set(unit.name, functions);
+  }
+  return claims;
+}
+
 export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgnored = true, warn = () => {} } = {}) {
   root = realpathSync(root);
   if (!version) {
@@ -209,9 +246,12 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
 
   const targetDirectory = join(root, "build", version, "target", "cro-split");
   const baseDirectory = join(root, "build", version, "base", "cro-split");
+  const authoredBaseDirectory = join(root, "build", version, "base", "cro-code");
   const allowlist = loadCroAllowlist(root, version);
+  const authoredClaims = loadAuthoredCroClaims(root);
   const targets = candidates(targetDirectory);
   const bases = candidates(baseDirectory);
+  const authoredBases = candidates(authoredBaseDirectory);
   const names = [...new Set([...targets.keys(), ...bases.keys()])].sort();
   const units = [{
     name: "main/code",
@@ -222,7 +262,8 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
 
   for (const name of names) {
     const target = targets.get(name);
-    const base = bases.get(name);
+    const authored = authoredBases.has(name) && authoredClaims.has(name);
+    const base = authored ? authoredBases.get(name) : bases.get(name);
     if (!allowlist.has(name)) {
       warn(`${name}: excluded because it is absent from the public CRO manifest`);
       continue;
@@ -243,10 +284,21 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
       // units remain incomplete and earn no code credit.
       const targetObject = inspectArmObject(target, { requireFunctions: false });
       const baseObject = inspectArmObject(base, { requireCode: false, requireFunctions: false });
+      if (authored) {
+        if (baseObject.functions.size === 0) throw new Error("authored base defines no functions");
+        const claimed = authoredClaims.get(name);
+        if (baseObject.functions.size !== claimed.size ||
+            [...baseObject.functions].some((functionName) => !claimed.has(functionName))) {
+          throw new Error("authored base functions do not exactly match config/cro-sources.json");
+        }
+        for (const functionName of baseObject.functions) {
+          if (!targetObject.functions.has(functionName)) throw new Error(`authored base defines target-absent function ${functionName}`);
+        }
+      }
       units.push({
         name: `cro/${name}`,
         target_path: `build/${version}/target/cro-split/${name}.o`,
-        base_path: `build/${version}/base/cro-split/${name}.o`,
+        base_path: `build/${version}/base/${authored ? "cro-code" : "cro-split"}/${name}.o`,
         // Whole-file identity is intentionally stricter than objdiff's code-only
         // score. Anything less remains incomplete until a stronger attestation
         // mechanism is introduced.
@@ -256,6 +308,11 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
     } catch (error) {
       warn(`${name}: excluded: ${error.message}`);
     }
+  }
+
+  for (const name of authoredBases.keys()) {
+    if (!authoredClaims.has(name)) warn(`${name}: authored base excluded because config/cro-sources.json does not claim it`);
+    else if (!targets.has(name) && !bases.has(name)) warn(`${name}: authored base excluded because no published CRO unit exists`);
   }
 
   return {

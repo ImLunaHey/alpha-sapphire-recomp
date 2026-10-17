@@ -18,10 +18,11 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
-units expose only validated neutral metadata and split-object structure. Their
-clean-room base skeletons contain no target payload, every CRO remains
-incomplete, and no CRO currently receives matched-code, matched-data, fuzzy,
-or completed-unit credit.
+units expose only validated neutral metadata and split-object structure.
+`cro/DllPhotoSaver` contains the first independently authored CRO function: an
+exact 8-byte ARM leaf. Its remaining code and all 148 data bytes receive no
+credit. The other 144 CRO base objects remain payload-free skeletons. Every
+CRO remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must
 not be split into arbitrary address ranges: the stripped image does not retain
@@ -51,6 +52,11 @@ module name.
 
 Run `node scripts/test-generate-objdiff-config.mjs` for the ROM-free gating and
 ELF-parser regression suite.
+
+Authored CRO credit is fail-closed. `config/cro-sources.json` lists every
+reviewed source and claimed function; report preparation requires each claim
+to match its public CSV boundary and receive exactly 100% objdiff credit. It
+rejects credit on unclaimed functions, non-text sections, or CRO data.
 
 The generator is deliberately conservative about `metadata.complete`. It is
 `true` only when the complete target and base ELF objects are byte-identical;

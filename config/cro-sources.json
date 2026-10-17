@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllPhotoSaver",
+      "sources": [
+        {
+          "path": "src/cro/DllPhotoSaver.c",
+          "mode": "arm"
+        }
+      ],
+      "functions": [
+        {
+          "name": "func_00000000",
+          "address": 0,
+          "size": 8,
+          "semantics": "store-u8",
+          "offset": 217
+        }
+      ]
+    }
+  ]
+}

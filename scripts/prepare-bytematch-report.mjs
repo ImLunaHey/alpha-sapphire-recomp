@@ -51,6 +51,34 @@ function readCroCsvFiles(directory) {
   return files;
 }
 
+function readCroSourceClaims(path) {
+  const config = JSON.parse(readFileSync(path, "utf8"));
+  if (config?.schemaVersion !== 1 || !Array.isArray(config.units)
+      || Object.keys(config).sort().join(",") !== "schemaVersion,units") {
+    fail("unexpected authored CRO source configuration shape");
+  }
+  const claims = new Map();
+  for (const unit of config.units) {
+    if (!unit || Object.keys(unit).sort().join(",") !== "functions,name,sources"
+        || !/^Dll[A-Za-z0-9_]+$/.test(unit.name) || claims.has(unit.name)
+        || !Array.isArray(unit.sources) || unit.sources.length === 0
+        || !Array.isArray(unit.functions) || unit.functions.length === 0) {
+      fail("authored CRO source configuration contains an invalid or duplicate unit");
+    }
+    const functions = new Map();
+    for (const fn of unit.functions) {
+      if (!fn || !FUNCTION_PATTERN.test(fn.name) || !Number.isInteger(fn.address)
+          || fn.address < 0 || !Number.isInteger(fn.size) || fn.size <= 0
+          || functions.has(fn.name)) {
+        fail(`authored CRO source configuration contains an invalid claim for ${unit.name}`);
+      }
+      functions.set(fn.name, { address: fn.address, size: fn.size });
+    }
+    claims.set(unit.name, functions);
+  }
+  return claims;
+}
+
 function parseCroCsvFunctions(text, stem) {
   const lines = text.split(/\r?\n/);
   if (lines.at(-1) === "") lines.pop();
@@ -83,7 +111,7 @@ function normalizeZeroFunctionCro(unit) {
   }
 }
 
-export function validateAndNormalizeReport({ report, project, manifest, csvFiles }) {
+export function validateAndNormalizeReport({ report, project, manifest, csvFiles, croClaims = new Map() }) {
   const measures = report?.measures;
   const units = report?.units;
   const expected = project?.progress;
@@ -99,10 +127,14 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
   }
 
   const expectedNames = new Set(["main/code"]);
+  if (!(croClaims instanceof Map)) fail("authored CRO claims are not a map");
   for (const entry of manifest.units) {
     if (!entry || typeof entry.name !== "string" || !CRO_UNIT_PATTERN.test(entry.name)
         || expectedNames.has(entry.name)) fail("CRO manifest contains an invalid or duplicate unit name");
     expectedNames.add(entry.name);
+  }
+  for (const stem of croClaims.keys()) {
+    if (!expectedNames.has(`cro/${stem}`)) fail(`authored CRO source unit ${stem} is not in the manifest`);
   }
   if (manifest.unitCount !== manifest.units.length || expectedNames.size !== manifest.unitCount + 1) {
     fail("CRO manifest count is inconsistent");
@@ -158,10 +190,43 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
     }
 
     const zeroFunctionUnit = csvFunctions.length === 0;
-    assertNoCroCredit(unit.measures, `${entry.name}.measures`,
-      zeroFunctionUnit ? VACUOUS_ZERO_FUNCTION_PERCENTAGES : new Set());
-    for (const section of unit.sections ?? []) assertNoCroCredit(section, `${entry.name}.${section.name ?? "section"}`);
-    for (const fn of reportFunctions) assertNoCroCredit(fn, `${entry.name}.${fn.name}`);
+    const claims = croClaims.get(stem) ?? new Map();
+    let claimedBytes = 0;
+    for (const [name, claim] of claims) {
+      const csv = csvByName.get(name);
+      if (!csv || csv.size !== claim.size) fail(`${entry.name}/${name} claim differs from its public CSV boundary`);
+      claimedBytes += claim.size;
+    }
+    const matchedCode = numeric(unit.measures?.matched_code ?? 0, `${entry.name}.matched_code`);
+    const matchedFunctions = numeric(unit.measures?.matched_functions ?? 0, `${entry.name}.matched_functions`);
+    const matchedData = numeric(unit.measures?.matched_data ?? 0, `${entry.name}.matched_data`);
+    if (matchedCode !== claimedBytes || matchedFunctions !== claims.size || matchedData !== 0) {
+      fail(`${entry.name} credit differs from its explicitly authored CRO claims`);
+    }
+    for (const section of unit.sections ?? []) {
+      if (section.name !== ".text") assertNoCroCredit(section, `${entry.name}.${section.name ?? "section"}`);
+      else if (numeric(section.matched_data ?? 0, `${entry.name}.text.matched_data`) !== 0) {
+        fail(`${entry.name}.text grants matched-data credit`);
+      }
+    }
+    for (const fn of reportFunctions) {
+      if (claims.has(fn.name)) {
+        if (numeric(fn.fuzzy_match_percent ?? 0, `${entry.name}.${fn.name}.fuzzy_match_percent`) !== 100) {
+          fail(`${entry.name}/${fn.name} is claimed but is not an exact objdiff match`);
+        }
+        assertNoCroCredit(fn, `${entry.name}.${fn.name}`, new Set(["fuzzy_match_percent"]));
+      } else {
+        assertNoCroCredit(fn, `${entry.name}.${fn.name}`);
+      }
+    }
+    if (claims.size === 0) {
+      assertNoCroCredit(unit.measures, `${entry.name}.measures`,
+        zeroFunctionUnit ? VACUOUS_ZERO_FUNCTION_PERCENTAGES : new Set());
+    }
+    if (claims.size > 0 && numeric(unit.measures?.matched_code_percent ?? 0,
+      `${entry.name}.matched_code_percent`) !== Number((claimedBytes * 100 / codeBytes).toFixed(6))) {
+      fail(`${entry.name} matched-code percentage differs from its authored claims`);
+    }
     if (zeroFunctionUnit) normalizeZeroFunctionCro(unit);
   }
   for (const stem of csvFiles.keys()) {
@@ -192,7 +257,8 @@ function main() {
   const manifest = readCroManifest(join(root, "progress", "units", `${project.version}.cro.json`));
   const report = JSON.parse(readFileSync(input, "utf8"));
   validateAndNormalizeReport({ report, project, manifest,
-    csvFiles: readCroCsvFiles(join(root, "symbols", "cro")) });
+    csvFiles: readCroCsvFiles(join(root, "symbols", "cro")),
+    croClaims: readCroSourceClaims(join(root, "config", "cro-sources.json")) });
 
   mkdirSync(dirname(output), { recursive: true });
   // Keep the checked-in snapshot compact: reports contain tens of thousands of

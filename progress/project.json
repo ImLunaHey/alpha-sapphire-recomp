@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 3,815 clean-room functions are byte-identical. Every CRO remains explicitly incomplete and earns zero match credit.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 3,846 clean-room functions are byte-identical. Every unit remains explicitly incomplete; DllPhotoSaver has the first exact CRO function match.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 10.617752,
-    "matchedFunctions": 3815,
+    "matchedCodePercent": 10.654744,
+    "matchedFunctions": 3846,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "3,807 routines, global-state helpers, container templates, IPC wrappers, and runtime/linker helpers match byte-for-byte",
+      "detail": "3,846 routines, global-state helpers, container templates, IPC wrappers, runtime/linker helpers, and one CRO function match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "First CRO function and 30 main functions matched",
+      "detail": "DllPhotoSaver now supplies the first independently authored CRO function, an exact 8-byte ARM leaf, while remaining explicitly incomplete. Twenty-eight accessor templates and two runtime helpers add 1,368 exact main/code bytes, raising the genuine 146-unit report to 3,846 matched functions and 396,316 bytes. All other CROs retain zero credit."
+    },
     {
       "date": "2026-10-17",
       "title": "All 145 CRO link units prepared for ByteMatch",

@@ -42,8 +42,11 @@ denominator. Forty-four CROs have no accepted function boundary yet; they are
 still published as genuine incomplete link units with zero functions, and no
 placeholder is synthesized.
 
-Publication is structural progress, not a decompilation claim. Every CRO uses
-a payload-free clean-room base skeleton, remains incomplete, and earns zero
-matched-code, matched-data, fuzzy, and completed-unit credit. Further work
-replaces those skeleton sections with reviewed clean-room source while keeping
-the validated module boundary and neutral partition intact.
+Publication is structural progress, not a decompilation claim. DllPhotoSaver
+now replaces one skeleton section with a reviewed clean-room C function and
+earns exactly 8 matched-code bytes and one matched function. Its remaining
+code and all data stay unmatched. The other 144 CROs still use payload-free
+base skeletons and earn zero credit. Every CRO remains incomplete and no CRO
+earns completed-unit credit. Further work replaces skeleton sections with
+reviewed clean-room source while keeping each validated module boundary and
+neutral partition intact.

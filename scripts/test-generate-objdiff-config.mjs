@@ -93,9 +93,17 @@ function withUnknownSection(input) {
 const root = mkdtempSync(join(tmpdir(), "as-objdiff-config-"));
 const target = join(root, "build", "TEST", "target", "cro-split");
 const base = join(root, "build", "TEST", "base", "cro-split");
+const authoredBase = join(root, "build", "TEST", "base", "cro-code");
 mkdirSync(target, { recursive: true });
 mkdirSync(base, { recursive: true });
+mkdirSync(authoredBase, { recursive: true });
 mkdirSync(join(root, "progress", "units"), { recursive: true });
+mkdirSync(join(root, "config"), { recursive: true });
+writeFileSync(join(root, "config", "cro-sources.json"), `${JSON.stringify({
+  schemaVersion: 1,
+  units: [{ name: "DllField", sources: [{ path: "src/cro/DllField.c", mode: "arm" }],
+    functions: [{ name: "func_00000000" }] }],
+}, null, 2)}\n`);
 
 const fixtureNames = ["DllBattle", "DllBroken", "DllEmpty", "DllField", "DllMismatch", "DllTitle"];
 for (let index = 0; fixtureNames.length < 145; index++) fixtureNames.push(`DllTest${String(index).padStart(3, "0")}`);
@@ -117,8 +125,10 @@ writeFileSync(manifestPath, manifestText);
 const battle = armObject("battle_entry");
 writeFileSync(join(target, "DllBattle.o"), battle);
 writeFileSync(join(base, "DllBattle.o"), battle);
-writeFileSync(join(target, "DllField.o"), armObject("field_entry", 0xe3a00000));
-writeFileSync(join(base, "DllField.o"), armObject("field_entry", 0xe3a00001));
+writeFileSync(join(target, "DllField.o"), armObject("func_00000000", 0xe3a00000));
+writeFileSync(join(base, "DllField.o"), armObject("func_00000000", 0xe3a00001));
+writeFileSync(join(authoredBase, "DllField.o"), armObject("func_00000000", 0xe3a00000));
+writeFileSync(join(authoredBase, "DllGhost.o"), armObject("ghost_entry"));
 writeFileSync(join(target, "DllTitle.o"), armObject("title_entry"));
 writeFileSync(join(target, "DllBroken.o"), Buffer.from("not an ELF"));
 writeFileSync(join(base, "DllBroken.o"), armObject("broken_entry"));
@@ -147,12 +157,14 @@ assert.deepEqual(config.units.map((unit) => unit.name), [
 ]);
 assert.equal(config.units[1].metadata.complete, true);
 assert.equal(config.units[2].metadata.complete, false);
-assert.equal(config.units[3].metadata.complete, false);
+assert.equal(config.units[3].metadata.complete, true);
+assert.match(config.units[3].base_path, /\/base\/cro-code\/DllField\.o$/u);
 assert.equal(config.units[4].metadata.complete, false);
 assert.equal(config.units[5].metadata.complete, false);
 assert.match(warnings.join("\n"), /DllBroken: excluded/);
 assert.match(warnings.join("\n"), /DllUnknown: excluded because it is absent from the public CRO manifest/);
 assert.match(warnings.join("\n"), /DllTest000: excluded: .*not a regular file/);
+assert.match(warnings.join("\n"), /DllGhost: authored base excluded because config\/cro-sources\.json does not claim it/);
 assert.equal(JSON.stringify(config).includes("NotADll"), false);
 
 writeFileSync(manifestPath, JSON.stringify({ ...manifest, unitCount: 144 }));

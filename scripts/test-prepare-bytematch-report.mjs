@@ -73,7 +73,35 @@ assert.throws(() => validateAndNormalizeReport(duplicateUnit), /unit names are m
 
 const credited = fixture();
 credited.report.units[1].measures.matched_code = "4";
-assert.throws(() => validateAndNormalizeReport(credited), /grants 4 credit/);
+assert.throws(() => validateAndNormalizeReport(credited), /credit differs/);
+
+const authored = fixture();
+authored.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000004,".text"\n`);
+authored.project.progress.matchedFunctions = 2;
+authored.project.progress.totalFunctions = 2;
+authored.report.measures.matched_functions = 2;
+authored.report.measures.total_functions = 2;
+authored.report.units[1].measures = {
+  fuzzy_match_percent: 100,
+  total_code: "4",
+  matched_code: "4",
+  matched_code_percent: 100,
+  total_functions: 1,
+  matched_functions: 1,
+  matched_functions_percent: 100,
+  total_units: 1,
+};
+authored.report.units[1].functions = [
+  { name: "func_00000000", size: "4", fuzzy_match_percent: 100, address: "0", metadata: {} },
+];
+authored.croClaims = new Map([["DllEmpty", new Map([
+  ["func_00000000", { address: 0, size: 4 }],
+])]]);
+validateAndNormalizeReport(authored);
+
+const unconfiguredCredit = structuredClone(authored);
+unconfiguredCredit.croClaims = new Map();
+assert.throws(() => validateAndNormalizeReport(unconfiguredCredit), /credit differs/);
 
 const wrongInventory = fixture();
 wrongInventory.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000004,".text"\n`);

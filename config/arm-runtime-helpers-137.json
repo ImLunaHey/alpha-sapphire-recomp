@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_runtime_helpers_137.S",
+  "sourceHash": "9f7bffd0917f80453650554e21840ab764e5da3707d5a9197fda8c47e8728d9e",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "entryRange": {
+    "start": "0x004B2000",
+    "endExclusive": "0x004B3000"
+  },
+  "totalBodySize": 80,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 20,
+  "memoryOperationCount": 8,
+  "localBranchCount": 4,
+  "directCallCount": 0,
+  "indirectCallCount": 0,
+  "directTailCount": 0,
+  "indirectTailCount": 0,
+  "returnCount": 2,
+  "expectedRelocationCount": 0,
+  "functions": [
+    {
+      "name": "func_004B2644",
+      "address": "0x004B2644",
+      "size": 40,
+      "ownedSize": 40,
+      "nextGlobal": "func_004B2674",
+      "nextGlobalOffset": 48,
+      "bodyHash": "1bff2f6b38fd7a6c2fe1dbbad4b9a702935aaa5b39e809f322247953440e2d58",
+      "instructionCount": 10,
+      "memoryOperationCount": 4,
+      "localBranchCount": 2,
+      "indirectCallCount": 0,
+      "returnCount": 1,
+      "words": [3855618052, 3813736448, 167772164, 3851419648, 3855618116, 3813736448, 30409144, 167772160, 3818913792, 3778019102]
+    },
+    {
+      "name": "func_004B2674",
+      "address": "0x004B2674",
+      "size": 40,
+      "ownedSize": 40,
+      "nextGlobal": "func_004B269C",
+      "nextGlobalOffset": 40,
+      "bodyHash": "9b3cfd1b719b878ac4347478a1c230f56bf37da8f263f6d10787b5ddf8028316",
+      "instructionCount": 10,
+      "memoryOperationCount": 4,
+      "localBranchCount": 2,
+      "indirectCallCount": 0,
+      "returnCount": 1,
+      "words": [3855618052, 3813736448, 167772164, 3851419648, 3855618116, 3813736448, 30409146, 167772160, 3818913792, 3778019102]
+    }
+  ],
+  "localTransfers": [
+    { "function": "func_004B2644", "offset": 8, "width": 4, "mnemonic": "beq", "targetOffset": 32 },
+    { "function": "func_004B2644", "offset": 28, "width": 4, "mnemonic": "beq", "targetOffset": 36 },
+    { "function": "func_004B2674", "offset": 8, "width": 4, "mnemonic": "beq", "targetOffset": 32 },
+    { "function": "func_004B2674", "offset": 28, "width": 4, "mnemonic": "beq", "targetOffset": 36 }
+  ],
+  "pcRelativeDataAccesses": [],
+  "directTransfers": [],
+  "indirectTransfers": [],
+  "returns": [
+    { "function": "func_004B2644", "offset": 36, "width": 4, "kind": "register-return" },
+    { "function": "func_004B2674", "offset": 36, "width": 4, "kind": "register-return" }
+  ],
+  "relocations": [],
+  "symbolicIdentities": {},
+  "reusedSymbolicIdentities": [],
+  "newSymbolicIdentities": [],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "authoritativePrivateOffsetBase": "0x00100000",
+    "requireUniqueBodies": true,
+    "forbidRelocations": true,
+    "forbidForeignExecutablePayload": true,
+    "scanRecursiveSourceOwners": true,
+    "scanConfigOwnershipIntervals": true
+  }
+}
