@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_duplicate_templates_85.S",
+  "sourceHash": "642d7d6451d580d659dc3ffbd29516e85d00e7cf46b0e3b380ff3f5e5cf02d53",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "minimumAlignment": 4,
+  "templateCount": 2,
+  "instanceCount": 4,
+  "totalBodySize": 352,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 88,
+  "memoryOperationCount": 20,
+  "localBranchCount": 0,
+  "directCallCount": 16,
+  "indirectCallCount": 0,
+  "directTailCount": 0,
+  "indirectTailCount": 0,
+  "returnCount": 0,
+  "expectedRelocationCount": 16,
+  "templates": [
+    { "name": "prepare_pair", "size": 28, "instructionCount": 7, "memoryOperationCount": 1, "directCallCount": 1, "instances": ["func_001512AC", "func_0043ED88"], "normalizedBodyHash": "8bbeebd4d2b28c734d6137c0b6e965cad2012d7fdf2afec562f564fd6364d0d2" },
+    { "name": "register_matrix", "size": 148, "instructionCount": 37, "memoryOperationCount": 9, "directCallCount": 7, "instances": ["func_003E6C30", "func_003E7354"], "normalizedBodyHash": "7cb621c43ddb15ec01422c2c6cf0456fb7435c56ed70cd3d3e67bc443267b6e4" }
+  ],
+  "functions": [
+    { "name": "func_001512AC", "address": "0x001512AC", "template": "prepare_pair", "size": 28, "ownedSize": 28, "nextGlobal": "func_00151390", "nextGlobalOffset": 28, "bodyHash": "8bbeebd4d2b28c734d6137c0b6e965cad2012d7fdf2afec562f564fd6364d0d2", "instructionCount": 7, "memoryOperationCount": 1, "directCallCount": 1 },
+    { "name": "func_003E6C30", "address": "0x003E6C30", "template": "register_matrix", "size": 148, "ownedSize": 148, "nextGlobal": "func_003E7048", "nextGlobalOffset": 148, "bodyHash": "7cb621c43ddb15ec01422c2c6cf0456fb7435c56ed70cd3d3e67bc443267b6e4", "instructionCount": 37, "memoryOperationCount": 9, "directCallCount": 7 },
+    { "name": "func_003E7354", "address": "0x003E7354", "template": "register_matrix", "size": 148, "ownedSize": 148, "nextGlobal": "func_003E7514", "nextGlobalOffset": 148, "bodyHash": "7cb621c43ddb15ec01422c2c6cf0456fb7435c56ed70cd3d3e67bc443267b6e4", "instructionCount": 37, "memoryOperationCount": 9, "directCallCount": 7 },
+    { "name": "func_0043ED88", "address": "0x0043ED88", "template": "prepare_pair", "size": 28, "ownedSize": 28, "nextGlobal": "func_0043EE14", "nextGlobalOffset": 28, "bodyHash": "8bbeebd4d2b28c734d6137c0b6e965cad2012d7fdf2afec562f564fd6364d0d2", "instructionCount": 7, "memoryOperationCount": 1, "directCallCount": 1 }
+  ],
+  "directTransfers": [
+    { "function": "func_001512AC", "offset": 24, "type": "R_ARM_CALL", "symbol": "func_00301FBC", "targetAddress": "0x00301FBC" },
+    { "function": "func_003E6C30", "offset": 28, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E6C30", "offset": 48, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E6C30", "offset": 68, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E6C30", "offset": 88, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E6C30", "offset": 116, "type": "R_ARM_CALL", "symbol": "func_00362998", "targetAddress": "0x00362998" },
+    { "function": "func_003E6C30", "offset": 136, "type": "R_ARM_CALL", "symbol": "func_0034679C", "targetAddress": "0x0034679C" },
+    { "function": "func_003E6C30", "offset": 144, "type": "R_ARM_CALL", "symbol": "func_0014E348", "targetAddress": "0x0014E348" },
+    { "function": "func_003E7354", "offset": 28, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E7354", "offset": 48, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E7354", "offset": 68, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E7354", "offset": 88, "type": "R_ARM_CALL", "symbol": "func_003617D8", "targetAddress": "0x003617D8" },
+    { "function": "func_003E7354", "offset": 116, "type": "R_ARM_CALL", "symbol": "func_00362998", "targetAddress": "0x00362998" },
+    { "function": "func_003E7354", "offset": 136, "type": "R_ARM_CALL", "symbol": "func_0034679C", "targetAddress": "0x0034679C" },
+    { "function": "func_003E7354", "offset": 144, "type": "R_ARM_CALL", "symbol": "func_0014E348", "targetAddress": "0x0014E348" },
+    { "function": "func_0043ED88", "offset": 24, "type": "R_ARM_CALL", "symbol": "func_00301FBC", "targetAddress": "0x00301FBC" }
+  ],
+  "relocations": [
+    { "symbol": "func_00301FBC", "type": "R_ARM_CALL", "siteCount": 2 },
+    { "symbol": "func_003617D8", "type": "R_ARM_CALL", "siteCount": 8 },
+    { "symbol": "func_00362998", "type": "R_ARM_CALL", "siteCount": 2 },
+    { "symbol": "func_0034679C", "type": "R_ARM_CALL", "siteCount": 2 },
+    { "symbol": "func_0014E348", "type": "R_ARM_CALL", "siteCount": 2 }
+  ],
+  "validation": {
+    "targetRevision": "AS_EUR_REV2",
+    "authoritativePrivateOffsetBase": "0x00100000",
+    "requireExactTemplatePairs": true,
+    "requireUniqueTemplateBodies": true,
+    "forbidForeignExecutablePayload": true,
+    "forbidPcRelativeDataAccesses": true,
+    "forbidIndirectTransfers": true,
+    "forbidAdjacentBytes": true,
+    "scanRecursiveSourceOwners": true,
+    "scanConfigOwnershipIntervals": true
+  }
+}

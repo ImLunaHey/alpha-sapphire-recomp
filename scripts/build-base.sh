@@ -277,6 +277,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-duplicate-templates-83.mjs"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-duplicate-templates-84.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-duplicate-templates-85.mjs" --self-test
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" "$output" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" "$output"
 ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
@@ -495,6 +497,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-142.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-runtime-helpers-143.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"
@@ -563,5 +567,7 @@ node "$root/scripts/validate-cro-contract-05.mjs" \
 node "$root/scripts/validate-cro-contract-06.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-07.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
+node "$root/scripts/validate-cro-contract-08.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

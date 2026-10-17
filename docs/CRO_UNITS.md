@@ -44,13 +44,15 @@ placeholder is synthesized.
 
 Publication is structural progress, not a decompilation claim. DllPhotoSaver
 provided the first reviewed clean-room CRO function. The current verified
-snapshot credits 173 exact functions and 3,224 code bytes across 72 CRO units:
+snapshot credits 181 exact functions and 4,276 code bytes across 80 CRO units:
 52 byte-store leaves (including DllPhotoSaver), 29 POD leaves across 14 units,
 45 DllBattle leaf accessors, and 21 DllField leaf accessors. These groups may
 share a unit, so their unit counts are not additive. A further eight POD and
 numeric helper functions contribute 460 bytes across seven previously
 zero-credit modules. Contracts 06 and 07 add 18 exact functions and 748 bytes
-across ten modules, including eight previously zero-credit units. The other 73
+across ten modules, including eight previously zero-credit units. Contract 08
+adds eight exact functions and 1,052 bytes across eight more previously
+zero-credit modules. The other 65
 CROs receive zero credit, and matched CRO
 data remains zero. Unclaimed code and all data stay unmatched. Every CRO
 remains incomplete and no CRO earns completed-unit credit. Further work

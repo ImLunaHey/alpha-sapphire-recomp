@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "units": [
+    {
+      "name": "DllBattleMatch",
+      "sources": [{ "path": "src/cro/DllBattleMatch/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_0000BE2C", "address": 48684, "size": 60, "semantics": "contract-08-linked-list-transfer" }]
+    },
+    {
+      "name": "DllFriendEntry",
+      "sources": [{ "path": "src/cro/DllFriendEntry/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000019DC", "address": 6620, "size": 160, "semantics": "contract-08-wide-multiply-accumulate" }]
+    },
+    {
+      "name": "DllNuts",
+      "sources": [{ "path": "src/cro/DllNuts/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00004D84", "address": 19844, "size": 128, "semantics": "contract-08-vector-state-update" }]
+    },
+    {
+      "name": "DllPssRuleSelect",
+      "sources": [{ "path": "src/cro/DllPssRuleSelect/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00001484", "address": 5252, "size": 124, "semantics": "contract-08-rule-table-expand" }]
+    },
+    {
+      "name": "DllTrialHouseResult",
+      "sources": [{ "path": "src/cro/DllTrialHouseResult/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000018B8", "address": 6328, "size": 128, "semantics": "contract-08-result-table-lookup" }]
+    },
+    {
+      "name": "DllUSAreaWaterSurface",
+      "sources": [{ "path": "src/cro/DllUSAreaWaterSurface/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000570", "address": 1392, "size": 152, "semantics": "contract-08-water-surface-loop" }]
+    },
+    {
+      "name": "DllUSGymFlight",
+      "sources": [{ "path": "src/cro/DllUSGymFlight/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_00000FA4", "address": 4004, "size": 152, "semantics": "contract-08-flight-interpolation" }]
+    },
+    {
+      "name": "DllWazaOboe",
+      "sources": [{ "path": "src/cro/DllWazaOboe/contract_08.S", "mode": "arm" }],
+      "functions": [{ "name": "func_000035D8", "address": 13784, "size": 148, "semantics": "contract-08-selection-dispatch" }]
+    }
+  ]
+}

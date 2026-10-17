@@ -642,6 +642,10 @@
       "mode": "arm"
     },
     {
+      "path": "src/main/arm_duplicate_templates_85.S",
+      "mode": "arm"
+    },
+    {
       "path": "src/main/arm_runtime_helpers_46.S",
       "mode": "arm"
     },
@@ -1383,6 +1387,10 @@
     },
     {
       "path": "src/main/arm_runtime_helpers_142.S",
+      "mode": "arm"
+    },
+    {
+      "path": "src/main/arm_runtime_helpers_143.S",
       "mode": "arm"
     }
   ]

@@ -16,24 +16,24 @@ The tracked snapshot is a genuine `objdiff-cli` report generated locally from th
 
 ## Current verified progress
 
-The 146 published units contain 4,116 exactly matched functions and 402,512
-matched code bytes, or 10.821321% overall. `main/code` contributes 3,943
-functions and 399,288 bytes. The CROs contribute 173 functions and 3,224 code
-bytes across 72 units; their matched-data total is zero. The other 73 CRO
+The 146 published units contain 4,135 exactly matched functions and 404,288
+matched code bytes, or 10.869067% overall. `main/code` contributes 3,954
+functions and 400,012 bytes. The CROs contribute 181 functions and 4,276 code
+bytes across 80 units; their matched-data total is zero. The other 65 CRO
 units currently receive no credit. All units remain incomplete.
 
-The latest verified wave added 32 functions and 1,628 code bytes. Main batches
-141 and 142 contribute 14 functions and 880 bytes. CRO contract batches 06
-and 07 contribute 18 functions and 748 bytes across ten modules, including
-eight newly credited units.
+The latest verified wave added 19 functions and 1,776 code bytes. Main runtime
+batch 143 and duplicate-template batch 85 contribute 11 functions and 724
+bytes. CRO contract batch 08 contributes eight functions and 1,052 bytes
+across eight newly credited units.
 
 ## Executable units
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-Reviewed clean-room function sections now earn code credit in 72 CROs; all
-unclaimed code, all CRO data, and all 73 zero-credit CROs remain unmatched.
+Reviewed clean-room function sections now earn code credit in 80 CROs; all
+unclaimed code, all CRO data, and all 65 zero-credit CROs remain unmatched.
 Every unit remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must

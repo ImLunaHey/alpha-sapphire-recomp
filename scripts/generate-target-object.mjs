@@ -25933,6 +25933,7 @@ if (JSON.stringify(thumbLeafHelpers20Config.directCalls.map(({ offset, destinati
 // the audited target transfers; emitting the same symbolic bodies here gives
 // objdiff relocation metadata instead of opaque resolved branch words.
 const supplementalIpcPaths = [
+  "config/arm-duplicate-templates-85.json",
   "config/arm-ipc-wrappers-105.json",
   "config/arm-ipc-wrappers-106.json",
   "config/arm-ipc-wrappers-107.json",
@@ -25963,6 +25964,7 @@ const supplementalIpcPaths = [
   "config/arm-runtime-helpers-140.json",
   "config/arm-runtime-helpers-141.json",
   "config/arm-runtime-helpers-142.json",
+  "config/arm-runtime-helpers-143.json",
   "config/thumb-leaf-helpers-27.json",
 ].map((path) => join(root, path));
 const supplementalIpcBodies = new Map();
