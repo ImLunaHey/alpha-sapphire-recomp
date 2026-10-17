@@ -10,9 +10,10 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,offset,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPssMessageWindow"];
+const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPssFavorite", "DllPssMessageWindow"];
 const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S",
-  "src/cro/DllHologramMail.c", "src/cro/DllPssMessageWindow.c"];
+  "src/cro/DllHologramMail.c", "src/cro/DllPssFavorite.c",
+  "src/cro/DllPssMessageWindow.c"];
 
 function fail(message) {
   throw new Error(`CRO store-leaf validation: ${message}`);
@@ -125,7 +126,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 49, `expected 49 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 48, `expected 48 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -173,7 +174,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 49 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 48 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
