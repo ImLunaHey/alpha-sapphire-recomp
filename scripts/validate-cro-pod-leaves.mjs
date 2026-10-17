@@ -10,8 +10,9 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNIT = "DllGift";
-const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S"];
+const QUARANTINED_UNITS = ["DllGift", "DllTradelist"];
+const QUARANTINED_PATHS = QUARANTINED_UNITS.flatMap((unit) =>
+  [`src/cro/${unit}.c`, `src/cro/${unit}/pod_leaves.S`]);
 
 const SCHEDULES = new Map([
   ["pod-zero-word-halfword", ["mov r1, #0", "str r1, [r0]", "strh r1, [r0, #4]", "bx lr"]],
@@ -50,8 +51,6 @@ const EXPECTED = [
   ["DllPssIconSelect", "func_00002E44", "pod-zero-two-words"],
   ["DllSecretBaseQR", "func_000021A4", "pod-copy-two-words"],
   ["DllSecretBaseQR", "func_000021B8", "pod-copy-word-byte"],
-  ["DllTradelist", "func_0000B8B8", "pod-copy-word-halfword"],
-  ["DllTradelist", "func_0000B8CC", "pod-copy-two-words"],
   ["DllTrialDownload", "func_00006F28", "pod-zero-two-words-halfword"],
   ["DllUSSecretBase", "func_000079B4", "pod-copy-two-words"],
 ];
@@ -107,13 +106,13 @@ function validateContract() {
   catch (error) { fail(`cannot read config/cro-sources.json: ${error.message}`); }
   exactKeys(config, "schemaVersion,units", "config");
   check(config.schemaVersion === 1 && Array.isArray(config.units) && config.units.length > 0, "config version or units are invalid");
-  check(!config.units.some((unit) => unit?.name === QUARANTINED_UNIT),
-    `${QUARANTINED_UNIT} must remain absent from authored CRO claims`);
+  check(!config.units.some((unit) => QUARANTINED_UNITS.includes(unit?.name)),
+    `${QUARANTINED_UNITS.join(" and ")} must remain absent from authored CRO claims`);
   check(!config.units.some((unit) => Array.isArray(unit?.sources) &&
     unit.sources.some((source) => QUARANTINED_PATHS.includes(source?.path))),
-  `${QUARANTINED_UNIT} quarantined source paths must remain unclaimed`);
+  `${QUARANTINED_UNITS.join(" and ")} quarantined source paths must remain unclaimed`);
   check(QUARANTINED_PATHS.every((path) => !existsSync(resolve(ROOT, path))),
-    `${QUARANTINED_UNIT} quarantined source files must remain absent`);
+    `${QUARANTINED_UNITS.join(" and ")} quarantined source files must remain absent`);
 
   const expected = new Map(EXPECTED.map(([unit, name, semantics]) => [name, { unit, semantics }]));
   const found = new Map(), affected = new Set(EXPECTED.map(([unit]) => unit));
@@ -187,8 +186,8 @@ function validateContract() {
     totals.zeroes += schedule.filter((item) => item === "mov r1, #0").length;
     totals.returns += schedule.filter((item) => item === "bx lr").length;
   }
-  check(affected.size === 13 && totals.bytes === 528 && totals.instructions === 132 && totals.loads === 28 &&
-    totals.stores === 62 && totals.zeroes === 14 && totals.returns === 28, "aggregate POD contract totals are invalid");
+  check(affected.size === 12 && totals.bytes === 488 && totals.instructions === 122 && totals.loads === 24 &&
+    totals.stores === 58 && totals.zeroes === 14 && totals.returns === 26, "aggregate POD contract totals are invalid");
   return { config, functions, affected };
 }
 
@@ -250,7 +249,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const contract = validateContract();
   if (options.objectDirectory) validateObjects(contract, options.objectDirectory, options.readelf, options.objdump);
-  console.log(`Validated 28 ARM POD leaves in 13 CRO units (528 bytes, 132 instructions)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 26 ARM POD leaves in 12 CRO units (488 bytes, 122 instructions)${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
