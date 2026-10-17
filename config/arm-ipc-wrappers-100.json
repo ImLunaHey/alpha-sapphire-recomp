@@ -1,0 +1,187 @@
+{
+  "schemaVersion": 1,
+  "source": "src/main/arm_ipc_wrappers_100.S",
+  "sourceHash": "acab6b6a0a12a93a32b0c37e1709d33b589da803de40d9cde50f3708118f89b0",
+  "architecture": "ARMv6K",
+  "mode": "arm",
+  "objectMetadataContract": {
+    "elfClass": "ELF32",
+    "dataEncoding": "little-endian",
+    "osAbi": "System V",
+    "objectType": "ET_REL",
+    "machine": "EM_ARM",
+    "elfVersion": 1,
+    "armFlags": ["EF_ARM_EABI_VER5"],
+    "entryPoint": 0,
+    "programHeaderCount": 0,
+    "canonicalNullSection": true,
+    "armAttributes": {
+      "cpuName": "6K",
+      "cpuArchitecture": "v6K",
+      "armIsaUse": true,
+      "thumbIsaUse": "Thumb-1",
+      "floatingPointArchitecture": "VFPv2"
+    },
+    "ownedSection": {
+      "name": ".text.func_001854A0",
+      "type": "SHT_PROGBITS",
+      "flags": ["SHF_ALLOC", "SHF_EXECINSTR"],
+      "address": 0,
+      "alignment": 4,
+      "size": 300
+    },
+    "ownedSymbols": [
+      { "name": "", "binding": "STB_LOCAL", "type": "STT_SECTION", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "$a", "binding": "STB_LOCAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 0, "size": 0 },
+      { "name": "$d", "binding": "STB_LOCAL", "type": "STT_NOTYPE", "visibility": "STV_DEFAULT", "value": 268, "size": 0 },
+      { "name": "func_001854A0", "binding": "STB_GLOBAL", "type": "STT_FUNC", "visibility": "STV_DEFAULT", "value": 0, "size": 268 }
+    ],
+    "undefinedDestinationSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_NOTYPE",
+      "visibility": "STV_DEFAULT",
+      "value": 0,
+      "size": 0
+    },
+    "undefinedLiteralSymbols": {
+      "binding": "STB_GLOBAL",
+      "type": "STT_NOTYPE",
+      "visibility": "STV_DEFAULT",
+      "value": 0,
+      "size": 0
+    },
+    "additionalOwnedAliases": 0,
+    "dataMappingSymbols": 1
+  },
+  "totalBodySize": 268,
+  "totalAdjacentSize": 32,
+  "cumulativePoolSlots": 906,
+  "cumulativePoolClasses": 480,
+  "functions": [
+    {
+      "name": "func_001854A0",
+      "section": ".text.func_001854A0",
+      "size": 268,
+      "instructionCount": 67,
+      "localBranchCount": 0,
+      "nextGlobal": "func_001855CC",
+      "nextGlobalOffset": 300,
+      "branches": [
+        { "offset": 36, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018B220" },
+        { "offset": 56, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018AAEC" },
+        { "offset": 76, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018AAEC" },
+        { "offset": 124, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_00184990" },
+        { "offset": 136, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked-state-exchange", "condition": "notEqual", "symbol": "service_buffer_initialize_secondary_100" },
+        { "offset": 184, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018F654" },
+        { "offset": 252, "kind": "R_ARM_CALL", "addend": 0, "transfer": "linked", "symbol": "func_0018CE64" }
+      ],
+      "indirectCalls": [],
+      "returnOffsets": [264],
+      "literals": [
+        { "offset": 268, "loadOffsets": [16], "symbol": "service_manager_vtable_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 272, "loadOffsets": [40, 60], "symbol": "ipc_empty_text_63", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 276, "loadOffsets": [44], "symbol": "service_channel_descriptor_primary_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 280, "loadOffsets": [64], "symbol": "service_channel_descriptor_secondary_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 284, "loadOffsets": [92], "symbol": "service_instance_vtable_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 288, "loadOffsets": [140], "symbol": "service_buffer_first_callback_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 292, "loadOffsets": [148], "symbol": "service_buffer_second_callback_100", "relocation": "R_ARM_ABS32", "addend": 0 },
+        { "offset": 296, "loadOffsets": [160, 192], "symbol": "service_buffer_template_100", "relocation": "R_ARM_ABS32", "addend": 0 }
+      ]
+    }
+  ],
+  "literalIdentities": [
+    "service_manager_vtable_100",
+    "ipc_empty_text_63",
+    "service_channel_descriptor_primary_100",
+    "service_channel_descriptor_secondary_100",
+    "service_instance_vtable_100",
+    "service_buffer_first_callback_100",
+    "service_buffer_second_callback_100",
+    "service_buffer_template_100"
+  ],
+  "reusedLiteralIdentities": ["ipc_empty_text_63"],
+  "newLiteralIdentities": [
+    "service_manager_vtable_100",
+    "service_channel_descriptor_primary_100",
+    "service_channel_descriptor_secondary_100",
+    "service_instance_vtable_100",
+    "service_buffer_first_callback_100",
+    "service_buffer_second_callback_100",
+    "service_buffer_template_100"
+  ],
+  "literalIdentityContract": {
+    "slotCount": 8,
+    "classCount": 8,
+    "classesPairwiseDistinct": true,
+    "allSlotsOwnedByBatch": true,
+    "remainingUnownedGapBytes": 0
+  },
+  "branchIdentityContract": {
+    "mode": "arm",
+    "minimumAlignment": 4,
+    "primaryEntries": [
+      "func_0018B220",
+      "func_0018AAEC",
+      "func_00184990",
+      "service_buffer_initialize_secondary_100",
+      "func_0018F654",
+      "func_0018CE64"
+    ],
+    "secondaryEntries": ["service_buffer_initialize_secondary_100"],
+    "secondaryEntryRelations": [
+      {
+        "symbol": "service_buffer_initialize_secondary_100",
+        "owner": "func_00302FB6",
+        "ownerOffset": 6,
+        "nextGlobal": "func_00302FEE",
+        "bytesBeforeNextGlobal": 50
+      }
+    ],
+    "sharedClasses": [
+      {
+        "symbol": "func_0018AAEC",
+        "sites": [
+          { "function": "func_001854A0", "offset": 56 },
+          { "function": "func_001854A0", "offset": 76 }
+        ]
+      }
+    ],
+    "singletonClasses": [
+      "func_0018B220",
+      "func_00184990",
+      "service_buffer_initialize_secondary_100",
+      "func_0018F654",
+      "func_0018CE64"
+    ],
+    "classesPairwiseDistinct": true,
+    "armPrimaryEntries": [
+      "func_0018B220",
+      "func_0018AAEC",
+      "func_00184990",
+      "func_0018F654",
+      "func_0018CE64"
+    ],
+    "thumbPrimaryEntries": []
+  },
+  "selectionNotes": {
+    "skippedEarlierUnmatched": [
+      {
+        "name": "func_00180F24",
+        "size": 1356,
+        "reason": "large multi-loop scheduler/dispatcher outside the bounded wrapper cohort"
+      },
+      {
+        "name": "func_00184AAC",
+        "size": 808,
+        "reason": "large multi-path service routine outside the bounded wrapper cohort"
+      },
+      {
+        "name": "func_00184F20",
+        "size": 1052,
+        "reason": "large multi-path service initializer outside the bounded wrapper cohort"
+      }
+    ],
+    "skippedBeforeNextSuitable": [],
+    "nextUnselectedSuitable": "func_001855CC"
+  }
+}

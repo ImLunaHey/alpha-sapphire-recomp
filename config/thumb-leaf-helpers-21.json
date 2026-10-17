@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_21.S",
+  "sourceHash": "307070790e17a45f3c348c4b002e0c1de15a3fe089bea5eb698e98b4f81334a0",
+  "architecture": "ARMv6K",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "totalBodySize": 90,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 43,
+  "wideInstructionCount": 2,
+  "legacyNopCount": 1,
+  "localBranchCount": 5,
+  "memoryOperationCount": 10,
+  "returnCount": 1,
+  "indirectCallCount": 4,
+  "indirectTailCount": 0,
+  "directCallCount": 2,
+  "directTailCount": 0,
+  "directCalls": [
+    { "function": "func_00300ABC", "offset": 44, "kind": "call", "destinationSymbol": "func_00100788", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -2097972, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00300ABC", "offset": 60, "kind": "call", "destinationSymbol": "thumb_secondary_00100700", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -2098108, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 }
+  ],
+  "directTails": [],
+  "relocations": [
+    { "function": "func_00300ABC", "offset": 44, "type": "R_ARM_THM_CALL", "symbol": "func_00100788", "format": "REL", "implicitAddend": -4 },
+    { "function": "func_00300ABC", "offset": 60, "type": "R_ARM_THM_CALL", "symbol": "thumb_secondary_00100700", "format": "REL", "implicitAddend": -4 }
+  ],
+  "externalEntryIdentities": [
+    { "symbol": "func_00100788", "kind": "primary-global", "state": "thumb", "targetOffset": -2097972, "ownership": "external-owned-public", "owner": "config/thumb-leaf-helpers-09.json", "objectSymbol": true },
+    {
+      "symbol": "thumb_secondary_00100700", "kind": "secondary-entry", "state": "thumb", "targetOffset": -2098108,
+      "ownership": "external-unowned", "objectSymbol": true,
+      "precedingGlobal": { "symbol": "func_0010068E", "offset": -2098222, "bodySize": 112, "bodyEndOffset": -2098110 },
+      "followingGlobal": { "symbol": "func_00100788", "offset": -2097972 }
+    }
+  ],
+  "pcRelativeDataAccesses": [
+    { "function": "func_00300ABC", "offset": 4, "mnemonic": "ldr", "targetOffset": 92, "requiredEntryModulo4": 0, "ownership": "unowned-post-body" }
+  ],
+  "duplicateBodyClasses": [],
+  "objectContract": {
+    "elfClass": "ELF32", "endianness": "little", "fileType": "ET_REL", "machine": "EM_ARM", "elfVersion": 1,
+    "osAbi": "ELFOSABI_NONE", "abiVersion": 0, "flags": 83886080,
+    "armAttributes": { "cpuName": "6K", "cpuArchitecture": "v6K", "armIsaUse": true, "thumbIsaUse": "Thumb-1", "floatingPointArchitecture": "VFPv2" },
+    "executableSectionType": "SHT_PROGBITS", "executableSectionFlags": ["SHF_ALLOC", "SHF_EXECINSTR"], "executableSectionAlignment": 2,
+    "primarySymbolBinding": "STB_GLOBAL", "primarySymbolType": "STT_FUNC", "primarySymbolVisibility": "STV_DEFAULT", "primarySymbolOther": 0, "primarySymbolThumbValue": 1,
+    "mappingSymbol": "$t", "mappingSymbolBinding": "STB_LOCAL", "mappingSymbolType": "STT_NOTYPE", "mappingSymbolVisibility": "STV_DEFAULT", "mappingSymbolValue": 0,
+    "sectionSymbolBinding": "STB_LOCAL", "sectionSymbolType": "STT_SECTION",
+    "externalSymbolBinding": "STB_GLOBAL", "externalSymbolType": "STT_FUNC", "externalSymbolVisibility": "STV_DEFAULT", "externalSymbolOther": 0,
+    "externalSymbolSectionIndex": "SHN_UNDEF", "externalSymbolValue": 0, "externalSymbolSize": 0,
+    "relocationSectionType": "SHT_REL", "namedAliases": [], "unnamedAliases": []
+  },
+  "semanticEncoding": {
+    "instructionRows": "ordered objects with explicit byte offset and width",
+    "registers": "architectural register roles are named in operands",
+    "immediates": "unsigned numeric values are used for constants, stack displacements, memory displacements, and local destinations",
+    "localBranches": "local transfer rows use exact body-relative destinations and do not create relocations",
+    "directCalls": "call rows name destination identity and state, signed entry-relative target offset, relocation type, and implicit addend",
+    "externalIdentities": "callee and literal identities record linkage or placement only and do not transfer destination bytes"
+  },
+  "encodingConstraints": [
+    { "form": "lowRegister", "rule": "Every flag-setting register copy remains in its two-byte Thumb-1 form." },
+    { "form": "highRegister", "rule": "Stack-pointer copies remain non-flag-setting two-byte high-register forms." },
+    { "form": "stackPointerImmediate", "rule": "The stack-pointer adjustment remains the two-byte non-flag-setting immediate form." },
+    { "form": "legacyHighRegisterNoOp", "rule": "The legacy no-operation remains the two-byte high-register self-copy at offset 38 and must not be replaced by a different architectural no-op." },
+    { "form": "literalOffset", "rule": "The PC-relative word load at offset 4 addresses body-relative offset 92, requires entry address modulo four equal to zero, and does not own or reproduce the referenced word." },
+    { "form": "localConditional/localUnconditional", "rule": "Every local branch uses its recorded two-byte Thumb immediate form, condition, and exact body-relative destination without a relocation." },
+    { "form": "registerExchange", "rule": "Each indirect call uses the recorded low target register, derives destination state from bit zero, and emits no relocation." },
+    { "form": "directImmediate", "rule": "Each direct call is four bytes and carries exactly one SHT_REL R_ARM_THM_CALL relocation to its distinct undefined Thumb function identity with implicit addend -4." },
+    { "form": "thumbCodeMapping", "rule": "The complete body is continuously covered by Thumb code mapping from offset zero and contains no interior data mapping interval." },
+    { "form": "sectionOwnership", "rule": "The executable section ends at the 90-byte body boundary and owns neither the referenced post-body word nor any other adjacent byte." }
+  ],
+  "functions": [
+    {
+      "name": "func_00300ABC", "size": 90, "instructionCount": 43, "legacyNopOffsets": [38], "localBranchCount": 5,
+      "memoryOperationCount": 10, "returnCount": 1, "indirectCallCount": 4, "indirectTailCount": 0, "directCallCount": 2, "directTailCount": 0,
+      "nextGlobal": "func_00300B28", "nextGlobalOffset": 108,
+      "semantics": [
+        { "offset": 0, "width": 2, "operation": "stackSave", "form": "registerList", "operands": { "registers": ["r0", "r1", "r2", "r3"] } },
+        { "offset": 2, "width": 2, "operation": "stackSave", "form": "registerList", "operands": { "registers": ["r0", "r1", "r2", "r3", "r4", "r5", "r6", "lr"] } },
+        { "offset": 4, "width": 2, "operation": "load", "form": "literalOffset", "operands": { "width": "word", "destination": "r5", "pcDisplacement": 84, "targetOffset": 92, "requiredEntryModulo4": 0, "ownership": "unowned-post-body" } },
+        { "offset": 6, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r2", "base": "r5", "offset": 0 } },
+        { "offset": 8, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r2", "immediate": 0 } },
+        { "offset": 10, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 22 } },
+        { "offset": 12, "width": 2, "operation": "load", "form": "stackRelative", "operands": { "width": "word", "destination": "r0", "base": "sp", "offset": 32 } },
+        { "offset": 14, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r0", "immediate": 3 } },
+        { "offset": 16, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "signedGreater", "destinationOffset": 30 } },
+        { "offset": 18, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r1", "value": 0, "setFlags": true } },
+        { "offset": 20, "width": 2, "operation": "transfer", "form": "registerExchange", "operands": { "kind": "indirectCall", "targetRegister": "r2", "stateFromBitZero": true } },
+        { "offset": 22, "width": 2, "operation": "stackRestore", "form": "registerList", "operands": { "kind": "continuation", "restoredRegisters": ["r0", "r1", "r2", "r3", "r4", "r5", "r6"] } },
+        { "offset": 24, "width": 2, "operation": "stackRestore", "form": "registerList", "operands": { "kind": "continuation", "restoredRegisters": ["r3"] } },
+        { "offset": 26, "width": 2, "operation": "add", "form": "stackPointerImmediate", "operands": { "destination": "sp", "left": "sp", "immediate": 16, "setFlags": false } },
+        { "offset": 28, "width": 2, "operation": "transfer", "form": "registerExchange", "operands": { "kind": "return", "targetRegister": "r3", "stateFromBitZero": true } },
+        { "offset": 30, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r0", "value": 8, "setFlags": true } },
+        { "offset": 32, "width": 2, "operation": "add", "form": "stackPointerImmediate", "operands": { "destination": "r6", "left": "sp", "immediate": 36, "setFlags": false } },
+        { "offset": 34, "width": 2, "operation": "copy", "form": "highRegister", "operands": { "destination": "r1", "source": "sp", "setFlags": false } },
+        { "offset": 36, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r1", "setFlags": true } },
+        { "offset": 38, "width": 2, "operation": "legacyNop", "form": "legacyHighRegisterNoOp", "operands": { "destination": "r8", "source": "r8", "setFlags": false } },
+        { "offset": 40, "width": 2, "operation": "compare", "form": "immediate8", "operands": { "left": "r0", "immediate": 0 } },
+        { "offset": 42, "width": 2, "operation": "transfer", "form": "localConditional", "operands": { "kind": "branch", "condition": "equal", "destinationOffset": 52 } },
+        { "offset": 44, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "func_00100788", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -2097972, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 } },
+        { "offset": 48, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r4", "source": "r0", "setFlags": true } },
+        { "offset": 50, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 54 } },
+        { "offset": 52, "width": 2, "operation": "constant", "form": "immediate8", "operands": { "destination": "r4", "value": 0, "setFlags": true } },
+        { "offset": 54, "width": 2, "operation": "load", "form": "stackRelative", "operands": { "width": "word", "destination": "r1", "base": "sp", "offset": 32 } },
+        { "offset": 56, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r2", "source": "r6", "setFlags": true } },
+        { "offset": 58, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r4", "setFlags": true } },
+        { "offset": 60, "width": 4, "operation": "transfer", "form": "directImmediate", "operands": { "kind": "call", "destinationSymbol": "thumb_secondary_00100700", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -2098108, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 } },
+        { "offset": 64, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r4", "offset": 0 } },
+        { "offset": 66, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r1", "base": "r0", "offset": 8 } },
+        { "offset": 68, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r4", "setFlags": true } },
+        { "offset": 70, "width": 2, "operation": "transfer", "form": "registerExchange", "operands": { "kind": "indirectCall", "targetRegister": "r1", "stateFromBitZero": true } },
+        { "offset": 72, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r2", "base": "r5", "offset": 0 } },
+        { "offset": 74, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r1", "source": "r0", "setFlags": true } },
+        { "offset": 76, "width": 2, "operation": "load", "form": "stackRelative", "operands": { "width": "word", "destination": "r0", "base": "sp", "offset": 32 } },
+        { "offset": 78, "width": 2, "operation": "transfer", "form": "registerExchange", "operands": { "kind": "indirectCall", "targetRegister": "r2", "stateFromBitZero": true } },
+        { "offset": 80, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r0", "base": "r4", "offset": 0 } },
+        { "offset": 82, "width": 2, "operation": "load", "form": "immediateOffset", "operands": { "width": "word", "destination": "r1", "base": "r0", "offset": 0 } },
+        { "offset": 84, "width": 2, "operation": "copy", "form": "lowRegister", "operands": { "destination": "r0", "source": "r4", "setFlags": true } },
+        { "offset": 86, "width": 2, "operation": "transfer", "form": "registerExchange", "operands": { "kind": "indirectCall", "targetRegister": "r1", "stateFromBitZero": true } },
+        { "offset": 88, "width": 2, "operation": "transfer", "form": "localUnconditional", "operands": { "kind": "branch", "condition": "always", "destinationOffset": 22 } }
+      ]
+    }
+  ]
+}
