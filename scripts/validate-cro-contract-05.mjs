@@ -54,7 +54,6 @@ const CONTRACT = [
   unit, name, address, semantics, words, size: words.length * 4,
   source: `src/cro/${unit}/contract_05.S`,
 }));
-const DLLTESTPGL_PREFIX_WORDS = [0xE59F2080, 0xE3510005, 0xE92D4010, 0x379FF101, 0xEA000015];
 
 function fail(message) { throw new Error(`CRO contract 05 validation: ${message}`); }
 function check(condition, message) { if (!condition) fail(message); }
@@ -114,10 +113,7 @@ function validatePublicContract() {
   const byUnit = new Map();
   for (const fn of CONTRACT) {
     const unit = config.units.find((entry) => entry.name === fn.unit);
-    const expectedSources = fn.unit === "DllTestPGL"
-      ? [{ path: fn.source, mode: "arm" }, { path: "src/cro/DllTestPGL/dispatcher_prefix.S", mode: "arm" }]
-      : [{ path: fn.source, mode: "arm" }];
-    check(unit && JSON.stringify(unit.sources) === JSON.stringify(expectedSources),
+    check(unit && unit.sources.length === 1 && unit.sources[0].path === fn.source && unit.sources[0].mode === "arm",
       `${fn.unit} does not have exact ARM source ownership`);
     const claim = unit.functions.find((entry) => entry.name === fn.name);
     check(claim && Object.keys(claim).sort().join(",") === "address,name,semantics,size" &&
@@ -169,10 +165,7 @@ function validateObjects(byUnit, directory, readelf) {
       const match = /^\s*\[\s*\d+\]\s+(\S+)\s+\S+\s+\S+\s+\S+\s+([0-9a-f]+)\s+\S+\s+(\S+)/iu.exec(line);
       return match && match[3].includes("A") ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
-    const expectedNames = [
-      ...unit.functions.map((fn) => `.text.${fn.name}`),
-      ...(unitName === "DllTestPGL" ? [".text.__cro_gap_000000bc"] : []),
-    ].sort();
+    const expectedNames = unit.functions.map((fn) => `.text.${fn.name}`).sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),
       `${unitName} has missing or adjacent allocated bytes`);
@@ -190,15 +183,6 @@ function validateObjects(byUnit, directory, readelf) {
       check(actual.length === expected.length && actual.every((word, index) => word === expected[index]),
         `${fn.name} instruction schedule differs at word ${actual.findIndex((word, index) => word !== expected[index])}`);
     }
-    if (unitName === "DllTestPGL") {
-      const fragment = allocated.filter(([name]) => name === ".text.__cro_gap_000000bc");
-      check(fragment.length === 1 && fragment[0][1] === 20 && fragment[0][2].includes("X"),
-        "DllTestPGL dispatcher prefix section boundary or flags are invalid");
-      const expected = DLLTESTPGL_PREFIX_WORDS.map(littleEndianHex);
-      const actual = sectionBytes(readelf, object, ".text.__cro_gap_000000bc");
-      check(actual.length === expected.length && actual.every((word, index) => word === expected[index]),
-        "DllTestPGL dispatcher prefix instruction schedule differs");
-    }
     check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
       `${unitName} unexpectedly has relocations`);
   }
@@ -208,7 +192,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract();
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 05: 8 ARM functions in 7 units (460 bytes, 115 instructions, zero relocations; exact DllTestPGL prefix exception)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 05: 8 ARM functions in 7 units (460 bytes, 115 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

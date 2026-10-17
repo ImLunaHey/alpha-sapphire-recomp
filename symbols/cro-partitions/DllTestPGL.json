@@ -6,14 +6,18 @@
     {"name":"func_00000000","address":0,"size":8,"mode":"arm"}
   ],
   "gaps": [
-    {"address":8,"size":124,"mode":"arm"},
     {"address":188,"size":20,"mode":"arm"},
     {"address":228,"size":96,"mode":"arm"}
   ],
   "pools": [
-    {"address":132,"size":56},
+    {"address":140,"size":4},
+    {"address":176,"size":4},
     {"address":208,"size":20},
     {"address":324,"size":40}
   ],
-  "unknown": []
+  "unknown": [
+    {"address":8,"size":132},
+    {"address":144,"size":32},
+    {"address":180,"size":8}
+  ]
 }

@@ -572,7 +572,6 @@ node "$root/scripts/validate-cro-field-leaf-accessors.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf" --objdump "$ARM_OBJDUMP"
 node "$root/scripts/validate-cro-contract-05.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
-node "$root/scripts/validate-cro-dll-test-pgl.mjs" --self-test
 node "$root/scripts/validate-cro-contract-06.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-contract-07.mjs" \
