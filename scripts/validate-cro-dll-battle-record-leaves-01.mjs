@@ -41,6 +41,14 @@ const BATCHES = {
     instructions: 221,
     label: "record ops 04",
   },
+  "medium-leaves-05": {
+    manifest: "config/cro-dll-battle-medium-leaves-05.json",
+    source: "src/cro/DllBattle/medium_leaves_05.S",
+    functions: 4,
+    bytes: 488,
+    instructions: 122,
+    label: "medium leaves 05",
+  },
 };
 const BATCH = BATCHES[process.env.DLLBATTLE_BATCH ?? "record-leaves-01"];
 if (!BATCH) throw new Error("unknown DllBattle validator batch selector");
