@@ -17,18 +17,11 @@ credit. `metadata.complete` must remain false.
   inventory and report; no proprietary source, SDK material, target
   disassembly, extracted asset, or private verification path is included.
 
-The credited function is a small byte-field setter already covered by the
-repository's shared CRO validation. The other accepted function performs
-object setup through external services and module resources. Available neutral
-evidence does not provide a reviewable clean-room contract for all of those
-interfaces, dependencies, or the remaining code and data.
+The remaining 596-byte accepted function lacks an approved, reviewable
+clean-room contract in the cited checked-in evidence. The named checked-in
+reporting tooling measures the existing comparison result; it does not supply
+such a contract.
 
-There is also a tooling boundary: calls in the verified target representation
-and unresolved calls emitted by the current clean-room build are represented
-differently. The existing strict comparison therefore cannot establish a
-byte-identical match for a new high-level implementation merely from equivalent
-observable behavior.
-
-Further work requires independently reviewed interface contracts and a
-deterministic link/comparison representation that preserves byte identity.
-Until then, no additional implementation or progress credit is claimed.
+Further work requires an independently reviewed clean-room contract for that
+function and complete accounting for the unit's data. Until then, no additional
+implementation or progress credit is claimed.
