@@ -178,7 +178,7 @@ function validateObject(input, manifest) {
       : [0xe59f105c, 0xea000002, 0xe5820000, 0xea00000a, 0xe5921000, 0xe5801000,
         0xea000007, 0xe59f1044, 0xe5801000, 0xe59f1040, 0xea000002, 0xe59f103c,
         0xe5801000, 0xe59f1038, 0xe5801004, 0xe3a00000, 0xe8bd8010, 0xe59f002c,
-        0xe320f000, 0xe59f0028, 0xe321f000, 0xe320f000, 0xe59f0020, 0xe8bd8010];
+        0xe1a00000, 0xe59f0028, 0xe320f000, 0xe1a00000, 0xe59f0020, 0xe8bd8010];
     check(expectedWords.every((word, wordIndex) => sectionBytes(elf, body).readUInt32LE(wordIndex * 4) === word),
       `${fragment.name} neutral encoding schedule differs`);
   }
@@ -228,10 +228,12 @@ function validateObject(input, manifest) {
   check(terminalWords.every((word, index) => terminalBytes.readUInt32LE(index * 4) === word),
     "terminal control pool payload differs");
   const terminalRelocations = elf.relocations.filter(({ output }) => output.index === terminal.index);
-  const terminalTargets = [".data", terminalName, terminalName, ".rodata", ".rodata"];
+  const terminalTargets = [".data", "__cro_pool_00000344", "__cro_pool_00000344", ".rodata", ".rodata"];
   check(terminalRelocations.length === 5 && terminalRelocations.every((relocation, index) =>
-    relocation.offset === [0, 8, 12, 16, 20][index] && relocation.type === 2 && relocation.symbol?.type === 3 &&
-    elf.sections[relocation.symbol.shndx]?.name === terminalTargets[index]),
+    relocation.offset === [0, 8, 12, 16, 20][index] && relocation.type === 2 && (index === 1 || index === 2
+      ? relocation.symbol?.bind === 1 && relocation.symbol?.type === 1 && relocation.symbol.name === terminalTargets[index]
+        && relocation.symbol.shndx === terminal.index && relocation.symbol.size === 36
+      : relocation.symbol?.type === 3 && elf.sections[relocation.symbol.shndx]?.name === terminalTargets[index])),
   "terminal control pool relocation classes differ");
   const rodata = section(".rodata"), data = section(".data");
   check(rodata.type === 1 && rodata.flags === 2 && rodata.align === 4 && rodata.size === 24, ".rodata metadata differs");

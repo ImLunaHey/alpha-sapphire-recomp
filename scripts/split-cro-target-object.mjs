@@ -428,6 +428,13 @@ export function canonicalizeDllContestCommonBaseElf(authoredBuffer, inventoryInp
         "authored import relocation does not use a canonical public alias");
         target = { symbolKind: "global", symbolName: relocation.symbol.name };
         targetName = relocation.symbol.name;
+      } else if (relocation.symbol.name === "__cro_pool_00000344") {
+        check(relocation.symbol.info === ((STB_GLOBAL << 4) | STT_OBJECT) && relocation.symbol.value === 0
+          && relocation.symbol.size === 0x24
+          && authored.sections[relocation.symbol.shndx]?.name === ".pool.__cro_pool_00000344",
+        "authored terminal self-reference does not target the global pool object");
+        target = { symbolKind: "global", symbolName: relocation.symbol.name };
+        targetName = relocation.symbol.name;
       } else {
         check((relocation.symbol.info & 0xf) === STT_SECTION,
           "authored internal relocation does not target a section identity");
@@ -447,8 +454,8 @@ export function canonicalizeDllContestCommonBaseElf(authoredBuffer, inventoryInp
     [0x208, ".rodata", 0], [0x2d0, ".text.__cro_gap_000002e4", 0],
     [0x2d4, ".text.__cro_gap_000002e4", 8], [0x2d8, ".text.__cro_gap_000002e4", 0x10],
     [0x2dc, ".text.__cro_gap_000002e4", 0x1c], [0x2e0, ".text.__cro_gap_000002e4", 0x2c],
-    [0x344, ".data", 0], [0x34c, ".pool.__cro_pool_00000344", 0x24],
-    [0x350, ".pool.__cro_pool_00000344", 0x24], [0x354, ".rodata", 0x18], [0x358, ".rodata", 0x18]
+    [0x344, ".data", 0], [0x34c, "__cro_pool_00000344", 0x24],
+    [0x350, "__cro_pool_00000344", 0x24], [0x354, ".rodata", 0x18], [0x358, ".rodata", 0x18]
   ];
   check(JSON.stringify(records) === JSON.stringify(expectedRecords),
     "authored relocation schedule differs from the canonical DllContestCommon contract");

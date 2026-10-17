@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "unit": "DllContestCommon",
   "source": "src/cro/DllContestCommon/module.S",
-  "sourceHash": "18590dd504519be281d76d2863fca2691a49bf74d01b7930b5af8b6983d099e0",
+  "sourceHash": "85474c08df18f2d1229c0bf75588ebfb02252d8a2d71a142f45db8dc1ce7eaf6",
   "architecture": "ARMv6K",
   "mode": "arm",
   "minimumAlignment": 4,
@@ -13,7 +13,7 @@
   ],
   "controlFragments": [
     { "name": "controlPrelude", "address": 700, "size": 20, "instructionCount": 5, "bodyHash": "d354f6231d0117c94d6cadc81c07f710cf32306924ea71c539770f09139be214" },
-    { "name": "controlCasesAndDiagnostic", "address": 740, "size": 96, "instructionCount": 24, "bodyHash": "e96be396a1701a7819b22cb9079a8c4a9086b1327379663aba2cb94dcc511f26" }
+    { "name": "controlCasesAndDiagnostic", "address": 740, "size": 96, "instructionCount": 24, "bodyHash": "2600e3f459095f9ca4fc0a30731fac70633c04fa0a2877cacb92bda899ea41e6" }
   ],
   "veneerAddresses": [0, 8, 16, 24, 32, 40],
   "poolAddresses": [4, 12, 20, 28, 36, 44, 520],

@@ -314,10 +314,10 @@ __cro_pool_000002d0:
 
     /* Fixed public toolchain diagnostic sequence for unsupported selectors. */
     .inst 0xe59f002c
-    nop
+    mov r0, r0
     .inst 0xe59f0028
-    msr CPSR_c, #0
     nop
+    mov r0, r0
     .inst 0xe59f0020
     pop {r4, pc}
 .if (. - .Lcontrol_case_base) != 0x60
@@ -332,14 +332,13 @@ __cro_pool_000002d0:
 __cro_pool_00000344:
     .word dll_contest_common_global
     .word 0
-    .word .Lcontrol_pool_end
-    .word .Lcontrol_pool_end
+    .word __cro_pool_00000344 + 0x24
+    .word __cro_pool_00000344 + 0x24
     .word dll_contest_common_selectors + 0x18
     .word dll_contest_common_selectors + 0x18
     .word 0x30000000
     .word 0x30000026
     .word 0xd8e12c21
-.Lcontrol_pool_end:
 .size __cro_pool_00000344, . - __cro_pool_00000344
 
 /* The selectors are a link-unit contract, not an inferred lookup table. */
