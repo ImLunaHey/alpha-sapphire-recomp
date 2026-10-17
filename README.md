@@ -6,7 +6,7 @@ Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (Eur
 
 - Default branch: `main`
 - Target: Europe, revision 2
-- Decompilation: 10,440 evidence-gated function bodies inventoried; 4,257 functions credited after the DllGift and DllHologramMail provenance withdrawals
+- Decompilation: evidence-gated inventories and reviewed clean-room implementations are published; unsupported DllGift, DllHologramMail, and DllPssMessageWindow credit is withdrawn
 - ByteMatch: genuine local report available; registration deferred until reproducible CI reporting exists
 - Proprietary input: configured locally and excluded from Git
 

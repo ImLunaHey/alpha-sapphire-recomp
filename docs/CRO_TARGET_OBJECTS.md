@@ -226,26 +226,15 @@ residue and must not synthesize a placeholder function. The second stage then
 splits the structural `.text` and remaps its relocations into the appropriate
 target sections.
 
-All 145 manifest-listed CROs have passed these publication gates and appear
-alongside `main/code`, producing a 146-unit report. They contain 4,400 accepted
-neutral functions in total; 44 CRO units currently contain zero accepted
-functions. Reviewed clean-room sections currently match 279 of those functions
-and 15,016 code bytes across 93 CRO units. The credited set comprises 50
-byte-store leaves, 29 POD leaves, 45 DllBattle leaf accessors, and 21 DllField
-leaf accessors, plus eight additional POD and numeric helpers in seven units
-and 18 contract 06/07 functions across ten modules, plus eight contract 08
-functions across eight newly credited modules, plus eight contract 09 functions
-across eight newly credited modules, plus 58 DllBattle functions from five
-focused batches and eight contract 10 functions across eight newly credited
-modules, plus eight contract 11 functions across already-credited modules and
-eleven DllBattle batch 06 functions and nine DllBattleMatch functions.
-DllHologramMail source and credit are withdrawn for insufficient provenance;
-its neutral inventory remains and it stays blocked and incomplete. Overlapping
-categories within a CRO do not create additional units. The remaining 52 CRO
-units receive zero credit. All unclaimed code and all CRO
-data remain unmatched, every CRO is marked incomplete, and no CRO earns
-completed-unit credit. Publishing genuine link boundaries and neutral metadata
-does not claim that unmatched code has been decompiled.
+Every manifest-listed CRO has passed these publication gates and appears
+alongside `main/code`. Reviewed clean-room sections receive credit only when
+their public source, ownership, and object evidence agree. DllHologramMail and
+DllPssMessageWindow source and credit are withdrawn for insufficient
+provenance; their neutral inventories remain and both stay blocked and
+incomplete. All unclaimed code and CRO data remain unmatched, every CRO is
+marked incomplete, and no CRO earns completed-unit credit. Publishing genuine
+link boundaries and neutral metadata does not claim that unmatched code has
+been decompiled.
 
 ## Conservative function inventory
 
