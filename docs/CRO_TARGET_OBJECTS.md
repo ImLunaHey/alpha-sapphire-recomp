@@ -229,12 +229,14 @@ target sections.
 All 145 manifest-listed CROs have passed these publication gates and appear
 alongside `main/code`, producing a 146-unit report. They contain 4,400 accepted
 neutral functions in total; 44 CRO units currently contain zero accepted
-functions. DllPhotoSaver has one reviewed clean-room source section whose
-single 8-byte function matches exactly. Its remaining code and data remain
-unmatched; all other CRO clean-room bases remain payload-free skeletons. Every
-CRO is marked incomplete and no CRO earns completed-unit credit. Publishing
-their genuine link boundaries and neutral metadata does not claim that their
-unmatched code has been decompiled.
+functions. Reviewed clean-room sections currently match 147 of those functions
+and 2,016 code bytes across 57 CRO units. The credited set comprises 52
+byte-store leaves, 29 POD leaves, 45 DllBattle leaf accessors, and 21 DllField
+leaf accessors; overlapping categories within a CRO do not create additional
+units. The remaining 88 CRO units receive zero credit. All unclaimed code and
+all CRO data remain unmatched, every CRO is marked incomplete, and no CRO
+earns completed-unit credit. Publishing genuine link boundaries and neutral
+metadata does not claim that unmatched code has been decompiled.
 
 ## Conservative function inventory
 

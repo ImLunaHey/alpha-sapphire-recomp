@@ -14,15 +14,33 @@ ByteMatch tracks matching decompilation progress from `objdiff` reports. The pub
 
 The tracked snapshot is a genuine `objdiff-cli` report generated locally from the verified target and clean-room base objects. It contains names, sizes, addresses, and match measures only; target objects, ROM bytes, extracted assets, and local paths remain ignored. CI validates the snapshot against `progress/project.json`, rebuilds all clean-room base objects, and uploads the report without requiring proprietary inputs.
 
+## Current verified progress
+
+The 146 published units contain 4,042 exactly matched functions and 399,072
+matched code bytes, or 10.728838% overall. `main/code` contributes 3,895
+functions and 397,056 bytes. The CROs contribute 147 functions and 2,016
+code bytes across 57 units; their matched-data total is zero. The other 88
+CRO units currently receive no credit. Every CRO remains incomplete.
+
+The latest verified wave added 50 main functions and 748 code bytes: duplicate
+template batch 84 contributes 30 functions, 320 bytes, 80 ARM instructions,
+and 30 `R_ARM_CALL` relocations; Thumb leaf/helper batch 27 contributes one
+88-byte mixed Thumb/data/ARM function; and tail-adapter batch 138 contributes
+19 functions, 340 bytes, 85 ARM instructions, and 18 `R_ARM_JUMP24`
+relocations. The same wave added 146 CRO functions and 2,008 code bytes: 51
+new byte-store leaves join the prior DllPhotoSaver leaf for 52 total, 29 POD
+leaves contribute 548 bytes across 14 units, DllBattle contributes 45 leaf
+accessors and 708 bytes, and DllField contributes 21 leaf accessors and 344
+bytes.
+
 ## Executable units
 
 The checked-in report publishes all 146 known executable link boundaries:
 `main/code` and all 145 manifest-listed `cro/DllName` modules. The CRO report
 units expose only validated neutral metadata and split-object structure.
-`cro/DllPhotoSaver` contains the first independently authored CRO function: an
-exact 8-byte ARM leaf. Its remaining code and all 148 data bytes receive no
-credit. The other 144 CRO base objects remain payload-free skeletons. Every
-CRO remains incomplete and no CRO receives completed-unit credit.
+Reviewed clean-room function sections now earn code credit in 57 CROs; all
+unclaimed code, all CRO data, and all 88 zero-credit CROs remain unmatched.
+Every CRO remains incomplete and no CRO receives completed-unit credit.
 
 `main/code` represents the single linked `.code` executable in ExeFS. It must
 not be split into arbitrary address ranges: the stripped image does not retain

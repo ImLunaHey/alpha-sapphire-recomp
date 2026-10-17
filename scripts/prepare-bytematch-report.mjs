@@ -16,6 +16,7 @@ const VACUOUS_ZERO_FUNCTION_PERCENTAGES = new Set([
   "matched_functions_percent",
   "complete_code_percent",
 ]);
+const PERCENT_TOLERANCE = 0.000001;
 
 function fail(message) {
   throw new Error(`ByteMatch report validation failed: ${message}`);
@@ -223,8 +224,14 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
       assertNoCroCredit(unit.measures, `${entry.name}.measures`,
         zeroFunctionUnit ? VACUOUS_ZERO_FUNCTION_PERCENTAGES : new Set());
     }
-    if (claims.size > 0 && numeric(unit.measures?.matched_code_percent ?? 0,
-      `${entry.name}.matched_code_percent`) !== Number((claimedBytes * 100 / codeBytes).toFixed(6))) {
+    const actualMatchedCodePercent = numeric(unit.measures?.matched_code_percent ?? 0,
+      `${entry.name}.matched_code_percent`);
+    // objdiff computes percentages through a 32-bit float before JSON
+    // serialization, so compare against that representation rather than a
+    // separately decimal-rounded value.
+    const expectedMatchedCodePercent = Math.fround(claimedBytes * 100 / codeBytes);
+    if (claims.size > 0
+        && Math.abs(actualMatchedCodePercent - expectedMatchedCodePercent) > PERCENT_TOLERANCE) {
       fail(`${entry.name} matched-code percentage differs from its authored claims`);
     }
     if (zeroFunctionUnit) normalizeZeroFunctionCro(unit);

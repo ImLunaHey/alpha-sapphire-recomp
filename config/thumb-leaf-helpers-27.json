@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 3,
+  "source": "src/main/thumb_leaf_helpers_27.S",
+  "sourceHash": "9ad7ac8abbf265feec35637a700ec1ec72441698b65e68af36474e8bde68bd8d",
+  "architecture": "ARMv6K",
+  "mode": "thumb",
+  "minimumAlignment": 2,
+  "requiredEntryModulo4": 0,
+  "totalBodySize": 88,
+  "totalAdjacentSize": 0,
+  "expectedInstructionCount": 32,
+  "thumbInstructionCount": 30,
+  "armInstructionCount": 2,
+  "wideInstructionCount": 4,
+  "legacyNopCount": 1,
+  "localBranchCount": 3,
+  "memoryOperationCount": 13,
+  "returnCount": 1,
+  "indirectCallCount": 0,
+  "indirectTailCount": 1,
+  "directCallCount": 4,
+  "directTailCount": 0,
+  "directCalls": [
+    { "function": "func_00100134", "offset": 2, "kind": "call", "destinationSymbol": "func_00153770", "destinationState": "arm", "stateSwitch": true, "targetOffset": 341564, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00100134", "offset": 16, "kind": "call", "destinationSymbol": "func_002FECF8", "destinationState": "arm", "stateSwitch": true, "targetOffset": 2091972, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00100134", "offset": 52, "kind": "call", "destinationSymbol": "func_001000EC", "destinationState": "thumb", "stateSwitch": false, "targetOffset": -72, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 },
+    { "function": "func_00100134", "offset": 62, "kind": "call", "destinationSymbol": "func_002FED34", "destinationState": "arm", "stateSwitch": true, "targetOffset": 2092032, "relocation": "R_ARM_THM_CALL", "implicitAddend": -4 }
+  ],
+  "relocations": [
+    { "offset": 2, "type": "R_ARM_THM_CALL", "symbol": "func_00153770", "format": "REL", "implicitAddend": -4 },
+    { "offset": 16, "type": "R_ARM_THM_CALL", "symbol": "func_002FECF8", "format": "REL", "implicitAddend": -4 },
+    { "offset": 52, "type": "R_ARM_THM_CALL", "symbol": "func_001000EC", "format": "REL", "implicitAddend": -4 },
+    { "offset": 62, "type": "R_ARM_THM_CALL", "symbol": "func_002FED34", "format": "REL", "implicitAddend": -4 },
+    { "offset": 72, "type": "R_ARM_ABS32", "symbol": "thumb_secondary_00100130", "format": "REL", "implicitAddend": 1 }
+  ],
+  "externalEntryIdentities": [
+    { "symbol": "func_00153770", "kind": "primary-global", "state": "arm", "targetOffset": 341564, "ownership": "external-owned-public", "owner": "config/arm-runtime-helpers-91.json", "objectSymbol": true },
+    { "symbol": "func_002FECF8", "kind": "primary-global", "state": "arm", "targetOffset": 2091972, "ownership": "external-unowned", "objectSymbol": true },
+    { "symbol": "func_001000EC", "kind": "primary-global", "state": "thumb", "targetOffset": -72, "ownership": "external-owned-public", "owner": "config/thumb-leaf-helpers-08.json", "objectSymbol": true },
+    { "symbol": "func_002FED34", "kind": "primary-global", "state": "arm", "targetOffset": 2092032, "ownership": "external-owned-public", "owner": "config/arm-direct-branch-thunks.json", "objectSymbol": true },
+    { "symbol": "thumb_secondary_00100130", "kind": "secondary-entry", "state": "thumb", "targetOffset": -4, "ownership": "external-unowned", "objectSymbol": true, "precedingGlobal": { "symbol": "func_001000EC", "offset": -72, "bodySize": 18, "bodyEndOffset": -54 }, "followingGlobal": { "symbol": "func_00100134", "offset": 0 } }
+  ],
+  "pcRelativeDataAccesses": [
+    { "offset": 24, "mnemonic": "ldr", "pcDisplacement": 40, "targetOffset": 68, "requiredEntryModulo4": 0, "ownership": "owned-literal" },
+    { "offset": 32, "mnemonic": "ldr", "pcDisplacement": 36, "targetOffset": 72, "requiredEntryModulo4": 0, "ownership": "owned-literal" },
+    { "offset": 40, "mnemonic": "ldr", "pcDisplacement": 32, "targetOffset": 76, "requiredEntryModulo4": 0, "ownership": "owned-literal" }
+  ],
+  "literalWords": [
+    { "offset": 68, "identity": "null-a", "value": 0, "relocation": null },
+    { "offset": 72, "identity": "thumb_secondary_00100130", "symbol": "thumb_secondary_00100130", "addend": 1, "relocation": "R_ARM_ABS32" },
+    { "offset": 76, "identity": "optional-hook", "value": 0, "relocation": null }
+  ],
+  "mappingSymbols": [
+    { "name": "$t", "offset": 0 },
+    { "name": "$d", "offset": 68 },
+    { "name": "$a", "offset": 80 }
+  ],
+  "objectContract": { "elfClass": "ELF32", "endianness": "little", "fileType": "ET_REL", "machine": "EM_ARM", "elfVersion": 1, "osAbi": "ELFOSABI_NONE", "abiVersion": 0, "flags": 83886080, "executableSectionAlignment": 2, "primarySymbolThumbValue": 1, "mappingSymbols": ["$t", "$d", "$a"], "relocationSectionType": "SHT_REL", "namedAliases": [], "unnamedAliases": [] },
+  "encodingConstraints": [
+    { "form": "mappingSchedule", "rule": "One section maps Thumb code at +0x00, three literal words at +0x44, and ARM code at +0x50." },
+    { "form": "localTransfers", "rule": "All three local conditional branches remain narrow, resolved, and relocation-free." },
+    { "form": "directImmediate", "rule": "Four calls carry exact REL R_ARM_THM_CALL relocations with implicit addend -4." },
+    { "form": "literalIdentity", "rule": "Only the middle literal carries R_ARM_ABS32 against thumb_secondary_00100130 with addend +1; both null literals are relocation-free." },
+    { "form": "armVeneer", "rule": "The two ARM instructions derive the immediately following address with Thumb state selected and branch through it to func_0010018C." }
+  ],
+  "functions": [
+    { "name": "func_00100134", "size": 88, "instructionCount": 32, "thumbInstructionCount": 30, "armInstructionCount": 2, "wideInstructionOffsets": [2, 16, 52, 62], "legacyNopOffsets": [66], "localBranchCount": 3, "memoryOperationCount": 13, "returnCount": 1, "indirectCallCount": 0, "indirectCallOffsets": [], "indirectTailCount": 1, "directCallCount": 4, "directTailCount": 0, "nextGlobal": "func_0010018C", "nextGlobalOffset": 88, "semanticContract": "Fetch the singleton slot, allocate and publish 32 bytes when empty, initialize fields in schedule order, optionally initialize the final field, return the object, and use the post-fatal ARM veneer to transfer to the next Thumb global." }
+  ]
+}

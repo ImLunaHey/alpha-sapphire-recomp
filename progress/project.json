@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 3,846 clean-room functions are byte-identical. Every unit remains explicitly incomplete; DllPhotoSaver has the first exact CRO function match.",
+  "summary": "The owned target is verified, all 146 genuine link units are published with 14,840 evidence-gated functions, and 4,042 clean-room functions are byte-identical. Fifty-seven CRO units now contain independently authored exact matches; every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 10.654744,
-    "matchedFunctions": 3846,
+    "matchedCodePercent": 10.728838,
+    "matchedFunctions": 4042,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -26,7 +26,7 @@
     },
     {
       "label": "First matching unit",
-      "detail": "3,846 routines, global-state helpers, container templates, IPC wrappers, runtime/linker helpers, and one CRO function match byte-for-byte",
+      "detail": "4,042 routines across main/code and 57 CRO units match byte-for-byte",
       "state": "complete"
     },
     {
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "Multi-unit wave adds 196 exact functions",
+      "detail": "Three independently specified main/code batches add 50 functions and 748 bytes. Clean-room store, POD, and accessor leaves add 146 functions and 2,008 bytes across CRO modules, bringing the genuine report to 4,042 exact functions and 399,072 bytes. Fifty-seven CRO units now receive authored code credit; CRO data remains entirely unmatched and every unit remains incomplete."
+    },
     {
       "date": "2026-10-17",
       "title": "First CRO function and 30 main functions matched",

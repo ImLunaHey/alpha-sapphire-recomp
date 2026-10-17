@@ -70,6 +70,10 @@ for source in "${sources[@]}"; do
         -x assembler-with-cpp -c "$source" -o "$object"
       ;;
   esac
+  if [[ "$repository_path" == "src/main/thumb_leaf_helpers_27.S" ]]; then
+    "$binutils/bin/arm-none-eabi-objcopy" \
+      --set-section-alignment .text.func_00100134=2 "$object"
+  fi
   objects+=("$object")
 done
 
@@ -271,6 +275,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-duplicate-templates-82.mjs"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-duplicate-templates-83.mjs"
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-duplicate-templates-84.mjs"
 node "$root/scripts/validate-arm-ipc-templates-64.mjs" "$output" "$readelf"
 ARM_READELF="$readelf" node "$root/scripts/validate-arm-ipc-templates-65.mjs" "$output"
 ARM_NONE_EABI_PREFIX="$(dirname "$readelf")/arm-none-eabi-" \
@@ -479,6 +485,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-arm-runtime-helpers-137.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-arm-tail-adapters-138.mjs" --assemble
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-01.mjs" --object "$output"
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-02.mjs" --object "$output"
@@ -530,8 +538,16 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-25.mjs" --self-test
 CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-26.mjs" --self-test
+CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
+  node "$root/scripts/validate-thumb-leaf-helpers-27.mjs" --assemble
 node "$root/scripts/build-cro-base.mjs" --compiler "$compiler" --linker "$linker" \
   --objcopy "$binutils/bin/arm-none-eabi-objcopy"
-node "$root/scripts/validate-cro-photo-saver-01.mjs" \
-  --object "$root/build/AS_EUR_REV2/base/cro-code/DllPhotoSaver.o" --readelf "$readelf"
+node "$root/scripts/validate-cro-store-leaves.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
+node "$root/scripts/validate-cro-pod-leaves.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf" --objdump "$ARM_OBJDUMP"
+node "$root/scripts/validate-cro-leaf-accessors.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf" --objdump "$ARM_OBJDUMP"
+node "$root/scripts/validate-cro-field-leaf-accessors.mjs" \
+  --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf" --objdump "$ARM_OBJDUMP"
 printf 'Built %s clean-room source object(s) into %s\n' "${#objects[@]}" "$output"

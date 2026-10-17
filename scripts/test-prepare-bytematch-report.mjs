@@ -99,6 +99,23 @@ authored.croClaims = new Map([["DllEmpty", new Map([
 ])]]);
 validateAndNormalizeReport(authored);
 
+const fractional = structuredClone(authored);
+fractional.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000004,".text"\n00000004,"func_00000004","Global",$a,00000008,".text"\n`);
+fractional.project.progress.totalFunctions = 3;
+fractional.report.measures.total_functions = 3;
+fractional.report.units[1].measures.total_code = "12";
+fractional.report.units[1].measures.total_functions = 2;
+fractional.report.units[1].measures.matched_code_percent = 33.333332;
+fractional.report.units[1].measures.matched_functions_percent = 50;
+fractional.report.units[1].functions.push(
+  { name: "func_00000004", size: "8", address: "4", metadata: {} },
+);
+validateAndNormalizeReport(fractional);
+
+const impreciseFractional = structuredClone(fractional);
+impreciseFractional.report.units[1].measures.matched_code_percent = 33.333;
+assert.throws(() => validateAndNormalizeReport(impreciseFractional), /matched-code percentage differs/);
+
 const unconfiguredCredit = structuredClone(authored);
 unconfiguredCredit.croClaims = new Map();
 assert.throws(() => validateAndNormalizeReport(unconfiguredCredit), /credit differs/);

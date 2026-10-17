@@ -43,10 +43,13 @@ still published as genuine incomplete link units with zero functions, and no
 placeholder is synthesized.
 
 Publication is structural progress, not a decompilation claim. DllPhotoSaver
-now replaces one skeleton section with a reviewed clean-room C function and
-earns exactly 8 matched-code bytes and one matched function. Its remaining
-code and all data stay unmatched. The other 144 CROs still use payload-free
-base skeletons and earn zero credit. Every CRO remains incomplete and no CRO
-earns completed-unit credit. Further work replaces skeleton sections with
-reviewed clean-room source while keeping each validated module boundary and
-neutral partition intact.
+provided the first reviewed clean-room CRO function. The current verified
+snapshot credits 147 exact functions and 2,016 code bytes across 57 CRO units:
+52 byte-store leaves (including DllPhotoSaver), 29 POD leaves across 14 units,
+45 DllBattle leaf accessors, and 21 DllField leaf accessors. These groups may
+share a unit, so their unit counts are not additive. The other 88 CROs receive
+zero credit, and matched CRO data remains zero. Unclaimed code and all data
+stay unmatched. Every CRO remains incomplete and no CRO earns completed-unit
+credit. Further work replaces skeleton sections with reviewed clean-room
+source while keeping each validated module boundary and neutral partition
+intact.
