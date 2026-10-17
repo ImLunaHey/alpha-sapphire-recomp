@@ -77,12 +77,26 @@ implementable as `base[217] = value`.
   The first four arguments arrive in `r0` through `r3`; the fifth is the first
   stack argument under AAPCS. For this specification they are called `state`,
   `subject`, `direction`, `event`, and `context` respectively.
-- Linkage: 54 direct calls through 31 distinct neutral local/import veneers.
+- Linkage: 54 direct calls through 30 distinct neutral local/import veneers.
   There are no relocation outputs or literal/data words inside the function.
   Its seven-word literal pool begins at `0x27E0` and is outside the boundary.
 - Stack: the routine reserves 744 bytes in total, including saved registers.
   It constructs nine opaque 56-byte temporaries with the same initializer,
   using `context`, `context + 124`, and disjoint local storage.
+
+The complete implementable neutral schedule is
+`config/cro-dll-field-event-player-01.json`. It records all 504 ordered ARM
+operations as mnemonic/operand facts without instruction encodings, all 90
+basic blocks and their successor offsets, every stack-slot role, all 54 call
+sites and 30 abstract veneer contracts, and the seven post-body pool identities
+and relocation addends. The schedule hashes are
+`a1199f664aff9da18ec15521205e54bde5d7c32481df33d59493f28843c76240`
+for operations and
+`da33bec8fe3543289de3f96c3cb9cbc1034d27e2b50c972c0fa6fc127df021d8`
+for control flow. `scripts/validate-cro-dll-field-event-player-01.mjs` pins
+these facts fail-closed and cross-checks the public boundary. The manifest
+contains no raw opcode, target byte, private symbol, or copied data-table
+payload.
 
 ### Observable contract
 
