@@ -3,7 +3,13 @@
   "module": "DllTrainingAppManager",
   "textSize": 3416,
   "functions": [
-    {"name":"func_00000BE4","address":3044,"size":8,"mode":"arm"}
+    {"name":"func_00000140","address":320,"size":8,"mode":"arm"},
+    {"name":"func_000005A0","address":1440,"size":8,"mode":"arm"},
+    {"name":"func_000008E8","address":2280,"size":8,"mode":"arm"},
+    {"name":"func_000008F0","address":2288,"size":8,"mode":"arm"},
+    {"name":"func_00000B74","address":2932,"size":4,"mode":"arm"},
+    {"name":"func_00000BE4","address":3044,"size":8,"mode":"arm"},
+    {"name":"func_00000BEC","address":3052,"size":8,"mode":"arm"}
   ],
   "gaps": [
     {"address":0,"size":4,"mode":"arm"},
@@ -45,17 +51,18 @@
     {"address":296,"size":4,"mode":"arm"},
     {"address":304,"size":4,"mode":"arm"},
     {"address":312,"size":4,"mode":"arm"},
-    {"address":320,"size":80,"mode":"arm"},
+    {"address":328,"size":72,"mode":"arm"},
     {"address":440,"size":408,"mode":"arm"},
     {"address":884,"size":488,"mode":"arm"},
-    {"address":1400,"size":220,"mode":"arm"},
+    {"address":1400,"size":40,"mode":"arm"},
+    {"address":1448,"size":172,"mode":"arm"},
     {"address":1624,"size":168,"mode":"arm"},
-    {"address":1796,"size":796,"mode":"arm"},
+    {"address":1796,"size":484,"mode":"arm"},
+    {"address":2296,"size":296,"mode":"arm"},
     {"address":2600,"size":160,"mode":"arm"},
     {"address":2768,"size":156,"mode":"arm"},
-    {"address":2932,"size":56,"mode":"arm"},
+    {"address":2936,"size":52,"mode":"arm"},
     {"address":2992,"size":48,"mode":"arm"},
-    {"address":3052,"size":8,"mode":"arm"},
     {"address":3240,"size":20,"mode":"arm"},
     {"address":3280,"size":96,"mode":"arm"}
   ],

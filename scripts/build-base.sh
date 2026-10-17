@@ -562,6 +562,8 @@ CROSS_COMPILE="$(dirname "$readelf")/arm-none-eabi-" \
   node "$root/scripts/validate-thumb-leaf-helpers-27.mjs" --assemble
 node "$root/scripts/build-cro-base.mjs" --compiler "$compiler" --linker "$linker" \
   --objcopy "$binutils/bin/arm-none-eabi-objcopy"
+node "$root/scripts/validate-cro-dll-training-app-manager.mjs" \
+  --object "$root/build/AS_EUR_REV2/base/cro-code/DllTrainingAppManager.o" --readelf "$readelf"
 node "$root/scripts/validate-cro-store-leaves.mjs" \
   --object-directory "$root/build/AS_EUR_REV2/base/cro-code" --readelf "$readelf"
 node "$root/scripts/validate-cro-pod-leaves.mjs" \
