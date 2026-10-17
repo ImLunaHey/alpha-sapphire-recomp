@@ -430,11 +430,12 @@ export function validateSnapshot(snapshot, expected = EXPECTED) {
     code: totals.code, matchedCode: totals.matchedCode, data: totals.data };
 }
 
-function loadSnapshot(root = ROOT) {
+function loadSnapshot(root = ROOT, reportInput = `progress/reports/${TARGET}/report.json`) {
   const snapshot = new Map(), add = (path, limit) => snapshot.set(path, readStable(root, path, limit));
   for (const path of ["config/publication-units.json", `progress/units/${TARGET}.cro.json`,
-    `progress/reports/${TARGET}/report.json`, "progress/project.json", "config/sources.json",
+    "progress/project.json", "config/sources.json",
     "config/cro-sources.json", "symbols/code.bin.csv"]) add(path);
+  snapshot.set(`progress/reports/${TARGET}/report.json`, readStable(root, reportInput));
   const universe = parseJson(snapshot.get("config/publication-units.json"), "publication universe");
   for (const name of universe.units.slice(1)) {
     const stem = name.slice(4);
@@ -532,15 +533,23 @@ function selfTest(snapshot) {
   } finally { rmSync(temporary, { recursive: true, force: true }); }
 }
 
-try {
+export function validatePublicationTree({ root = ROOT,
+  reportInput = `progress/reports/${TARGET}/report.json`, runSelfTest = false } = {}) {
+  const snapshot = loadSnapshot(root, reportInput);
+  const result = validateSnapshot(snapshot);
+  if (runSelfTest) selfTest(snapshot);
+  const reportBytes = Buffer.from(snapshot.get(`progress/reports/${TARGET}/report.json`));
+  return { ...result, reportBytes, report: parseJson(reportBytes, "validated report") };
+}
+
+if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) try {
   check(process.argv.length === 2 || (process.argv.length === 3 && process.argv[2] === "--self-test"),
     "usage: validate-publication-integrity.mjs [--self-test]");
-  const snapshot = loadSnapshot();
-  const result = validateSnapshot(snapshot);
-  if (process.argv[2] === "--self-test") await selfTest(snapshot);
+  const runSelfTest = process.argv[2] === "--self-test";
+  const result = validatePublicationTree({ runSelfTest });
   console.log(`Validated fixed publication: ${result.units} units, ${result.functions} functions, `
     + `${result.matchedFunctions} exact functions, ${result.matchedCode}/${result.code} code bytes, `
-    + `${result.data} data bytes; hostile tests passed${process.argv[2] === "--self-test" ? "" : " (not requested)"}.`);
+    + `${result.data} data bytes; hostile tests ${runSelfTest ? "passed" : "not run"}.`);
 } catch (error) {
   console.error(`Publication integrity validation failed: ${error.message}`);
   process.exitCode = 1;

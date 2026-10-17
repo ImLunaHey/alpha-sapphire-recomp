@@ -1,9 +1,13 @@
 #!/usr/bin/env node
 
-import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from "node:fs";
-import { basename, dirname, join, resolve } from "node:path";
+import {
+  closeSync, constants, existsSync, fstatSync, fsyncSync, lstatSync, openSync,
+  readFileSync, readlinkSync, readdirSync, renameSync, unlinkSync, writeSync,
+} from "node:fs";
+import { basename, join, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { validatePublicCroMetadataTree } from "./validate-public-cro-metadata.mjs";
+import { validatePublicationTree } from "./validate-publication-integrity.mjs";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const CRO_UNIT_PATTERN = /^cro\/(Dll[A-Za-z0-9_]+)$/;
@@ -17,6 +21,8 @@ const VACUOUS_ZERO_FUNCTION_PERCENTAGES = new Set([
   "complete_code_percent",
 ]);
 const PERCENT_DECIMAL_TOLERANCE = 0.000005;
+const STAT = Object.freeze({ bigint: true });
+let temporarySequence = 0;
 
 function fail(message) {
   throw new Error(`ByteMatch report validation failed: ${message}`);
@@ -29,6 +35,110 @@ function numeric(value, context) {
     if (Number.isFinite(parsed) && parsed >= 0) return parsed;
   }
   fail(`${context} is not a finite non-negative number`);
+}
+
+const directoryIdentity = stat => [stat.dev, stat.ino, stat.mode, stat.uid, stat.gid, stat.rdev];
+const leafIdentity = stat => [stat.dev, stat.ino, stat.mode, stat.nlink, stat.uid, stat.gid,
+  stat.rdev, stat.size, stat.blocks, stat.mtimeNs, stat.ctimeNs];
+function sameIdentity(left, right) {
+  return left.length === right.length && left.every((value, index) => value === right[index]);
+}
+function lstatMaybe(path) {
+  try { return lstatSync(path, STAT); } catch (error) {
+    if (error?.code === "ENOENT") return null;
+    throw error;
+  }
+}
+
+export function writeAtomicPublication(rootPath, outputPath, bytes) {
+  const rootAbsolute = resolve(rootPath), outputAbsolute = resolve(outputPath);
+  const relativeOutput = relative(rootAbsolute, outputAbsolute);
+  if (rootAbsolute !== rootPath || !relativeOutput || relativeOutput === ".."
+      || relativeOutput.startsWith("../") || relativeOutput.includes("\\")) {
+    fail("output path is outside the canonical repository root");
+  }
+  const parts = relativeOutput.split("/");
+  if (parts.some(part => !part || part === "." || part === "..")) fail("output path is noncanonical");
+  const directories = [];
+  let temporaryFd, temporaryPath, renamed = false;
+  try {
+    if (process.platform !== "linux" || !constants.O_NOFOLLOW || !constants.O_DIRECTORY)
+      fail("safe report publication is unavailable");
+    const rootStat = lstatSync(rootAbsolute, STAT);
+    if (!rootStat.isDirectory() || rootStat.isSymbolicLink()) fail("unsafe publication root");
+    let parent = openSync(rootAbsolute, constants.O_RDONLY | constants.O_DIRECTORY | constants.O_NOFOLLOW);
+    directories.push({ fd: parent, identity: directoryIdentity(rootStat), path: rootAbsolute });
+    let canonicalParent = rootAbsolute;
+    for (const part of parts.slice(0, -1)) {
+      const candidate = `/proc/self/fd/${parent}/${part}`, before = lstatSync(candidate, STAT);
+      if (!before.isDirectory() || before.isSymbolicLink()) fail("unsafe publication parent");
+      parent = openSync(candidate, constants.O_RDONLY | constants.O_DIRECTORY | constants.O_NOFOLLOW);
+      canonicalParent = join(canonicalParent, part);
+      directories.push({ fd: parent, identity: directoryIdentity(before), path: canonicalParent });
+    }
+    const verifyParents = () => {
+      for (const directory of directories) {
+        if (!sameIdentity(directoryIdentity(fstatSync(directory.fd, STAT)), directory.identity)
+            || readlinkSync(`/proc/self/fd/${directory.fd}`) !== directory.path) {
+          fail("publication parent changed");
+        }
+      }
+    };
+    verifyParents();
+    const name = parts.at(-1), targetPath = `/proc/self/fd/${parent}/${name}`;
+    const targetBefore = lstatMaybe(targetPath);
+    if (targetBefore && (!targetBefore.isFile() || targetBefore.isSymbolicLink() || targetBefore.nlink !== 1n))
+      fail("unsafe existing report output");
+    for (let attempt = 0; attempt < 16 && temporaryFd === undefined; attempt++) {
+      const temporaryName = `.${name}.tmp-${process.pid}-${temporarySequence++}`;
+      temporaryPath = `/proc/self/fd/${parent}/${temporaryName}`;
+      try {
+        temporaryFd = openSync(temporaryPath, constants.O_WRONLY | constants.O_CREAT | constants.O_EXCL
+          | constants.O_NOFOLLOW, 0o644);
+      } catch (error) {
+        if (error?.code !== "EEXIST") throw error;
+      }
+    }
+    if (temporaryFd === undefined) fail("unable to reserve report output");
+    const opened = fstatSync(temporaryFd, STAT);
+    if (!opened.isFile() || opened.isSymbolicLink() || opened.nlink !== 1n
+        || readlinkSync(`/proc/self/fd/${temporaryFd}`) !== join(canonicalParent, temporaryPath.split("/").at(-1)))
+      fail("unsafe temporary report output");
+    let written = 0;
+    while (written < bytes.length) written += writeSync(temporaryFd, bytes, written, bytes.length - written);
+    fsyncSync(temporaryFd);
+    const complete = fstatSync(temporaryFd, STAT);
+    if (!sameIdentity([opened.dev, opened.ino], [complete.dev, complete.ino])
+        || !complete.isFile() || complete.nlink !== 1n || complete.size !== BigInt(bytes.length))
+      fail("temporary report output changed");
+    verifyParents();
+    const targetNow = lstatMaybe(targetPath);
+    if ((targetBefore === null) !== (targetNow === null)
+        || (targetBefore && !sameIdentity(leafIdentity(targetBefore), leafIdentity(targetNow))))
+      fail("report output changed before publication");
+    renameSync(temporaryPath, targetPath);
+    renamed = true;
+    const published = lstatSync(targetPath, STAT);
+    if (!published.isFile() || published.isSymbolicLink() || published.nlink !== 1n
+        || published.dev !== complete.dev || published.ino !== complete.ino
+        || published.size !== BigInt(bytes.length)
+        || readlinkSync(`/proc/self/fd/${temporaryFd}`) !== outputAbsolute)
+      fail("published report output is unsafe");
+    verifyParents();
+    fsyncSync(parent);
+  } catch (error) {
+    if (error?.message?.startsWith("ByteMatch report validation failed:")) throw error;
+    fail(`safe report publication failed: ${error.message}`);
+  } finally {
+    if (!renamed && temporaryFd !== undefined && temporaryPath) {
+      try {
+        const opened = fstatSync(temporaryFd, STAT), current = lstatMaybe(temporaryPath);
+        if (current && current.dev === opened.dev && current.ino === opened.ino) unlinkSync(temporaryPath);
+      } catch { /* The reserved path is already absent or no longer ours. */ }
+    }
+    if (temporaryFd !== undefined) closeSync(temporaryFd);
+    for (const directory of directories.reverse()) closeSync(directory.fd);
+  }
 }
 
 function readCroManifest(path) {
@@ -256,32 +366,38 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
   return report;
 }
 
-function main() {
-  const project = JSON.parse(readFileSync(join(root, "progress", "project.json"), "utf8"));
-  const snapshot = join(root, "progress", "reports", project.version, "report.json");
-  const generated = join(root, "build", project.version, "report.json");
-  const update = process.argv.includes("--update");
-  if (process.argv.slice(2).some((argument) => argument !== "--update")) {
-    fail("usage: prepare-bytematch-report.mjs [--update]");
-  }
+export function prepareReport({ rootPath = root, update = false, afterValidation } = {}) {
+  rootPath = resolve(rootPath);
+  const project = JSON.parse(readFileSync(join(rootPath, "progress", "project.json"), "utf8"));
+  const snapshot = join(rootPath, "progress", "reports", project.version, "report.json");
+  const generated = join(rootPath, "build", project.version, "report.json");
   const input = update ? generated : snapshot;
   const output = update ? snapshot : generated;
   if (!existsSync(input)) fail(`${input} does not exist`);
 
-  validatePublicCroMetadataTree(root, { requireComplete: true });
-  const manifest = readCroManifest(join(root, "progress", "units", `${project.version}.cro.json`));
-  const report = JSON.parse(readFileSync(input, "utf8"));
+  const validated = validatePublicationTree({ root: rootPath, reportInput: relative(rootPath, input) });
+  if (afterValidation !== undefined) {
+    if (typeof afterValidation !== "function") fail("invalid post-validation test hook");
+    afterValidation();
+  }
+  validatePublicCroMetadataTree(rootPath, { requireComplete: true });
+  const manifest = readCroManifest(join(rootPath, "progress", "units", `${project.version}.cro.json`));
+  const report = validated.report;
   validateAndNormalizeReport({ report, project, manifest,
-    csvFiles: readCroCsvFiles(join(root, "symbols", "cro")),
-    croClaims: readCroSourceClaims(join(root, "config", "cro-sources.json")) });
+    csvFiles: readCroCsvFiles(join(rootPath, "symbols", "cro")),
+    croClaims: readCroSourceClaims(join(rootPath, "config", "cro-sources.json")) });
 
-  mkdirSync(dirname(output), { recursive: true });
   // Keep the checked-in snapshot compact: reports contain tens of thousands of
   // function records and formatting adds substantial repository churn.
-  writeFileSync(output, JSON.stringify(report));
+  writeAtomicPublication(rootPath, output, Buffer.from(JSON.stringify(report)));
   console.log(`${update ? "Updated" : "Prepared"} ${output} from a validated objdiff report.`);
+  return output;
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try { main(); } catch (error) { console.error(error.message); process.exitCode = 1; }
+  try {
+    if (process.argv.slice(2).some((argument) => argument !== "--update"))
+      fail("usage: prepare-bytematch-report.mjs [--update]");
+    prepareReport({ update: process.argv.includes("--update") });
+  } catch (error) { console.error(error.message); process.exitCode = 1; }
 }
