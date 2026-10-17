@@ -5,10 +5,10 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import {
-  closeSync, constants, fstatSync, lstatSync, mkdirSync, mkdtempSync, openSync,
-  readSync, realpathSync, rmSync, symlinkSync, truncateSync, writeFileSync,
+  closeSync, constants, fstatSync, linkSync, lstatSync, mkdirSync, mkdtempSync, openSync,
+  readlinkSync, readSync, renameSync, rmSync, symlinkSync, truncateSync, utimesSync, writeFileSync,
 } from "node:fs";
-import { dirname, isAbsolute, join, parse, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = resolve(fileURLToPath(new URL("..", import.meta.url)));
@@ -83,54 +83,108 @@ function contained(root, path) {
   return suffix !== "" && !isAbsolute(suffix) && suffix !== ".." && !suffix.startsWith(`..${sep}`);
 }
 
-function noSymlinks(path) {
-  let cursor = parse(path).root;
-  const parts = path.slice(cursor.length).split(sep).filter(Boolean);
-  for (const [index, part] of parts.entries()) {
-    cursor = join(cursor, part);
-    const stat = lstatSync(cursor);
-    check(!stat.isSymbolicLink(), "symlink input");
-    if (index < parts.length - 1) check(stat.isDirectory(), "non-directory parent");
-  }
+const INPUT_IO = Object.freeze({ openSync, closeSync, fstatSync, lstatSync, readlinkSync, readSync });
+const STAT_OPTIONS = Object.freeze({ bigint: true });
+
+function snapshot(stat) {
+  // atime changes on reads. All other identity, ownership, type, allocation,
+  // length and nanosecond time fields must stay unchanged, including on dirs.
+  return ["dev", "ino", "mode", "nlink", "uid", "gid", "rdev", "size", "blksize",
+    "blocks", "mtimeNs", "ctimeNs", "birthtimeNs"].map(key => stat[key]);
 }
 
-function readText(root, input) {
-  let fd;
+function unchanged(before, after) {
+  same(snapshot(after), snapshot(before), "changed public input");
+}
+
+function pathParts(input) {
+  check(typeof input === "string" && input.length > 0 && !isAbsolute(input)
+    && !input.includes("\0") && !input.includes("\\"), "invalid path");
+  const parts = input.split("/");
+  check(parts.every(part => part !== "" && part !== "." && part !== ".."), "path escape");
+  return parts;
+}
+
+function withPinnedParent(root, input, action, io = INPUT_IO) {
+  const directories = [];
   try {
-    check(typeof input === "string" && input.length > 0 && !input.includes("\0"), "invalid path");
-    check(!input.split(/[\\/]/u).includes(".."), "path escape");
-    noSymlinks(root);
-    check(lstatSync(root).isDirectory() && realpathSync(root) === root, "invalid root");
-    const path = resolve(root, input);
-    check(contained(root, path), "path escape");
-    noSymlinks(path);
-    check(realpathSync(path) === path && contained(root, realpathSync(path)), "canonical path escape");
-    const before = lstatSync(path);
-    check(before.isFile() && before.size > 0 && before.size <= MAX_BYTES, "invalid input file");
-    fd = openSync(path, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
-    const opened = fstatSync(fd);
-    check(opened.isFile() && opened.size > 0 && opened.size <= MAX_BYTES
-      && opened.dev === before.dev && opened.ino === before.ino, "changed input file");
-    // Bound the actual read as well as the initial stat, including concurrent growth.
-    const bytes = Buffer.alloc(opened.size + 1);
-    let length = 0;
-    while (length < bytes.length) {
-      const count = readSync(fd, bytes, length, bytes.length - length, null);
-      if (count === 0) break;
-      length += count;
+    // Node has no openat API. Linux procfs provides the kernel-owned fd anchor:
+    // every lookup below it contains ONE component, opened with O_NOFOLLOW.
+    // Never reopen an input through its absolute, attacker-mutable ancestors.
+    // Other platforms / missing procfs are deliberately unsupported, fail closed.
+    // Canonical fd names and full ancestor snapshots reject even move/restore
+    // races. This relies on a trusted Linux kernel/procfs and filesystem stat
+    // semantics; it is not a transaction against a privileged mount attacker.
+    // Unrelated ancestor mutations may conservatively reject a validation run.
+    check(process.platform === "linux" && constants.O_NOFOLLOW && constants.O_DIRECTORY,
+      "safe traversal unavailable");
+    check(isAbsolute(root) && resolve(root) === root, "invalid root");
+    const parts = pathParts(input);
+    function pin(path, canonicalPath) {
+      const before = io.lstatSync(path, STAT_OPTIONS);
+      check(before.isDirectory(), "non-directory or symlink parent");
+      const fd = io.openSync(path, constants.O_RDONLY | constants.O_DIRECTORY | constants.O_NOFOLLOW);
+      directories.push({ fd, path, canonicalPath, before });
+      unchanged(before, io.fstatSync(fd, STAT_OPTIONS));
+      check(io.readlinkSync(`/proc/self/fd/${fd}`) === canonicalPath, "noncanonical parent");
+      return fd;
     }
-    const after = fstatSync(fd);
-    noSymlinks(path);
-    const final = lstatSync(path);
-    check(realpathSync(path) === path && final.isFile() && final.dev === opened.dev
-      && final.ino === opened.ino && length === opened.size && after.size === opened.size
-      && after.mtimeMs === opened.mtimeMs && after.ctimeMs === opened.ctimeMs, "changed input file");
-    return new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes.subarray(0, length));
+    let canonicalPath = "/";
+    let parent = pin("/", canonicalPath);
+    for (const part of [...root.split("/").filter(Boolean), ...parts.slice(0, -1)]) {
+      canonicalPath = join(canonicalPath, part);
+      parent = pin(`/proc/self/fd/${parent}/${part}`, canonicalPath);
+    }
+    const verify = () => {
+      for (const directory of directories) {
+        unchanged(directory.before, io.fstatSync(directory.fd, STAT_OPTIONS));
+        unchanged(directory.before, io.lstatSync(directory.path, STAT_OPTIONS));
+        check(io.readlinkSync(`/proc/self/fd/${directory.fd}`) === directory.canonicalPath,
+          "moved public parent");
+      }
+    };
+    verify();
+    const result = action(`/proc/self/fd/${parent}/${parts.at(-1)}`, verify);
+    verify();
+    return result;
   } catch {
     throw new Error("public input rejected (path, file type, size, encoding, or stability)");
   } finally {
-    if (fd !== undefined) closeSync(fd);
+    for (const { fd } of directories.reverse()) io.closeSync(fd);
   }
+}
+
+function readText(root, input, io = INPUT_IO) {
+  return withPinnedParent(root, input, (path, verify) => {
+    let fd;
+    try {
+      const before = io.lstatSync(path, STAT_OPTIONS);
+      check(before.isFile() && before.nlink === 1n && before.size > 0n
+        && before.size <= BigInt(MAX_BYTES), "invalid input file");
+      fd = io.openSync(path, constants.O_RDONLY | constants.O_NOFOLLOW | constants.O_NONBLOCK);
+      const opened = io.fstatSync(fd, STAT_OPTIONS);
+      unchanged(before, opened);
+      verify();
+      check(io.readlinkSync(`/proc/self/fd/${fd}`) === join(root, input), "moved public input");
+      // Bound the actual read as well as the initial stat, including concurrent growth.
+      const bytes = Buffer.alloc(Number(opened.size) + 1);
+      let length = 0;
+      while (length < bytes.length) {
+        const count = io.readSync(fd, bytes, length, bytes.length - length, null);
+        if (count === 0) break;
+        length += count;
+      }
+      unchanged(opened, io.fstatSync(fd, STAT_OPTIONS));
+      unchanged(opened, io.lstatSync(path, STAT_OPTIONS));
+      verify();
+      // Close the former fstat/lstat gap as well as changes during ancestor checks.
+      unchanged(opened, io.fstatSync(fd, STAT_OPTIONS));
+      check(length === Number(opened.size), "changed input length");
+      return new TextDecoder("utf-8", { fatal: true, ignoreBOM: true }).decode(bytes.subarray(0, length));
+    } finally {
+      if (fd !== undefined) io.closeSync(fd);
+    }
+  }, io);
 }
 
 function rejectDuplicateKeys(text) {
@@ -184,6 +238,40 @@ function onlyUnit(document, name, label) {
   return units[0];
 }
 
+function checkSourceOwnership(root, config, claim) {
+  for (const entry of config.units) {
+    if (entry === claim) continue;
+    check(Array.isArray(entry?.sources), "invalid public source paths");
+    for (const source of entry.sources) {
+      pathParts(source?.path);
+      const path = resolve(root, source.path);
+      const unitPath = join(root, "src/cro/DllNumberInput");
+      check(path !== unitPath && !contained(unitPath, path), "public source ownership changed");
+      // Reject aliases conservatively. Inspect only directory/file metadata;
+      // never open or read source contents (including the preserved unit claim).
+      withPinnedParent(root, source.path, (leaf, verify) => {
+        const before = lstatSync(leaf, STAT_OPTIONS);
+        check(before.isFile() && before.nlink === 1n, "source alias or invalid source path");
+        verify();
+        unchanged(before, lstatSync(leaf, STAT_OPTIONS));
+      });
+    }
+  }
+}
+
+function checkReportEnvelope(report) {
+  exactKeys(report, ["version", "measures", "units"], "report schema changed");
+  check(report.version === 2 && Array.isArray(report.units), "report version or units changed");
+  exactKeys(report.measures, Object.keys(EXPECTED_REPORT_UNIT.measures), "report measures schema changed");
+  for (const [key, example] of Object.entries(EXPECTED_REPORT_UNIT.measures)) {
+    const value = report.measures[key];
+    check(typeof example === "string" ? typeof value === "string" && /^(0|[1-9][0-9]*)$/u.test(value)
+      : typeof value === "number" && Number.isFinite(value) && value >= 0
+        && (key.endsWith("percent") ? value <= 100 : Number.isSafeInteger(value)),
+    "report measures type changed");
+  }
+}
+
 function validate(root = ROOT) {
   const texts = Object.fromEntries(Object.entries(FILES).map(([key, path]) => [key, readText(root, path)]));
   for (const key of ["blocker", "inventory", "partition"])
@@ -194,13 +282,7 @@ function validate(root = ROOT) {
   check(config.schemaVersion === 1, "source config version changed");
   const claim = onlyUnit(config, "DllNumberInput", "source claim identity changed");
   check(sha256(canonical(claim)) === DIGESTS.claim, "public source ownership or claim changed");
-  for (const entry of config.units) {
-    if (entry === claim) continue;
-    check(!entry?.sources?.some(source => typeof source?.path === "string"
-      && (resolve(root, source.path) === join(root, "src/cro/DllNumberInput")
-        || resolve(root, source.path).startsWith(`${join(root, "src/cro/DllNumberInput")}${sep}`))),
-    "public source ownership changed");
-  }
+  checkSourceOwnership(root, config, claim);
 
   // Exact partition digest preserves every published boundary, not just totals.
   const partition = parseJson(texts.partition);
@@ -222,6 +304,7 @@ function validate(root = ROOT) {
   }, "manifest unit identity changed");
 
   const report = parseJson(texts.report);
+  checkReportEnvelope(report);
   // Ignore other units' results. Lock all fields for this unit, including the
   // exact existing matched function set, accounting, and complete=false.
   same(onlyUnit(report, UNIT, "report unit identity changed"), EXPECTED_REPORT_UNIT,
@@ -250,10 +333,27 @@ function selfTest(originals) {
     update(value);
     replace(key, JSON.stringify(value));
   }
+  function acceptedMutation(key, update) {
+    const path = join(fixture, FILES[key]);
+    const value = JSON.parse(originals[key]);
+    update(value);
+    try { writeFileSync(path, JSON.stringify(value)); validate(fixture); }
+    finally { writeFileSync(path, originals[key]); }
+  }
   try {
     for (const [key, path] of Object.entries(FILES)) {
       mkdirSync(dirname(join(fixture, path)), { recursive: true });
       writeFileSync(join(fixture, path), originals[key]);
+    }
+    // Synthetic unrelated source files support metadata-only ownership checks.
+    // Do not copy, open, or read any repository source file.
+    for (const unit of JSON.parse(originals.config).units) {
+      if (unit.name === "DllNumberInput") continue;
+      for (const source of unit.sources) {
+        const path = join(fixture, source.path);
+        mkdirSync(dirname(path), { recursive: true });
+        writeFileSync(path, "synthetic unrelated source fixture\n");
+      }
     }
     validate(fixture);
     same(parseJson('{"a":{"x":1},"b":{"x":2},"text":"\\\"key\\\":{}"}'),
@@ -285,6 +385,145 @@ function selfTest(originals) {
     rejected(() => readText(fixture, "linked-parent/cro-sources.json"));
     symlinkSync(fixture, join(temporary, "linked-root"), "dir");
     rejected(() => readText(join(temporary, "linked-root"), FILES.config));
+
+    // Deterministic reproductions at the exact I/O boundaries: no scheduling
+    // luck, target input, external preload, or production-only test switches.
+    const raceParent = join(fixture, "race-parent");
+    const raceLeaf = join(raceParent, "input.json");
+    const raceInput = "race-parent/input.json";
+    const movedParent = join(temporary, "moved-parent");
+    mkdirSync(raceParent);
+    const resetRace = () => writeFileSync(raceLeaf, '{"safe":true}');
+    resetRace();
+    same(readText(fixture, raceInput), '{"safe":true}', "stable read positive");
+    for (const boundary of ["parent-open", "leaf-open", "read"]) {
+      let injected = false;
+      let reads = 0;
+      const swap = action => {
+        injected = true;
+        renameSync(raceParent, movedParent);
+        try {
+          symlinkSync(movedParent, raceParent, "dir");
+          return action();
+        } finally {
+          rmSync(raceParent);
+          renameSync(movedParent, raceParent);
+        }
+      };
+      const io = {
+        ...INPUT_IO,
+        openSync(path, flags) {
+          const suffix = boundary === "parent-open" ? "/race-parent" : "/input.json";
+          if (!injected && boundary !== "read" && path.endsWith(suffix))
+            return swap(() => openSync(path, flags));
+          return openSync(path, flags);
+        },
+        readSync(...args) {
+          reads++;
+          if (!injected && boundary === "read") return swap(() => readSync(...args));
+          return readSync(...args);
+        },
+      };
+      rejected(() => readText(fixture, raceInput, io));
+      check(injected, "parent race regression did not execute");
+      if (boundary !== "read") same(reads, 0, "parent race read before rejection");
+    }
+    console.log("Review reproduction passed: parent symlink swaps at directory open, leaf open, and read rejected.");
+
+    for (const boundary of ["before-open", "during-read", "final-lstat", "after-final-lstat"]) {
+      resetRace();
+      let injected = false;
+      let leafStats = 0;
+      const rewrite = () => {
+        injected = true;
+        // Same inode and length; force a different timestamp even on a fast FS.
+        writeFileSync(raceLeaf, '{"safe":null}');
+        utimesSync(raceLeaf, 1, 1);
+      };
+      const io = {
+        ...INPUT_IO,
+        openSync(path, flags) {
+          if (boundary === "before-open" && path.endsWith("/input.json")) rewrite();
+          return openSync(path, flags);
+        },
+        readSync(...args) {
+          if (!injected && boundary === "during-read") rewrite();
+          return readSync(...args);
+        },
+        lstatSync(path, options) {
+          if (path.endsWith("/input.json")) {
+            leafStats++;
+            if (leafStats === 2 && boundary === "final-lstat") rewrite();
+          }
+          const stat = lstatSync(path, options);
+          if (leafStats === 2 && path.endsWith("/input.json") && boundary === "after-final-lstat") rewrite();
+          return stat;
+        },
+      };
+      rejected(() => readText(fixture, raceInput, io));
+      check(injected, "file stability regression did not execute");
+    }
+    // Inject sub-millisecond changes that the old mtimeMs/ctimeMs guards miss,
+    // and isolated size changes, at each of the four file comparison stages.
+    for (const boundary of ["opened", "after-read", "final-lstat", "final-fstat"]) {
+      for (const field of ["size", "mtimeNs", "ctimeNs"]) {
+        let leafFd;
+        let fdStats = 0;
+        let leafStats = 0;
+        let injected = false;
+        const changedStat = stat => {
+          injected = true;
+          return Object.assign(Object.create(Object.getPrototypeOf(stat)), stat, { [field]: stat[field] + 1n });
+        };
+        const io = {
+          ...INPUT_IO,
+          openSync(path, flags) {
+            const fd = openSync(path, flags);
+            if (path.endsWith("/input.json")) leafFd = fd;
+            return fd;
+          },
+          fstatSync(fd, options) {
+            const stat = fstatSync(fd, options);
+            if (fd === leafFd) {
+              fdStats++;
+              if ((boundary === "opened" && fdStats === 1)
+                || (boundary === "after-read" && fdStats === 2)
+                || (boundary === "final-fstat" && fdStats === 3)) return changedStat(stat);
+            }
+            return stat;
+          },
+          lstatSync(path, options) {
+            const stat = lstatSync(path, options);
+            if (path.endsWith("/input.json") && ++leafStats === 2 && boundary === "final-lstat")
+              return changedStat(stat);
+            return stat;
+          },
+        };
+        rejected(() => readText(fixture, raceInput, io));
+        check(injected, "snapshot regression did not execute");
+      }
+    }
+    console.log("Review reproduction passed: same-inode rewrites before open and around final stats rejected.");
+
+    const sourceTarget = join(fixture, "src/cro/DllNumberInput/alias-target.S");
+    mkdirSync(dirname(sourceTarget), { recursive: true });
+    writeFileSync(sourceTarget, "synthetic alias fixture; never read\n");
+    const alias = join(fixture, "source-alias");
+    for (const directoryAlias of [false, true]) {
+      try {
+        symlinkSync(directoryAlias ? dirname(sourceTarget) : sourceTarget, alias,
+          directoryAlias ? "dir" : "file");
+        mutate("config", value => { value.units.push({ name: "Other", sources: [
+          { path: directoryAlias ? "source-alias/alias-target.S" : "source-alias" },
+        ] }); });
+      } finally { rmSync(alias); }
+    }
+    try {
+      linkSync(sourceTarget, alias);
+      mutate("config", value => { value.units.push({ name: "Other", sources: [{ path: "source-alias" }] }); });
+      rejected(() => readText(fixture, "source-alias"));
+    } finally { rmSync(alias); }
+    console.log("Review reproduction passed: source ownership aliases through leaf and parent symlinks rejected without reading sources.");
 
     for (const key of ["config", "partition", "manifest", "report"]) {
       const value = JSON.parse(originals[key]);
@@ -325,6 +564,28 @@ function selfTest(originals) {
     reportMutation(unit => { unit.sections[0].size = "17"; });
     reportMutation(unit => { unit.extraCredit = true; });
     mutate("report", value => { value.units.push(value.units.find(unit => unit.name === UNIT)); });
+    mutate("report", value => { value.version = 999; });
+    mutate("report", value => { delete value.version; delete value.measures; });
+    for (const key of ["version", "measures", "units"])
+      mutate("report", value => { delete value[key]; });
+    mutate("report", value => { value.extra = {}; });
+    mutate("report", value => { value.measures = null; });
+    mutate("report", value => { delete value.measures.total_code; });
+    mutate("report", value => { value.measures.total_code = 123; });
+    mutate("report", value => { value.measures.matched_code_percent = "1"; });
+    mutate("report", value => { value.measures.total_functions = 1.5; });
+    // Unrelated accounting can evolve without granting this unit new credit.
+    acceptedMutation("report", value => {
+      value.measures.total_code = "4000000";
+      value.measures.matched_code = "500000";
+      value.measures.total_functions++;
+      value.measures.total_units++;
+      value.units.push({ name: "cro/Unrelated", measures: { matched_code: "100" } });
+    });
+    acceptedMutation("config", value => {
+      value.units.find(unit => unit.name !== "DllNumberInput").unrelatedMetadata = "allowed";
+    });
+    console.log("Review reproduction passed: report version=999 and missing root version/measures rejected; unrelated accounting accepted.");
     validate(fixture);
     console.log(`DllNumberInput self-tests passed: positive fixtures and ${negativeTests} negative cases.`);
   } finally {
