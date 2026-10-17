@@ -354,6 +354,10 @@ function reportPercentage(value, label, optional = false) {
   return value;
 }
 
+function fuzzyPercent(fuzzyMatchedBytes, totalCode) {
+  return totalCode === 0 ? 0 : Math.fround(fuzzyMatchedBytes / totalCode * 100);
+}
+
 function assertReportAggregate(report, manifest) {
   assert.deepEqual(Object.keys(report ?? {}).sort(), ["measures", "units", "version"],
     "published report schema changed");
@@ -437,8 +441,7 @@ function assertReportAggregate(report, manifest) {
     : Math.fround(Number(matchedCode) * 100 / Number(totalCode));
   const expectedMatchedFunctionsPercent = totalFunctions === 0 ? 0
     : Math.fround(matchedFunctions * 100 / totalFunctions);
-  const expectedFuzzyPercent = totalCode === 0n ? 0
-    : Math.fround(Math.fround(fuzzyMatchedBytes / Number(totalCode)) * 100);
+  const expectedFuzzyPercent = fuzzyPercent(fuzzyMatchedBytes, Number(totalCode));
   for (const [key, expected] of [
     ["matched_code_percent", expectedMatchedCodePercent],
     ["matched_functions_percent", expectedMatchedFunctionsPercent],
@@ -539,6 +542,56 @@ function expectFailure(baseline, mutator, pattern) {
 
 function selfTest(baseline) {
   validateState(baseline);
+  const regressionFuzzyBytes = 1;
+  const regressionTotalCode = 3;
+  const singleRoundedFuzzyPercent = Math.fround(regressionFuzzyBytes / regressionTotalCode * 100);
+  const legacyDoubleRoundedFuzzyPercent = Math.fround(
+    Math.fround(regressionFuzzyBytes / regressionTotalCode) * 100,
+  );
+  assert.equal(
+    fuzzyPercent(regressionFuzzyBytes, regressionTotalCode),
+    singleRoundedFuzzyPercent,
+    "fuzzy aggregate must round only the final percentage",
+  );
+  assert.ok(
+    Math.abs(singleRoundedFuzzyPercent - legacyDoubleRoundedFuzzyPercent) > 0.0000005,
+    "fuzzy rounding regression fixture must distinguish the legacy calculation",
+  );
+  const regressionReport = {
+    version: 2,
+    measures: {
+      fuzzy_match_percent: singleRoundedFuzzyPercent,
+      matched_code: "1",
+      matched_code_percent: singleRoundedFuzzyPercent,
+      matched_functions: 1,
+      matched_functions_percent: 50,
+      total_code: "3",
+      total_data: "0",
+      total_functions: 2,
+      total_units: 1,
+    },
+    units: [{
+      name: "main/code",
+      measures: {
+        matched_code: "1",
+        total_code: "3",
+        total_data: "0",
+        matched_functions: 1,
+        total_functions: 2,
+        total_units: 1,
+      },
+      functions: [
+        { name: "matched", size: "1", fuzzy_match_percent: 100 },
+        { name: "unmatched", size: "2" },
+      ],
+    }],
+  };
+  assertReportAggregate(regressionReport, { units: [] });
+  regressionReport.measures.fuzzy_match_percent = legacyDoubleRoundedFuzzyPercent;
+  assert.throws(
+    () => assertReportAggregate(regressionReport, { units: [] }),
+    /aggregate fuzzy_match_percent/,
+  );
   expectFailure(baseline, (state) => { state.blocker = ""; }, /blocker content digest/);
   expectFailure(
     baseline,
