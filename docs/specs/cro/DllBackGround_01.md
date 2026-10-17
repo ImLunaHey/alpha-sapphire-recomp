@@ -32,3 +32,23 @@ outside the claimed function. This batch does not claim the rest of
 `DllBackGround`: eight accepted functions, all unclassified executable ranges,
 literal pools, unknown residue, and non-code sections remain independently
 unmatched until separately specified and implemented.
+
+## Independent implementation gate
+
+A complete scan of the ignored published CRO target objects found one exact
+duplicate body, `DllDendouDemo`'s neutral `func_00001DEC`; it is also currently
+unmatched and therefore supplies corroborating behavior, not reusable source.
+
+The repository's current CRO C flags use the soft-float ABI without enabling
+VFP code generation. An independently authored C probe of the contract emitted
+a 324-byte helper-call implementation and received no exact objdiff credit. A
+separate VFP/softfp compiler probe preserved the public calling convention and
+reached 46.322582% fuzzy similarity, but emitted a 252-byte symbol and placed
+the four constants inside the function section. The target owns the constants
+as a separate adjacent 16-byte pool and has a 248-byte function boundary.
+
+Consequently this function must not be added to `config/cro-sources.json` from
+the probe. Exact implementation requires a separately assigned implementation
+role working only from this specification, plus a unit-scoped build path that
+can preserve the accepted function/pool boundary. Target inspection or an
+opaque byte/instruction transcription is not an acceptable substitute.
