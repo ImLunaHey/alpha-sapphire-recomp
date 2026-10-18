@@ -250,6 +250,23 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_0000ED48", 0xED48, 172, "title-resource-release-reset", "f98493014917e8c5b57f8aac26502013ab5cd699345037e801d84dc4da10cdfc"],
+    ["func_00010738", 0x10738, 172, "title-tree-entry-activate", "6d6b89953cdbe9289c32c8bd700c1876e089a7732047f8a94b0640fcf35c0139"],
+    ["func_000123E0", 0x123E0, 168, "title-entry-collection-release", "4704f4c3a60b6e999c4cd4f40be83c52ff349f852911b4723877bb49652eade5"],
+    ["func_000155A4", 0x155A4, 168, "title-state-structure-initialize", "d2d3e4e75f3624d275bd05e08b2bafb235a3befcb87fd1e34c13cbb290f00e19"],
+    ["func_0001AB40", 0x1AB40, 172, "title-resource-attach-initialize", "6333cf1b4c383de9ef22556e930303ba56ca994d558898fb7e53b13d5447f3da"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_07.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -303,7 +320,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 9632,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 10484,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -376,7 +393,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 56 accepted-function completions (9,632 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 61 accepted-function completions (10,484 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
