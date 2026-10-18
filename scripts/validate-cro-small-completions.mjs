@@ -55,6 +55,16 @@ const COMPLETIONS = Object.freeze([
     source: "src/cro/DllStartMenu/remaining_01.S",
     sha256: "16b708c9fab4c3d01d531afd944bb50b0f34ee75c613f1437884ed1ad99a4303",
   },
+  {
+    unit: "DllDialogCommon",
+    name: "func_00000780",
+    address: 0x780,
+    size: 796,
+    semantics: "dialog-object-factory-setup",
+    source: "src/cro/DllDialogCommon/remaining_02.S",
+    specification: "docs/specs/cro/DllDialogCommon_02.md",
+    sha256: "6159155d77b7859ed4cdfb21ef02418550d1f833f1475c3c2daa69964114f65a",
+  },
 ]);
 
 function fail(message) {
@@ -107,11 +117,13 @@ function sectionBytes(readelf, object, section) {
 
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
-  const specification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 2336,
+  const sharedSpecification = readFileSync(SPEC, "utf8");
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 3132,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
+    const specification = entry.specification ?
+      readFileSync(join(ROOT, entry.specification), "utf8") : sharedSpecification;
     const unit = config.units.find((candidate) => candidate.name === entry.unit);
     check(unit, `${entry.unit} is absent from config/cro-sources.json`);
     check(unit.sources.filter((source) => source.path === entry.source && source.mode === "arm").length === 1,
@@ -139,7 +151,7 @@ function validateSources() {
       check(source.split(fragment).length === 2,
         `${entry.source} lacks one exact ${fragment} declaration`);
     }
-    check(specification.includes(`\`${entry.unit}\``) &&
+    check(specification.includes(entry.unit) &&
       specification.includes(`\`${entry.name}\``),
     `${entry.unit} is missing from the provenance specification`);
   }
@@ -179,7 +191,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated five accepted-function completions (2,336 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated six accepted-function completions (3,132 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

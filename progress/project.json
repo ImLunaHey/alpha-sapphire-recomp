@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes transparently documented direct-reverse-engineering matches for five additional small CRO accepted-function inventories, alongside DllGameSync, DllFieldEventSkatePipe, and DllUSAreaWaterSurface. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes a transparently documented direct-reverse-engineering match for the complete DllDialogCommon accepted-function inventory, alongside the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.287497,
-    "matchedFunctions": 4245,
+    "matchedCodePercent": 11.308897,
+    "matchedFunctions": 4246,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllDialogCommon accepted function set reaches 100%",
+      "detail": "A transparently documented direct-reverse-engineering implementation matches both accepted DllDialogCommon functions: 1,128 of 1,128 accepted code bytes. The newly implemented factory/setup routine adds 796 exact bytes. The unit remains explicitly incomplete because executable gaps, pools, relocations, metadata, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "Five small CRO accepted function sets reach 100%",
