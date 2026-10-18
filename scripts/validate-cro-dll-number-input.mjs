@@ -55,7 +55,7 @@ const EXPECTED_REPORT_UNIT = {
   functions: FUNCTIONS.map(([name, size, address]) => ({
     name, size, address, metadata: {}, ...(name === MATCHED ? { fuzzy_match_percent: 100 } : {}),
   })),
-  metadata: { complete: false, source_path: "src/cro/DllNumberInput" },
+  metadata: { complete: false, source_path: "src/cro/DllNumberInput/pod_leaves.S" },
 };
 
 function check(condition, label) {

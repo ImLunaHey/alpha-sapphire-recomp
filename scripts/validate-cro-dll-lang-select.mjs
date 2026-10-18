@@ -24,7 +24,7 @@ const EXPECTED_INVENTORY_SHA256 = "03cba23c86a6e5784d6bfca3192d16dd13614def87a1e
 // JSON.stringify of the complete reviewed partition after duplicate-key rejection.
 const EXPECTED_PARTITION_SHA256 = "b45edadba3c6289b667844840810ddf24ca6f2d5bd34b6c46e976086fc58e108";
 // JSON.stringify of the complete reviewed report unit after duplicate-key rejection.
-const EXPECTED_REPORT_UNIT_SHA256 = "4ab865d800c7b0866eb3e863f1826aef528ae13a17eaf5438ba65d187206c98e";
+const EXPECTED_REPORT_UNIT_SHA256 = "b6f902dc205c3e96b1d4fcde17b775a60eb28ecf4ce4c83ea80c2b66fb0ebcb8";
 // Exact UTF-8 bytes of the only source registered for this unit.
 const EXPECTED_SOURCE_SHA256 = "240cb8e2a26c2c6241189fef65fee3bb54439987a50daa0ed15ca33d7ff68fd8";
 const EXPECTED_SOURCE_SIZE = 1201;
@@ -507,7 +507,8 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
     "reviewed DllLangSelect report-unit identity changed",
   );
   assert.equal(reportUnit?.metadata?.complete, false, "DllLangSelect must remain explicitly incomplete");
-  assert.equal(reportUnit?.metadata?.source_path, "src/cro/DllLangSelect", "unexpected DllLangSelect source path");
+  assert.equal(reportUnit?.metadata?.source_path, "src/cro/DllLangSelect/contract_09.S",
+    "unexpected DllLangSelect source path");
   for (const [key, value] of Object.entries(expectedMeasures)) {
     assert.equal(reportUnit?.measures?.[key], value, `DllLangSelect report measure changed: ${key}`);
   }

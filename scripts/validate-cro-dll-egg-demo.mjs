@@ -138,7 +138,7 @@ function validateReport(path) {
   check(units.length === 1, `report must contain exactly one ${REPORT_UNIT} unit`);
   const unit = units[0];
   exactKeys(unit.metadata, "complete,source_path", "report metadata");
-  check(unit.metadata.complete === false && unit.metadata.source_path === "src/cro/DllEggDemo",
+  check(unit.metadata.complete === false && unit.metadata.source_path === "src/cro/DllEggDemo.c",
     "report completion or source metadata changed");
 
   exactKeys(unit.measures,
