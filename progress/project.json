@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes transparently documented direct-reverse-engineering matches for the complete DllPssConfig accepted-function inventory and the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes transparently documented direct-reverse-engineering matches for the complete DllCommWait accepted-function inventory and the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.359548,
-    "matchedFunctions": 4251,
+    "matchedCodePercent": 11.387292,
+    "matchedFunctions": 4253,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllCommWait accepted function set reaches 100%",
+      "detail": "Two transparently documented direct-reverse-engineering implementations complete all three accepted DllCommWait functions: 1,360 of 1,360 accepted code bytes. The new state-update and object-setup routines add 1,032 exact bytes. The unit remains explicitly incomplete because executable gaps, pools, relocations, metadata, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "DllPssConfig accepted function set reaches 100%",
