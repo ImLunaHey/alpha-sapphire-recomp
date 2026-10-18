@@ -599,7 +599,7 @@ async function main() {
   console.log(`validated batch 91: 4 functions, 576 body bytes, 16 pool bytes, SHA-256 ${sha256(sourceBytes)}`);
 }
 
-main().catch(error => {
+await main().catch(error => {
   console.error(`validation failed: ${error.message}`);
   process.exitCode = 1;
 });

@@ -27,7 +27,7 @@ After regeneration, verify that the checked-in inventory is current and run its 
 ```sh
 node scripts/generate-cro-unit-manifest.mjs --check
 node scripts/test-cro-unit-manifest.mjs
-bash scripts/check-no-rom.sh
+node scripts/check-no-rom.mjs
 ```
 
 The inventory establishes real unit identity and boundaries. It does not claim that a module has been decomposed or linked; that status must come from its eventual objdiff result.

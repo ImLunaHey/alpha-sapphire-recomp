@@ -458,4 +458,4 @@ async function main() {
   console.log(`object inventory: ${elf.sections.length} sections, ${elf.symbolCount} symbols, ${elf.relocationCount} relocations, ${elf.executableSize} executable bytes`);
 }
 
-main().catch(error => { console.error(`validation failed: ${error.message}`); process.exitCode = 1; });
+await main().catch(error => { console.error(`validation failed: ${error.message}`); process.exitCode = 1; });

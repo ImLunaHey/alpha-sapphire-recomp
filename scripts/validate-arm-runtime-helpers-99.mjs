@@ -380,4 +380,4 @@ async function main() {
   console.log(`arm-runtime-helpers-99: ok${result ? `; sections=${result.elf.sections.length}; symbols=${result.elf.symbols.length}; relocations=${result.elf.relocations.length}; executableBytes=${result.elf.executableBytes}` : ""}${self ? `; selfTestSections=${self.sections}; foreignExecutableSections=${self.foreignExecutableSections}` : ""}`);
 }
 
-main().catch((error) => { console.error(`arm-runtime-helpers-99: ${error.message}`); process.exitCode = 1; });
+await main().catch((error) => { console.error(`arm-runtime-helpers-99: ${error.message}`); process.exitCode = 1; });

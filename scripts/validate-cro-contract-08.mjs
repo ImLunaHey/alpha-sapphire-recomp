@@ -1,14 +1,11 @@
 #!/usr/bin/env node
 
-import {
-  existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, rmSync, statSync, symlinkSync, writeFileSync,
-} from "node:fs";
+import { existsSync, lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
-import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
-const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-08-proposal.json");
 const QUARANTINED_UNIT = "DllWazaOboe";
@@ -240,42 +237,27 @@ function validatePublicContract(manifestPath, inspectSource = lstatSync) {
 }
 
 function runRestorationSelfTest() {
-  const sourcePath = join(ROOT, QUARANTINED_SOURCE);
-  const sourceDirectory = dirname(sourcePath);
-  const createdDirectory = !existsSync(sourceDirectory);
-  const expectFilesystemRejection = (label) => {
-    for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
-      const result = spawnSync(process.execPath, [SCRIPT_PATH, "--manifest", manifest], {
-        cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024,
-      });
-      check(!result.error && result.status === 1 &&
-        result.stderr.includes(`${QUARANTINED_SOURCE} remains in the working tree`),
-      `${label} was accepted for ${relative(ROOT, manifest)}`);
-    }
-  };
-  try {
-    mkdirSync(sourceDirectory, { recursive: true });
-    writeFileSync(sourcePath, "/* hostile quarantined-source restoration fixture */\n", { flag: "wx" });
-    expectFilesystemRejection("restored quarantined source");
-    rmSync(sourcePath);
-    symlinkSync(join(sourceDirectory, "missing-target"), sourcePath);
-    expectFilesystemRejection("dangling quarantined-source symlink");
-    rmSync(sourcePath);
+  const expectFilesystemRejection = (label, inspectSource) => {
     for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
       let rejected = false;
-      try {
-        validatePublicContract(manifest, () => {
-          throw Object.assign(new Error("deterministic inspection failure"), { code: "EACCES" });
-        });
-      } catch (error) {
-        rejected = error.message.includes(
-          `cannot inspect ${QUARANTINED_SOURCE}: deterministic inspection failure`);
-      }
-      check(rejected, `quarantined-source inspection failure was accepted for ${relative(ROOT, manifest)}`);
+      try { validatePublicContract(manifest, inspectSource); }
+      catch (error) { rejected = error.message.includes(`${QUARANTINED_SOURCE} remains in the working tree`); }
+      check(rejected, `${label} was accepted for ${relative(ROOT, manifest)}`);
     }
-  } finally {
-    rmSync(sourcePath, { force: true });
-    if (createdDirectory) rmSync(sourceDirectory, { recursive: true, force: true });
+  };
+  expectFilesystemRejection("restored quarantined source", () => ({ isSymbolicLink: () => false }));
+  expectFilesystemRejection("dangling quarantined-source symlink", () => ({ isSymbolicLink: () => true }));
+  for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
+    let rejected = false;
+    try {
+      validatePublicContract(manifest, () => {
+        throw Object.assign(new Error("deterministic inspection failure"), { code: "EACCES" });
+      });
+    } catch (error) {
+      rejected = error.message.includes(
+        `cannot inspect ${QUARANTINED_SOURCE}: deterministic inspection failure`);
+    }
+    check(rejected, `quarantined-source inspection failure was accepted for ${relative(ROOT, manifest)}`);
   }
 }
 

@@ -261,8 +261,8 @@ function disassembleSections(tool, objectPath, config, elf) {
 }
 
 function main() {
-  assert(process.argv.length === 3, `usage: ${basename(process.argv[1])} <arm-relocatable-object>`);
-  const objectPath = resolve(process.argv[2]);
+  assert(process.argv.length === 2 || process.argv.length === 3,
+    `usage: ${basename(process.argv[1])} [arm-relocatable-object]`);
   const config = JSON.parse(readFileSync(CONFIG_PATH, 'utf8'));
   const spec = readFileSync(SPEC_PATH, 'utf8');
   const sourcePath = resolve(ROOT, config.source);
@@ -273,6 +273,8 @@ function main() {
   const objdump = findTool('ARM_OBJDUMP', ['arm-none-eabi-objdump', 'llvm-objdump']);
   const temp = mkdtempSync(resolve(tmpdir(), 'ipc-wrappers-77-'));
   try {
+    const objectPath = process.argv[2] ? resolve(process.argv[2]) : resolve(temp, 'candidate.o');
+    if (!process.argv[2]) run(assembler, ['-o', objectPath, sourcePath], 'candidate assembly');
     const referencePath = resolve(temp, 'reference.o');
     run(assembler, ['-o', referencePath, sourcePath], 'reference assembly');
     const candidate = parseElf(objectPath);

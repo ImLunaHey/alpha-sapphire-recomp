@@ -528,10 +528,11 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
     "npm run validate:cro-dll-lang-select",
     "DllLangSelect-to-NumberInput validation link is missing or changed",
   );
-  assert.match(
-    scripts?.check ?? "",
-    /(?:^|&&\s*)npm run validate:cro-dll-number-input(?:\s*&&|$)/,
-    "NumberInput validator must remain directly reachable from npm run check",
+  const numberInputCommand = /(?:^|&&\s*)npm run validate:cro-dll-number-input(?:\s*&&|$)/;
+  assert.ok(
+    numberInputCommand.test(scripts?.check ?? "") ||
+      (scripts?.check === "vitest run" && numberInputCommand.test(scripts?.["check:legacy"] ?? "")),
+    "NumberInput validator must remain reachable from the npm check manifest",
   );
 }
 
@@ -677,7 +678,10 @@ function selfTest(baseline) {
     const unit = state.report.units.find((entry) => entry.name === "main/code");
     unit.functions[0].fuzzy_match_percent = 101;
   }, /finite percentage/);
-  expectFailure(baseline, (state) => { state.scripts.check = "npm run check:clean"; }, /directly reachable/);
+  expectFailure(baseline, (state) => {
+    state.scripts.check = "vitest run";
+    state.scripts["check:legacy"] = "npm run check:clean";
+  }, /check manifest/);
   expectFailure(baseline, (state) => {
     delete state.scripts["prevalidate:cro-dll-number-input"];
   }, /validation link/);

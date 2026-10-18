@@ -397,4 +397,4 @@ async function main() {
   } finally { await rm(assembled.directory, { recursive: true, force: true }); }
 }
 
-main().catch((error) => { console.error(`arm-runtime-helpers-103: ${error.message}`); process.exitCode = 1; });
+await main().catch((error) => { console.error(`arm-runtime-helpers-103: ${error.message}`); process.exitCode = 1; });

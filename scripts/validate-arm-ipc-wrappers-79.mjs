@@ -352,7 +352,7 @@ async function main() {
   console.log("arm-ipc-wrappers-79: validation passed (5 functions, 260 body bytes, 65 instructions, 20 adjacent bytes, 3 transfers/2 classes, 5 slots/4 classes, cumulative 788/417)");
 }
 
-main().catch(error => {
+await main().catch(error => {
   console.error(`arm-ipc-wrappers-79: ${error.message}`);
   process.exitCode = 1;
 });

@@ -3,10 +3,15 @@
 .fpu vfp
 .arm
 
+// ByteMatch indexes C-style assembly inclusion markers, while the build's C
+// preprocessor removes these markers before GNU as sees the source.
+#define ASM_FUNC(name)
+
 .section .text.func_00001C84, "ax", %progbits
 .balign 4
 .global func_00001C84
 .type func_00001C84, %function
+ASM_FUNC(func_00001C84)
 func_00001C84:
     push	{r4, r5, r6, r7, r8, lr}
     mov	r4, r0
@@ -118,6 +123,7 @@ func_00001C84:
 .balign 4
 .global func_00002120
 .type func_00002120, %function
+ASM_FUNC(func_00002120)
 func_00002120:
     push	{r4, r5, r6, lr}
     mov	r4, r0
@@ -162,6 +168,7 @@ func_00002120:
 .balign 4
 .global func_00003564
 .type func_00003564, %function
+ASM_FUNC(func_00003564)
 func_00003564:
     push	{r4, r5, r6, r7, r8, r9, sl, fp, lr}
     mov	r4, r0
@@ -252,6 +259,7 @@ func_00003564:
 .balign 4
 .global func_00003714
 .type func_00003714, %function
+ASM_FUNC(func_00003714)
 func_00003714:
     push	{r4, r5, r6, r7, r8, lr}
     mov	r3, #0
