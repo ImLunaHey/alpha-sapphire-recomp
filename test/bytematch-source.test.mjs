@@ -24,6 +24,8 @@ const smallCompletionSources = await Promise.all([
   ["DllPhotoViewer", "func_00000F20"],
   ["DllPssPlaySelect", "func_00000658"],
   ["DllPssPlaySelect", "func_000008A0"],
+  ["DllPssConfig", "func_00000DC0"],
+  ["DllPssConfig", "func_000015C4"],
 ].map(async ([unit, name, file = "remaining_01.S"]) => ({
   name,
   source: await readFile(new URL(`../src/cro/${unit}/${file}`, import.meta.url), "utf8"),
