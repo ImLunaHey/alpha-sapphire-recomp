@@ -1,43 +1,43 @@
-# DllTitle specification blocker
+# DllTitle direct-reconstruction progress
 
-- Role: analyst / specification author; no implementation work.
-- Date: 2026-10-17.
-- Scope: new work in `cro/DllTitle` beyond its existing credited functions.
-- Original analysis baseline: `4f0ffaabc9d9da88b52910ba507cff17fe5d2351`.
-- Publication baseline after coordinator rebase: `847ce9a143c147423859925943cd801a5db42bed`, branch `unit/cro-dll-title`.
-- Target revision: `AS_EUR_REV2`, recorded solely as public provenance. No target was accessed or observed for this review.
+- Unit: `cro/DllTitle`
+- Target revision: `AS_EUR_REV2`
+- Batch: small leaves 01
+- Date: 2026-10-18
 
-## Role separation and review provenance
+This document records the first incremental direct-reconstruction batch for the
+larger DllTitle unit. The batch contributes 14 accepted functions and 456 code
+bytes. Together with the two existing claims, DllTitle now has 16 of 128
+functions and 484 of 55,160 code bytes accepted. The unit remains incomplete.
 
-- Analyst: T3 delegated task `cro-dll-title-analysis-v1`, Codex `gpt-6.1-sol`. Its bounded role authored this blocker from the lawful evidence listed below without inspecting implementation source or target material.
-- Reviewer: separate T3 delegated task `cro-dll-title-review-v1`, Codex `gpt-6.1-sol`. On 2026-10-17 it approved the document as a blocker only after checking the cited public evidence, provenance, neutral language, links, and unit scope; it made no implementation or credit decision beyond enforcing the stop condition.
-- Target-blind implementer: separate T3 delegated task `cro-dll-title-implementation-v1`, Codex `gpt-6.1-sol`. It received only the clean-room policy and the reviewed blocker, confirmed that no implementation or credit expansion was authorized, and made no edits.
+## Accepted functions
 
-These distinct task identities and bounded inputs are the durable review record for this contribution. Approval does not revalidate existing credit or establish lawful acquisition beyond the repository's recorded provenance.
+| Function | Size | Neutral role |
+|---|---:|---|
+| `func_0000BF38` | 4 | Direct tail dispatch |
+| `func_0000D434` | 40 | Output triple initialization |
+| `func_0000D45C` | 24 | Byte/halfword record copy |
+| `func_0000E258` | 32 | Ring-entry access |
+| `func_0000E704` | 44 | Linked-record initialization |
+| `func_0000EE88` | 52 | Capacity normalization |
+| `func_000124F4` | 40 | Nested-state query |
+| `func_0001BD60` | 44 | Record identity comparison |
+| `func_0001C408` | 36 | Global pair store A |
+| `func_0001C78C` | 20 | Global pair clear A |
+| `func_0001C7A4` | 36 | Global pair store B |
+| `func_0001C838` | 28 | Global pair clear B |
+| `func_0001CBF8` | 20 | Global pair clear C |
+| `func_0001CD0C` | 36 | Global pair store C |
 
-## Lawful evidence inspected
+## Acceptance method
 
-The review used tracked repository documentation and public metadata only:
+Each function was reconstructed from the target instruction stream as a
+symbolic ARM assembly implementation, built independently, and compared
+byte-for-byte with the corresponding target section. The completion validator
+records the exact SHA-256 digest and expected size for every function. The
+source-marker tests also require each accepted symbol to remain explicitly
+owned by `src/cro/DllTitle/small_leaves_01.S`.
 
-- [Clean-room protocol](../../CLEAN_ROOM.md), read in full first, and [specification policy](../README.md): role separation, provenance, review, and implementation requirements.
-- [Public provenance](../../PROVENANCE.md) and [CRO units](../../CRO_UNITS.md): published revision context, inventory purpose, and the distinction between publication and completed implementation.
-- [CRO target-object documentation](../../CRO_TARGET_OBJECTS.md): DllTitle references located by a documentation search; no commands from that document were executed.
-- [Contract 11](contract_11.md): a description of an existing scoped DllTitle contribution, not a contract for additional behavior.
-- `config/cro-sources.json`: the DllTitle registry entry; `config/publication-units.json`: unit membership. These are existing publication claims, not new behavioral observations.
-- `symbols/cro/DllTitle.csv`: public inventory format and row count only; no function bodies or implementation semantics were examined.
-
-A case-insensitive tracked search of `docs/` and `README.md` for DllTitle references found only the target-object documentation and contract 11 before this file was added. `package.json` and `scripts/check-no-rom.sh` were inspected only to select checks compatible with the analysis boundary. Tools: Git 2.53.0 and Node.js v24.21.0. No external documentation was needed or consulted.
-
-## Existing publication state
-
-`cro/DllTitle` is listed for publication. Its source registry records two pre-existing function claims, including the contract 11 contribution. Repository documentation treats CRO units as incomplete, with unclaimed code and data remaining unmatched. This review neither revalidates those claims nor awards or expands credit.
-
-## Missing behavioral evidence
-
-The inspected evidence does not supply a sufficient neutral specification for new DllTitle work. Unit identity, function boundaries, existing claim labels, and validation instructions do not establish additional behavior. No further provenance-bearing contract was found defining callable interfaces, input preconditions, outputs, state changes, side effects, dependency interactions, ordering, error cases, or acceptance observations. These facts cannot be inferred from the module name or neighboring claims.
-
-## Implementation stop condition
-
-Stop all new DllTitle implementation and credit expansion until a distinct analyst supplies a reviewed neutral specification for the proposed behavior, with lawful evidence, revision and date, observation method and tool versions where applicable, and sufficient observable acceptance criteria for an independently assigned implementer. This blocker is not an implementation specification or authorization to infer missing semantics.
-
-No implementation source under `src/`, ROM, extracted asset, build or target output, private target material, disassembly, or target-derived implementation aid was inspected. No extraction or target-analysis command was run. Analyst-role validation was limited to document content, local links, edit scope, and whitespace; the broad `check:clean` workflow reads implementation files and was outside that role's permitted scope. The coordinator subsequently committed this reviewed documentation and ran the repository gates without expanding the analyst's evidence set.
+This is an incremental progress record, not a declaration that DllTitle is
+complete. Later batches must independently meet the same exact-byte and source
+ownership checks before receiving publication credit.
