@@ -229,7 +229,7 @@ function validateReport(path, contract) {
   check(units.length === 1, `report must contain exactly one ${REPORT_UNIT} unit`);
   const unit = units[0];
   exactKeys(unit, "functions,measures,metadata,name,sections", "report unit");
-  check(JSON.stringify(unit.metadata) === JSON.stringify({ complete: false, source_path: `src/cro/${UNIT}` }),
+  check(JSON.stringify(unit.metadata) === JSON.stringify({ complete: false, source_path: `src/cro/${UNIT}/contract_09.S` }),
     "report metadata is not exact and fail-closed");
   exactKeys(unit.measures,
     "fuzzy_match_percent,matched_code,matched_code_percent,matched_functions,matched_functions_percent,total_code,total_data,total_functions,total_units",

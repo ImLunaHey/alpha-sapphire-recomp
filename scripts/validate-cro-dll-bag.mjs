@@ -181,7 +181,7 @@ function validateReport(path) {
   const units = report.units?.filter((entry) => entry?.name === REPORT_UNIT) ?? [];
   check(units.length === 1, "report must contain exactly one cro/DllBag unit");
   const unit = units[0];
-  check(unit.metadata?.complete === false && unit.metadata?.source_path === "src/cro/DllBag",
+  check(unit.metadata?.complete === false && unit.metadata?.source_path === "src/cro/DllBag.c",
     "report completion metadata is not fail-closed");
   check(unit.measures?.total_code === "20152" && unit.measures?.matched_code === "8" &&
     unit.measures?.total_data === "7724" && unit.measures?.total_functions === 65 &&

@@ -206,7 +206,7 @@ function validateReport(path) {
   const units = report.units?.filter((entry) => entry?.name === REPORT_UNIT) ?? [];
   check(units.length === 1, `report must contain exactly one ${REPORT_UNIT} unit`);
   const unit = units[0];
-  check(unit.metadata?.complete === false && unit.metadata?.source_path === `src/cro/${UNIT}`,
+  check(unit.metadata?.complete === false && unit.metadata?.source_path === `src/cro/${UNIT}/contract_06.S`,
     "report completion metadata is not fail-closed");
   check(unit.measures?.total_code === "7684" && unit.measures?.matched_code === "40" &&
     unit.measures?.total_data === "2644" && unit.measures?.total_functions === 21 &&

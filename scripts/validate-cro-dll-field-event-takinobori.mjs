@@ -156,7 +156,7 @@ function validateReport(path) {
   const unit = units[0];
   exactKeys(unit, "functions,measures,metadata,name,sections", "report unit");
   exactKeys(unit.metadata, "complete,source_path", "report metadata");
-  check(unit.metadata.complete === false && unit.metadata.source_path === `src/cro/${UNIT}`,
+  check(unit.metadata.complete === false && unit.metadata.source_path === `src/cro/${UNIT}.c`,
     "report completion or source metadata changed");
 
   exactKeys(unit.measures,
