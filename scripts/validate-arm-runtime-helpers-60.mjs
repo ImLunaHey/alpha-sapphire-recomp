@@ -3,6 +3,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { armReadelf } from "./arm-readelf.mjs";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const manifestPath = join(root, "config/arm-runtime-helpers-60.json");
@@ -16,7 +17,7 @@ const allowedObjects = new Set([resolve(sourceObject), resolve(baseObject), reso
 const standaloneObject = process.argv[2] === undefined;
 const objectPath = resolve(process.argv[2] ?? sourceObject);
 const targetMode = objectPath === resolve(targetObject);
-const readelf = process.argv[3] ?? "readelf";
+const readelf = process.argv[3] ?? armReadelf();
 const maxBuffer = 16 * 1024 * 1024;
 const expectedSourceHash = "286b6aeb54f988f1bac137da797661a0810b46409a9671f3c2cf3ca196bbca02";
 const expectedFunctions = [
