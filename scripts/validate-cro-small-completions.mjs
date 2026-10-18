@@ -200,6 +200,23 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_0001157C", 0x1157C, 124, "title-record-range-release", "93f882df0d4aaa0ab0fb98e55b2d874f685b10d7f7af64f02b62e1647c5928c3"],
+    ["func_00012630", 0x12630, 112, "title-validated-output-query", "61e67646d195c7790d7c9fe2b25c221e838ae7a6540fa891ff9e27d8e4b59a00"],
+    ["func_0001ABF0", 0x1ABF0, 120, "title-state-block-initialize", "7fb7e7ce83f433b3464f2c5e18cdf6973a8648b6077ee3420a3abb36d41c8a99"],
+    ["func_0001B640", 0x1B640, 132, "title-tree-left-walk", "bbf011a0c3649f39a5af3da460433e61000e2ac48dc5eb9656ff3b9d325c271a"],
+    ["func_0001B6C4", 0x1B6C4, 132, "title-tree-right-walk", "39a3dae90ae7befc56c5a151eba59232d12ba4ed1d2910ddff19d7168eeeb63b"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_04.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -253,7 +270,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 7640,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 8260,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -326,7 +343,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 42 accepted-function completions (7,640 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 47 accepted-function completions (8,260 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
