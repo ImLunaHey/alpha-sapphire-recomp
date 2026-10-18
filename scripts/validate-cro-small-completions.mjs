@@ -115,6 +115,26 @@ const COMPLETIONS = Object.freeze([
     specification: "docs/specs/cro/DllPssConfig_blocker.md",
     sha256: "979c4430fb0559268f4e5f6579134c749c55ea2ef33aa5e1e27c83f34ae7bb8c",
   },
+  {
+    unit: "DllCommWait",
+    name: "func_00000334",
+    address: 0x334,
+    size: 632,
+    semantics: "communication-wait-state-update",
+    source: "src/cro/DllCommWait/remaining_01.S",
+    specification: "docs/specs/cro/DllCommWait.md",
+    sha256: "e6701242b94aeb773cdf464f4930d60a89c14bae7bde2978ad230726b204cf33",
+  },
+  {
+    unit: "DllCommWait",
+    name: "func_00000A2C",
+    address: 0xA2C,
+    size: 400,
+    semantics: "communication-wait-object-setup",
+    source: "src/cro/DllCommWait/remaining_01.S",
+    specification: "docs/specs/cro/DllCommWait.md",
+    sha256: "9dca229e26563324af4925eedfdf23fcac494330ba60562daf595cc6dd77acbd",
+  },
 ]);
 
 function fail(message) {
@@ -168,7 +188,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 5016,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 6048,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -241,7 +261,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated eleven accepted-function completions (5,016 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated thirteen accepted-function completions (6,048 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
