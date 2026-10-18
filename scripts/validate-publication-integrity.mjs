@@ -27,12 +27,12 @@ const EXPECTED = Object.freeze({
   croInventories: "210bd4b2a804b67f33727ead82d77b944771e3fd060563bb36935861299b62c4",
   croPartitions: "9b741f8fbadd2d65f64f4401c7599ee5ef118b3f75a62c3c2a412356b5f60fec",
   mainConfig: "f007fd8a8646c8e62f6d187ff82f02e14d91054db5802ba74237dbb244beb27c",
-  croConfig: "a9c8a1ba9bcd112b53141ab6f7b715b48338c2aa59f3175366b329f664b8b302",
-  sources: "fee0bf2333b8e04591be55e5a2985224d343c8b0c3351647af69c5649f00b938",
+  croConfig: "25cecafb8a75e3069ebe697635da9c1afa0587748dcc5b23f76b9fdc69f8f7af",
+  sources: "2098e3fb8d24ff302edff09f41768f16e29a9a42606b45623f502c31b280744c",
   mainObject: "6d1c9dddd30dfe48c9131ec3b1ab9c962c9a5c67240f915be256a3135ea501dc",
-  croObjects: "82d007a3dbd538a891fa1625a3e73ff9cd252a55182e096548abf1205d82ab67",
-  reportFunctions: "f033e9d14021e1e77a3372440a6fc548fe2773fdb0e5fa2a2a3bc74f5ccf3f1a",
-  reportSections: "6de83573b379b07304450fecabb5247f53612d9ca575c56eff64710f74534ec0",
+  croObjects: "aba34ecce0a65e6c2865ff7563316bc8dcc70bfb6b47d23ba5df057a4615c735",
+  reportFunctions: "5f017f37b677d47c13726f8531217523a140843ddb89ba3f7e9bf3d18025c848",
+  reportSections: "5519d7983741602536aeca53e4e393bcd71fc867f79ea88a07471b49130ed536",
 });
 
 function check(value, message) { if (!value) throw new Error(message); }

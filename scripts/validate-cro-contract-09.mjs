@@ -184,9 +184,7 @@ function validateObjects(units, directory, readelf) {
       return match && match[3].includes("A") && Number.parseInt(match[2], 16) !== 0
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
-    const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
-      .map((claim) => `.text.${claim.name}`);
-    if (unitName === "DllFieldEventPokeRideAction") expectedNames.push(".text.func_00000158");
+    const expectedNames = unit.functions.map((claim) => `.text.${claim.name}`);
     expectedNames.sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),

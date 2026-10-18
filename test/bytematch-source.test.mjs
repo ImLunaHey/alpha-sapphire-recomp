@@ -20,9 +20,10 @@ const smallCompletionSources = await Promise.all([
   ["DllFieldEventPokeRideAction", "func_00000158"],
   ["DllPhotoSaverSecretBase", "func_00001D60"],
   ["DllStartMenu", "func_00000E44"],
-].map(async ([unit, name]) => ({
+  ["DllDialogCommon", "func_00000780", "remaining_02.S"],
+].map(async ([unit, name, file = "remaining_01.S"]) => ({
   name,
-  source: await readFile(new URL(`../src/cro/${unit}/remaining_01.S`, import.meta.url), "utf8"),
+  source: await readFile(new URL(`../src/cro/${unit}/${file}`, import.meta.url), "utf8"),
 })));
 
 test.each(["func_00001C84", "func_00002120", "func_00003564", "func_00003714"])(

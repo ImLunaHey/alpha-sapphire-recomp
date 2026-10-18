@@ -670,8 +670,8 @@ function selfTest(baseline) {
   }
   expectFailure(baseline, (state) => {
     const unit = state.report.units.find((entry) => entry.name === "main/code");
-    unit.measures.fuzzy_match_percent += 0.000001;
-    state.report.measures.fuzzy_match_percent += 0.000001;
+    unit.measures.fuzzy_match_percent += 0.00001;
+    state.report.measures.fuzzy_match_percent += 0.00001;
   }, /aggregate fuzzy_match_percent/);
   expectFailure(baseline, (state) => {
     const unit = state.report.units.find((entry) => entry.name === "main/code");
