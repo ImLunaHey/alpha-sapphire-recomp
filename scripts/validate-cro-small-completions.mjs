@@ -267,6 +267,23 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_000109B4", 0x109B4, 176, "title-linked-record-insert", "bf3fd4a9d78dcdd9a2277a1acfddf14056b389f230fa1eb6ce729e700b26f0cb"],
+    ["func_00011FF8", 0x11FF8, 176, "title-render-entry-configure", "780c36ab3d3d296ad8adb6bf48323908d10acdaf473b6423da2a778f9b001a08"],
+    ["func_00012244", 0x12244, 180, "title-timed-state-transition", "255166554e7a6e483be57f0ab8a798ff5f7b261ac90115b127bc765f781a8599"],
+    ["func_00012F48", 0x12F48, 180, "title-buffer-resource-create", "8d67b9cef23b58571eb9d5644c76a15aa2d958d8dd90fd90562cca05bb5bce84"],
+    ["func_0001966C", 0x1966C, 196, "title-tree-entry-state-reset", "43dda52b9288f0459581f65443b1c6c2f7d37a8527518e0aa843817293054b91"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_08.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -320,7 +337,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 10484,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 11392,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -393,7 +410,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 61 accepted-function completions (10,484 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 66 accepted-function completions (11,392 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
