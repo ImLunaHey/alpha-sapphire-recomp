@@ -15,6 +15,13 @@ A strict clean-room contribution separates two activities:
 
 One person doing both is reverse engineering, but is not a strict two-party clean-room implementation. Such work must not be labelled clean-room. Until distinct reviewers/implementers are assigned, this repository describes its *process* as clean-room-ready and its current code status as infrastructure-only.
 
+Direct reverse-engineering contributions are permitted when their provenance is
+explicit and they are not described as strict two-party clean-room work. The
+same contributor may analyze observable target behavior and author an original
+implementation, provided the contribution contains no proprietary binary data,
+leaked source, SDK material, or copied byte tables and is independently
+verified by the project's normal matching checks.
+
 Specifications belong under `docs/specs/`; implementation provenance belongs in the pull request or commit message. Facts derived from public platform documentation must link to their source. Never paste disassembly or large binary-derived tables into issues or specifications.
 
 ## Contribution checklist

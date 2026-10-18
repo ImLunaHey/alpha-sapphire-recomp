@@ -53,8 +53,21 @@ agree on a valid but incomplete one-function implementation.
 
 ## Blocker and completion boundary
 
-No independently approved behavioral specification covers the remaining four
-accepted functions, executable gaps, pools, unknown ranges, or non-text data.
+Update (**2026-10-18**): the behavioral/interface analysis blocker for the
+four remaining accepted functions is resolved by
+[`DllGameSync_remaining_functions_01.md`](DllGameSync_remaining_functions_01.md).
+The project permits a transparently labelled direct reverse-engineering
+contribution, so contributor identity is not a blocker. Direct implementation
+and local objdiff verification now match all five accepted functions and all
+1,532 accepted code bytes. The blocker is resolved for the accepted-function
+denominator; the original audit below is retained as the provenance record for
+the state observed on 2026-10-17.
+
+At the time of the 2026-10-17 audit, no independently approved behavioral
+specification covered the remaining four accepted functions, executable gaps,
+pools, unknown ranges, or non-text data. The four accepted functions are now
+covered by the 2026-10-18 handoff linked above; the other categories remain
+outside that specification.
 Their names, sizes, addresses, and aggregate section totals do not establish
 inputs, outputs, state transitions, side effects, collaborator interfaces,
 data contents, relocation identity, or ownership. An implementation role must
@@ -66,11 +79,8 @@ absent. The repository environment check confirms that `ROM_PATH` is not
 configured. Focused target-aware validation and deterministic full-unit
 objdiff proof therefore cannot run in this checkout.
 
-Further implementation requires a separate analysis contributor to supply a
-reviewed, provenance-bearing behavioral and interface contract, followed by a
-distinct implementation contributor using only that handoff. Completion may
-be claimed only after the full target and base objects are byte-identical and
-the aggregate publication gates pass. Until then, preserve the existing
-eight-byte match, make no additional source claim, and keep
-`metadata.complete=false`; a structural partition or partial function match is
-not whole-unit proof.
+This historical audit required preserving the existing eight-byte match until
+implementation and verification were available. That condition is now met for
+the accepted function set. Keep `metadata.complete=false`, however: executable
+gaps, pools, unknown ranges, and non-text data remain outside the authored
+scope, so a 100% accepted-code score is not whole-module reconstruction.

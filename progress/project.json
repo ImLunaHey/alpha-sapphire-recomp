@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report retains independently reviewed clean-room matches after cumulative provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
+  "summary": "The published report includes a transparently documented direct-reverse-engineering match for all five accepted DllGameSync functions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.171248435974121,
-    "matchedFunctions": 4234,
+    "matchedCodePercent": 11.212220191955566,
+    "matchedFunctions": 4238,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllGameSync accepted function set reaches 100%",
+      "detail": "A transparently documented direct-reverse-engineering implementation matches all five accepted DllGameSync functions: 1,532 of 1,532 accepted code bytes. The unit remains explicitly incomplete because executable gaps, pools, unknown ranges, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-17",
       "title": "DllGts claims quarantined pending independent provenance",
