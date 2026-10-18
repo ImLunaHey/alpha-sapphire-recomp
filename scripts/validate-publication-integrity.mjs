@@ -220,7 +220,7 @@ function sourceEntries(mainConfig, croConfig) {
   exactKeys(mainConfig, ["schemaVersion", "sources"], "invalid main source config");
   exactKeys(croConfig, ["schemaVersion", "units"], "invalid CRO source config");
   check(mainConfig.schemaVersion === 1 && croConfig.schemaVersion === 1, "invalid source config version");
-  const paths = [], claims = new Map();
+  const paths = [], claims = new Map(), sourcePaths = new Map();
   for (const source of mainConfig.sources) {
     exactKeys(source, ["path", "mode"], "invalid main source entry");
     check(source.path.startsWith("src/main/") && ["arm", "thumb"].includes(source.mode), "invalid main source");
@@ -237,6 +237,8 @@ function sourceEntries(mainConfig, croConfig) {
         && ["arm", "thumb"].includes(source.mode), "invalid CRO source");
       paths.push(source.path);
     }
+    sourcePaths.set(unit.name,
+      unit.sources.length === 1 ? unit.sources[0].path : `src/cro/${unit.name}`);
     for (const fn of unit.functions) {
       check(FUNCTION.test(fn?.name) && Number.isSafeInteger(fn.address) && Number.isSafeInteger(fn.size)
         && fn.size > 0 && !functions.has(fn.name), "invalid CRO function claim");
@@ -245,7 +247,7 @@ function sourceEntries(mainConfig, croConfig) {
     claims.set(unit.name, functions);
   }
   check(new Set(paths).size === paths.length, "duplicate source ownership");
-  return { paths, claims };
+  return { paths, claims, sourcePaths };
 }
 
 export function validateSnapshot(snapshot, expected = EXPECTED) {
@@ -290,7 +292,7 @@ export function validateSnapshot(snapshot, expected = EXPECTED) {
   }
   check(treeDigest(croInventoryFiles) === expected.croInventories, "CRO inventory universe changed");
   check(treeDigest(partitionFiles) === expected.croPartitions, "CRO partition universe changed");
-  const { paths: sources, claims } = sourceEntries(mainConfig, croConfig);
+  const { paths: sources, claims, sourcePaths } = sourceEntries(mainConfig, croConfig);
   const sourceFiles = new Map(sources.map(path => [path, snapshot.get(path)]));
   check(treeDigest(sourceFiles) === expected.sources, "publication source evidence changed");
   const mainObjectPath = `build/${TARGET}/base/code.o`, mainObject = snapshot.get(mainObjectPath);
@@ -314,7 +316,7 @@ export function validateSnapshot(snapshot, expected = EXPECTED) {
       `${name} report shape is invalid`);
     const reportFunctions = unit.functions ?? [];
     const expectedMetadata = { complete: false, ...(name === "main/code" || claims.has(name.slice(4))
-      ? { source_path: name === "main/code" ? "src/main" : `src/cro/${name.slice(4)}` } : {}) };
+      ? { source_path: name === "main/code" ? "src/main" : sourcePaths.get(name.slice(4)) } : {}) };
     same(unit.metadata, expectedMetadata, `${name} completion/source metadata is unsupported`);
     check(reportFunctions.length === inventory.length, `${name} function count differs from inventory`);
     let code = 0, matchedCode = 0, matchedFunctions = 0, fuzzyBytes = 0, previousAddress = -1;

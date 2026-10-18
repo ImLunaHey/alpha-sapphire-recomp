@@ -43,8 +43,9 @@ unclaimed code and CRO data remain unmatched. Every unit remains incomplete
 and no CRO receives completed-unit credit.
 
 Each authored unit publishes objdiff `metadata.source_path`: `main/code` points
-to `src/main`, and an authored CRO points to `src/cro/DllName`. ByteMatch can
-therefore show the repository source directory and locate selected functions.
+to `src/main`, a single-source CRO points to its source file, and a multi-source
+CRO points to `src/cro/DllName`. ByteMatch can therefore fetch an existing
+repository path and locate selected functions.
 Unstarted CRO skeletons omit `source_path` until independently authored source
 exists, rather than pointing at unrelated or nonexistent code.
 

@@ -185,7 +185,10 @@ function readCroSourceClaims(path) {
       }
       functions.set(fn.name, { address: fn.address, size: fn.size });
     }
-    claims.set(unit.name, functions);
+    claims.set(unit.name, {
+      functions,
+      sourcePath: unit.sources.length === 1 ? unit.sources[0].path : `src/cro/${unit.name}`,
+    });
   }
   return claims;
 }
@@ -284,7 +287,7 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
     if (!csvFiles.has(stem)) fail(`${entry.name} has no public CSV inventory`);
     const expectedMetadata = {
       complete: false,
-      ...(croClaims.has(stem) ? { source_path: `src/cro/${stem}` } : {}),
+      ...(croClaims.has(stem) ? { source_path: croClaims.get(stem).sourcePath ?? `src/cro/${stem}` } : {}),
     };
     if (JSON.stringify(unit.metadata) !== JSON.stringify(expectedMetadata)) {
       fail(`${entry.name} must remain explicitly incomplete and publish only an authored source path`);
@@ -309,7 +312,8 @@ export function validateAndNormalizeReport({ report, project, manifest, csvFiles
     }
 
     const zeroFunctionUnit = csvFunctions.length === 0;
-    const claims = croClaims.get(stem) ?? new Map();
+    const configuredClaims = croClaims.get(stem);
+    const claims = configuredClaims?.functions ?? configuredClaims ?? new Map();
     let claimedBytes = 0;
     for (const [name, claim] of claims) {
       const csv = csvByName.get(name);

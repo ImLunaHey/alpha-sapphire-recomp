@@ -231,7 +231,10 @@ function loadAuthoredCroClaims(root) {
       }
       functions.add(entry.name);
     }
-    claims.set(unit.name, functions);
+    claims.set(unit.name, {
+      functions,
+      sourcePath: unit.sources.length === 1 ? unit.sources[0].path : `src/cro/${unit.name}`,
+    });
   }
   return claims;
 }
@@ -286,7 +289,7 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
       const baseObject = inspectArmObject(base, { requireCode: false, requireFunctions: false });
       if (authored) {
         if (baseObject.functions.size === 0) throw new Error("authored base defines no functions");
-        const claimed = authoredClaims.get(name);
+        const claimed = authoredClaims.get(name).functions;
         if (baseObject.functions.size !== claimed.size ||
             [...baseObject.functions].some((functionName) => !claimed.has(functionName))) {
           throw new Error("authored base functions do not exactly match config/cro-sources.json");
@@ -305,7 +308,7 @@ export function generateObjdiffConfig({ root = DEFAULT_ROOT, version, requireIgn
         metadata: {
           complete: targetObject.buffer.equals(baseObject.buffer) &&
             !targetObject.hasUnknown && !baseObject.hasUnknown,
-          ...(authored ? { source_path: `src/cro/${name}` } : {}),
+          ...(authored ? { source_path: authoredClaims.get(name).sourcePath } : {}),
         },
       });
     } catch (error) {

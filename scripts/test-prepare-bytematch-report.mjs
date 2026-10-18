@@ -107,6 +107,14 @@ authored.croClaims = new Map([["DllEmpty", new Map([
 authored.report.units[1].metadata.source_path = "src/cro/DllEmpty";
 validateAndNormalizeReport(authored);
 
+const singleSource = structuredClone(authored);
+singleSource.croClaims = new Map([["DllEmpty", {
+  functions: authored.croClaims.get("DllEmpty"),
+  sourcePath: "src/cro/DllEmpty.c",
+}]]);
+singleSource.report.units[1].metadata.source_path = "src/cro/DllEmpty.c";
+validateAndNormalizeReport(singleSource);
+
 const fractional = structuredClone(authored);
 fractional.csvFiles.set("DllEmpty", `${csv}00000000,"func_00000000","Global",$a,00000004,".text"\n00000004,"func_00000004","Global",$a,00000008,".text"\n`);
 fractional.project.progress.totalFunctions = 3;

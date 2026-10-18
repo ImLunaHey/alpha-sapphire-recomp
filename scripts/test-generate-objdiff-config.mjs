@@ -160,7 +160,7 @@ assert.equal(config.units[1].metadata.complete, true);
 assert.equal(config.units[1].metadata.source_path, undefined);
 assert.equal(config.units[2].metadata.complete, false);
 assert.equal(config.units[3].metadata.complete, true);
-assert.equal(config.units[3].metadata.source_path, "src/cro/DllField");
+assert.equal(config.units[3].metadata.source_path, "src/cro/DllField.c");
 assert.match(config.units[3].base_path, /\/base\/cro-code\/DllField\.o$/u);
 assert.equal(config.units[4].metadata.complete, false);
 assert.equal(config.units[5].metadata.complete, false);
