@@ -1,22 +1,23 @@
 #!/usr/bin/env node
 
-import { existsSync, lstatSync, mkdtempSync, readFileSync, realpathSync, readdirSync, rmSync, statSync,
-  symlinkSync, writeFileSync } from "node:fs";
+import { existsSync, lstatSync, readFileSync, realpathSync, readdirSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { selfTestAbsentPaths, validateAbsentPaths } from "./cro-quarantine-paths.mjs";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,offset,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNITS = ["DllGift", "DllGts", "DllHologramMail", "DllPCMenu", "DllPssCharaMenu",
-  "DllPssFavorite", "DllPssMessageWindow", "DllShinkaDemo"];
+const QUARANTINED_UNITS = ["DllGift", "DllGts", "DllHologramMail", "DllPCMenu", "DllPokeList", "DllPorocCase", "DllPssCharaMenu", "DllPssFavorite",
+  "DllPssMessageWindow", "DllShinkaDemo"];
 const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S",
-  "src/cro/DllGts.c", "src/cro/DllGts/pod_leaves.S", "src/cro/DllHologramMail.c", "src/cro/DllPCMenu.c", "src/cro/DllPssCharaMenu.c",
-  "src/cro/DllPssFavorite.c",
+  "src/cro/DllGts.c", "src/cro/DllGts/pod_leaves.S", "src/cro/DllHologramMail.c", "src/cro/DllPCMenu.c", "src/cro/DllPokeList.c", "src/cro/DllPorocCase.c",
+  "src/cro/DllPorocCase/pod_leaves.S", "src/cro/DllPssCharaMenu.c", "src/cro/DllPssFavorite.c",
   "src/cro/DllPssMessageWindow.c", "src/cro/DllShinkaDemo.c"];
+const POROC_CASE_PATHS = ["src/cro/DllPorocCase.c", "src/cro/DllPorocCase/pod_leaves.S"];
 const DLL_GTS_PATHS = ["src/cro/DllGts.c", "src/cro/DllGts/pod_leaves.S"];
 
 function fail(message) {
@@ -42,53 +43,6 @@ function run(executable, args) {
   if (result.error) fail(`could not execute ${executable}: ${result.error.message}`);
   if (result.status !== 0) fail(`${executable} exited with status ${result.status}: ${result.stderr.trim()}`);
   return result.stdout;
-}
-
-function validateAbsentPath(path, label, inspectSource = lstatSync) {
-  let absent = false;
-  try { inspectSource(path); }
-  catch (error) {
-    if (error?.code === "ENOENT") absent = true;
-    else fail(`cannot inspect ${label}: ${error?.message ?? error}`);
-  }
-  check(absent, `${label} remains in the working tree`);
-}
-
-function validateQuarantinedPaths(inspectSource = lstatSync) {
-  for (const path of QUARANTINED_PATHS) validateAbsentPath(resolve(ROOT, path), path, inspectSource);
-}
-
-function selfTestDllGtsQuarantine() {
-  for (const path of DLL_GTS_PATHS) {
-    let failureRejected = false;
-    try {
-      validateAbsentPath(resolve(ROOT, path), path,
-        () => { throw Object.assign(new Error("denied"), { code: "EACCES" }); });
-    } catch (error) {
-      failureRejected = error.message.includes(`cannot inspect ${path}: denied`);
-    }
-    check(failureRejected, `${path} hostile self-test accepted a non-ENOENT inspection failure`);
-  }
-  const fixture = mkdtempSync(join(ROOT, ".store-DllGts-quarantine-"));
-  try {
-    for (const [index, path] of DLL_GTS_PATHS.entries()) {
-      const restored = join(fixture, `restored-${index}`);
-      writeFileSync(restored, "restored\n");
-      let restoredRejected = false;
-      try { validateAbsentPath(restored, path); }
-      catch (error) { restoredRejected = error.message.includes(`${path} remains in the working tree`); }
-      check(restoredRejected, `${path} hostile self-test accepted an ordinary restored file`);
-
-      const dangling = join(fixture, `dangling-${index}`);
-      symlinkSync(join(fixture, `missing-${index}`), dangling);
-      let danglingRejected = false;
-      try { validateAbsentPath(dangling, path); }
-      catch (error) { danglingRejected = error.message.includes(`${path} remains in the working tree`); }
-      check(danglingRejected, `${path} hostile self-test accepted a dangling symlink`);
-    }
-  } finally {
-    rmSync(fixture, { recursive: true, force: true });
-  }
 }
 
 function parseArguments(argv) {
@@ -126,7 +80,7 @@ function readAndValidateContract() {
   check(!config.units.some((unit) => Array.isArray(unit?.sources) &&
     unit.sources.some((source) => QUARANTINED_PATHS.includes(source?.path))),
   `${QUARANTINED_UNITS.join(", ")} quarantined source paths must remain unclaimed`);
-  validateQuarantinedPaths();
+  validateAbsentPaths(ROOT, QUARANTINED_PATHS, "CRO store-leaf validation");
 
   let previousUnit = "";
   const names = new Set();
@@ -176,7 +130,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 43, `expected 43 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 42, `expected 42 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -214,7 +168,7 @@ function validateObject(unit, directory, readelf) {
 
 try {
   const options = parseArguments(process.argv.slice(2));
-  selfTestDllGtsQuarantine();
+  selfTestAbsentPaths(ROOT, [...DLL_GTS_PATHS, ...POROC_CASE_PATHS], "CRO store-leaf validation");
   const config = readAndValidateContract();
   if (options.objectDirectory) {
     const expected = config.units.map((unit) => `${unit.name}.o`).sort();
@@ -225,7 +179,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 43 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 42 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
