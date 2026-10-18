@@ -4,7 +4,7 @@
 
 This repository may contain only independently written source, build metadata, public documentation, and facts necessary for interoperability. It must not contain or redistribute the game image, extracted game assets, Nintendo SDK material, leaked source code, encryption keys, credentials, or other third-party proprietary files.
 
-The target game image is an external verification input. It stays outside the checkout and is referenced only through the ignored `ROM_PATH` setting. Generated extraction and build directories are ignored.
+The target game image is an external verification input. It stays outside the checkout and is referenced only through the ignored `ROM_PATH` setting, or, for a dump that is not the cartridge image, supplied as pre-extracted `code.bin` and CRO files under the ignored `DECOMP_PRIVATE` directory and verified by their published hashes. Generated extraction and build directories are ignored.
 
 ## Roles and evidence
 

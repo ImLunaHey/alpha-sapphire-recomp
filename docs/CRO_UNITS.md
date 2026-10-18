@@ -12,6 +12,8 @@ node scripts/extract-cro-modules.mjs
 
 The extractor reads the NCSD, NCCH, IVFC, and RomFS metadata directly and copies only the root `Dll*.cro` modules plus `static.crs` and `static.crr`. It writes them beneath `$DECOMP_PRIVATE/cro-modules`; it does not unpack the rest of RomFS. The image, modules, support files, and private inventory must never be committed.
 
+Without `ROM_PATH`, place your own decrypted `Dll*.cro` files in `$DECOMP_PRIVATE/cro-modules` instead; `npm run target:verify` checks them against the public unit inventory below.
+
 ## Public unit inventory
 
 Generate the ROM-free inventory with:
