@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from "node:fs";
+import {
+  existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, rmSync, statSync, symlinkSync, writeFileSync,
+} from "node:fs";
 import { spawnSync } from "node:child_process";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -127,6 +129,18 @@ function readManifest(path) {
   check(names.every((name, index) => index === 0 || name > names[index - 1]), "manifest units are not sorted");
   return manifest;
 }
+function validateAbsentPath(path, label, inspectSource = lstatSync) {
+  let absent = false;
+  try { inspectSource(path); }
+  catch (error) {
+    if (error?.code === "ENOENT") absent = true;
+    else fail(`cannot inspect ${label}: ${error?.message ?? error}`);
+  }
+  check(absent, `${label} remains in the working tree`);
+}
+function validateQuarantinedSource(inspectSource = lstatSync) {
+  validateAbsentPath(join(ROOT, QUARANTINED_SOURCE), QUARANTINED_SOURCE, inspectSource);
+}
 function littleEndianHex(word) {
   return word.toString(16).padStart(8, "0").match(/../gu).reverse().join("");
 }
@@ -174,7 +188,7 @@ function validateProposal(proposal, existing) {
   }
 }
 
-function validatePublicContract(manifestPath) {
+function validatePublicContract(manifestPath, inspectSource = lstatSync) {
   const proposal = readManifest(PROPOSAL_PATH);
   const existing = readManifest(CONFIG_PATH);
   for (const manifest of [proposal, existing]) {
@@ -183,7 +197,7 @@ function validatePublicContract(manifestPath) {
     check(!manifest.units.some((unit) => unit.sources.some((source) => source.path === QUARANTINED_SOURCE)),
       `${QUARANTINED_UNIT} quarantined source remains registered`);
   }
-  check(!existsSync(join(ROOT, QUARANTINED_SOURCE)), `${QUARANTINED_SOURCE} remains in the working tree`);
+  validateQuarantinedSource(inspectSource);
   validateProposal(proposal, existing);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
@@ -229,16 +243,35 @@ function runRestorationSelfTest() {
   const sourcePath = join(ROOT, QUARANTINED_SOURCE);
   const sourceDirectory = dirname(sourcePath);
   const createdDirectory = !existsSync(sourceDirectory);
-  try {
-    mkdirSync(sourceDirectory, { recursive: true });
-    writeFileSync(sourcePath, "/* hostile quarantined-source restoration fixture */\n", { flag: "wx" });
+  const expectFilesystemRejection = (label) => {
     for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
       const result = spawnSync(process.execPath, [SCRIPT_PATH, "--manifest", manifest], {
         cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024,
       });
       check(!result.error && result.status === 1 &&
         result.stderr.includes(`${QUARANTINED_SOURCE} remains in the working tree`),
-      `restored quarantined source was accepted for ${relative(ROOT, manifest)}`);
+      `${label} was accepted for ${relative(ROOT, manifest)}`);
+    }
+  };
+  try {
+    mkdirSync(sourceDirectory, { recursive: true });
+    writeFileSync(sourcePath, "/* hostile quarantined-source restoration fixture */\n", { flag: "wx" });
+    expectFilesystemRejection("restored quarantined source");
+    rmSync(sourcePath);
+    symlinkSync(join(sourceDirectory, "missing-target"), sourcePath);
+    expectFilesystemRejection("dangling quarantined-source symlink");
+    rmSync(sourcePath);
+    for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
+      let rejected = false;
+      try {
+        validatePublicContract(manifest, () => {
+          throw Object.assign(new Error("deterministic inspection failure"), { code: "EACCES" });
+        });
+      } catch (error) {
+        rejected = error.message.includes(
+          `cannot inspect ${QUARANTINED_SOURCE}: deterministic inspection failure`);
+      }
+      check(rejected, `quarantined-source inspection failure was accepted for ${relative(ROOT, manifest)}`);
     }
   } finally {
     rmSync(sourcePath, { force: true });
