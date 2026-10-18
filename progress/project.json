@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes transparently documented direct-reverse-engineering matches for the complete DllCommWait accepted-function inventory and the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes the first transparently documented direct-reverse-engineering batch for DllTitle plus the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.387292,
-    "matchedFunctions": 4253,
+    "matchedCodePercent": 11.399551,
+    "matchedFunctions": 4267,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllTitle small leaves batch 01",
+      "detail": "Fourteen transparently documented direct-reverse-engineering implementations add 456 exact code bytes. DllTitle now has 16 of 128 accepted functions and 484 of 55,160 accepted code bytes matched; the larger unit remains explicitly incomplete."
+    },
     {
       "date": "2026-10-18",
       "title": "DllCommWait accepted function set reaches 100%",
