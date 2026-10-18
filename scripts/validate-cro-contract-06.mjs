@@ -60,6 +60,26 @@ const CONTRACT = [
   source: `src/cro/${unit}/contract_06.S`,
 }));
 
+const SKATE_PIPE_COMPLETION = {
+  unit: "DllFieldEventSkatePipe",
+  name: "func_000009EC",
+  address: 0x9EC,
+  size: 216,
+  semantics: "contract-13-skate-pipe-transition",
+  source: "src/cro/DllFieldEventSkatePipe/contract_13.S",
+  words: [
+    0xED9F1A34, 0xE3510002, 0xE3A03000, 0xE3A0C001, 0x0A000008, 0xE3510003,
+    0x0A00000F, 0xE3510000, 0xE3A03002, 0xE3A0C003, 0x0A000012, 0xE3510001,
+    0x0A00001B, 0xEA000025, 0xEEF40AC1, 0xEEF1FA10, 0x2A000002, 0xE3A01006,
+    0xE5C23000, 0xEA000065, 0xE320F000, 0xCA00000F, 0xEA00001C, 0xEEF40AC1,
+    0xEEF1FA10, 0x3A000011, 0xDA000018, 0xE3A01005, 0xE5C2C000, 0xEA00005B,
+    0xEEB40AC1, 0xEEF1FA10, 0x2A000002, 0xE3A01005, 0xE5C23000, 0xEA000055,
+    0xE320F000, 0xDA00000D, 0xE3A01004, 0xE5C2C000, 0xEA000050, 0xEEB40AC1,
+    0xEEF1FA10, 0x2A000002, 0xE3A01007, 0xE5C23000, 0xEA00004A, 0xE320F000,
+    0xDA000002, 0xE3A01006, 0xE5C2C000, 0xEA000045, 0xE3A00000, 0xE12FFF1E,
+  ],
+};
+
 function fail(message) { throw new Error(`CRO contract 06 validation: ${message}`); }
 function check(condition, message) { if (!condition) fail(message); }
 function inside(parent, candidate) {
@@ -174,11 +194,32 @@ function validatePublicContract(manifestPath) {
   }
   check(CONTRACT.length === 8 && units.size === 8 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 592 &&
     CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 148, "aggregate contract totals are invalid");
+  if (manifestPath === CONFIG_PATH) {
+    const fn = SKATE_PIPE_COMPLETION;
+    const unit = manifest.units.find((entry) => entry.name === fn.unit);
+    check(unit.sources.filter((source) => source.path === fn.source && source.mode === "arm").length === 1,
+      `${fn.unit} lacks the completion ARM source`);
+    const claims = unit.functions.filter((claim) => claim.name === fn.name);
+    check(claims.length === 1 && Object.keys(claims[0]).sort().join(",") === "address,name,semantics,size" &&
+      claims[0].address === fn.address && claims[0].size === fn.size && claims[0].semantics === fn.semantics,
+    `${fn.name} completion claim is not exact`);
+    const sourcePath = resolve(ROOT, fn.source);
+    check(inside(ROOT, sourcePath) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() &&
+      !lstatSync(sourcePath).isSymbolicLink(), `${fn.source} is not an owned regular file`);
+    const source = readFileSync(sourcePath, "utf8");
+    check(!/^\s*\.(?:byte|hword|short|word|long|inst)\b/imu.test(source), `${fn.source} contains encoded data`);
+    check((source.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === 1,
+      `${fn.source} does not define exactly one executable function section`);
+    for (const fragment of [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`,
+      `.type ${fn.name}, %function`, `ASM_FUNC(${fn.name})`, `.size ${fn.name}, . - ${fn.name}`]) {
+      check(source.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
+    }
+  }
   return units;
 }
 
 function validateObjects(units, directory, readelf) {
-  for (const [unitName] of units) {
+  for (const [unitName, unit] of units) {
     const object = join(directory, `${unitName}.o`);
     check(existsSync(object) && lstatSync(object).isFile() && !lstatSync(object).isSymbolicLink(), `${unitName} object is missing`);
     const header = run(readelf, ["--file-header", object]);
@@ -191,9 +232,10 @@ function validateObjects(units, directory, readelf) {
         ? [[match[1], Number.parseInt(match[2], 16), match[3]]] : [];
     });
     const fn = CONTRACT.find((entry) => entry.unit === unitName);
-    check(allocated.length === 1 && allocated[0][0] === `.text.${fn.name}`,
-      `${unitName} has missing or adjacent allocated bytes`);
-    check(allocated[0][1] === fn.size && allocated[0][2].includes("X"), `${fn.name} section boundary or flags are invalid`);
+    const expectedSections = new Map(unit.functions.map((claim) => [`.text.${claim.name}`, claim.size]));
+    check(allocated.length === expectedSections.size && allocated.every(([name, size, flags]) =>
+      expectedSections.get(name) === size && flags.includes("X")),
+    `${unitName} has missing, unexpected, or adjacent allocated bytes`);
     const symbols = run(readelf, ["--symbols", "--wide", object]);
     const symbolLines = symbols.split("\n").filter((line) => new RegExp(`\\s${fn.name}$`, "u").test(line.trimEnd()));
     check(symbolLines.length === 1 && new RegExp(`^\\s*\\d+:\\s+00000000\\s+${fn.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${fn.name}$`, "u").test(symbolLines[0]),
@@ -204,6 +246,19 @@ function validateObjects(units, directory, readelf) {
       `${fn.name} instruction schedule differs at word ${actual.findIndex((word, index) => word !== expected[index])}`);
     check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
       `${unitName} unexpectedly has relocations`);
+    if (unitName === SKATE_PIPE_COMPLETION.unit) {
+      const completion = SKATE_PIPE_COMPLETION;
+      const completionLines = symbols.split("\n").filter((line) =>
+        new RegExp(`\\s${completion.name}$`, "u").test(line.trimEnd()));
+      check(completionLines.length === 1 &&
+        new RegExp(`^\\s*\\d+:\\s+00000000\\s+${completion.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${completion.name}$`, "u")
+          .test(completionLines[0]), `${completion.name} is not one exact global function symbol`);
+      const completionExpected = completion.words.map(littleEndianHex);
+      const completionActual = sectionBytes(readelf, object, `.text.${completion.name}`);
+      check(completionActual.length === completionExpected.length &&
+        completionActual.every((word, index) => word === completionExpected[index]),
+      `${completion.name} instruction schedule differs at word ${completionActual.findIndex((word, index) => word !== completionExpected[index])}`);
+    }
   }
 }
 
@@ -211,7 +266,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 06: 8 ARM functions in 8 units (592 bytes, 148 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated CRO contract 06 plus SkatePipe completion: 9 ARM functions in 8 units (808 bytes, 202 instructions, zero relocations/adjacent bytes)${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
