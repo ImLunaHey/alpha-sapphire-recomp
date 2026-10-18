@@ -233,6 +233,23 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_0000E1B8", 0xE1B8, 160, "title-linked-chain-release", "93e9306a0b4f2413632d4cb707425bff7ac1cff7e4228dcd64acc851caf2f90c"],
+    ["func_0000E340", 0xE340, 160, "title-tree-index-access", "d99a2efa8284cba12c98492cbc32a1824e40af155e3879e4c81d7a31d61d6fef"],
+    ["func_000129C8", 0x129C8, 160, "title-multiword-span-adjust", "ebd7d8df7ce8ef145bc1f9db0b0eb598bc523a254699721a6b94c35213756958"],
+    ["func_00014CA8", 0x14CA8, 160, "title-state-machine-update", "dc259e3ddff92204a28f61cf68356805a25b60cc8fd4e50059efb7bc62cee633"],
+    ["func_000195D0", 0x195D0, 156, "title-tree-traversal-filter", "74768077487b678875323f62384a0e11402cd7f0398aa58e58e9ff2939cc7191"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_06.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -286,7 +303,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 8836,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 9632,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -359,7 +376,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 51 accepted-function completions (8,836 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 56 accepted-function completions (9,632 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
