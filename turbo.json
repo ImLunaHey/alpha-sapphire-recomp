@@ -36,7 +36,12 @@
       "inputs": ["$TURBO_DEFAULT$", "!build/**", "!progress/reports/**"],
       "outputs": [],
       "outputLogs": "new-only",
-      "passThroughEnv": ["REPOSITORY_CHECK_CONCURRENCY", "PATH"]
+      "passThroughEnv": [
+        "CROSS_COMPILE",
+        "ARM_*",
+        "PATH",
+        "REPOSITORY_CHECK_CONCURRENCY"
+      ]
     },
     "test:objects": {
       "dependsOn": ["build:main", "build:cro"],
