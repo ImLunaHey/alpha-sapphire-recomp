@@ -116,7 +116,7 @@
     "validate:cro-contract05": "node --check scripts/validate-cro-contract-05.mjs && node scripts/validate-cro-contract-05.mjs",
     "validate:cro-contract06": "node --check scripts/validate-cro-contract-06.mjs && node scripts/validate-cro-contract-06.mjs",
     "validate:cro-contract07": "node --check scripts/validate-cro-contract-07.mjs && node scripts/validate-cro-contract-07.mjs",
-    "validate:cro-contract08": "node --check scripts/validate-cro-contract-08.mjs && node scripts/validate-cro-contract-08.mjs",
+    "validate:cro-contract08": "node --check scripts/validate-cro-contract-08.mjs && node scripts/validate-cro-contract-08.mjs --self-test",
     "validate:cro-contract09": "node --check scripts/validate-cro-contract-09.mjs && node scripts/validate-cro-contract-09.mjs",
     "validate:cro-dll-lang-select": "node --check scripts/validate-cro-dll-lang-select.mjs && node scripts/validate-cro-dll-lang-select.mjs --self-test",
     "validate:cro-contract10": "node --check scripts/validate-cro-contract-10.mjs && node scripts/validate-cro-contract-10.mjs",

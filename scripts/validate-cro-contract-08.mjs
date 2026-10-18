@@ -1,13 +1,16 @@
 #!/usr/bin/env node
 
-import { existsSync, lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { existsSync, lstatSync, mkdirSync, readFileSync, realpathSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
-import { isAbsolute, join, relative, resolve, sep } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
+const SCRIPT_PATH = fileURLToPath(import.meta.url);
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-08-proposal.json");
+const QUARANTINED_UNIT = "DllWazaOboe";
+const QUARANTINED_SOURCE = "src/cro/DllWazaOboe/contract_08.S";
 
 // Numeric ARM words pin every instruction independently of disassembler aliases.
 const CONTRACT = [
@@ -89,7 +92,12 @@ function run(executable, args) {
   return result.stdout;
 }
 function parseArguments(argv) {
-  const options = { manifest: CONFIG_PATH };
+  const options = { manifest: CONFIG_PATH, selfTest: false };
+  if (argv.includes("--self-test")) {
+    check(argv.filter((argument) => argument === "--self-test").length === 1, "--self-test was supplied more than once");
+    options.selfTest = true;
+    argv = argv.filter((argument) => argument !== "--self-test");
+  }
   for (let index = 0; index < argv.length; index += 2) {
     const option = argv[index], value = argv[index + 1];
     check(["--manifest", "--object-directory", "--readelf"].includes(option) && value !== undefined,
@@ -169,6 +177,13 @@ function validateProposal(proposal, existing) {
 function validatePublicContract(manifestPath) {
   const proposal = readManifest(PROPOSAL_PATH);
   const existing = readManifest(CONFIG_PATH);
+  for (const manifest of [proposal, existing]) {
+    check(!manifest.units.some((unit) => unit.name === QUARANTINED_UNIT),
+      `${QUARANTINED_UNIT} quarantined ownership remains registered`);
+    check(!manifest.units.some((unit) => unit.sources.some((source) => source.path === QUARANTINED_SOURCE)),
+      `${QUARANTINED_UNIT} quarantined source remains registered`);
+  }
+  check(!existsSync(join(ROOT, QUARANTINED_SOURCE)), `${QUARANTINED_SOURCE} remains in the working tree`);
   validateProposal(proposal, existing);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
@@ -210,6 +225,27 @@ function validatePublicContract(manifestPath) {
   return units;
 }
 
+function runRestorationSelfTest() {
+  const sourcePath = join(ROOT, QUARANTINED_SOURCE);
+  const sourceDirectory = dirname(sourcePath);
+  const createdDirectory = !existsSync(sourceDirectory);
+  try {
+    mkdirSync(sourceDirectory, { recursive: true });
+    writeFileSync(sourcePath, "/* hostile quarantined-source restoration fixture */\n", { flag: "wx" });
+    for (const manifest of [CONFIG_PATH, PROPOSAL_PATH]) {
+      const result = spawnSync(process.execPath, [SCRIPT_PATH, "--manifest", manifest], {
+        cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024,
+      });
+      check(!result.error && result.status === 1 &&
+        result.stderr.includes(`${QUARANTINED_SOURCE} remains in the working tree`),
+      `restored quarantined source was accepted for ${relative(ROOT, manifest)}`);
+    }
+  } finally {
+    rmSync(sourcePath, { force: true });
+    if (createdDirectory) rmSync(sourceDirectory, { recursive: true, force: true });
+  }
+}
+
 function validateObjects(units, directory, readelf) {
   for (const [unitName, unit] of units) {
     const object = join(directory, `${unitName}.o`);
@@ -249,7 +285,8 @@ try {
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
-  console.log(`Validated CRO contract 08: 7 ARM functions in 7 units (904 bytes, 226 instructions, zero relocations/adjacent bytes); DllWazaOboe is quarantined${options.objectDirectory ? " and objects" : ""}.`);
+  if (options.selfTest) runRestorationSelfTest();
+  console.log(`Validated CRO contract 08: 7 ARM functions in 7 units (904 bytes, 226 instructions, zero relocations/adjacent bytes); DllWazaOboe is quarantined${options.objectDirectory ? " and objects" : ""}; hostile restoration test ${options.selfTest ? "passed" : "not run"}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

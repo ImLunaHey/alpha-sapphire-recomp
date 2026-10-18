@@ -49,6 +49,9 @@ The pinned public-source base build completed with 82 CRO base units and 352
 total source objects. Contract 08 object validation retains seven functions,
 904 code bytes, 226 ARM instructions, zero relocations, and zero adjacent
 owned bytes; no `DllWazaOboe` source or object claim remains. The fresh
+contract validator also rejects `DllWazaOboe` ownership in either the
+integrated or proposal manifest, and its hostile restoration fixture proves
+that recreating the quarantined source path fails validation. The fresh
 complete build-tree digest is
 `88e270da5dce912523488b91db5fbdc5d2135cb15d01307ec1a483631ac471c1`.
 It is the SHA-256 of the lexicographically sorted manifest of all 435 regular
