@@ -1,27 +1,37 @@
-# DllPhotoViewer clean-room blocker
+# DllPhotoViewer direct-reverse-engineering completion
 
-`cro/DllPhotoViewer` remains an incomplete link unit. The public report credits
-one of its two accepted functions: 8 of 604 accepted code bytes, with no data
-credit. `metadata.complete` must remain false.
+## Scope and behavior
 
-## Scope and provenance
+This contribution implements the remaining accepted ARM function in
+`cro/DllPhotoViewer`, `func_00000F20` at text offset `0x0F20` (596 bytes).
+Together with the existing eight-byte leaf, this completes the unit's public
+accepted-function inventory: two functions and 604 accepted code bytes.
 
-- Target revision: Pokémon Alpha Sapphire `AS_EUR_REV2`.
-- Checked-in evidence: `symbols/cro/DllPhotoViewer.csv` and
-  `progress/reports/AS_EUR_REV2/report.json`, as recorded at repository commit
-  `11fd5dba4e818135af7d676aa6038738452be0f9`.
-- Repository tooling: `scripts/prepare-bytematch-report.mjs` with
-  `objdiff-cli v3.8.2`, the version pinned by `scripts/install-tools.sh`.
-- Observation date: 2026-10-17.
-- Classification: analysis-only status documentation based on the public
-  inventory and report; no proprietary source, SDK material, target
-  disassembly, extracted asset, or private verification path is included.
+The routine constructs and configures a photo-viewer object. It preserves its
+three incoming arguments, initializes the object and embedded state, invokes
+the module's common setup helpers, configures paired display resources, builds
+a stack-resident render descriptor from owner fields, allocates the backing
+resource, stores the resulting handle at object offset `0x80`, and returns the
+object. Repeated helper calls and the order of resource setup remain explicit
+in the symbolic assembly.
 
-The remaining 596-byte accepted function lacks an approved, reviewable
-clean-room contract in the cited checked-in evidence. The named checked-in
-reporting tooling measures the existing comparison result; it does not supply
-such a contract.
+The function uses three adjacent literal-pool words outside its accepted
+boundary and owns no relocation words. Its bounded instruction body is exactly
+596 bytes with SHA-256
+`5e7e55d14c203eb1d6cfd83d803274b28e59c1a2c6c13176de97738f9fb14a3a`.
 
-Further work requires an independently reviewed clean-room contract for that
-function and complete accounting for the unit's data. Until then, no additional
-implementation or progress credit is claimed.
+## Provenance and limits
+
+- Target: Pokémon Alpha Sapphire `AS_EUR_REV2`.
+- Evidence: the public function inventory and partition, plus direct private
+  inspection of the independently extracted target object.
+- Tools: repository CRO converter/splitter, GNU Arm Embedded 14.2.Rel1, GNU
+  binutils 2.44, and objdiff-cli 3.8.2.
+- Observation date: 2026-10-18.
+- Classification: direct reverse engineering. No leaked source, proprietary
+  SDK material, copied byte tables, extracted assets, or target bytes are
+  committed.
+
+This completes only the accepted-function denominator. Executable gaps,
+literal pools, read-only and writable data, BSS, relocations, and CRO container
+metadata remain unowned, so `metadata.complete` must remain `false`.
