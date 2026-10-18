@@ -16,7 +16,7 @@ The CRC32 independently agrees with the public base-version identifier recorded 
 
 ## Tool provenance
 
-Pinned external tooling is recorded in `config/tools.json`. The extraction path uses MIT-licensed `3dstool` plus a small original NCSD/NCCH slicer based on the public format documentation. `objdiff` is the authoritative match/progress calculator.
+Pinned external tooling is recorded in `config/tools.json`. The extraction path uses MIT-licensed `3dstool` plus a small original NCSD/NCCH slicer based on the public format documentation. Contributors without the cartridge image may instead supply their own decompressed `code.bin` and root `Dll*.cro` modules; `target:verify` accepts these only when they match the published executable and CRO unit hashes. `objdiff` is the authoritative match/progress calculator.
 
 Ghidra 12.0.2 (Apache-2.0) imports the private executable as ARMv6K. The original scripts in `tools/ghidra/` restrict analysis to the exact executable range and export only direct-call targets with contiguous bodies, known ARM/Thumb mode, valid instruction alignment, and a terminal instruction. The resulting `symbols/code.bin.csv` is an address-sorted, validated heuristic inventory, not an assertion that every boundary is correct. The first evidence-gated inventory contains 10,440 accepted bodies covering 2,197,028 code bytes; 5,957 ambiguous, discontiguous, or weakly evidenced bodies were rejected.
 
