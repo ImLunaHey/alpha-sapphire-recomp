@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes a transparently documented direct-reverse-engineering match for the complete DllPhotoViewer accepted-function inventory, alongside the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes transparently documented direct-reverse-engineering matches for the complete DllPssPlaySelect accepted-function inventory and the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.324921,
-    "matchedFunctions": 4247,
+    "matchedCodePercent": 11.341051,
+    "matchedFunctions": 4249,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllPssPlaySelect accepted function set reaches 100%",
+      "detail": "Two transparently documented direct-reverse-engineering implementations complete all three accepted DllPssPlaySelect functions: 608 of 608 accepted code bytes. The new controller and object-setup routines add 600 exact bytes. The unit remains explicitly incomplete because executable gaps, pools, relocations, metadata, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "DllPhotoViewer accepted function set reaches 100%",
