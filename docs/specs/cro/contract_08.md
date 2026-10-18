@@ -15,5 +15,7 @@ credits all seven functions and all 904 bytes exactly. The former
 `DllWazaOboe` member is withdrawn under its unit-specific provenance blocker;
 no part of its instruction ledger or implementation remains in this contract.
 
-The batch claims no CRO data and completes no unit. Every module retains
-additional unmatched accepted functions as well as unclassified payload.
+The original batch claims no CRO data and completed no unit. A later documented
+direct-reverse-engineering contribution completes DllUSAreaWaterSurface's
+accepted two-function denominator while leaving its unclassified payload and
+all CRO data unmatched.

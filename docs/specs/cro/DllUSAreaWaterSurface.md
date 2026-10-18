@@ -64,8 +64,7 @@ channel. It queries the element count, obtains the current four-component value
 for each element through the surface interface, replaces the opacity component,
 and writes the value back. An empty surface performs no element calls.
 
-The existing clean-room implementation is independently validated and is the
-only matched function in this unit.
+The existing clean-room implementation is independently validated.
 
 ### `func_00000610`
 
@@ -77,29 +76,35 @@ override or restrict the ordinary mode decision. Unsupported modes enter the
 module's error path and return false.
 
 This behavioral contract intentionally omits register choices, instruction
-order, branch topology, literal placement, call-site layout, and encodings. A
-fresh implementation role attempted several semantic implementations using a
-blind equality oracle; none matched. No candidate was retained.
+order, branch topology, literal placement, call-site layout, and encodings.
+
+On 2026-10-18, the repository's direct reverse-engineering path was used under
+`docs/CLEAN_ROOM.md`. The contributor inspected only this bounded target
+function, authored symbolic ARM assembly expressing the behavior above, and
+verified it with GNU Arm Embedded 15.2.Rel1 and objdiff-cli 3.8.2. The authored
+function is exactly 248 bytes, has no relocations or adjacent owned data, and
+receives 100% objdiff credit. No target bytes, extracted assets, SDK material,
+or copied binary tables are committed.
 
 ## Current status and blocker
 
-The authoritative public report remains:
+The authoritative public report now records:
 
-- 1 of 2 functions matched;
-- 152 of 400 accepted code bytes matched;
+- 2 of 2 functions matched;
+- 400 of 400 accepted code bytes matched;
 - no data matched out of 480 reported data bytes; and
 - `metadata.complete` is `false`.
 
-Full clean-room completion is blocked by both of the following:
+Whole-link completion remains blocked because:
 
 - read-only type-identification strings are target-derived and have no known
   clean public derivation, so their contents are intentionally omitted; and
-- the approved high-level observations are insufficient to reproduce
-  `func_00000610` or the remaining module byte-identically using a blind oracle.
+- executable gaps, pools, unknown ranges, and all module data remain outside
+  the accepted-function denominator and have not been reconstructed.
 
-Completion must remain false until all code, data, references, and remaining
-unclassified material are independently reconstructed and the repository's
-complete-unit gate passes.
+The accepted function set is 100% matched, but completion must remain false
+until all code, data, references, and remaining unclassified material are
+independently reconstructed and the repository's complete-unit gate passes.
 
 ## Quarantine record
 
