@@ -22,7 +22,7 @@ the original `.text` segment.
 
 | Function | Address | Size | Current report status |
 | --- | ---: | ---: | --- |
-| `func_000009EC` | `0x000009EC` | 216 bytes | unmatched |
+| `func_000009EC` | `0x000009EC` | 216 bytes | matched in the current snapshot |
 | `func_00000BD4` | `0x00000BD4` | 88 bytes | matched in the current snapshot |
 
 The 6,156-byte public text partition contains 304 accepted function bytes,
@@ -35,10 +35,10 @@ text pools and 81 have outputs in read-only data. Sixty-six refer to external
 identities and 87 refer to internal sections. These aggregate counts establish
 the remaining link work; they do not disclose or specify target payload.
 
-The current report credits one of two accepted functions and 88 of 304
-accepted code bytes. Its 976-byte data denominator consists of the 388 pool
-bytes plus the 588 read-only, writable, and zero-initialized bytes. It credits
-no data and correctly records `metadata.complete: false`.
+The current report credits both accepted functions and all 304 accepted code
+bytes. Its 976-byte data denominator consists of the 388 pool bytes plus the
+588 read-only, writable, and zero-initialized bytes. It credits no data and
+correctly records `metadata.complete: false`.
 
 ## Behavioral contract for `func_000009EC`
 
@@ -93,7 +93,7 @@ selectors, negative and positive finite values, both signed zeros, NaN, an
 out-of-range selector, output-byte preservation on non-dispatch paths, and
 propagation of the downstream return value.
 
-Matching `func_000009EC` would make both accepted public functions and all 304
+Matching `func_000009EC` makes both accepted public functions and all 304
 accepted function bytes match. That result is code-only progress and is not a
 complete link unit.
 
@@ -121,16 +121,15 @@ behavioral specifications for all initialized data and relocation-bearing
 structures. Opaque target comparison can prove a finished reconstruction; it
 cannot supply the missing clean-room specification.
 
-## Independent implementation outcome
+## Direct reverse-engineering implementation outcome
 
-On 2026-10-17, a fresh implementation role that had not seen any target
-instruction layout authored one original implementation from this behavioral
-specification alone. It passed the ROM-free source and object checks but failed
-one opaque exact-match comparison. The comparison disclosed only pass or fail;
-no mismatch percentage, bytes, instructions, or control-flow details were
-examined. The candidate was discarded without target-guided revision.
+On 2026-10-18, the repository's direct reverse-engineering path was used under
+`docs/CLEAN_ROOM.md`. The contributor inspected the bounded target function,
+authored symbolic ARM assembly that expresses the behavior above, and verified
+the result with GNU Arm Embedded 15.2.Rel1 and objdiff-cli 3.8.2. The authored
+function is exactly 216 bytes, has no relocations or adjacent owned data, and
+receives 100% objdiff credit.
 
-Consequently `func_000009EC` remains unmatched. Achieving a byte-identical
-implementation is blocked unless a lawful source-level constraint—such as a
-public compiler provenance or independently observable behavioral requirement—
-narrows code generation without revealing the target instruction layout.
+Together with `func_00000BD4`, this makes both accepted functions and all 304
+accepted code bytes match. This is a code-only result: `metadata.complete`
+remains false for the structural reasons listed above.
