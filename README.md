@@ -34,6 +34,10 @@ npm run report:local
 
 The analysis database, generated assembly, target ELF, `objdiff.json`, and report remain ignored local outputs. The committed CSV contains only conservative address, size, and instruction-mode metadata; every boundary remains provisional until confirmed during matching.
 
+## Testing
+
+`npm run check` runs the repository validators as Vitest tests across four worker processes by default. Set `REPOSITORY_CHECK_CONCURRENCY` to tune the worker count for the local machine. Focused `validate:*` scripts remain available for individual checks, while `npm run check:legacy` preserves the serial manifest used to define the complete suite.
+
 ## Repository layout
 
 ```text

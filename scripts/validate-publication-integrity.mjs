@@ -28,7 +28,7 @@ const EXPECTED = Object.freeze({
   croPartitions: "9b741f8fbadd2d65f64f4401c7599ee5ef118b3f75a62c3c2a412356b5f60fec",
   mainConfig: "f007fd8a8646c8e62f6d187ff82f02e14d91054db5802ba74237dbb244beb27c",
   croConfig: "7885ac4fa99f93f9b897a6efabefdb53c1565010024603965ce19357fc57dd6d",
-  sources: "8d7bfaa58d4eb8f1ae71d5f2e8050f3096cb0be5eb4f4f45417d6fbbc4b877c6",
+  sources: "f28ac60f2c98c10fa2bc789080eff6bcfad7886870ca9fe84db82de545e968e8",
   mainObject: "06df651299142290902928ce6e5dd0c14001c0ebc1df696ad9e4c1a99567f215",
   croObjects: "8f4415b72350ba7a2096f627de01e4fcbad7243be702e92871e4383f2171d447",
   reportFunctions: "7a9f05a45d4b0bdf5d4b3da687714dc46a693ba57f928043b37c3df98f48f966",

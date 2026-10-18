@@ -370,7 +370,7 @@ async function main() {
   }
 }
 
-main().catch((error) => {
+await main().catch((error) => {
   console.error(`arm-runtime-helpers-87: ${error.message}`);
   process.exitCode = 1;
 });
