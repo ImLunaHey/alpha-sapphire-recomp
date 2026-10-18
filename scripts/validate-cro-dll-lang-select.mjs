@@ -436,7 +436,9 @@ function assertReportAggregate(report, manifest) {
     "report aggregate total_units does not equal its units");
   assert.equal(totalUnits, report.units.length, "report unit totals do not equal the unit array length");
 
-  const percentageTolerance = 0.0000005;
+  // objdiff serializes shortened float32 percentages. Allow one unit at the
+  // sixth decimal place while still rejecting the legacy double-rounding path.
+  const percentageTolerance = 0.000001;
   const expectedMatchedCodePercent = totalCode === 0n ? 0
     : Math.fround(Number(matchedCode) * 100 / Number(totalCode));
   const expectedMatchedFunctionsPercent = totalFunctions === 0 ? 0

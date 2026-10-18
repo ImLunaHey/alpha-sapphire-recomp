@@ -14,6 +14,16 @@ const waterSurfaceSource = await readFile(
   new URL("../src/cro/DllUSAreaWaterSurface/remaining_01.S", import.meta.url),
   "utf8",
 );
+const smallCompletionSources = await Promise.all([
+  ["DllContestCommon", "func_00000030"],
+  ["DllContestOhirome", "func_00000544"],
+  ["DllFieldEventPokeRideAction", "func_00000158"],
+  ["DllPhotoSaverSecretBase", "func_00001D60"],
+  ["DllStartMenu", "func_00000E44"],
+].map(async ([unit, name]) => ({
+  name,
+  source: await readFile(new URL(`../src/cro/${unit}/remaining_01.S`, import.meta.url), "utf8"),
+})));
 
 test.each(["func_00001C84", "func_00002120", "func_00003564", "func_00003714"])(
   "ByteMatch can locate %s through its assembly marker",
@@ -30,3 +40,10 @@ test("ByteMatch can locate func_000009EC through its assembly marker", () => {
 test("ByteMatch can locate func_00000610 through its assembly marker", () => {
   expect(waterSurfaceSource).toMatch(/^ASM_FUNC\(func_00000610\)$/m);
 });
+
+test.each(smallCompletionSources)(
+  "ByteMatch can locate $name through its assembly marker",
+  ({ name, source }) => {
+    expect(source).toMatch(new RegExp(`^ASM_FUNC\\(${name}\\)$`, "m"));
+  },
+);

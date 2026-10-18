@@ -1,5 +1,19 @@
 # DllStartMenu high-level analysis contract 01
 
+## Current status (2026-10-18)
+
+A subsequent contribution used the direct reverse-engineering route permitted
+by `docs/CLEAN_ROOM.md` to implement the bounded menu-input navigation
+function as readable symbolic ARM assembly. None of the earlier quarantined
+material was consulted or reused. The 440-byte section is byte-identical under
+the pinned toolchain and has no relocations.
+
+Both accepted functions are now matched (856 of 856 accepted bytes). The
+unowned executable gaps, pools, data, and unknown ranges described below still
+prevent whole-link completion, so `metadata.complete` remains `false`. This
+section supersedes the earlier implementation-status statements while
+preserving their structural accounting and quarantine record.
+
 ## Scope and provenance
 
 This specification records only externally observable behavior and permitted

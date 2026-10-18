@@ -1,5 +1,18 @@
 # DllContestCommon clean-room status
 
+## Current status (2026-10-18)
+
+The quarantined implementation was not consulted or reused. A fresh
+contribution used the direct reverse-engineering route permitted by
+`docs/CLEAN_ROOM.md` to implement the bounded resource-initialization
+function as readable symbolic ARM assembly. The 472-byte section is
+byte-identical under the pinned toolchain and has no relocations.
+
+The sole accepted function is now matched. Unowned executable gaps, pools,
+data, and unclassified material still prevent whole-link completion, so
+`metadata.complete` remains `false`. This section supersedes the historical
+status below while retaining its quarantine record.
+
 `cro/DllContestCommon` remains incomplete. The prior implementation and its
 validation/build integration were quarantined because their specification
 recorded target-derived instruction schedules and comparison details that do

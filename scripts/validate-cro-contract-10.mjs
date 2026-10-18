@@ -214,6 +214,7 @@ function validateObjects(units, directory, readelf) {
     const expectedNames = unit.functions.filter((claim) => CONTRACT.some((fn) => fn.unit === unitName && fn.name === claim.name))
       .map((claim) => `.text.${claim.name}`);
     if (unitName === "DllUSAreaTenji") expectedNames.push(".text.import_veneers");
+    if (unitName === "DllStartMenu") expectedNames.push(".text.func_00000E44");
     expectedNames.sort();
     const actualNames = allocated.map(([name]) => name).sort();
     check(actualNames.length === expectedNames.length && actualNames.every((name, index) => name === expectedNames[index]),

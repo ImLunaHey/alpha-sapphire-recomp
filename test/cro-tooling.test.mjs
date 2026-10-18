@@ -9,6 +9,7 @@ const syntaxOnly = [
   "scripts/generate-cro-symbols.mjs",
   "scripts/generate-objdiff-config.mjs",
   "scripts/split-cro-target-object.mjs",
+  "scripts/validate-cro-small-completions.mjs",
   "scripts/validate-cro-function-semantics.mjs",
 ];
 const executable = [
@@ -18,6 +19,7 @@ const executable = [
   ["scripts/test-cro-function-semantics.mjs", []],
   ["scripts/test-generate-cro-symbols.mjs", []],
   ["scripts/test-generate-objdiff-config.mjs", []],
+  ["scripts/validate-cro-small-completions.mjs", []],
   ["scripts/validate-split-cro-target-object.mjs", ["--self-test"]],
 ];
 
