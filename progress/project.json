@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes four transparently documented direct-reverse-engineering batches for DllTitle plus the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes five transparently documented direct-reverse-engineering batches for DllTitle plus the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.446761,
-    "matchedFunctions": 4287,
+    "matchedCodePercent": 11.462246,
+    "matchedFunctions": 4291,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllTitle small leaves batch 05",
+      "detail": "Four transparently documented direct-reverse-engineering implementations add 576 exact code bytes. DllTitle now has 40 of 128 accepted functions and 2,816 of 55,160 accepted code bytes matched; the larger unit remains explicitly incomplete."
+    },
     {
       "date": "2026-10-18",
       "title": "DllTitle small leaves batch 04",

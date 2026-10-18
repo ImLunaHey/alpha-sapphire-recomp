@@ -217,6 +217,22 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_0000EDF4", 0xEDF4, 148, "title-counter-rebalance", "fe3543449e1795b559cac5208633e0274ce8dad9a58bc29f748fd9e8ede489c8"],
+    ["func_0000F6E0", 0xF6E0, 140, "title-tree-lookup-dispatch", "60c15f1ca50433dd2324c8915f3afb798d1e1eef025eef23dc52419b302c0874"],
+    ["func_000105B8", 0x105B8, 136, "title-record-range-release-pair", "65608204a6ff7bcf3d6deb416b33cdd797f1d051cbc7b90f2b8eb3968c5acfef"],
+    ["func_000107E4", 0x107E4, 152, "title-tree-traversal-predicate", "fa5c72b38b072ca0461a8c9e16ce01f03cb4f1d2b1ef358150f7938991a5f051"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_05.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -270,7 +286,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 8260,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 8836,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -343,7 +359,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 47 accepted-function completions (8,260 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 51 accepted-function completions (8,836 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
