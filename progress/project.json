@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes a transparently documented direct-reverse-engineering match for the complete DllDialogCommon accepted-function inventory, alongside the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes a transparently documented direct-reverse-engineering match for the complete DllPhotoViewer accepted-function inventory, alongside the preceding small CRO completions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.308897,
-    "matchedFunctions": 4246,
+    "matchedCodePercent": 11.324921,
+    "matchedFunctions": 4247,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllPhotoViewer accepted function set reaches 100%",
+      "detail": "A transparently documented direct-reverse-engineering implementation matches both accepted DllPhotoViewer functions: 604 of 604 accepted code bytes. The newly implemented object-setup routine adds 596 exact bytes. The unit remains explicitly incomplete because executable gaps, pools, relocations, metadata, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "DllDialogCommon accepted function set reaches 100%",

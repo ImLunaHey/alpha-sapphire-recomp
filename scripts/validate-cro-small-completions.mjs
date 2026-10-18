@@ -65,6 +65,16 @@ const COMPLETIONS = Object.freeze([
     specification: "docs/specs/cro/DllDialogCommon_02.md",
     sha256: "6159155d77b7859ed4cdfb21ef02418550d1f833f1475c3c2daa69964114f65a",
   },
+  {
+    unit: "DllPhotoViewer",
+    name: "func_00000F20",
+    address: 0xF20,
+    size: 596,
+    semantics: "photo-viewer-object-setup",
+    source: "src/cro/DllPhotoViewer/remaining_01.S",
+    specification: "docs/specs/cro/DllPhotoViewer_blocker.md",
+    sha256: "5e7e55d14c203eb1d6cfd83d803274b28e59c1a2c6c13176de97738f9fb14a3a",
+  },
 ]);
 
 function fail(message) {
@@ -118,7 +128,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 3132,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 3728,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -191,7 +201,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated six accepted-function completions (3,132 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated seven accepted-function completions (3,728 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
