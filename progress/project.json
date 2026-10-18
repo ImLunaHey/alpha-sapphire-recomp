@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes transparently documented direct-reverse-engineering matches for all accepted DllGameSync, DllFieldEventSkatePipe, and DllUSAreaWaterSurface functions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes transparently documented direct-reverse-engineering matches for five additional small CRO accepted-function inventories, alongside DllGameSync, DllFieldEventSkatePipe, and DllUSAreaWaterSurface. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.224695205688477,
-    "matchedFunctions": 4240,
+    "matchedCodePercent": 11.287497,
+    "matchedFunctions": 4245,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "Five small CRO accepted function sets reach 100%",
+      "detail": "Fresh, transparently documented direct-reverse-engineering implementations complete the accepted functions in DllContestCommon, DllContestOhirome, DllFieldEventPokeRideAction, DllPhotoSaverSecretBase, and DllStartMenu, adding five functions and 2,336 exact code bytes. All five remain explicitly incomplete because executable gaps, pools, relocations, metadata, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "DllUSAreaWaterSurface accepted function set reaches 100%",

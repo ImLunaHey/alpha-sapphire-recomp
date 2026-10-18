@@ -353,5 +353,6 @@
   "node \"$root/scripts/validate-cro-dll-battle-packed-selectors-03.mjs\" --self-test",
   "node \"$root/scripts/validate-cro-dll-battle-record-ops-04.mjs\" --self-test",
   "node \"$root/scripts/validate-cro-dll-battle-medium-leaves-05.mjs\" --self-test",
-  "node \"$root/scripts/validate-cro-dll-battle-state-table-ops-06.mjs\"  --composite --object \"$root/build/AS_EUR_REV2/base/cro-code/DllBattle.o\""
+  "node \"$root/scripts/validate-cro-dll-battle-state-table-ops-06.mjs\"  --composite --object \"$root/build/AS_EUR_REV2/base/cro-code/DllBattle.o\"",
+  "node \"$root/scripts/validate-cro-small-completions.mjs\" --object-directory \"$root/build/AS_EUR_REV2/base/cro-code\" --readelf \"$readelf\""
 ]

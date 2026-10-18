@@ -1,5 +1,18 @@
 # DllPhotoSaverSecretBase provenance blocker
 
+## Current status (2026-10-18)
+
+The withdrawn reconstruction described below was not consulted or reused. A
+fresh contribution used the direct reverse-engineering route permitted by
+`docs/CLEAN_ROOM.md` to implement the bounded photo-layout setup function as
+readable symbolic ARM assembly. Its 536-byte section is byte-identical under
+the pinned toolchain and has no relocations.
+
+Both accepted functions are now matched (544 of 544 accepted bytes). Unowned
+code, data, pools, and unknown ranges still prevent whole-link completion, so
+`metadata.complete` remains `false`. This section supersedes the historical
+status statements below without weakening the quarantine.
+
 ## Status
 
 `cro/DllPhotoSaverSecretBase` remains incomplete for Pokémon Alpha Sapphire
