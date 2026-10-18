@@ -2,15 +2,16 @@
 
 - Unit: `cro/DllTitle`
 - Target revision: `AS_EUR_REV2`
-- Batch: small leaves 01
+- Batches: small leaves 01 and 02
 - Date: 2026-10-18
 
-This document records the first incremental direct-reconstruction batch for the
-larger DllTitle unit. The batch contributes 14 accepted functions and 456 code
-bytes. Together with the two existing claims, DllTitle now has 16 of 128
-functions and 484 of 55,160 code bytes accepted. The unit remains incomplete.
+This document records the incremental direct-reconstruction batches for the
+larger DllTitle unit. The two batches contribute 25 accepted functions and
+1,188 code bytes. Together with the two existing claims, DllTitle now has 27 of
+128 functions and 1,216 of 55,160 code bytes accepted. The unit remains
+incomplete.
 
-## Accepted functions
+## Small leaves 01
 
 | Function | Size | Neutral role |
 |---|---:|---|
@@ -29,6 +30,22 @@ functions and 484 of 55,160 code bytes accepted. The unit remains incomplete.
 | `func_0001CBF8` | 20 | Global pair clear C |
 | `func_0001CD0C` | 36 | Global pair store C |
 
+## Small leaves 02
+
+| Function | Size | Neutral role |
+|---|---:|---|
+| `func_0000E610` | 72 | Linked-sequence assignment |
+| `func_0000E6B8` | 76 | List-head rotation |
+| `func_0000E730` | 60 | Linked-container initialization |
+| `func_0000F060` | 64 | Record-update dispatch |
+| `func_0001230C` | 72 | Three-stage state dispatch |
+| `func_00012360` | 60 | Secondary-state dispatch |
+| `func_000123A0` | 60 | Primary-state dispatch |
+| `func_0001251C` | 64 | Nested validation status A |
+| `func_0001C73C` | 76 | Global-record allocation |
+| `func_0001C880` | 60 | Global pair store D |
+| `func_0001CE20` | 68 | Nested validation status B |
+
 ## Acceptance method
 
 Each function was reconstructed from the target instruction stream as a
@@ -36,7 +53,7 @@ symbolic ARM assembly implementation, built independently, and compared
 byte-for-byte with the corresponding target section. The completion validator
 records the exact SHA-256 digest and expected size for every function. The
 source-marker tests also require each accepted symbol to remain explicitly
-owned by `src/cro/DllTitle/small_leaves_01.S`.
+owned by the corresponding `src/cro/DllTitle/small_leaves_*.S` source.
 
 This is an incremental progress record, not a declaration that DllTitle is
 complete. Later batches must independently meet the same exact-byte and source
