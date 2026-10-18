@@ -5,6 +5,7 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { armReadelf } from "./arm-readelf.mjs";
 
 const MAX_BUFFER = 16 * 1024 * 1024;
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -183,7 +184,7 @@ if (process.argv.length > 4) {
 inspectSource();
 if (process.argv[2]) {
   try {
-    inspectObject(resolve(process.cwd(), process.argv[2]), process.argv[3] ?? "readelf");
+    inspectObject(resolve(process.cwd(), process.argv[2]), process.argv[3] ?? armReadelf());
   } catch (error) {
     failures.push(error.message);
   }
