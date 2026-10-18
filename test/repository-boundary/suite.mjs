@@ -7,6 +7,12 @@ import { transformWithOxc } from "vite";
 const root = new URL("../../", import.meta.url);
 const packageJson = JSON.parse(await readFile(new URL("package.json", root), "utf8"));
 const scripts = packageJson.scripts;
+const checkoutMutators = new Set([
+  "scripts/validate-publication-integrity.mjs",
+  "scripts/validate-cro-dll-number-input.mjs",
+  "scripts/validate-cro-contract-11.mjs",
+  "scripts/validate-cro-dll-fatal-error-proc.mjs",
+]);
 
 class ExitSignal extends Error {
   constructor(code) {
@@ -99,7 +105,13 @@ async function runValidator(entry) {
 const cases = collectCases();
 
 export function registerRepositoryBoundaryShard(shard, shardCount) {
-  const selected = cases.filter((_, index) => index % shardCount === shard);
+  // These hostile-path self-tests intentionally create fixtures inside the
+  // checkout. Keep them together because DllNumberInput also deliberately
+  // fails if the checkout's directory metadata changes during validation.
+  const checkoutCases = cases.filter((entry) => checkoutMutators.has(entry.file));
+  const parallelCases = cases.filter((entry) => !checkoutMutators.has(entry.file));
+  const selected = parallelCases.filter((_, index) => index % shardCount === shard);
+  if (shard === 0) selected.unshift(...checkoutCases);
 
   test(`manifest shard ${shard + 1}/${shardCount} is populated`, () => {
     expect(selected.length).toBeGreaterThan(40);
