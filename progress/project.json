@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report retains independently reviewed clean-room matches after cumulative provenance withdrawals. Neutral inventories remain, every unit remains explicitly incomplete, and no fresh target-comparison claim is made.",
+  "summary": "The public report retains 4,241 exact functions and 415,812 code bytes after the DllPokeList provenance quarantine and earlier withdrawals. Neutral inventories remain, and every unit remains explicitly incomplete. This correction makes no fresh target-comparison claim.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.18114185333252,
-    "matchedFunctions": 4246,
+    "matchedCodePercent": 11.178883864480781,
+    "matchedFunctions": 4241,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-17",
+      "title": "DllPokeList provisional matches quarantined",
+      "detail": "DllPokeList source, ownership claims, and provisional match credit were withdrawn because the repository lacks auditable strict two-party provenance. Neutral inventory remains, the unit stays incomplete, and no replacement implementation is claimed."
+    },
     {
       "date": "2026-10-18",
       "title": "DllPssCharaMenu unsupported leaf quarantined",

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { createHash } from "node:crypto";
-import { existsSync, lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
+import { existsSync, lstatSync, mkdtempSync, readFileSync, realpathSync, rmSync, statSync, symlinkSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -9,12 +9,12 @@ import { fileURLToPath } from "node:url";
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-11-proposal.json");
+const QUARANTINED_SOURCE = "src/cro/DllPokeList/contract_11.S";
 
 const CONTRACT = [
   ["DllField", "func_0006B434", 0x6B434, 20, "contract-11-optional-callback-tailcall", "2e8bd4505b9d5d4550ff480d46fa00ae685dcba2f1139ec60435004e9bab035e"],
   ["DllGts", "func_0000BED0", 0xBED0, 60, "contract-11-linked-list-transfer", "b59ca3ef039222756d61c51c1e3ba34b47cfb7a40325b4aaacb88419a5cec2c2"],
   ["DllKawaigari", "func_00000C78", 0x0C78, 12, "contract-11-default-dispatch", "80a5309d8fdd2ca6200b70f54d70c29747b062094ceea48ed7f3c375e5067906"],
-  ["DllPokeList", "func_000106AC", 0x106AC, 24, "contract-11-six-byte-fill", "23deb5988e6a2860bf1811b56a4b154e305cd5f58c4e4580ce31cee1a7caf4d9"],
   ["DllSangoZukan", "func_0002A830", 0x2A830, 24, "contract-11-eight-byte-fill", "946797a2896ecb43e1dd3bf951dec82053555432d122aeeec462096328a0143c"],
   ["DllSkyTrip", "func_00008048", 0x8048, 60, "contract-11-vector-normalize", "5f2de655d01a22a8d1721260dd8dda4dafd1a39ecaec2deee716cdd99c5267b7"],
   ["DllTitle", "func_0001C3C8", 0x1C3C8, 20, "contract-11-title-global-clear", "2eb59411a86f4d590d1ce69a71e13e1b864898f0bb335bbd0b4b1d325894d541"],
@@ -68,6 +68,46 @@ function readManifest(path) {
   check(names.every((name, index) => index === 0 || name > names[index - 1]), "manifest units are not sorted");
   return manifest;
 }
+function validateAbsentPath(path, label, inspectSource = lstatSync) {
+  let absent = false;
+  try { inspectSource(path); }
+  catch (error) {
+    if (error?.code === "ENOENT") absent = true;
+    else fail(`cannot inspect ${label}: ${error?.message ?? error}`);
+  }
+  check(absent, `${label} remains in the working tree`);
+}
+function validateQuarantinedSource(inspectSource = lstatSync) {
+  validateAbsentPath(join(ROOT, QUARANTINED_SOURCE), QUARANTINED_SOURCE, inspectSource);
+}
+function selfTestQuarantinedSource() {
+  let checkedPath, restoredRejected = false, lookupFailureRejected = false;
+  try {
+    validateQuarantinedSource((path) => { checkedPath = path; return { isSymbolicLink: () => true }; });
+  } catch (error) {
+    restoredRejected = error.message.includes(`${QUARANTINED_SOURCE} remains in the working tree`);
+  }
+  check(checkedPath === join(ROOT, QUARANTINED_SOURCE) && restoredRejected,
+    "quarantined-source hostile self-test did not reject a restored entry");
+  validateQuarantinedSource(() => { throw Object.assign(new Error("missing"), { code: "ENOENT" }); });
+  try {
+    validateQuarantinedSource(() => { throw Object.assign(new Error("denied"), { code: "EACCES" }); });
+  } catch (error) {
+    lookupFailureRejected = error.message.includes(`cannot inspect ${QUARANTINED_SOURCE}: denied`);
+  }
+  check(lookupFailureRejected, "quarantined-source hostile self-test accepted an inspection failure");
+  const fixture = mkdtempSync(join(ROOT, ".contract11-quarantine-"));
+  try {
+    const dangling = join(fixture, "contract_11.S");
+    symlinkSync(join(fixture, "missing-target"), dangling);
+    let danglingRejected = false;
+    try { validateAbsentPath(dangling, QUARANTINED_SOURCE); }
+    catch (error) { danglingRejected = error.message.includes(`${QUARANTINED_SOURCE} remains in the working tree`); }
+    check(danglingRejected, "quarantined-source hostile self-test accepted a dangling symlink");
+  } finally {
+    rmSync(fixture, { recursive: true, force: true });
+  }
+}
 function sectionBytes(readelf, object, section) {
   const groups = [];
   for (const line of run(readelf, ["--hex-dump", section, object]).split("\n")) {
@@ -107,6 +147,9 @@ function validateProposal(proposal, existing) {
 
 function validatePublicContract(manifestPath) {
   const proposal = readManifest(PROPOSAL_PATH), existing = readManifest(CONFIG_PATH);
+  check(existing.units.every((unit) => unit.sources.every((source) => source.path !== QUARANTINED_SOURCE)),
+    `${QUARANTINED_SOURCE} remains registered`);
+  validateQuarantinedSource();
   validateProposal(proposal, existing);
   const selected = manifestPath === PROPOSAL_PATH ? proposal : existing;
   const units = new Map();
@@ -142,8 +185,8 @@ function validatePublicContract(manifestPath) {
       check(sourceText.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
     }
   }
-  check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 220 &&
-    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 55, "aggregate contract totals are invalid");
+  check(CONTRACT.length === 6 && units.size === 6 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 196 &&
+    CONTRACT.reduce((sum, fn) => sum + fn.size / 4, 0) === 49, "aggregate contract totals are invalid");
   const ownedPaths = [PROPOSAL_PATH, join(ROOT, "docs/specs/cro/contract_11.md"),
     ...CONTRACT.map((fn) => resolve(ROOT, fn.source))];
   const forbiddenPath = new RegExp(`(?:${["", "mnt", "storage"].join("\\/")}|\\.${["3", "ds"].join("")}\\b|${["target", "cro-split"].join("\\/")}|${["AS_EUR_REV2", "target"].join("\\/")})`, "iu");
@@ -189,6 +232,7 @@ function validateObjects(units, directory, readelf) {
 }
 
 try {
+  selfTestQuarantinedSource();
   const options = parseArguments(process.argv.slice(2));
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);

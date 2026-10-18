@@ -89,15 +89,13 @@ unit-specific observation, review, and implementation handoff. This is an
 evidence limitation, not an allegation that the existing source was copied or
 that lawful evidence cannot exist elsewhere.
 
-This audit changes no source, source ownership, inventory, partition, report,
-or progress accounting. At the rebased publication baseline, the repository
-records 4,249 matched functions and 415,920 of 3,719,620 matched code bytes
-(11.181787490844727%), with 2,121,692 data bytes and 146 published units. The
-DllPssFavorite, DllUSPassage, DllPoke3Select, and DllTrainerCase withdrawals
-account for the accounting change from the original audit snapshot; the later
-DllVSDemo, DllZkUtil, and DllPssIconSelect blockers are documentation only, and
-the `DllWazaOmoidashi` record remains unchanged. No full-link or completion
-claim is made for this unit or any other unit.
+This audit changes no `DllWazaOmoidashi` source, source ownership, inventory,
+partition, report credit, or progress accounting. The current publication
+retains cumulative sibling withdrawals, including the later DllShinkaDemo and
+DllPokeList quarantines, while the DllVSDemo, DllZkUtil, DllPssIconSelect, and
+`DllWazaOmoidashi` blockers remain documentation-only. Exact aggregate
+accounting stays in the machine-readable project and report files. No full-link
+or completion claim is made for this unit or any other unit.
 
 ## Required handoff to unblock work
 

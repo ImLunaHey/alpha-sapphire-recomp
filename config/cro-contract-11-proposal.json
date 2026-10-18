@@ -17,11 +17,6 @@
       "functions": [{ "name": "func_00000C78", "address": 3192, "size": 12, "semantics": "contract-11-default-dispatch" }]
     },
     {
-      "name": "DllPokeList",
-      "sources": [{ "path": "src/cro/DllPokeList/contract_11.S", "mode": "arm" }],
-      "functions": [{ "name": "func_000106AC", "address": 67244, "size": 24, "semantics": "contract-11-six-byte-fill" }]
-    },
-    {
       "name": "DllSangoZukan",
       "sources": [{ "path": "src/cro/DllSangoZukan/contract_11.S", "mode": "arm" }],
       "functions": [{ "name": "func_0002A830", "address": 174128, "size": 24, "semantics": "contract-11-eight-byte-fill" }]
