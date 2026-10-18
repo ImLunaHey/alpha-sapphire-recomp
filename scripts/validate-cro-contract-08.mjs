@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createHash } from "node:crypto";
 import { existsSync, lstatSync, readFileSync, realpathSync, statSync } from "node:fs";
 import { spawnSync } from "node:child_process";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
@@ -10,6 +11,15 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const PROPOSAL_PATH = join(ROOT, "config", "cro-contract-08-proposal.json");
 const QUARANTINED_UNIT = "DllWazaOboe";
 const QUARANTINED_SOURCE = "src/cro/DllWazaOboe/contract_08.S";
+const WATER_SURFACE_COMPLETION = Object.freeze({
+  unit: "DllUSAreaWaterSurface",
+  name: "func_00000610",
+  address: 0x610,
+  size: 248,
+  semantics: "water-surface-primary-channel-enabled",
+  source: "src/cro/DllUSAreaWaterSurface/remaining_01.S",
+  bodySha256: "135aa7cf432bc27f4f3961e9b8c9b92bcc6c733d139ebc675e2a86a55c989230",
+});
 
 // Numeric ARM words pin every instruction independently of disassembler aliases.
 const CONTRACT = [
@@ -141,6 +151,9 @@ function validateQuarantinedSource(inspectSource = lstatSync) {
 function littleEndianHex(word) {
   return word.toString(16).padStart(8, "0").match(/../gu).reverse().join("");
 }
+function sha256(buffer) {
+  return createHash("sha256").update(buffer).digest("hex");
+}
 function sectionBytes(readelf, object, section) {
   const groups = [];
   for (const line of run(readelf, ["--hex-dump", section, object]).split("\n")) {
@@ -216,8 +229,13 @@ function validatePublicContract(manifestPath, inspectSource = lstatSync) {
     const lines = readFileSync(inventory, "utf8").split(/\r?\n/u);
     check(lines.filter((line) => line === row).length === 1 && lines.filter((line) => line.includes(`"${fn.name}"`)).length === 1,
       `${fn.name} lacks one exact global ARM inventory boundary`);
-    check(lines.filter((line) => /^[0-9A-F]{8},/u.test(line)).length > unit.functions.length,
-      `${fn.unit} would incorrectly appear function-complete`);
+    const inventoryCount = lines.filter((line) => /^[0-9A-F]{8},/u.test(line)).length;
+    if (manifestPath === CONFIG_PATH && fn.unit === WATER_SURFACE_COMPLETION.unit) {
+      check(inventoryCount === unit.functions.length && inventoryCount === 2,
+        `${fn.unit} accepted-function completion is inconsistent`);
+    } else {
+      check(inventoryCount > unit.functions.length, `${fn.unit} would incorrectly appear function-complete`);
+    }
 
     const sourcePath = resolve(ROOT, fn.source);
     check(inside(ROOT, sourcePath) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() && !lstatSync(sourcePath).isSymbolicLink(),
@@ -233,6 +251,27 @@ function validatePublicContract(manifestPath, inspectSource = lstatSync) {
   }
   check(CONTRACT.length === 7 && units.size === 7 && CONTRACT.reduce((sum, fn) => sum + fn.size, 0) === 904 &&
     CONTRACT.reduce((sum, fn) => sum + fn.words.length, 0) === 226, "aggregate contract totals are invalid");
+  if (manifestPath === CONFIG_PATH) {
+    const fn = WATER_SURFACE_COMPLETION;
+    const unit = existing.units.find((entry) => entry.name === fn.unit);
+    check(unit.sources.filter((source) => source.path === fn.source && source.mode === "arm").length === 1,
+      `${fn.unit} lacks the completion ARM source`);
+    const claims = unit.functions.filter((claim) => claim.name === fn.name);
+    check(claims.length === 1 && Object.keys(claims[0]).sort().join(",") === "address,name,semantics,size" &&
+      claims[0].address === fn.address && claims[0].size === fn.size && claims[0].semantics === fn.semantics,
+    `${fn.name} completion claim is not exact`);
+    const sourcePath = resolve(ROOT, fn.source);
+    check(inside(ROOT, sourcePath) && existsSync(sourcePath) && lstatSync(sourcePath).isFile() &&
+      !lstatSync(sourcePath).isSymbolicLink(), `${fn.source} is not an owned regular file`);
+    const source = readFileSync(sourcePath, "utf8");
+    check(!/^\s*\.(?:byte|hword|short|word|long|inst)\b/imu.test(source), `${fn.source} contains encoded data`);
+    check((source.match(/^\.section \.text\.func_[0-9A-F]{8}, "ax", %progbits$/gmu) ?? []).length === 1,
+      `${fn.source} does not define exactly one executable function section`);
+    for (const fragment of [`.section .text.${fn.name}, "ax", %progbits`, `.global ${fn.name}`,
+      `.type ${fn.name}, %function`, `ASM_FUNC(${fn.name})`, `.size ${fn.name}, . - ${fn.name}`]) {
+      check(source.split(fragment).length === 2, `${fn.source} lacks one exact ${fn.name} declaration`);
+    }
+  }
   return units;
 }
 
@@ -291,6 +330,22 @@ function validateObjects(units, directory, readelf) {
     const actual = sectionBytes(readelf, object, section);
     check(actual.length === expected.length && actual.every((word, index) => word === expected[index]),
       `${fn.name} instruction schedule differs at word ${actual.findIndex((word, index) => word !== expected[index])}`);
+    if (unitName === WATER_SURFACE_COMPLETION.unit &&
+        unit.functions.some((claim) => claim.name === WATER_SURFACE_COMPLETION.name)) {
+      const completion = WATER_SURFACE_COMPLETION;
+      const completionSection = `.text.${completion.name}`;
+      const completionInfo = allocated.filter(([name]) => name === completionSection);
+      check(completionInfo.length === 1 && completionInfo[0][1] === completion.size && completionInfo[0][2].includes("X"),
+        `${completion.name} section boundary or flags are invalid`);
+      const completionLines = symbols.split("\n").filter((line) =>
+        new RegExp(`\\s${completion.name}$`, "u").test(line.trimEnd()));
+      check(completionLines.length === 1 &&
+        new RegExp(`^\\s*\\d+:\\s+00000000\\s+${completion.size}\\s+FUNC\\s+GLOBAL\\s+DEFAULT\\s+\\d+\\s+${completion.name}$`, "u")
+          .test(completionLines[0]), `${completion.name} is not one exact global function symbol`);
+      const completionBytes = Buffer.from(sectionBytes(readelf, object, completionSection).join(""), "hex");
+      check(completionBytes.length === completion.size && sha256(completionBytes) === completion.bodySha256,
+        `${completion.name} instruction body differs`);
+    }
     check(/There are no relocations in this file\./u.test(run(readelf, ["--relocs", "--wide", object])),
       `${unitName} unexpectedly has relocations`);
   }
@@ -301,7 +356,7 @@ try {
   const units = validatePublicContract(options.manifest);
   if (options.objectDirectory) validateObjects(units, options.objectDirectory, options.readelf);
   if (options.selfTest) runRestorationSelfTest();
-  console.log(`Validated CRO contract 08: 7 ARM functions in 7 units (904 bytes, 226 instructions, zero relocations/adjacent bytes); DllWazaOboe is quarantined${options.objectDirectory ? " and objects" : ""}; hostile restoration test ${options.selfTest ? "passed" : "not run"}.`);
+  console.log(`Validated CRO contract 08 plus DllUSAreaWaterSurface completion: 8 ARM functions in 7 units (1,152 bytes, zero relocations/adjacent bytes); DllWazaOboe is quarantined${options.objectDirectory ? " and objects" : ""}; hostile restoration test ${options.selfTest ? "passed" : "not run"}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;

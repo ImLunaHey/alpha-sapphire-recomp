@@ -4,11 +4,11 @@
   "target": "Europe · Revision 2",
   "version": "AS_EUR_REV2",
   "phase": "Function mapping",
-  "summary": "The published report includes transparently documented direct-reverse-engineering matches for all accepted DllGameSync and DllFieldEventSkatePipe functions. Neutral inventories remain and every unit remains explicitly incomplete.",
+  "summary": "The published report includes transparently documented direct-reverse-engineering matches for all accepted DllGameSync, DllFieldEventSkatePipe, and DllUSAreaWaterSurface functions. Neutral inventories remain and every unit remains explicitly incomplete.",
   "decompilationEnabled": true,
   "progress": {
-    "matchedCodePercent": 11.21802806854248,
-    "matchedFunctions": 4239,
+    "matchedCodePercent": 11.224695205688477,
+    "matchedFunctions": 4240,
     "totalFunctions": 14840,
     "completeUnits": 0,
     "totalUnits": 146
@@ -36,6 +36,11 @@
     }
   ],
   "activity": [
+    {
+      "date": "2026-10-18",
+      "title": "DllUSAreaWaterSurface accepted function set reaches 100%",
+      "detail": "A transparently documented direct-reverse-engineering implementation matches both accepted DllUSAreaWaterSurface functions: 400 of 400 accepted code bytes. The unit remains explicitly incomplete because executable gaps, pools, unknown ranges, and data are outside the accepted function denominator."
+    },
     {
       "date": "2026-10-18",
       "title": "DllFieldEventSkatePipe accepted function set reaches 100%",
