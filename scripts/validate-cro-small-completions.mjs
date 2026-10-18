@@ -161,6 +161,29 @@ const COMPLETIONS = Object.freeze([
     sha256,
     partial: true,
   })),
+  ...[
+    ["func_0000E610", 0xE610, 72, "title-linked-sequence-assign", "155d88df7065614fd5ea4e220aa2bd7b06a65d2f970067c9ae0d2fcdfb299a5d"],
+    ["func_0000E6B8", 0xE6B8, 76, "title-list-head-rotate", "f1d60bbdfc4af8dfdf0989c04c1f8ae9cb7fc58347d924a583950fb2bc4cd160"],
+    ["func_0000E730", 0xE730, 60, "title-linked-container-initialize", "72c4ae70740971e5edecba03ea2b3d58be2879f4c8dab25bcf9916a0008d57ac"],
+    ["func_0000F060", 0xF060, 64, "title-record-update-dispatch", "8b0c4ff956586dab2eabacea9996678c1b16ae157846c76a2c9da60d3b67ef7e"],
+    ["func_0001230C", 0x1230C, 72, "title-three-stage-state-dispatch", "791feda5e6551155b2bbc0c63d3d12bb563397ae26fe6c7a620878880ff9e55c"],
+    ["func_00012360", 0x12360, 60, "title-secondary-state-dispatch", "6c2fd36dfddebc248c5c9fe9f83b894ea583621dd5c6e7eb4184cfd678880960"],
+    ["func_000123A0", 0x123A0, 60, "title-primary-state-dispatch", "8de48072d8bb4bead4835453f031213bb37dba86d3b3e212455a654e46186dbd"],
+    ["func_0001251C", 0x1251C, 64, "title-nested-validation-status-a", "d33c0f98051e0f9add599b017dd17ecc99a7f3fe2a24b5dc46a87eaab7278ffb"],
+    ["func_0001C73C", 0x1C73C, 76, "title-global-record-allocate", "336ac30d5176e5fba4e2b793547743151420d1bacfaf4d5b9adbcda7fa3a8e56"],
+    ["func_0001C880", 0x1C880, 60, "title-global-pair-store-d", "7007b127f1e3d4c81a0a8a6191dcbf280893659151907dc789ef7349b8434ecf"],
+    ["func_0001CE20", 0x1CE20, 68, "title-nested-validation-status-b", "39e3b28e7084928a307384b3304a98ca3f8616859d229b794cb921d5f2784041"],
+  ].map(([name, address, size, semantics, sha256]) => ({
+    unit: "DllTitle",
+    name,
+    address,
+    size,
+    semantics,
+    source: "src/cro/DllTitle/small_leaves_02.S",
+    specification: "docs/specs/cro/DllTitle_blocker.md",
+    sha256,
+    partial: true,
+  })),
 ]);
 
 function fail(message) {
@@ -214,7 +237,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 6504,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 7236,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -287,7 +310,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated 27 accepted-function completions (6,504 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated 38 accepted-function completions (7,236 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
