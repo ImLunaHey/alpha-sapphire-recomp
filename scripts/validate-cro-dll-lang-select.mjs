@@ -531,7 +531,8 @@ export function validateState({ blocker, source, sourceEntries, manifest, invent
   const numberInputCommand = /(?:^|&&\s*)npm run validate:cro-dll-number-input(?:\s*&&|$)/;
   assert.ok(
     numberInputCommand.test(scripts?.check ?? "") ||
-      (scripts?.check === "vitest run" && numberInputCommand.test(scripts?.["check:legacy"] ?? "")),
+      (["vitest run", "turbo run test:source"].includes(scripts?.check) &&
+        numberInputCommand.test(scripts?.["check:legacy"] ?? "")),
     "NumberInput validator must remain reachable from the npm check manifest",
   );
 }

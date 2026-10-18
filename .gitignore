@@ -30,6 +30,7 @@ reports/
 !progress/reports/**
 objdiff.json
 .cache/
+.turbo/
 
 # Local observer UI (personal tooling, never part of the decomp repository)
 web/

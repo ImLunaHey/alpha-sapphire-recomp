@@ -13,6 +13,7 @@ import {
 import { spawnSync } from "node:child_process";
 import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
+import { concurrency, mapConcurrent, resolveArmTools, run, toolEnvironment } from "./build-support.mjs";
 
 const ROOT = realpathSync(join(fileURLToPath(new URL(".", import.meta.url)), ".."));
 const CONFIG = join(ROOT, "config", "cro-sources.json");
@@ -36,13 +37,8 @@ function inside(parent, candidate) {
   return path !== "" && path !== ".." && !path.startsWith(`..${sep}`) && !isAbsolute(path);
 }
 
-function run(executable, args) {
-  const result = spawnSync(executable, args, { cwd: ROOT, stdio: "inherit" });
-  if (result.error) fail(`could not execute ${executable}: ${result.error.message}`);
-  if (result.status !== 0) fail(`${executable} exited with status ${result.status}`);
-}
-
 function parseArguments(argv) {
+  if (argv.length === 0) return null;
   const values = {};
   for (let index = 0; index < argv.length; index += 2) {
     const option = argv[index];
@@ -108,8 +104,9 @@ function compilerArguments(source, output) {
   return [...common, "-x", "assembler-with-cpp", "-c", resolve(ROOT, source.path), "-o", output];
 }
 
-function main() {
-  const tools = parseArguments(process.argv.slice(2));
+async function main() {
+  const tools = parseArguments(process.argv.slice(2)) ?? await resolveArmTools(ROOT);
+  const environment = toolEnvironment(tools);
   const config = readConfig();
   const parent = dirname(OUTPUT);
   mkdirSync(parent, { recursive: true });
@@ -120,24 +117,24 @@ function main() {
   if (existsSync(stage) || existsSync(backup)) fail("staging or backup path already exists");
   mkdirSync(stage, { recursive: false, mode: 0o700 });
   try {
-    for (const unit of config.units) {
+    await mapConcurrent(config.units, concurrency(), async (unit) => {
       const objectDirectory = join(stage, ".objects", unit.name);
       mkdirSync(objectDirectory, { recursive: true });
       const objects = [];
       for (const [index, source] of unit.sources.entries()) {
         const object = join(objectDirectory, `${index}.o`);
-        run(tools.compiler, compilerArguments(source, object));
+        await run(tools.compiler, compilerArguments(source, object), { cwd: ROOT, env: environment });
         objects.push(object);
       }
       const output = join(stage, `${unit.name}.o`);
-      run(tools.linker, ["-r", "-o", output, ...objects]);
+      await run(tools.linker, ["-r", "-o", output, ...objects], { cwd: ROOT, env: environment });
       // Keep only authored executable sections and their symbols. Empty GCC
       // bookkeeping sections can otherwise look like matching target data to
       // comparison tools even though no data was reconstructed.
-      run(tools.objcopy, ["--remove-section=.text", "--remove-section=.rodata", "--remove-section=.data",
+      await run(tools.objcopy, ["--remove-section=.text", "--remove-section=.rodata", "--remove-section=.data",
         "--remove-section=.bss", "--remove-section=.sdata", "--remove-section=.sbss",
-        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes", output]);
-    }
+        "--remove-section=.note.GNU-stack", "--remove-section=.ARM.attributes", output], { cwd: ROOT, env: environment });
+    });
     rmSync(join(stage, ".objects"), { recursive: true });
     if (existsSync(OUTPUT)) renameSync(OUTPUT, backup);
     try {
@@ -155,7 +152,7 @@ function main() {
 }
 
 try {
-  main();
+  await main();
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
