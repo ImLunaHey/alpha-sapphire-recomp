@@ -86,6 +86,9 @@ const smallCompletionSources = await Promise.all([
   ["DllTitle", "func_0001255C", "small_leaves_09.S"],
   ["DllTitle", "func_00012A68", "small_leaves_09.S"],
   ["DllTitle", "func_00012D6C", "small_leaves_09.S"],
+  ["DllTitle", "func_0000DBF8", "small_leaves_10.S"],
+  ["DllTitle", "func_0000F76C", "small_leaves_10.S"],
+  ["DllTitle", "func_00011044", "small_leaves_10.S"],
 ].map(async ([unit, name, file = "remaining_01.S"]) => ({
   name,
   source: await readFile(new URL(`../src/cro/${unit}/${file}`, import.meta.url), "utf8"),
