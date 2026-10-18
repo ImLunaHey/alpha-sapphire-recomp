@@ -75,6 +75,26 @@ const COMPLETIONS = Object.freeze([
     specification: "docs/specs/cro/DllPhotoViewer_blocker.md",
     sha256: "5e7e55d14c203eb1d6cfd83d803274b28e59c1a2c6c13176de97738f9fb14a3a",
   },
+  {
+    unit: "DllPssPlaySelect",
+    name: "func_00000658",
+    address: 0x658,
+    size: 172,
+    semantics: "play-selection-controller-start",
+    source: "src/cro/DllPssPlaySelect/remaining_01.S",
+    specification: "docs/specs/cro/DllPssPlaySelect_blocker.md",
+    sha256: "b1d34449591e33210719f631f93e6e5726611232cb51288c00805cb25f31acf3",
+  },
+  {
+    unit: "DllPssPlaySelect",
+    name: "func_000008A0",
+    address: 0x8A0,
+    size: 428,
+    semantics: "play-selection-object-setup",
+    source: "src/cro/DllPssPlaySelect/remaining_01.S",
+    specification: "docs/specs/cro/DllPssPlaySelect_blocker.md",
+    sha256: "789a39ce9fa442a38401b8c3b0d76ccc604dc02166ced6f66a29fd0752f9c5ab",
+  },
 ]);
 
 function fail(message) {
@@ -128,7 +148,7 @@ function sectionBytes(readelf, object, section) {
 function validateSources() {
   const config = JSON.parse(readFileSync(CONFIG, "utf8"));
   const sharedSpecification = readFileSync(SPEC, "utf8");
-  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 3728,
+  check(COMPLETIONS.reduce((total, entry) => total + entry.size, 0) === 4328,
     "aggregate completion size changed");
 
   for (const entry of COMPLETIONS) {
@@ -201,7 +221,7 @@ try {
   const options = parseArguments(process.argv.slice(2));
   validateSources();
   if (options["object-directory"]) validateObjects(options["object-directory"], options.readelf);
-  console.log(`Validated seven accepted-function completions (3,728 bytes)${options["object-directory"] ? " and objects" : ""}.`);
+  console.log(`Validated nine accepted-function completions (4,328 bytes)${options["object-directory"] ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
