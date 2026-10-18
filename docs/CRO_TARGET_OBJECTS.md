@@ -230,8 +230,9 @@ Every manifest-listed CRO has passed these publication gates and appears
 alongside `main/code`. Reviewed clean-room sections receive credit only when
 their public source, ownership, and object evidence agree. DllHologramMail and
 DllPssMessageWindow source and credit are withdrawn for insufficient
-provenance; their neutral inventories remain and both stay blocked and
-incomplete. All unclaimed code and CRO data remain unmatched, every CRO is
+provenance; DllPCMenu is quarantined for the same reason. Their neutral
+inventories remain and these units stay blocked and incomplete. All unclaimed
+code and CRO data remain unmatched, every CRO is
 marked incomplete, and no CRO earns completed-unit credit. Publishing genuine
 link boundaries and neutral metadata does not claim that unmatched code has
 been decompiled.

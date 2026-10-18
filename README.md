@@ -6,7 +6,7 @@ Clean-room-ready matching decompilation project for Pokémon Alpha Sapphire (Eur
 
 - Default branch: `main`
 - Target: Europe, revision 2
-- Decompilation: evidence-gated inventories and reviewed clean-room implementations are published; unsupported DllGift, DllHologramMail, and DllPssMessageWindow credit is withdrawn
+- Decompilation: evidence-gated inventories and reviewed clean-room implementations are published; unsupported DllGift, DllHologramMail, DllPssMessageWindow, and DllPCMenu credit is withdrawn
 - ByteMatch: genuine local report available; registration deferred until reproducible CI reporting exists
 - Proprietary input: configured locally and excluded from Git
 

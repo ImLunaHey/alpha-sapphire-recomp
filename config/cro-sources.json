@@ -41,7 +41,6 @@
     { "name": "DllLiveCup", "sources": [{ "path": "src/cro/DllLiveCup.c", "mode": "arm" }], "functions": [{ "name": "func_00009964", "address": 39268, "size": 8, "semantics": "store-u8", "offset": 217 }] },
     { "name": "DllNumberInput", "sources": [{ "path": "src/cro/DllNumberInput/pod_leaves.S", "mode": "arm" }], "functions": [{ "name": "func_00001968", "address": 6504, "size": 20, "semantics": "pod-zero-two-words-halfword" }] },
     { "name": "DllNuts", "sources": [{ "path": "src/cro/DllNuts/contract_08.S", "mode": "arm" }], "functions": [{ "name": "func_00004D84", "address": 19844, "size": 128, "semantics": "contract-08-vector-state-update" }] },
-    { "name": "DllPCMenu", "sources": [{ "path": "src/cro/DllPCMenu.c", "mode": "arm" }], "functions": [{ "name": "func_00002AD8", "address": 10968, "size": 8, "semantics": "store-u8", "offset": 217 }] },
     { "name": "DllPhotoSaver", "sources": [{ "path": "src/cro/DllPhotoSaver.c", "mode": "arm" }], "functions": [{ "name": "func_00000000", "address": 0, "size": 8, "semantics": "store-u8", "offset": 217 }] },
     { "name": "DllPhotoSaverSecretBase", "sources": [{ "path": "src/cro/DllPhotoSaverSecretBase.c", "mode": "arm" }], "functions": [{ "name": "func_00002080", "address": 8320, "size": 8, "semantics": "store-u8", "offset": 217 }] },
     { "name": "DllPhotoViewer", "sources": [{ "path": "src/cro/DllPhotoViewer.c", "mode": "arm" }], "functions": [{ "name": "func_0000133C", "address": 4924, "size": 8, "semantics": "store-u8", "offset": 217 }] },

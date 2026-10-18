@@ -26,10 +26,12 @@ published unit remains incomplete.
 
 The current provenance quarantine withdraws the DllHologramMail and
 DllPssMessageWindow sources, ownership claims, and associated credit under
-CLEAN_ROOM. Their neutral inventories remain. No behavioral contract is
-approved for either unit; both stay blocked and incomplete. See the
+CLEAN_ROOM. DllPCMenu is likewise quarantined because unit-specific independent
+provenance is unavailable. Their neutral inventories remain. No behavioral
+contract is approved for these units; they stay blocked and incomplete. See the
 [DllHologramMail audit](specs/cro/DllHologramMail_blocker.md) and the
-[DllPssMessageWindow blocker](specs/cro/DllPssMessageWindow_blocker.md).
+[DllPssMessageWindow blocker](specs/cro/DllPssMessageWindow_blocker.md), and the
+[DllPCMenu blocker](specs/cro/DllPCMenu_blocker.md).
 
 ## Executable units
 

@@ -44,8 +44,9 @@ Publication is structural progress, not a decompilation claim. DllPhotoSaver
 provided the first reviewed clean-room CRO function. Current credit comes from
 reviewed source families and focused unit work backed by the publication gates.
 DllHologramMail and DllPssMessageWindow source and credit are withdrawn for
-insufficient provenance; their neutral inventories remain and both stay
-blocked and incomplete. Unclaimed code and all CRO data stay unmatched. Every
+insufficient provenance; DllPCMenu is quarantined for the same reason. Their
+neutral inventories remain and these units stay blocked and incomplete.
+Unclaimed code and all CRO data stay unmatched. Every
 CRO remains incomplete and no CRO earns completed-unit credit. Further work
 replaces skeleton sections with reviewed clean-room source while keeping each
 validated module boundary and neutral partition intact.

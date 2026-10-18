@@ -10,10 +10,11 @@ const CONFIG_PATH = join(ROOT, "config", "cro-sources.json");
 const FUNCTION_KEYS = "address,name,offset,semantics,size";
 const SOURCE_KEYS = "mode,path";
 const UNIT_KEYS = "functions,name,sources";
-const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPssCharaMenu", "DllPssFavorite",
-  "DllPssMessageWindow", "DllShinkaDemo"];
+const QUARANTINED_UNITS = ["DllGift", "DllHologramMail", "DllPCMenu", "DllPssCharaMenu",
+  "DllPssFavorite", "DllPssMessageWindow", "DllShinkaDemo"];
 const QUARANTINED_PATHS = ["src/cro/DllGift.c", "src/cro/DllGift/pod_leaves.S",
-  "src/cro/DllHologramMail.c", "src/cro/DllPssCharaMenu.c", "src/cro/DllPssFavorite.c",
+  "src/cro/DllHologramMail.c", "src/cro/DllPCMenu.c", "src/cro/DllPssCharaMenu.c",
+  "src/cro/DllPssFavorite.c",
   "src/cro/DllPssMessageWindow.c", "src/cro/DllShinkaDemo.c"];
 
 function fail(message) {
@@ -127,7 +128,7 @@ function readAndValidateContract() {
     check(normalized === `#include <stdint.h> void ${fn.name}(uint8_t *base, uint8_t value) { base[217] = value; }`,
       `${source.path} no longer expresses the reviewed byte-store semantics`);
   }
-  check(storeCount === 46, `expected 46 store-u8 functions, found ${storeCount}`);
+  check(storeCount === 45, `expected 45 store-u8 functions, found ${storeCount}`);
   return config;
 }
 
@@ -175,7 +176,7 @@ try {
       if (unit.functions.some((fn) => fn.semantics === "store-u8")) validateObject(unit, options.objectDirectory, options.readelf);
     }
   }
-  console.log(`Validated 46 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
+  console.log(`Validated 45 independently authored 8-byte ARM store leaves${options.objectDirectory ? " and objects" : ""}.`);
 } catch (error) {
   console.error(error.message);
   process.exitCode = 1;
