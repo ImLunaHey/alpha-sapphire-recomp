@@ -2,13 +2,13 @@
 
 - Unit: `cro/DllTitle`
 - Target revision: `AS_EUR_REV2`
-- Batches: small leaves 01 through 06
+- Batches: small leaves 01 through 07
 - Date: 2026-10-18
 
 This document records the incremental direct-reconstruction batches for the
-larger DllTitle unit. The six batches contribute 43 accepted functions and
-3,584 code bytes. Together with the two existing claims, DllTitle now has 45 of
-128 functions and 3,612 of 55,160 code bytes accepted. The unit remains
+larger DllTitle unit. The seven batches contribute 48 accepted functions and
+4,436 code bytes. Together with the two existing claims, DllTitle now has 50 of
+128 functions and 4,464 of 55,160 code bytes accepted. The unit remains
 incomplete.
 
 ## Small leaves 01
@@ -83,6 +83,16 @@ incomplete.
 | `func_000129C8` | 160 | Multiword span adjustment |
 | `func_00014CA8` | 160 | State-machine update |
 | `func_000195D0` | 156 | Tree-traversal filter |
+
+## Small leaves 07
+
+| Function | Size | Neutral role |
+|---|---:|---|
+| `func_0000ED48` | 172 | Resource release and reset |
+| `func_00010738` | 172 | Tree-entry activation |
+| `func_000123E0` | 168 | Entry-collection release |
+| `func_000155A4` | 168 | State-structure initialization |
+| `func_0001AB40` | 172 | Resource attach and initialization |
 
 ## Acceptance method
 
