@@ -41,6 +41,15 @@ jobs:
       - name: Install test dependencies
         run: npm ci --ignore-scripts
 
+      - name: Restore Turbo cache
+        uses: actions/cache@v4
+        with:
+          path: .turbo/cache
+          key: turbo-${{ runner.os }}-${{ github.ref_name }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-${{ github.ref_name }}-
+            turbo-${{ runner.os }}-main-
+
       - name: Install Nix
         uses: cachix/install-nix-action@v31
 
@@ -60,36 +69,8 @@ jobs:
           printf 'ARM_NONE_EABI_BIN=%s\n' "$bin" >> "$GITHUB_ENV"
           printf '%s\n' "$bin" "$(dirname "$compiler")" >> "$GITHUB_PATH"
 
-      - name: Build clean-room base objects
-        run: npm run base:build
-
-      - name: Check repository boundary
-        run: npm run check
-
-      - name: Test CRO unit configuration
-        run: |
-          node --check scripts/validate-public-cro-metadata.mjs
-          node --check scripts/test-public-cro-metadata.mjs
-          node scripts/test-public-cro-metadata.mjs
-          node scripts/validate-public-cro-metadata.mjs --require-complete
-          node --check scripts/prepare-bytematch-report.mjs
-          node --check scripts/test-prepare-bytematch-report.mjs
-          node scripts/test-prepare-bytematch-report.mjs
-          node --check scripts/generate-cro-symbols.mjs
-          node --check scripts/generate-objdiff-config.mjs
-          node --check scripts/split-cro-target-object.mjs
-          node --check scripts/validate-cro-function-semantics.mjs
-          node --check scripts/validate-split-cro-target-object.mjs
-          node --check scripts/test-cro-function-semantics.mjs
-          node --check scripts/test-generate-cro-symbols.mjs
-          node --check scripts/test-generate-objdiff-config.mjs
-          node scripts/test-cro-function-semantics.mjs
-          node scripts/test-generate-cro-symbols.mjs
-          node scripts/test-generate-objdiff-config.mjs
-          node scripts/validate-split-cro-target-object.mjs --self-test
-
-      - name: Prepare validated ByteMatch report
-        run: npm run report
+      - name: Build, test, and prepare ByteMatch report
+        run: npm run ci
 
       - name: Upload ByteMatch report
         uses: actions/upload-artifact@v4

@@ -36,7 +36,7 @@ The analysis database, generated assembly, target ELF, `objdiff.json`, and repor
 
 ## Testing
 
-`npm run check` runs the repository validators as Vitest tests across four worker processes by default. Set `REPOSITORY_CHECK_CONCURRENCY` to tune the worker count for the local machine. Focused `validate:*` scripts remain available for individual checks, while `npm run check:legacy` preserves the serial manifest used to define the complete suite.
+`npm run check` uses Turbo to build the clean-room objects and then runs both object and repository validators as real Vitest tests across four worker processes by default. `npm run ci` extends that graph through the CRO tooling tests and validated ByteMatch report. Main and CRO compilation use bounded worker queues, and Turbo caches their declared outputs in `.turbo/cache`; set `BASE_BUILD_CONCURRENCY` or `REPOSITORY_CHECK_CONCURRENCY` to tune either pool. Focused `validate:*` scripts remain available for individual checks, while `npm run check:legacy` preserves the serial source-validator manifest.
 
 ## Repository layout
 

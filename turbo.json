@@ -1,0 +1,80 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "cacheDir": ".turbo/cache",
+  "tasks": {
+    "build:main": {
+      "inputs": [
+        "src/main/**",
+        "config/sources.json",
+        "scripts/build-main-base.mjs",
+        "scripts/build-support.mjs",
+        "flake.lock",
+        "flake.nix"
+      ],
+      "outputs": [
+        "build/AS_EUR_REV2/base/code.o",
+        "build/AS_EUR_REV2/base/objects/**"
+      ],
+      "outputLogs": "errors-only",
+      "passThroughEnv": ["BASE_BUILD_CONCURRENCY", "CROSS_COMPILE", "ARM_*", "PATH"]
+    },
+    "build:cro": {
+      "inputs": [
+        "src/cro/**",
+        "config/cro-sources.json",
+        "scripts/build-cro-base.mjs",
+        "scripts/build-support.mjs",
+        "flake.lock",
+        "flake.nix"
+      ],
+      "outputs": ["build/AS_EUR_REV2/base/cro-code/**"],
+      "outputLogs": "errors-only",
+      "passThroughEnv": ["BASE_BUILD_CONCURRENCY", "CROSS_COMPILE", "ARM_*", "PATH"]
+    },
+    "test:source": {
+      "dependsOn": ["test:objects"],
+      "inputs": ["$TURBO_DEFAULT$", "!build/**", "!progress/reports/**"],
+      "outputs": [],
+      "outputLogs": "new-only",
+      "passThroughEnv": [
+        "CROSS_COMPILE",
+        "ARM_*",
+        "PATH",
+        "REPOSITORY_CHECK_CONCURRENCY"
+      ]
+    },
+    "test:objects": {
+      "dependsOn": ["build:main", "build:cro"],
+      "inputs": [
+        "test/object-validation/**",
+        "scripts/validate-*.mjs",
+        "scripts/build-support.mjs"
+      ],
+      "outputs": [],
+      "outputLogs": "new-only",
+      "passThroughEnv": ["CROSS_COMPILE", "ARM_*", "PATH", "REPOSITORY_CHECK_CONCURRENCY"]
+    },
+    "test:cro-tooling": {
+      "dependsOn": ["test:source"],
+      "inputs": [
+        "test/cro-tooling.test.mjs",
+        "config/**",
+        "scripts/*cro*.mjs",
+        "scripts/*report*.mjs"
+      ],
+      "outputs": [],
+      "outputLogs": "new-only"
+    },
+    "report:ci": {
+      "dependsOn": ["test:cro-tooling"],
+      "inputs": [
+        "config/**",
+        "scripts/prepare-bytematch-report.mjs",
+        "scripts/generate-objdiff-config.mjs",
+        "scripts/generate-report.mjs"
+      ],
+      "outputs": ["build/AS_EUR_REV2/report.json"],
+      "outputLogs": "new-only"
+    }
+  }
+}
