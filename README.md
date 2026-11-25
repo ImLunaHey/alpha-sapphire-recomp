@@ -32,6 +32,24 @@ npm run target:build
 npm run report:local
 ```
 
+### Pre-extracted inputs
+
+A dump made from an installable title rather than the cartridge image has a different container and ExHeader, but the same executable and modules. Such contributors can leave `ROM_PATH` unset and place their own decrypted inputs directly in `DECOMP_PRIVATE`:
+
+```text
+$DECOMP_PRIVATE/code.bin             decompressed ExeFS .code
+$DECOMP_PRIVATE/cro-modules/Dll*.cro the 145 root RomFS modules
+```
+
+`target:verify` then checks `code.bin` against `config/targets/AS_EUR_REV2.json` and every CRO against `progress/units/AS_EUR_REV2.cro.json`, rejecting missing, extra, or mismatched files. The container and ExHeader are not checked in this mode, and `tools:install-3ds` and `target:extract` are not needed:
+
+```sh
+npm run check:environment
+npm run target:verify
+npm run target:build
+npm run report:local
+```
+
 The analysis database, generated assembly, target ELF, `objdiff.json`, and report remain ignored local outputs. The committed CSV contains only conservative address, size, and instruction-mode metadata; every boundary remains provisional until confirmed during matching.
 
 ## Testing

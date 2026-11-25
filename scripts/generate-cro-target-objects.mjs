@@ -60,7 +60,9 @@ function readManifest(path, expectedTarget, expectedCount) {
   if (!Array.isArray(manifest.units) || manifest.unitCount !== manifest.units.length) {
     fail("public manifest unitCount does not match its units array");
   }
-  if (manifest.units.length !== expectedCount) fail(`expected ${expectedCount} public units, found ${manifest.units.length}`);
+  if (expectedCount !== undefined && manifest.units.length !== expectedCount) {
+    fail(`expected ${expectedCount} public units, found ${manifest.units.length}`);
+  }
   const seen = new Set();
   const records = manifest.units.map((unit) => {
     if (!unit || typeof unit !== "object" || Array.isArray(unit)) fail("public unit must be an object");
@@ -166,6 +168,19 @@ function publishStage(stage, outputDirectory) {
     throw error;
   }
   rmSync(backup, { recursive: true });
+}
+
+// Check a private CRO directory against the public manifest without converting
+// anything. The expected count defaults to the manifest's own unit count.
+export function verifyPrivateCroModules(options) {
+  const root = realpathSync(options.root ?? ROOT);
+  const privateDirectory = realpathSync(resolve(options.privateDirectory));
+  if (isInside(root, privateDirectory)) fail("private CRO directory must remain outside the repository");
+  if (!statSync(privateDirectory).isDirectory()) fail("private CRO path is not a directory");
+  const records = readManifest(realpathSync(resolve(options.manifestPath)), options.expectedTarget ?? DEFAULT_TARGET,
+    options.expectedCount);
+  verifyPrivateSet(privateDirectory, records);
+  return records.length;
 }
 
 export function runCroTargetBatch(options) {
