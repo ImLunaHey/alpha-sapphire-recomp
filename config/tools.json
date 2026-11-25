@@ -18,7 +18,8 @@
     "note": "Used headlessly for the private executable function inventory."
   },
   "gcc-arm-embedded": {
-    "version": "15.2.Rel1",
+    "version": "14.2.Rel1",
+    "pin": "flake.nix .#toolchain (flake.lock nixos-25.05)",
     "license": "GPL-3.0-or-later AND LGPL-3.0-or-later WITH GCC-exception-3.1",
     "redistributed": false,
     "note": "GNU binutils wraps private function bytes into an ignored relocatable target object; it is not presumed to be the original game compiler."

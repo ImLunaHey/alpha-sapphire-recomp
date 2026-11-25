@@ -13,7 +13,7 @@ symbols="$root/symbols/code.bin.csv"
 [[ -f "$code" ]] || { printf '%s\n' 'Private code.bin is missing; run npm run target:extract.' >&2; exit 1; }
 [[ -f "$symbols" ]] || { printf '%s\n' 'Function inventory is missing; run npm run target:analyze.' >&2; exit 1; }
 
-toolchain="$(nix build --no-link --print-out-paths nixpkgs#gcc-arm-embedded)"
+toolchain="$(nix build --no-link --print-out-paths "$root#toolchain")"
 assembler="$(find "$toolchain" -type f -name arm-none-eabi-as -print -quit)"
 readelf="$(find "$toolchain" -type f -name arm-none-eabi-readelf -print -quit)"
 [[ -x "$assembler" && -x "$readelf" ]] || {
