@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { armReadelf } from "./arm-readelf.mjs";
 
 const root = join(fileURLToPath(new URL(".", import.meta.url)), "..");
 const manifestPath = join(root, "config/arm-runtime-helpers-54.json");
@@ -10,7 +11,7 @@ const sourcePath = join(root, manifest.source);
 const standaloneObject = process.argv[2] === undefined;
 const objectPath = process.argv[2] ??
   join(root, "build/AS_EUR_REV2/base/objects/main/arm_runtime_helpers_54.o");
-const readelf = process.argv[3] ?? "readelf";
+const readelf = process.argv[3] ?? armReadelf();
 const maxBuffer = 16 * 1024 * 1024;
 
 function fail(message) {

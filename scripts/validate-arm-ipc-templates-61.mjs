@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 import { existsSync, readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { armReadelf } from "./arm-readelf.mjs";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const configPath = resolve(root, "config/arm-ipc-templates-61.json");
@@ -217,7 +218,7 @@ function main() {
   const args = process.argv.slice(2);
   if (args.length > 2) fail("usage: validate-arm-ipc-templates-61.mjs [objectPath [readelf]]");
   const config = validateSourceAndConfig();
-  if (args[0]) validateObject(resolve(process.cwd(), args[0]), args[1] ?? "readelf", config);
+  if (args[0]) validateObject(resolve(process.cwd(), args[0]), args[1] ?? armReadelf(), config);
   console.log(`arm-ipc-templates-61: OK (20 functions, 960 bytes, 12 calls, 0 literals, cumulative 684/363${args[0] ? ", object checked" : ""})`);
 }
 

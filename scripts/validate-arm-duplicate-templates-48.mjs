@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { armReadelf } from "./arm-readelf.mjs";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
 const manifest = JSON.parse(readFileSync(resolve(root, "config/arm-duplicate-templates-48.json"), "utf8"));
@@ -91,7 +92,7 @@ assert(source.includes('.set .Ldt48_id2\\@, .Ldt48_id1\\@ + 24') &&
   "missing continuous neutral identifier payload");
 
 function runReadelf(object, ...args) {
-  const result = spawnSync("readelf", [...args, object], { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 });
+  const result = spawnSync(armReadelf(), [...args, object], { encoding: "utf8", maxBuffer: 16 * 1024 * 1024 });
   if (result.error || result.status !== 0) {
     throw result.error ?? new Error(`readelf ${args.join(" ")} failed`);
   }
